@@ -5,13 +5,14 @@ import { autoGuides } from '../../data/guides.auto';
 const sorted = [...autoGuides].sort((a, b) => (a.generatedAt < b.generatedAt ? 1 : -1));
 
 const tagColors: Record<string, string> = {
-  '사회 이슈': 'bg-rose-500/10 text-rose-300 border-rose-500/20',
-  '연예': 'bg-pink-500/10 text-pink-300 border-pink-500/20',
-  '정치': 'bg-amber-500/10 text-amber-300 border-amber-500/20',
-  '바이럴': 'bg-violet-500/10 text-violet-300 border-violet-500/20',
-  '글로벌': 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20',
-  '스포츠': 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20',
-  'IT 이슈': 'bg-blue-500/10 text-blue-300 border-blue-500/20',
+  '게임할인': 'bg-violet-500/10 text-violet-300 border-violet-500/20',
+  'AI 도구': 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20',
+  '카드/핀테크': 'bg-amber-500/10 text-amber-300 border-amber-500/20',
+  'OTT': 'bg-rose-500/10 text-rose-300 border-rose-500/20',
+  '직구/쇼핑': 'bg-blue-500/10 text-blue-300 border-blue-500/20',
+  '항공/여행': 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20',
+  '소프트웨어': 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20',
+  'Steam': 'bg-violet-500/10 text-violet-300 border-violet-500/20',
 };
 ---
 <Layout
@@ -21,11 +22,11 @@ const tagColors: Record<string, string> = {
   <section class="mx-auto max-w-5xl px-4 pt-16 pb-12">
     <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
       <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
-      6시간마다 자동 업데이트
+      6시간마다 핫딜 자동 업데이트
     </div>
-    <h1 class="mt-4 text-4xl sm:text-5xl font-black">이슈</h1>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black">핫딜 / 할인</h1>
     <p class="mt-3 text-zinc-400 text-lg max-w-2xl">
-      한국 주요 트렌드 이슈를 1차 매체 출처 기반으로 정리. <strong class="text-white">사실 vs 루머</strong> 분리, 양측 입장, 미확인 항목까지 명시.
+      AI 도구·게임·카드·OTT·직구 — 실제 진행 중인 할인과 프로모션을 큐레이션. <strong class="text-white">출처 명시 + 가격 추정 금지</strong>.
     </p>
 
     {sorted.length === 0 ? (
