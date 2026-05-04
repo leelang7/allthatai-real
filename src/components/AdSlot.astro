@@ -1,0 +1,48 @@
+---
+/**
+ * AdSense placeholder slot.
+ *
+ * Until AdSense is approved (1-2 weeks after first submission), these render
+ * as a labeled empty box so layout stability is preserved. Once approved:
+ *   1. Set PUBLIC_ADSENSE_CLIENT in Vercel env (e.g. ca-pub-1234567890123456).
+ *   2. Get a slot ID per placement from AdSense console.
+ *   3. Pass slot prop to this component.
+ *
+ * The slot will then auto-render real ads. Layout stays the same.
+ */
+interface Props {
+  slot?: string;
+  format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
+  fullWidth?: boolean;
+  label?: string;
+}
+const {
+  slot,
+  format = 'auto',
+  fullWidth = true,
+  label = '광고',
+} = Astro.props;
+
+const client = import.meta.env.PUBLIC_ADSENSE_CLIENT;
+const enabled = !!(client && slot);
+---
+{enabled ? (
+  <div class="my-8 not-prose">
+    <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-1.5">{label}</div>
+    <ins
+      class="adsbygoogle"
+      style="display:block"
+      data-ad-client={client}
+      data-ad-slot={slot}
+      data-ad-format={format}
+      data-full-width-responsive={fullWidth ? 'true' : 'false'}></ins>
+    <script is:inline>
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+) : (
+  <div class="my-8 not-prose rounded-xl border border-dashed border-zinc-800 bg-zinc-900/30 p-8 text-center">
+    <div class="text-[10px] uppercase tracking-widest text-zinc-600 mb-2">{label} · placeholder</div>
+    <div class="text-sm text-zinc-500">AdSense 승인 후 자동으로 광고 노출</div>
+  </div>
+)}

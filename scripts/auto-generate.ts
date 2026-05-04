@@ -50,6 +50,8 @@ const REDDIT_DEAL_FEEDS = [
   // Reddit JSON: top of day, biggest deal subreddits
   'https://www.reddit.com/r/GameDeals/top.json?t=day&limit=25',
   'https://www.reddit.com/r/buildapcsales/top.json?t=day&limit=15',
+  'https://www.reddit.com/r/AppHookup/top.json?t=week&limit=15', // mobile app deals
+  'https://www.reddit.com/r/SteamDeals/top.json?t=day&limit=10',
 ];
 
 // YouTube search RSS — title-only, no API key needed.
@@ -65,6 +67,18 @@ const YT_KEYWORDS = [
   '플레이스테이션 세일',
   '닌텐도 세일',
   'AI 도구 할인',
+  'cursor 할인',
+  '청년 지원금',
+  '신용카드 캐시백',
+  '항공권 특가',
+  '직구 꿀템',
+];
+
+// Google News topic feeds — broader Korean trend signal that we cross-reference
+// to bias category routing on the LLM call.
+const GOOGLE_NEWS_TOPICS = [
+  { url: 'https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=ko&gl=KR&ceid=KR:ko', tagHint: 'AI 도구' },
+  { url: 'https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko', tagHint: '카드/핀테크' },
 ];
 
 // Evergreen seed topics. The cron rotates through these so the engine never
@@ -405,8 +419,14 @@ async function main() {
     allItems.push(...items);
   }
 
-  // YouTube: pull a couple of keywords per run (not all, to stay light)
-  const ytSubset = YT_KEYWORDS.slice(0, 3);
+  // YouTube: rotate keywords per run by current hour bucket so all ~15 keywords
+  // get exposure across a day rather than always sampling the same first 3.
+  const ytSlot = Math.floor(Date.now() / (6 * 60 * 60 * 1000)) % YT_KEYWORDS.length;
+  const ytSubset = [
+    YT_KEYWORDS[ytSlot % YT_KEYWORDS.length],
+    YT_KEYWORDS[(ytSlot + 5) % YT_KEYWORDS.length],
+    YT_KEYWORDS[(ytSlot + 10) % YT_KEYWORDS.length],
+  ];
   for (const kw of ytSubset) {
     const items = await fetchYouTubeKeyword(kw);
     console.log(`   yt:${kw}: ${items.length}`);

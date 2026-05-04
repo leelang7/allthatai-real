@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { allGuides, type GuideMeta } from '../../data/guides';
+import { autoGuides } from '../../data/guides.auto';
+
+export async function getStaticPaths() {
+  // Build one page per unique tag across both manual + auto-generated content.
+  const tags = new Set<string>();
+  for (const g of allGuides) tags.add(g.tag);
+  for (const g of autoGuides) tags.add(g.tag);
+  return [...tags].map((t) => ({ params: { tag: t } }));
+}
+
+const { tag } = Astro.params;
+
+interface Item extends GuideMeta {
+  href: string;
+  source: 'guide' | 'auto';
+  date?: string;
+}
+const items: Item[] = [
+  ...allGuides
+    .filter((g) => g.tag === tag)
+    .map((g) => ({ ...g, href: `/guides/${g.slug}/`, source: 'guide' as const })),
+  ...autoGuides
+    .filter((g) => g.tag === tag)
+    .map((g) => ({
+      slug: g.slug,
+      title: g.title,
+      excerpt: g.excerpt,
+      tag: g.tag,
+      minutes: g.minutes,
+      href: `/issues/${g.slug}/`,
+      source: 'auto' as const,
+      date: g.generatedAt,
+    })),
+];
+
+const tagColors: Record<string, string> = {
+  '게임할인': 'bg-violet-500/10 text-violet-300 border-violet-500/30',
+  'AI 도구': 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+  '카드/핀테크': 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+  'OTT': 'bg-rose-500/10 text-rose-300 border-rose-500/30',
+  '직구/쇼핑': 'bg-blue-500/10 text-blue-300 border-blue-500/30',
+  '항공/여행': 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+  '소프트웨어': 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
+  Steam: 'bg-violet-500/10 text-violet-300 border-violet-500/30',
+  AI: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+  '정부지원': 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+  '세금': 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+  '사업자': 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+  '직구': 'bg-blue-500/10 text-blue-300 border-blue-500/30',
+  'Play Store': 'bg-violet-500/10 text-violet-300 border-violet-500/30',
+};
+const pillClass = tagColors[tag!] || 'bg-zinc-800 text-zinc-300 border-zinc-700';
+---
+<Layout
+  title={`${tag} — AllThatAI Real`}
+  description={`${tag} 카테고리의 모든 가이드와 핫딜 정리`}
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-12">
+    <div class={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold ${pillClass}`}>
+      {tag}
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black">{tag} 가이드 / 핫딜</h1>
+    <p class="mt-3 text-zinc-400">총 {items.length}개 글</p>
+
+    {items.length === 0 ? (
+      <div class="mt-12 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-10 text-center text-zinc-400">
+        아직 글이 없습니다.
+      </div>
+    ) : (
+      <div class="mt-10 grid md:grid-cols-2 gap-4">
+        {items.map((it) => (
+          <a href={it.href} class="card-lift group block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/30 p-6 transition">
+            <div class="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
+              <span class={`rounded border px-2 py-0.5 ${pillClass}`}>{it.tag}</span>
+              <span class="text-zinc-500">{it.minutes}분</span>
+              {it.source === 'auto' && it.date && (
+                <span class="text-zinc-600">· {it.date.slice(0, 10)}</span>
+              )}
+              {it.source === 'guide' && (
+                <span class="text-zinc-600">· 가이드</span>
+              )}
+            </div>
+            <h3 class="mt-3 font-bold leading-snug group-hover:text-cyan-300 transition">{it.title}</h3>
+            <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{it.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>

@@ -1,0 +1,15 @@
+---
+import { affiliates, type AffiliateKey } from '../data/affiliates';
+
+interface Props {
+  to: AffiliateKey;
+  label?: string;
+}
+const { to, label } = Astro.props;
+const href = affiliates[to];
+const display = label || (Astro.slots.has('default') ? '' : to);
+---
+<a href={href} target="_blank" rel="sponsored noopener" class="inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200 underline decoration-cyan-700 underline-offset-4 hover:decoration-cyan-400 transition">
+  <slot>{display}</slot>
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+</a>

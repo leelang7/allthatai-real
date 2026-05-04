@@ -35,8 +35,44 @@ const colors = tagColors[tag] || tagColors.AI;
 
 // Related = same tag, different slug, max 3
 const related = allGuides.filter((g) => g.tag === tag && g.slug !== slug).slice(0, 3);
+
+// JSON-LD structured data — drives Google rich results (article cards, breadcrumb,
+// faq snippets when applicable). Inlined per-page so each article gets its own.
+const SITE = 'https://allthatai-real.vercel.app';
+const articleUrl = new URL(Astro.url.pathname, SITE).toString();
+const datePublished = updated || new Date().toISOString().slice(0, 10);
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: description || '',
+  datePublished,
+  dateModified: datePublished,
+  inLanguage: 'ko',
+  author: { '@type': 'Organization', name: 'AllThatAI Real', url: SITE },
+  publisher: {
+    '@type': 'Organization',
+    name: 'AllThatAI Real',
+    url: SITE,
+    logo: { '@type': 'ImageObject', url: `${SITE}/favicon.svg` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+  articleSection: tag,
+  keywords: tag,
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '가이드', item: `${SITE}/guides/` },
+    { '@type': 'ListItem', position: 3, name: title, item: articleUrl },
+  ],
+};
 ---
 <Layout title={`${title} — AllThatAI Real`} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
   <ReadingProgress />
 
   <!-- HERO HEADER -->
