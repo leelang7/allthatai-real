@@ -32,9 +32,16 @@ const MAX_NEW_PER_RUN = parseInt(process.env.MAX_NEW_PER_RUN || '3', 10);
 const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
+// Google News RSS by topic — reliable, never rate-limits us, returns 10-100
+// recent headlines per call. Headlines work BETTER than bare trend terms because
+// they include who/what/where context the LLM can ground on.
 const SOURCES = [
-  { name: 'youtube-kr-trending', url: 'https://www.youtube.com/feeds/videos.xml?chart=most_popular&hl=ko&gl=KR' },
-  { name: 'google-trends-kr', url: 'https://trends.google.com/trends/trendingsearches/daily/rss?geo=KR' },
+  { name: 'google-news-kr-top',     url: 'https://news.google.com/rss?hl=ko&gl=KR&ceid=KR:ko' },
+  { name: 'google-news-kr-nation',  url: 'https://news.google.com/rss/headlines/section/topic/NATION?hl=ko&gl=KR&ceid=KR:ko' },
+  { name: 'google-news-kr-ent',     url: 'https://news.google.com/rss/headlines/section/topic/ENTERTAINMENT?hl=ko&gl=KR&ceid=KR:ko' },
+  { name: 'google-news-kr-sports',  url: 'https://news.google.com/rss/headlines/section/topic/SPORTS?hl=ko&gl=KR&ceid=KR:ko' },
+  { name: 'google-news-kr-tech',    url: 'https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=ko&gl=KR&ceid=KR:ko' },
+  { name: 'google-news-kr-biz',     url: 'https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko' },
 ];
 
 interface TrendItem {
