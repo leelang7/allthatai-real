@@ -1,0 +1,20 @@
+---
+---
+<div id="reading-progress" class="fixed top-0 left-0 right-0 h-0.5 z-[100] pointer-events-none">
+  <div id="reading-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 via-violet-500 to-pink-500" style="width: 0%"></div>
+</div>
+<script is:inline>
+  (function () {
+    const bar = document.getElementById('reading-progress-bar');
+    if (!bar) return;
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const max = (h.scrollHeight - h.clientHeight) || 1;
+      const pct = Math.min(100, Math.max(0, (scrolled / max) * 100));
+      bar.style.width = pct + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>

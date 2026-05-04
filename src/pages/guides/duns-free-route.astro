@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const updated = '2026-05-01';
+---
+<Layout
+  title="DUNS 번호 무료로 받는 법 — NICE 거치지 마세요"
+  description="Play Console 조직 전환 시 한국에서 NICE D&B에 10–20만원 내는 함정. D&B 본사 직접 무료 신청 우회 경로 가이드."
+>
+  <article class="mx-auto max-w-3xl px-4 pt-16 pb-12 prose prose-invert prose-zinc max-w-none">
+    <p class="text-xs text-zinc-500">최종 업데이트 {updated}</p>
+    <h1 class="!mt-2">DUNS 번호 무료로 받는 법 (NICE 거치지 마세요)</h1>
+
+    <p class="lead text-xl text-zinc-300">
+      Google Play Console 조직 계정 전환에 필수가 된 DUNS 번호. 한국에서 검색하면
+      NICE D&B로 자동 리다이렉트되며 10–20만원 결제 페이지를 띄워줍니다. 무료 경로는
+      검색 결과에 잘 안 뜨는데, 이 글에서 그 길을 정리합니다.
+    </p>
+
+    <h2>왜 한국에선 자꾸 돈을 내라고 할까?</h2>
+    <p>
+      D&B(Dun & Bradstreet)는 한국에서 NICE D&B에 독점 라이선스를 내줬습니다. 그 결과
+      <code>dnb.com</code>의 한국어 페이지 또는 "South Korea" 선택 시 NICE 결제 페이지로
+      넘어갑니다. NICE는 "신속 발급" 명목으로 5–10영업일에 10–20만원을 받지만, 실제로
+      D&B 본사 무료 발급 경로도 있습니다 — 단지 잘 안 보이게 숨겨두었습니다.
+    </p>
+
+    <h2>무료 발급 — 두 가지 경로</h2>
+    <h3>1. D&B 미국 본사 직접 신청 (영문)</h3>
+    <ol>
+      <li>접속: <code>https://www.dnb.com/duns-number/get-a-duns.html</code> (지역 선택 안 하기)</li>
+      <li>"Free D-U-N-S Number Request" 또는 "Standard Service" 링크 찾기 — 보통 페이지 하단 FAQ 섹션에 있음</li>
+      <li>영문 사업자명, 영문 주소, 사업자등록번호, 대표자 영문 성함, 업종 입력</li>
+      <li>이메일 확인 → 1–4주 내 9자리 DUNS 번호 메일 도착 (실제로는 1–2주가 흔함)</li>
+    </ol>
+
+    <h3>2. NICE 무료 신청 (잘 안 알려진 경로)</h3>
+    <p>
+      NICE도 무료 신청 옵션이 있긴 하지만 "발급까지 30영업일"이라 광고하며 유료를 강제로
+      유도합니다. 시간이 충분하면 NICE 무료 신청 양식을 끝까지 작성해보고, 결제 단계에서
+      <em>"무료 신청"</em> 라디오 버튼을 찾으면 됩니다 (페이지 디자인 자주 바뀜).
+    </p>
+
+    <h2>발급 후 Play Console 입력</h2>
+    <ol>
+      <li>Play Console → 설정 → 개발자 계정 → 계정 세부정보</li>
+      <li>"조직으로 변경(Switch to Organization)" 클릭</li>
+      <li>9자리 DUNS + 사업자등록증 PDF + 영문 사업자명 + 주소 입력</li>
+      <li>제출 → Google 검증 1–3일</li>
+      <li>승인되면 14일 / 12명 Closed Testing 의무 자동 면제</li>
+    </ol>
+
+    <h2>FAQ</h2>
+    <p><strong>Q. 사업자등록증 없으면?</strong><br />
+    조직 계정 자체가 사업자만 가능합니다. 개인사업자(영세)도 OK이며, 사업자등록은 정부24나 세무서에서 무료로 등록 가능합니다.</p>
+
+    <p><strong>Q. 1–2주 기다리기 싫으면?</strong><br />
+    NICE 유료 발급(10–20만원, 5일)이 가장 빠른 합법 경로입니다. 또는 14일 Closed Testing 그대로 진행해 그 사이 DUNS 무료 발급 받기.</p>
+
+    <p><strong>Q. 발급된 DUNS 번호 만료되나요?</strong><br />
+    아니요. 한 번 발급되면 영구. 단 사업장 정보 변경 시 갱신 신청 필요.</p>
+
+    <hr />
+    <p class="text-zinc-400">
+      <strong>시간이 부족하시면</strong> 출시 풀패키지에 DUNS 신청 가이드 + 1:1 진행 동행 포함 →
+      <a href="/services/play-launch">₩39만원 서비스 자세히</a>
+    </p>
+  </article>
+</Layout>

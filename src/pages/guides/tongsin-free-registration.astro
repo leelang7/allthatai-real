@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const updated = '2026-05-01';
+---
+<Layout
+  title="통신판매업 신고 정부24 무료 5분 — 노대로"
+  description="대행사가 5–10만원 받는 통신판매업 신고를 정부24에서 직접 0원에. 사업자 vs 면제 대상 구분과 단계별 가이드."
+>
+  <article class="mx-auto max-w-3xl px-4 pt-16 pb-12 prose prose-invert prose-zinc max-w-none">
+    <p class="text-xs text-zinc-500">최종 업데이트 {updated}</p>
+    <h1 class="!mt-2">통신판매업 신고 정부24 무료 5분</h1>
+
+    <p class="lead text-xl text-zinc-300">
+      Play Console 결제 프로필 등록 시 한국 거주자는 통신판매업 신고증을 요구받기도 합니다.
+      대행 업체가 5–10만원 받는 신고를 정부24에서 직접 하면 수수료는 일부 지자체 ₩45,000 또는 무료.
+    </p>
+
+    <h2>먼저 — 신고 의무가 있는지 확인</h2>
+    <p>
+      모든 사업자가 통신판매업 신고를 해야 하는 건 아닙니다. 다음 조건 중 <em>하나라도</em> 해당하면 면제 가능:
+    </p>
+    <ul>
+      <li>직전년도 통신판매 거래 횟수 50회 미만</li>
+      <li>직전년도 통신판매 거래 금액 4,800만원 미만</li>
+      <li>일회성 행사(바자회 등)</li>
+    </ul>
+    <p>
+      이 경우 <strong>"통신판매업 신고 면제 확인서"</strong>를 정부24에서 발급받아 Play Console에
+      제출하면 됩니다. 신고증 자체는 필요 없습니다.
+    </p>
+
+    <h2>신고가 필요한 경우 — 정부24 5단계</h2>
+    <ol>
+      <li><strong>정부24 접속</strong>: <code>https://www.gov.kr</code></li>
+      <li>검색창에 "통신판매업 신고" 입력 → 신청 페이지 진입</li>
+      <li>공동인증서 / 간편인증으로 본인 확인</li>
+      <li>신고서 작성:
+        <ul>
+          <li>상호: 사업자등록증과 동일</li>
+          <li>영업소 주소: 사업장 소재지 (자택 가능)</li>
+          <li>판매방식: <strong>인터넷</strong> 선택</li>
+          <li>취급품목: <strong>"디지털콘텐츠/소프트웨어"</strong> 또는 "기타"</li>
+          <li>호스트명: 본인 앱·웹사이트 도메인</li>
+          <li>도메인명: 동일</li>
+        </ul>
+      </li>
+      <li>제출 → 1–2일 내 신고증 발급 (즉시 발급되는 경우도 있음)</li>
+    </ol>
+
+    <h2>수수료</h2>
+    <p>
+      지자체마다 다름:
+    </p>
+    <ul>
+      <li>서울특별시 / 부산 / 대구 등 일부 광역시: <strong>무료</strong></li>
+      <li>경기도 등 일부 지역: <strong>₩45,000</strong></li>
+      <li>전자결제 수수료: 0–2,000원</li>
+    </ul>
+
+    <h2>발급 후</h2>
+    <p>
+      신고증 PDF 다운로드 → Play Console 결제 프로필 또는 데이터 보안 폼에 첨부.
+      신고번호는 형식 <code>YYYY-지역-XXXX</code> (예: <code>2026-서울강남-1234</code>).
+    </p>
+
+    <h2>FAQ</h2>
+    <p><strong>Q. 사업자등록 안 했어도 신고 가능?</strong><br />
+    아니요. 사업자등록이 선행되어야 합니다. 사업자등록도 정부24 또는 세무서에서 무료로 등록 가능합니다.</p>
+
+    <p><strong>Q. 면제 확인서로 Play Console 통과되나요?</strong><br />
+    Google의 데이터 보안 / 결제 프로필 폼에 따라 다름. 최근에는 면제 확인서로 통과되는 경우 많지만,
+    구독 상품 운영 시 Google이 정식 신고증을 요구할 수 있습니다.</p>
+
+    <p><strong>Q. 1년 이내 폐업 가능?</strong><br />
+    가능합니다. 정부24에서 폐업 신고도 무료. 단 신고증 발급 후 일부 광고비를 받은 적이 있다면 세금 신고 의무 발생.</p>
+
+    <hr />
+    <p class="text-zinc-400">
+      <strong>출시 전에 한 번에 끝내고 싶으면</strong> 풀패키지에 사업자등록 + 통신판매업 신고 가이드 + Play Console 입력 동행 포함 →
+      <a href="/services/play-launch">₩39만원 서비스 자세히</a>
+    </p>
+  </article>
+</Layout>

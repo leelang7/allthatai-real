@@ -1,0 +1,174 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'AllThatAI Real — 불필요한 대행 거치지 마세요',
+  description = '한국에서 모르고 돈 내고 있는 절차의 무료 우회 경로. AI · 세금 · 직구 · Play Store 가이드 + 시간 사는 풀패키지.',
+  ogImage = '/og.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname;
+const isHome = path === '/';
+---
+<!doctype html>
+<html lang="ko" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical.toString()} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pretendard+Variable:wght@400;500;600;700;800;900&display=swap" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+    <meta property="og:url" content={canonical.toString()} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <style is:global>
+      :root {
+        --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      }
+      html, body { font-family: var(--font-sans); }
+      body { font-feature-settings: 'ss06'; }
+
+      /* mesh gradient bg */
+      .bg-mesh {
+        background-image:
+          radial-gradient(at 20% 0%, rgba(34, 211, 238, 0.18) 0px, transparent 50%),
+          radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.16) 0px, transparent 50%),
+          radial-gradient(at 0% 60%, rgba(236, 72, 153, 0.10) 0px, transparent 50%);
+      }
+      .glass {
+        background: rgba(24, 24, 27, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      /* card hover lift */
+      .card-lift { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+      .card-lift:hover { transform: translateY(-2px); }
+
+      /* gradient text */
+      .text-gradient {
+        background: linear-gradient(135deg, #22d3ee 0%, #a855f7 50%, #ec4899 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .text-gradient-cyan {
+        background: linear-gradient(120deg, #22d3ee 0%, #06b6d4 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* subtle grid bg */
+      .bg-grid {
+        background-image:
+          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
+      }
+
+      /* scrolling header */
+      .nav-scroll {
+        transition: background-color .2s ease, border-color .2s ease;
+      }
+      .nav-scroll.scrolled {
+        background: rgba(9, 9, 11, 0.85);
+        border-bottom-color: rgba(63, 63, 70, 0.6);
+      }
+    </style>
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 antialiased min-h-dvh flex flex-col">
+    <header id="topnav" class="nav-scroll sticky top-0 z-50 border-b border-transparent">
+      <div class="mx-auto max-w-6xl flex items-center justify-between px-4 py-4">
+        <a href="/" class="flex items-center gap-2.5 font-bold text-lg group">
+          <span class="relative inline-flex w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 via-violet-500 to-pink-500 items-center justify-center shadow-lg shadow-cyan-500/20">
+            <span class="text-zinc-950 font-black text-sm">✓</span>
+          </span>
+          <span class="text-white">AllThatAI <span class="text-cyan-400">Real</span></span>
+        </a>
+        <nav class="flex gap-5 text-sm text-zinc-400">
+          <a href="/issues" class="hover:text-white transition flex items-center gap-1.5">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+            이슈
+          </a>
+          <a href="/guides" class="hover:text-white transition">가이드</a>
+          <a href="/services/play-launch" class="hover:text-white transition">출시 대행</a>
+          <a href="/contact" class="hidden sm:inline-block rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-1.5 hover:border-cyan-500/50 hover:text-white transition">광고 문의</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="border-t border-zinc-900 mt-24 bg-zinc-950">
+      <div class="mx-auto max-w-6xl px-4 py-12">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-2.5 font-bold text-lg">
+              <span class="inline-flex w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 via-violet-500 to-pink-500 items-center justify-center">
+                <span class="text-zinc-950 font-black text-sm">✓</span>
+              </span>
+              <span>AllThatAI Real</span>
+            </div>
+            <p class="mt-3 text-sm text-zinc-500 max-w-md leading-relaxed">
+              한국에서 알아야 돈 안 잃는 정보. AI · 세금 · 직구 · 인디 개발 가이드와
+              시간을 사는 옵션을 한 곳에.
+            </p>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-zinc-300 mb-3 uppercase tracking-wider">메뉴</div>
+            <ul class="space-y-2 text-sm text-zinc-500">
+              <li><a href="/guides" class="hover:text-white">가이드</a></li>
+              <li><a href="/trending" class="hover:text-white">트렌드</a></li>
+              <li><a href="/services/play-launch" class="hover:text-white">출시 풀패키지</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-zinc-300 mb-3 uppercase tracking-wider">기타</div>
+            <ul class="space-y-2 text-sm text-zinc-500">
+              <li><a href="/contact" class="hover:text-white">광고 문의</a></li>
+              <li><a href="/privacy" class="hover:text-white">개인정보</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="pt-6 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-600">
+          <div>© {new Date().getFullYear()} AllThatAI Real. 공식 출처 기반 Real 포털.</div>
+          <div>대행 안 거치는 진짜 무료 경로</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const nav = document.getElementById('topnav');
+      const onScroll = () => {
+        if (!nav) return;
+        if (window.scrollY > 8) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    </script>
+  </body>
+</html>

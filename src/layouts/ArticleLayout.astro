@@ -1,0 +1,109 @@
+---
+import Layout from './Layout.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Toc from '../components/Toc.astro';
+import ShareButtons from '../components/ShareButtons.astro';
+import RelatedGrid from '../components/RelatedGrid.astro';
+import NewsletterCTA from '../components/NewsletterCTA.astro';
+import { allGuides } from '../data/guides';
+
+interface Props {
+  title: string;
+  description?: string;
+  slug: string;
+  updated?: string;
+  sources?: string;
+}
+
+const { title, description, slug, updated, sources } = Astro.props;
+const meta = allGuides.find((g) => g.slug === slug);
+const tag = meta?.tag || '가이드';
+const minutes = meta?.minutes || 5;
+const fullTitle = title;
+
+const tagColors: Record<string, { dot: string; pill: string; bg: string }> = {
+  OTT: { dot: 'bg-rose-400', pill: 'text-rose-300 border-rose-500/30 bg-rose-500/10', bg: 'from-rose-500/15 to-pink-500/5' },
+  '정부지원': { dot: 'bg-emerald-400', pill: 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10', bg: 'from-emerald-500/15 to-teal-500/5' },
+  AI: { dot: 'bg-cyan-400', pill: 'text-cyan-300 border-cyan-500/30 bg-cyan-500/10', bg: 'from-cyan-500/15 to-blue-500/5' },
+  세금: { dot: 'bg-amber-400', pill: 'text-amber-300 border-amber-500/30 bg-amber-500/10', bg: 'from-amber-500/15 to-orange-500/5' },
+  사업자: { dot: 'bg-amber-400', pill: 'text-amber-300 border-amber-500/30 bg-amber-500/10', bg: 'from-amber-500/15 to-orange-500/5' },
+  직구: { dot: 'bg-blue-400', pill: 'text-blue-300 border-blue-500/30 bg-blue-500/10', bg: 'from-blue-500/15 to-indigo-500/5' },
+  'Play Store': { dot: 'bg-violet-400', pill: 'text-violet-300 border-violet-500/30 bg-violet-500/10', bg: 'from-violet-500/15 to-purple-500/5' },
+};
+const colors = tagColors[tag] || tagColors.AI;
+
+// Related = same tag, different slug, max 3
+const related = allGuides.filter((g) => g.tag === tag && g.slug !== slug).slice(0, 3);
+---
+<Layout title={`${title} — AllThatAI Real`} description={description}>
+  <ReadingProgress />
+
+  <!-- HERO HEADER -->
+  <header class={`relative overflow-hidden border-b border-zinc-900 bg-gradient-to-br ${colors.bg}`}>
+    <div class="absolute inset-0 bg-mesh opacity-50"></div>
+    <div class="absolute inset-0 bg-grid opacity-20"></div>
+    <div class="relative mx-auto max-w-4xl px-4 pt-12 pb-10">
+      <Breadcrumb items={[
+        { label: 'AllThatAI Real', href: '/' },
+        { label: '가이드', href: '/guides/' },
+        { label: tag },
+      ]} />
+      <div class="mt-6 flex items-center gap-3">
+        <span class={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase ${colors.pill}`}>
+          <span class={`inline-block w-1.5 h-1.5 rounded-full ${colors.dot}`}></span>
+          {tag}
+        </span>
+        <span class="text-xs text-zinc-500">읽는 시간 {minutes}분</span>
+        {updated && <span class="text-xs text-zinc-500">· 업데이트 {updated}</span>}
+      </div>
+      <h1 class="mt-5 text-3xl sm:text-4xl md:text-5xl font-black leading-[1.15] tracking-tight">{fullTitle}</h1>
+      {description && (
+        <p class="mt-4 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-3xl">{description}</p>
+      )}
+      {sources && (
+        <div class="mt-6 inline-flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-1.5 text-xs text-emerald-300">
+          <span class="text-sm">✓</span> 공식 출처: {sources}
+        </div>
+      )}
+    </div>
+  </header>
+
+  <!-- BODY GRID -->
+  <div class="mx-auto max-w-7xl px-4 py-12 grid grid-cols-1 xl:grid-cols-[1fr_minmax(0,720px)_220px] gap-8">
+    <!-- left rail (empty for balance, future: ad slot) -->
+    <div class="hidden xl:block">
+      <div class="sticky top-24 space-y-4">
+        <ShareButtons title={title} />
+      </div>
+    </div>
+
+    <!-- main article -->
+    <article class="prose prose-invert prose-zinc max-w-none
+      prose-headings:font-black
+      prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:tracking-tight
+      prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
+      prose-p:leading-relaxed
+      prose-a:text-cyan-300 prose-a:no-underline hover:prose-a:text-cyan-200 prose-a:font-medium
+      prose-strong:text-white
+      prose-table:my-6 prose-th:bg-zinc-900/60 prose-th:text-zinc-200 prose-th:font-semibold prose-td:py-2.5
+      prose-li:my-1 prose-ul:my-4 prose-ol:my-4
+      prose-code:before:content-[''] prose-code:after:content-[''] prose-code:bg-zinc-800 prose-code:text-zinc-200 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-[0.85em]
+      prose-hr:border-zinc-800
+      prose-blockquote:border-l-cyan-500 prose-blockquote:not-italic prose-blockquote:text-zinc-300">
+      <slot />
+
+      <!-- in-article CTAs at bottom -->
+      <div class="not-prose mt-10 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-zinc-900">
+        <ShareButtons title={title} />
+        <a href="/guides/" class="text-sm text-zinc-400 hover:text-white transition">← 가이드 목록</a>
+      </div>
+
+      <NewsletterCTA />
+      <RelatedGrid items={related} />
+    </article>
+
+    <!-- right rail: TOC -->
+    <Toc />
+  </div>
+</Layout>

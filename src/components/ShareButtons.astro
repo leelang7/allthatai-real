@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  url?: string;
+}
+const { title, url } = Astro.props;
+const fullUrl = url || Astro.url.href;
+const enc = encodeURIComponent;
+---
+<div class="flex items-center gap-2">
+  <span class="text-xs text-zinc-500">공유</span>
+  <a target="_blank" rel="noopener" aria-label="X" title="X (Twitter)"
+     href={`https://twitter.com/intent/tweet?text=${enc(title)}&url=${enc(fullUrl)}`}
+     class="w-8 h-8 inline-flex items-center justify-center rounded-lg border border-zinc-800 hover:border-cyan-500/50 text-zinc-400 hover:text-white transition">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+  <a target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"
+     href={`https://www.facebook.com/sharer/sharer.php?u=${enc(fullUrl)}`}
+     class="w-8 h-8 inline-flex items-center justify-center rounded-lg border border-zinc-800 hover:border-cyan-500/50 text-zinc-400 hover:text-white transition">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396z"/></svg>
+  </a>
+  <a target="_blank" rel="noopener" aria-label="KakaoTalk" title="카카오톡"
+     href={`https://accounts.kakao.com/login/?continue=${enc('https://sharer.kakao.com/talk/friends/picker/easylink?url=' + enc(fullUrl))}`}
+     class="w-8 h-8 inline-flex items-center justify-center rounded-lg border border-zinc-800 hover:border-yellow-400/60 text-zinc-400 hover:text-yellow-300 transition">
+    <span class="text-[11px] font-black">K</span>
+  </a>
+  <button type="button" id="copy-link-btn" data-url={fullUrl}
+     class="w-8 h-8 inline-flex items-center justify-center rounded-lg border border-zinc-800 hover:border-cyan-500/50 text-zinc-400 hover:text-white transition" title="링크 복사">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+  </button>
+</div>
+<script is:inline>
+  document.addEventListener('click', async (e) => {
+    const t = e.target.closest('#copy-link-btn');
+    if (!t) return;
+    try {
+      await navigator.clipboard.writeText(t.dataset.url);
+      t.classList.add('!border-emerald-500/50','!text-emerald-300');
+      setTimeout(() => t.classList.remove('!border-emerald-500/50','!text-emerald-300'), 1200);
+    } catch (_) {}
+  });
+</script>

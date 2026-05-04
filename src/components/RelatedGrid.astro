@@ -1,0 +1,33 @@
+---
+interface Item { slug: string; title: string; excerpt: string; tag: string; minutes: number }
+interface Props { items: Item[] }
+const { items } = Astro.props;
+
+const tagColors: Record<string, string> = {
+  OTT: 'bg-rose-500/10 text-rose-300 border-rose-500/20',
+  '정부지원': 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20',
+  AI: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20',
+  세금: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
+  사업자: 'bg-amber-500/10 text-amber-300 border-amber-500/20',
+  직구: 'bg-blue-500/10 text-blue-300 border-blue-500/20',
+  'Play Store': 'bg-violet-500/10 text-violet-300 border-violet-500/20',
+};
+---
+{items.length > 0 && (
+  <section class="not-prose mt-16 border-t border-zinc-900 pt-10">
+    <p class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">관련 가이드</p>
+    <h2 class="mt-2 text-2xl font-black">이어 읽으면 좋은 글</h2>
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {items.map((g) => (
+        <a href={`/guides/${g.slug}/`} class="card-lift group block rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/30 p-5 transition">
+          <div class="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
+            <span class={`rounded border px-2 py-0.5 ${tagColors[g.tag] || 'bg-zinc-800 text-zinc-300 border-zinc-700'}`}>{g.tag}</span>
+            <span class="text-zinc-500">{g.minutes}분</span>
+          </div>
+          <h3 class="mt-3 font-bold leading-snug group-hover:text-cyan-300 transition">{g.title}</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-2">{g.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+)}

@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const updated = '2026-05-01';
+---
+<Layout
+  title="Play Store 14일 / 12명 테스트 요건 우회 — 개인사업자 전환 가이드"
+  description="2023년 11월 이후 신규 개인 계정에 부과된 14일 Closed Testing 의무를 합법적으로 면제받는 길 — 개인사업자 → 조직 계정 전환 풀가이드."
+>
+  <article class="mx-auto max-w-3xl px-4 pt-16 pb-12 prose prose-invert prose-zinc max-w-none">
+    <p class="text-xs text-zinc-500">최종 업데이트 {updated}</p>
+    <h1 class="!mt-2">Play Store 14일 / 12명 테스트 요건 우회</h1>
+
+    <p class="lead text-xl text-zinc-300">
+      Google이 2023년 11월부터 신규 개인 계정에 강제하는 "Closed Testing 14일 + 활성 테스터 12명" 의무.
+      소형 인디 개발자에게 이 12명 영업이 가장 큰 마찰점입니다. 합법적으로 면제받는 길은 단 하나 —
+      개인사업자 → 조직 계정 전환입니다.
+    </p>
+
+    <h2>왜 14일 / 12명인가?</h2>
+    <p>
+      Play Store에 스팸·사기 앱이 폭증하자 Google은 신규 개인 개발자 계정에 출시 전 품질 검증 단계를
+      추가했습니다. 의도는 좋지만 정직한 인디 개발자도 영문도 모르고 테스터 12명을 모집해야 합니다.
+      이미 운영 중인 기존 계정 / 사업자 계정엔 적용되지 않습니다.
+    </p>
+
+    <h2>면제 조건 — 조직(Organization) 계정</h2>
+    <ul>
+      <li>한국 사업자등록증 (개인사업자 / 법인 사업자 모두 가능)</li>
+      <li>DUNS 번호 (9자리, 무료 발급 가능 — <a href="/guides/duns-free-route">별도 가이드</a>)</li>
+      <li>영문 사업자명·주소</li>
+      <li>대표자 영문 성함</li>
+    </ul>
+
+    <h2>전환 절차</h2>
+    <ol>
+      <li><strong>DUNS 발급 신청</strong> — D&B 본사 무료 또는 NICE 유료 (10–20만원, 5–10일)</li>
+      <li><strong>사업자등록</strong> — 없으면 정부24 또는 세무서에서 무료 등록 (개인사업자 기준)</li>
+      <li><strong>Play Console → 설정 → 개발자 계정 → 계정 세부정보</strong> 접속</li>
+      <li>"조직으로 변경(Switch to Organization)" 버튼 클릭</li>
+      <li>제출 폼: 영문 사업자명, 사업자등록번호, 9자리 DUNS, 영문 주소, 사업자등록증 PDF 업로드</li>
+      <li>제출 → Google 검증 1–3일</li>
+      <li>승인 알림 메일 수신 → 14일 / 12명 의무 자동 면제</li>
+    </ol>
+
+    <h2>주의 — 자주 거절되는 케이스</h2>
+    <ul>
+      <li>사업자등록증 영문명과 Play Console 입력 영문명이 정확히 일치하지 않음</li>
+      <li>주소가 한글만 입력됨 (반드시 영문 표기 필요)</li>
+      <li>DUNS 번호가 사업자등록증 정보와 다름 (DUNS 신청 시 입력한 정보 기준)</li>
+      <li>사업자등록증이 6개월 이상 오래됨 — 가능하면 최근 발급분으로</li>
+    </ul>
+
+    <h2>대안 — 14일 그대로 진행하기</h2>
+    <p>
+      개인사업자 등록 자체가 부담스러우면 14일 의무를 그대로 진행하는 것도 방법입니다.
+      Reddit r/AndroidClosedTesting / 카톡 오픈채팅 "구글 플레이 테스터 상호 등록" 방에서
+      서로 테스터 등록해주는 커뮤니티가 활발합니다. 평균 24–48시간 내 12명 채울 수 있습니다.
+    </p>
+
+    <hr />
+    <p class="text-zinc-400">
+      <strong>한 번에 끝내고 싶으면</strong> 출시 풀패키지에 조직 전환 + DUNS 신청 + 사업자등록 가이드 모두 포함 →
+      <a href="/services/play-launch">₩39만원 서비스 자세히</a>
+    </p>
+  </article>
+</Layout>

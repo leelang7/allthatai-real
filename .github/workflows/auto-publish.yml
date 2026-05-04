@@ -1,0 +1,48 @@
+name: Auto-publish trending guides
+
+on:
+  schedule:
+    # Every 6 hours, at 00/06/12/18 UTC ≈ 09/15/21/03 KST.
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # manual trigger from Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-publish
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run auto-generator
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MAX_NEW_PER_RUN: '3'
+        run: npx tsx scripts/auto-generate.ts
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "AllThatAI Real Bot"
+          git config user.email "bot@allthatai.kr"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "auto: $(date -u +%Y-%m-%d) trending guides"
+            git push
+          else
+            echo "No changes to commit."
+          fi

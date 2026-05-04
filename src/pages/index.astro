@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const heroStats = [
+  { value: '13', label: '공식 출처 가이드' },
+  { value: '47+', label: '발견된 대행 함정' },
+  { value: '₩2.3억', label: '독자 절감 추정액' },
+];
+
+const featured = {
+  tag: '🔥 이번 주 핫이슈',
+  title: '누누티비 폐쇄 이후 — 한국 사용자 5,000만 명이 갈 곳',
+  excerpt: '미러 사이트의 실제 위험(KISA 통계) + Netflix·Disney+·쿠팡플레이 등 합법 OTT 5종 정직 가격 비교.',
+  href: '/guides/nunutv-after-block/',
+  minutes: 6,
+};
+
+const issues = [
+  {
+    cat: '정부지원',
+    title: '청년 월세 ₩200,000/월',
+    excerpt: '국토부 한시 특별지원 12개월. 자격·신청·거절 사유.',
+    href: '/guides/youth-monthly-rent-support/',
+    minutes: 6,
+    color: 'from-emerald-500/20 to-teal-500/10',
+  },
+  {
+    cat: '정부지원',
+    title: '청년도약계좌 5년 ₩5,000만원',
+    excerpt: '월 70만 적립 + 정부 매칭 + 비과세. 소득별 실수익률.',
+    href: '/guides/youth-leap-account/',
+    minutes: 6,
+    color: 'from-emerald-500/20 to-cyan-500/10',
+  },
+  {
+    cat: 'OTT',
+    title: '티비위키 안전한가',
+    excerpt: '멀웨어 41% · 평문 비밀번호 78% · 결제 사기 월 800건.',
+    href: '/guides/tvwiki-safety-check/',
+    minutes: 5,
+    color: 'from-rose-500/20 to-pink-500/10',
+  },
+  {
+    cat: '사업자',
+    title: '소상공인 정책자금 1억원',
+    excerpt: '금리 2-3%, 시중 은행 절반. 직접 vs 컨설팅 50만원.',
+    href: '/guides/small-business-policy-fund/',
+    minutes: 7,
+    color: 'from-amber-500/20 to-orange-500/10',
+  },
+];
+
+const trending = [
+  {
+    name: '올댓파인더',
+    pitch: 'AI가 사진·문서 내용을 기억해 자연어로 검색 (온디바이스 CLIP)',
+    tag: 'PICK',
+    href: 'https://play.google.com/store/apps/details?id=com.allthatai.allthatfinder',
+    sponsored: false,
+    icon: '🔍',
+  },
+  {
+    name: '여기 광고 자리',
+    pitch: '인디 앱·SaaS·서비스 직접 광고 — 주 ₩50K / 월 ₩150K',
+    tag: 'SPONSOR',
+    href: '/contact/',
+    sponsored: true,
+    icon: '📣',
+  },
+  {
+    name: '제보 받습니다',
+    pitch: '발견한 대행 함정 제보 — 무료 가이드로 정리',
+    tag: 'TIP',
+    href: '/contact/',
+    sponsored: false,
+    icon: '🚨',
+  },
+];
+
+const categories = [
+  { name: '정부지원', desc: '월세 · 도약계좌 · 청년수당 · 소상공인자금', count: 3, emoji: '🏛️' },
+  { name: 'AI / GPT', desc: '결제 우회 · 모델 비교 · 무료 한도 · API', count: 2, emoji: '🤖' },
+  { name: 'OTT / 결제', desc: '누누티비 후 합법 대안 · 통신사 결합 · 한미 가격차', count: 3, emoji: '📺' },
+  { name: '세금 / 사업자', desc: '양도세 · 통신판매업 · 사업자등록 · 부가세', count: 2, emoji: '📊' },
+  { name: '직구 / 관세', desc: '한도 · FTA · 분할 회피 위험 · UNI-PASS 직접', count: 1, emoji: '📦' },
+  { name: 'Play Store', desc: 'DUNS · 14일 면제 · IAP · 키스토어 · 출시', count: 2, emoji: '🚀' },
+];
+---
+<Layout title="AllThatAI Real — 불필요한 대행 거치지 마세요">
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-mesh"></div>
+    <div class="absolute inset-0 bg-grid opacity-30"></div>
+    <div class="relative mx-auto max-w-6xl px-4 pt-20 pb-16">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/40 px-3 py-1 text-xs text-zinc-400 backdrop-blur">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          공식 출처 ✓ Real / 매주 업데이트
+        </div>
+        <h1 class="mt-5 text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight">
+          대행 안 거치고
+          <br />
+          <span class="text-gradient">제값으로 가자</span>
+        </h1>
+        <p class="mt-6 text-lg sm:text-xl text-zinc-400 leading-relaxed max-w-2xl">
+          정부지원금 · DUNS · 통신판매업 · 양도세 · ChatGPT 결제 · OTT — 한국에서 모르고
+          <strong class="text-white">10–50만원</strong> 내고 있는 절차. 모두 공식 출처 기반.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="/guides/" class="group inline-flex items-center gap-2 rounded-xl bg-white text-zinc-950 px-6 py-3.5 font-bold hover:bg-zinc-100 transition shadow-lg shadow-white/10">
+            가이드 13개 보기 <span class="transition group-hover:translate-x-1">→</span>
+          </a>
+          <a href="/services/play-launch/" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/40 backdrop-blur px-6 py-3.5 font-semibold hover:border-cyan-500/50 hover:bg-zinc-900 transition">
+            ₩39만 풀패키지
+          </a>
+        </div>
+        <div class="mt-14 grid grid-cols-3 gap-6 max-w-xl">
+          {heroStats.map((s) => (
+            <div>
+              <div class="text-3xl sm:text-4xl font-black text-white">{s.value}</div>
+              <div class="mt-1 text-xs sm:text-sm text-zinc-500">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <a href={featured.href} class="card-lift group block relative overflow-hidden rounded-3xl border border-rose-500/30 bg-gradient-to-br from-rose-500/15 via-zinc-900/60 to-zinc-950 p-10 md:p-14">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"></div>
+      <div class="relative">
+        <div class="text-xs font-bold uppercase tracking-widest text-rose-300">{featured.tag}</div>
+        <h2 class="mt-3 text-3xl md:text-4xl font-black leading-tight max-w-3xl group-hover:text-rose-200 transition">{featured.title}</h2>
+        <p class="mt-4 text-zinc-300 text-lg max-w-3xl leading-relaxed">{featured.excerpt}</p>
+        <div class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-rose-300">
+          {featured.minutes}분 읽기 <span class="transition group-hover:translate-x-1">→</span>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- THIS WEEK ISSUES -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">이번 주 이슈</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-black">정부지원 · OTT · 사업자</h2>
+      </div>
+      <a href="/guides/" class="text-sm text-zinc-400 hover:text-white transition">전체 →</a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+      {issues.map((i) => (
+        <a href={i.href} class={`card-lift group relative block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-gradient-to-br ${i.color} p-7 overflow-hidden`}>
+          <div class="absolute inset-0 bg-zinc-950/40"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase">
+              <span class="rounded-full bg-zinc-900/80 px-2.5 py-0.5 text-zinc-300 border border-zinc-700">{i.cat}</span>
+              <span class="text-zinc-500">{i.minutes}분</span>
+            </div>
+            <h3 class="mt-4 text-xl font-bold leading-snug group-hover:text-cyan-300 transition">{i.title}</h3>
+            <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{i.excerpt}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="text-center max-w-2xl mx-auto">
+      <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">카테고리</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-black">어디서 돈 새고 있는지</h2>
+      <p class="mt-3 text-zinc-400">분야별 숨겨진 비용과 합법 우회 경로</p>
+    </div>
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {categories.map((c) => (
+        <a href="/guides/" class="card-lift block rounded-2xl border border-zinc-800 bg-zinc-900/30 p-6 hover:border-cyan-500/40 transition">
+          <div class="flex items-start justify-between">
+            <span class="text-3xl">{c.emoji}</span>
+            <span class="text-xs text-zinc-500 font-bold">{c.count}개</span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold">{c.name}</h3>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{c.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- TRENDING / SPONSOR -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">트렌드 / 스폰서</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-black">이번 주 주목할 것</h2>
+      </div>
+      <a href="/contact/" class="text-sm text-amber-400 hover:text-amber-300 transition">광고 문의 →</a>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {trending.map((t) => (
+        <a href={t.href} class={`card-lift group block rounded-2xl border p-6 ${t.sponsored ? 'border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/5 hover:border-amber-500/50' : 'border-zinc-800 hover:border-zinc-700 bg-zinc-900/30'}`}>
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">{t.icon}</span>
+            <span class={`text-[10px] font-bold tracking-widest uppercase ${t.sponsored ? 'text-amber-400' : 'text-cyan-400'}`}>{t.tag}</span>
+          </div>
+          <h3 class="mt-4 text-lg font-bold group-hover:text-cyan-300 transition">{t.name}</h3>
+          <p class="mt-1.5 text-sm text-zinc-400 leading-relaxed">{t.pitch}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
+      <div class="relative p-10 md:p-16 grid md:grid-cols-[1.5fr_1fr] gap-10 items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">Play Store 풀패키지</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+            시간이 없으면<br />
+            <span class="text-gradient-cyan">₩39만에 출시 끝</span>
+          </h2>
+          <p class="mt-5 text-zinc-400 leading-relaxed max-w-lg">
+            키스토어 · DUNS · 통신판매업 · Play Console 13개 항목 · IAP 연동 · 첫 출시 + 7일 크래시 대응까지.
+            본인이 5일 헤맬 일을 1–2일에.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="/services/play-launch/" class="inline-flex items-center gap-2 rounded-xl bg-cyan-500 text-zinc-950 px-6 py-3 font-bold hover:bg-cyan-400 transition shadow-lg shadow-cyan-500/20">자세히 보기 →</a>
+            <a href="/contact/" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 px-6 py-3 font-semibold hover:bg-zinc-900 transition">직접 상담</a>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center justify-center">
+          <div class="relative">
+            <div class="w-48 h-48 rounded-3xl bg-gradient-to-br from-cyan-400 via-violet-500 to-pink-500 shadow-2xl shadow-cyan-500/30"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-5xl font-black text-zinc-950">39</div>
+                <div class="text-sm font-bold text-zinc-900">만원 / 1회</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

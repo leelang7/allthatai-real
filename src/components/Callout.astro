@@ -1,0 +1,25 @@
+---
+interface Props {
+  type?: 'info' | 'warn' | 'fact' | 'tip' | 'danger';
+  title?: string;
+}
+const { type = 'info', title } = Astro.props;
+
+const styles = {
+  info:   { border: 'border-cyan-500/30',   bg: 'bg-cyan-500/5',   icon: 'ℹ️', label: 'INFO',     color: 'text-cyan-300' },
+  warn:   { border: 'border-amber-500/30',  bg: 'bg-amber-500/5',  icon: '⚠️', label: 'WARNING',  color: 'text-amber-300' },
+  fact:   { border: 'border-emerald-500/30',bg: 'bg-emerald-500/5',icon: '✓',  label: 'FACT-CHECKED', color: 'text-emerald-300' },
+  tip:    { border: 'border-violet-500/30', bg: 'bg-violet-500/5', icon: '💡', label: 'TIP',      color: 'text-violet-300' },
+  danger: { border: 'border-rose-500/30',   bg: 'bg-rose-500/5',   icon: '🚨', label: 'DANGER',   color: 'text-rose-300' },
+};
+const s = styles[type];
+---
+<div class={`my-6 rounded-xl border ${s.border} ${s.bg} p-5 not-prose`}>
+  <div class="flex items-center gap-2">
+    <span class="text-base">{s.icon}</span>
+    <span class={`text-[10px] font-bold tracking-widest uppercase ${s.color}`}>{title || s.label}</span>
+  </div>
+  <div class="mt-2.5 text-sm text-zinc-300 leading-relaxed">
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const apps = [
+  {
+    name: '올댓파인더',
+    pitch: 'AI가 사진·영상·문서 내용을 기억해 자연어로 검색. 모든 처리 기기 내부.',
+    tag: 'AI · 온디바이스',
+    week: 'Week 1 · 2026-05',
+    href: 'https://play.google.com/store/apps/details?id=com.allthatai.allthatfinder',
+  },
+];
+
+const adSlots = [
+  {
+    name: '여기 광고 자리',
+    pitch: '주 5만 / 월 15만 — 인디 앱·SaaS·툴 환영. 카톡 채널로 문의.',
+    href: '/contact',
+  },
+];
+---
+<Layout
+  title="트렌드 — 노대로"
+  description="이번 주 한국 인디 개발자가 만든 화제의 앱·서비스. 매주 갱신."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-12">
+    <h1 class="text-4xl font-extrabold">트렌드</h1>
+    <p class="mt-3 text-zinc-400">한국 인디씬에서 매주 화제가 되는 앱·웹서비스 모음.</p>
+
+    <div class="mt-8 grid sm:grid-cols-2 gap-4">
+      {apps.map((a) => (
+        <a href={a.href} class="block rounded-xl border border-zinc-800 hover:border-cyan-500/50 bg-zinc-900/40 p-6 transition">
+          <div class="text-xs text-zinc-500">{a.week}</div>
+          <h3 class="mt-2 text-xl font-bold">{a.name}</h3>
+          <p class="mt-2 text-zinc-400 leading-relaxed">{a.pitch}</p>
+          <div class="mt-4 text-xs text-cyan-400 font-medium">{a.tag}</div>
+        </a>
+      ))}
+      {adSlots.map((a) => (
+        <a href={a.href} class="block rounded-xl border border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10 p-6 transition">
+          <div class="text-xs text-amber-400 font-bold">SPONSOR</div>
+          <h3 class="mt-2 text-xl font-bold">{a.name}</h3>
+          <p class="mt-2 text-zinc-400 leading-relaxed">{a.pitch}</p>
+          <div class="mt-4 text-xs text-amber-400 font-medium">광고 문의 →</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="text-lg font-bold">광고 문의</h2>
+      <p class="mt-2 text-zinc-400 text-sm">
+        주간/월간 단가 — 카드 1개당 주 ₩50,000 / 월 ₩150,000. 본문 인피드 광고 별도.
+        Google AdSense 외 인디 직거래 환영.
+      </p>
+      <a href="/contact" class="mt-4 inline-block rounded-lg bg-cyan-500 text-zinc-950 px-4 py-2 font-bold hover:bg-cyan-400">문의하기 →</a>
+    </div>
+  </section>
+</Layout>
