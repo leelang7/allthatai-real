@@ -266,8 +266,8 @@ ${item.link ? `참고 링크: ${item.link}` : ''}
   };
 
   const fileBody = `---
-import ArticleLayout from '../../../../layouts/ArticleLayout.astro';
-import Callout from '../../../../components/Callout.astro';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import Callout from '../../../components/Callout.astro';
 ---
 <ArticleLayout
   title=${JSON.stringify(meta.title)}
