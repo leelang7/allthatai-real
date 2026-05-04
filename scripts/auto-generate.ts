@@ -1,31 +1,24 @@
 /**
  * Auto-publisher for trending sensational issues.
  *
- * Editorial position: AllThatAI Real exposes hidden middleman fees in evergreen
- * categories (curated by hand) AND covers trending sensational issues with a
- * critical, source-cited frame. This script handles the second track.
+ * LLM: Google Gemini (free tier: 1,500 RPD, 15 RPM — easily covers 3-12
+ * articles/day). Switching to a paid model later only requires changing
+ * `MODEL` + the fetch URL.
  *
  * Pipeline (every 6h via GitHub Actions):
- *   1. Pull trending items from multiple Korean sources:
- *        - Naver news ranking (via news.naver.com many-clicked RSS)
- *        - DC Inside real-time best
- *        - YouTube trending KR (RSS)
- *      Aggregate, dedupe, score by appearance count.
- *   2. Filter via blocked-keywords (piracy + manual-curation zone + hard rules).
- *   3. For each candidate (capped MAX_NEW_PER_RUN), instruct Claude to draft a
- *      desk-journalism style "issue analysis" article — not a service guide:
- *        - Brief background, timeline of facts, who is saying what, what is
- *          confirmed vs rumored, what to watch next.
- *        - Always cite primary Korean news outlets.
- *        - Refuse minors, defamation-risky speculation, etc.
- *   4. Save to src/pages/issues/<slug>/index.astro and append meta to
- *      src/data/guides.auto.ts so the homepage / index can list them.
- *   5. Caller commits + pushes; Vercel auto-deploys.
+ *   1. Pull trends from Korean RSS sources (YouTube KR + Google Trends KR).
+ *   2. Cross-source dedupe + score by appearance count.
+ *   3. Filter via blocked-keywords (piracy + manual-curation zone + hard rules).
+ *   4. For each surviving candidate, ask Gemini to draft a desk-journalism
+ *      style "issue analysis" article. Model is instructed to refuse minors,
+ *      defamation-risk speculation, etc.
+ *   5. Save to src/pages/issues/<slug>/index.astro and append meta to
+ *      src/data/guides.auto.ts.
+ *   6. Caller commits + pushes; Vercel auto-deploys.
  *
- * Required env: ANTHROPIC_API_KEY.
+ * Required env: GEMINI_API_KEY (https://aistudio.google.com/apikey, free).
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { allGuides } from '../src/data/guides';
@@ -36,11 +29,9 @@ const ISSUES_DIR = path.join(ROOT, 'src/pages/issues');
 const META_FILE = path.join(ROOT, 'src/data/guides.auto.ts');
 
 const MAX_NEW_PER_RUN = parseInt(process.env.MAX_NEW_PER_RUN || '3', 10);
-const MODEL = 'claude-sonnet-4-6';
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
-// === Trend sources ===
-// Naver news ranking is rate-limited / often blocks bots, so we keep multiple
-// fallbacks. YouTube trending RSS is the most reliable plain-RSS endpoint.
 const SOURCES = [
   { name: 'youtube-kr-trending', url: 'https://www.youtube.com/feeds/videos.xml?chart=most_popular&hl=ko&gl=KR' },
   { name: 'google-trends-kr', url: 'https://trends.google.com/trends/trendingsearches/daily/rss?geo=KR' },
@@ -152,7 +143,7 @@ EDITORIAL FRAME — when you DO write:
 - All numerical / date / name claims must include the outlet that reported it.
 - Use neutral language; no "충격" / "경악" / "헉" / "터졌다" tabloid-isms.
 
-Output ONLY a JSON object, no commentary. Schema:
+Output ONLY a JSON object, no markdown fences, no commentary. Schema:
 {
   "tag": one of ["사회 이슈","연예","정치","바이럴","글로벌","스포츠","IT 이슈"],
   "title": "기사 제목 (60자 이내)",
@@ -160,10 +151,54 @@ Output ONLY a JSON object, no commentary. Schema:
   "excerpt": "리스트 카드용 한 줄 (90자 이내)",
   "minutes": int 4-7,
   "sources": "1차 출처 매체 1-3개 (예: 연합뉴스, SBS)",
-  "body_md": "Astro 페이지 본문 — 마크다운 + Callout 컴포넌트.\\n첫 단락은 <p class=\"lead\">로.\\n각 사실 인용 끝에 (출처: 매체명, 날짜) 표기."
+  "body_md": "Astro 페이지 본문 — 마크다운 + Callout 컴포넌트.\\n첫 단락은 <p class=\\"lead\\">로.\\n각 사실 인용 끝에 (출처: 매체명, 날짜) 표기."
 }`;
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+interface GeminiResponse {
+  candidates?: Array<{
+    content?: { parts?: Array<{ text?: string }> };
+    finishReason?: string;
+  }>;
+}
+
+async function callGemini(userMsg: string): Promise<string | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error('GEMINI_API_KEY missing');
+
+  const body = {
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+    generationConfig: {
+      temperature: 0.6,
+      maxOutputTokens: 4096,
+      responseMimeType: 'application/json',
+    },
+    safetySettings: [
+      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+      { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_LOW_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+    ],
+  };
+
+  const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    console.warn(`Gemini ${res.status}: ${errText.slice(0, 200)}`);
+    return null;
+  }
+  const data = (await res.json()) as GeminiResponse;
+  const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
+  if (!text) {
+    console.warn('Gemini empty response, finishReason:', data.candidates?.[0]?.finishReason);
+    return null;
+  }
+  return text;
+}
 
 async function generateArticle(item: TrendItem): Promise<{
   meta: GeneratedMeta;
@@ -174,21 +209,12 @@ async function generateArticle(item: TrendItem): Promise<{
 ${item.context ? `참고 컨텍스트:\n${item.context}` : ''}
 ${item.link ? `참고 링크: ${item.link}` : ''}
 
-위 트렌드의 사회 이슈 분석 글을 schema대로 작성. 출처 인용 필수, 추측 금지.`;
+위 트렌드의 사회 이슈 분석 글을 schema대로 작성. 출처 인용 필수, 추측 금지. JSON만 출력.`;
 
-  const resp = await client.messages.create({
-    model: MODEL,
-    max_tokens: 4000,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: userMsg }],
-  });
+  const text = await callGemini(userMsg);
+  if (!text) return null;
 
-  const text = resp.content
-    .filter((b: any) => b.type === 'text')
-    .map((b: any) => b.text)
-    .join('');
-
-  if (text.trim() === 'SKIP_TOPIC' || text.includes('SKIP_TOPIC')) {
+  if (text.trim() === 'SKIP_TOPIC' || text.includes('"SKIP_TOPIC"') || text.includes('SKIP_TOPIC')) {
     console.log(`  [skip] ${item.title} — model declined (safety)`);
     return null;
   }
@@ -260,8 +286,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
 }
 
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('ANTHROPIC_API_KEY missing');
+  if (!process.env.GEMINI_API_KEY) {
+    console.error('GEMINI_API_KEY missing');
     process.exit(1);
   }
 
@@ -273,7 +299,6 @@ async function main() {
     allItems.push(...items);
   }
 
-  // Score by frequency across sources (cross-source signal = real trend)
   const scoreMap = new Map<string, { item: TrendItem; count: number }>();
   for (const it of allItems) {
     const key = it.title.trim();
@@ -286,12 +311,13 @@ async function main() {
   console.log(`   ${ranked.length} unique trending items`);
 
   const existing = await loadExistingSlugs();
+  const today = new Date().toISOString().slice(0, 10);
   const candidates = ranked
     .filter((t) => !isBlocked(t.title))
-    .filter((t) => !existing.has(`issue-${new Date().toISOString().slice(0, 10)}-${slugify(t.title)}`))
-    .slice(0, MAX_NEW_PER_RUN * 4); // buffer for SKIP_TOPIC
+    .filter((t) => !existing.has(`issue-${today}-${slugify(t.title)}`))
+    .slice(0, MAX_NEW_PER_RUN * 4);
 
-  console.log(`2. ${candidates.length} candidates after filter (${BLOCKED_KEYWORDS.length} blocklist hits filtered)`);
+  console.log(`2. ${candidates.length} candidates after filter (blocklist: ${BLOCKED_KEYWORDS.length} terms)`);
 
   const generated: GeneratedMeta[] = [];
   await fs.mkdir(ISSUES_DIR, { recursive: true });

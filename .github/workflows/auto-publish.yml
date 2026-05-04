@@ -1,4 +1,4 @@
-name: Auto-publish trending guides
+name: Auto-publish trending issues
 
 on:
   schedule:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Run auto-generator
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           MAX_NEW_PER_RUN: '3'
         run: npx tsx scripts/auto-generate.ts
 
@@ -41,7 +41,7 @@ jobs:
           git config user.email "bot@allthatai.kr"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "auto: $(date -u +%Y-%m-%d) trending guides"
+            git commit -m "auto: $(date -u +%Y-%m-%d) trending issues"
             git push
           else
             echo "No changes to commit."

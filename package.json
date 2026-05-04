@@ -19,7 +19,6 @@
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
-    "@anthropic-ai/sdk": "^0.92.0",
     "@types/node": "^25.6.0",
     "tsx": "^4.21.0"
   }
