@@ -29,9 +29,9 @@ const ISSUES_DIR = path.join(ROOT, 'src/pages/issues');
 const META_FILE = path.join(ROOT, 'src/data/guides.auto.ts');
 
 const MAX_NEW_PER_RUN = parseInt(process.env.MAX_NEW_PER_RUN || '3', 10);
-// gemini-2.5-flash-lite: free tier sees ~15 RPM / 1000 RPD / 1M TPM as of mid-2025.
-// gemini-2.0-flash often gets stricter rate limits on fresh keys.
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+// gemini-2.5-flash: most universally available free model, all regions.
+// Override with GEMINI_MODEL env if a different one works better in your project.
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const QUOTA_RETRY_DELAY_MS = 60_000;
 const QUOTA_MAX_RETRIES = 2;
@@ -182,7 +182,6 @@ async function callGemini(userMsg: string): Promise<string | null> {
     generationConfig: {
       temperature: 0.6,
       maxOutputTokens: 2048,
-      responseMimeType: 'application/json',
     },
     safetySettings: [
       { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
