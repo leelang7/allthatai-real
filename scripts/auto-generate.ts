@@ -29,8 +29,12 @@ const ISSUES_DIR = path.join(ROOT, 'src/pages/issues');
 const META_FILE = path.join(ROOT, 'src/data/guides.auto.ts');
 
 const MAX_NEW_PER_RUN = parseInt(process.env.MAX_NEW_PER_RUN || '3', 10);
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+// gemini-2.5-flash-lite: free tier sees ~15 RPM / 1000 RPD / 1M TPM as of mid-2025.
+// gemini-2.0-flash often gets stricter rate limits on fresh keys.
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+const QUOTA_RETRY_DELAY_MS = 60_000;
+const QUOTA_MAX_RETRIES = 2;
 
 // Google News RSS by topic — reliable, never rate-limits us, returns 10-100
 // recent headlines per call. Headlines work BETTER than bare trend terms because
@@ -177,7 +181,7 @@ async function callGemini(userMsg: string): Promise<string | null> {
     contents: [{ role: 'user', parts: [{ text: userMsg }] }],
     generationConfig: {
       temperature: 0.6,
-      maxOutputTokens: 4096,
+      maxOutputTokens: 2048,
       responseMimeType: 'application/json',
     },
     safetySettings: [
@@ -188,23 +192,33 @@ async function callGemini(userMsg: string): Promise<string | null> {
     ],
   };
 
-  const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
+  for (let attempt = 0; attempt <= QUOTA_MAX_RETRIES; attempt++) {
+    const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
+      const data = (await res.json()) as GeminiResponse;
+      const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
+      if (!text) {
+        console.warn('Gemini empty response, finishReason:', data.candidates?.[0]?.finishReason);
+        return null;
+      }
+      return text;
+    }
     const errText = await res.text().catch(() => '');
-    console.warn(`Gemini ${res.status}: ${errText.slice(0, 200)}`);
+    // 429 = quota; 503 = overloaded. Both worth retrying with backoff.
+    if ((res.status === 429 || res.status === 503) && attempt < QUOTA_MAX_RETRIES) {
+      const wait = QUOTA_RETRY_DELAY_MS * (attempt + 1);
+      console.warn(`Gemini ${res.status} — waiting ${wait / 1000}s then retrying (${attempt + 1}/${QUOTA_MAX_RETRIES})`);
+      await new Promise((r) => setTimeout(r, wait));
+      continue;
+    }
+    console.warn(`Gemini ${res.status}: ${errText.slice(0, 220)}`);
     return null;
   }
-  const data = (await res.json()) as GeminiResponse;
-  const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
-  if (!text) {
-    console.warn('Gemini empty response, finishReason:', data.candidates?.[0]?.finishReason);
-    return null;
-  }
-  return text;
+  return null;
 }
 
 async function generateArticle(item: TrendItem): Promise<{
