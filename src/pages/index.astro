@@ -50,15 +50,29 @@ const issues = [
   },
 ];
 
-const trending = [
+// Our products — primary brand showcase (was: trending/sponsor placeholder).
+const ourApps = [
   {
     name: '올댓파인더',
-    pitch: 'AI가 사진·문서 내용을 기억해 자연어로 검색 (온디바이스 CLIP)',
-    tag: 'PICK',
+    pitch: 'AI(CLIP)가 사진·영상·문서·음성 내용을 기억해 자연어로 검색. 모든 처리는 기기 내부.',
+    tag: 'Android · 무료 + IAP',
     href: 'https://play.google.com/store/apps/details?id=com.allthatai.allthatfinder',
-    sponsored: false,
     icon: '🔍',
+    gradient: 'from-cyan-500/30 to-blue-500/10',
+    cta: 'Play Store에서 받기',
   },
+  {
+    name: '롤버틀러',
+    pitch: 'League of Legends 챔피언·아이템·룬 빌드 가이드 + 매치 분석. 본인 소환사명 검색.',
+    tag: 'Web · 무료',
+    href: 'https://lolbutler.kr',
+    icon: '⚔️',
+    gradient: 'from-violet-500/30 to-pink-500/10',
+    cta: '사이트 가기',
+  },
+];
+
+const trending = [
   {
     name: '여기 광고 자리',
     pitch: '인디 앱·SaaS·서비스 직접 광고 — 주 ₩50K / 월 ₩150K',
@@ -69,7 +83,7 @@ const trending = [
   },
   {
     name: '제보 받습니다',
-    pitch: '발견한 대행 함정 제보 — 무료 가이드로 정리',
+    pitch: '발견한 대행 함정·할인 정보 제보 — 가이드로 정리',
     tag: 'TIP',
     href: '/contact/',
     sponsored: false,
@@ -188,16 +202,44 @@ const categories = [
     </div>
   </section>
 
-  <!-- TRENDING / SPONSOR -->
+  <!-- OUR APPS / PRODUCTS -->
   <section class="mx-auto max-w-6xl px-4 py-16">
     <div class="flex items-end justify-between mb-10">
       <div>
-        <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">트렌드 / 스폰서</p>
-        <h2 class="mt-2 text-3xl sm:text-4xl font-black">이번 주 주목할 것</h2>
+        <p class="text-xs font-bold uppercase tracking-widest text-cyan-400">AllThatAI 제품</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-black">우리가 만드는 것</h2>
       </div>
-      <a href="/contact/" class="text-sm text-amber-400 hover:text-amber-300 transition">광고 문의 →</a>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
+      {ourApps.map((a) => (
+        <a href={a.href} target="_blank" rel="noopener" class={`card-lift group relative block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-gradient-to-br ${a.gradient} p-7 overflow-hidden`}>
+          <div class="absolute inset-0 bg-zinc-950/50"></div>
+          <div class="relative">
+            <div class="flex items-start justify-between">
+              <span class="text-4xl">{a.icon}</span>
+              <span class="text-[10px] font-bold tracking-widest uppercase text-zinc-400">{a.tag}</span>
+            </div>
+            <h3 class="mt-5 text-2xl font-black group-hover:text-cyan-300 transition">{a.name}</h3>
+            <p class="mt-2 text-sm text-zinc-300 leading-relaxed">{a.pitch}</p>
+            <div class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-cyan-300">
+              {a.cta} <span class="transition group-hover:translate-x-1">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- SPONSOR / TIPS -->
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-amber-400">스폰서 / 제보</p>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-black">광고하기 / 제보하기</h2>
+      </div>
+      <a href="/contact/" class="text-sm text-amber-400 hover:text-amber-300 transition">문의 →</a>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4">
       {trending.map((t) => (
         <a href={t.href} class={`card-lift group block rounded-2xl border p-6 ${t.sponsored ? 'border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/5 hover:border-amber-500/50' : 'border-zinc-800 hover:border-zinc-700 bg-zinc-900/30'}`}>
           <div class="flex items-center justify-between">
