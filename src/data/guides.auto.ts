@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-05-클로드-pro-할인-받는-법-학생연간결제프로모션",
+    "title": "클로드 Pro 할인 받는 법: 학생·연간결제·프로모션 총정리",
+    "excerpt": "클로드 Pro, 학생 할인부터 연간 결제, 프로모션까지! 구독료 절약 꿀팁 총정리.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-05T13:01:53.161Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-05-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
+    "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced: 구독료 비교",
+    "excerpt": "ChatGPT Plus, Claude Pro, Gemini Advanced의 가격과 주요 기능을 비교 분석하여 합리적인 AI 챗봇 구독을 돕습니다.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-05T13:01:59.164Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-05-cursor-ide-무료-한도와-pro-20-결제-시점",
+    "title": "Cursor IDE 무료 vs Pro: 언제 유료 전환해야 할까?",
+    "excerpt": "Cursor IDE 무료 사용 한도와 Pro $20 구독 시점, 현명한 결제 타이밍을 알아보세요.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-05T13:02:45.785Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-05-aws-무료-12개월-가입-시-주의할-청구",
     "title": "AWS 12개월 무료 혜택, 숨은 청구 주의사항 완벽 분석",
     "excerpt": "AWS 무료 12개월, 안심해도 될까? 숨겨진 청구 방식과 주의사항을 꼼꼼히 알려드려요.",
