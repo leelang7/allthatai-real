@@ -37,10 +37,14 @@ const ISSUES_DIR = path.join(ROOT, 'src/pages/issues');
 const META_FILE = path.join(ROOT, 'src/data/guides.auto.ts');
 
 const MAX_NEW_PER_RUN = parseInt(process.env.MAX_NEW_PER_RUN || '3', 10);
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+// flash-lite: free tier ~1,000 RPD vs flash 250 RPD. Same Korean quality for our use.
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
-const QUOTA_RETRY_DELAY_MS = 60_000;
-const QUOTA_MAX_RETRIES = 2;
+const QUOTA_RETRY_DELAY_MS = 30_000;
+const QUOTA_MAX_RETRIES = 1;
+// Once daily quota is exhausted, retrying inside the same run only burns time.
+// We flip this and short-circuit the rest of the candidates.
+let QUOTA_EXHAUSTED = false;
 
 const UA =
   'Mozilla/5.0 (compatible; AllThatAIRealBot/1.0; +https://real.allthatai.kr)';
@@ -266,6 +270,7 @@ interface GeminiResponse {
 }
 
 async function callGemini(userMsg: string): Promise<string | null> {
+  if (QUOTA_EXHAUSTED) return null;
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY missing');
 
@@ -300,6 +305,12 @@ async function callGemini(userMsg: string): Promise<string | null> {
       return text;
     }
     const errText = await res.text().catch(() => '');
+    // Daily quota exhausted: don't burn through more candidates on this run.
+    if (res.status === 429 && /exceeded your current quota|GenerateRequestsPerDayPerProjectPerModel/i.test(errText)) {
+      console.warn(`Gemini daily quota exhausted — aborting remaining candidates for this run.`);
+      QUOTA_EXHAUSTED = true;
+      return null;
+    }
     if ((res.status === 429 || res.status === 503) && attempt < QUOTA_MAX_RETRIES) {
       const wait = QUOTA_RETRY_DELAY_MS * (attempt + 1);
       console.warn(`Gemini ${res.status} — waiting ${wait / 1000}s then retrying (${attempt + 1}/${QUOTA_MAX_RETRIES})`);
