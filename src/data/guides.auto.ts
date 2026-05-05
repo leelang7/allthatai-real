@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-05-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
+    "title": "스팀 큰 세일 일정 모음 (여름·겨울·할로윈·프라임데이)",
+    "excerpt": "놓치면 후회! 스팀 주요 세일 일정 총정리 (여름, 겨울, 할로윈, 프라임데이)",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-05-05T19:00:24.773Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-05-epic-games-무료게임-받는-법-이번-주-무료-정리",
+    "title": "Epic Games 무료 게임 받는 법 & 이번 주 혜택 정리",
+    "excerpt": "Epic Games에서 매주 무료 게임을 득템하는 방법과 이번 주 무료 게임 정보를 확인하세요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-05T19:00:32.501Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-05-플레이스테이션-psn-세일-잘-사는-시기",
+    "title": "PSN 세일, 언제 사야 가장 쌀까? 최적 구매 타이밍 가이드",
+    "excerpt": "PSN 게임, 최저가에 구매하는 꿀팁! 연말, 블랙프라이데이 등 주요 할인 시즌을 놓치지 마세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-05T19:00:49.250Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-05-클로드-pro-할인-받는-법-학생연간결제프로모션",
     "title": "클로드 Pro 할인 받는 법: 학생·연간결제·프로모션 총정리",
     "excerpt": "클로드 Pro, 학생 할인부터 연간 결제, 프로모션까지! 구독료 절약 꿀팁 총정리.",
