@@ -420,30 +420,26 @@ async function main() {
   console.log('1. Fetching deal candidates...');
   const allItems: DealCandidate[] = [];
 
+  // Evergreen seeds FIRST — Korea-targeted, guaranteed-relevant topics. These
+  // form the backbone so we never have a zero-article run, and rotate so the
+  // engine eventually covers all 26 seeds.
+  const evergreen = pickEvergreen(MAX_NEW_PER_RUN * 3);
+  allItems.push(...evergreen);
+  console.log(`   evergreen seeds (priority): ${evergreen.length}`);
+
+  // Reddit — supplemental. Filtered to keywords likely to be relevant to a
+  // Korean reader (global digital products, Steam, Epic, etc.). US-only
+  // physical-store deals (Walmart, Target...) get dropped before LLM call.
+  const koreaRelevant = /steam|epic|origin|playstation|nintendo|switch|xbox|microsoft|adobe|figma|notion|github|cursor|chatgpt|claude|gemini|midjourney|netflix|disney|spotify|youtube/i;
   for (const url of REDDIT_DEAL_FEEDS) {
     const items = await fetchReddit(url);
-    console.log(`   ${url.split('?')[0].split('/r/')[1]}: ${items.length}`);
-    allItems.push(...items);
+    const filtered = items.filter((it) => koreaRelevant.test(it.title));
+    console.log(`   ${url.split('?')[0].split('/r/')[1]}: ${items.length} → ${filtered.length} korea-relevant`);
+    allItems.push(...filtered);
   }
 
-  // YouTube: rotate keywords per run by current hour bucket so all ~15 keywords
-  // get exposure across a day rather than always sampling the same first 3.
-  const ytSlot = Math.floor(Date.now() / (6 * 60 * 60 * 1000)) % YT_KEYWORDS.length;
-  const ytSubset = [
-    YT_KEYWORDS[ytSlot % YT_KEYWORDS.length],
-    YT_KEYWORDS[(ytSlot + 5) % YT_KEYWORDS.length],
-    YT_KEYWORDS[(ytSlot + 10) % YT_KEYWORDS.length],
-  ];
-  for (const kw of ytSubset) {
-    const items = await fetchYouTubeKeyword(kw);
-    console.log(`   yt:${kw}: ${items.length}`);
-    allItems.push(...items);
-  }
-
-  // Always include evergreen seeds so we never produce zero articles.
-  const evergreen = pickEvergreen(MAX_NEW_PER_RUN * 2);
-  allItems.push(...evergreen);
-  console.log(`   evergreen seeds added: ${evergreen.length}`);
+  // YouTube search RSS is unreliable (returns 400 on many Korean queries).
+  // Skipped for now; evergreen + Reddit cover content needs.
 
   const existing = await loadExistingSlugs();
   const today = new Date().toISOString().slice(0, 10);
