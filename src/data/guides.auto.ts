@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-06-클로드-pro-할인-받는-법-학생연간결제프로모션",
+    "title": "Claude Pro 학생·연간 할인 받는 법",
+    "excerpt": "Claude Pro 학생 할인, 연간 구독, 프로모션 혜택 총정리! AI 활용도를 높이는 절약 팁.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-06T01:20:45.515Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-06-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
+    "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced: 가격 비교",
+    "excerpt": "ChatGPT Plus, Claude Pro, Gemini Advanced 중 나에게 맞는 AI 챗봇은? 가격, 기능, 할인 정보 총정리!",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-06T01:20:51.149Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-06-cursor-ide-무료-한도와-pro-20-결제-시점",
+    "title": "Cursor IDE 무료/유료 전환 시점 및 Pro 구독 팁",
+    "excerpt": "Cursor IDE, 무료 플랜 한도와 Pro 구독 시점 궁금하셨죠? 지금 바로 확인하세요!",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-06T01:21:27.050Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-05-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
     "title": "스팀 큰 세일 일정 모음 (여름·겨울·할로윈·프라임데이)",
     "excerpt": "놓치면 후회! 스팀 주요 세일 일정 총정리 (여름, 겨울, 할로윈, 프라임데이)",
