@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-06-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
+    "title": "스팀 대규모 세일 일정 총정리 (여름, 겨울, 할로윈)",
+    "excerpt": "스팀 여름, 겨울, 할로윈 등 대규모 세일 일정을 미리 확인하고 게임 구매 계획을 세워보세요.",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-05-06T13:21:53.198Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-06-epic-games-무료게임-받는-법-이번-주-무료-정리",
+    "title": "Epic Games 무료 게임 받는 법 + 이번 주 혜택 정리",
+    "excerpt": "Epic Games Store에서 매주 무료 게임을 받는 방법을 알려드립니다. 이번 주 혜택도 놓치지 마세요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-06T13:22:36.864Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-06-플레이스테이션-psn-세일-잘-사는-시기",
+    "title": "PSN 게임, 언제 사야 가장 쌀까? 역대급 세일 시기 총정리",
+    "excerpt": "PSN 게임, 가장 싸게 사는 시기는 언제일까요? 주요 세일 기간과 꿀팁을 모아봤습니다.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-06T13:22:49.820Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-06-클로드-pro-할인-받는-법-학생연간결제프로모션",
     "title": "Claude Pro 학생·연간 할인 받는 법",
     "excerpt": "Claude Pro 학생 할인, 연간 구독, 프로모션 혜택 총정리! AI 활용도를 높이는 절약 팁.",
