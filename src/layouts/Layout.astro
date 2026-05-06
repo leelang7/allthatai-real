@@ -47,6 +47,18 @@ const isHome = path === '/';
       <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${import.meta.env.PUBLIC_ADSENSE_CLIENT}`} crossorigin="anonymous"></script>
     )}
 
+    {import.meta.env.PUBLIC_GA_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+        <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        </script>
+      </>
+    )}
+
     <style is:global>
       :root {
         --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -174,6 +186,11 @@ const isHome = path === '/';
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+    </script>
+
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
     </script>
   </body>
 </html>
