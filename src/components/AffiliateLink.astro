@@ -1,15 +1,50 @@
 ---
-import { affiliates, type AffiliateKey } from '../data/affiliates';
+import { affiliates, affiliateUrl, type AffiliateKey } from '../data/affiliates';
 
 interface Props {
   to: AffiliateKey;
+  /** Override link text. Otherwise: program name from registry. */
   label?: string;
+  /** Force a specific tracked URL (e.g. a Coupang single-product link); overrides registry. */
+  href?: string;
 }
-const { to, label } = Astro.props;
-const href = affiliates[to];
-const display = label || (Astro.slots.has('default') ? '' : to);
+const { to, label, href } = Astro.props;
+const a = affiliates[to];
+if (!a) throw new Error(`Unknown affiliate key: ${to}`);
+const finalHref = href || affiliateUrl(to);
+const display = label || (Astro.slots.has('default') ? '' : a.name);
 ---
-<a href={href} target="_blank" rel="sponsored noopener" class="inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200 underline decoration-cyan-700 underline-offset-4 hover:decoration-cyan-400 transition">
+<a
+  href={finalHref}
+  target="_blank"
+  rel="sponsored noopener nofollow"
+  data-aff={to}
+  data-aff-rate={a.rate || ''}
+  class="aff-link inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200 underline decoration-cyan-700 underline-offset-4 hover:decoration-cyan-400 transition"
+>
   <slot>{display}</slot>
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
 </a>
+
+<script is:inline>
+  // Click attribution: fires once per page load on first interaction.
+  // Sends both Vercel Analytics custom event + GA4 event so revenue can
+  // be reconstructed across both dashboards.
+  if (!window.__affiliateClickWired) {
+    window.__affiliateClickWired = true;
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('a.aff-link');
+      if (!a) return;
+      const program = a.getAttribute('data-aff');
+      const rate = a.getAttribute('data-aff-rate');
+      // Vercel Analytics
+      if (window.va) {
+        try { window.va('event', { name: 'affiliate_click', data: { program, rate } }); } catch (_) {}
+      }
+      // GA4
+      if (window.gtag) {
+        try { window.gtag('event', 'affiliate_click', { program, rate, event_category: 'monetization' }); } catch (_) {}
+      }
+    }, { capture: true });
+  }
+</script>

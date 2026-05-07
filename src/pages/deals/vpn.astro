@@ -1,0 +1,252 @@
+---
+/**
+ * VPN comparison chart — Korean market focus.
+ *
+ * VPN affiliate is the highest-commission affiliate vertical (~40% of first
+ * payment, recurring on some). Korean VPN search has volume from:
+ *   - 넷플릭스 우회 (region-locked content)
+ *   - 토렌트 안전성 (privacy)
+ *   - 해외 사이트 우회 (geo-blocking)
+ *   - 보안 (공공 와이파이)
+ *
+ * Each row links via affiliates.ts → AffiliateLink → tracked click.
+ * Once user fills in NordVPN/Surfshark code, every click becomes attributable.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+interface VpnRow {
+  key: 'nordvpn' | 'surfshark' | 'protonvpn' | 'mullvad' | 'pia';
+  name: string;
+  brandColor: string;
+  monthlyUsd: string;
+  twoYearUsd: string;
+  servers: string;
+  netflix: 'O' | 'X' | '△';
+  torrent: 'O' | 'X' | '△';
+  korean: 'O' | 'X' | '△';
+  refundDays: number;
+  highlight: string;
+  affiliated: boolean; // whether we have an affiliate program slot in affiliates.ts
+}
+
+const vpns: VpnRow[] = [
+  {
+    key: 'nordvpn',
+    name: 'NordVPN',
+    brandColor: 'bg-blue-500/15 text-blue-300 border-blue-500/40',
+    monthlyUsd: '$12.99',
+    twoYearUsd: '$3.39',
+    servers: '6,000+ / 60국',
+    netflix: 'O',
+    torrent: 'O',
+    korean: 'O',
+    refundDays: 30,
+    highlight: 'Threat Protection · Meshnet · 6기기',
+    affiliated: true,
+  },
+  {
+    key: 'surfshark',
+    name: 'Surfshark',
+    brandColor: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/40',
+    monthlyUsd: '$15.45',
+    twoYearUsd: '$2.49',
+    servers: '3,200+ / 100국',
+    netflix: 'O',
+    torrent: 'O',
+    korean: 'O',
+    refundDays: 30,
+    highlight: '무제한 기기 · CleanWeb · 가성비',
+    affiliated: true,
+  },
+  {
+    key: 'protonvpn',
+    name: 'Proton VPN',
+    brandColor: 'bg-violet-500/15 text-violet-300 border-violet-500/40',
+    monthlyUsd: '$9.99',
+    twoYearUsd: '$4.99',
+    servers: '5,300+ / 70국',
+    netflix: 'O',
+    torrent: 'O',
+    korean: '△',
+    refundDays: 30,
+    highlight: '무료 플랜 有 · 스위스 사법권 · 오픈소스',
+    affiliated: false,
+  },
+  {
+    key: 'mullvad',
+    name: 'Mullvad',
+    brandColor: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/40',
+    monthlyUsd: '€5',
+    twoYearUsd: '€5',
+    servers: '650+ / 40국',
+    netflix: '△',
+    torrent: 'O',
+    korean: 'X',
+    refundDays: 30,
+    highlight: '계정 익명 · 정찰 광고 안 함 · 단일 가격',
+    affiliated: false,
+  },
+  {
+    key: 'pia',
+    name: 'PIA',
+    brandColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40',
+    monthlyUsd: '$11.99',
+    twoYearUsd: '$2.03',
+    servers: '35,000+ / 91국',
+    netflix: 'O',
+    torrent: 'O',
+    korean: 'O',
+    refundDays: 30,
+    highlight: '서버 수 압도적 · 오픈소스 클라이언트',
+    affiliated: false,
+  },
+];
+
+interface UseCase {
+  title: string;
+  pick: string;
+  /** Affiliate key from affiliates.ts. null if no affiliate program signed up yet. */
+  pickKey: 'nordvpn' | 'surfshark' | null;
+  /** Direct URL when no affiliate program */
+  fallbackUrl?: string;
+  why: string;
+}
+const useCases: UseCase[] = [
+  {
+    title: '넷플릭스 다른 나라 라이브러리',
+    pick: 'NordVPN',
+    pickKey: 'nordvpn',
+    why: '넷플릭스 차단 검출 회피력 1위. 미국·일본·영국 모두 안정적.',
+  },
+  {
+    title: '한국에서 가장 빠른 VPN',
+    pick: 'NordVPN',
+    pickKey: 'nordvpn',
+    why: 'NordLynx (WireGuard) 프로토콜이 한국 ISP에서 가장 일관된 속도.',
+  },
+  {
+    title: '가성비 + 무제한 기기',
+    pick: 'Surfshark',
+    pickKey: 'surfshark',
+    why: '2년 약정 $2.49/월에 가족 기기 무제한 — 가성비 최강.',
+  },
+  {
+    title: '익명·프라이버시 최우선',
+    pick: 'Mullvad',
+    pickKey: null,
+    fallbackUrl: 'https://mullvad.net',
+    why: '이메일 없이 가입, 현금/암호화폐 결제 가능. 단 넷플릭스는 약함.',
+  },
+];
+
+function pillClass(value: 'O' | 'X' | '△') {
+  if (value === 'O') return 'text-emerald-300';
+  if (value === 'X') return 'text-rose-400';
+  return 'text-amber-300';
+}
+---
+<Layout
+  title="VPN 비교 5선 — 한국 최저가·넷플릭스·토렌트 안전"
+  description="NordVPN · Surfshark · Proton · Mullvad · PIA 비교. 한국 사용자 기준 속도·가격·넷플릭스·토렌트 평가. 30일 환불 보증 모두."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      한국 시장 기준 비교 · 30일 환불 보증
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      한국에서 진짜 쓸만한 <span class="text-gradient">VPN 5개</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 max-w-3xl leading-relaxed">
+      넷플릭스 우회·토렌트·공공 와이파이 보안 — 한국 ISP에서 실제 작동하는 5개를
+      가격·기능·속도로 비교. 모두 30일 환불 보증이라 부담 없이 테스트 가능.
+    </p>
+  </section>
+
+  <!-- USE-CASE PICKS -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <h2 class="text-xl font-black mb-4">목적별 추천</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {useCases.map((u) => (
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">{u.title}</p>
+          <p class="mt-2 text-2xl font-black">{u.pick}</p>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">{u.why}</p>
+          <div class="mt-3">
+            {u.pickKey ? (
+              <AffiliateLink to={u.pickKey} label={`${u.pick} 30일 무료 시도 →`} />
+            ) : (
+              <a href={u.fallbackUrl} target="_blank" rel="noopener" class="text-cyan-300 hover:text-cyan-200 underline text-sm">{u.pick} 사이트로 →</a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="mx-auto max-w-5xl px-4 py-8">
+    <h2 class="text-xl font-black mb-4">전체 비교</h2>
+    <div class="overflow-x-auto rounded-2xl border border-zinc-800">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-900/60">
+          <tr class="text-left">
+            <th class="px-4 py-3 font-bold">VPN</th>
+            <th class="px-4 py-3 font-bold whitespace-nowrap">월 (단월)</th>
+            <th class="px-4 py-3 font-bold whitespace-nowrap">2년 약정</th>
+            <th class="px-4 py-3 font-bold whitespace-nowrap">서버</th>
+            <th class="px-4 py-3 font-bold text-center">넷플릭스</th>
+            <th class="px-4 py-3 font-bold text-center">토렌트</th>
+            <th class="px-4 py-3 font-bold text-center">한국 우회</th>
+            <th class="px-4 py-3 font-bold text-center"></th>
+          </tr>
+        </thead>
+        <tbody class="text-zinc-300">
+          {vpns.map((v) => (
+            <tr class="border-t border-zinc-800 hover:bg-zinc-900/30 transition">
+              <td class="px-4 py-3">
+                <span class={`inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-black ${v.brandColor}`}>{v.name}</span>
+                <p class="mt-1 text-[11px] text-zinc-500 leading-snug max-w-[200px]">{v.highlight}</p>
+              </td>
+              <td class="px-4 py-3 text-zinc-500">{v.monthlyUsd}</td>
+              <td class="px-4 py-3 font-bold text-emerald-300">{v.twoYearUsd}</td>
+              <td class="px-4 py-3 text-xs">{v.servers}</td>
+              <td class={`px-4 py-3 text-center font-black ${pillClass(v.netflix)}`}>{v.netflix}</td>
+              <td class={`px-4 py-3 text-center font-black ${pillClass(v.torrent)}`}>{v.torrent}</td>
+              <td class={`px-4 py-3 text-center font-black ${pillClass(v.korean)}`}>{v.korean}</td>
+              <td class="px-4 py-3 text-right">
+                {v.affiliated ? (
+                  <AffiliateLink to={v.key as any} label="시도 →" />
+                ) : (
+                  <span class="text-xs text-zinc-600">직접 검색</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-[11px] text-zinc-500 leading-relaxed">
+      ※ 가격은 공식 사이트 기준 USD/EUR (현지 카드 결제 시 ₩환율 적용).
+      모든 VPN은 30일 환불 보증 — 결제 후 마음 안 들면 환불 가능.
+      넷플릭스 우회력은 시기에 따라 변동될 수 있습니다.
+    </p>
+  </section>
+
+  <!-- KOREAN-SPECIFIC NOTES -->
+  <section class="mx-auto max-w-5xl px-4 py-8">
+    <div class="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6">
+      <h3 class="font-black text-amber-300">한국 사용자가 흔히 놓치는 점</h3>
+      <ul class="mt-3 space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>국내 사이트 일부 차단</strong>: 한국 IP 우회로 SK·KT·LG U+ 일부 사이트 접속 안 됨. VPN 연결한 채로 한국 사이트는 split tunneling 또는 VPN OFF 사용.</li>
+        <li>→ <strong>토렌트는 별도 P2P 서버 필수</strong>: NordVPN·Surfshark는 P2P 서버 자동 라우팅. 일반 서버에서는 차단됨.</li>
+        <li>→ <strong>공식 한국 카드 결제 가능</strong>: VISA/Master/Amex 모두. 일부는 카카오페이까지.</li>
+        <li>→ <strong>2년 약정이 12배 더 쌈</strong>: 단월 vs 2년 환산 비교. 환불 보증 있으니 2년 약정 후 30일 안에 환불도 전략.</li>
+      </ul>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>

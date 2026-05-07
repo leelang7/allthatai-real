@@ -1,0 +1,66 @@
+---
+import { affiliateUrl } from '../data/affiliates';
+
+interface Props {
+  /** Default keyword shown in placeholder */
+  placeholder?: string;
+  /** Title above the box */
+  title?: string;
+  /** Subline */
+  subtitle?: string;
+}
+const {
+  placeholder = '예: 게이밍 모니터, 무선이어폰, 직구 컴퓨터',
+  title = '쿠팡에서 같은 상품 더 싸게',
+  subtitle = '쿠팡 검색결과로 이동 — 7일 이내 구매 시 운영자에게 약간의 수수료 (가격 동일)',
+} = Astro.props;
+
+// Base URL builder (registry-driven, no hardcoded domain)
+const coupangBase = affiliateUrl('coupangSearch').split('?')[0]; // .../search
+---
+<div class="not-prose my-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 p-6">
+  <div class="flex items-start gap-3">
+    <div class="text-2xl">🛒</div>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-bold text-amber-300">{title}</p>
+      <p class="mt-1 text-xs text-zinc-400">{subtitle}</p>
+      <form id="coupang-search-form" class="mt-4 flex gap-2" data-base={coupangBase}>
+        <input
+          name="q"
+          type="text"
+          placeholder={placeholder}
+          required
+          class="flex-1 min-w-0 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none px-4 py-2.5 text-sm text-white placeholder:text-zinc-500"
+        />
+        <button
+          type="submit"
+          class="rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-5 py-2.5 text-sm whitespace-nowrap transition"
+        >
+          쿠팡 검색
+        </button>
+      </form>
+    </div>
+  </div>
+  <p class="mt-3 text-[10px] text-zinc-500 leading-relaxed">
+    ⓘ 쿠팡 파트너스 활동의 일환으로, 이를 통해 일정액의 수수료를 제공받을 수 있습니다.
+  </p>
+</div>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('coupang-search-form');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[name="q"]');
+      const q = (input && input.value || '').trim();
+      if (!q) return;
+      const base = form.getAttribute('data-base') || 'https://www.coupang.com/np/search';
+      const url = `${base}?q=${encodeURIComponent(q)}`;
+      // Track click
+      if (window.va) { try { window.va('event', { name: 'coupang_search', data: { q } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'coupang_search', { search_term: q, event_category: 'monetization' }); } catch (_) {} }
+      window.open(url, '_blank', 'noopener,sponsored');
+    });
+  })();
+</script>

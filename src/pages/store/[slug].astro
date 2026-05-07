@@ -1,0 +1,108 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { products } from '../../data/products';
+
+export async function getStaticPaths() {
+  return products
+    .filter((p) => p.live)
+    .map((p) => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+
+const { product } = Astro.props as { product: typeof products[number] };
+---
+<Layout
+  title={`${product.title} — AllThatAI Real Store`}
+  description={product.tagline}
+  ogImage={`/og/${product.slug}.svg`}
+>
+  <section class="mx-auto max-w-4xl px-4 pt-16 pb-12">
+    <a href="/store/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 스토어로</a>
+
+    <div class="mt-6 grid md:grid-cols-[1fr_320px] gap-8 items-start">
+      <div>
+        <div class="flex items-center gap-2">
+          {product.badge && (
+            <span class="rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[10px] font-black px-2 py-0.5 tracking-widest uppercase">
+              {product.badge}
+            </span>
+          )}
+          <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">{product.category}</span>
+        </div>
+        <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">{product.title}</h1>
+        <p class="mt-4 text-lg text-zinc-400 leading-relaxed">{product.tagline}</p>
+        {product.metric && (
+          <p class="mt-3 text-sm text-cyan-300 font-medium">{product.metric}</p>
+        )}
+      </div>
+
+      <!-- Sticky buy box -->
+      <div class="md:sticky md:top-24 rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 p-6">
+        <div class="text-3xl font-black">{product.priceKrw}</div>
+        <p class="mt-1 text-xs text-zinc-400">7일 환불 보증 · 즉시 다운로드</p>
+        <a
+          href={product.gumroadUrl}
+          target="_blank"
+          rel="sponsored noopener"
+          data-product={product.slug}
+          class="buy-cta mt-5 block text-center rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-3 transition"
+        >
+          Gumroad에서 구매
+        </a>
+        <p class="mt-3 text-[10px] text-zinc-500 leading-relaxed">
+          ⓘ 결제 후 다운로드 링크가 메일로 발송됩니다.
+          신용/체크카드, PayPal, 애플페이, 구글페이 가능.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 pb-12">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h2 class="text-xl font-bold mb-4">포함 내용</h2>
+        <ul class="space-y-2.5">
+          {product.inside.map((it) => (
+            <li class="flex items-start gap-2.5 text-sm text-zinc-300">
+              <span class="text-emerald-400 mt-0.5">✓</span>
+              <span class="leading-relaxed">{it}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-4">이런 분께</h2>
+        <ul class="space-y-2.5">
+          {product.audience.map((it) => (
+            <li class="flex items-start gap-2.5 text-sm text-zinc-300">
+              <span class="text-cyan-400 mt-0.5">→</span>
+              <span class="leading-relaxed">{it}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <p class="text-xs font-bold text-zinc-300 mb-2 uppercase tracking-widest">차별점</p>
+          <p class="text-sm text-zinc-400 leading-relaxed">{product.moat}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 pb-24">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/30 p-8 text-center">
+      <p class="text-sm text-zinc-400 mb-3">
+        구매 전 궁금한 점이 있으면 답장 받습니다 (24시간 내).
+      </p>
+      <a href="/contact/" class="text-sm text-cyan-300 hover:text-cyan-200 underline">문의하기 →</a>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll('a.buy-cta').forEach((a) => {
+      a.addEventListener('click', () => {
+        const slug = a.getAttribute('data-product');
+        if (window.va) { try { window.va('event', { name: 'product_buy_click', data: { slug } }); } catch (_) {} }
+        if (window.gtag) { try { window.gtag('event', 'begin_checkout', { item_id: slug, event_category: 'monetization' }); } catch (_) {} }
+      });
+    });
+  </script>
+</Layout>

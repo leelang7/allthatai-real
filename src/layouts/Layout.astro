@@ -33,6 +33,13 @@ const isHome = path === '/';
     <title>{title}</title>
     <meta name="description" content={description} />
 
+    {import.meta.env.PUBLIC_NAVER_SITE_VERIFICATION && (
+      <meta name="naver-site-verification" content={import.meta.env.PUBLIC_NAVER_SITE_VERIFICATION} />
+    )}
+    {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    )}
+
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -123,13 +130,24 @@ const isHome = path === '/';
           </span>
           <span class="text-white">AllThatAI <span class="text-cyan-400">Real</span></span>
         </a>
-        <nav class="flex gap-5 text-sm text-zinc-400">
+        <nav class="flex gap-4 sm:gap-5 text-sm text-zinc-400">
+          <a href="/store" class="hover:text-amber-300 transition font-semibold">
+            <span class="text-amber-400">$</span> 스토어
+          </a>
           <a href="/issues" class="hover:text-white transition flex items-center gap-1.5">
             <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
             이슈
           </a>
-          <a href="/guides" class="hover:text-white transition">가이드</a>
-          <a href="/services/play-launch" class="hover:text-white transition">출시 대행</a>
+          <a href="/deals/games" class="hover:text-violet-300 transition hidden md:inline">스팀 핫딜</a>
+          <a href="/deals/vpn" class="hover:text-emerald-300 transition hidden md:inline">VPN</a>
+          <a href="/free" class="hover:text-emerald-300 transition font-semibold hidden sm:inline">무료</a>
+          <a href="/guides" class="hover:text-white transition hidden lg:inline">가이드</a>
+          <a href="/services/play-launch" class="hover:text-white transition hidden md:inline">출시 대행</a>
+          <a href="/search" class="hover:text-white transition" aria-label="검색">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </a>
           <a href="/contact" class="hidden sm:inline-block rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-1.5 hover:border-cyan-500/50 hover:text-white transition">광고 문의</a>
         </nav>
       </div>

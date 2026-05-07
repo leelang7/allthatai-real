@@ -1,0 +1,255 @@
+---
+/**
+ * AI 도구 월 비용 계산기 + 추천.
+ *
+ * 입력: 월 사용량(요청 수, 토큰), 사용 패턴(채팅·코딩·이미지)
+ * 출력: 가장 싼 조합 추천 + Cursor/Notion 등 affiliate가 있는 도구는 어필 링크,
+ *       Claude/GPT/Gemini는 직접 링크 (어필 없음).
+ *
+ * 정적 페이지 + 클라이언트 JS 계산. 정확도가 핵심이라 가격 변경 감지는
+ * 향후 weekly cron으로 가격 페이지 diff 자동 갱신 예정.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+interface Plan {
+  product: string;
+  plan: string;
+  monthlyUsd: number;
+  yearlyUsd?: number;
+  /** affiliates.ts key, or null if no program yet */
+  affKey: 'claude' | 'chatgpt' | 'cursor' | 'notion' | 'midjourney' | null;
+  fallbackUrl?: string;
+  fits: ('chat' | 'code' | 'image' | 'workspace' | 'voice')[];
+  highlights: string[];
+}
+
+const plans: Plan[] = [
+  // 채팅
+  {
+    product: 'Claude',
+    plan: 'Pro',
+    monthlyUsd: 20,
+    yearlyUsd: 17,
+    affKey: 'claude',
+    fits: ['chat', 'code'],
+    highlights: ['Sonnet 무제한 사용량 가장 큼', '긴 컨텍스트(1M tokens)'],
+  },
+  {
+    product: 'ChatGPT',
+    plan: 'Plus',
+    monthlyUsd: 20,
+    affKey: 'chatgpt',
+    fits: ['chat', 'image', 'voice'],
+    highlights: ['DALL-E 3 이미지 무료', 'Voice mode'],
+  },
+  {
+    product: 'Gemini',
+    plan: 'Advanced',
+    monthlyUsd: 19.99,
+    affKey: null,
+    fallbackUrl: 'https://gemini.google.com/advanced',
+    fits: ['chat', 'workspace'],
+    highlights: ['2TB 드라이브 포함', 'Google Workspace 통합'],
+  },
+  // 코딩
+  {
+    product: 'Cursor',
+    plan: 'Pro',
+    monthlyUsd: 20,
+    affKey: 'cursor',
+    fits: ['code'],
+    highlights: ['VSCode fork', 'Claude/GPT 모델 선택', '500 fast requests/월'],
+  },
+  // 워크스페이스
+  {
+    product: 'Notion',
+    plan: 'AI Add-on',
+    monthlyUsd: 10,
+    affKey: 'notion',
+    fits: ['workspace'],
+    highlights: ['Notion 워크스페이스 안에서 AI 호출', '학생 무료'],
+  },
+  // 이미지
+  {
+    product: 'Midjourney',
+    plan: 'Basic',
+    monthlyUsd: 10,
+    yearlyUsd: 8,
+    affKey: 'midjourney',
+    fits: ['image'],
+    highlights: ['이미지 200개/월', 'Discord/Web 동시'],
+  },
+];
+
+const useCases = [
+  { id: 'casual', label: '가볍게 채팅만', primary: 'chat' as const, monthlyUsd: 20 },
+  { id: 'developer', label: '개발자 (코딩 중심)', primary: 'code' as const, monthlyUsd: 40 },
+  { id: 'creator', label: '콘텐츠 크리에이터 (이미지+채팅)', primary: 'image' as const, monthlyUsd: 30 },
+  { id: 'pm', label: '기획·문서 (워크스페이스)', primary: 'workspace' as const, monthlyUsd: 30 },
+  { id: 'all', label: '풀스택 — 코딩+채팅+이미지', primary: 'all' as const, monthlyUsd: 60 },
+];
+---
+<Layout
+  title="AI 도구 월 비용 계산 — Claude vs GPT vs Gemini vs Cursor"
+  description="Claude Pro · ChatGPT Plus · Gemini Advanced · Cursor · Notion · Midjourney 가격 비교 + 사용 패턴별 최적 조합 추천."
+>
+  <section class="mx-auto max-w-4xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      AI 도구 가격 계산기
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      나한테 맞는 <span class="text-gradient">AI 조합</span> 찾기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 max-w-3xl leading-relaxed">
+      Claude/GPT/Gemini/Cursor — 다 결제하면 월 $80+. 본인 사용 패턴에 맞춰
+      ₩한 줄 줄이는 법.
+    </p>
+  </section>
+
+  <!-- USE CASE SELECTOR -->
+  <section class="mx-auto max-w-4xl px-4 py-8">
+    <h2 class="text-xl font-black mb-4">사용 패턴 선택</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" id="use-case-grid">
+      {useCases.map((u) => (
+        <button
+          type="button"
+          class="use-case-btn group rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 text-left transition hover:border-cyan-500/50"
+          data-use-case={u.id}
+          data-primary={u.primary}
+          data-budget={u.monthlyUsd}
+        >
+          <p class="font-bold text-white group-hover:text-cyan-300 transition">{u.label}</p>
+          <p class="mt-1 text-xs text-zinc-500">월 ~${u.monthlyUsd}</p>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS PANEL -->
+  <section id="rec-panel" class="mx-auto max-w-4xl px-4 py-8 hidden">
+    <div class="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-cyan-300">추천 조합</p>
+      <h2 id="rec-title" class="mt-2 text-2xl font-black"></h2>
+      <p id="rec-monthly" class="mt-2 text-3xl font-black text-emerald-300"></p>
+      <div id="rec-items" class="mt-6 space-y-3"></div>
+    </div>
+  </section>
+
+  <!-- ALL PLANS TABLE -->
+  <section class="mx-auto max-w-4xl px-4 py-8">
+    <h2 class="text-xl font-black mb-4">전체 가격표</h2>
+    <div class="space-y-2" id="plans-list">
+      {plans.map((p) => (
+        <div
+          class="plan-card rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 flex items-center justify-between gap-4 transition"
+          data-product={p.product}
+          data-fits={p.fits.join(',')}
+        >
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-black">{p.product}</span>
+              <span class="rounded-full bg-zinc-800 text-zinc-300 text-[10px] font-bold px-2 py-0.5">{p.plan}</span>
+              {p.fits.map((f) => (
+                <span class="rounded-full bg-zinc-800/50 text-zinc-500 text-[9px] uppercase tracking-wider px-2 py-0.5">{f}</span>
+              ))}
+            </div>
+            <ul class="mt-2 space-y-0.5">
+              {p.highlights.map((h) => (
+                <li class="text-xs text-zinc-400">• {h}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-2xl font-black text-white">${p.monthlyUsd}<span class="text-xs text-zinc-500 font-normal">/월</span></p>
+            {p.yearlyUsd && (
+              <p class="text-[10px] text-emerald-300">연간 ${p.yearlyUsd}/월</p>
+            )}
+            <div class="mt-2">
+              {p.affKey ? (
+                <AffiliateLink to={p.affKey} label="가입 →" />
+              ) : (
+                <a href={p.fallbackUrl} target="_blank" rel="noopener" class="text-xs text-cyan-300 hover:text-cyan-200 underline">사이트 →</a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline define:vars={{ plans }}>
+  const recPanel = document.getElementById('rec-panel');
+  const recTitle = document.getElementById('rec-title');
+  const recMonthly = document.getElementById('rec-monthly');
+  const recItems = document.getElementById('rec-items');
+
+  document.querySelectorAll('.use-case-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Visual selection
+      document.querySelectorAll('.use-case-btn').forEach((b) => {
+        b.classList.remove('border-cyan-500', 'bg-cyan-500/10');
+        b.classList.add('border-zinc-800');
+      });
+      btn.classList.add('border-cyan-500', 'bg-cyan-500/10');
+      btn.classList.remove('border-zinc-800');
+
+      const primary = btn.getAttribute('data-primary');
+      const budget = parseInt(btn.getAttribute('data-budget') || '40', 10);
+
+      // Pick plans
+      let recommended = [];
+      if (primary === 'all') {
+        recommended = [
+          plans.find((p) => p.product === 'Claude'),
+          plans.find((p) => p.product === 'Cursor'),
+          plans.find((p) => p.product === 'Midjourney'),
+        ].filter(Boolean);
+      } else if (primary === 'code') {
+        recommended = [
+          plans.find((p) => p.product === 'Cursor'),
+          plans.find((p) => p.product === 'Claude'),
+        ].filter(Boolean);
+      } else if (primary === 'image') {
+        recommended = [
+          plans.find((p) => p.product === 'Midjourney'),
+          plans.find((p) => p.product === 'ChatGPT'),
+        ].filter(Boolean);
+      } else if (primary === 'workspace') {
+        recommended = [
+          plans.find((p) => p.product === 'Notion'),
+          plans.find((p) => p.product === 'Gemini'),
+        ].filter(Boolean);
+      } else {
+        recommended = [plans.find((p) => p.product === 'Claude')].filter(Boolean);
+      }
+
+      const total = recommended.reduce((s, p) => s + (p.yearlyUsd || p.monthlyUsd), 0);
+      const totalKrw = Math.round(total * 1380);
+
+      recTitle.textContent = recommended.map((p) => p.product).join(' + ');
+      recMonthly.textContent = `~$${total}/월 ≈ ₩${totalKrw.toLocaleString('ko-KR')}/월`;
+      recItems.innerHTML = recommended.map((p) => `
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-bold">${p.product} ${p.plan}</p>
+            <p class="text-xs text-zinc-400 mt-0.5">${p.highlights[0]}</p>
+          </div>
+          <p class="text-lg font-black">$${p.yearlyUsd || p.monthlyUsd}/월</p>
+        </div>
+      `).join('');
+
+      recPanel.classList.remove('hidden');
+      recPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Track event
+      if (window.va) { try { window.va('event', { name: 'ai_pricing_use_case', data: { case: btn.getAttribute('data-use-case') } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'ai_pricing_use_case', { use_case: btn.getAttribute('data-use-case'), event_category: 'tools' }); } catch (_) {} }
+    });
+  });
+</script>

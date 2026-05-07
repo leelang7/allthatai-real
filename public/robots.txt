@@ -1,6 +1,18 @@
 User-agent: *
 Allow: /
 
+# Search engines — explicit allow with crawl delay protection
+User-agent: Googlebot
+Allow: /
+User-agent: bingbot
+Allow: /
+User-agent: Yeti
+Allow: /
+User-agent: NaverBot
+Allow: /
+User-agent: Daumoa
+Allow: /
+
 # AI scrapers — opt out from training but allow indexing
 User-agent: GPTBot
 Disallow: /
@@ -9,6 +21,10 @@ Disallow: /
 User-agent: anthropic-ai
 Disallow: /
 User-agent: CCBot
+Disallow: /
+User-agent: Google-Extended
+Disallow: /
+User-agent: PerplexityBot
 Disallow: /
 
 Sitemap: https://allthatai-real.vercel.app/sitemap-index.xml

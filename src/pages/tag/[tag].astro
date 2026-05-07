@@ -3,15 +3,21 @@ import Layout from '../../layouts/Layout.astro';
 import { allGuides, type GuideMeta } from '../../data/guides';
 import { autoGuides } from '../../data/guides.auto';
 
+// Tags can contain "/" (e.g. "항공/여행", "주택/청약"). Astro's [tag] route is a
+// single path segment, so we slugify "/" → "-" for the URL while keeping the
+// original label in props for display + filtering.
 export async function getStaticPaths() {
-  // Build one page per unique tag across both manual + auto-generated content.
   const tags = new Set<string>();
   for (const g of allGuides) tags.add(g.tag);
   for (const g of autoGuides) tags.add(g.tag);
-  return [...tags].map((t) => ({ params: { tag: t } }));
+  return [...tags].map((t) => ({
+    params: { tag: t.replace(/\//g, '-') },
+    props: { tagLabel: t },
+  }));
 }
 
-const { tag } = Astro.params;
+const { tagLabel } = Astro.props as { tagLabel: string };
+const tag = tagLabel;
 
 interface Item extends GuideMeta {
   href: string;

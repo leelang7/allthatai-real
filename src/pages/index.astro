@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { products } from '../data/products';
+
+const featuredProducts = products.slice(0, 3);
 
 const heroStats = [
   { value: '13', label: '공식 출처 가이드' },
@@ -121,11 +124,14 @@ const categories = [
           <strong class="text-white">10–50만원</strong> 내고 있는 절차. 모두 공식 출처 기반.
         </p>
         <div class="mt-10 flex flex-wrap gap-3">
-          <a href="/guides/" class="group inline-flex items-center gap-2 rounded-xl bg-white text-zinc-950 px-6 py-3.5 font-bold hover:bg-zinc-100 transition shadow-lg shadow-white/10">
-            가이드 13개 보기 <span class="transition group-hover:translate-x-1">→</span>
+          <a href="/store/" class="group inline-flex items-center gap-2 rounded-xl bg-white text-zinc-950 px-6 py-3.5 font-bold hover:bg-zinc-100 transition shadow-lg shadow-white/10">
+            스토어 (₩2,900~) <span class="transition group-hover:translate-x-1">→</span>
           </a>
-          <a href="/services/play-launch/" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/40 backdrop-blur px-6 py-3.5 font-semibold hover:border-cyan-500/50 hover:bg-zinc-900 transition">
-            ₩39만 풀패키지
+          <a href="/services/play-launch/" class="inline-flex items-center gap-2 rounded-xl border border-cyan-500/40 bg-cyan-500/10 backdrop-blur px-6 py-3.5 font-semibold text-cyan-200 hover:bg-cyan-500/20 transition">
+            출시 풀패키지 ₩39만
+          </a>
+          <a href="/free/" class="inline-flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 backdrop-blur px-6 py-3.5 font-semibold text-emerald-200 hover:bg-emerald-500/20 transition">
+            무료 자료
           </a>
         </div>
         <div class="mt-14 grid grid-cols-3 gap-6 max-w-xl">
@@ -153,6 +159,41 @@ const categories = [
         </div>
       </div>
     </a>
+  </section>
+
+  <!-- ====== STORE STRIP — direct revenue surfacing ====== -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <p class="text-amber-300 text-sm font-bold uppercase tracking-widest">스토어</p>
+        <h2 class="mt-2 text-3xl font-black">대행사 ÷ 5–50배 가격으로 직접</h2>
+        <p class="mt-2 text-zinc-400 text-sm">PDF · 템플릿 · 코드팩 — 7일 환불 보증</p>
+      </div>
+      <a href="/store/" class="hidden sm:inline-flex items-center gap-1 text-sm text-amber-300 hover:text-amber-200 transition">전체 보기 →</a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      {featuredProducts.map((p) => (
+        <a
+          href={p.live ? `/store/${p.slug}/` : '/store/'}
+          class={`relative card-lift rounded-2xl border bg-zinc-900/40 p-5 transition flex flex-col ${p.live ? 'border-zinc-800 hover:border-amber-500/40' : 'border-zinc-900 opacity-75'}`}
+        >
+          <div class="flex items-center gap-2">
+            {p.badge && p.live && (
+              <span class="rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[9px] font-black px-2 py-0.5 tracking-widest uppercase">{p.badge}</span>
+            )}
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">{p.category}</span>
+          </div>
+          <h3 class="mt-2 font-black leading-snug flex-1">{p.title}</h3>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">{p.tagline}</p>
+          <div class="mt-4 flex items-end justify-between">
+            <span class="text-xl font-black">{p.priceKrw}</span>
+            <span class={`text-xs font-bold ${p.live ? 'text-amber-300' : 'text-zinc-500'}`}>
+              {p.live ? '구매 →' : '준비중'}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
   </section>
 
   <!-- THIS WEEK ISSUES -->

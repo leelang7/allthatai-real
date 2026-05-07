@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { products } from '../../data/products';
+
+// Show all products — live ones get full UI, in-prep ones get "준비중" so the
+// catalog tells visitors what's coming and primes the email list.
+const sorted = [...products].sort((a, b) => Number(b.live) - Number(a.live));
+---
+<Layout
+  title="스토어 — AllThatAI Real"
+  description="대행사 ₩50만 안 쓰고 직접 출시·등록하기 위한 PDF·템플릿·코드팩. 본인 시간 1주일 = ₩9,900."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-10">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+      디지털 상품 스토어
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      대행사 ₩50만 안 쓰고<br/>
+      <span class="text-gradient">직접 끝내는 키트</span>
+    </h1>
+    <p class="mt-5 text-lg text-zinc-400 max-w-3xl leading-relaxed">
+      앱 출시·1인 사업자·통신판매업 — 직접 해본 사람이 정리한 PDF/템플릿/코드팩.
+      대행사 ₩10–50만 ÷ 5–50배 가격으로, 같은 결과 + 본인이 절차 학습.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-24">
+    <div class="grid md:grid-cols-2 gap-5">
+      {sorted.map((p) => (
+        <a
+          href={p.live ? `/store/${p.slug}/` : '#'}
+          class={`relative rounded-2xl border bg-zinc-900/40 p-6 transition ${p.live ? 'border-zinc-800 hover:border-cyan-500/40 card-lift' : 'border-zinc-900 opacity-70 cursor-not-allowed'}`}
+          aria-disabled={!p.live}
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                {p.badge && p.live && (
+                  <span class="rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-300 text-[9px] font-black px-2 py-0.5 tracking-widest uppercase">
+                    {p.badge}
+                  </span>
+                )}
+                <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">{p.category}</span>
+              </div>
+              <h3 class="mt-2 text-lg font-black leading-snug">{p.title}</h3>
+              <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{p.tagline}</p>
+              {p.metric && (
+                <p class="mt-3 text-[11px] text-cyan-300 font-medium">{p.metric}</p>
+              )}
+            </div>
+          </div>
+          <div class="mt-5 flex items-end justify-between">
+            <span class="text-2xl font-black">{p.priceKrw}</span>
+            {p.live ? (
+              <span class="text-xs text-cyan-400 font-bold">자세히 보기 →</span>
+            ) : (
+              <span class="text-xs text-zinc-500 font-bold">준비중</span>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-10 rounded-2xl border border-zinc-800 bg-zinc-900/30 p-6 text-sm text-zinc-400">
+      <p class="font-bold text-zinc-200 mb-2">왜 이 가격?</p>
+      <p class="leading-relaxed">
+        대행사가 받는 ₩10–50만은 본인 인건비 + 마진. 본인이 직접 하면 시간만 들 뿐
+        법적 자격증 필요 없는 영역들입니다. 이 키트는 본인이 직접 한 절차를 시간 순서로
+        정리한 결과 — 시행착오 없이 따라하면 끝나는 분량입니다.
+      </p>
+      <p class="mt-3 text-xs text-zinc-500">
+        ⓘ 결제는 Gumroad. 다운로드 링크는 결제 즉시 이메일 + 영수증 발송.
+        7일 이내 환불 보증 (만족 못하면 이유 묻지 않음).
+      </p>
+    </div>
+  </section>
+</Layout>

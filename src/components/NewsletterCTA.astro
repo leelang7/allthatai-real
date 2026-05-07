@@ -1,4 +1,15 @@
 ---
+/**
+ * Newsletter signup. Posts to Buttondown if PUBLIC_BUTTONDOWN_USER is set,
+ * otherwise falls back to mailto so emails still arrive.
+ *
+ * Buttondown free tier: 100 subscribers, no CC required. Sign up at
+ * https://buttondown.com and put your username in PUBLIC_BUTTONDOWN_USER.
+ */
+const buttondownUser = (import.meta.env as any).PUBLIC_BUTTONDOWN_USER as string | undefined;
+const action = buttondownUser
+  ? `https://buttondown.com/api/emails/embed-subscribe/${buttondownUser}`
+  : '';
 ---
 <aside class="not-prose mt-16 rounded-2xl border border-zinc-800 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 p-8 md:p-10">
   <div class="grid md:grid-cols-[1.5fr_1fr] gap-6 items-center">
@@ -10,12 +21,53 @@
         스팸 없음, 광고 없음, 언제든 해지.
       </p>
     </div>
-    <form class="flex flex-col gap-2">
-      <input type="email" required placeholder="example@gmail.com"
-        class="rounded-lg border border-zinc-700 bg-zinc-900/60 px-4 py-2.5 text-sm placeholder-zinc-600 focus:border-cyan-500/60 focus:outline-none"/>
+    <form
+      class="newsletter-form flex flex-col gap-2"
+      action={action}
+      method="post"
+      target="popupwindow"
+      data-buttondown={buttondownUser || ''}
+    >
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder="example@gmail.com"
+        class="rounded-lg border border-zinc-700 bg-zinc-900/60 px-4 py-2.5 text-sm placeholder-zinc-600 focus:border-cyan-500/60 focus:outline-none"
+      />
+      <input type="hidden" name="embed" value="1" />
       <button type="submit" class="rounded-lg bg-cyan-500 text-zinc-950 px-4 py-2.5 font-bold text-sm hover:bg-cyan-400 transition">
         무료 구독
       </button>
+      <p class="newsletter-msg hidden text-xs text-emerald-300 mt-1"></p>
     </form>
   </div>
 </aside>
+
+<script is:inline>
+  document.querySelectorAll('form.newsletter-form').forEach((form) => {
+    form.addEventListener('submit', function (e) {
+      const hasButtondown = !!form.getAttribute('data-buttondown');
+      const email = form.querySelector('input[name="email"]')?.value;
+      if (window.va) { try { window.va('event', { name: 'newsletter_signup', data: {} }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'newsletter_signup', { event_category: 'monetization' }); } catch (_) {} }
+
+      if (!hasButtondown) {
+        e.preventDefault();
+        // Fallback: open mailto so the publisher manually adds them.
+        const subject = encodeURIComponent('AllThatAI Real 뉴스레터 구독 신청');
+        const body = encodeURIComponent('구독 이메일: ' + email);
+        window.location.href = 'mailto:leescvsir@gmail.com?subject=' + subject + '&body=' + body;
+        return;
+      }
+      // Open Buttondown popup for confirmation.
+      window.open(form.action, 'popupwindow', 'scrollbars=yes,width=800,height=600');
+      // Show local success message.
+      const msg = form.querySelector('.newsletter-msg');
+      if (msg) {
+        msg.textContent = '✓ 인증 메일을 확인하세요.';
+        msg.classList.remove('hidden');
+      }
+    });
+  });
+</script>

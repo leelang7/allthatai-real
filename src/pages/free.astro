@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Lead magnet: real Korean docs we already have on disk + email capture for
+// the bigger paid bundle. Email goes to Buttondown (if configured) for the
+// newsletter funnel. Direct download links are also provided so we don't
+// gate the most valuable thing (trust > friction).
+const buttondownUser = (import.meta.env as any).PUBLIC_BUTTONDOWN_USER as string | undefined;
+const newsletterAction = buttondownUser
+  ? `https://buttondown.com/api/emails/embed-subscribe/${buttondownUser}`
+  : '';
+---
+<Layout
+  title="무료 자료실 — AllThatAI Real"
+  description="통신판매업 면제 소명서 PDF/HWP, DUNS 발급 가이드 요약, Play Store 출시 체크리스트 — 진짜 사용한 양식 그대로 무료 다운로드."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-12">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      무료 자료실
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      구청 통과한 진짜 양식 — <span class="text-gradient">무료</span>
+    </h1>
+    <p class="mt-5 text-lg text-zinc-400 leading-relaxed">
+      AllThatFinder 출시할 때 직접 작성·구청 통과한 통신판매업 면제 소명서.
+      대행사 ₩5–10만 안 내고 그대로 받아 쓰세요.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-12">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <a
+        href="/free/통신판매업_면제소명서.pdf"
+        download
+        class="free-dl group rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-6 transition card-lift"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">📄</span>
+          <div>
+            <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">PDF</p>
+            <p class="font-bold text-white group-hover:text-cyan-300 transition">통신판매업 면제 소명서</p>
+          </div>
+        </div>
+        <p class="mt-3 text-sm text-zinc-400 leading-relaxed">
+          서명·도장 위치까지 그대로. 구청에 그대로 제출 가능한 PDF.
+        </p>
+      </a>
+
+      <a
+        href="/free/통신판매업_면제소명서.txt"
+        download
+        class="free-dl group rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-6 transition card-lift"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">📝</span>
+          <div>
+            <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">TXT</p>
+            <p class="font-bold text-white group-hover:text-cyan-300 transition">평문 양식</p>
+          </div>
+        </div>
+        <p class="mt-3 text-sm text-zinc-400 leading-relaxed">
+          본인 정보 채워넣기 위한 plain text. HWP/Word에 붙여넣고 작성.
+        </p>
+      </a>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-amber-200">
+      ⚠ 본 양식은 사례용 참고 자료입니다. 본인 사업 형태에 맞춰 면제 사유·연 매출
+      추정액·대표자 정보를 수정해서 제출하세요. 양식 그대로 못 통과한 사례도 있을
+      수 있어 사실 확인은 본인 책임.
+    </div>
+  </section>
+
+  <!-- Soft funnel: free downloaders who want more get the paid bundle email -->
+  <section class="mx-auto max-w-3xl px-4 pb-24">
+    <div class="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">한 단계 위</p>
+      <h2 class="mt-2 text-2xl font-black leading-tight">5종 포맷 + 작성 예시 5건 + 거절 시 대응법</h2>
+      <p class="mt-3 text-sm text-zinc-400 leading-relaxed">
+        무료 PDF는 한 가지 포맷 + 한 가지 사유. 유료 번들은 PDF/HWP/JPG/DOC/TXT 5포맷에
+        앱·SaaS·B2B·콘텐츠·교육 5종 작성 예시, 구청 거절 시 사유별 재제출 가이드까지
+        들어있습니다.
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <a href="/store/tongsin-template-bundle/" class="rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-5 py-2.5 text-sm transition">
+          유료 번들 ₩4,900 →
+        </a>
+        <span class="text-xs text-zinc-500">7일 환불 보증</span>
+      </div>
+    </div>
+
+    <!-- Newsletter capture -->
+    <div class="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900/30 p-6">
+      <p class="text-xs font-bold text-zinc-300 mb-2 uppercase tracking-widest">새 자료 나오면 메일</p>
+      <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+        DUNS·키스토어·IAP 등 새 무료 자료 / 구청 정책 변경 알림. 광고 없음.
+      </p>
+      <form
+        class="newsletter-form flex flex-col sm:flex-row gap-2"
+        action={newsletterAction}
+        method="post"
+        target="popupwindow"
+        data-buttondown={buttondownUser || ''}
+      >
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="example@gmail.com"
+          class="flex-1 rounded-lg border border-zinc-700 bg-zinc-900/60 px-4 py-2.5 text-sm placeholder-zinc-600 focus:border-cyan-500/60 focus:outline-none"
+        />
+        <input type="hidden" name="embed" value="1" />
+        <button type="submit" class="rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-5 py-2.5 text-sm transition whitespace-nowrap">
+          무료 구독
+        </button>
+      </form>
+      <p class="newsletter-msg hidden text-xs text-emerald-300 mt-2"></p>
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll('a.free-dl').forEach((a) => {
+      a.addEventListener('click', () => {
+        const path = a.getAttribute('href') || '';
+        if (window.va) { try { window.va('event', { name: 'free_download', data: { file: path } }); } catch (_) {} }
+        if (window.gtag) { try { window.gtag('event', 'free_download', { file: path, event_category: 'lead_magnet' }); } catch (_) {} }
+      });
+    });
+    document.querySelectorAll('form.newsletter-form').forEach((form) => {
+      form.addEventListener('submit', function (e) {
+        const hasButtondown = !!form.getAttribute('data-buttondown');
+        const email = form.querySelector('input[name="email"]')?.value;
+        if (window.va) { try { window.va('event', { name: 'newsletter_signup', data: { source: 'free' } }); } catch (_) {} }
+        if (window.gtag) { try { window.gtag('event', 'newsletter_signup', { event_category: 'monetization', source: 'free' }); } catch (_) {} }
+        if (!hasButtondown) {
+          e.preventDefault();
+          const subject = encodeURIComponent('AllThatAI Real 뉴스레터 구독 신청');
+          const body = encodeURIComponent('구독 이메일: ' + email);
+          window.location.href = 'mailto:leescvsir@gmail.com?subject=' + subject + '&body=' + body;
+          return;
+        }
+        window.open(form.action, 'popupwindow', 'scrollbars=yes,width=800,height=600');
+        const msg = form.querySelector('.newsletter-msg');
+        if (msg) {
+          msg.textContent = '✓ 인증 메일을 확인하세요.';
+          msg.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+</Layout>

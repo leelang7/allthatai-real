@@ -42,9 +42,43 @@ const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const QUOTA_RETRY_DELAY_MS = 30_000;
 const QUOTA_MAX_RETRIES = 1;
-// Once daily quota is exhausted, retrying inside the same run only burns time.
-// We flip this and short-circuit the rest of the candidates.
+
+// Multi-key rotation: each free Gemini API key gets its own daily RPD quota.
+// Adding GEMINI_API_KEY_2 / _3 in GH secrets multiplies effective output.
+// When key N gets quota-exhausted, we mark it and rotate to N+1 transparently.
+const API_KEYS: string[] = [
+  process.env.GEMINI_API_KEY,
+  process.env.GEMINI_API_KEY_2,
+  process.env.GEMINI_API_KEY_3,
+].filter((k): k is string => !!k);
+const EXHAUSTED_KEYS = new Set<number>();
+let CURRENT_KEY_IDX = 0;
+
+// True once ALL configured keys are exhausted. We keep generating without LLM
+// calls (skipping topics) instead of hard-aborting, so the workflow still
+// commits any prior successful generations.
 let QUOTA_EXHAUSTED = false;
+
+function getActiveKey(): string | null {
+  // Find next non-exhausted key starting from CURRENT_KEY_IDX
+  for (let i = 0; i < API_KEYS.length; i++) {
+    const idx = (CURRENT_KEY_IDX + i) % API_KEYS.length;
+    if (!EXHAUSTED_KEYS.has(idx)) {
+      CURRENT_KEY_IDX = idx;
+      return API_KEYS[idx];
+    }
+  }
+  QUOTA_EXHAUSTED = true;
+  return null;
+}
+
+function markCurrentKeyExhausted() {
+  EXHAUSTED_KEYS.add(CURRENT_KEY_IDX);
+  console.warn(
+    `   [quota] Key #${CURRENT_KEY_IDX + 1} exhausted ` +
+    `(${EXHAUSTED_KEYS.size}/${API_KEYS.length} keys down)`,
+  );
+}
 
 const UA =
   'Mozilla/5.0 (compatible; AllThatAIRealBot/1.0; +https://real.allthatai.kr)';
@@ -193,6 +227,53 @@ async function fetchReddit(url: string): Promise<DealCandidate[]> {
   }
 }
 
+/**
+ * Steam Web API featuredcategories — free, no key, returns ACTUAL ongoing sales
+ * with real prices/discounts/end dates. Each top-tier sale becomes a candidate
+ * with verified context the LLM can quote without hallucinating.
+ */
+async function fetchSteamSales(): Promise<DealCandidate[]> {
+  try {
+    const res = await fetch('https://store.steampowered.com/api/featuredcategories?cc=KR&l=korean', {
+      headers: { 'User-Agent': UA },
+    });
+    if (!res.ok) return [];
+    const json = (await res.json()) as any;
+    const out: DealCandidate[] = [];
+
+    // Big sales (limited-time storewide — most newsworthy)
+    const specials = json?.specials?.items || [];
+    for (const it of specials.slice(0, 5)) {
+      if (!it.discount_percent || it.discount_percent < 50) continue; // only meaningful discounts
+      const priceFinal = it.final_price ? `₩${Math.round(it.final_price / 100).toLocaleString()}` : '?';
+      const priceOriginal = it.original_price ? `₩${Math.round(it.original_price / 100).toLocaleString()}` : '?';
+      out.push({
+        title: `스팀 ${it.name} ${it.discount_percent}% 할인 — ${priceOriginal} → ${priceFinal}`,
+        source: 'steam:specials',
+        context: `현재 진행중. 정가 ${priceOriginal} → ${priceFinal} (${it.discount_percent}% off). Steam appid ${it.id}.`,
+        link: `https://store.steampowered.com/app/${it.id}`,
+      });
+    }
+
+    // Top sellers — strong commercial intent, even at small discounts
+    const topSellers = json?.top_sellers?.items || [];
+    for (const it of topSellers.slice(0, 3)) {
+      if (!it.discount_percent || it.discount_percent < 30) continue;
+      out.push({
+        title: `${it.name} 스팀 베스트셀러 — ${it.discount_percent}% 할인`,
+        source: 'steam:top_sellers',
+        context: `Steam 베스트셀러 + 현재 ${it.discount_percent}% 할인.`,
+        link: `https://store.steampowered.com/app/${it.id}`,
+      });
+    }
+
+    return out;
+  } catch (e) {
+    console.warn('steam fetch failed:', e instanceof Error ? e.message : e);
+    return [];
+  }
+}
+
 async function fetchYouTubeKeyword(kw: string): Promise<DealCandidate[]> {
   // YouTube exposes a feed for any search query at this URL.
   const url = `https://www.youtube.com/feeds/videos.xml?search_query=${encodeURIComponent(kw)}`;
@@ -284,8 +365,17 @@ Output ONLY a JSON object, no markdown fences, no commentary. Schema:
   "excerpt": "리스트 카드용 한 줄 (90자 이내)",
   "minutes": int 4-7,
   "sources": "참고한 출처 1-3개 (예: Reddit r/GameDeals, Steam, 토스뱅크 공식)",
-  "body_md": "Astro 페이지 본문 — 마크다운 + Callout 컴포넌트.\\n첫 단락은 <p class=\\"lead\\">로.\\n표는 마크다운 표 사용."
-}`;
+  "body_md": "Astro 페이지 본문 — 마크다운 + Callout 컴포넌트.\\n첫 단락은 <p class=\\"lead\\">로.\\n표는 마크다운 표 사용.",
+  "faqs": [{"q": "자주 묻는 질문", "a": "답변 (60-200자)"}, ...]  // optional, 2-4개. Google FAQ rich snippet 대상.
+  "howto": {                                                       // optional, HOW-TO 글일 때만.
+    "name": "어떤 절차인지",
+    "steps": [{"name": "단계명", "text": "단계 설명 50-200자"}, ...]
+  }
+}
+
+GOLDEN RULE: faqs/howto는 본문에 없는 정보 만들지 말고, 본문에서 직접 발췌해서 채워라.
+HOW-TO 토픽 ("받는 법", "신청법", "어떻게") 이면 howto 필수, FAQ는 선택.
+COMPARISON/LISTICLE이면 faqs 권장, howto 생략.`;
 
 interface GeminiResponse {
   candidates?: Array<{
@@ -296,8 +386,7 @@ interface GeminiResponse {
 
 async function callGemini(userMsg: string): Promise<string | null> {
   if (QUOTA_EXHAUSTED) return null;
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error('GEMINI_API_KEY missing');
+  if (API_KEYS.length === 0) throw new Error('No GEMINI_API_KEY* env vars set');
 
   const body = {
     systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
@@ -314,41 +403,235 @@ async function callGemini(userMsg: string): Promise<string | null> {
     ],
   };
 
-  for (let attempt = 0; attempt <= QUOTA_MAX_RETRIES; attempt++) {
-    const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    if (res.ok) {
-      const data = (await res.json()) as GeminiResponse;
-      const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
-      if (!text) {
-        console.warn('Gemini empty response, finishReason:', data.candidates?.[0]?.finishReason);
-        return null;
-      }
-      return text;
-    }
-    const errText = await res.text().catch(() => '');
-    // Daily quota exhausted: don't burn through more candidates on this run.
-    if (res.status === 429 && /exceeded your current quota|GenerateRequestsPerDayPerProjectPerModel/i.test(errText)) {
-      console.warn(`Gemini daily quota exhausted — aborting remaining candidates for this run.`);
-      QUOTA_EXHAUSTED = true;
+  // Outer loop: rotate keys when one gets quota-exhausted.
+  // Inner loop: retry transient 503/429 on the active key.
+  while (true) {
+    const apiKey = getActiveKey();
+    if (!apiKey) {
+      console.warn('All Gemini API keys exhausted — aborting remaining candidates.');
       return null;
     }
-    if ((res.status === 429 || res.status === 503) && attempt < QUOTA_MAX_RETRIES) {
-      const wait = QUOTA_RETRY_DELAY_MS * (attempt + 1);
-      console.warn(`Gemini ${res.status} — waiting ${wait / 1000}s then retrying (${attempt + 1}/${QUOTA_MAX_RETRIES})`);
-      await new Promise((r) => setTimeout(r, wait));
-      continue;
+
+    let transientError = false;
+    for (let attempt = 0; attempt <= QUOTA_MAX_RETRIES; attempt++) {
+      const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (res.ok) {
+        const data = (await res.json()) as GeminiResponse;
+        const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
+        if (!text) {
+          console.warn('Gemini empty response, finishReason:', data.candidates?.[0]?.finishReason);
+          return null;
+        }
+        return text;
+      }
+      const errText = await res.text().catch(() => '');
+      // Daily quota exhausted on this key: rotate.
+      if (res.status === 429 && /exceeded your current quota|GenerateRequestsPerDayPerProjectPerModel/i.test(errText)) {
+        markCurrentKeyExhausted();
+        transientError = true;
+        break; // inner loop — outer will pick next key
+      }
+      if ((res.status === 429 || res.status === 503) && attempt < QUOTA_MAX_RETRIES) {
+        const wait = QUOTA_RETRY_DELAY_MS * (attempt + 1);
+        console.warn(`Gemini ${res.status} — waiting ${wait / 1000}s then retrying (${attempt + 1}/${QUOTA_MAX_RETRIES})`);
+        await new Promise((r) => setTimeout(r, wait));
+        continue;
+      }
+      console.warn(`Gemini ${res.status}: ${errText.slice(0, 220)}`);
+      return null;
     }
-    console.warn(`Gemini ${res.status}: ${errText.slice(0, 220)}`);
-    return null;
+
+    if (!transientError) return null;
+    // else: outer loop picks next key
   }
-  return null;
 }
 
-async function generateArticle(item: DealCandidate): Promise<{
+// Brand → affiliates.ts key. Lowercased for case-insensitive matching.
+// Order matters: longer / more specific names first to avoid partial overlap
+// (e.g. "트래블월렛" must match before generic "트래블").
+const BRAND_TO_AFFILIATE: Array<[string, string]> = [
+  ['트래블월렛', 'travelWallet'],
+  ['트래블로그', 'travelLog'],
+  ['카카오뱅크', 'kakaobank'],
+  ['쿠팡플레이', 'coupangPlay'],
+  ['쿠팡파트너스', 'coupangPartners'],
+  ['쿠팡 파트너스', 'coupangPartners'],
+  ['쿠팡', 'coupangSearch'],
+  ['nordvpn', 'nordvpn'],
+  ['surfshark', 'surfshark'],
+  ['cursor', 'cursor'],
+  ['notion', 'notion'],
+  ['midjourney', 'midjourney'],
+  ['claude pro', 'claude'],
+  ['claude', 'claude'],
+  ['chatgpt plus', 'chatgpt'],
+  ['chatgpt', 'chatgpt'],
+  ['넷플릭스', 'netflix'],
+  ['netflix', 'netflix'],
+  ['디즈니플러스', 'disneyplus'],
+  ['디즈니+', 'disneyplus'],
+  ['apple tv+', 'appleTv'],
+  ['agoda', 'agoda'],
+  ['아고다', 'agoda'],
+  ['booking.com', 'booking'],
+  ['부킹닷컴', 'booking'],
+  ['trip.com', 'trip'],
+  ['steam', 'steam'],
+  ['스팀', 'steam'],
+  ['epic games', 'epic'],
+  ['에픽 게임즈', 'epic'],
+  ['cloudflare', 'cloudflare'],
+  ['vercel', 'vercel'],
+  ['wise', 'wise'],
+  ['토스뱅크', 'toss'],
+  ['토스', 'toss'],
+];
+
+/**
+ * First-mention affiliate injection: scan body markdown and wrap the FIRST
+ * occurrence of each known brand with <AffiliateLink to="key">brand</AffiliateLink>.
+ * Subsequent mentions are left as plain text — over-linking hurts UX and
+ * gets flagged as affiliate spam by Google.
+ *
+ * Returns: { body, usedKeys } so the caller can decide whether to import
+ * the AffiliateLink component into the generated file.
+ */
+function injectAffiliateLinks(body: string): { body: string; usedKeys: string[] } {
+  const used = new Set<string>();
+  let out = body;
+
+  for (const [brand, key] of BRAND_TO_AFFILIATE) {
+    if (used.has(key)) continue;
+
+    // Word-boundary-ish regex (case-insensitive). Korean text doesn't have
+    // word boundaries, so we use lookahead/lookbehind for non-letter chars.
+    const escaped = brand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Avoid matching inside existing <AffiliateLink> tags or code blocks.
+    const re = new RegExp(
+      `(?<![\\w<\\[\\(])(${escaped})(?![\\w>\\]\\)])`,
+      'i',
+    );
+    const match = re.exec(out);
+    if (!match) continue;
+
+    // Don't replace if the match is inside an existing tag/component.
+    const before = out.slice(0, match.index);
+    const openTags = (before.match(/<[^/][^>]*$/) || []).length;
+    if (openTags > 0) continue;
+
+    const replacement = `<AffiliateLink to="${key}">${match[1]}</AffiliateLink>`;
+    out = out.slice(0, match.index) + replacement + out.slice(match.index + match[0].length);
+    used.add(key);
+  }
+
+  return { body: out, usedKeys: [...used] };
+}
+
+/**
+ * Auto internal linking: scan body for matches against existing article titles
+ * (manual guides + previous auto-issues) and add markdown links to them on first
+ * mention. Boosts internal link density (Google ranking factor) without manual
+ * editing. Capped at 3 links per article so it doesn't look spammy.
+ *
+ * Also adds /tag/<slug> link on first occurrence of any registered tag.
+ */
+function injectInternalLinks(
+  body: string,
+  excludeSlug: string,
+  guides: Array<{ slug: string; title: string; tag: string }>,
+  autoSlugs: Array<{ slug: string; title: string; tag: string }>,
+): string {
+  let out = body;
+  let added = 0;
+  const MAX_LINKS = 3;
+  const used = new Set<string>();
+
+  const all = [
+    ...guides.map((g) => ({ ...g, href: `/guides/${g.slug}/` })),
+    ...autoSlugs.map((a) => ({ ...a, href: `/issues/${a.slug}/` })),
+  ].filter((x) => x.slug !== excludeSlug);
+
+  // Sort by title length desc — longer matches first (avoid partial overlap)
+  all.sort((a, b) => b.title.length - a.title.length);
+
+  for (const a of all) {
+    if (added >= MAX_LINKS) break;
+    if (used.has(a.slug)) continue;
+
+    // Match by 8+ char substring of title (avoid matching common short words)
+    const fragment = a.title.slice(0, Math.max(8, Math.floor(a.title.length * 0.5)));
+    if (fragment.length < 8) continue;
+
+    const escaped = fragment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`(?<!\\[)(${escaped})(?!\\]|<\\/a>)`, 'i');
+    const match = re.exec(out);
+    if (!match) continue;
+
+    // Avoid replacing inside an existing markdown link or tag
+    const before = out.slice(0, match.index);
+    const lastOpenBracket = before.lastIndexOf('[');
+    const lastCloseBracket = before.lastIndexOf(']');
+    if (lastOpenBracket > lastCloseBracket) continue;
+
+    const linkMd = `[${match[1]}](${a.href})`;
+    out = out.slice(0, match.index) + linkMd + out.slice(match.index + match[0].length);
+    used.add(a.slug);
+    added++;
+  }
+
+  return out;
+}
+
+/**
+ * Fix common LLM output errors before writing to disk.
+ * Astro/JSX is strict — lowercase component names render as HTML strings,
+ * unbalanced tags break the build, etc. We patch up known mistakes here so
+ * we don't get a Vercel build error from a single bad LLM run.
+ */
+function sanitizeBody(body: string): string {
+  let out = body;
+
+  // 1. Component names must be PascalCase (lowercase = treated as HTML element)
+  out = out.replace(/<callout(\s|>|\/)/g, '<Callout$1');
+  out = out.replace(/<\/callout>/g, '</Callout>');
+  out = out.replace(/<affiliateLink(\s|>|\/)/g, '<AffiliateLink$1');
+  out = out.replace(/<\/affiliateLink>/g, '</AffiliateLink>');
+
+  // 2. Strip empty title="" attributes (visual noise + accessibility)
+  out = out.replace(/\stitle=""/g, '');
+
+  // 3. Markdown fence drift: LLM sometimes wraps the whole body in ```html / ```
+  out = out.replace(/^\s*```(?:html|md|markdown|astro)?\s*\n?/i, '');
+  out = out.replace(/\n?\s*```\s*$/i, '');
+
+  // 4. Astro chokes on bare ampersands inside text. Convert standalone & to &amp;
+  // (preserve already-encoded entities and JSX expressions).
+  out = out.replace(/&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, '&amp;');
+
+  // 5. Curly-brace gotcha: { in plain text becomes a JSX expression.
+  // Only escape when not inside an obvious JSX attribute (attr={...}).
+  // Conservative: replace `{` not followed by `<word>=` or inside common code patterns.
+  // Skipped for now — too easy to break legitimate content; LLMs rarely output stray {.
+
+  // 6. Self-closing tags that shouldn't be self-closing (e.g. <br/>) are OK in JSX.
+
+  // 7. Strip <script> tags entirely — LLM sometimes wraps inline JS that breaks build.
+  out = out.replace(/<script[\s\S]*?<\/script>/gi, '');
+
+  return out;
+}
+
+async function generateArticle(
+  item: DealCandidate,
+  internalLinkSources: {
+    guides: Array<{ slug: string; title: string; tag: string }>;
+    autoSlugs: Array<{ slug: string; title: string; tag: string }>;
+  } = { guides: [], autoSlugs: [] },
+): Promise<{
   meta: GeneratedMeta;
   fileBody: string;
 } | null> {
@@ -394,19 +677,57 @@ ${item.link ? `참고 링크: ${item.link}` : ''}
     type: 'issue',
   };
 
+  const faqsAttr = Array.isArray(parsed.faqs) && parsed.faqs.length > 0
+    ? `\n  faqs={${JSON.stringify(parsed.faqs)}}`
+    : '';
+  const howtoAttr = parsed.howto && Array.isArray(parsed.howto.steps) && parsed.howto.steps.length > 0
+    ? `\n  howto={${JSON.stringify(parsed.howto)}}`
+    : '';
+
+  // Affiliate disclosure: required by 표시광고법 for any commercial-intent article.
+  // Government/housing posts are pure public-info and don't carry affiliate links.
+  const COMMERCIAL_TAGS = new Set([
+    '게임할인', 'AI 도구', '카드/핀테크', 'OTT', '직구/쇼핑',
+    '항공/여행', '소프트웨어', 'Steam',
+  ]);
+  const isCommercial = COMMERCIAL_TAGS.has(meta.tag);
+
+  // Pipeline: sanitize → internal-link → affiliate-link.
+  // Internal links boost SEO compounding (Google rewards link density across
+  // own pages). Run before affiliate links so they don't fight over the same
+  // brand-name token.
+  let rawBody = sanitizeBody(parsed.body_md || '');
+  rawBody = injectInternalLinks(
+    rawBody,
+    slug,
+    internalLinkSources.guides,
+    internalLinkSources.autoSlugs,
+  );
+  const { body: bodyWithAff, usedKeys } =
+    isCommercial ? injectAffiliateLinks(rawBody) : { body: rawBody, usedKeys: [] };
+
+  const showDisclosure = isCommercial && usedKeys.length > 0;
+  const importAffiliateLink = usedKeys.length > 0;
+
+  const imports = [
+    `import ArticleLayout from '../../../layouts/ArticleLayout.astro';`,
+    `import Callout from '../../../components/Callout.astro';`,
+    showDisclosure && `import AffiliateDisclosure from '../../../components/AffiliateDisclosure.astro';`,
+    importAffiliateLink && `import AffiliateLink from '../../../components/AffiliateLink.astro';`,
+  ].filter(Boolean).join('\n');
+
   const fileBody = `---
-import ArticleLayout from '../../../layouts/ArticleLayout.astro';
-import Callout from '../../../components/Callout.astro';
+${imports}
 ---
 <ArticleLayout
   title=${JSON.stringify(meta.title)}
   description=${JSON.stringify(parsed.description || '')}
   slug=${JSON.stringify(slug)}
   updated=${JSON.stringify(today)}
-  sources=${JSON.stringify(parsed.sources || '')}
+  sources=${JSON.stringify(parsed.sources || '')}${faqsAttr}${howtoAttr}
 >
-
-${parsed.body_md || ''}
+${showDisclosure ? '\n<AffiliateDisclosure />\n' : ''}
+${bodyWithAff}
 
 </ArticleLayout>
 `;
@@ -448,10 +769,11 @@ function pickEvergreen(count: number): DealCandidate[] {
 }
 
 async function main() {
-  if (!process.env.GEMINI_API_KEY) {
-    console.error('GEMINI_API_KEY missing');
+  if (API_KEYS.length === 0) {
+    console.error('At least one of GEMINI_API_KEY / GEMINI_API_KEY_2 / GEMINI_API_KEY_3 must be set');
     process.exit(1);
   }
+  console.log(`Configured ${API_KEYS.length} Gemini API key(s) (rotation enabled)`);
 
   console.log('1. Fetching deal candidates...');
   const allItems: DealCandidate[] = [];
@@ -462,6 +784,14 @@ async function main() {
   const evergreen = pickEvergreen(MAX_NEW_PER_RUN * 3);
   allItems.push(...evergreen);
   console.log(`   evergreen seeds (priority): ${evergreen.length}`);
+
+  // Steam API — free, returns REAL ongoing sales with prices in KRW. Highest
+  // signal for game-deal articles since the LLM can quote verified numbers.
+  const steam = await fetchSteamSales();
+  if (steam.length > 0) {
+    allItems.push(...steam);
+    console.log(`   steam:specials/top_sellers: ${steam.length} verified sales`);
+  }
 
   // Reddit — supplemental. Filtered to keywords likely to be relevant to a
   // Korean reader (global digital products, Steam, Epic, etc.). US-only
@@ -486,6 +816,20 @@ async function main() {
 
   console.log(`2. ${candidates.length} candidates after filter (blocklist: ${BLOCKED_KEYWORDS.length} terms)`);
 
+  // Internal-link sources: existing manual guides + previously-generated auto issues.
+  // Loaded once, passed to each generateArticle call.
+  const internalGuides = allGuides.map((g) => ({
+    slug: g.slug, title: g.title, tag: g.tag,
+  }));
+  let internalAutoSlugs: Array<{ slug: string; title: string; tag: string }> = [];
+  try {
+    const mod = await import('../src/data/guides.auto');
+    internalAutoSlugs = ((mod as any).autoGuides || []).map((a: any) => ({
+      slug: a.slug, title: a.title, tag: a.tag,
+    }));
+  } catch { /* first run */ }
+  console.log(`   internal link pool: ${internalGuides.length} guides + ${internalAutoSlugs.length} issues`);
+
   const generated: GeneratedMeta[] = [];
   await fs.mkdir(ISSUES_DIR, { recursive: true });
 
@@ -493,12 +837,19 @@ async function main() {
     if (generated.length >= MAX_NEW_PER_RUN) break;
     console.log(`3. Generating: ${cand.title}`);
     try {
-      const result = await generateArticle(cand);
+      const result = await generateArticle(cand, {
+        guides: internalGuides,
+        autoSlugs: internalAutoSlugs,
+      });
       if (!result) continue;
       const slugDir = path.join(ISSUES_DIR, result.meta.slug);
       await fs.mkdir(slugDir, { recursive: true });
       await fs.writeFile(path.join(slugDir, 'index.astro'), result.fileBody, 'utf8');
       generated.push(result.meta);
+      // Newly-generated articles enter the link pool for the rest of this run too
+      internalAutoSlugs.unshift({
+        slug: result.meta.slug, title: result.meta.title, tag: result.meta.tag,
+      });
       console.log(`   wrote ${result.meta.slug}`);
     } catch (e) {
       console.error(`   error on "${cand.title}":`, e instanceof Error ? e.message : e);
@@ -508,6 +859,18 @@ async function main() {
   if (generated.length > 0) {
     await appendAutoMeta(generated);
     console.log(`4. Appended ${generated.length} entries to guides.auto.ts`);
+
+    // Emit fresh URL list for IndexNow (Bing/Yandex/Seznam auto-discover).
+    // Picked up by the workflow's next step and POSTed without user action.
+    const urls = generated.map(
+      (m) => `https://allthatai-real.vercel.app/issues/${m.slug}/`
+    );
+    await fs.writeFile(
+      path.join(ROOT, 'fresh-urls.txt'),
+      urls.join('\n') + '\n',
+      'utf8',
+    );
+    console.log(`   wrote fresh-urls.txt (${urls.length} URLs)`);
   } else {
     console.log('4. Nothing new generated this run');
   }

@@ -34,10 +34,13 @@ jobs:
       - name: Run auto-generator
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          MAX_NEW_PER_RUN: '3'
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+          GEMINI_API_KEY_3: ${{ secrets.GEMINI_API_KEY_3 }}
+          MAX_NEW_PER_RUN: '5'
         run: npx tsx scripts/auto-generate.ts
 
       - name: Commit and push if changed
+        id: commit
         run: |
           git config user.name "AllThatAI Real Bot"
           git config user.email "bot@allthatai.kr"
@@ -45,6 +48,12 @@ jobs:
             git add -A
             git commit -m "auto: $(date -u +%Y-%m-%d) trending issues"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "No changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Submit fresh URLs to IndexNow (Bing/Yandex/Seznam)
+        if: steps.commit.outputs.changed == 'true' && hashFiles('fresh-urls.txt') != ''
+        run: cat fresh-urls.txt | npx tsx scripts/indexnow-ping.ts

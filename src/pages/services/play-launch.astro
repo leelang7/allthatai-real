@@ -1,6 +1,68 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
+// Pricing tiers — lower entry hooks more buyers; full package monetizes the
+// time-saver narrative. All tiers feed back into "더 큰 패키지 차액 환산" upsell.
+const tiers = [
+  {
+    name: '미니 — 키스토어 + 서명',
+    price: '₩29,000',
+    headline: '진짜 30분에 끝나는 부분',
+    target: '직접 다 한 번 해보고 싶은 개발자',
+    items: [
+      'upload-keystore.jks 직접 만들기',
+      '비밀번호 백업 체계',
+      'AAB 서명 빌드 검증',
+      '플레이 콘솔 업로드 직전까지',
+    ],
+    cta: '미니 신청',
+    accent: 'from-zinc-700 to-zinc-800',
+  },
+  {
+    name: 'DUNS 전용',
+    price: '₩99,000',
+    headline: '대행사 10–20만원 → 5만원 이하',
+    target: '조직 계정 전환만 필요한 분',
+    items: [
+      'D&B 본사 직접 신청 안내 (한국 대행 X)',
+      'DUNS 발급까지 2주 동행',
+      'Play Console 조직 전환 직전까지',
+      '14일/12명 면제 활용법 1회 상담',
+    ],
+    cta: 'DUNS 전용 신청',
+    accent: 'from-emerald-500/40 to-teal-500/30',
+    popular: true,
+  },
+  {
+    name: '풀패키지',
+    price: '₩390,000',
+    headline: '혼자 5일 → 같이 1–2일',
+    target: '인디 개발자 첫 출시',
+    items: [
+      '미니 + DUNS + 통신판매업',
+      'Play Console 13개 항목 동행',
+      'IAP SKU 설계 + Google Play Billing',
+      '첫 출시 + 7일 크래시 대응 1회',
+    ],
+    cta: '풀패키지 상담',
+    accent: 'from-cyan-500/40 to-violet-500/30',
+  },
+  {
+    name: 'iOS 추가',
+    price: '+₩490,000',
+    headline: 'App Store + Apple Dev $99/년',
+    target: 'iOS도 같이 가는 분',
+    items: [
+      'Apple Developer 등록 동행',
+      '빌드/서명/Provisioning Profile',
+      'TestFlight 베타 + 심사 통과',
+      '첫 출시 + 7일 크래시 대응',
+    ],
+    cta: 'iOS 추가 문의',
+    accent: 'from-zinc-700 to-zinc-800',
+  },
+];
+
 const includes = [
   { t: '키스토어 생성 + 안전 보관 가이드', d: '실제 출시에 쓰는 upload-keystore.jks 직접 만들고 비밀번호 백업 체계 잡기.' },
   { t: '패키지 ID 결정 + Android/iOS 정합', d: 'com.example.* 함정 + 한 번 정하면 못 바꾸는 것 / iOS bundle ID 동기화.' },
@@ -53,9 +115,105 @@ const faq = [
       Play Console 13개 항목, IAP 연동, JNI 크래시까지 — 한 번에 끝내는 풀패키지.
     </p>
     <div class="mt-8 flex flex-wrap gap-3">
-      <a href="#contact" class="rounded-lg bg-cyan-500 text-zinc-950 px-6 py-3 font-bold hover:bg-cyan-400">상담 신청</a>
-      <a href="#includes" class="rounded-lg border border-zinc-700 px-6 py-3 font-semibold hover:bg-zinc-900">포함 내역 →</a>
+      <a href="#tiers" class="rounded-lg bg-cyan-500 text-zinc-950 px-6 py-3 font-bold hover:bg-cyan-400">가격표 보기</a>
+      <a href="#contact" class="rounded-lg border border-zinc-700 px-6 py-3 font-semibold hover:bg-zinc-900">상담 신청 →</a>
     </div>
+  </section>
+
+  <!-- ======= TRUST: AllThatFinder real-case ======= -->
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <div class="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 p-8">
+      <div class="flex items-start gap-4">
+        <div class="text-3xl">✓</div>
+        <div class="flex-1">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-300">실제 출시 사례</p>
+          <h2 class="mt-2 text-2xl font-black leading-tight">
+            제가 직접 출시한 앱 — AllThatFinder
+          </h2>
+          <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+            on-device CLIP/AI 미디어 검색 앱. Play Store에 정식 등록 (com.allthatai.allthatfinder).
+            DUNS·통신판매업·14일 면제·IAP·심사 통과까지 직접 거친 결과입니다.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1">DUNS 직접 발급</span>
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1">통신판매업 면제 통과</span>
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1">조직 계정 전환</span>
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1">Play Billing IAP</span>
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1">i18n KO/EN</span>
+            <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1">16KB align 통과</span>
+          </div>
+          <p class="mt-5 text-xs text-zinc-500 leading-relaxed">
+            대행사가 아니라 본인이 직접 출시한 사람의 가이드입니다. 헤맨 함정 그대로 정리해서 전수.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= PROCESS TIMELINE ======= -->
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <div class="text-center mb-8">
+      <p class="text-cyan-400 text-sm font-medium">진행 흐름</p>
+      <h2 class="mt-2 text-2xl font-extrabold">상담 → 결제 → 출시까지</h2>
+    </div>
+    <div class="space-y-4">
+      {[
+        { d: 'Day 0', t: '상담 신청 (이 페이지)', s: '24시간 내 회신. 카톡/메일 편한 채널.' },
+        { d: 'Day 1', t: '진단 + 견적 확정', s: '현재 앱 상태 보고 어느 티어 + 일정 확정. 결제 토스페이먼츠.' },
+        { d: 'Day 2–3', t: '함께 작업', s: '키스토어부터 Play Console 13개 항목까지. Zoom 또는 채팅 동행.' },
+        { d: 'Day 4–7', t: 'Play Store 심사 대기', s: '제출 후 심사 통과까지 동행. 거절 시 1회 재제출 무료.' },
+        { d: 'Day 7+', t: '출시 후 7일 크래시 대응', s: 'logcat·ANR 1회 분석 + 핫픽스 가이드.' },
+      ].map((step) => (
+        <div class="flex items-start gap-4 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <span class="rounded-lg bg-cyan-500/10 text-cyan-300 text-xs font-bold px-3 py-1.5 whitespace-nowrap">{step.d}</span>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold">{step.t}</p>
+            <p class="mt-1 text-sm text-zinc-400 leading-relaxed">{step.s}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ======= PRICING TIERS ======= -->
+  <section id="tiers" class="mx-auto max-w-6xl px-4 py-12">
+    <div class="text-center mb-10">
+      <p class="text-cyan-400 text-sm font-medium">가격표</p>
+      <h2 class="mt-2 text-3xl font-extrabold">필요한 만큼만 — 단계별 가격</h2>
+      <p class="mt-3 text-zinc-400">키스토어부터 풀패키지까지. 직접 하실 부분은 직접 하세요.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {tiers.map((t) => (
+        <div class={`relative rounded-2xl border ${t.popular ? 'border-emerald-500/50' : 'border-zinc-800'} bg-zinc-900/40 p-6 flex flex-col`}>
+          {t.popular && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-500 text-zinc-950 text-[10px] font-black px-3 py-1 tracking-widest uppercase">
+              가장 인기
+            </div>
+          )}
+          <div class={`absolute inset-0 rounded-2xl bg-gradient-to-br ${t.accent} opacity-10 pointer-events-none`}></div>
+          <div class="relative flex-1">
+            <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold">{t.name}</p>
+            <p class="mt-3 text-3xl font-black">{t.price}</p>
+            <p class="mt-1 text-xs text-cyan-300 font-medium">{t.headline}</p>
+            <p class="mt-2 text-xs text-zinc-500">{t.target}</p>
+            <ul class="mt-5 space-y-1.5 text-sm text-zinc-300">
+              {t.items.map((it) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-400 mt-0.5">✓</span>
+                  <span class="leading-snug">{it}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <a href="#contact" class={`relative mt-6 block text-center rounded-lg ${t.popular ? 'bg-emerald-500 hover:bg-emerald-400 text-zinc-950' : 'border border-zinc-700 hover:bg-zinc-800 text-white'} font-bold px-4 py-2.5 text-sm transition`}>
+            {t.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+    <p class="mt-6 text-center text-xs text-zinc-500">
+      ※ 모든 가격은 부가세 별도. 토스페이먼츠 결제. 키스토어/DUNS 시작 전 100% 환불.
+    </p>
   </section>
 
   <section id="includes" class="mx-auto max-w-4xl px-4 py-12">
@@ -86,15 +244,104 @@ const faq = [
     </div>
   </section>
 
-  <section id="contact" class="mx-auto max-w-4xl px-4 py-16">
-    <div class="rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950 p-8 md:p-12 text-center">
-      <h2 class="text-3xl font-bold">상담 신청</h2>
-      <p class="mt-3 text-zinc-400">현재 앱 상태 + 마감 일정 알려주시면 24시간 내 답변.</p>
-      <div class="mt-6 flex flex-wrap gap-3 justify-center">
-        <a href="https://open.kakao.com/me/yourchannel" class="rounded-lg bg-yellow-400 text-zinc-950 px-6 py-3 font-bold hover:bg-yellow-300">카톡 오픈채팅</a>
-        <a href="mailto:leescvsir@nate.com" class="rounded-lg border border-zinc-700 px-6 py-3 font-semibold hover:bg-zinc-900">이메일 문의</a>
+  <section id="contact" class="mx-auto max-w-2xl px-4 py-16">
+    <div class="rounded-2xl border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950 p-8 md:p-12">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold">상담 신청</h2>
+        <p class="mt-3 text-zinc-400">현재 앱 상태 + 원하는 시점 알려주시면 24시간 내 답변.</p>
       </div>
-      <p class="mt-6 text-xs text-zinc-500">※ 결제는 상담 후 토스페이먼츠로 진행. 키스토어 생성 전 100% 환불.</p>
+
+      <!-- Lead capture form: posts to Formspree (no backend needed).
+           User must replace FORMSPREE_ID with their own form id from formspree.io.
+           Until then, the form falls back to mailto. -->
+      <form
+        id="lead-form"
+        action="https://formspree.io/f/FORMSPREE_ID"
+        method="POST"
+        class="mt-8 space-y-4"
+      >
+        <div class="grid sm:grid-cols-2 gap-3">
+          <label class="block">
+            <span class="block text-xs font-semibold text-zinc-300 mb-1.5">이름 / 닉네임 *</span>
+            <input
+              name="name"
+              required
+              class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none px-4 py-2.5 text-sm text-white"
+            />
+          </label>
+          <label class="block">
+            <span class="block text-xs font-semibold text-zinc-300 mb-1.5">이메일 *</span>
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none px-4 py-2.5 text-sm text-white"
+            />
+          </label>
+        </div>
+        <label class="block">
+          <span class="block text-xs font-semibold text-zinc-300 mb-1.5">관심 패키지</span>
+          <select
+            name="tier"
+            class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none px-4 py-2.5 text-sm text-white"
+          >
+            <option>풀패키지 ₩390,000</option>
+            <option>DUNS 전용 ₩99,000</option>
+            <option>미니 (키스토어) ₩29,000</option>
+            <option>iOS 추가 (+₩490,000)</option>
+            <option>아직 결정 안 함 — 상담 받고 싶음</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-semibold text-zinc-300 mb-1.5">앱 상태 / 일정 / 궁금한 점</span>
+          <textarea
+            name="message"
+            rows="4"
+            class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none px-4 py-3 text-sm text-white resize-y"
+            placeholder="예: Flutter 앱, 안드로이드만, 다음달까지 출시 희망. DUNS는 아직."
+          ></textarea>
+        </label>
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-3 transition"
+        >
+          상담 신청 보내기
+        </button>
+        <p class="text-center text-[11px] text-zinc-500">
+          24시간 내 회신. 회신 채널은 이메일.
+        </p>
+      </form>
+
+      <!-- Backup direct contact -->
+      <div class="mt-8 pt-6 border-t border-zinc-800 text-center">
+        <p class="text-xs text-zinc-500 mb-3">폼이 안 되거나 빠르게 연락하고 싶으면</p>
+        <a href="mailto:leescvsir@gmail.com" class="text-sm text-cyan-300 hover:text-cyan-200 underline">leescvsir@gmail.com</a>
+      </div>
+
+      <p class="mt-6 text-xs text-zinc-500 text-center">
+        ※ 결제는 상담 후 토스페이먼츠로 진행. 키스토어/DUNS 시작 전 100% 환불.
+      </p>
     </div>
   </section>
+
+  <script is:inline>
+    // Track form submit + fallback to mailto if FORMSPREE_ID isn't set yet.
+    document.getElementById('lead-form')?.addEventListener('submit', function (e) {
+      const action = this.getAttribute('action') || '';
+      if (action.includes('FORMSPREE_ID')) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        const subject = encodeURIComponent('Play Store 출시 상담 — ' + (fd.get('name') || ''));
+        const body = encodeURIComponent(
+          '이름: ' + (fd.get('name') || '') + '\n' +
+          '이메일: ' + (fd.get('email') || '') + '\n' +
+          '관심: ' + (fd.get('tier') || '') + '\n\n' +
+          (fd.get('message') || '')
+        );
+        window.location.href = 'mailto:leescvsir@gmail.com?subject=' + subject + '&body=' + body;
+      }
+      if (window.va) { try { window.va('event', { name: 'lead_submit', data: { tier: this.tier?.value } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'generate_lead', { event_category: 'monetization', value: 39 }); } catch (_) {} }
+    });
+  </script>
 </Layout>

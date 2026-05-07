@@ -1,0 +1,4 @@
+# AdSense ads.txt — replace AAAAAAAAAA with your AdSense publisher ID
+# (Format: pub-XXXXXXXXXXXXXXXX, found at https://www.google.com/adsense/new/u/0/pub-XXXXXXXXXXXXXXXX/account)
+# Once filled, deploy and verify at https://www.google.com/adsense → Sites
+# google.com, pub-AAAAAAAAAA, DIRECT, f08c47fec0942fa0

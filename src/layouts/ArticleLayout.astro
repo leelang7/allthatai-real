@@ -8,15 +8,19 @@ import RelatedGrid from '../components/RelatedGrid.astro';
 import NewsletterCTA from '../components/NewsletterCTA.astro';
 import { allGuides } from '../data/guides';
 
+interface FaqEntry { q: string; a: string }
+interface HowToStep { name: string; text: string }
 interface Props {
   title: string;
   description?: string;
   slug: string;
   updated?: string;
   sources?: string;
+  faqs?: FaqEntry[];
+  howto?: { name?: string; steps: HowToStep[] };
 }
 
-const { title, description, slug, updated, sources } = Astro.props;
+const { title, description, slug, updated, sources, faqs, howto } = Astro.props;
 const meta = allGuides.find((g) => g.slug === slug);
 const tag = meta?.tag || '가이드';
 const minutes = meta?.minutes || 5;
@@ -70,10 +74,39 @@ const breadcrumbLd = {
     { '@type': 'ListItem', position: 3, name: title, item: articleUrl },
   ],
 };
+
+const faqLd = faqs && faqs.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
+
+const howToLd = howto && howto.steps && howto.steps.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: howto.name || title,
+      description: description || '',
+      step: howto.steps.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        name: s.name,
+        text: s.text,
+      })),
+    }
+  : null;
 ---
-<Layout title={`${title} — AllThatAI Real`} description={description}>
+<Layout title={`${title} — AllThatAI Real`} description={description} ogImage={`/og/${slug}.svg`}>
   <script type="application/ld+json" set:html={JSON.stringify(articleLd)}></script>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+  {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
+  {howToLd && <script type="application/ld+json" set:html={JSON.stringify(howToLd)}></script>}
   <ReadingProgress />
 
   <!-- HERO HEADER -->
@@ -116,7 +149,7 @@ const breadcrumbLd = {
     </div>
 
     <!-- main article -->
-    <article class="prose prose-invert prose-zinc max-w-none
+    <article data-pagefind-body data-pagefind-meta={`tag:${tag},title:${title}`} class="prose prose-invert prose-zinc max-w-none
       prose-headings:font-black
       prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:tracking-tight
       prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3

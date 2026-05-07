@@ -1,0 +1,224 @@
+---
+/**
+ * Live Steam game deals page — refreshes on every build.
+ *
+ * Steam Web API is free, no auth, returns KRW prices for Korean readers.
+ * Each row shows the Steam price (truth) + "더 싸게 살 수 있는 곳" CTAs to
+ * Fanatical / Humble / GMG via affiliate links. These stores typically
+ * undercut Steam KR by 10-30% on AAA titles.
+ *
+ * Build-time fetch at SSG build. Vercel re-deploys on every git push (which
+ * happens 4×/day from auto-publish workflow), so prices stay fresh enough
+ * for browsing without manual refresh logic.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+interface SteamItem {
+  id: number;
+  name: string;
+  discount_percent: number;
+  original_price?: number;
+  final_price?: number;
+  large_capsule_image?: string;
+  header_image?: string;
+}
+
+interface DealRow {
+  id: number;
+  name: string;
+  discountPct: number;
+  originalKrw: string;
+  finalKrw: string;
+  saveKrw: string;
+  steamUrl: string;
+  cover: string;
+}
+
+const krw = (x?: number) => x != null ? `₩${Math.round(x / 100).toLocaleString('ko-KR')}` : '?';
+
+let deals: DealRow[] = [];
+let fetchedAt = new Date().toISOString();
+let fetchError = '';
+
+try {
+  const res = await fetch('https://store.steampowered.com/api/featuredcategories?cc=KR&l=korean', {
+    headers: { 'User-Agent': 'AllThatAIRealBot/1.0' },
+  });
+  if (res.ok) {
+    const json = await res.json() as any;
+    const specials = (json?.specials?.items || []) as SteamItem[];
+    const topSellers = (json?.top_sellers?.items || []) as SteamItem[];
+    const seen = new Set<number>();
+    const all = [...specials, ...topSellers]
+      .filter((it) => {
+        if (seen.has(it.id)) return false;
+        seen.add(it.id);
+        return it.discount_percent && it.discount_percent >= 25;
+      })
+      .sort((a, b) => (b.discount_percent || 0) - (a.discount_percent || 0));
+
+    deals = all.slice(0, 30).map((it) => ({
+      id: it.id,
+      name: it.name,
+      discountPct: it.discount_percent,
+      originalKrw: krw(it.original_price),
+      finalKrw: krw(it.final_price),
+      saveKrw: krw((it.original_price || 0) - (it.final_price || 0)),
+      steamUrl: `https://store.steampowered.com/app/${it.id}`,
+      cover: it.large_capsule_image || it.header_image || '',
+    }));
+  } else {
+    fetchError = `Steam API status ${res.status}`;
+  }
+} catch (e) {
+  fetchError = e instanceof Error ? e.message : 'fetch failed';
+}
+
+const dealsByDiscountTier = {
+  big: deals.filter((d) => d.discountPct >= 70),
+  mid: deals.filter((d) => d.discountPct >= 50 && d.discountPct < 70),
+  small: deals.filter((d) => d.discountPct >= 25 && d.discountPct < 50),
+};
+---
+<Layout
+  title="실시간 스팀 세일 — 한국 가격 (KRW)"
+  description="현재 진행중인 Steam 게임 세일 30개 — 한국 KRW 가격 + 할인율. 더 싸게 살 수 있는 대체 스토어(Fanatical, Humble) 비교."
+>
+  <section class="mx-auto max-w-6xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+      실시간 갱신 · 한국 KRW 가격
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      지금 진짜 싼 <span class="text-gradient">스팀 게임</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 max-w-3xl leading-relaxed">
+      Steam 공식 API 직접 호출 — 한국 지역 가격(KRW) 그대로. 25% 이상 할인만 표시.
+      <strong class="text-white">전체 {deals.length}개</strong> 진행중.
+    </p>
+    <p class="mt-2 text-xs text-zinc-500">
+      마지막 갱신: {new Date(fetchedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })} (KST)
+      {fetchError && <span class="text-rose-400">· 오류: {fetchError}</span>}
+    </p>
+  </section>
+
+  <!-- 70%+ tier -->
+  {dealsByDiscountTier.big.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-6">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-rose-300 text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full border border-rose-500/40 bg-rose-500/10">초대형</span>
+        <h2 class="text-2xl font-black">70% 이상 할인 — {dealsByDiscountTier.big.length}개</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {dealsByDiscountTier.big.map((d) => (
+          <a href={d.steamUrl} target="_blank" rel="noopener" class="card-lift block rounded-2xl border border-rose-500/30 bg-zinc-900/50 overflow-hidden hover:border-rose-500/60 transition">
+            {d.cover && <img src={d.cover} alt={d.name} class="w-full h-32 object-cover" loading="lazy" />}
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-rose-300 font-black text-sm">−{d.discountPct}%</span>
+                <span class="text-[10px] text-zinc-500">Steam KR</span>
+              </div>
+              <h3 class="text-sm font-bold text-white leading-snug line-clamp-2 min-h-[2.5em]">{d.name}</h3>
+              <div class="mt-3 flex items-end justify-between">
+                <div>
+                  <p class="text-xs text-zinc-500 line-through">{d.originalKrw}</p>
+                  <p class="text-lg font-black text-rose-300">{d.finalKrw}</p>
+                </div>
+                <p class="text-[10px] text-emerald-300">−{d.saveKrw}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 50-69% tier -->
+  {dealsByDiscountTier.mid.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-6">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-amber-300 text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full border border-amber-500/40 bg-amber-500/10">대형</span>
+        <h2 class="text-2xl font-black">50–69% 할인 — {dealsByDiscountTier.mid.length}개</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {dealsByDiscountTier.mid.map((d) => (
+          <a href={d.steamUrl} target="_blank" rel="noopener" class="card-lift block rounded-xl border border-zinc-800 bg-zinc-900/40 overflow-hidden hover:border-amber-500/40 transition">
+            {d.cover && <img src={d.cover} alt={d.name} class="w-full h-24 object-cover" loading="lazy" />}
+            <div class="p-3">
+              <div class="flex items-center justify-between">
+                <span class="text-amber-300 font-black text-xs">−{d.discountPct}%</span>
+              </div>
+              <h3 class="mt-1 text-xs font-bold text-white leading-snug line-clamp-2 min-h-[2.4em]">{d.name}</h3>
+              <p class="mt-2 text-sm font-black text-amber-300">{d.finalKrw}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 25-49% tier -->
+  {dealsByDiscountTier.small.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-6">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-zinc-300 text-xs font-black uppercase tracking-widest px-2 py-1 rounded-full border border-zinc-700 bg-zinc-800">소형</span>
+        <h2 class="text-2xl font-black">25–49% 할인 — {dealsByDiscountTier.small.length}개</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {dealsByDiscountTier.small.map((d) => (
+          <a href={d.steamUrl} target="_blank" rel="noopener" class="card-lift block rounded-xl border border-zinc-800 bg-zinc-900/40 overflow-hidden hover:border-cyan-500/40 transition">
+            {d.cover && <img src={d.cover} alt={d.name} class="w-full h-24 object-cover" loading="lazy" />}
+            <div class="p-3">
+              <span class="text-zinc-400 font-black text-xs">−{d.discountPct}%</span>
+              <h3 class="mt-1 text-xs font-bold text-white leading-snug line-clamp-2 min-h-[2.4em]">{d.name}</h3>
+              <p class="mt-2 text-sm font-black text-cyan-300">{d.finalKrw}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Alternative stores CTA — affiliate revenue lever -->
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 p-8">
+      <h2 class="text-2xl font-black">스팀에서 찾았는데 더 싸게 사고 싶다면</h2>
+      <p class="mt-3 text-zinc-400 leading-relaxed">
+        같은 게임이 종종 Fanatical · Humble · Green Man Gaming에서 10–30% 더 쌉니다.
+        모두 합법 스토어 (Steam 키 정식 공급). 한국 카드 결제 가능.
+      </p>
+      <div class="mt-6 grid sm:grid-cols-3 gap-3">
+        <a href="https://www.fanatical.com/" target="_blank" rel="sponsored noopener" data-aff="fanatical" class="aff-link rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 p-4 transition">
+          <p class="font-black text-white">Fanatical</p>
+          <p class="mt-1 text-xs text-zinc-400">번들·인디 강함, AAA 80%+ 자주</p>
+        </a>
+        <a href="https://www.humblebundle.com/store" target="_blank" rel="sponsored noopener" data-aff="humble" class="aff-link rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 p-4 transition">
+          <p class="font-black text-white">Humble Store</p>
+          <p class="mt-1 text-xs text-zinc-400">Choice 멤버십 + 자선 기부 분배</p>
+        </a>
+        <a href="https://www.greenmangaming.com/" target="_blank" rel="sponsored noopener" data-aff="gmg" class="aff-link rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 p-4 transition">
+          <p class="font-black text-white">Green Man Gaming</p>
+          <p class="mt-1 text-xs text-zinc-400">VIP 회원 추가 할인, 신작 25%+</p>
+        </a>
+      </div>
+      <p class="mt-5 text-xs text-zinc-500">
+        ⓘ 위 3곳은 Steam 키 정식 공급 합법 스토어. G2A · Eneba · Kinguin 같은 그레이마켓
+        키 사이트는 BAN 위험이 있어 권장하지 않습니다.
+      </p>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  document.querySelectorAll('a.aff-link').forEach((a) => {
+    a.addEventListener('click', () => {
+      const program = a.getAttribute('data-aff');
+      if (window.va) { try { window.va('event', { name: 'affiliate_click', data: { program } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'affiliate_click', { program, event_category: 'monetization' }); } catch (_) {} }
+    });
+  });
+</script>

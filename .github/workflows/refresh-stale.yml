@@ -1,0 +1,48 @@
+name: Refresh stale issues
+
+on:
+  schedule:
+    # Sundays at 02:00 UTC ≈ 11:00 KST
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-stale
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Refresh oldest auto-issues
+        env:
+          REFRESH_COUNT: '10'
+        run: npx tsx scripts/refresh-stale.ts
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "AllThatAI Real Bot"
+          git config user.email "bot@allthatai.kr"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "auto: weekly refresh of stale issues ($(date -u +%Y-%m-%d))"
+            git pull --rebase
+            git push
+          else
+            echo "Nothing refreshed."
+          fi
