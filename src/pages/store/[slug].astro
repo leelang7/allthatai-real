@@ -9,12 +9,34 @@ export async function getStaticPaths() {
 }
 
 const { product } = Astro.props as { product: typeof products[number] };
+
+const SITE = 'https://allthatai-real.vercel.app';
+const productUrl = new URL(Astro.url.pathname, SITE).toString();
+const priceNumber = parseInt(product.priceKrw.replace(/[^\d]/g, ''), 10);
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.title,
+  description: product.tagline,
+  image: `${SITE}/og/${product.slug}.svg`,
+  brand: { '@type': 'Brand', name: 'AllThatAI Real' },
+  category: product.category,
+  offers: {
+    '@type': 'Offer',
+    url: productUrl,
+    priceCurrency: 'KRW',
+    price: priceNumber,
+    availability: product.live ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
+    seller: { '@type': 'Organization', name: 'AllThatAI Real' },
+  },
+};
 ---
 <Layout
   title={`${product.title} — AllThatAI Real Store`}
   description={product.tagline}
   ogImage={`/og/${product.slug}.svg`}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(productLd)}></script>
   <section class="mx-auto max-w-4xl px-4 pt-16 pb-12">
     <a href="/store/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 스토어로</a>
 

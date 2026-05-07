@@ -1,0 +1,126 @@
+---
+/**
+ * /deals — meta-hub linking all commission/deal pages.
+ *
+ * Single landing for "현재 진행중 핫딜" intent. Funnels reader to whichever
+ * vertical they care about (게임/AI/호텔/항공/VPN/카드/대행).
+ */
+import Layout from '../../layouts/Layout.astro';
+
+const verticals = [
+  {
+    href: '/deals/ai/',
+    title: 'AI 도구',
+    pitch: 'Claude · GPT · Gemini · Grok · Cursor 비교 + 한국 결제 우회',
+    color: 'from-cyan-500/20 to-blue-500/5',
+    accent: 'text-cyan-300',
+  },
+  {
+    href: '/deals/games/',
+    title: '스팀 핫딜',
+    pitch: '실시간 Steam KR 가격 + 70%+ 할인만',
+    color: 'from-violet-500/20 to-purple-500/5',
+    accent: 'text-violet-300',
+  },
+  {
+    href: '/deals/keys/',
+    title: '게임 키 비교',
+    pitch: 'Kinguin · Eneba · Fanatical · GMG · Humble 메타서치',
+    color: 'from-amber-500/20 to-orange-500/5',
+    accent: 'text-amber-300',
+  },
+  {
+    href: '/deals/vpn/',
+    title: 'VPN 비교',
+    pitch: 'NordVPN · Surfshark · Proton · Mullvad · PIA',
+    color: 'from-emerald-500/20 to-green-500/5',
+    accent: 'text-emerald-300',
+  },
+  {
+    href: '/deals/hotels/',
+    title: '호텔',
+    pitch: 'Agoda · Booking · Trip 한 번에 비교',
+    color: 'from-rose-500/20 to-pink-500/5',
+    accent: 'text-rose-300',
+  },
+  {
+    href: '/deals/flights/',
+    title: '항공권',
+    pitch: 'Skyscanner · Kayak · Trip 메타서치',
+    color: 'from-blue-500/20 to-indigo-500/5',
+    accent: 'text-blue-300',
+  },
+  {
+    href: '/tools/agent-fee-calc/',
+    title: '대행 절감 계산기',
+    pitch: 'NICE D&B · 통신판매업 · 사업자 · Apple Dev 비교',
+    color: 'from-rose-500/20 to-fuchsia-500/5',
+    accent: 'text-rose-300',
+  },
+  {
+    href: '/tools/ai-pricing/',
+    title: 'AI 비용 계산',
+    pitch: '사용 패턴 → 최적 AI 도구 조합 추천',
+    color: 'from-cyan-500/20 to-violet-500/5',
+    accent: 'text-cyan-300',
+  },
+  {
+    href: '/tools/card-pick/',
+    title: '카드 추천',
+    pitch: '월 소비 패턴 → 최고 캐시백 카드',
+    color: 'from-amber-500/20 to-orange-500/5',
+    accent: 'text-amber-300',
+  },
+  {
+    href: '/tools/team-plan-match/',
+    title: '팀 플랜 분담',
+    pitch: 'Claude Team · Notion Team 5인 공동구매',
+    color: 'from-violet-500/20 to-fuchsia-500/5',
+    accent: 'text-violet-300',
+  },
+  {
+    href: '/issues/',
+    title: '핫딜 자동 큐레이션',
+    pitch: '6시간마다 새 딜 자동 발행',
+    color: 'from-rose-500/20 to-pink-500/5',
+    accent: 'text-rose-300',
+  },
+  {
+    href: '/store/',
+    title: '디지털 스토어',
+    pitch: 'PDF · 템플릿 · 코드팩 (₩2,900~)',
+    color: 'from-amber-500/20 to-yellow-500/5',
+    accent: 'text-amber-300',
+  },
+];
+---
+<Layout
+  title="핫딜 / 비교 / 계산기 — AllThatAI Real"
+  description="AI 도구 · 스팀 게임 · 게임키 · VPN · 호텔 · 항공 · 카드 · 대행 절감 — 한국에서 진짜 싸게 사는 모든 비교 툴 한 곳."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+      비교 · 계산기 · 핫딜 허브
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      한국에서 진짜 <span class="text-gradient">싸게 사는 법</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 max-w-3xl leading-relaxed">
+      AI 도구·게임·VPN·호텔·항공·카드·대행 — 모든 비교/계산기/메타서치 한 페이지.
+      각 라인은 본인 카드에 가장 싸게 결제하도록 N개 사이트 동시 검색.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-24">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {verticals.map((v) => (
+        <a href={v.href} class={`card-lift block rounded-2xl border border-zinc-800 hover:border-zinc-700 bg-gradient-to-br ${v.color} p-6 transition`}>
+          <h2 class={`font-black text-xl ${v.accent}`}>{v.title}</h2>
+          <p class="mt-3 text-sm text-zinc-300 leading-relaxed">{v.pitch}</p>
+          <p class={`mt-4 text-xs font-bold ${v.accent}`}>들어가기 →</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,53 @@
+name: Monitor AI prices
+
+on:
+  schedule:
+    # Wednesdays + Sundays at 03:00 UTC ≈ 12:00 KST
+    - cron: '0 3 * * 0,3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monitor-ai-prices
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run AI pricing monitor
+        run: npx tsx scripts/monitor-ai-prices.ts
+
+      - name: Commit snapshots if changed
+        id: commit
+        run: |
+          git config user.name "AllThatAI Real Bot"
+          git config user.email "bot@allthatai.kr"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "monitor: AI price snapshots $(date -u +%Y-%m-%d)"
+            git pull --rebase
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No price changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Submit refreshed URLs to IndexNow
+        if: steps.commit.outputs.changed == 'true' && hashFiles('fresh-urls.txt') != ''
+        run: cat fresh-urls.txt | npx tsx scripts/indexnow-ping.ts
