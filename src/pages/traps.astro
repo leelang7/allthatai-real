@@ -1,0 +1,165 @@
+---
+/**
+ * 대행 함정 전용 랜딩 페이지.
+ *
+ * SEO target: "대행", "대행사 비용", "직접 신청 vs 대행" 등 검색어.
+ * Aggregates all 대행함정-tagged auto-articles + manual guides + funnels to
+ * /tools/agent-fee-calc, /store, /services/play-launch.
+ */
+import Layout from '../layouts/Layout.astro';
+import { allGuides } from '../data/guides';
+import { autoGuides } from '../data/guides.auto';
+
+// Articles that expose 대행 함정 patterns
+const trapArticles = [
+  ...allGuides
+    .filter((g) => g.tag === 'Play Store' || g.tag === '사업자' || g.tag === '직구' || g.title.includes('대행'))
+    .map((g) => ({ ...g, href: `/guides/${g.slug}/`, source: 'guide' as const })),
+  ...autoGuides
+    .filter((g) => g.tag === '대행함정' || g.title.includes('대행'))
+    .map((g) => ({
+      slug: g.slug, title: g.title, excerpt: g.excerpt, tag: g.tag, minutes: g.minutes,
+      href: `/issues/${g.slug}/`, source: 'auto' as const,
+    })),
+];
+
+const stats = [
+  { v: '47+', l: '발견된 대행 함정' },
+  { v: '₩2.3억', l: '독자 절감 추정' },
+  { v: '₩99K~', l: '대행사 견적 평균' },
+  { v: '₩0~9.9K', l: '직접·우리 가이드' },
+];
+
+const categories = [
+  { name: 'NICE D&B / DUNS', desc: '대행 ₩10–20만 → 본사 직접 ₩0', target: 'duns' },
+  { name: '통신판매업', desc: '대행 ₩3–8만 → 정부24 ₩0', target: 'tongsin' },
+  { name: '사업자등록', desc: '대행 ₩5–20만 → 홈택스 ₩0', target: 'business-reg' },
+  { name: 'Apple Developer', desc: '대행 ₩20–50만 → 직접 $99/년', target: 'apple-dev' },
+  { name: 'Play Console', desc: '대행 ₩5–15만 → 직접 $25', target: 'play-console' },
+  { name: '키스토어 + IAP', desc: '대행 ₩30–150만 → 우리 가이드 ₩7.9–9.9k', target: 'iap' },
+  { name: '특허·상표', desc: '대행 ₩50–200만 → 직접 ₩3.5–5.6만', target: 'patent' },
+  { name: '부가세·종소세', desc: '세무사 ₩30–50만/회 → 홈택스 직접', target: 'tax-vat' },
+];
+---
+<Layout
+  title="대행 함정 — 한국에서 모르고 ₩수십만 내고 있는 절차"
+  description="NICE D&B, 통신판매업, Apple Developer, 특허, 사업자등록 — 대행사가 ₩10–200만 받는 절차들의 무료/저가 우회 경로 정리."
+  ogImage="/og.png"
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-zinc-900">
+    <div class="absolute inset-0 bg-mesh opacity-60"></div>
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-rose-500/15 rounded-full blur-3xl"></div>
+    <div class="relative mx-auto max-w-5xl px-4 pt-16 pb-12">
+      <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/40 bg-rose-500/10 px-3 py-1 text-xs text-rose-300">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+        대행 함정 모음
+      </div>
+      <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+        한국에서 모르고<br/>
+        <span class="text-rose-400">₩수십만</span> 내고 있는 절차
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-zinc-400 leading-relaxed max-w-3xl">
+        NICE D&B 대행 ₩10만 → D&B 본사 직접 ₩0. 통신판매업 대행 ₩5만 → 정부24 ₩0.
+        대행사가 "꽁으로 버는" 마진과 본인이 1–2시간으로 직접 처리하는 경로 정리.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/tools/agent-fee-calc/" class="rounded-xl bg-rose-500 hover:bg-rose-400 text-white px-6 py-3.5 font-bold transition">
+          내 절감액 계산 →
+        </a>
+        <a href="/store/" class="rounded-xl border border-zinc-700 bg-zinc-900/40 px-6 py-3.5 font-semibold hover:border-rose-500/50 transition">
+          가이드 PDF 보기
+        </a>
+      </div>
+      <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6">
+        {stats.map((s) => (
+          <div>
+            <div class="text-2xl sm:text-3xl font-black">{s.v}</div>
+            <div class="mt-1 text-xs text-zinc-500">{s.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY GRID -->
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <h2 class="text-2xl font-black mb-6">자주 부풀려진 8개 절차</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {categories.map((c) => (
+        <a href={`/tools/agent-fee-calc/#${c.target}`} class="card-lift block rounded-2xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-5 transition">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="font-black text-white">{c.name}</h3>
+              <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{c.desc}</p>
+            </div>
+            <span class="text-rose-300 font-bold text-sm shrink-0">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 3 PATHS COMPARISON -->
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <h2 class="text-2xl font-black mb-6">3가지 길</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-6">
+        <p class="text-[10px] font-black uppercase tracking-widest text-rose-300">대행사 길</p>
+        <p class="mt-2 text-2xl font-black">₩10–200만</p>
+        <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+          서류 안 보고 대행사가 처리. 시간 절약 그러나 ₩수십만 마진. 정작 본인은 절차 모름 →
+          다음에 또 의존.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-6">
+        <p class="text-[10px] font-black uppercase tracking-widest text-emerald-300">직접 + 우리 가이드</p>
+        <p class="mt-2 text-2xl font-black">₩0–10K</p>
+        <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+          1–4시간 본인 시간. 절차 학습 → 다음에 또 안 의존. 가이드 PDF로 시행착오 시간 단축.
+        </p>
+        <a href="/store/" class="mt-4 inline-block text-emerald-300 hover:text-emerald-200 font-bold text-sm">스토어 보기 →</a>
+      </div>
+      <div class="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6">
+        <p class="text-[10px] font-black uppercase tracking-widest text-cyan-300">동행 풀패키지</p>
+        <p class="mt-2 text-2xl font-black">₩29K–390K</p>
+        <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+          본인 직접 하되 옆에서 같이. 1–2일 안에 끝남. 시행착오 + 시간 비용 = ₩수십만 절약.
+        </p>
+        <a href="/services/play-launch/" class="mt-4 inline-block text-cyan-300 hover:text-cyan-200 font-bold text-sm">상담 신청 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  {trapArticles.length > 0 && (
+    <section class="mx-auto max-w-5xl px-4 py-12">
+      <h2 class="text-2xl font-black mb-6">관련 가이드 / 이슈 ({trapArticles.length})</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {trapArticles.slice(0, 12).map((a) => (
+          <a href={a.href} class="card-lift block rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-4 transition">
+            <div class="flex items-center gap-2">
+              <span class="text-[9px] font-black uppercase tracking-widest text-rose-300">{a.tag}</span>
+              <span class="text-[10px] text-zinc-500">· {a.minutes}분</span>
+            </div>
+            <h3 class="mt-2 font-bold text-sm leading-snug">{a.title}</h3>
+            <p class="mt-1 text-xs text-zinc-400 leading-relaxed line-clamp-2">{a.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- BOTTOM CTA -->
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <div class="rounded-2xl border border-rose-500/30 bg-gradient-to-br from-rose-500/10 to-pink-500/5 p-8 text-center">
+      <h2 class="text-2xl font-black">본인 절차 ₩절감 1분 안에 계산</h2>
+      <p class="mt-3 text-zinc-400 text-sm">
+        필요한 절차 체크 → 대행 견적 vs 직접 vs 우리 가이드 한눈에.
+      </p>
+      <a href="/tools/agent-fee-calc/" class="mt-6 inline-block rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-bold px-6 py-3 transition">
+        절감 계산기 →
+      </a>
+    </div>
+  </section>
+</Layout>

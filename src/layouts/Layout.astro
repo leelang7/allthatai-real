@@ -131,10 +131,13 @@ const isHome = path === '/';
           <span class="text-white">AllThatAI <span class="text-cyan-400">Real</span></span>
         </a>
         <nav class="flex gap-4 sm:gap-5 text-sm text-zinc-400">
+          <a href="/traps" class="hover:text-rose-300 transition font-semibold">
+            <span class="text-rose-400">⚠</span> 대행함정
+          </a>
           <a href="/store" class="hover:text-amber-300 transition font-semibold">
             <span class="text-amber-400">$</span> 스토어
           </a>
-          <a href="/issues" class="hover:text-white transition flex items-center gap-1.5">
+          <a href="/issues" class="hover:text-white transition flex items-center gap-1.5 hidden sm:flex">
             <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
             이슈
           </a>

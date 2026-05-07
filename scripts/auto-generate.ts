@@ -119,6 +119,53 @@ const GOOGLE_NEWS_TOPICS = [
   { url: 'https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko', tagHint: '카드/핀테크' },
 ];
 
+// Korean government / 청년정책 RSS feeds — automatic 정부지원 idea injection.
+// Each feed is parsed for Korean policy/grant headlines that turn into
+// "이 지원금 받는 법" articles. No API key required.
+const GOV_RSS_FEEDS = [
+  {
+    url: 'https://www.gov.kr/portal/ntnadmNews/rss',
+    tagHint: '정부지원',
+    name: '정부24',
+  },
+  {
+    url: 'https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifNewList.rss',
+    tagHint: '정부지원',
+    name: '청년정책',
+  },
+];
+
+async function fetchGovRss(feed: { url: string; tagHint: string; name: string }): Promise<DealCandidate[]> {
+  try {
+    const res = await fetch(feed.url, {
+      headers: { 'User-Agent': UA, 'Accept': 'application/rss+xml,application/xml,text/xml' },
+    });
+    if (!res.ok) return [];
+    const xml = await res.text();
+    const items: DealCandidate[] = [];
+    const itemRe = /<item>([\s\S]*?)<\/item>/g;
+    let m: RegExpExecArray | null;
+    while ((m = itemRe.exec(xml)) !== null && items.length < 5) {
+      const title = m[1].match(/<title>(?:<!\[CDATA\[)?([^<\]]+)/)?.[1]?.trim();
+      const link = m[1].match(/<link>([^<]+)<\/link>/)?.[1]?.trim();
+      const desc = m[1].match(/<description>(?:<!\[CDATA\[)?([^<\]]+)/)?.[1]?.trim();
+      if (!title) continue;
+      // Korean policy/grant detection — only items with money/support keywords
+      if (!/지원|혜택|급여|장학|보조|면제|환급|할인|지원금/.test(title)) continue;
+      items.push({
+        title: `${title} — 신청 자격·절차`,
+        source: `gov:${feed.name}`,
+        context: desc?.slice(0, 300) || '',
+        link,
+      });
+    }
+    return items;
+  } catch (e) {
+    console.warn(`gov rss ${feed.name} failed:`, e instanceof Error ? e.message : e);
+    return [];
+  }
+}
+
 // Evergreen seed topics. The cron rotates through these so the engine never
 // idles even on weekends when news / Reddit are quiet. Each seed is phrased
 // as something a Korean deal-hunter would actually Google.
@@ -174,6 +221,27 @@ const EVERGREEN_SEEDS = [
   '양도소득세 1세대1주택 비과세 — 보유 2년·거주 2년 요건',
   '종합부동산세 — 1주택자 공제·합산 배제',
   '주거급여 — 임차가구 지원 한도와 신청 절차',
+
+  // 대행 함정 시리즈 — high commercial intent, low competition.
+  // 각 시드는 "X 대행 vs 직접" 정직 비교로 검색어 가로채는 패턴.
+  'NICE D&B DUNS 발급 대행 ₩10만 vs 본사 직접 ₩0',
+  '사업자등록 대행 vs 홈택스 직접 — 진짜 절차 30분',
+  '통신판매업 신고 대행 ₩5만 vs 정부24 직접',
+  '특허출원 대행 ₩50만 vs 변리사 직접 vs 자가출원',
+  '상표출원 대행 ₩30만 vs 키프리스 직접',
+  '법인 설립 대행 ₩30–80만 vs 직접 — 함정과 차이',
+  'Apple Developer 등록 대행 vs 직접 ($99/년 그대로)',
+  '구글 플레이 콘솔 가입 대행 vs 직접 ($25 1회)',
+  '결제대금예치 면제 대행 vs 통신판매업 면제 직접',
+  '쇼핑몰 사업자 등록 대행 vs 본인 직접 절차',
+  '간이과세자 vs 일반과세자 — 세무사 없이 결정',
+  '부가세 신고 세무사 ₩30만/회 vs 홈택스 직접',
+  '종합소득세 신고 대행 vs 홈택스 — 매출 5천만 미만',
+  '사업자 통장 분리 + 가맹점 신청 — 셀프 가이드',
+  '신용카드 단말기 — 직접 계약 vs 대행 (페이먼츠社 비교)',
+  'PG사 직접 가입 vs 대행 — 토스페이먼츠/이니시스/KG이니시스',
+  '직구 관세 대행 vs UNI-PASS 직접 — 한도·납부',
+  '해외 직접투자 신고 — 외환 대행 vs 외국환은행 직접',
 ];
 
 interface DealCandidate {
@@ -359,7 +427,7 @@ EDITORIAL FRAME — when you DO write:
 
 Output ONLY a JSON object, no markdown fences, no commentary. Schema:
 {
-  "tag": one of ["게임할인","AI 도구","카드/핀테크","OTT","직구/쇼핑","항공/여행","소프트웨어","Steam","주택/청약","정부지원"],
+  "tag": one of ["게임할인","AI 도구","카드/핀테크","OTT","직구/쇼핑","항공/여행","소프트웨어","Steam","주택/청약","정부지원","대행함정"],
   "title": "기사 제목 (60자 이내)",
   "description": "메타 설명 (140자 이내)",
   "excerpt": "리스트 카드용 한 줄 (90자 이내)",
@@ -791,6 +859,16 @@ async function main() {
   if (steam.length > 0) {
     allItems.push(...steam);
     console.log(`   steam:specials/top_sellers: ${steam.length} verified sales`);
+  }
+
+  // 정부지원 RSS — Korean policy/grant feeds. High commercial intent ("청년 월세
+  // 받는 법") + high search volume + low competition.
+  for (const feed of GOV_RSS_FEEDS) {
+    const items = await fetchGovRss(feed);
+    if (items.length > 0) {
+      allItems.push(...items);
+      console.log(`   gov:${feed.name}: ${items.length} policy items`);
+    }
   }
 
   // Reddit — supplemental. Filtered to keywords likely to be relevant to a

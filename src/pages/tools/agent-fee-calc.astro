@@ -1,0 +1,297 @@
+---
+/**
+ * 대행 비용 계산기 — 본인 절차 체크 → 대행사 견적 vs 직접 vs 우리 가이드 vs 풀패키지 비교.
+ *
+ * Targets the highest-commercial-intent Korean searches:
+ *   "DUNS 대행 비용", "사업자등록 대행", "통신판매업 대행", "Apple Developer 대행"
+ *
+ * Output: 명확한 절감액 제시 + 본인 사이트 product/service funnel.
+ * NICE 같은 대행사가 "꽁으로 버는" 마진 그대로 노출 → 독자에게는 직접 경로 + ₩2.9–9.9k 가이드 옵션.
+ */
+import Layout from '../../layouts/Layout.astro';
+
+interface Procedure {
+  id: string;
+  name: string;
+  agentFee: { low: number; high: number };
+  directFee: number;
+  ourPdf: { slug: string; price: number } | null;
+  ourFullService: 'mini' | 'duns' | 'full' | 'ios' | null;
+  duration: { agent: string; direct: string; our: string };
+  caveat?: string;
+}
+
+const procedures: Procedure[] = [
+  {
+    id: 'duns',
+    name: 'DUNS 발급 (Play Console 조직 계정)',
+    agentFee: { low: 100000, high: 200000 },
+    directFee: 0,
+    ourPdf: { slug: 'duns-free-route-guide', price: 2900 },
+    ourFullService: 'duns',
+    duration: { agent: '1–2주', direct: '1–4주', our: '1–4주' },
+    caveat: 'NICE D&B는 대행사. 본사(미국 D&B) 직접 신청 가능 + 무료',
+  },
+  {
+    id: 'tongsin',
+    name: '통신판매업 신고/면제',
+    agentFee: { low: 30000, high: 80000 },
+    directFee: 0,
+    ourPdf: { slug: 'tongsin-template-bundle', price: 4900 },
+    ourFullService: 'full',
+    duration: { agent: '3–7일', direct: '1–3일', our: '1–3일' },
+    caveat: '정부24 직접 신청. 면제 대상이면 신고 의무 없음',
+  },
+  {
+    id: 'business-reg',
+    name: '사업자등록',
+    agentFee: { low: 50000, high: 200000 },
+    directFee: 0,
+    ourPdf: null,
+    ourFullService: 'full',
+    duration: { agent: '1–3일', direct: '30분', our: '30분' },
+    caveat: '홈택스 직접 30분. 세무사 안 끼고 가능',
+  },
+  {
+    id: 'apple-dev',
+    name: 'Apple Developer 등록',
+    agentFee: { low: 200000, high: 500000 },
+    directFee: 99,
+    ourPdf: null,
+    ourFullService: 'ios',
+    duration: { agent: '1–2주', direct: '1–7일', our: '1–7일' },
+    caveat: '$99/년은 Apple 공식 가격. 대행사가 부풀리는 마진',
+  },
+  {
+    id: 'play-console',
+    name: 'Google Play Console 가입',
+    agentFee: { low: 50000, high: 150000 },
+    directFee: 25,
+    ourPdf: { slug: 'play-store-launch-pdf', price: 9900 },
+    ourFullService: 'full',
+    duration: { agent: '1–3일', direct: '30분', our: '30분' },
+    caveat: '$25 1회 결제. 대행사 없이 가능',
+  },
+  {
+    id: 'keystore',
+    name: '키스토어 생성 + AAB 서명',
+    agentFee: { low: 50000, high: 150000 },
+    directFee: 0,
+    ourPdf: { slug: 'play-store-launch-pdf', price: 9900 },
+    ourFullService: 'mini',
+    duration: { agent: '1일', direct: '30분', our: '30분' },
+    caveat: '명령어 1줄. 단, 비밀번호 분실 시 앱 영구 잠김',
+  },
+  {
+    id: 'iap',
+    name: 'IAP (인앱결제) 연동 코드',
+    agentFee: { low: 300000, high: 1500000 },
+    directFee: 0,
+    ourPdf: { slug: 'iap-billing-code-pack', price: 7900 },
+    ourFullService: 'full',
+    duration: { agent: '1–4주', direct: '1–3일', our: '1–3일' },
+    caveat: '오픈소스 패키지 (in_app_purchase). 코드 샘플로 충분',
+  },
+  {
+    id: 'patent',
+    name: '특허출원 (변리사 대행 vs 자가)',
+    agentFee: { low: 500000, high: 2000000 },
+    directFee: 35000,
+    ourPdf: null,
+    ourFullService: null,
+    duration: { agent: '2–4주', direct: '1–2주', our: '—' },
+    caveat: '특허청 직접 출원 가능. 단, 청구항 작성은 전문성 필요',
+  },
+  {
+    id: 'trademark',
+    name: '상표출원',
+    agentFee: { low: 200000, high: 600000 },
+    directFee: 56000,
+    ourPdf: null,
+    ourFullService: null,
+    duration: { agent: '1–2주', direct: '3–7일', our: '—' },
+    caveat: '키프리스(KIPRIS)에서 직접 출원 가능',
+  },
+  {
+    id: 'tax-vat',
+    name: '부가세 신고 (1회)',
+    agentFee: { low: 200000, high: 500000 },
+    directFee: 0,
+    ourPdf: { slug: 'indie-business-checklist', price: 5900 },
+    ourFullService: null,
+    duration: { agent: '3–7일', direct: '1–2일', our: '1–2일' },
+    caveat: '홈택스 자동 모드. 매출 ₩2,400만 미만이면 단순',
+  },
+];
+
+const fullServiceTiers = {
+  mini: { name: '미니 (키스토어)', price: 29000 },
+  duns: { name: 'DUNS 전용', price: 99000 },
+  full: { name: '풀패키지', price: 390000 },
+  ios: { name: 'iOS 추가', price: 490000 },
+};
+
+const fmt = (n: number) => `₩${n.toLocaleString('ko-KR')}`;
+---
+<Layout
+  title="대행 비용 계산기 — NICE D&B / 통신판매업 / 사업자등록 / Apple Dev"
+  description="필요한 절차 체크하면 대행사 견적, 직접 비용, 우리 가이드 가격 한눈에 비교. 대행사가 ₩수십만 부풀리는 마진 그대로 노출."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+      대행 함정 계산기
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      대행사가 받는 ₩₩와<br />
+      <span class="text-gradient">실제 비용</span> 비교
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      필요한 절차 체크하면 대행 견적 vs 직접 vs 우리 가이드 가격 한 번에.
+      <strong class="text-white">대행사가 ₩수십만 부풀리는 마진</strong> 그대로 보여줌.
+    </p>
+  </section>
+
+  <!-- PROCEDURE SELECTOR -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-4">필요한 절차 체크</h2>
+      <div class="space-y-2" id="proc-list">
+        {procedures.map((p) => (
+          <label class="proc-row flex items-center gap-3 rounded-lg border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 cursor-pointer transition" data-id={p.id}>
+            <input type="checkbox" class="proc-check w-4 h-4 accent-rose-500" />
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-sm text-white">{p.name}</p>
+              {p.caveat && <p class="text-[10px] text-zinc-500 mt-0.5">{p.caveat}</p>}
+            </div>
+            <span class="text-xs text-zinc-500 whitespace-nowrap">대행 ₩{p.agentFee.low.toLocaleString()}~</span>
+          </label>
+        ))}
+      </div>
+      <button
+        type="button"
+        id="calc-btn"
+        class="mt-5 w-full rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-bold px-6 py-3 transition"
+      >
+        실제 절감액 계산 →
+      </button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="result-panel" class="mx-auto max-w-3xl px-4 py-6 hidden">
+    <div class="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/5 to-cyan-500/5 p-6">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-300">대행 안 거치고 가는 길</p>
+      <h2 class="mt-2 text-3xl font-black">
+        절감 <span id="savings-amount" class="text-emerald-300"></span>
+      </h2>
+      <p id="savings-detail" class="mt-2 text-sm text-zinc-300"></p>
+
+      <div class="mt-6 grid sm:grid-cols-3 gap-3">
+        <div class="rounded-xl border border-zinc-700 bg-zinc-900/60 p-4">
+          <p class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">대행사 견적</p>
+          <p id="cost-agent" class="mt-2 text-xl font-black text-rose-300"></p>
+        </div>
+        <div class="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
+          <p class="text-[10px] text-emerald-300 uppercase tracking-widest font-bold">직접 (우리 가이드)</p>
+          <p id="cost-our" class="mt-2 text-xl font-black text-emerald-300"></p>
+        </div>
+        <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/5 p-4">
+          <p class="text-[10px] text-cyan-300 uppercase tracking-widest font-bold">동행 풀패키지</p>
+          <p id="cost-full" class="mt-2 text-xl font-black text-cyan-300"></p>
+        </div>
+      </div>
+
+      <div id="action-pdf" class="mt-6 hidden">
+        <p class="text-sm font-bold mb-3">→ 본인이 직접 하는 길 (PDF/템플릿)</p>
+        <div id="pdf-list" class="space-y-2"></div>
+      </div>
+
+      <div id="action-service" class="mt-6 hidden">
+        <p class="text-sm font-bold mb-3">→ 같이 끝내는 길 (시간 절약)</p>
+        <a href="/services/play-launch/#contact" id="service-cta" class="block rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-5 py-3 text-center transition"></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ procedures, fullServiceTiers }}>
+  const checks = document.querySelectorAll('.proc-check');
+  document.getElementById('calc-btn').addEventListener('click', () => {
+    const selectedIds = [];
+    document.querySelectorAll('.proc-row').forEach((row) => {
+      const checked = row.querySelector('.proc-check').checked;
+      if (checked) selectedIds.push(row.getAttribute('data-id'));
+    });
+
+    if (selectedIds.length === 0) {
+      alert('절차 1개 이상 선택하세요.');
+      return;
+    }
+
+    const selected = procedures.filter((p) => selectedIds.includes(p.id));
+
+    const agentLow = selected.reduce((s, p) => s + p.agentFee.low, 0);
+    const agentHigh = selected.reduce((s, p) => s + p.agentFee.high, 0);
+    const directTotal = selected.reduce((s, p) => s + p.directFee, 0);
+
+    // Our PDF: pick unique products needed
+    const pdfMap = new Map();
+    selected.forEach((p) => {
+      if (p.ourPdf) pdfMap.set(p.ourPdf.slug, p.ourPdf);
+    });
+    const pdfTotal = [...pdfMap.values()].reduce((s, p) => s + p.price, 0);
+
+    // Full service: pick highest tier among selected
+    const tierOrder = ['mini', 'duns', 'full', 'ios'];
+    let highestTier = null;
+    selected.forEach((p) => {
+      if (!p.ourFullService) return;
+      const cur = tierOrder.indexOf(p.ourFullService);
+      const max = highestTier ? tierOrder.indexOf(highestTier) : -1;
+      if (cur > max) highestTier = p.ourFullService;
+    });
+    const fullPrice = highestTier ? fullServiceTiers[highestTier].price : 0;
+
+    const ourCost = directTotal + pdfTotal;
+    const savings = agentLow - ourCost;
+
+    document.getElementById('savings-amount').textContent = `₩${savings.toLocaleString('ko-KR')}+`;
+    document.getElementById('savings-detail').textContent =
+      `대행사 ₩${agentLow.toLocaleString()}–${agentHigh.toLocaleString()} → 직접 ${directTotal === 0 ? '무료' : '₩' + directTotal.toLocaleString()} + 가이드 ${pdfTotal === 0 ? '무료' : '₩' + pdfTotal.toLocaleString()}`;
+    document.getElementById('cost-agent').textContent = `₩${agentLow.toLocaleString()}~${agentHigh.toLocaleString()}`;
+    document.getElementById('cost-our').textContent = pdfTotal === 0 ? '₩0' : `₩${pdfTotal.toLocaleString()}`;
+    document.getElementById('cost-full').textContent = fullPrice === 0 ? '없음' : `₩${fullPrice.toLocaleString()}`;
+
+    // PDF list
+    const pdfList = document.getElementById('pdf-list');
+    if (pdfMap.size > 0) {
+      pdfList.innerHTML = [...pdfMap.values()].map((p) => `
+        <a href="/store/${p.slug}/" class="block rounded-lg border border-zinc-700 hover:border-emerald-500/60 bg-zinc-900/40 p-3 transition">
+          <div class="flex items-center justify-between gap-3">
+            <span class="text-sm font-bold">${p.slug.replace(/-/g, ' ')}</span>
+            <span class="text-emerald-300 font-bold text-sm">₩${p.price.toLocaleString()}</span>
+          </div>
+        </a>
+      `).join('');
+      document.getElementById('action-pdf').classList.remove('hidden');
+    } else {
+      document.getElementById('action-pdf').classList.add('hidden');
+    }
+
+    // Full service CTA
+    if (highestTier) {
+      const tier = fullServiceTiers[highestTier];
+      document.getElementById('service-cta').textContent = `${tier.name} ₩${tier.price.toLocaleString()} 상담 →`;
+      document.getElementById('action-service').classList.remove('hidden');
+    } else {
+      document.getElementById('action-service').classList.add('hidden');
+    }
+
+    document.getElementById('result-panel').classList.remove('hidden');
+    document.getElementById('result-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (window.va) { try { window.va('event', { name: 'agent_fee_calc', data: { savings, count: selectedIds.length } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'agent_fee_calc', { value: savings, count: selectedIds.length, event_category: 'tools' }); } catch (_) {} }
+  });
+</script>
