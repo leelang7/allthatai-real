@@ -1,0 +1,121 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import { SEO_FLIGHTS } from '../../data/seo-targets';
+
+export async function getStaticPaths() {
+  return SEO_FLIGHTS.map((f) => ({ params: { slug: f.slug }, props: { route: f } }));
+}
+
+const { route } = Astro.props as { route: typeof SEO_FLIGHTS[number] };
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/flights/${route.slug}/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '항공권 비교', item: `${SITE}/deals/flights/` },
+    { '@type': 'ListItem', position: 3, name: route.name, item: url },
+  ],
+};
+
+// Default: 14 days from build, +7 days return
+const buildDate = new Date();
+const ts = Date.parse(`${buildDate.toISOString().slice(0, 10)}T00:00:00Z`);
+const dDate = new Date(ts + 14 * 86400000).toISOString().slice(0, 10);
+const rDate = new Date(ts + 21 * 86400000).toISOString().slice(0, 10);
+const dDateSky = dDate.replace(/-/g, '').slice(2);
+const rDateSky = rDate.replace(/-/g, '').slice(2);
+
+const fromLow = route.from.toLowerCase();
+const toLow = route.to.toLowerCase();
+---
+<Layout
+  title={`${route.name} 항공권 — Skyscanner · Kayak · Trip.com 3곳 비교`}
+  description={`${route.name} 항공권 3개 메타서치 동시 검색. ${route.tip}`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/deals/flights/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 모든 노선</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      메타서치 ×3
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      <span class="text-gradient">{route.name}</span><br/>항공권 최저가
+    </h1>
+    <p class="mt-3 text-sm text-zinc-500">{route.from} → {route.to} · 직항/경유</p>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      <strong class="text-white">{route.tip}</strong>
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <a
+        href={`https://www.skyscanner.co.kr/transport/flights/${fromLow}/${toLow}/${dDateSky}/${rDateSky}/?adults=1`}
+        target="_blank"
+        rel="sponsored noopener"
+        data-aff-platform="Skyscanner"
+        data-route={route.slug}
+        class="aff-platform card-lift block rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 p-5 hover:border-blue-500/60 transition"
+      >
+        <p class="font-black text-white text-lg">Skyscanner</p>
+        <p class="mt-1 text-xs text-zinc-400">메타서치 1위, 가격 알림</p>
+        <p class="mt-3 text-sm text-blue-300 font-bold">검색 →</p>
+      </a>
+      <a
+        href={`https://www.kayak.co.kr/flights/${route.from}-${route.to}/${dDate}/${rDate}`}
+        target="_blank"
+        rel="sponsored noopener"
+        data-aff-platform="Kayak"
+        data-route={route.slug}
+        class="aff-platform card-lift block rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/5 p-5 hover:border-amber-500/60 transition"
+      >
+        <p class="font-black text-white text-lg">Kayak</p>
+        <p class="mt-1 text-xs text-zinc-400">미주 강함, 가격 트렌드</p>
+        <p class="mt-3 text-sm text-amber-300 font-bold">검색 →</p>
+      </a>
+      <a
+        href={`https://kr.trip.com/flights/showfaresearch?dcity=${fromLow}&acity=${toLow}&ddate=${dDate}&rdate=${rDate}&class=Y&adult=1`}
+        target="_blank"
+        rel="sponsored noopener"
+        data-aff-platform="Trip"
+        data-route={route.slug}
+        class="aff-platform card-lift block rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 p-5 hover:border-emerald-500/60 transition"
+      >
+        <p class="font-black text-white text-lg">Trip.com</p>
+        <p class="mt-1 text-xs text-zinc-400">아시아 1위, 패키지</p>
+        <p class="mt-3 text-sm text-emerald-300 font-bold">검색 →</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">{route.name} 항공권 절약 팁</h2>
+      <ul class="space-y-1.5 text-sm text-zinc-400">
+        <li>→ <strong>출발 6–8주 전</strong>이 가장 저렴한 시점 (단, 성수기는 더 일찍)</li>
+        <li>→ <strong>화·수 출발</strong>이 주말 출발보다 ₩수만 저렴</li>
+        <li>→ <strong>저가항공 (LCC) vs 풀서비스</strong> — 수하물·기내식·좌석 비용 합쳐서 비교</li>
+        <li>→ <strong>인천 ICN vs 김포 GMP</strong> — GMP는 도쿄/오사카 일부 노선만</li>
+      </ul>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  document.querySelectorAll('a.aff-platform').forEach((a) => {
+    a.addEventListener('click', () => {
+      const platform = a.getAttribute('data-aff-platform');
+      const route = a.getAttribute('data-route');
+      if (window.va) { try { window.va('event', { name: 'flight_platform_click', data: { platform, route } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'flight_platform_click', { platform, route, event_category: 'monetization' }); } catch (_) {} }
+    });
+  });
+</script>

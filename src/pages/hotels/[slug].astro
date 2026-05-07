@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import { SEO_CITIES } from '../../data/seo-targets';
+
+export async function getStaticPaths() {
+  return SEO_CITIES.map((c) => ({ params: { slug: c.slug }, props: { city: c } }));
+}
+
+const { city } = Astro.props as { city: typeof SEO_CITIES[number] };
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/hotels/${city.slug}/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '호텔 비교', item: `${SITE}/deals/hotels/` },
+    { '@type': 'ListItem', position: 3, name: city.korName, item: url },
+  ],
+};
+
+const q = encodeURIComponent(city.name);
+---
+<Layout
+  title={`${city.korName} 호텔 — Agoda · Booking · Trip.com 한 번에 비교`}
+  description={`${city.korName} 호텔을 3개 메타서치에서 동시 검색. ${city.tip}`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/deals/hotels/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 모든 호텔 비교</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      메타서치 ×3
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      {city.korName} <span class="text-gradient">호텔 최저가</span>
+    </h1>
+    <p class="mt-3 text-sm text-zinc-500">영문: {city.name}</p>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      <strong class="text-white">{city.tip}</strong> — Agoda · Booking · Trip.com 3곳 동시 검색해서 가장 싼 곳에서 예약.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <a
+        href={`https://www.agoda.com/search?city=${q}`}
+        target="_blank"
+        rel="sponsored noopener"
+        data-aff-platform="Agoda"
+        data-city={city.korName}
+        class="aff-platform card-lift block rounded-2xl border border-rose-500/30 bg-gradient-to-br from-rose-500/10 to-pink-500/5 p-5 hover:border-rose-500/60 transition"
+      >
+        <p class="font-black text-white text-lg">Agoda</p>
+        <p class="mt-1 text-xs text-zinc-400">동남아 강함, 회원 등급 추가 할인</p>
+        <p class="mt-3 text-sm text-rose-300 font-bold">{city.korName} 검색 →</p>
+      </a>
+      <a
+        href={`https://www.booking.com/searchresults.html?ss=${q}`}
+        target="_blank"
+        rel="sponsored noopener"
+        data-aff-platform="Booking"
+        data-city={city.korName}
+        class="aff-platform card-lift block rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-indigo-500/5 p-5 hover:border-blue-500/60 transition"
+      >
+        <p class="font-black text-white text-lg">Booking.com</p>
+        <p class="mt-1 text-xs text-zinc-400">유럽·미국 1위, Genius 10–20%</p>
+        <p class="mt-3 text-sm text-blue-300 font-bold">{city.korName} 검색 →</p>
+      </a>
+      <a
+        href={`https://kr.trip.com/hotels/list?city=${q}`}
+        target="_blank"
+        rel="sponsored noopener"
+        data-aff-platform="Trip"
+        data-city={city.korName}
+        class="aff-platform card-lift block rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/5 p-5 hover:border-amber-500/60 transition"
+      >
+        <p class="font-black text-white text-lg">Trip.com</p>
+        <p class="mt-1 text-xs text-zinc-400">아시아 강함, Trip Coins, 패키지</p>
+        <p class="mt-3 text-sm text-amber-300 font-bold">{city.korName} 검색 →</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">{city.korName} 호텔 예약 팁</h2>
+      <p class="text-sm text-zinc-300 leading-relaxed mb-3">{city.tip}</p>
+      <ul class="space-y-1.5 text-sm text-zinc-400">
+        <li>→ <strong>같은 호텔도 사이트별 가격차</strong> 5–20% — 3곳 다 확인 필수</li>
+        <li>→ <strong>회원 가입 후 2번째 예약</strong>부터 추가 할인 (Agoda Gold, Booking Genius)</li>
+        <li>→ <strong>예약 취소 가능 옵션</strong> — 무료 취소 가능 호텔이 ₩수천 더 비싸도 안전</li>
+        <li>→ <strong>호텔 직접 연락</strong> — 가끔 예약 사이트보다 직접 가격이 더 쌀 때 있음</li>
+      </ul>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  document.querySelectorAll('a.aff-platform').forEach((a) => {
+    a.addEventListener('click', () => {
+      const platform = a.getAttribute('data-aff-platform');
+      const city = a.getAttribute('data-city');
+      if (window.va) { try { window.va('event', { name: 'hotel_platform_click', data: { platform, city } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'hotel_platform_click', { platform, city, event_category: 'monetization' }); } catch (_) {} }
+    });
+  });
+</script>

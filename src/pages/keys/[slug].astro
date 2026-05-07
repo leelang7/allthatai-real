@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import KeyPriceCompare from '../../components/KeyPriceCompare.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import { SEO_GAMES } from '../../data/seo-targets';
+
+export async function getStaticPaths() {
+  return SEO_GAMES.map((g) => ({ params: { slug: g.slug }, props: { game: g } }));
+}
+
+const { game } = Astro.props as { game: typeof SEO_GAMES[number] };
+const fullName = game.korName ? `${game.korName} (${game.name})` : game.name;
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/keys/${game.slug}/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '게임 키 비교', item: `${SITE}/deals/keys/` },
+    { '@type': 'ListItem', position: 3, name: game.korName || game.name, item: url },
+  ],
+};
+---
+<Layout
+  title={`${fullName} 키 최저가 — Kinguin · Eneba · Fanatical · GMG · Humble 비교`}
+  description={`${game.korName || game.name} 키를 5개 합법 스토어에서 동시 검색. Steam KR 가격보다 10–50% 싸게 살 수 있는 정식 키 비교.`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/deals/keys/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 모든 게임 키 비교</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      게임 키 메타서치 ×5
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      {game.korName || game.name} <span class="text-gradient">키 최저가</span>
+    </h1>
+    {game.korName && (
+      <p class="mt-2 text-sm text-zinc-500">영어 이름: {game.name}</p>
+    )}
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      <strong class="text-white">{game.name}</strong> 키를 5개 합법 스토어에서 동시 검색.
+      Steam KR보다 보통 10–50% 싸게 살 수 있고, 모두 정식 키라 BAN 위험 0.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <KeyPriceCompare game={game.name} />
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">{game.korName || game.name} 키 살 때 체크</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>Region: GLOBAL 또는 ASIA</strong> 표기 확인 — KR/JP 단일 지역 키는 한국 Steam 활성화 가능</li>
+        <li>→ <strong>플랫폼: Steam Key</strong>인지 확인 (Origin/Epic/GOG는 별도 클라이언트 필요)</li>
+        <li>→ <strong>판매자 평점</strong> 확인 — Kinguin/Eneba는 마켓플레이스라 판매자별 차이 있음</li>
+        <li>→ <strong>결제 후 키 발송</strong>은 보통 즉시 — 24시간 안에 안 오면 환불 요청</li>
+        <li>→ <strong>한국카드 결제 가능</strong> — VISA/Master/PayPal 모두 지원</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-6">
+      <h3 class="font-black text-rose-300">⚠ G2A vs 합법 스토어</h3>
+      <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+        G2A·CDKeys 일부는 도용카드로 결제된 그레이마켓 키. 발견되면 Steam이 키 회수 → 게임 락. 위 5개 스토어(Kinguin Marketplace 일부 제외)는
+        퍼블리셔 직접 공급 또는 검증된 wholesaler에서 받은 정식 키.
+      </p>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
