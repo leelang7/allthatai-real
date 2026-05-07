@@ -89,10 +89,11 @@ export const affiliates: Record<string, Affiliate> = {
   coupangSearch: {
     name: '쿠팡',
     signupUrl: 'https://partners.coupang.com/',
-    baseUrl: 'https://www.coupang.com/np/search?q={code}',
-    code: '',
+    baseUrl: 'https://www.coupang.com/np/search',
+    code: 'AF9592707', // ✅ Coupang Partners Tracking ID
     rate: '검색 후 7일 트래킹',
     category: 'shopping',
+    notes: 'lptag 파라미터로 검색 URL에 자동 추가됨 (CoupangSearch.astro 참조)',
   },
 
   // ===== OTT =====

@@ -1,5 +1,5 @@
 ---
-import { affiliateUrl } from '../data/affiliates';
+import { affiliates } from '../data/affiliates';
 
 interface Props {
   /** Default keyword shown in placeholder */
@@ -15,8 +15,8 @@ const {
   subtitle = '쿠팡 검색결과로 이동 — 7일 이내 구매 시 운영자에게 약간의 수수료 (가격 동일)',
 } = Astro.props;
 
-// Base URL builder (registry-driven, no hardcoded domain)
-const coupangBase = affiliateUrl('coupangSearch').split('?')[0]; // .../search
+const coupangBase = affiliates.coupangSearch.baseUrl;
+const lptag = affiliates.coupangSearch.code || '';
 ---
 <div class="not-prose my-8 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 p-6">
   <div class="flex items-start gap-3">
@@ -24,7 +24,7 @@ const coupangBase = affiliateUrl('coupangSearch').split('?')[0]; // .../search
     <div class="flex-1 min-w-0">
       <p class="text-sm font-bold text-amber-300">{title}</p>
       <p class="mt-1 text-xs text-zinc-400">{subtitle}</p>
-      <form id="coupang-search-form" class="mt-4 flex gap-2" data-base={coupangBase}>
+      <form id="coupang-search-form" class="mt-4 flex gap-2" data-base={coupangBase} data-lptag={lptag}>
         <input
           name="q"
           type="text"
@@ -56,7 +56,10 @@ const coupangBase = affiliateUrl('coupangSearch').split('?')[0]; // .../search
       const q = (input && input.value || '').trim();
       if (!q) return;
       const base = form.getAttribute('data-base') || 'https://www.coupang.com/np/search';
-      const url = `${base}?q=${encodeURIComponent(q)}`;
+      const lptag = form.getAttribute('data-lptag') || '';
+      const url = lptag
+        ? `${base}?q=${encodeURIComponent(q)}&lptag=${encodeURIComponent(lptag)}`
+        : `${base}?q=${encodeURIComponent(q)}`;
       // Track click
       if (window.va) { try { window.va('event', { name: 'coupang_search', data: { q } }); } catch (_) {} }
       if (window.gtag) { try { window.gtag('event', 'coupang_search', { search_term: q, event_category: 'monetization' }); } catch (_) {} }
