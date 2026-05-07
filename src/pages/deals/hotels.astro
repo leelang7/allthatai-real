@@ -1,0 +1,212 @@
+---
+/**
+ * Hotel meta-search aggregator.
+ *
+ * One search box → 3 parallel affiliate links (Agoda, Booking, Trip.com).
+ * Reader picks whichever is cheapest; we earn commission on whichever they
+ * book. 4-7% per booking × ₩100K-1M booking value = ₩4K-70K/booking.
+ *
+ * No API keys needed: we use deeplink URL patterns that each platform
+ * publishes. The user just signs up for each affiliate program and pastes
+ * codes into affiliates.ts when ready. Until then, links work as direct.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import { affiliateUrl } from '../../data/affiliates';
+
+const popularDest = [
+  { name: '제주', en: 'jeju' },
+  { name: '서울', en: 'seoul' },
+  { name: '부산', en: 'busan' },
+  { name: '오사카', en: 'osaka' },
+  { name: '도쿄', en: 'tokyo' },
+  { name: '방콕', en: 'bangkok' },
+  { name: '다낭', en: 'da-nang' },
+  { name: '대만', en: 'taipei' },
+  { name: '싱가포르', en: 'singapore' },
+  { name: '발리', en: 'bali' },
+];
+
+// Each platform's deeplink URL pattern. Affiliate ID tagged via affiliates.ts
+// when present, falls back to plain search URL.
+function buildLinks(query: string, checkIn?: string, checkOut?: string) {
+  const q = encodeURIComponent(query);
+  const ci = checkIn || '';
+  const co = checkOut || '';
+  return {
+    agoda: `https://www.agoda.com/search?city=${q}&checkIn=${ci}&checkOut=${co}&cid=${encodeURIComponent(affiliateUrl('agoda').match(/cid=([^&]*)/)?.[1] || '')}`,
+    booking: `https://www.booking.com/searchresults.html?ss=${q}&checkin=${ci}&checkout=${co}&aid=${encodeURIComponent(affiliateUrl('booking').match(/aid=([^&]*)/)?.[1] || '')}`,
+    trip: `https://kr.trip.com/hotels/list?city=${q}&checkin=${ci}&checkout=${co}&Allianceid=${encodeURIComponent(affiliateUrl('trip').match(/Allianceid=([^&]*)/)?.[1] || '')}`,
+  };
+}
+---
+<Layout
+  title="호텔 한 번에 비교 — Agoda · Booking · Trip.com"
+  description="같은 호텔 같은 날짜를 3개 사이트에서 동시 검색. 보통 가격이 5–20% 차이 나니 가장 싼 곳에서 예약."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      메타서치
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">3개 사이트</span> 동시에 호텔 검색
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      Agoda · Booking · Trip.com — 같은 호텔도 5–20% 가격차. 한 번 입력으로
+      세 곳 가격 동시 확인 후 가장 싼 곳에서 예약.
+    </p>
+  </section>
+
+  <!-- SEARCH FORM -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <form id="hotel-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-zinc-300 mb-1.5">목적지</label>
+          <input
+            id="dest"
+            name="dest"
+            type="text"
+            placeholder="예: 제주, 도쿄, 방콕"
+            required
+            class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none px-4 py-3 text-white"
+          />
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-300 mb-1.5">체크인</label>
+            <input id="checkin" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-300 mb-1.5">체크아웃</label>
+            <input id="checkout" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-6 py-3 transition"
+        >
+          3개 사이트 동시에 검색 →
+        </button>
+      </form>
+
+      <!-- RESULTS -->
+      <div id="hotel-results" class="hidden mt-6 space-y-3"></div>
+    </div>
+  </section>
+
+  <!-- POPULAR DESTINATIONS -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-lg font-black mb-3">인기 목적지 빠른 검색</h2>
+    <div class="flex flex-wrap gap-2">
+      {popularDest.map((d) => (
+        <button
+          type="button"
+          class="quick-dest rounded-full border border-zinc-700 hover:border-emerald-500/60 hover:bg-emerald-500/5 px-4 py-1.5 text-sm transition"
+          data-dest={d.name}
+        >
+          {d.name}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- WHY USE -->
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">왜 한 곳에 안 묶고 3곳을 다 봐야 하나</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>같은 호텔 같은 날도 가격 다름</strong> — 인벤토리·프로모션이 사이트별로 달라서 보통 ₩5–20만 차이.</li>
+        <li>→ <strong>Agoda</strong>: 동남아 강함. 회원 등급 추가 할인 (Gold/Silver).</li>
+        <li>→ <strong>Booking.com</strong>: 유럽·미국 호텔 인벤토리 1위. Genius 멤버십 10–20% 추가 할인.</li>
+        <li>→ <strong>Trip.com</strong>: 한국 ←→ 동아시아 항공 + 호텔 패키지. Trip Coins 적립.</li>
+      </ul>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  // Default check-in/out: tomorrow + day after tomorrow
+  const today = new Date();
+  const ci = new Date(today.getTime() + 24*60*60*1000).toISOString().slice(0,10);
+  const co = new Date(today.getTime() + 48*60*60*1000).toISOString().slice(0,10);
+  document.getElementById('checkin').value = ci;
+  document.getElementById('checkout').value = co;
+
+  function buildLinks(query, checkIn, checkOut) {
+    const q = encodeURIComponent(query);
+    return [
+      {
+        name: 'Agoda',
+        url: `https://www.agoda.com/search?city=${q}&checkIn=${checkIn}&checkOut=${checkOut}`,
+        why: '동남아 강함, 회원 등급 추가 할인',
+        color: 'from-rose-500/15 to-pink-500/5',
+      },
+      {
+        name: 'Booking.com',
+        url: `https://www.booking.com/searchresults.html?ss=${q}&checkin=${checkIn}&checkout=${checkOut}`,
+        why: '유럽·미국 1위, Genius 10–20%',
+        color: 'from-blue-500/15 to-indigo-500/5',
+      },
+      {
+        name: 'Trip.com',
+        url: `https://kr.trip.com/hotels/list?city=${q}&checkin=${checkIn}&checkout=${checkOut}`,
+        why: '항공+호텔 패키지, Trip Coins',
+        color: 'from-amber-500/15 to-orange-500/5',
+      },
+    ];
+  }
+
+  function showResults(query) {
+    const checkIn = document.getElementById('checkin').value;
+    const checkOut = document.getElementById('checkout').value;
+    const links = buildLinks(query, checkIn, checkOut);
+    const results = document.getElementById('hotel-results');
+    results.innerHTML = `
+      <p class="text-xs text-zinc-500">3곳 모두 새 탭으로 열어 가격 비교 가능 ↓</p>
+      ${links.map((l) => `
+        <a href="${l.url}" target="_blank" rel="sponsored noopener" data-aff-platform="${l.name}" class="aff-platform card-lift block rounded-xl border border-zinc-700 bg-gradient-to-br ${l.color} p-5 transition hover:border-emerald-500/50">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="font-black text-white text-lg">${l.name}</p>
+              <p class="mt-1 text-xs text-zinc-400">${l.why}</p>
+            </div>
+            <span class="text-emerald-300 font-bold text-sm whitespace-nowrap">검색 →</span>
+          </div>
+        </a>
+      `).join('')}
+    `;
+    results.classList.remove('hidden');
+
+    // Track event
+    if (window.va) { try { window.va('event', { name: 'hotel_search', data: { query } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'hotel_search', { search_term: query, event_category: 'monetization' }); } catch (_) {} }
+  }
+
+  document.getElementById('hotel-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const dest = document.getElementById('dest').value.trim();
+    if (!dest) return;
+    showResults(dest);
+  });
+
+  document.querySelectorAll('.quick-dest').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dest = btn.getAttribute('data-dest');
+      document.getElementById('dest').value = dest;
+      showResults(dest);
+    });
+  });
+
+  // Click attribution on platform card
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a.aff-platform');
+    if (!a) return;
+    const platform = a.getAttribute('data-aff-platform');
+    if (window.va) { try { window.va('event', { name: 'hotel_platform_click', data: { platform } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'hotel_platform_click', { platform, event_category: 'monetization' }); } catch (_) {} }
+  });
+</script>

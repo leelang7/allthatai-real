@@ -1,0 +1,177 @@
+---
+/**
+ * Flight meta-search aggregator (same pattern as /deals/hotels).
+ *
+ * One search box → 3 parallel deep-links to Skyscanner / Kayak / Trip.com.
+ * Skyscanner has 무료 affiliate via TravelPayouts (need user signup),
+ * Trip.com via partners.trip.com (already wired affiliate slot).
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+const popularRoutes = [
+  { from: 'ICN', to: 'NRT', name: '서울 → 도쿄' },
+  { from: 'ICN', to: 'KIX', name: '서울 → 오사카' },
+  { from: 'ICN', to: 'BKK', name: '서울 → 방콕' },
+  { from: 'ICN', to: 'DAD', name: '서울 → 다낭' },
+  { from: 'ICN', to: 'SIN', name: '서울 → 싱가포르' },
+  { from: 'ICN', to: 'TPE', name: '서울 → 타이베이' },
+  { from: 'ICN', to: 'HKG', name: '서울 → 홍콩' },
+  { from: 'ICN', to: 'LAX', name: '서울 → LA' },
+  { from: 'ICN', to: 'SFO', name: '서울 → 샌프란시스코' },
+  { from: 'ICN', to: 'CDG', name: '서울 → 파리' },
+];
+---
+<Layout
+  title="항공권 한 번에 비교 — Skyscanner · Kayak · Trip.com"
+  description="3개 메타서치 동시 검색. 같은 노선 같은 날도 사이트별 ₩수만~수십만 차이."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      메타서치 ×3
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">항공권</span> 같은 노선 3곳 동시 검색
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      Skyscanner · Kayak · Trip.com — 같은 ICN→NRT 같은 날도 ₩3–10만 차이.
+      한 번 입력으로 3곳 가격 동시 확인.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <form id="flight-form" class="space-y-4">
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-300 mb-1.5">출발지 (IATA)</label>
+            <input id="from" type="text" placeholder="ICN" required value="ICN" maxlength="3"
+              class="w-full uppercase rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-300 mb-1.5">도착지 (IATA)</label>
+            <input id="to" type="text" placeholder="NRT" required maxlength="3"
+              class="w-full uppercase rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-zinc-300 mb-1.5">출발일</label>
+            <input id="depart" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-300 mb-1.5">귀국일 (편도면 비움)</label>
+            <input id="return" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+          </div>
+        </div>
+        <button type="submit" class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-3 transition">
+          3곳 동시 검색 →
+        </button>
+      </form>
+
+      <div id="flight-results" class="hidden mt-6 space-y-3"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-lg font-black mb-3">자주 가는 노선</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      {popularRoutes.map((r) => (
+        <button type="button" class="quick-route rounded-lg border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 hover:bg-zinc-800/60 px-3 py-2 text-sm text-left transition" data-from={r.from} data-to={r.to}>
+          {r.name}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  // Default depart: 14 days from now, return: 21 days from now
+  const t = new Date();
+  document.getElementById('depart').value = new Date(t.getTime() + 14*86400000).toISOString().slice(0,10);
+  document.getElementById('return').value = new Date(t.getTime() + 21*86400000).toISOString().slice(0,10);
+
+  function buildLinks(from, to, depart, ret) {
+    const fromLow = from.toLowerCase();
+    const toLow = to.toLowerCase();
+    // Skyscanner deeplink: /transport/flights/<from>/<to>/<departYYMMDD>/[<retYYMMDD>]
+    const departSky = depart.replace(/-/g, '').slice(2); // YYMMDD
+    const retSky = ret ? ret.replace(/-/g, '').slice(2) : '';
+    const skyPath = retSky
+      ? `${fromLow}/${toLow}/${departSky}/${retSky}/`
+      : `${fromLow}/${toLow}/${departSky}/`;
+    return [
+      {
+        name: 'Skyscanner',
+        url: `https://www.skyscanner.co.kr/transport/flights/${skyPath}?adults=1`,
+        why: '메타서치 강자, 가격 알림 + flexible 검색',
+        color: 'from-blue-500/15 to-cyan-500/5',
+      },
+      {
+        name: 'Kayak',
+        url: `https://www.kayak.co.kr/flights/${from}-${to}/${depart}${ret ? '/' + ret : ''}`,
+        why: '미주 노선 인벤토리 강함, 가격 트렌드 그래프',
+        color: 'from-amber-500/15 to-orange-500/5',
+      },
+      {
+        name: 'Trip.com',
+        url: `https://kr.trip.com/flights/showfaresearch?dcity=${fromLow}&acity=${toLow}&ddate=${depart}${ret ? '&rdate=' + ret : ''}&class=Y&adult=1`,
+        why: '아시아 노선 1위, Trip Coins, 호텔 + 항공 패키지',
+        color: 'from-emerald-500/15 to-teal-500/5',
+      },
+    ];
+  }
+
+  function showResults() {
+    const from = document.getElementById('from').value.trim().toUpperCase();
+    const to = document.getElementById('to').value.trim().toUpperCase();
+    const depart = document.getElementById('depart').value;
+    const ret = document.getElementById('return').value;
+    if (!from || !to || !depart) return;
+
+    const links = buildLinks(from, to, depart, ret);
+    const results = document.getElementById('flight-results');
+    results.innerHTML = `
+      <p class="text-xs text-zinc-500">3곳 모두 새 탭으로 열어 가격 비교 ↓</p>
+      ${links.map((l) => `
+        <a href="${l.url}" target="_blank" rel="sponsored noopener" data-aff-platform="${l.name}" class="aff-platform card-lift block rounded-xl border border-zinc-700 bg-gradient-to-br ${l.color} p-5 transition hover:border-cyan-500/50">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="font-black text-white text-lg">${l.name}</p>
+              <p class="mt-1 text-xs text-zinc-400">${l.why}</p>
+            </div>
+            <span class="text-cyan-300 font-bold text-sm whitespace-nowrap">검색 →</span>
+          </div>
+        </a>
+      `).join('')}
+    `;
+    results.classList.remove('hidden');
+
+    if (window.va) { try { window.va('event', { name: 'flight_search', data: { from, to } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'flight_search', { from, to, event_category: 'monetization' }); } catch (_) {} }
+  }
+
+  document.getElementById('flight-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    showResults();
+  });
+
+  document.querySelectorAll('.quick-route').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.getElementById('from').value = btn.getAttribute('data-from');
+      document.getElementById('to').value = btn.getAttribute('data-to');
+      showResults();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a.aff-platform');
+    if (!a) return;
+    const platform = a.getAttribute('data-aff-platform');
+    if (window.va) { try { window.va('event', { name: 'flight_platform_click', data: { platform } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'flight_platform_click', { platform, event_category: 'monetization' }); } catch (_) {} }
+  });
+</script>
