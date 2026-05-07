@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-07-부가세-신고-세무사-30만회-vs-홈택스-직접",
+    "title": "부가세 신고, 세무사 vs 홈택스 직접 비교",
+    "excerpt": "부가세 신고, 세무사 맡기면 30만원/회. 홈택스 직접 신고 시 절약 팁 확인하세요.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-07T19:20:32.987Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-07-종합소득세-신고-대행-vs-홈택스-매출-5천만-미만",
+    "title": "종합소득세 신고: 세무대행 vs 홈택스 비교 (매출 5천만원 미만)",
+    "excerpt": "매출 5천만원 미만이라면? 종합소득세, 세무대행 vs 홈택스 직접 신고, 무엇이 유리할까?",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-07T19:20:41.615Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-07-양도소득세-1세대1주택-비과세-보유-2년거주-2년-요건",
     "title": "1세대1주택 비과세 혜택: 보유·거주 2년 요건 완화?",
     "excerpt": "1세대1주택 양도세 비과세, 보유 2년·거주 2년 요건과 완화 가능성을 알아보세요.",
