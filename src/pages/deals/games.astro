@@ -14,6 +14,7 @@
 import Layout from '../../layouts/Layout.astro';
 import AffiliateLink from '../../components/AffiliateLink.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import KeyPriceCompare from '../../components/KeyPriceCompare.astro';
 
 interface SteamItem {
   id: number;
@@ -103,6 +104,13 @@ const dealsByDiscountTier = {
       {fetchError && <span class="text-rose-400">· 오류: {fetchError}</span>}
     </p>
   </section>
+
+  <!-- KEY-PRICE COMPARE for top deal — biggest revenue lever -->
+  {deals.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-4">
+      <KeyPriceCompare game={deals[0].name} steamKrw={deals[0].finalKrw} />
+    </section>
+  )}
 
   <!-- 70%+ tier -->
   {dealsByDiscountTier.big.length > 0 && (

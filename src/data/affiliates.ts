@@ -198,6 +198,51 @@ export const affiliates: Record<string, Affiliate> = {
     rate: '직접 링크',
     category: 'game',
   },
+  // Game-key resale (겜스고 모델). All have public affiliate programs.
+  // Search-URL pattern lets us point readers to any game by name with our tag.
+  kinguin: {
+    name: 'Kinguin',
+    signupUrl: 'https://www.kinguin.net/affiliate-program',
+    baseUrl: 'https://www.kinguin.net/listing?phrase={query}',
+    code: '',
+    rate: '5–10% 키 판매',
+    category: 'game',
+    notes: 'Awin/Impact 통해 가입. tag 파라미터로 추적',
+  },
+  eneba: {
+    name: 'Eneba',
+    signupUrl: 'https://www.eneba.com/affiliate',
+    baseUrl: 'https://www.eneba.com/store/all-products?text={query}',
+    code: '',
+    rate: '5–8% 키 판매',
+    category: 'game',
+  },
+  fanatical: {
+    name: 'Fanatical',
+    signupUrl: 'https://www.fanatical.com/en/affiliate-program',
+    baseUrl: 'https://www.fanatical.com/en/search?search={query}',
+    code: '',
+    rate: '5% 모든 판매',
+    category: 'game',
+    notes: 'Impact 네트워크로 가입. AAA 80%+ 자주',
+  },
+  gmg: {
+    name: 'Green Man Gaming',
+    signupUrl: 'https://www.greenmangaming.com/affiliate',
+    baseUrl: 'https://www.greenmangaming.com/search/?query={query}',
+    code: '',
+    rate: '5% 모든 판매',
+    category: 'game',
+    notes: 'TapAffiliate / TUNE 통해. VIP 신작 25%+',
+  },
+  humble: {
+    name: 'Humble Store',
+    signupUrl: 'https://www.humblebundle.com/affiliates',
+    baseUrl: 'https://www.humblebundle.com/store/search?search={query}',
+    code: '',
+    rate: '5% Choice 멤버십 + 게임',
+    category: 'game',
+  },
 
   // ===== Hosting / Dev =====
   cloudflare: {
@@ -249,4 +294,28 @@ export function affiliateUrl(key: AffiliateKey): string {
   const a = affiliates[key];
   if (!a.code) return a.baseUrl.replace(/[?&]?[a-z_]+=\{code\}/i, '').replace(/\{code\}/g, '');
   return a.baseUrl.replace('{code}', encodeURIComponent(a.code));
+}
+
+/**
+ * Build a search URL on a game-key store with the query AND our affiliate tag.
+ * Used by KeyPriceCompare to send readers to "buy this specific game" pages.
+ *
+ * Each store has its own tracking parameter conventions; we keep them in
+ * `paramName` here rather than mutating the registry baseUrl, so the same
+ * baseUrl can serve both bare-search (no signup yet) and tagged-search.
+ */
+const KEY_STORE_PARAM: Record<string, string> = {
+  kinguin: 'tag',
+  eneba: 'af_id',
+  fanatical: 'tap_a',
+  gmg: 'tap_s',
+  humble: 'partner',
+};
+export function keyStoreSearchUrl(key: AffiliateKey, query: string): string {
+  const a = affiliates[key];
+  const q = encodeURIComponent(query);
+  const url = a.baseUrl.replace('{query}', q);
+  const param = KEY_STORE_PARAM[key];
+  if (!param || !a.code) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}${param}=${encodeURIComponent(a.code)}`;
 }

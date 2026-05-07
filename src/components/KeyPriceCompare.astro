@@ -1,0 +1,86 @@
+---
+/**
+ * Game-key price comparison component (겜스고 어필 변형).
+ *
+ * Given a game name, renders parallel "이 게임 더 싸게" buttons to 5 stores
+ * (Kinguin, Eneba, Fanatical, GMG, Humble) each with our affiliate tag.
+ * Reader clicks → store's search results page → buys → we earn 5–10% commission.
+ *
+ * Inline-renderable inside an article OR on /deals/keys page.
+ */
+import { keyStoreSearchUrl, affiliates, type AffiliateKey } from '../data/affiliates';
+
+interface Props {
+  /** The game name to search for (e.g. "Cyberpunk 2077") */
+  game: string;
+  /** Optional Steam KRW reference price for "savings vs Steam" copy */
+  steamKrw?: string;
+  /** Compact mode: smaller card suitable for inline use */
+  compact?: boolean;
+}
+const { game, steamKrw, compact = false } = Astro.props;
+
+const stores: { key: AffiliateKey; brand: string; pitch: string; color: string }[] = [
+  { key: 'kinguin', brand: 'Kinguin', pitch: '글로벌 마켓플레이스, 종종 50–80% 싸게', color: 'from-amber-500/20 to-orange-500/5' },
+  { key: 'eneba', brand: 'Eneba', pitch: '신흥 강자, 같은 키 더 저렴', color: 'from-violet-500/20 to-purple-500/5' },
+  { key: 'fanatical', brand: 'Fanatical', pitch: '번들·인디 강함, AAA 80%+', color: 'from-rose-500/20 to-pink-500/5' },
+  { key: 'gmg', brand: 'Green Man Gaming', pitch: 'VIP 신작 25%+ 추가 할인', color: 'from-emerald-500/20 to-green-500/5' },
+  { key: 'humble', brand: 'Humble', pitch: 'Choice 멤버십 + 자선 분배', color: 'from-cyan-500/20 to-blue-500/5' },
+];
+
+const items = stores.map((s) => ({
+  ...s,
+  url: keyStoreSearchUrl(s.key, game),
+}));
+---
+<div class={`not-prose ${compact ? 'my-4' : 'my-8'} rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-rose-500/5 p-6`}>
+  <div class="flex items-start gap-3">
+    <div class="text-2xl">🔑</div>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-bold text-amber-300">"{game}" 키 — 5개 스토어 동시 비교</p>
+      {steamKrw ? (
+        <p class="mt-1 text-xs text-zinc-400">
+          Steam KR <span class="text-zinc-200 font-bold">{steamKrw}</span>보다
+          <strong class="text-emerald-300">10–50% 싸게</strong> 살 수 있는 합법 스토어들.
+          모두 정식 키 (그레이마켓 아님).
+        </p>
+      ) : (
+        <p class="mt-1 text-xs text-zinc-400">
+          5개 합법 키 스토어 동시 검색. 같은 게임도 ₩수만 차이.
+        </p>
+      )}
+    </div>
+  </div>
+
+  <div class={`mt-4 grid ${compact ? 'sm:grid-cols-2' : 'sm:grid-cols-3 lg:grid-cols-5'} gap-2`}>
+    {items.map((it) => (
+      <a
+        href={it.url}
+        target="_blank"
+        rel="sponsored noopener nofollow"
+        data-keystore={it.key}
+        data-game={game}
+        class={`key-store-link card-lift block rounded-xl border border-zinc-700 bg-gradient-to-br ${it.color} p-3 transition hover:border-amber-500/60`}
+      >
+        <p class="font-black text-white text-sm">{it.brand}</p>
+        <p class="mt-1 text-[10px] text-zinc-400 leading-snug">{it.pitch}</p>
+        <p class="mt-2 text-[11px] text-amber-300 font-bold">검색 →</p>
+      </a>
+    ))}
+  </div>
+
+  <p class="mt-3 text-[10px] text-zinc-500 leading-relaxed">
+    ⓘ 위 스토어들은 모두 합법 정식 키 공급. G2A · Kinguin Marketplace 일부 그레이 키 위험 있음 — 본문 가격에 의심스러운 차이 있으면 안전 결제(PayPal) 사용.
+  </p>
+</div>
+
+<script is:inline>
+  document.querySelectorAll('a.key-store-link').forEach((a) => {
+    a.addEventListener('click', () => {
+      const store = a.getAttribute('data-keystore');
+      const game = a.getAttribute('data-game');
+      if (window.va) { try { window.va('event', { name: 'key_store_click', data: { store, game } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'key_store_click', { store, game, event_category: 'monetization' }); } catch (_) {} }
+    });
+  });
+</script>
