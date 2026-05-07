@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-07-클로드-pro-할인-받는-법-학생연간결제프로모션",
+    "title": "클로드 Pro 학생·연간결제 할인 총정리",
+    "excerpt": "클로드 Pro, 학생 할인부터 연간 결제까지! 최대 할인 혜택을 놓치지 마세요.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-07T01:25:53.928Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-07-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
+    "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced: 가격 비교",
+    "excerpt": "ChatGPT Plus, Claude Pro, Gemini Advanced의 가격과 기능을 비교하고, 나에게 맞는 AI 서비스를 합리적으로 선택하는 방법을 알아보세요.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-07T01:25:58.895Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-07-cursor-ide-무료-한도와-pro-20-결제-시점",
+    "title": "Cursor IDE 무료 vs Pro: 언제 유료 전환해야 할까?",
+    "excerpt": "Cursor IDE, 무료 사용 한도와 Pro 플랜 $20 결제 시점 분석. 현명한 구독 결정을 위한 가이드.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-07T01:26:03.278Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-06-주거급여-임차가구-지원-한도와-신청-절차",
     "title": "주거급여 임차가구 지원 한도 및 신청 방법 총정리",
     "excerpt": "월세 부담 줄이는 주거급여! 임차 가구 지원 한도와 신청 절차, 자격 요건을 확인하세요.",
