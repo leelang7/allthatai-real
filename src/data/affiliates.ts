@@ -164,6 +164,51 @@ export const affiliates: Record<string, Affiliate> = {
     rate: '50% 첫 12개월',
     category: 'dev',
   },
+  perplexity: {
+    name: 'Perplexity Pro',
+    signupUrl: 'https://www.perplexity.ai/',
+    baseUrl: 'https://www.perplexity.ai/pro?referral_code={code}',
+    code: '',
+    rate: '직접 링크',
+    category: 'ai',
+    notes: '공식 제휴 미정. referral_code 슬롯 둠',
+  },
+  grok: {
+    name: 'Grok (xAI)',
+    signupUrl: 'https://x.com/i/premium',
+    baseUrl: 'https://x.com/i/premium',
+    rate: '직접 링크',
+    category: 'ai',
+    notes: 'Grok은 X Premium에 묶여 있음 — 별도 어필 없음',
+  },
+  // AI API 크레딧 — 정식 affiliate program 있음 (ToS 합법)
+  replicate: {
+    name: 'Replicate',
+    signupUrl: 'https://replicate.com/affiliates',
+    baseUrl: 'https://replicate.com/?via={code}',
+    code: '',
+    rate: '25% 첫 결제',
+    category: 'ai',
+    notes: 'Stable Diffusion / Flux / Llama 호스팅. 정식 affiliate program',
+  },
+  togetherai: {
+    name: 'Together AI',
+    signupUrl: 'https://www.together.ai/partner-program',
+    baseUrl: 'https://www.together.ai/?ref={code}',
+    code: '',
+    rate: 'partner 등록 후 변동',
+    category: 'ai',
+    notes: 'Llama·Mixtral 등 오픈 모델 API 호스팅',
+  },
+  poe: {
+    name: 'Poe (Quora)',
+    signupUrl: 'https://poe.com',
+    baseUrl: 'https://poe.com/{code}',
+    code: '',
+    rate: '직접 링크',
+    category: 'ai',
+    notes: 'Claude·GPT·Gemini 등 통합 인터페이스',
+  },
 
   // ===== VPN (high commission) =====
   nordvpn: {

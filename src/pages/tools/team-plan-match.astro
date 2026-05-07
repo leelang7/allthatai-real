@@ -1,0 +1,175 @@
+---
+/**
+ * 팀 플랜 공동구매 매칭 페이지.
+ *
+ * Notion Team / Claude Team / Cursor Business / GitHub Team 등 정식 팀 플랜을
+ * 5명 모아서 1인당 가격 분담. 계정 공유 X — 각자 본인 이메일로 팀 멤버 가입,
+ * 결제만 한 명이 묶어서 진행. 100% 합법.
+ *
+ * MVP: 정적 모집 폼 + 매칭 게시판 (수동 운영 → 추후 자동화).
+ *      각 도구별 1인당 절감액 자동 계산.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+
+interface TeamPlan {
+  product: string;
+  affKey: 'claude' | 'chatgpt' | 'notion' | 'cursor' | null;
+  fallbackUrl?: string;
+  soloUsd: number;       // 1인 결제 시 월 단가
+  teamSeatUsd: number;   // 팀 플랜 1좌석 단가
+  minSeats: number;      // 최소 좌석
+  features: string[];    // 팀 플랜 추가 혜택
+};
+
+const plans: TeamPlan[] = [
+  {
+    product: 'Claude Team',
+    affKey: 'claude',
+    soloUsd: 20,
+    teamSeatUsd: 25,
+    minSeats: 5,
+    features: ['Sonnet/Opus 무제한', '팀 워크스페이스', 'Projects 공유', '프로젝트 관리'],
+  },
+  {
+    product: 'ChatGPT Team',
+    affKey: 'chatgpt',
+    soloUsd: 20,
+    teamSeatUsd: 25,
+    minSeats: 2,
+    features: ['GPT-4o 무제한', 'GPTs 비공개 공유', 'Admin 콘솔', '데이터 학습 제외'],
+  },
+  {
+    product: 'Notion Team',
+    affKey: 'notion',
+    soloUsd: 10,
+    teamSeatUsd: 8,
+    minSeats: 2,
+    features: ['무제한 멤버', '공동 워크스페이스', '협업 데이터베이스', 'Admin 권한'],
+  },
+  {
+    product: 'Cursor Business',
+    affKey: 'cursor',
+    soloUsd: 20,
+    teamSeatUsd: 40,
+    minSeats: 1,
+    features: ['모든 모델 무제한', '팀 빌링', 'SAML SSO', '데이터 분리'],
+  },
+  {
+    product: 'GitHub Team',
+    affKey: null,
+    fallbackUrl: 'https://github.com/pricing',
+    soloUsd: 4,
+    teamSeatUsd: 4,
+    minSeats: 5,
+    features: ['Codespaces 1500분', 'Copilot Business', '팀 권한 관리', 'Audit log'],
+  },
+];
+
+const fmt = (n: number) => `$${n.toFixed(2)}`;
+const krw = (usd: number) => `₩${Math.round(usd * 1380).toLocaleString('ko-KR')}`;
+---
+<Layout
+  title="AI 팀 플랜 공동구매 매칭 — 5인 분담으로 ₩-50%"
+  description="Claude Team · Notion Team · Cursor Business · GitHub Team — 5명 모이면 1인당 단독 결제 대비 절반 가격. 계정 공유 X (정식 팀 멤버)."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      합법 공동구매 매칭
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      AI 팀 플랜 <span class="text-gradient">5인 분담</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      각자 본인 이메일로 팀 멤버 가입, 결제만 한 명이 묶음. <strong class="text-white">계정 공유 X</strong>이라
+      ToS 위반 아님. 단독 결제 대비 30–60% 절약.
+    </p>
+  </section>
+
+  <!-- CALC -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-4">팀 플랜 5종 비교</h2>
+      <div class="space-y-4">
+        {plans.map((p) => {
+          const memberCount = Math.max(p.minSeats, 5);
+          const totalTeamUsd = p.teamSeatUsd * memberCount;
+          const totalSoloUsd = p.soloUsd * memberCount;
+          const savePerSeat = p.soloUsd - p.teamSeatUsd;
+          const saveTotal = totalSoloUsd - totalTeamUsd;
+          const savePctPerSeat = Math.round(((p.soloUsd - p.teamSeatUsd) / p.soloUsd) * 100);
+          return (
+            <div class="rounded-xl border border-zinc-800 bg-zinc-900/30 p-5">
+              <div class="flex items-start justify-between gap-3 flex-wrap">
+                <div class="flex-1 min-w-0">
+                  <p class="font-black text-white text-lg">{p.product}</p>
+                  <p class="mt-1 text-xs text-zinc-500">최소 {p.minSeats}좌석 (5인 기준 계산)</p>
+                  <ul class="mt-3 space-y-1">
+                    {p.features.map((f) => (
+                      <li class="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <span class="text-emerald-400">✓</span><span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="text-right shrink-0">
+                  <p class="text-[10px] text-zinc-500">단독 vs 팀</p>
+                  <p class="text-sm text-rose-300 line-through">{fmt(p.soloUsd)}/월</p>
+                  <p class="text-2xl font-black text-emerald-300">{fmt(p.teamSeatUsd)}<span class="text-xs">/좌석</span></p>
+                  {savePerSeat > 0 ? (
+                    <p class="text-[11px] text-emerald-300 mt-0.5">−{savePctPerSeat}% / {krw(saveTotal)} 5인 절약</p>
+                  ) : (
+                    <p class="text-[11px] text-amber-300 mt-0.5">단독보다 비쌈 (다른 혜택 위주)</p>
+                  )}
+                  <div class="mt-3">
+                    {p.affKey ? (
+                      <AffiliateLink to={p.affKey} label="가입 →" />
+                    ) : (
+                      <a href={p.fallbackUrl} target="_blank" rel="noopener" class="text-xs text-cyan-300 hover:text-cyan-200 underline">사이트 →</a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-4">어떻게 모이나</h2>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="text-cyan-300 font-black text-2xl">1.</div>
+        <p class="mt-2 font-bold">멤버 모집</p>
+        <p class="mt-2 text-xs text-zinc-400 leading-relaxed">디스콰이엇/카톡방/Twitter에 "Claude Team 5인 모집" 글. 본인이 운영자 (결제·관리).</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="text-cyan-300 font-black text-2xl">2.</div>
+        <p class="mt-2 font-bold">분담금 수령</p>
+        <p class="mt-2 text-xs text-zinc-400 leading-relaxed">각자 운영자 토스/계좌로 1인분 송금. 운영자가 결제대행이라 통신판매업 신고 면제 범위 안.</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="text-cyan-300 font-black text-2xl">3.</div>
+        <p class="mt-2 font-bold">팀 멤버 초대</p>
+        <p class="mt-2 text-xs text-zinc-400 leading-relaxed">운영자가 각자 이메일을 팀 워크스페이스에 정식 멤버로 초대. 각자 본인 비밀번호로 로그인.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGAL NOTICE -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-black text-emerald-300 mb-2">왜 이게 합법인가</p>
+      <ul class="space-y-1.5 text-xs">
+        <li>→ <strong>각자 본인 이메일</strong>로 팀에 정식 등록 (계정 공유 X)</li>
+        <li>→ 팀 플랜은 처음부터 <strong>여러 명</strong>이 쓰는 걸로 설계됨</li>
+        <li>→ 분담금 송금은 단순 회비 — 사업소득 아님 (운영자 ≤ 본인 분만 사용 시)</li>
+        <li>→ 단, 운영자가 마진 떼면 그건 통신판매 → 사업자 + 신고 필요</li>
+      </ul>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,251 @@
+---
+/**
+ * AI 도구 종합 딜 페이지 (겜스고 AI 섹션의 합법 변형).
+ *
+ * 겜스고는 ToS 위반 계정 공유로 ChatGPT/Claude/Gemini를 ₩30K에 팔지만, 그건
+ * 본인 BAN + 사기 분쟁 리스크. 우리는:
+ *   - 공식 결제 우회 가이드 (한국카드 안 먹을 때) → PDF 판매
+ *   - 학생/연간/프로모션 시즌 포착 → 어필 가입
+ *   - 팀 플랜 공동구매 매칭 → 정식 분담
+ *   - 어필 활성 도구 강조 (Cursor 5%, Notion 50%, Replicate 25%)
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+interface Tool {
+  product: string;
+  plan: string;
+  monthly: string;
+  yearly?: string;
+  /** affiliates.ts key, null if no commission program */
+  affKey: 'claude' | 'chatgpt' | 'cursor' | 'notion' | 'midjourney' | 'perplexity' | 'grok' | 'replicate' | 'togetherai' | null;
+  fallbackUrl?: string;
+  pitch: string;
+  korean: string;  // 한국 결제 가능성
+  bestFor: string[];
+}
+
+const tools: Tool[] = [
+  {
+    product: 'Claude Pro',
+    plan: 'Pro / Max',
+    monthly: '$20 / $100~',
+    yearly: '$17 / 약정',
+    affKey: 'claude',
+    pitch: 'Sonnet 무제한, 1M context window, 코딩+분석 강함',
+    korean: '한국카드 일부 거부 — 한국 발행 가상카드(트래블월렛/Wise) 권장',
+    bestFor: ['코딩', '긴 문서 분석', '정확한 답변'],
+  },
+  {
+    product: 'ChatGPT Plus',
+    plan: 'Plus / Team',
+    monthly: '$20 / $25/seat',
+    affKey: 'chatgpt',
+    pitch: 'GPT-4o + DALL-E 3 + Voice + GPTs',
+    korean: '한국카드 80% 통과 — 거부 시 Wise 또는 PayPal',
+    bestFor: ['이미지', '음성', '플러그인'],
+  },
+  {
+    product: 'Gemini Advanced',
+    plan: 'Google One AI Premium',
+    monthly: '$19.99',
+    affKey: null,
+    fallbackUrl: 'https://gemini.google.com/advanced',
+    pitch: '2TB 드라이브 + Workspace + Gemini Live',
+    korean: 'Google Pay 한국카드 호환 — 가장 쉬움',
+    bestFor: ['Workspace', '구글 생태계', '실시간 음성'],
+  },
+  {
+    product: 'Grok',
+    plan: 'X Premium / Premium+',
+    monthly: '$8 / $40',
+    affKey: 'grok',
+    pitch: 'X(Twitter) 통합, 실시간 X 데이터',
+    korean: 'X 결제 — 한국카드 거부 빈번. PayPal 우회',
+    bestFor: ['실시간 트렌드', 'X 통합'],
+  },
+  {
+    product: 'Perplexity Pro',
+    plan: 'Pro',
+    monthly: '$20',
+    yearly: '$17',
+    affKey: 'perplexity',
+    pitch: '검색 특화 AI, 출처 표시 자동',
+    korean: '한국카드 통과 — Stripe',
+    bestFor: ['리서치', '출처 인용', '학술'],
+  },
+  {
+    product: 'Cursor',
+    plan: 'Pro',
+    monthly: '$20',
+    affKey: 'cursor',
+    pitch: 'VSCode fork, Claude/GPT 모델 선택, 500 fast/월',
+    korean: '한국카드 통과 — 거부 시 Wise 권장',
+    bestFor: ['코딩 (1순위)', 'pair programming'],
+  },
+  {
+    product: 'Notion AI',
+    plan: 'AI Add-on',
+    monthly: '$10',
+    affKey: 'notion',
+    pitch: 'Notion 워크스페이스 안에서 AI 호출',
+    korean: 'Notion 학생 인증 → 무료',
+    bestFor: ['워크스페이스', '문서', '회의록'],
+  },
+  {
+    product: 'Midjourney',
+    plan: 'Basic / Standard',
+    monthly: '$10 / $30',
+    yearly: '$8 / $24',
+    affKey: 'midjourney',
+    pitch: '이미지 생성 1위 — Discord/Web',
+    korean: '한국카드 70% 통과',
+    bestFor: ['이미지', '컨셉아트', 'SNS 콘텐츠'],
+  },
+  {
+    product: 'Replicate',
+    plan: 'API 종량제',
+    monthly: '사용량 ($0.001~/sec)',
+    affKey: 'replicate',
+    pitch: 'Flux / Stable Diffusion / Llama API 호스팅',
+    korean: '한국카드 통과 — Stripe',
+    bestFor: ['이미지 API', '대량 처리', '파이프라인'],
+  },
+  {
+    product: 'Together AI',
+    plan: 'API 종량제',
+    monthly: '$0.20~/M tokens',
+    affKey: 'togetherai',
+    pitch: 'Llama 3.3 / DeepSeek / Mixtral 호스팅',
+    korean: '한국카드 통과',
+    bestFor: ['오픈모델', '저비용 API', '커스텀'],
+  },
+];
+
+// 결제 우회 PDF 상품 (products.ts에서 자동 read 안 하고 여기 hardcode — funnel 구조)
+const paymentWorkaroundPdfSlug = 'chatgpt-korea-payment'; // existing manual guide
+const paymentWorkaroundUrl = `/guides/${paymentWorkaroundPdfSlug}/`;
+---
+<Layout
+  title="AI 도구 한국 결제 + 최저가 — Claude · GPT · Gemini · Grok · Cursor"
+  description="Claude Pro · ChatGPT Plus · Gemini Advanced · Grok · Cursor — 한국카드 결제 우회법 + 학생 할인 + 팀 플랜 공동구매 매칭."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      AI 도구 종합 딜
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">Claude · GPT · Gemini · Grok</span><br/>
+      한국에서 진짜 싸게 쓰기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      한국카드 결제 우회 + 학생 무료 + 연간 약정 + 팀 플랜 공동구매 — 합법 ver.
+      <strong class="text-rose-300">계정 공유 reseller (겜스고)는 BAN 위험</strong>이라 권장 X.
+    </p>
+  </section>
+
+  <!-- 결제 우회 funnel — 가장 자주 검색되는 pain point -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/5 p-8">
+      <p class="text-[10px] font-black uppercase tracking-widest text-amber-300">한국 사용자 1순위 고민</p>
+      <h2 class="mt-2 text-2xl font-black">한국카드 거부될 때 — 결제 우회 4가지</h2>
+      <ul class="mt-4 space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>트래블월렛</strong>: 가장 통과율 높음 (앱 → 카드 발급 → 즉시 사용). <a href="/issues/" class="text-cyan-300 hover:text-cyan-200 underline">관련 이슈</a></li>
+        <li>→ <strong>Wise 가상카드</strong>: USD 잔액 충전 → 가상카드 발급 → 결제. <AffiliateLink to="wise" label="Wise 가입" /></li>
+        <li>→ <strong>PayPal</strong>: ChatGPT/Grok 등 PayPal 결제 옵션 가능</li>
+        <li>→ <strong>한국 발행 VISA Platinum 이상</strong>: 일부만 통과</li>
+      </ul>
+      <a href={paymentWorkaroundUrl} class="mt-5 inline-block rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-5 py-2.5 text-sm transition">
+        ChatGPT 결제 가이드 보기 →
+      </a>
+    </div>
+  </section>
+
+  <!-- TOOL TABLE -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <h2 class="text-xl font-black mb-4">10개 AI 도구 — 가격·결제·추천</h2>
+    <div class="space-y-3">
+      {tools.map((t) => (
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-black text-white text-lg">{t.product}</span>
+                <span class="rounded-full bg-zinc-800 text-zinc-300 text-[10px] font-bold px-2 py-0.5">{t.plan}</span>
+              </div>
+              <p class="mt-2 text-sm text-zinc-300">{t.pitch}</p>
+              <p class="mt-2 text-xs text-zinc-500">
+                <span class="font-bold text-zinc-400">한국 결제:</span> {t.korean}
+              </p>
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                {t.bestFor.map((b) => (
+                  <span class="rounded-full bg-cyan-500/10 text-cyan-300 text-[10px] font-bold px-2 py-0.5 border border-cyan-500/20">{b}</span>
+                ))}
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <p class="text-2xl font-black">{t.monthly}</p>
+              {t.yearly && <p class="text-[10px] text-emerald-300">연간 {t.yearly}/월</p>}
+              <div class="mt-2">
+                {t.affKey ? (
+                  <AffiliateLink to={t.affKey} label="가입 →" />
+                ) : (
+                  <a href={t.fallbackUrl} target="_blank" rel="noopener" class="text-xs text-cyan-300 hover:text-cyan-200 underline">사이트 →</a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 팀 플랜 공동구매 funnel -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 to-fuchsia-500/5 p-8">
+      <p class="text-[10px] font-black uppercase tracking-widest text-violet-300">합법 분담 모델</p>
+      <h2 class="mt-2 text-2xl font-black">팀 플랜 5인 공동구매 — 1인당 ₩-50%</h2>
+      <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+        Claude Team ($25/seat) · Notion Team ($8/seat) · Cursor Business ($40/seat) — 정식 분담 가능.
+        본인이 5명 모이면 1인당 가격이 단독 결제 대비 30–50% 싸짐. 계정 공유 (BAN 위험) 아니라
+        <strong class="text-white">정식 팀 멤버 등록</strong>이라 합법.
+      </p>
+      <a href="/tools/team-plan-match/" class="mt-5 inline-block rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-bold px-5 py-2.5 text-sm transition">
+        공동구매 매칭 →
+      </a>
+    </div>
+  </section>
+
+  <!-- 학생 무료 -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-8">
+      <p class="text-[10px] font-black uppercase tracking-widest text-emerald-300">학생 인증 시 무료</p>
+      <h2 class="mt-2 text-2xl font-black">학생증으로 ₩수십만 절약</h2>
+      <ul class="mt-4 space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>Notion</strong>: 학생 + 교직원 무료 (.ac.kr 또는 .edu)</li>
+        <li>→ <strong>Figma</strong>: 학생 Pro 무료 (.ac.kr)</li>
+        <li>→ <strong>GitHub Pro Student Pack</strong>: GitHub Pro + Copilot + 100+ 도구 무료</li>
+        <li>→ <strong>JetBrains</strong>: 모든 IDE 무료 (학생 인증 시)</li>
+        <li>→ <strong>Microsoft 365</strong>: 일부 학교 .ac.kr 인증 무료</li>
+      </ul>
+      <a href="/guides/" class="mt-5 inline-block text-emerald-300 hover:text-emerald-200 font-bold text-sm">학생 무료 풀가이드 →</a>
+    </div>
+  </section>
+
+  <!-- 겜스고 같은 거 (계정 공유) — 안전 경고 -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-6">
+      <h3 class="font-black text-rose-300">⚠ 계정 공유 reseller (겜스고 등) 사지 마세요</h3>
+      <ul class="mt-3 space-y-1.5 text-sm text-zinc-400">
+        <li>→ ToS 위반 — 적발 시 결제 환불 없이 계정 BAN</li>
+        <li>→ 본인 카드 정보 도용 가능성 (가짜 결제로 가입한 계정)</li>
+        <li>→ 비밀번호 변경 불가 (판매자가 통제)</li>
+        <li>→ 팀 플랜 정식 분담 + 학생 인증으로 비슷한 가격에 합법 사용 가능</li>
+      </ul>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
