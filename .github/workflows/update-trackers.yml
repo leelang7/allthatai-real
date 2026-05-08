@@ -1,0 +1,53 @@
+name: Update keyword trackers
+
+on:
+  schedule:
+    # Daily at 15:00 UTC ≈ 자정 KST
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-trackers
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Update tracker live data
+        run: npx tsx scripts/update-trackers.ts
+
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          git config user.name "AllThatAI Real Bot"
+          git config user.email "bot@allthatai.kr"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "auto: tracker updates $(date -u +%Y-%m-%d)"
+            git pull --rebase
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No tracker changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Submit refreshed URLs to IndexNow
+        if: steps.commit.outputs.changed == 'true' && hashFiles('fresh-urls.txt') != ''
+        run: cat fresh-urls.txt | npx tsx scripts/indexnow-ping.ts

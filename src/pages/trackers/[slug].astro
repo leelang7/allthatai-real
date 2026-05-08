@@ -1,0 +1,142 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { trackers } from '../../data/trackers';
+import { trackerLive } from '../../data/trackers.live';
+
+export async function getStaticPaths() {
+  return trackers.map((t) => ({ params: { slug: t.slug }, props: { tracker: t } }));
+}
+
+const { tracker } = Astro.props as { tracker: typeof trackers[number] };
+const live = trackerLive[tracker.slug] || { lastUpdated: '', items: [] };
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/trackers/${tracker.slug}/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '추적', item: `${SITE}/trackers/` },
+    { '@type': 'ListItem', position: 3, name: tracker.title, item: url },
+  ],
+};
+
+// Group items by month for nice timeline
+function groupByMonth(items: typeof live.items) {
+  const groups: Record<string, typeof live.items> = {};
+  for (const it of items) {
+    const month = it.pubDate.slice(0, 7);
+    if (!groups[month]) groups[month] = [];
+    groups[month].push(it);
+  }
+  return Object.entries(groups).sort(([a], [b]) => (a < b ? 1 : -1));
+}
+const monthGroups = groupByMonth(live.items);
+
+const monthLabel = (yyyymm: string) => {
+  const [y, m] = yyyymm.split('-');
+  return `${y}년 ${parseInt(m, 10)}월`;
+};
+
+const lastUpdatedKst = live.lastUpdated
+  ? new Date(live.lastUpdated).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+  : '아직 첫 업데이트 전';
+---
+<Layout
+  title={tracker.title}
+  description={tracker.description}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-zinc-900">
+    <div class="absolute inset-0 bg-mesh opacity-50"></div>
+    <div class="relative mx-auto max-w-4xl px-4 pt-12 pb-10">
+      <a href="/trackers/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 모든 추적</a>
+      <div class="mt-4 flex items-center gap-2 flex-wrap">
+        <span class={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase ${tracker.tagColor}`}>
+          {tracker.tag}
+        </span>
+        <span class="text-[10px] text-zinc-500">매일 자정 KST 자동 업데이트</span>
+      </div>
+      <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black leading-tight">{tracker.title}</h1>
+      <p class="mt-4 text-base sm:text-lg text-zinc-300 leading-relaxed max-w-3xl">{tracker.tagline}</p>
+      <p class="mt-2 text-xs text-zinc-500">
+        마지막 업데이트: {lastUpdatedKst} · {live.items.length}개 항목
+      </p>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <div class="mx-auto max-w-5xl px-4 py-12 grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8">
+    <!-- TIMELINE -->
+    <div>
+      <div class="prose prose-invert prose-zinc max-w-none mb-8">
+        <h2 class="text-xl font-black">맥락</h2>
+        <p class="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{tracker.context}</p>
+      </div>
+
+      <h2 class="text-xl font-black mb-4">타임라인 (자동 수집)</h2>
+      {live.items.length === 0 ? (
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-8 text-center text-zinc-500">
+          <p class="text-sm">아직 수집된 항목이 없습니다.</p>
+          <p class="mt-2 text-xs">매일 자정(KST) 자동 갱신 — 새 뉴스가 잡히는 즉시 표시됩니다.</p>
+        </div>
+      ) : (
+        <div class="space-y-8">
+          {monthGroups.map(([month, items]) => (
+            <div>
+              <h3 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">{monthLabel(month)}</h3>
+              <ol class="space-y-3">
+                {items.map((it) => (
+                  <li class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 hover:border-zinc-700 transition">
+                    <a href={it.link} target="_blank" rel="noopener" class="block group">
+                      <div class="flex items-start gap-3">
+                        <div class="text-xs text-zinc-500 whitespace-nowrap font-mono shrink-0 mt-0.5">
+                          {new Date(it.pubDate).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul', month: '2-digit', day: '2-digit' })}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <p class="font-bold text-white leading-snug group-hover:text-cyan-300 transition">{it.title}</p>
+                          {it.source && <p class="mt-1 text-xs text-zinc-500">출처: {it.source}</p>}
+                        </div>
+                        <span class="text-zinc-500 group-hover:text-cyan-300 transition shrink-0">↗</span>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="space-y-4">
+      {tracker.relatedSites && tracker.relatedSites.length > 0 && (
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 sticky top-24">
+          <p class="text-xs font-bold text-zinc-300 mb-3 uppercase tracking-widest">관련 사이트</p>
+          <ul class="space-y-2 text-sm">
+            {tracker.relatedSites.map((s) => (
+              <li>
+                <a href={s.url} target="_blank" rel="noopener" class="text-cyan-300 hover:text-cyan-200 transition flex items-center gap-1.5">
+                  <span>{s.name}</span><span class="text-zinc-600">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5">
+        <p class="text-xs font-bold text-amber-300 mb-2">왜 자동인가</p>
+        <p class="text-xs text-zinc-400 leading-relaxed">
+          Google News를 매일 자정(KST) 자동 폴링. 새 항목이 잡히면 IndexNow로 즉시
+          색인 push. 본인이 직접 추가할 필요 없음 — Google이 색인하는 모든
+          한국어 뉴스/블로그가 시간 순서대로 자동 표시.
+        </p>
+      </div>
+    </aside>
+  </div>
+</Layout>

@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { trackers } from '../../data/trackers';
+import { trackerLive } from '../../data/trackers.live';
+
+const sorted = [...trackers].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+---
+<Layout
+  title="실시간 추적 — AllThatAI Real"
+  description="이슈/이벤트 키워드 자동 추적. Google News를 매일 자정 폴링 + IndexNow 즉시 색인."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+      자동 수집
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      실시간 <span class="text-gradient">키워드 추적</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      이슈/이벤트별로 매일 자정(KST) Google News 자동 폴링.
+      본인이 직접 추가 안 해도 새 뉴스가 잡히는 즉시 타임라인에 추가됨.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-24">
+    <div class="grid sm:grid-cols-2 gap-4">
+      {sorted.map((t) => {
+        const live = trackerLive[t.slug] || { items: [], lastUpdated: '' };
+        return (
+          <a href={`/trackers/${t.slug}/`} class="card-lift block rounded-2xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-6 transition">
+            <span class={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase ${t.tagColor}`}>
+              {t.tag}
+            </span>
+            <h2 class="mt-3 text-lg font-black leading-snug">{t.title}</h2>
+            <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{t.tagline}</p>
+            <p class="mt-4 text-xs text-zinc-500">
+              {live.items.length}개 항목
+              {live.lastUpdated && (
+                <> · {new Date(live.lastUpdated).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })}</>
+              )}
+            </p>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+</Layout>
