@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-08-주거급여-임차가구-지원-한도와-신청-절차",
+    "title": "주거급여 임차가구 최대 23.8만원 지원받는 법",
+    "excerpt": "월 최대 23.8만원! 주거급여 임차가구 지원 한도 및 신청 방법을 알아보세요.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T01:28:41.852Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-08-특허출원-대행-50만-vs-변리사-직접-vs-자가출원",
+    "title": "특허출원, 50만원 대행 vs 변리사 vs 자가출원 비교",
+    "excerpt": "특허출원, 비용과 시간을 잡아줄 최적의 방법은? 50만원 대행, 변리사, 자가출원 비교 분석!",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T01:28:48.944Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-08-상표출원-대행-30만-vs-키프리스-직접",
+    "title": "상표출원 30만원 대행 vs 키프리스 직접 비교",
+    "excerpt": "상표출원, 대행 수수료 30만원 vs 키프리스 직접 출원 비용 및 절차 비교",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T01:28:56.303Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-08-법인-설립-대행-3080만-vs-직접-함정과-차이",
+    "title": "법인 설립 대행 vs 직접 비교: 숨은 함정 피하는 법",
+    "excerpt": "법인 설립, 대행 vs 직접 설립 비용과 숨은 함정 파헤치기!",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T01:29:04.227Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-08-apple-developer-등록-대행-vs-직접-99년-그대로",
+    "title": "Apple 개발자 등록, 대행 vs 직접 비교 (비용 절약 팁)",
+    "excerpt": "Apple 개발자 등록, 대행 비용과 직접 등록 $99 비교. 절약 팁과 주의사항 안내.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T01:29:08.894Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-07-부가세-신고-세무사-30만회-vs-홈택스-직접",
     "title": "부가세 신고, 세무사 vs 홈택스 직접 비교",
     "excerpt": "부가세 신고, 세무사 맡기면 30만원/회. 홈택스 직접 신고 시 절약 팁 확인하세요.",
