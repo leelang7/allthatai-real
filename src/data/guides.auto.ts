@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-08-간이과세자-vs-일반과세자-세무사-없이-결정",
+    "title": "간이과세자 vs 일반과세자: 세무사 없이 비교 결정",
+    "excerpt": "간이 vs 일반과세자, 나에게 맞는 선택은? 세금 부담과 혜택 비교 분석!",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T19:00:09.951Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-08-직구-관세-대행-vs-uni-pass-직접-한도납부",
+    "title": "직구 관세 대행 vs 직접 납부: 절약 팁 비교",
+    "excerpt": "직구 관세, 대행 수수료 아끼는 법? 직접 납부 방법과 한도, 꿀팁까지 모두 알려드려요.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-08T19:00:18.611Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-08-신용카드-단말기-직접-계약-vs-대행-페이먼츠社-비교",
     "title": "신용카드 단말기, 직접 계약 vs 대행 비교 (비용 절약 팁)",
     "excerpt": "신용카드 단말기, 직접 계약과 대행사 중 무엇이 유리할까요? 비용 절약 팁 포함 비교 분석!",
