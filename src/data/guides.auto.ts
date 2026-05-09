@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-09-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
+    "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced 가격 비교",
+    "excerpt": "월 구독료 부담 줄이는 AI 챗봇 비교: ChatGPT Plus, Claude Pro, Gemini Advanced 가격 및 장단점 분석.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T18:39:59.092Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-cursor-ide-무료-한도와-pro-20-결제-시점",
+    "title": "Cursor IDE 무료 vs Pro, 언제 $20 결제할까?",
+    "excerpt": "AI 코딩 도구 Cursor IDE, 무료 사용 한도와 유료 전환 시점을 비교 분석합니다.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T18:40:05.238Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-스팀-uncharted-레거시-오브-시브즈-컬렉션-67-할인-52800-17420",
+    "title": "스팀 언차티드 컬렉션 67% 할인! 1.7만원대로 즐기세요",
+    "excerpt": "스팀 '언차티드: 레거시 오브 시브즈 컬렉션' 67% 할인! 17,420원에 구매 가능합니다.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-09T18:40:12.784Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-09-신용카드-단말기-직접-계약-vs-대행-페이먼츠社-비교",
     "title": "신용카드 단말기, 직접 계약 vs 대행 비교",
     "excerpt": "신용카드 단말기, 직접 계약과 대행사 비교 분석! 비용 절감 팁까지 알려드려요.",
