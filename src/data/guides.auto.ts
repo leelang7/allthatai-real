@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-09-신용카드-단말기-직접-계약-vs-대행-페이먼츠社-비교",
+    "title": "신용카드 단말기, 직접 계약 vs 대행 비교",
+    "excerpt": "신용카드 단말기, 직접 계약과 대행사 비교 분석! 비용 절감 팁까지 알려드려요.",
+    "tag": "카드/핀테크",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T12:43:54.485Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-pg사-직접-가입-vs-대행-토스페이먼츠이니시스kg이니시스",
+    "title": "PG사 직접 가입 vs 대행: 토스페이먼츠, 이니시스 비교",
+    "excerpt": "PG사 직접 가입과 대행, 어떤 선택이 유리할까요? 토스페이먼츠, 이니시스 비교 분석.",
+    "tag": "카드/핀테크",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T12:44:03.086Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-직구-관세-대행-vs-uni-pass-직접-한도납부",
+    "title": "직구 관세 대행 vs 직접 납부: 한도와 절차 비교",
+    "excerpt": "직구 관세, 대행 수수료 아끼는 법! UNI-PASS 직접 납부 방법과 한도를 비교해 드립니다.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T12:44:10.496Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-해외-직접투자-신고-외환-대행-vs-외국환은행-직접",
+    "title": "해외 직접투자 신고: 외환 대행 vs 은행 직접 비교",
+    "excerpt": "해외 직접투자 신고, 어떤 방법이 유리할까? 외환 대행 vs 은행 직접, 비용과 절차 비교.",
+    "tag": "대행함정",
+    "minutes": 6,
+    "generatedAt": "2026-05-09T12:44:49.129Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-클로드-pro-할인-받는-법-학생연간결제프로모션",
+    "title": "클로드 Pro 할인 받는 법: 학생·연간결제·프로모션 총정리",
+    "excerpt": "학생, 연간 결제, 프로모션 등 클로드 Pro 할인 정보를 한눈에 모아 알려드립니다.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T12:44:54.369Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-09-쇼핑몰-사업자-등록-대행-vs-본인-직접-절차",
     "title": "쇼핑몰 사업자 등록, 대행 vs 직접 비교",
     "excerpt": "쇼핑몰 사업자 등록, 대행 수수료 vs 직접 등록, 무엇이 더 유리할까요?",
