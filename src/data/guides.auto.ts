@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-09-특허출원-대행-50만-vs-변리사-직접-vs-자가출원",
+    "title": "특허출원, 50만원 대행 vs 변리사 vs 자가출원 비교",
+    "excerpt": "특허출원, 비용 절약하려면? 50만원 대행 vs 변리사 vs 자가출원 비교 분석!",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T01:26:00.928Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-상표출원-대행-30만-vs-키프리스-직접",
+    "title": "상표출원 30만원 대행 vs 키프리스 직접 출원 비교",
+    "excerpt": "상표출원, 30만원 대행 수수료가 부담스럽다면? 키프리스 직접 출원 비용과 절차를 비교해보세요.",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T01:26:09.704Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-법인-설립-대행-3080만-vs-직접-함정과-차이",
+    "title": "법인 설립 대행 vs 직접 설립: 숨은 비용과 함정 비교",
+    "excerpt": "법인 설립, 대행 수수료 30-80만원 vs 직접 설립 비용 비교 및 함정 분석",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T01:26:16.075Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-apple-developer-등록-대행-vs-직접-99년-그대로",
+    "title": "Apple 개발자 등록, 대행 vs 직접 비교 (99달러)",
+    "excerpt": "Apple 개발자 등록, 대행 서비스와 직접 등록 중 무엇이 더 유리할까요? 비용 및 시간 절약 팁을 확인하세요.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T01:26:22.124Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-09-구글-플레이-콘솔-가입-대행-vs-직접-25-1회",
+    "title": "구글 플레이 콘솔 가입, 대행 vs 직접 비교 (25달러)",
+    "excerpt": "구글 플레이 콘솔 가입, 대행 수수료 아끼는 법! 직접 가입 vs 대행 비교 분석.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-09T01:26:27.187Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-08-간이과세자-vs-일반과세자-세무사-없이-결정",
     "title": "간이과세자 vs 일반과세자: 세무사 없이 비교 결정",
     "excerpt": "간이 vs 일반과세자, 나에게 맞는 선택은? 세금 부담과 혜택 비교 분석!",
