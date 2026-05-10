@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-10-구글-플레이-콘솔-가입-대행-vs-직접-25-1회",
+    "title": "구글 플레이 콘솔 가입, 대행 vs 직접 가입 비용 비교",
+    "excerpt": "구글 플레이 콘솔 개발자 계정, 직접 가입이 훨씬 경제적입니다. 대행 서비스의 함정을 알아보세요.",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T01:27:27.011Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-10-쇼핑몰-사업자-등록-대행-vs-본인-직접-절차",
+    "title": "쇼핑몰 사업자 등록, 대행 vs 직접 비교",
+    "excerpt": "쇼핑몰 사업자 등록, 대행 vs 직접 등록 비교 분석! 시간과 비용 절약 꿀팁을 확인하세요.",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T01:27:33.008Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-10-부가세-신고-세무사-30만회-vs-홈택스-직접",
+    "title": "부가세 신고, 세무사 vs 홈택스 직접 비교 (비용 절감 팁)",
+    "excerpt": "세무사 30만원/회 vs 홈택스 직접 신고, 부가세 신고 비용 절감 팁과 비교 정보를 확인하세요.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T01:27:39.655Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-10-종합소득세-신고-대행-vs-홈택스-매출-5천만-미만",
+    "title": "종합소득세 신고, 홈택스 vs 대행? 5천만원 미만 비교",
+    "excerpt": "매출 5천만원 미만 종합소득세 신고, 직접 할까? 세무대행 맡길까? 비용과 절세 효과를 비교해 드립니다.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T01:27:47.593Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-10-사업자-통장-분리-가맹점-신청-셀프-가이드",
+    "title": "사업자 통장 분리 & 가맹점 신청 셀프 가이드",
+    "excerpt": "사업자 통장 분리 및 가맹점 신청, 직접 하는 셀프 가이드로 수수료 절약하세요.",
+    "tag": "카드/핀테크",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T01:27:55.965Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-09-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
     "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced 가격 비교",
     "excerpt": "월 구독료 부담 줄이는 AI 챗봇 비교: ChatGPT Plus, Claude Pro, Gemini Advanced 가격 및 장단점 분석.",
