@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-10-간이과세자-vs-일반과세자-세무사-없이-결정",
+    "title": "간이과세자 vs 일반과세자, 절세 팁 (세무사 없이)",
+    "excerpt": "세무사 없이 간이/일반과세자 비교! 절세 팁과 선택 가이드.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T18:41:06.267Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-10-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
+    "title": "트래블월렛 vs 트래블로그 vs Wise 해외결제 비교",
+    "excerpt": "해외결제 수수료 끝판왕! 트래블월렛, 트래블로그, Wise 비교 분석",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-10T18:41:13.529Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-10-스팀-uncharted-레거시-오브-시브즈-컬렉션-67-할인-52800-17420",
+    "title": "스팀 언차티드 컬렉션 67% 할인: 1.7만원대로 즐기세요",
+    "excerpt": "스팀 'UNCHARTED™: 레거시 오브 시브즈 컬렉션' 67% 할인! 52,800원 → 17,420원에 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-10T18:41:17.459Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-10-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
     "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced 가격 비교",
     "excerpt": "AI 챗봇 유료 플랜, ChatGPT Plus vs Claude Pro vs Gemini Advanced 가격 비교 분석.",
