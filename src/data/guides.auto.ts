@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-11-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
+    "title": "스팀 연말정산: 주요 세일 일정과 꿀팁 총정리",
+    "excerpt": "스팀 연간 주요 세일 일정 총정리! 여름, 겨울, 할로윈, 프라임데이 할인 기회를 놓치지 마세요.",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T14:15:16.626Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-epic-games-무료게임-받는-법-이번-주-무료-정리",
+    "title": "Epic Games 무료 게임 받는 법 & 이번 주 혜택 총정리",
+    "excerpt": "Epic Games에서 매주 제공하는 무료 게임, 놓치지 않고 100% 받는 방법과 현재 무료 게임 정보를 알려드립니다.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T14:16:08.033Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-플레이스테이션-psn-세일-잘-사는-시기",
+    "title": "PSN 세일, 언제 사야 가장 쌀까? 할인 시기 총정리",
+    "excerpt": "PSN 할인 시기를 미리 알고 최저가에 게임을 구매하세요. 주요 할인 기간 총정리!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T14:16:20.550Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
+    "title": "트래블월렛 vs 트래블로그 vs Wise: 해외 결제 수수료 비교",
+    "excerpt": "해외 결제, 어디가 제일 쌀까? 트래블월렛, 트래블로그, Wise 수수료 전격 비교!",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T14:16:36.156Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-카카오뱅크-신규가입-캐시백-토스뱅크-비교",
+    "title": "카카오뱅크 신규 가입 혜택 vs 토스뱅크, 어디가 더 쏠쏠할까?",
+    "excerpt": "카카오뱅크 신규 가입 캐시백과 토스뱅크 혜택 비교! 나에게 맞는 꿀통은?",
+    "tag": "카드/핀테크",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T14:17:20.148Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-11-직구-관세-대행-vs-uni-pass-직접-한도납부",
     "title": "직구 관세 대행 vs 직접 납부: 한도와 절약법 비교",
     "excerpt": "직구 관세, 대행 수수료 아끼고 싶다면? 직접 납부 방법과 절약 팁을 알아보세요.",
