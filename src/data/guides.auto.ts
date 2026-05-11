@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-11-직구-관세-대행-vs-uni-pass-직접-한도납부",
+    "title": "직구 관세 대행 vs 직접 납부: 한도와 절약법 비교",
+    "excerpt": "직구 관세, 대행 수수료 아끼고 싶다면? 직접 납부 방법과 절약 팁을 알아보세요.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T08:50:36.519Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-해외-직접투자-신고-외환-대행-vs-외국환은행-직접",
+    "title": "해외 직접투자 신고: 대행 vs 은행, 수수료 비교",
+    "excerpt": "해외 직접투자 신고, 수수료 아끼는 방법은? 외환 대행 vs 은행 직접 신고 비교!",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T08:50:42.697Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-클로드-pro-할인-받는-법-학생연간결제프로모션",
+    "title": "클로드 Pro 할인 받는 법: 학생·연간결제·프로모션 총정리",
+    "excerpt": "클로드 Pro, 학생 할인부터 연간 결제, 프로모션까지! 구독료 절약 꿀팁 총정리.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T08:50:48.933Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
+    "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced 가격 비교",
+    "excerpt": "ChatGPT Plus, Claude Pro, Gemini Advanced 중 어떤 AI 챗봇을 구독해야 할까요? 가격부터 주요 기능까지 비교 분석해 드립니다.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T08:50:54.110Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-11-cursor-ide-무료-한도와-pro-20-결제-시점",
+    "title": "Cursor IDE 무료 vs Pro: 언제 유료 전환해야 할까?",
+    "excerpt": "Cursor IDE, 무료 한도와 Pro 플랜 ($20) 결제 시점 궁금하신가요? 비교 분석해 드립니다.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-11T08:51:00.224Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-11-부가세-신고-세무사-30만회-vs-홈택스-직접",
     "title": "30만원 세무사 vs 홈택스 직접 신고, 절약 비교",
     "excerpt": "부가세 신고, 세무사 비용 30만원 vs 홈택스 직접 신고. 당신에게 유리한 선택은?",
