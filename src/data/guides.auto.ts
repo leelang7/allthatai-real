@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-12-직구-관세-대행-vs-uni-pass-직접-한도납부",
+    "title": "직구 관세 대행 vs 직접 납부: 한도 및 절약 팁",
+    "excerpt": "직구 관세, 대행 수수료 아끼고 싶으신가요? UNI-PASS 직접 납부 방법과 한도를 알아보세요.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T01:28:49.559Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-12-해외-직접투자-신고-외환-대행-vs-외국환은행-직접",
+    "title": "해외 직접투자 신고: 대행 vs 은행 직접 비교",
+    "excerpt": "해외 직접투자 신고, 수수료 절약 팁! 외환 대행 vs 은행 직접 비교 분석.",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T01:28:54.568Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-11-쿠팡-와우-7890으로-ott-무료-로켓배송-경제성",
     "title": "쿠팡 와우, OTT 무료 혜택으로 월 7,890원 알뜰하게 쓰는 법",
     "excerpt": "쿠팡 와우 멤버십으로 OTT 무료 이용하고 로켓배송 혜택까지 챙기는 꿀팁!",
