@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-12-넷플릭스-가족-추가-멤버-분담-5000",
+    "title": "넷플릭스 가족 추가 멤버 5천원으로 이용하는 법",
+    "excerpt": "넷플릭스 가족 추가 멤버, 5천원으로 이용하는 꿀팁! 지금 바로 확인하세요.",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T19:24:40.322Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-12-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
+    "title": "Steam Deck vs ROG Ally vs Legion Go: 가격 비교 및 구매 가이드",
+    "excerpt": "휴대용 게이밍 PC 3종, Steam Deck, ROG Ally, Legion Go 가격 비교 및 구매 팁",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T19:24:46.474Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-12-에어비앤비-vs-호텔-가격-비교-한국에서-출국-시",
+    "title": "에어비앤비 vs 호텔: 한국 출발 시 가성비 비교",
+    "excerpt": "해외여행, 에어비앤비 vs 호텔, 한국 출발 시 가성비 비교 분석",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T19:24:53.879Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-12-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
+    "title": "진에어·제주항공·티웨이 특가 항공권 잡는 법",
+    "excerpt": "진에어, 제주항공, 티웨이항공 특가 항공권 득템 비법 공개! 지금 바로 확인하세요.",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T19:24:59.966Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-12-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
+    "title": "11번가·쿠팡·G마켓 직구 가격 비교: 같은 상품 어디가 쌀까?",
+    "excerpt": "11번가, 쿠팡, G마켓 직구 최저가 비교! 같은 상품, 어디가 가장 쌀까요? 실제 가격 비교로 현명한 쇼핑을 도와드립니다.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-12T19:25:07.161Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-12-플레이스테이션-psn-세일-잘-사는-시기",
     "title": "PSN 역대급 할인, 언제 놓치지 않을까?",
     "excerpt": "PSN 연중 최대 할인 시기를 파악하고, 놓치면 후회할 게임 구매 팁을 확인하세요.",
