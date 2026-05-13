@@ -1,0 +1,148 @@
+---
+/**
+ * AliExpress / Temu 직구 메타서치.
+ *
+ * 한국 검색어 → 알리/Temu 동시 검색 + 본인 affiliate ID.
+ * 알리 8% 어필 + Temu 신규가입 ₩10K — 한국 직구 search volume 가장 큼.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+const popular = [
+  { kr: '게이밍 의자', en: 'gaming chair' },
+  { kr: '무선 이어폰', en: 'wireless earbuds' },
+  { kr: '게이밍 마우스', en: 'gaming mouse' },
+  { kr: '기계식 키보드', en: 'mechanical keyboard' },
+  { kr: '스마트워치 밴드', en: 'smartwatch band' },
+  { kr: 'USB 허브', en: 'usb hub' },
+  { kr: '전동 스크류드라이버', en: 'electric screwdriver' },
+  { kr: '드론', en: 'drone' },
+  { kr: '미니 프로젝터', en: 'mini projector' },
+  { kr: 'AirPods 케이스', en: 'airpods case' },
+  { kr: 'LED 스트립', en: 'led strip' },
+  { kr: '폰 그립톡', en: 'phone griptok' },
+];
+---
+<Layout
+  title="알리익스프레스 + Temu 메타서치 — 직구 최저가 동시 검색"
+  description="알리·Temu 동시 검색. 같은 상품 가격차 큰 두 사이트를 한 번에. 직구 한도 ₩150 USD 안에서 면세 가능."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/5 px-3 py-1 text-xs text-orange-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+      직구 메타서치
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">알리 + Temu</span> 한 번에 비교
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      같은 상품 가격차 30–80%. 알리(8% 어필) + Temu(신규 ₩10K) 동시 검색.
+      ₩150 USD 안 직구는 관세 면세.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <form id="ali-form" class="flex gap-2">
+        <input
+          id="q"
+          type="text"
+          required
+          placeholder="예: 게이밍 마우스, USB-C 허브"
+          class="flex-1 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-3 text-white"
+        />
+        <button type="submit" class="rounded-lg bg-orange-500 hover:bg-orange-400 text-zinc-950 font-bold px-5 py-3 whitespace-nowrap transition">
+          2곳 동시 검색 →
+        </button>
+      </form>
+      <div id="results" class="hidden mt-5"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-lg font-black mb-3">인기 직구 카테고리</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      {popular.map((p) => (
+        <button type="button" class="quick rounded-lg border border-zinc-700 hover:border-orange-500/60 bg-zinc-900/40 hover:bg-zinc-800/60 px-3 py-2 text-sm text-left transition" data-q={p.kr}>
+          {p.kr}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">한국 직구 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>관세 면세 한도</strong>: $150 USD (미국)/$200 (FTA 적용국, 알리 중국은 $150). 1건당 기준.</li>
+        <li>→ <strong>관부가세 자동 계산</strong>: <a href="https://unipass.customs.go.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">UNI-PASS</a> 직접 확인 가능</li>
+        <li>→ <strong>분할 회피 위험</strong>: 같은 날 여러 건 분할 → 합산 과세 가능</li>
+        <li>→ <strong>알리 vs Temu</strong>: 알리는 검증된 셀러 많음, Temu는 신규 ₩10K 쿠폰</li>
+        <li>→ <strong>배송 6–14일</strong> 보통. AliExpress Standard / Choice 빠름</li>
+      </ul>
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  const STORES = [
+    {
+      key: 'ali',
+      brand: 'AliExpress',
+      base: 'https://ko.aliexpress.com/wholesale?SearchText=',
+      pitch: '검증된 셀러 많음, $150 면세',
+      color: 'from-orange-500/20 to-red-500/5',
+    },
+    {
+      key: 'temu',
+      brand: 'Temu',
+      base: 'https://www.temu.com/kr/search_result.html?search_key=',
+      pitch: '신규 가입 ₩10K 쿠폰, 알리보다 30% 더 쌀 때 많음',
+      color: 'from-amber-500/20 to-orange-500/5',
+    },
+  ];
+
+  function show(query) {
+    const q = encodeURIComponent(query);
+    const html = `
+      <p class="text-xs text-zinc-500 mb-3">"${query}" — 2곳 새 탭으로 ↓</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        ${STORES.map((s) => `
+          <a href="${s.base}${q}" target="_blank" rel="sponsored noopener nofollow" data-store="${s.key}" data-q="${query.replace(/"/g, '&quot;')}" class="ali-store card-lift block rounded-xl border border-zinc-700 bg-gradient-to-br ${s.color} p-5 hover:border-orange-500/60 transition">
+            <p class="font-black text-white">${s.brand}</p>
+            <p class="mt-1 text-xs text-zinc-400">${s.pitch}</p>
+            <p class="mt-3 text-sm text-orange-300 font-bold">검색 →</p>
+          </a>
+        `).join('')}
+      </div>
+    `;
+    const r = document.getElementById('results');
+    r.innerHTML = html;
+    r.classList.remove('hidden');
+    if (window.va) { try { window.va('event', { name: 'aliexpress_search', data: { query } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'aliexpress_search', { search_term: query, event_category: 'monetization' }); } catch (_) {} }
+  }
+
+  document.getElementById('ali-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = document.getElementById('q').value.trim();
+    if (q) show(q);
+  });
+  document.querySelectorAll('.quick').forEach((b) => {
+    b.addEventListener('click', () => {
+      const q = b.getAttribute('data-q');
+      document.getElementById('q').value = q;
+      show(q);
+    });
+  });
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a.ali-store');
+    if (!a) return;
+    const store = a.getAttribute('data-store');
+    const q = a.getAttribute('data-q');
+    if (window.va) { try { window.va('event', { name: 'aliexpress_store_click', data: { store, q } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'aliexpress_store_click', { store, q, event_category: 'monetization' }); } catch (_) {} }
+  });
+</script>

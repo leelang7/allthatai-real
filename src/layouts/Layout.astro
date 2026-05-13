@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import StickyCta from '../components/StickyCta.astro';
 
 interface Props {
   title?: string;
@@ -163,6 +164,9 @@ const isHome = path === '/';
     <main class="flex-1">
       <slot />
     </main>
+
+    <StickyCta />
+
 
     <footer class="border-t border-zinc-900 mt-24 bg-zinc-950">
       <div class="mx-auto max-w-6xl px-4 py-12">

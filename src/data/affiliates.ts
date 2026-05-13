@@ -330,6 +330,25 @@ export const affiliates: Record<string, Affiliate> = {
     rate: '5% 호텔',
     category: 'travel',
   },
+  // 직구 / 알리 — 가장 큰 한국 직구 어필
+  aliexpress: {
+    name: 'AliExpress',
+    signupUrl: 'https://portals.aliexpress.com/affiportals/register.htm',
+    baseUrl: 'https://ko.aliexpress.com/wholesale?SearchText={query}',
+    code: '',
+    rate: '3–9% 직구',
+    category: 'shopping',
+    notes: 'AliExpress Affiliate Portals — Korean 직구 검색량 큼',
+  },
+  temu: {
+    name: 'Temu',
+    signupUrl: 'https://affiliate.temu.com/',
+    baseUrl: 'https://www.temu.com/kr/search_result.html?search_key={query}',
+    code: '',
+    rate: '신규 가입 ₩10K + 매출 %',
+    category: 'shopping',
+    notes: 'Temu 한국 진출 후 어필 시장 폭증',
+  },
 };
 
 export type AffiliateKey = keyof typeof affiliates;

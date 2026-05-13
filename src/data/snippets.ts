@@ -544,6 +544,274 @@ const b = await fetchB(a.id);` },
   },
 
   // ===== Python =====
+  // ===== Java =====
+  {
+    slug: 'java-stream',
+    title: 'Java Stream API — filter/map/collect 패턴',
+    description: 'Java 8+ Stream 자주 쓰는 변환·필터·그룹·통계.',
+    category: 'js',
+    snippets: [
+      { label: '필터 + 변환', lang: 'java', code: `List<String> names = users.stream()
+    .filter(u -> u.getAge() >= 18)
+    .map(User::getName)
+    .collect(Collectors.toList());` },
+      { label: '그룹핑', lang: 'java', code: `Map<String, List<User>> byDept = users.stream()
+    .collect(Collectors.groupingBy(User::getDept));` },
+      { label: '합산', lang: 'java', code: `int total = items.stream().mapToInt(Item::getPrice).sum();` },
+      { label: '중복 제거 + 정렬', lang: 'java', code: `List<String> unique = names.stream().distinct().sorted().toList();` },
+    ],
+    tags: ['java', 'stream'],
+  },
+
+  // ===== TypeScript =====
+  {
+    slug: 'ts-utility-types',
+    title: 'TypeScript 유틸리티 타입 — Pick/Omit/Partial 모음',
+    description: 'TS 내장 유틸리티 타입 8개 + 실무 활용 예시.',
+    category: 'js',
+    snippets: [
+      { label: 'Pick — 필드 선택', lang: 'typescript', code: `type UserSummary = Pick<User, 'id' | 'name'>;` },
+      { label: 'Omit — 필드 제외', lang: 'typescript', code: `type CreateUser = Omit<User, 'id' | 'createdAt'>;` },
+      { label: 'Partial — 전체 옵션', lang: 'typescript', code: `type UserUpdate = Partial<User>;` },
+      { label: 'Required — 전체 필수', lang: 'typescript', code: `type StrictUser = Required<User>;` },
+      { label: 'Record — 키-값 맵', lang: 'typescript', code: `type Roles = Record<'admin' | 'user' | 'guest', Permission[]>;` },
+      { label: 'ReturnType — 함수 반환 타입', lang: 'typescript', code: `type UserResult = ReturnType<typeof fetchUser>;` },
+      { label: 'Awaited — Promise 풀기', lang: 'typescript', code: `type User = Awaited<ReturnType<typeof fetchUser>>;` },
+    ],
+    tags: ['typescript', 'types'],
+  },
+
+  // ===== CSS =====
+  {
+    slug: 'css-center',
+    title: 'CSS 가운데 정렬 5가지 — Flexbox/Grid/Absolute',
+    description: '실무 자주 검색되는 가운데 정렬 패턴 모음.',
+    category: 'js',
+    snippets: [
+      { label: 'Flexbox 가운데 (가장 흔함)', lang: 'css', code: `.parent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}` },
+      { label: 'Grid 가운데 (한 줄)', lang: 'css', code: `.parent { display: grid; place-items: center; }` },
+      { label: 'Absolute 가운데', lang: 'css', code: `.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}` },
+      { label: '텍스트만 가운데', lang: 'css', code: `text-align: center;
+line-height: 50px; /* 높이와 같게 */` },
+      { label: 'margin auto', lang: 'css', code: `.child { margin: 0 auto; }  /* 가로만 */` },
+    ],
+    tags: ['css', 'layout', 'center'],
+  },
+  {
+    slug: 'css-truncate',
+    title: 'CSS 텍스트 줄임표 (... ellipsis) — 1줄/N줄',
+    description: '한 줄 / 여러 줄 텍스트 잘라서 ... 표시.',
+    category: 'js',
+    snippets: [
+      { label: '1줄 자르기', lang: 'css', code: `.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}` },
+      { label: 'N줄 자르기 (line-clamp)', lang: 'css', code: `.clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}` },
+      { label: 'Tailwind 활용', lang: 'css', code: `<p class="line-clamp-3">긴 텍스트...</p>` },
+    ],
+    tags: ['css', 'text', 'ellipsis'],
+  },
+
+  // ===== Docker =====
+  {
+    slug: 'docker-cheatsheet',
+    title: 'Docker 명령어 모음 — 컨테이너/이미지/볼륨',
+    description: '실무 자주 쓰는 Docker 명령어 + Dockerfile 기본.',
+    category: 'linux',
+    snippets: [
+      { label: '실행 중 컨테이너 목록', lang: 'bash', code: `docker ps` },
+      { label: '전체 (중지 포함)', lang: 'bash', code: `docker ps -a` },
+      { label: '컨테이너 중지/삭제', lang: 'bash', code: `docker stop <id> && docker rm <id>` },
+      { label: '이미지 삭제 (강제)', lang: 'bash', code: `docker rmi -f <image>` },
+      { label: '컨테이너 로그 (tail)', lang: 'bash', code: `docker logs -f --tail 100 <container>` },
+      { label: '컨테이너 안 접속', lang: 'bash', code: `docker exec -it <container> /bin/bash` },
+      { label: '사용 안 하는 리소스 정리', lang: 'bash', code: `docker system prune -a --volumes` },
+      { label: 'Dockerfile 기본 (Node)', lang: 'dockerfile', code: `FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]` },
+    ],
+    tags: ['docker', 'container'],
+  },
+  {
+    slug: 'docker-compose',
+    title: 'docker-compose.yml — 자주 쓰는 패턴 모음',
+    description: 'Postgres + Node 풀스택 dev 환경 docker-compose 템플릿.',
+    category: 'linux',
+    snippets: [
+      { label: 'Postgres + Node + Redis', lang: 'yaml', code: `version: '3.8'
+services:
+  app:
+    build: .
+    ports: ["3000:3000"]
+    env_file: .env
+    depends_on: [db, redis]
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: app
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    ports: ["5432:5432"]
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+volumes:
+  pgdata:` },
+    ],
+    tags: ['docker', 'compose'],
+  },
+
+  // ===== React =====
+  {
+    slug: 'react-useeffect-patterns',
+    title: 'React useEffect 패턴 — cleanup/deps/race condition',
+    description: 'useEffect 자주 빠지는 함정 + 정답 패턴.',
+    category: 'js',
+    snippets: [
+      { label: '마운트 시 1번 (deps []) ', lang: 'javascript', code: `useEffect(() => {
+  fetchInitialData();
+}, []);` },
+      { label: 'cleanup 함수 (구독 해제)', lang: 'javascript', code: `useEffect(() => {
+  const id = setInterval(tick, 1000);
+  return () => clearInterval(id);
+}, []);` },
+      { label: 'Race condition 방지 (AbortController)', lang: 'javascript', code: `useEffect(() => {
+  const ctrl = new AbortController();
+  fetch(url, { signal: ctrl.signal })
+    .then(r => r.json())
+    .then(setData)
+    .catch(e => e.name !== 'AbortError' && console.error(e));
+  return () => ctrl.abort();
+}, [url]);` },
+      { label: '값 변경 추적 (deps에 값)', lang: 'javascript', code: `useEffect(() => {
+  console.log('userId 변경됨:', userId);
+}, [userId]);` },
+    ],
+    tags: ['react', 'hooks'],
+  },
+  {
+    slug: 'react-memo-callback',
+    title: 'React useMemo / useCallback — 언제 쓰나',
+    description: '성능 최적화 hooks 사용 시점 + 함정.',
+    category: 'js',
+    snippets: [
+      { label: 'useMemo — 비싼 계산 캐싱', lang: 'javascript', code: `const filteredItems = useMemo(
+  () => items.filter(i => i.price > 100),
+  [items]
+);` },
+      { label: 'useCallback — 자식 props 안정화', lang: 'javascript', code: `const handleClick = useCallback((id) => {
+  onSelect(id);
+}, [onSelect]);` },
+      { label: '⚠ 함정: 무조건 쓰지 마라', lang: 'javascript', code: `// 단순 계산은 useMemo 오히려 느림
+// React.memo 자식이 없으면 useCallback 무의미
+// 측정 먼저, 최적화는 그 다음` },
+    ],
+    tags: ['react', 'memo', 'performance'],
+  },
+
+  // ===== Korean extra =====
+  {
+    slug: 'korean-zipcode',
+    title: '한국 우편번호 검증 — 신우편번호 (5자리)',
+    description: '2015년 이후 5자리 우편번호 검증. Daum 우편번호 API 연동 예시 포함.',
+    category: 'korean',
+    snippets: [
+      { label: '5자리 정규식', lang: 'javascript', code: `/^\\d{5}$/` },
+      { label: 'Daum 우편번호 API 연동', lang: 'html', code: `<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+new daum.Postcode({
+  oncomplete: function(data) {
+    document.getElementById('zip').value = data.zonecode;
+    document.getElementById('addr').value = data.address;
+  }
+}).open();
+</script>` },
+    ],
+    tags: ['한국', 'address', 'zipcode'],
+  },
+  {
+    slug: 'korean-card-number',
+    title: '한국 신용카드 번호 — Luhn 검증',
+    description: '카드 번호 형식 + Luhn 알고리즘으로 체크섬.',
+    category: 'korean',
+    snippets: [
+      { label: '하이픈 자동 삽입', lang: 'javascript', code: `card.replace(/(\\d{4})(?=\\d)/g, '$1-')
+// "1234567890123456" → "1234-5678-9012-3456"` },
+      { label: 'Luhn 체크섬', lang: 'javascript', code: `function luhn(num) {
+  const d = num.replace(/\\D/g, '').split('').map(Number).reverse();
+  return d.reduce((sum, x, i) => {
+    if (i % 2) x = x * 2 > 9 ? x * 2 - 9 : x * 2;
+    return sum + x;
+  }, 0) % 10 === 0;
+}` },
+    ],
+    tags: ['한국', 'card', 'validation'],
+  },
+  {
+    slug: 'korean-bank-account',
+    title: '한국 은행 계좌번호 — 정규식 모음',
+    description: '주요 은행별 계좌번호 형식 정규식.',
+    category: 'korean',
+    snippets: [
+      { label: '국민·신한·우리 (10–14자리)', lang: 'javascript', code: `/^\\d{10,14}$/` },
+      { label: '카카오뱅크 (3-3-7)', lang: 'javascript', code: `/^3333-?\\d{2}-?\\d{7}$/` },
+      { label: '토스뱅크 (1000-XX-XXXXXXX)', lang: 'javascript', code: `/^1000-?\\d{2}-?\\d{7}$/` },
+      { label: '하이픈 제거 normalize', lang: 'javascript', code: `account.replace(/-/g, '').trim()` },
+    ],
+    tags: ['한국', 'bank', 'account'],
+  },
+
+  // ===== Excel =====
+  {
+    slug: 'excel-vlookup',
+    title: 'Excel VLOOKUP / XLOOKUP — 다른 시트 데이터 가져오기',
+    description: '실무 1번째로 검색되는 Excel 함수. XLOOKUP이 신버전.',
+    category: 'excel',
+    snippets: [
+      { label: 'VLOOKUP (구버전 호환)', lang: 'excel', code: `=VLOOKUP(A2, Sheet2!A:C, 3, FALSE)
+# A2의 값을 Sheet2의 A열에서 찾아, 같은 행의 C열(3번째) 반환` },
+      { label: 'XLOOKUP (Excel 365+)', lang: 'excel', code: `=XLOOKUP(A2, Sheet2!A:A, Sheet2!C:C, "없음")
+# 더 유연, 왼쪽 검색 가능, 없을 때 fallback` },
+      { label: 'INDEX + MATCH (어디서나 OK)', lang: 'excel', code: `=INDEX(Sheet2!C:C, MATCH(A2, Sheet2!A:A, 0))` },
+    ],
+    tags: ['excel', 'vlookup', 'lookup'],
+  },
+  {
+    slug: 'excel-conditional',
+    title: 'Excel 조건부 함수 — IF/IFS/SUMIF/COUNTIF',
+    description: '조건에 따른 값 반환·합계·카운트.',
+    category: 'excel',
+    snippets: [
+      { label: 'IF — 단일 조건', lang: 'excel', code: `=IF(A2>=60, "합격", "불합격")` },
+      { label: 'IFS — 다중 조건 (Excel 365+)', lang: 'excel', code: `=IFS(A2>=90, "A", A2>=80, "B", A2>=70, "C", TRUE, "F")` },
+      { label: 'SUMIF — 조건부 합계', lang: 'excel', code: `=SUMIF(B:B, "서울", C:C)
+# B열이 "서울"인 행의 C열 합` },
+      { label: 'COUNTIFS — 다중 조건 카운트', lang: 'excel', code: `=COUNTIFS(A:A, ">=2026-01-01", B:B, "완료")` },
+    ],
+    tags: ['excel', 'if', 'condition'],
+  },
+
+  // ===== Python (original) =====
   {
     slug: 'python-file-io',
     title: 'Python 파일 입출력 — 한 줄씩, JSON, CSV, 인코딩',

@@ -1,0 +1,98 @@
+---
+/**
+ * Sticky bottom CTA bar — appears after 30% scroll, dismissible.
+ *
+ * Rotates 3 messages on different page paths:
+ *   - /store/*  : "7일 환불 보증" + "구매"
+ *   - /deals/*  : "다른 핫딜도 확인 → /deals"
+ *   - default   : "무료 PDF + 매주 메일" → /free
+ *
+ * Conversion lift baseline: sticky CTAs typically add 2–8% extra clicks.
+ */
+---
+<div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-40 translate-y-full transition-transform duration-300 pointer-events-none">
+  <div class="mx-auto max-w-5xl px-4 pb-4">
+    <div class="pointer-events-auto rounded-2xl border border-cyan-500/40 bg-zinc-900/95 backdrop-blur-md shadow-2xl shadow-cyan-500/10 p-4 flex items-center gap-4">
+      <span id="sticky-cta-emoji" class="text-2xl shrink-0">📩</span>
+      <div class="flex-1 min-w-0">
+        <p id="sticky-cta-title" class="font-bold text-sm text-white leading-snug">매주 메일 — 새 대행 함정 + 무료 우회</p>
+        <p id="sticky-cta-sub" class="mt-0.5 text-xs text-zinc-400">스팸 없음. 언제든 해지.</p>
+      </div>
+      <a id="sticky-cta-link" href="/free/" class="shrink-0 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-4 py-2 text-sm whitespace-nowrap transition">받기</a>
+      <button type="button" id="sticky-cta-close" aria-label="닫기" class="shrink-0 text-zinc-500 hover:text-zinc-300 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const bar = document.getElementById('sticky-cta');
+    if (!bar) return;
+
+    // Dismissed once = hide for the whole session
+    if (sessionStorage.getItem('sticky-cta-dismissed') === '1') {
+      bar.remove();
+      return;
+    }
+
+    const path = location.pathname;
+    const emoji = document.getElementById('sticky-cta-emoji');
+    const title = document.getElementById('sticky-cta-title');
+    const sub = document.getElementById('sticky-cta-sub');
+    const link = document.getElementById('sticky-cta-link');
+
+    // Path-aware copy
+    if (path.startsWith('/store')) {
+      emoji.textContent = '🛒';
+      title.textContent = '7일 환불 보증 — 부담 없이';
+      sub.textContent = 'Gumroad 결제 즉시 다운로드.';
+      link.href = '/store/';
+      link.textContent = '스토어 →';
+    } else if (path.startsWith('/services')) {
+      emoji.textContent = '🚀';
+      title.textContent = '풀패키지 ₩39만 — 1–2일이면 출시';
+      sub.textContent = '키스토어부터 IAP까지. 24시간 회신.';
+      link.href = '/services/play-launch/#contact';
+      link.textContent = '상담 →';
+    } else if (path.startsWith('/deals') || path.startsWith('/keys') || path.startsWith('/hotels') || path.startsWith('/flights')) {
+      emoji.textContent = '🔥';
+      title.textContent = '다른 비교 페이지도 확인';
+      sub.textContent = 'AI · 게임 · VPN · 호텔 · 항공 · 카드 모두 있음.';
+      link.href = '/deals/';
+      link.textContent = '전체 →';
+    } else if (path.startsWith('/snippets')) {
+      emoji.textContent = '📋';
+      title.textContent = '복붙 스니펫 더 있음';
+      sub.textContent = '정규식·Git·Linux·SQL — 검색 안 하고 한 번에.';
+      link.href = '/snippets/';
+      link.textContent = '전체 →';
+    }
+
+    // Reveal after 30% scroll
+    let revealed = false;
+    function maybeReveal() {
+      if (revealed) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max <= 0) return;
+      const pct = window.scrollY / max;
+      if (pct > 0.3) {
+        revealed = true;
+        bar.classList.remove('translate-y-full');
+      }
+    }
+    window.addEventListener('scroll', maybeReveal, { passive: true });
+    setTimeout(maybeReveal, 1500);
+
+    document.getElementById('sticky-cta-close').addEventListener('click', () => {
+      bar.classList.add('translate-y-full');
+      sessionStorage.setItem('sticky-cta-dismissed', '1');
+    });
+
+    link.addEventListener('click', () => {
+      if (window.va) { try { window.va('event', { name: 'sticky_cta_click', data: { path } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'sticky_cta_click', { path, event_category: 'conversion' }); } catch (_) {} }
+    });
+  })();
+</script>

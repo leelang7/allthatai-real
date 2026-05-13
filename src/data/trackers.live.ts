@@ -16,6 +16,11 @@ export type TrackerLive = Record<string, {
 }>;
 
 export const trackerLive: TrackerLive = {
+  "lck-2026": { "lastUpdated": "2026-05-09T00:00:00Z", "items": [] },
+  "bitcoin-krw": { "lastUpdated": "2026-05-09T00:00:00Z", "items": [] },
+  "apt-buy-2026": { "lastUpdated": "2026-05-09T00:00:00Z", "items": [] },
+  "youth-policy": { "lastUpdated": "2026-05-09T00:00:00Z", "items": [] },
+  "ai-model-launch": { "lastUpdated": "2026-05-09T00:00:00Z", "items": [] },
   "faker-grok": {
     "lastUpdated": "2026-05-12T17:09:31.839Z",
     "items": [
