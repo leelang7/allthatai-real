@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-13-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
+    "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced: 가격 비교",
+    "excerpt": "ChatGPT Plus, Claude Pro, Gemini Advanced 월 구독료 비교 및 기능 분석. 나에게 맞는 AI 챗봇은?",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T01:46:27.684Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-cursor-ide-무료-한도와-pro-20-결제-시점",
+    "title": "Cursor IDE 무료 vs Pro: 언제 유료 전환해야 할까?",
+    "excerpt": "Cursor IDE, 무료 플랜 한도와 Pro 플랜 $20 결제 시점, 정확히 알아보고 현명하게 사용하세요.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T01:46:33.719Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
+    "title": "스팀 대규모 세일 일정 총정리 (여름/겨울/할로윈)",
+    "excerpt": "놓치면 후회! 스팀 최대 할인 행사인 여름, 겨울, 할로윈 세일 일정을 미리 알려드립니다.",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T01:46:39.728Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-epic-games-무료게임-받는-법-이번-주-무료-정리",
+    "title": "에픽게임즈 무료 게임 받는 법 & 이번 주 혜택 총정리",
+    "excerpt": "에픽게임즈 무료 게임, 놓치지 않고 100% 받는 방법과 현재 무료 게임 정보를 확인하세요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T01:46:44.836Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-플레이스테이션-psn-세일-잘-사는-시기",
+    "title": "PSN 세일, 언제가 가장 쌀까? 구매 타이밍 가이드",
+    "excerpt": "PSN 스토어 세일, 언제 기다려야 할까요? 주요 세일 시즌과 꿀팁을 담았습니다.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T01:46:53.182Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-12-넷플릭스-가족-추가-멤버-분담-5000",
     "title": "넷플릭스 가족 추가 멤버 5천원으로 이용하는 법",
     "excerpt": "넷플릭스 가족 추가 멤버, 5천원으로 이용하는 꿀팁! 지금 바로 확인하세요.",
