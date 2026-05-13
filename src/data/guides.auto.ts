@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-13-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
+    "title": "Steam Deck vs ROG Ally vs Legion Go: 가격 비교 및 할인 정보",
+    "excerpt": "최신 휴대용 게임기 Steam Deck, ROG Ally, Legion Go 가격 비교 및 할인 정보 총정리!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T13:56:11.957Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-에어비앤비-vs-호텔-가격-비교-한국에서-출국-시",
+    "title": "에어비앤비 vs 호텔, 한국 출발 시 가성비 비교",
+    "excerpt": "한국 출발 여행, 에어비앤비 vs 호텔 가격 비교. 숨은 비용까지 분석해 가성비 숙소 찾기!",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T13:56:54.753Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
+    "title": "진에어·제주항공·티웨이 특가 프로모션 잡는 법",
+    "excerpt": "진에어, 제주항공, 티웨이항공 프로모션 정보 총정리! 최저가 항공권 예약 꿀팁을 확인하세요.",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T13:57:39.535Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
+    "title": "11번가·쿠팡·G마켓 직구 최저가 비교: 같은 상품 어디가 쌀까",
+    "excerpt": "11번가, 쿠팡, G마켓 인기 직구 상품 가격 비교! 어디가 가장 쌀까? 지금 바로 확인하세요.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T13:57:55.454Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-블랙프라이데이-vs-1111-vs-박싱데이-같은-제품-어디가-더-쌌나",
+    "title": "블프 vs 광군제 vs 박싱데이: 최대 할인 시점 비교",
+    "excerpt": "연말 최대 쇼핑 시즌, 블랙프라이데이, 11.11, 박싱데이 중 언제 사야 가장 쌀까?",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T13:58:09.428Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-13-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
     "title": "트래블월렛 vs 트래블로그 vs Wise 해외결제 비교",
     "excerpt": "해외 결제, 어디가 제일 쌀까? 트래블월렛, 트래블로그, Wise 수수료 비교 분석.",
