@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-13-한국에서-gpu-살-때-다나와-vs-컴파인-vs-컴퓨존-가격차",
+    "title": "GPU 구매 전 필독! 다나와 vs 컴파인 vs 컴퓨존 가격 비교",
+    "excerpt": "다나와, 컴파인, 컴퓨존 GPU 가격 비교! 최저가로 그래픽카드 구매하는 방법은?",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T19:26:31.204Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-nordvpn-1년-vs-2년-결제-어느-시점이-가장-싼가",
+    "title": "NordVPN 1년 vs 2년 결제, 언제 사는 게 가장 쌀까?",
+    "excerpt": "NordVPN 1년 vs 2년 약정, 가격 비교 분석! 장기 결제로 최대 할인 받는 꿀팁 공개.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T19:26:36.592Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-microsoft-365-한국-vs-학생-라이선스-가격",
+    "title": "Microsoft 365 한국 vs 학생 라이선스, 뭐가 더 쌀까?",
+    "excerpt": "Microsoft 365, 한국 정식 vs 학생 라이선스 가격 비교 분석",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T19:26:42.144Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-스팀-서브노티카-75-할인-33700-8420",
+    "title": "서브노티카 75% 할인: 8천원대로 즐기세요!",
+    "excerpt": "인기 생존 게임 서브노티카, 스팀에서 75% 할인된 8,420원에 구매하세요!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-13T19:26:46.246Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-스팀-red-dead-redemption-2-75-할인-73000-18250",
+    "title": "스팀 Red Dead Redemption 2 75% 할인! ₩18,250에 구매 기회",
+    "excerpt": "스팀에서 Red Dead Redemption 2 75% 할인! ₩73,000 → ₩18,250에 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-13T19:26:50.364Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-13-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
     "title": "Steam Deck vs ROG Ally vs Legion Go: 가격 비교 및 할인 정보",
     "excerpt": "최신 휴대용 게임기 Steam Deck, ROG Ally, Legion Go 가격 비교 및 할인 정보 총정리!",
