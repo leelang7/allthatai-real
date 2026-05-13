@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-13-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
+    "title": "트래블월렛 vs 트래블로그 vs Wise 해외결제 비교",
+    "excerpt": "해외 결제, 어디가 제일 쌀까? 트래블월렛, 트래블로그, Wise 수수료 비교 분석.",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T08:27:08.657Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-카카오뱅크-신규가입-캐시백-토스뱅크-비교",
+    "title": "카카오뱅크 신규 가입 혜택 vs 토스뱅크 비교",
+    "excerpt": "카카오뱅크 신규 가입 캐시백, 토스뱅크와 비교해서 나에게 유리한 혜택은?",
+    "tag": "카드/핀테크",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T08:27:14.651Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-쿠팡-와우-7890으로-ott-무료-로켓배송-경제성",
+    "title": "쿠팡 와우로 OTT 무료? 로켓배송 혜택까지 꼼꼼 비교",
+    "excerpt": "월 7,890원 쿠팡 와우, OTT 무료에 로켓배송까지? 득템 찬스!",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T08:27:21.914Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-디즈니플러스-연간-vs-월간-결제-차이-프로모션-코드",
+    "title": "디즈니플러스 연간 vs 월간 결제, 프로모션 코드 꿀팁",
+    "excerpt": "디즈니플러스, 연간 vs 월간 결제 비교하고 숨겨진 프로모션 코드로 더 싸게 구독하는 법!",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T08:27:27.592Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-13-넷플릭스-가족-추가-멤버-분담-5000",
+    "title": "넷플릭스 가족 추가 멤버, 월 5천원으로 이용하는 법",
+    "excerpt": "넷플릭스 계정 공유, 더 저렴하게 이용할 수 있는 가족 추가 멤버 활용법을 알려드립니다.",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-13T08:27:33.610Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-13-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
     "title": "ChatGPT Plus vs Claude Pro vs Gemini Advanced: 가격 비교",
     "excerpt": "ChatGPT Plus, Claude Pro, Gemini Advanced 월 구독료 비교 및 기능 분석. 나에게 맞는 AI 챗봇은?",
