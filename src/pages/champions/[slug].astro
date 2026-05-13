@@ -1,0 +1,141 @@
+---
+/**
+ * /champions/[slug] — programmatic champion guide.
+ *
+ * 30+ champions. SEO 타겟: "{챔프명} 빌드", "{챔프명} 룬", "{챔프명} 카운터".
+ * 실시간 빌드는 롤버틀러로 funnel.
+ */
+import Layout from '../../layouts/Layout.astro';
+import { champions, ROLE_LABEL } from '../../data/champions';
+
+export async function getStaticPaths() {
+  return champions.map((c) => ({ params: { slug: c.slug }, props: { champion: c } }));
+}
+
+const { champion } = Astro.props as { champion: typeof champions[number] };
+const portrait = `https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${champion.apiName}.png`;
+const splash = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.apiName}_0.jpg`;
+
+const counterChamps = champion.counters
+  .map((slug) => champions.find((c) => c.slug === slug))
+  .filter((c) => c != null);
+const synergyChamps = champion.synergies
+  .map((slug) => champions.find((c) => c.slug === slug))
+  .filter((c) => c != null);
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/champions/${champion.slug}/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: 'LoL', item: `${SITE}/lol/` },
+    { '@type': 'ListItem', position: 3, name: champion.korName, item: url },
+  ],
+};
+
+const difficultyLabel = ['', '쉬움', '중간', '어려움'][champion.difficulty];
+---
+<Layout
+  title={`${champion.korName} (${champion.apiName}) 가이드 — 카운터·룬·콤보·시너지`}
+  description={`${champion.korName} 한국어 가이드. ${champion.pitch}. 카운터·시너지·콤보 + 실시간 빌드 추천.`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <!-- HERO with splash -->
+  <section class="relative overflow-hidden border-b border-zinc-900">
+    <img src={splash} alt={champion.korName} class="absolute inset-0 w-full h-full object-cover opacity-20" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-zinc-950/50"></div>
+    <div class="relative mx-auto max-w-4xl px-4 pt-12 pb-10">
+      <a href="/lol/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← LoL 가이드</a>
+      <div class="mt-6 flex items-start gap-4 flex-wrap">
+        <img src={portrait} alt={champion.korName} width="96" height="96" class="rounded-2xl border-2 border-violet-500/40 shadow-lg shadow-violet-500/30" loading="eager" />
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-[10px] font-black px-2.5 py-1 tracking-widest uppercase">
+              {ROLE_LABEL[champion.role]}
+            </span>
+            <span class="text-[10px] text-zinc-400">난이도 {difficultyLabel}</span>
+          </div>
+          <h1 class="mt-2 text-3xl sm:text-4xl font-black leading-tight">{champion.korName}</h1>
+          <p class="text-sm text-zinc-400 italic">"{champion.title}" · {champion.apiName}</p>
+        </div>
+      </div>
+      <p class="mt-6 text-base sm:text-lg text-zinc-300 leading-relaxed max-w-3xl">{champion.pitch}</p>
+    </div>
+  </section>
+
+  <!-- LIVE BUILDS CTA -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <a href={`https://lolbutler.allthatai.kr/champions/${champion.apiName}`} target="_blank" rel="noopener" class="block rounded-2xl border border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-pink-500/5 p-6 hover:border-violet-500/70 transition">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">실시간 빌드·룬</p>
+      <p class="mt-2 text-xl font-black">롤버틀러에서 {champion.korName} 빌드 보기 →</p>
+      <p class="mt-2 text-sm text-zinc-400">시즌·패치·메타 자동 반영. 본인 소환사 매치도 같이 분석.</p>
+    </a>
+  </section>
+
+  <!-- COMBO -->
+  {champion.combo && (
+    <section class="mx-auto max-w-3xl px-4 py-4">
+      <h2 class="text-xl font-black mb-3">대표 콤보</h2>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="font-mono text-sm text-cyan-300">{champion.combo}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- COUNTERS / SYNERGY -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="grid sm:grid-cols-2 gap-4">
+      {counterChamps.length > 0 && (
+        <div class="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-5">
+          <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">카운터 ({counterChamps.length})</p>
+          <p class="mt-1 text-xs text-zinc-400">이 챔피언이 약한 매치업</p>
+          <div class="mt-4 space-y-2">
+            {counterChamps.map((c) => (
+              <a href={`/champions/${c!.slug}/`} class="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 hover:border-rose-500/40 transition">
+                <img src={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${c!.apiName}.png`} alt={c!.korName} width="32" height="32" class="rounded-lg" loading="lazy" />
+                <div>
+                  <p class="font-bold text-sm">{c!.korName}</p>
+                  <p class="text-[10px] text-zinc-500">{ROLE_LABEL[c!.role]}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      {synergyChamps.length > 0 && (
+        <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5">
+          <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">시너지 ({synergyChamps.length})</p>
+          <p class="mt-1 text-xs text-zinc-400">잘 맞는 동맹</p>
+          <div class="mt-4 space-y-2">
+            {synergyChamps.map((c) => (
+              <a href={`/champions/${c!.slug}/`} class="flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 hover:border-emerald-500/40 transition">
+                <img src={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${c!.apiName}.png`} alt={c!.korName} width="32" height="32" class="rounded-lg" loading="lazy" />
+                <div>
+                  <p class="font-bold text-sm">{c!.korName}</p>
+                  <p class="text-[10px] text-zinc-500">{ROLE_LABEL[c!.role]}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- RELATED LINKS -->
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <div class="grid sm:grid-cols-2 gap-3">
+      <a href="/lol/spell-timer/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-4 transition">
+        <p class="font-bold">스펠 쿨다운 계산기</p>
+        <p class="mt-1 text-xs text-zinc-500">적 점멸/텔포 추적</p>
+      </a>
+      <a href="/lol/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-4 transition">
+        <p class="font-bold">전체 챔피언 ({champions.length})</p>
+        <p class="mt-1 text-xs text-zinc-500">롤버틀러로 가기</p>
+      </a>
+    </div>
+  </section>
+</Layout>

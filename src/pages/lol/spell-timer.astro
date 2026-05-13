@@ -1,0 +1,196 @@
+---
+/**
+ * /lol/spell-timer — 점멸/회복/점화 등 스펠 쿨다운 계산기.
+ *
+ * 한국 LoL 검색량 큰 키워드: "롤 스펠 쿨다운", "점멸 쿨", "텔포 쿨"
+ * Click → 카운트다운 시작. 빠른 메모용.
+ */
+import Layout from '../../layouts/Layout.astro';
+
+const spells = [
+  { id: 'flash',  name: '점멸',   icon: 'F',  cooldown: 300, desc: '짧은 거리 순간이동, 모든 챔피언이 가장 많이 씀' },
+  { id: 'tp',     name: '순간이동', icon: 'T', cooldown: 360, desc: '동맹 구조물·미니언으로 텔포 (탑 1순위)' },
+  { id: 'ignite', name: '점화',   icon: 'I',  cooldown: 180, desc: '도트 데미지 + 회복감소. 라인전 솔킬용' },
+  { id: 'heal',   name: '회복',   icon: 'H',  cooldown: 240, desc: '체력 회복 + 이속. 원딜/봇 자주 씀' },
+  { id: 'exhaust',name: '탈진',   icon: 'E',  cooldown: 210, desc: '적 데미지 감소 + 둔화. 암살자/원딜 카운터' },
+  { id: 'smite',  name: '강타',   icon: 'S',  cooldown: 15,  desc: '정글 몬스터 마지막 타격 + 챔프 슬로우' },
+  { id: 'cleanse',name: '정화',   icon: 'C',  cooldown: 210, desc: 'CC 즉시 해제 — 메이즈가 많은 매치업' },
+  { id: 'ghost',  name: '유체화', icon: 'G',  cooldown: 210, desc: '이속 추가 — 다리우스/가렌 등 추격형' },
+  { id: 'barrier',name: '방어막', icon: 'B',  cooldown: 180, desc: '2초 보호막 — 미드 암살자 카운터' },
+];
+
+const cdReducers = [
+  { name: '리신스 효율 ', flash: 15, others: 25, note: '의식의 리신스 효율 부적' },
+  { name: '인서너 룬',   flash: 21, others: 21, note: '여진/지배의 정수' },
+];
+---
+<Layout
+  title="롤 스펠 쿨다운 계산기 — 점멸 텔포 점화 회복 실시간 타이머"
+  description="LoL 점멸·텔포·점화·회복 등 9가지 스펠 쿨다운 한 번 클릭으로 카운트다운. 리신스 효율·룬 적용 옵션 포함."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/lol/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← LoL 가이드</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      스펠 쿨다운 계산기
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      롤 <span class="text-gradient">스펠 쿨다운</span> 계산기
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      적이 점멸 쓴 순간 클릭 → 자동 카운트다운. 리신스/룬 쿨감 적용도 옵션.
+    </p>
+  </section>
+
+  <!-- CD reduction -->
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 flex items-center gap-4 flex-wrap">
+      <p class="text-xs font-bold text-zinc-300">쿨감 옵션:</p>
+      <label class="flex items-center gap-1.5 cursor-pointer text-sm">
+        <input id="reducer-cosmic" type="checkbox" class="w-4 h-4 accent-violet-500" data-flash="15" data-other="25" />
+        <span class="text-zinc-300">의식의 리신스 효율 (점멸 -15%, 기타 -25%)</span>
+      </label>
+      <label class="flex items-center gap-1.5 cursor-pointer text-sm">
+        <input id="reducer-rune" type="checkbox" class="w-4 h-4 accent-violet-500" data-flash="21" data-other="21" />
+        <span class="text-zinc-300">정수 (-21%)</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- Spell grid -->
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      {spells.map((s) => (
+        <div class="spell-tile rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4 transition" data-spell-id={s.id} data-base-cd={s.cooldown}>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-violet-500/20 border border-violet-500/40 flex items-center justify-center text-violet-300 font-black text-lg">
+              {s.icon}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-white">{s.name}</p>
+              <p class="text-[11px] text-zinc-500"><span class="cd-display">{s.cooldown}</span>초</p>
+            </div>
+          </div>
+          <p class="mt-2 text-[10px] text-zinc-500 leading-relaxed line-clamp-2">{s.desc}</p>
+          <button type="button" class="start-btn mt-3 w-full rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-bold py-2 text-sm transition">
+            지금 시작 →
+          </button>
+          <div class="timer-display hidden mt-3 text-center">
+            <p class="text-3xl font-black tabular-nums text-emerald-300"><span class="time-remaining">0</span><span class="text-sm text-zinc-500">초</span></p>
+            <button type="button" class="reset-btn mt-2 text-xs text-zinc-500 hover:text-zinc-300">초기화</button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">스펠 쿨다운 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>점멸 = 5분 (300초)</strong> 기본. 가장 자주 쓰는 스펠</li>
+        <li>→ <strong>텔포 = 6분 (360초)</strong> 후반 강화 텔포는 5분</li>
+        <li>→ <strong>점화 = 3분 (180초)</strong>, 회복 = 4분</li>
+        <li>→ <strong>의식의 리신스 효율</strong>: 점멸 5분 → 4분 15초, 다른 스펠 -25%</li>
+        <li>→ <strong>정수 (음각 - 마법공격력 X)</strong>: 모든 스펠 -21%. 21%는 LoL에서 최대 쿨감.</li>
+        <li>→ <strong>도란의 반지 + 부츠 효율</strong>: 스펠 쿨감과 무관. 능력 쿨감만.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <a href="https://lolbutler.allthatai.kr" target="_blank" rel="noopener" class="block rounded-2xl border border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-pink-500/5 p-6 hover:border-violet-500/70 transition">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">실시간 빌드</p>
+      <p class="mt-2 text-xl font-black">롤버틀러 — 본인 소환사명 검색</p>
+      <p class="mt-2 text-sm text-zinc-400">매치 분석 + 챔피언 빌드 + 룬 추천. 시즌·패치 자동 반영.</p>
+      <p class="mt-3 text-sm text-violet-300 font-bold">lolbutler.allthatai.kr →</p>
+    </a>
+  </section>
+</Layout>
+
+<script is:inline>
+  const baseCooldowns = {};
+  document.querySelectorAll('.spell-tile').forEach((tile) => {
+    baseCooldowns[tile.getAttribute('data-spell-id')] = parseInt(tile.getAttribute('data-base-cd'), 10);
+  });
+
+  function getEffectiveCd(spellId, baseCd) {
+    let cd = baseCd;
+    const cosmic = document.getElementById('reducer-cosmic');
+    const rune = document.getElementById('reducer-rune');
+    if (cosmic && cosmic.checked) {
+      const pct = parseFloat(spellId === 'flash' ? cosmic.dataset.flash : cosmic.dataset.other);
+      cd = cd * (1 - pct / 100);
+    }
+    if (rune && rune.checked) {
+      cd = cd * (1 - 21 / 100);
+    }
+    return Math.round(cd);
+  }
+
+  function updateAllDisplays() {
+    document.querySelectorAll('.spell-tile').forEach((tile) => {
+      const id = tile.getAttribute('data-spell-id');
+      const base = baseCooldowns[id];
+      const eff = getEffectiveCd(id, base);
+      tile.querySelector('.cd-display').textContent = eff;
+    });
+  }
+
+  document.getElementById('reducer-cosmic').addEventListener('change', updateAllDisplays);
+  document.getElementById('reducer-rune').addEventListener('change', updateAllDisplays);
+
+  const timers = {};
+
+  function fmtTime(secs) {
+    if (secs <= 0) return '준비';
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return m > 0 ? `${m}:${String(s).padStart(2, '0')}` : `${s}`;
+  }
+
+  function startTimer(tile) {
+    const id = tile.getAttribute('data-spell-id');
+    const base = baseCooldowns[id];
+    const eff = getEffectiveCd(id, base);
+    const startBtn = tile.querySelector('.start-btn');
+    const display = tile.querySelector('.timer-display');
+    const remaining = display.querySelector('.time-remaining');
+    startBtn.classList.add('hidden');
+    display.classList.remove('hidden');
+
+    let left = eff;
+    remaining.textContent = fmtTime(left);
+
+    if (timers[id]) clearInterval(timers[id]);
+    timers[id] = setInterval(() => {
+      left -= 1;
+      remaining.textContent = fmtTime(left);
+      if (left <= 0) {
+        clearInterval(timers[id]);
+        remaining.parentElement.classList.add('animate-pulse');
+        tile.classList.add('border-emerald-500/60', 'bg-emerald-500/10');
+        if (navigator.vibrate) try { navigator.vibrate([200, 100, 200]); } catch (_) {}
+      }
+    }, 1000);
+
+    if (window.va) { try { window.va('event', { name: 'spell_timer_start', data: { spell: id } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'spell_timer_start', { spell: id, event_category: 'lol' }); } catch (_) {} }
+  }
+
+  function resetTimer(tile) {
+    const id = tile.getAttribute('data-spell-id');
+    if (timers[id]) clearInterval(timers[id]);
+    delete timers[id];
+    tile.classList.remove('border-emerald-500/60', 'bg-emerald-500/10');
+    const display = tile.querySelector('.timer-display');
+    const startBtn = tile.querySelector('.start-btn');
+    display.classList.add('hidden');
+    display.querySelector('.time-remaining').parentElement.classList.remove('animate-pulse');
+    startBtn.classList.remove('hidden');
+  }
+
+  document.querySelectorAll('.start-btn').forEach((b) => b.addEventListener('click', () => startTimer(b.closest('.spell-tile'))));
+  document.querySelectorAll('.reset-btn').forEach((b) => b.addEventListener('click', () => resetTimer(b.closest('.spell-tile'))));
+</script>

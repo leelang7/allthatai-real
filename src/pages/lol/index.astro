@@ -1,0 +1,101 @@
+---
+/**
+ * /lol — LoLButler funnel hub.
+ *
+ * 한국 LoL 검색량 가장 큰 키워드 잡고 → 본인 사이드 product 롤버틀러로 funnel.
+ */
+import Layout from '../../layouts/Layout.astro';
+import { champions, ROLE_LABEL } from '../../data/champions';
+
+const featuredByRole: Record<string, typeof champions> = {};
+champions.forEach((c) => {
+  if (!featuredByRole[c.role]) featuredByRole[c.role] = [];
+  featuredByRole[c.role].push(c);
+});
+const roleEntries = Object.entries(featuredByRole) as Array<[keyof typeof ROLE_LABEL, typeof champions]>;
+
+const tools = [
+  { href: '/lol/spell-timer/', title: '스펠 쿨다운 계산기', desc: '점멸 / 텔포 / 점화 — 쿨 시간 자동 계산' },
+  { href: '/lol/tier-rank/', title: '롤 티어 시스템', desc: 'Iron ~ Challenger — 승급/강등·LP 시스템' },
+  { href: 'https://lolbutler.allthatai.kr', title: '🎯 롤버틀러 (외부)', desc: '실시간 챔피언 빌드·룬·매치 분석. 본인 소환사명 검색' },
+];
+---
+<Layout
+  title="롤 — 챔피언 가이드·스펠 계산기·티어 — AllThatAI Real LoL"
+  description="LoL 30+ 인기 챔피언 한국어 가이드, 스펠 쿨다운 계산기, 티어 시스템 설명. 실시간 빌드는 롤버틀러로."
+>
+  <section class="relative overflow-hidden border-b border-zinc-900">
+    <div class="absolute inset-0 bg-mesh opacity-60"></div>
+    <div class="relative mx-auto max-w-5xl px-4 pt-16 pb-12">
+      <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+        LoL 한국어 가이드
+      </div>
+      <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+        리그 오브 레전드<br/>
+        <span class="text-gradient">실전 가이드</span>
+      </h1>
+      <p class="mt-5 text-lg text-zinc-400 max-w-3xl leading-relaxed">
+        챔피언 카운터·룬·콤보 + 스펠 쿨다운 계산기 + 티어 시스템 정리.
+        실시간 빌드는 <a href="https://lolbutler.allthatai.kr" target="_blank" rel="noopener" class="text-cyan-300 hover:text-cyan-200 underline">롤버틀러</a>로.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://lolbutler.allthatai.kr" target="_blank" rel="noopener" class="rounded-xl bg-violet-500 hover:bg-violet-400 text-white px-6 py-3.5 font-bold transition">
+          🎯 롤버틀러 — 실시간 빌드
+        </a>
+        <a href="/lol/spell-timer/" class="rounded-xl border border-zinc-700 bg-zinc-900/40 backdrop-blur px-6 py-3.5 font-semibold hover:border-violet-500/50 transition">
+          스펠 쿨다운 계산기
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="mx-auto max-w-5xl px-4 py-10">
+    <h2 class="text-xl font-black mb-4">툴</h2>
+    <div class="grid sm:grid-cols-3 gap-3">
+      {tools.map((t) => (
+        <a href={t.href} target={t.href.startsWith('http') ? '_blank' : null} rel={t.href.startsWith('http') ? 'noopener' : null} class="card-lift block rounded-2xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-5 transition">
+          <p class="font-black text-white">{t.title}</p>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">{t.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CHAMPIONS BY ROLE -->
+  <section class="mx-auto max-w-5xl px-4 py-10">
+    <div class="flex items-center justify-between gap-3 mb-6 flex-wrap">
+      <h2 class="text-xl font-black">챔피언 가이드 ({champions.length}개)</h2>
+      <a href="/champions/" class="text-sm text-violet-300 hover:text-violet-200">전체 →</a>
+    </div>
+    {roleEntries.map(([role, list]) => (
+      <div class="mb-8">
+        <h3 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">{ROLE_LABEL[role]} · {list.length}</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {list.map((c) => (
+            <a href={`/champions/${c.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-4 transition">
+              <img src={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/${c.apiName}.png`} alt={c.korName} width="48" height="48" class="rounded-lg" loading="lazy" />
+              <p class="mt-2 font-bold text-sm">{c.korName}</p>
+              <p class="text-[10px] text-zinc-500 line-clamp-1">{c.title}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- ROLBUTLER PROMO -->
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <div class="rounded-3xl border border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-pink-500/5 p-10 text-center">
+      <h2 class="text-3xl font-black">실시간 빌드·룬·매치 분석은 <span class="text-violet-300">롤버틀러</span></h2>
+      <p class="mt-4 text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+        시즌·패치·메타가 매주 바뀌는데 우리 페이지는 정적. 본인 소환사명 검색 → 실시간 빌드·룬·매치 히스토리 분석은
+        롤버틀러 (별도 사이트)에서.
+      </p>
+      <a href="https://lolbutler.allthatai.kr" target="_blank" rel="noopener" class="mt-6 inline-block rounded-xl bg-violet-500 hover:bg-violet-400 text-white px-6 py-3 font-bold transition">
+        롤버틀러로 가기 →
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const tiers = [
+  { name: 'Iron', kor: '아이언', color: 'from-zinc-600 to-zinc-700', emoji: '🔘', pct: '4%', desc: '시작 티어. CS·맵 이해 기본 단계' },
+  { name: 'Bronze', kor: '브론즈', color: 'from-amber-700 to-orange-800', emoji: '🟫', pct: '18%', desc: '대다수 신규 유저. 라인전·세컨드 빌딩 학습' },
+  { name: 'Silver', kor: '실버', color: 'from-zinc-400 to-zinc-500', emoji: '⚪', pct: '32%', desc: '평균 — 가장 많은 인구. 와드·오브젝트 인식 시작' },
+  { name: 'Gold', kor: '골드', color: 'from-yellow-500 to-amber-500', emoji: '🟡', pct: '25%', desc: '시즌 보상 기준선. 챔프 마스터리 + 매크로 시작' },
+  { name: 'Platinum', kor: '플래티넘', color: 'from-cyan-400 to-teal-500', emoji: '🔷', pct: '13%', desc: '상위 16% — 본격 매크로·오브젝트 컨트롤' },
+  { name: 'Emerald', kor: '에메랄드', color: 'from-emerald-500 to-green-600', emoji: '🟢', pct: '5%', desc: '상위 3% — 2023년 신설 티어' },
+  { name: 'Diamond', kor: '다이아', color: 'from-sky-500 to-blue-600', emoji: '💎', pct: '2%', desc: '상위 1.8% — 컴페티티브 시작' },
+  { name: 'Master', kor: '마스터', color: 'from-violet-500 to-purple-600', emoji: '🟣', pct: '0.5%', desc: 'LP 100 시작. 디비전 없음' },
+  { name: 'Grandmaster', kor: '그랜드마스터', color: 'from-rose-500 to-red-600', emoji: '🔴', pct: '0.05%', desc: '서버 상위 700명 (한국 기준)' },
+  { name: 'Challenger', kor: '챌린저', color: 'from-amber-400 to-yellow-300', emoji: '👑', pct: '0.01%', desc: '서버 상위 300명. 프로 입문' },
+];
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/lol/tier-rank/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: 'LoL', item: `${SITE}/lol/` },
+    { '@type': 'ListItem', position: 3, name: '티어 시스템', item: url },
+  ],
+};
+---
+<Layout
+  title="롤 티어 시스템 — Iron · Bronze · Silver · Gold · Plat · Emerald · Diamond · Master · GM · Challenger"
+  description="롤 솔로 랭크 10개 티어 인구 비율, LP·승급/강등 시스템, 시즌 보상 정리."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/lol/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← LoL 가이드</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      LoL 티어 시스템
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      롤 <span class="text-gradient">10개 티어</span> + 인구 분포
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      Iron부터 Challenger까지 — 본인 위치 + 다음 티어 가는 LP 시스템.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6 space-y-3">
+    {tiers.map((t) => (
+      <div class={`rounded-2xl border border-zinc-800 bg-gradient-to-r ${t.color} bg-opacity-10 p-5`}>
+        <div class="flex items-start justify-between gap-3 flex-wrap">
+          <div>
+            <p class="text-2xl">{t.emoji} <span class="font-black text-white">{t.kor}</span> <span class="text-sm text-zinc-300 font-normal">{t.name}</span></p>
+            <p class="mt-2 text-sm text-zinc-200 leading-relaxed">{t.desc}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-300 uppercase tracking-widest">인구</p>
+            <p class="text-2xl font-black text-white">{t.pct}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">LP / 승급 / 강등 시스템</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>LP (League Points)</strong>: 승리 +18~30, 패배 −15~25. 매치 MMR 따라 변동</li>
+        <li>→ <strong>승급전 (Promotion)</strong>: 디비전 IV → III 등 단계 올라갈 때 3승 2선승</li>
+        <li>→ <strong>승급전 (Promotion)</strong>: 티어 올라갈 때 (Silver → Gold) 5승 3선승</li>
+        <li>→ <strong>강등</strong>: LP 0 + 패배 3회 → 디비전 강등. 마스터+는 일일 LP 감소</li>
+        <li>→ <strong>플레이 안 함 (Decay)</strong>: 다이아 이상 28일 안 함 → LP 감소</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <a href="https://lolbutler.allthatai.kr" target="_blank" rel="noopener" class="block rounded-2xl border border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-pink-500/5 p-6 hover:border-violet-500/70 transition">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">본인 티어 확인</p>
+      <p class="mt-2 text-xl font-black">롤버틀러 — 본인 소환사명 검색</p>
+      <p class="mt-2 text-sm text-zinc-400">현재 티어 + LP + 매치 분석 + 챔프 마스터리.</p>
+    </a>
+  </section>
+</Layout>
