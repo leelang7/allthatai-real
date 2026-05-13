@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { snippets, CATEGORY_LABEL, CATEGORY_COLOR, type SnippetCategory } from '../../data/snippets';
+
+const grouped: Record<string, typeof snippets> = {};
+for (const s of snippets) {
+  if (!grouped[s.category]) grouped[s.category] = [];
+  grouped[s.category].push(s);
+}
+const orderedCats: SnippetCategory[] = ['regex', 'git', 'linux', 'sql', 'korean', 'curl', 'js', 'python', 'excel'];
+---
+<Layout
+  title="복붙 스니펫 모음 — 정규식·Git·Linux·SQL·한국 특화"
+  description="실무에서 자주 검색하는 정규식·Git·Linux·SQL 명령어 복붙 모음. 한국 사업자번호·주민번호·원화 포맷 등 한국 특화 코드 포함."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      복붙용 스니펫 모음
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      검색하지 말고 <span class="text-gradient">복붙</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      실무에서 자주 검색하는 정규식·Git·Linux·SQL·한국 특화 코드.
+      Stack Overflow 안 뒤지고 한 번 복사로 끝.
+      현재 <strong class="text-white">{snippets.length}개</strong> 스니펫.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-24 space-y-10">
+    {orderedCats.filter((c) => grouped[c]?.length > 0).map((cat) => (
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-black tracking-widest uppercase ${CATEGORY_COLOR[cat]}`}>
+            {CATEGORY_LABEL[cat]}
+          </span>
+          <span class="text-xs text-zinc-500">{grouped[cat].length}개</span>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {grouped[cat].map((s) => (
+            <a href={`/snippets/${s.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 p-4 transition">
+              <h2 class="font-bold text-white leading-snug">{s.title}</h2>
+              <p class="mt-1.5 text-xs text-zinc-400 leading-relaxed line-clamp-2">{s.description}</p>
+              <div class="mt-3 flex flex-wrap gap-1">
+                {s.tags.slice(0, 3).map((t) => (
+                  <span class="text-[10px] text-zinc-500 bg-zinc-800/50 rounded px-1.5 py-0.5">{t}</span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</Layout>

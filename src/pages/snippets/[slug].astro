@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { snippets, CATEGORY_LABEL, CATEGORY_COLOR } from '../../data/snippets';
+
+export async function getStaticPaths() {
+  return snippets.map((s) => ({ params: { slug: s.slug }, props: { snippet: s } }));
+}
+
+const { snippet } = Astro.props as { snippet: typeof snippets[number] };
+const colorClass = CATEGORY_COLOR[snippet.category];
+const categoryLabel = CATEGORY_LABEL[snippet.category];
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/snippets/${snippet.slug}/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '스니펫', item: `${SITE}/snippets/` },
+    { '@type': 'ListItem', position: 3, name: categoryLabel, item: `${SITE}/snippets/?cat=${snippet.category}` },
+    { '@type': 'ListItem', position: 4, name: snippet.title, item: url },
+  ],
+};
+const faqLd = snippet.faqs && snippet.faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: snippet.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+} : null;
+
+// Related snippets (same category, exclude current)
+const related = snippets
+  .filter((s) => s.category === snippet.category && s.slug !== snippet.slug)
+  .slice(0, 4);
+---
+<Layout title={snippet.title} description={snippet.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+  {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>}
+
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/snippets/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 스니펫 모음</a>
+    <div class="mt-4 flex items-center gap-2 flex-wrap">
+      <span class={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase ${colorClass}`}>{categoryLabel}</span>
+      <span class="text-[10px] text-zinc-500">{snippet.snippets.length}개 스니펫</span>
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">{snippet.title}</h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">{snippet.description}</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4 space-y-4">
+    {snippet.snippets.map((s, i) => (
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+        <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900/60">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="text-xs font-bold text-white">{s.label}</span>
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest">{s.lang}</span>
+          </div>
+          <button
+            type="button"
+            class="copy-btn rounded-md bg-zinc-800 hover:bg-cyan-500 text-zinc-300 hover:text-zinc-950 text-xs font-bold px-3 py-1 transition"
+            data-target={`code-${i}`}
+            data-snippet={snippet.slug}
+          >
+            📋 복사
+          </button>
+        </div>
+        <pre class="overflow-x-auto p-4 text-sm leading-relaxed bg-zinc-950/50"><code id={`code-${i}`}>{s.code}</code></pre>
+        {s.note && (
+          <p class="px-4 py-2.5 text-xs text-amber-300 bg-amber-500/5 border-t border-amber-500/20 leading-relaxed">
+            ⓘ {s.note}
+          </p>
+        )}
+      </div>
+    ))}
+  </section>
+
+  {snippet.examples && snippet.examples.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-6">
+      <h2 class="text-lg font-black mb-3">사용 예시</h2>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-zinc-900/60">
+            <tr>
+              <th class="px-4 py-2.5 text-left font-bold">입력</th>
+              <th class="px-4 py-2.5 text-left font-bold">결과</th>
+            </tr>
+          </thead>
+          <tbody>
+            {snippet.examples.map((ex) => (
+              <tr class="border-t border-zinc-800">
+                <td class="px-4 py-2.5 font-mono text-xs text-zinc-300">{ex.input}</td>
+                <td class="px-4 py-2.5 text-zinc-300">{ex.output}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  {snippet.faqs && snippet.faqs.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-6">
+      <h2 class="text-lg font-black mb-3">자주 묻는 질문</h2>
+      <div class="space-y-2">
+        {snippet.faqs.map((f) => (
+          <details class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 group">
+            <summary class="cursor-pointer font-bold text-sm flex items-center justify-between">
+              {f.q}
+              <span class="text-zinc-500 group-open:rotate-180 transition">▾</span>
+            </summary>
+            <p class="mt-3 text-sm text-zinc-400 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {related.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-8">
+      <h2 class="text-lg font-black mb-3">관련 스니펫</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {related.map((r) => (
+          <a href={`/snippets/${r.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-zinc-700 bg-zinc-900/40 p-4 transition">
+            <p class="font-bold text-sm leading-snug">{r.title}</p>
+            <p class="mt-1 text-xs text-zinc-500 line-clamp-1">{r.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-cyan-300 mb-1">이 페이지 도움됐다면</p>
+      <p class="text-xs leading-relaxed">
+        AllThatAI Real은 한국 개발자 일상 절차/스니펫/대행 함정을 정직하게 정리합니다.
+        <a href="/snippets/" class="text-cyan-300 underline">전체 스니펫</a> ·
+        <a href="/deals/" class="text-cyan-300 underline">핫딜</a> ·
+        <a href="/traps/" class="text-cyan-300 underline">대행 함정</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.getAttribute('data-target');
+      const codeEl = document.getElementById(targetId);
+      if (!codeEl) return;
+      try {
+        await navigator.clipboard.writeText(codeEl.textContent || '');
+        const original = btn.innerHTML;
+        btn.innerHTML = '✓ 복사됨';
+        btn.classList.add('bg-emerald-500', 'text-zinc-950');
+        btn.classList.remove('bg-zinc-800', 'text-zinc-300');
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.classList.remove('bg-emerald-500', 'text-zinc-950');
+          btn.classList.add('bg-zinc-800', 'text-zinc-300');
+        }, 1500);
+      } catch (e) {
+        // Fallback for non-HTTPS contexts
+        const ta = document.createElement('textarea');
+        ta.value = codeEl.textContent || '';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+      const snippet = btn.getAttribute('data-snippet');
+      if (window.va) { try { window.va('event', { name: 'snippet_copy', data: { snippet } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'snippet_copy', { snippet, event_category: 'engagement' }); } catch (_) {} }
+    });
+  });
+</script>
