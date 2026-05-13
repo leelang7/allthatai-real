@@ -1,0 +1,375 @@
+---
+/**
+ * 특수문자 / 이모지 클릭 한 번 복사 페이지.
+ *
+ * 한국 검색량 큰 키워드: "특수문자 복사", "체크박스 특수문자", "별 특수문자",
+ * "화살표 복사", "이모지 키보드"
+ *
+ * 각 문자 클릭 → clipboard 즉시 복사 → toast "복사됨" 표시.
+ * 카테고리별로 정리. 일반 키보드로 입력 어려운 것만 모음.
+ */
+import Layout from '../layouts/Layout.astro';
+
+interface SymbolGroup {
+  title: string;
+  hint: string;
+  symbols: { char: string; name: string }[];
+}
+
+const groups: SymbolGroup[] = [
+  {
+    title: '체크박스 / 체크',
+    hint: '체크리스트·서식·문서에 자주 쓰임',
+    symbols: [
+      { char: '☑', name: '체크 박스 체크' },
+      { char: '☐', name: '빈 체크박스' },
+      { char: '✓', name: '체크' },
+      { char: '✔', name: '굵은 체크' },
+      { char: '✗', name: '엑스' },
+      { char: '✘', name: '굵은 엑스' },
+      { char: '☒', name: '엑스 박스' },
+      { char: '◉', name: '선택된 라디오' },
+      { char: '○', name: '빈 라디오' },
+      { char: '●', name: '채워진 원' },
+      { char: '◯', name: '큰 원' },
+      { char: '✅', name: '체크 이모지' },
+      { char: '❌', name: '엑스 이모지' },
+      { char: '⭕', name: 'O 이모지' },
+    ],
+  },
+  {
+    title: '별 / 등급',
+    hint: '평점·강조·즐겨찾기',
+    symbols: [
+      { char: '★', name: '검은 별' },
+      { char: '☆', name: '빈 별' },
+      { char: '✦', name: '4각 별' },
+      { char: '✧', name: '4각 빈 별' },
+      { char: '✩', name: '얇은 별' },
+      { char: '✪', name: '원 안 별' },
+      { char: '✫', name: '인장 별' },
+      { char: '✬', name: '검은 6각' },
+      { char: '✭', name: '굵은 5각' },
+      { char: '✰', name: '뾰족 별' },
+      { char: '⭐', name: '별 이모지' },
+      { char: '🌟', name: '반짝 별' },
+    ],
+  },
+  {
+    title: '화살표',
+    hint: '문서·UI·다이어그램',
+    symbols: [
+      { char: '→', name: '오른쪽' },
+      { char: '←', name: '왼쪽' },
+      { char: '↑', name: '위' },
+      { char: '↓', name: '아래' },
+      { char: '↔', name: '좌우' },
+      { char: '↕', name: '상하' },
+      { char: '⇒', name: '굵은 오른쪽' },
+      { char: '⇐', name: '굵은 왼쪽' },
+      { char: '⇑', name: '굵은 위' },
+      { char: '⇓', name: '굵은 아래' },
+      { char: '↗', name: '북동' },
+      { char: '↘', name: '남동' },
+      { char: '↙', name: '남서' },
+      { char: '↖', name: '북서' },
+      { char: '➜', name: '얇은 오른쪽' },
+      { char: '➡', name: '오른쪽 이모지' },
+      { char: '⬅', name: '왼쪽 이모지' },
+      { char: '⬆', name: '위 이모지' },
+      { char: '⬇', name: '아래 이모지' },
+      { char: '⟶', name: '긴 오른쪽' },
+      { char: '⟵', name: '긴 왼쪽' },
+    ],
+  },
+  {
+    title: '도형',
+    hint: '리스트·구분·강조',
+    symbols: [
+      { char: '■', name: '검은 사각' },
+      { char: '□', name: '빈 사각' },
+      { char: '▣', name: '내부 사각' },
+      { char: '▪', name: '작은 검은 사각' },
+      { char: '▫', name: '작은 빈 사각' },
+      { char: '◆', name: '검은 마름모' },
+      { char: '◇', name: '빈 마름모' },
+      { char: '◈', name: '내부 마름모' },
+      { char: '▲', name: '검은 위 삼각' },
+      { char: '△', name: '빈 위 삼각' },
+      { char: '▼', name: '검은 아래 삼각' },
+      { char: '▽', name: '빈 아래 삼각' },
+      { char: '◀', name: '검은 왼쪽 삼각' },
+      { char: '▶', name: '검은 오른쪽 삼각' },
+      { char: '●', name: '검은 원' },
+      { char: '○', name: '빈 원' },
+      { char: '◐', name: '왼쪽 반원' },
+      { char: '◑', name: '오른쪽 반원' },
+      { char: '◙', name: '내부 검은 사각' },
+    ],
+  },
+  {
+    title: '글머리표 (Bullet)',
+    hint: '문서·리스트',
+    symbols: [
+      { char: '•', name: '글머리표' },
+      { char: '·', name: '가운데 점' },
+      { char: '∙', name: '굵은 가운데 점' },
+      { char: '◦', name: '하얀 글머리표' },
+      { char: '⦁', name: '굵은 글머리표' },
+      { char: '⁃', name: '하이픈 글머리' },
+      { char: '⁌', name: '왼쪽 글머리' },
+      { char: '⁍', name: '오른쪽 글머리' },
+      { char: '※', name: '미국식 별표 (참고)' },
+      { char: '⁎', name: '낮은 별표' },
+      { char: '⁕', name: '단추 별표' },
+    ],
+  },
+  {
+    title: '수학 / 통화',
+    hint: '계산식·금액',
+    symbols: [
+      { char: '±', name: '플러스 마이너스' },
+      { char: '×', name: '곱하기' },
+      { char: '÷', name: '나누기' },
+      { char: '≠', name: '같지 않음' },
+      { char: '≈', name: '근사값' },
+      { char: '≤', name: '작거나 같음' },
+      { char: '≥', name: '크거나 같음' },
+      { char: '∞', name: '무한대' },
+      { char: '√', name: '제곱근' },
+      { char: 'π', name: '파이' },
+      { char: 'Σ', name: '시그마 (합)' },
+      { char: '∫', name: '적분' },
+      { char: '°', name: '도' },
+      { char: '′', name: '분 (각)' },
+      { char: '″', name: '초 (각)' },
+      { char: '%', name: '퍼센트' },
+      { char: '‰', name: '천분율' },
+      { char: '₩', name: '원' },
+      { char: '$', name: '달러' },
+      { char: '€', name: '유로' },
+      { char: '£', name: '파운드' },
+      { char: '¥', name: '엔/위안' },
+      { char: '₿', name: '비트코인' },
+    ],
+  },
+  {
+    title: '괄호 / 따옴표',
+    hint: '인용·강조',
+    symbols: [
+      { char: '「', name: '왼쪽 모서리 괄호' },
+      { char: '」', name: '오른쪽 모서리 괄호' },
+      { char: '『', name: '왼쪽 흰 모서리' },
+      { char: '』', name: '오른쪽 흰 모서리' },
+      { char: '【', name: '왼쪽 검은 렌즈' },
+      { char: '】', name: '오른쪽 검은 렌즈' },
+      { char: '〔', name: '왼쪽 거북' },
+      { char: '〕', name: '오른쪽 거북' },
+      { char: '《', name: '왼쪽 이중 꺽쇠' },
+      { char: '》', name: '오른쪽 이중 꺽쇠' },
+      { char: '〈', name: '왼쪽 꺽쇠' },
+      { char: '〉', name: '오른쪽 꺽쇠' },
+      { char: '“', name: '왼쪽 큰따옴표' },
+      { char: '”', name: '오른쪽 큰따옴표' },
+      { char: '‘', name: '왼쪽 작은따옴표' },
+      { char: '’', name: '오른쪽 작은따옴표' },
+      { char: '·', name: '가운데 점' },
+      { char: '‥', name: '두 점' },
+      { char: '…', name: '말줄임표' },
+      { char: '〜', name: '한국식 물결' },
+    ],
+  },
+  {
+    title: '한글 자모 / 발음 기호',
+    hint: '한국어 발음·자모 분리',
+    symbols: [
+      { char: 'ㄱ', name: '기역' },
+      { char: 'ㄴ', name: '니은' },
+      { char: 'ㄷ', name: '디귿' },
+      { char: 'ㄹ', name: '리을' },
+      { char: 'ㅁ', name: '미음' },
+      { char: 'ㅂ', name: '비읍' },
+      { char: 'ㅅ', name: '시옷' },
+      { char: 'ㅇ', name: '이응' },
+      { char: 'ㅈ', name: '지읒' },
+      { char: 'ㅊ', name: '치읓' },
+      { char: 'ㅋ', name: '키읔' },
+      { char: 'ㅌ', name: '티읕' },
+      { char: 'ㅍ', name: '피읖' },
+      { char: 'ㅎ', name: '히읗' },
+      { char: 'ㅏ', name: '아' },
+      { char: 'ㅑ', name: '야' },
+      { char: 'ㅓ', name: '어' },
+      { char: 'ㅕ', name: '여' },
+      { char: 'ㅗ', name: '오' },
+      { char: 'ㅛ', name: '요' },
+      { char: 'ㅜ', name: '우' },
+      { char: 'ㅠ', name: '유' },
+      { char: 'ㅡ', name: '으' },
+      { char: 'ㅣ', name: '이' },
+    ],
+  },
+  {
+    title: '원/괄호 숫자',
+    hint: '순서·번호 매기기',
+    symbols: [
+      { char: '①', name: '①' },
+      { char: '②', name: '②' },
+      { char: '③', name: '③' },
+      { char: '④', name: '④' },
+      { char: '⑤', name: '⑤' },
+      { char: '⑥', name: '⑥' },
+      { char: '⑦', name: '⑦' },
+      { char: '⑧', name: '⑧' },
+      { char: '⑨', name: '⑨' },
+      { char: '⑩', name: '⑩' },
+      { char: '⑴', name: '⑴' },
+      { char: '⑵', name: '⑵' },
+      { char: '⑶', name: '⑶' },
+      { char: '⑷', name: '⑷' },
+      { char: '⑸', name: '⑸' },
+      { char: 'Ⅰ', name: '로마 1' },
+      { char: 'Ⅱ', name: '로마 2' },
+      { char: 'Ⅲ', name: '로마 3' },
+      { char: 'Ⅳ', name: '로마 4' },
+      { char: 'Ⅴ', name: '로마 5' },
+      { char: 'Ⅵ', name: '로마 6' },
+      { char: 'Ⅶ', name: '로마 7' },
+      { char: 'Ⅷ', name: '로마 8' },
+      { char: 'Ⅸ', name: '로마 9' },
+      { char: 'Ⅹ', name: '로마 10' },
+    ],
+  },
+  {
+    title: '특수 기호',
+    hint: '저작권·상표·기타',
+    symbols: [
+      { char: '©', name: '저작권' },
+      { char: '®', name: '등록상표' },
+      { char: '™', name: '상표' },
+      { char: '℗', name: '음반저작권' },
+      { char: '℠', name: '서비스 마크' },
+      { char: '§', name: '섹션 (조항)' },
+      { char: '¶', name: '단락' },
+      { char: '†', name: '단검' },
+      { char: '‡', name: '이중 단검' },
+      { char: '※', name: '참고 표시' },
+      { char: '☎', name: '전화기' },
+      { char: '✆', name: '전화 (다른 모양)' },
+      { char: '✉', name: '편지' },
+      { char: '♂', name: '남성' },
+      { char: '♀', name: '여성' },
+      { char: '⚧', name: '트랜스젠더' },
+      { char: '♔', name: '체스 킹 (백)' },
+      { char: '♚', name: '체스 킹 (흑)' },
+      { char: '♠', name: '스페이드' },
+      { char: '♥', name: '하트' },
+      { char: '♦', name: '다이아몬드' },
+      { char: '♣', name: '클로버' },
+    ],
+  },
+];
+
+const SITE = 'https://allthatai-real.vercel.app';
+const url = `${SITE}/symbols/`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'AllThatAI Real', item: SITE },
+    { '@type': 'ListItem', position: 2, name: '특수문자 복사', item: url },
+  ],
+};
+---
+<Layout
+  title="특수문자 복사 — 체크박스 ☑ 별 ★ 화살표 → 한 번 클릭"
+  description="체크박스·별·화살표·도형·통화·로마숫자 등 특수문자를 클릭 한 번에 복사. 한글 자모·괄호·이모지 카테고리별 정리."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)}></script>
+
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      클릭 한 번 복사
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">특수문자</span> 복사
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      체크박스 ☑ · 별 ★ · 화살표 → · 도형 ◆ · 통화 ₩ · 로마숫자 Ⅹ · 한글 자모 ㄱ —
+      각 문자 <strong class="text-white">클릭 한 번에 복사</strong>됩니다.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-24 space-y-10">
+    {groups.map((g) => (
+      <div>
+        <div class="flex items-center justify-between gap-3 mb-3 flex-wrap">
+          <div>
+            <h2 class="text-xl font-black">{g.title}</h2>
+            <p class="text-xs text-zinc-500 mt-0.5">{g.hint}</p>
+          </div>
+          <span class="text-xs text-zinc-500">{g.symbols.length}개</span>
+        </div>
+        <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+          {g.symbols.map((s) => (
+            <button
+              type="button"
+              class="sym-btn group rounded-xl border border-zinc-800 hover:border-cyan-500/60 bg-zinc-900/40 hover:bg-zinc-800/60 p-3 transition flex flex-col items-center justify-center min-h-[72px]"
+              data-char={s.char}
+              data-name={s.name}
+              title={`${s.name} 복사`}
+            >
+              <span class="text-3xl text-white group-hover:scale-110 transition leading-none">{s.char}</span>
+              <span class="mt-1.5 text-[9px] text-zinc-500 group-hover:text-zinc-300 leading-tight text-center line-clamp-1">{s.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 rounded-xl bg-emerald-500 text-zinc-950 font-bold px-5 py-3 text-sm shadow-2xl shadow-emerald-500/30 opacity-0 transition-opacity duration-200 pointer-events-none">
+    <span id="toast-msg">복사됨</span>
+  </div>
+</Layout>
+
+<script is:inline>
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-msg');
+  let toastTimer = null;
+
+  function showToast(msg) {
+    if (toastTimer) clearTimeout(toastTimer);
+    toastMsg.textContent = msg;
+    toast.style.opacity = '1';
+    toastTimer = setTimeout(() => { toast.style.opacity = '0'; }, 1200);
+  }
+
+  async function copyChar(char, name) {
+    try {
+      await navigator.clipboard.writeText(char);
+      showToast(`✓ ${char} 복사됨`);
+    } catch (_) {
+      const ta = document.createElement('textarea');
+      ta.value = char;
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast(`✓ ${char} 복사됨`); }
+      catch (_) { showToast('복사 실패'); }
+      document.body.removeChild(ta);
+    }
+    if (window.va) { try { window.va('event', { name: 'symbol_copy', data: { char, name } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'symbol_copy', { char, name, event_category: 'engagement' }); } catch (_) {} }
+  }
+
+  document.querySelectorAll('.sym-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const char = btn.getAttribute('data-char');
+      const name = btn.getAttribute('data-name');
+      copyChar(char, name);
+    });
+  });
+</script>
