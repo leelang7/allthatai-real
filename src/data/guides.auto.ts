@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-14-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
+    "title": "11번가·쿠팡·G마켓 해외직구 최저가 비교",
+    "excerpt": "11번가, 쿠팡, G마켓 해외직구 상품별 최저가 비교 분석. 알뜰 쇼핑 팁 제공.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T13:20:48.579Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-블랙프라이데이-vs-1111-vs-박싱데이-같은-제품-어디가-더-쌌나",
+    "title": "블프 vs 광군제 vs 박싱데이: 최대 할인 쇼핑 타이밍 비교",
+    "excerpt": "블랙프라이데이, 광군제, 박싱데이 쇼핑 타이밍 비교. 최대 할인을 놓치지 마세요!",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T13:20:58.535Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-한국에서-gpu-살-때-다나와-vs-컴파인-vs-컴퓨존-가격차",
+    "title": "GPU 구매 가이드: 다나와 vs 컴파인 vs 컴퓨존 가격 비교",
+    "excerpt": "다나와, 컴파인, 컴퓨존 GPU 가격 비교! 최저가 찾는 꿀팁 공개.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T13:21:08.989Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-nordvpn-1년-vs-2년-결제-어느-시점이-가장-싼가",
+    "title": "NordVPN 1년 vs 2년 결제: 최저가 비교 분석",
+    "excerpt": "NordVPN 1년 vs 2년 약정, 어떤 게 더 저렴할까요? 장기 결제 시 숨겨진 할인 팁까지 비교해 드립니다.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T13:21:16.106Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-microsoft-365-한국-vs-학생-라이선스-가격",
+    "title": "Microsoft 365 개인 vs 학생 라이선스, 뭐가 더 쌀까?",
+    "excerpt": "Microsoft 365, 한국 일반 버전과 학생용 라이선스 중 더 저렴한 것은?",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T13:21:21.932Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-14-디즈니플러스-연간-vs-월간-결제-차이-프로모션-코드",
     "title": "디즈니플러스 연간 vs 월간, 어떤 결제가 더 쌀까?",
     "excerpt": "디즈니플러스, 연간 결제가 월간보다 얼마나 더 저렴할까요? 프로모션 코드 활용법도 알려드려요.",
