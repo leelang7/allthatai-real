@@ -3,6 +3,42 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-14-플레이스테이션-psn-세일-잘-사는-시기",
+    "title": "PSN 게임, 언제 사야 가장 쌀까? 세일 시기 완벽 분석",
+    "excerpt": "PSN 게임, 최대 할인 타이밍은? 주요 세일 기간과 꿀팁을 모두 알려드려요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T01:49:01.551Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
+    "title": "트래블월렛 vs 트래블로그 vs Wise 비교: 해외결제 최저가 찾기",
+    "excerpt": "해외 결제, 어디가 가장 쌀까? 트래블월렛, 트래블로그, Wise 수수료 비교 분석!",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T01:49:07.974Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-카카오뱅크-신규가입-캐시백-토스뱅크-비교",
+    "title": "카카오뱅크 신규 가입 혜택 vs 토스뱅크 비교",
+    "excerpt": "카카오뱅크 신규 가입 혜택 받고, 토스뱅크와 비교해보세요. 나에게 맞는 혜택을 찾아드립니다.",
+    "tag": "카드/핀테크",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T01:49:14.102Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-쿠팡-와우-7890으로-ott-무료-로켓배송-경제성",
+    "title": "쿠팡 와우로 OTT 무료? 로켓배송까지 챙기는 꿀팁",
+    "excerpt": "쿠팡 와우 멤버십으로 OTT 무료 시청과 로켓배송 혜택을 동시에 누리는 절약법!",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T01:49:22.699Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-13-한국에서-gpu-살-때-다나와-vs-컴파인-vs-컴퓨존-가격차",
     "title": "GPU 구매 전 필독! 다나와 vs 컴파인 vs 컴퓨존 가격 비교",
     "excerpt": "다나와, 컴파인, 컴퓨존 GPU 가격 비교! 최저가로 그래픽카드 구매하는 방법은?",
