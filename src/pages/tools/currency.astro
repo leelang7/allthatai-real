@@ -1,0 +1,222 @@
+---
+/**
+ * /tools/currency — 환율 계산기 (Wise 어필 ✓ 활성)
+ *
+ * 한국 검색 큼: "환율 계산기", "달러 원", "엔화 환율"
+ * 실시간 환율: exchangerate-api.com 무료 API (no key, 클라이언트 fetch)
+ * Wise 추천 (이미 active code: leescv)
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+
+const popularPairs = [
+  { from: 'USD', to: 'KRW', name: 'USD → KRW (달러 원)' },
+  { from: 'KRW', to: 'USD', name: 'KRW → USD' },
+  { from: 'JPY', to: 'KRW', name: 'JPY → KRW (엔화 원)' },
+  { from: 'EUR', to: 'KRW', name: 'EUR → KRW (유로 원)' },
+  { from: 'CNY', to: 'KRW', name: 'CNY → KRW (위안 원)' },
+  { from: 'GBP', to: 'KRW', name: 'GBP → KRW' },
+  { from: 'AUD', to: 'KRW', name: 'AUD → KRW' },
+  { from: 'CAD', to: 'KRW', name: 'CAD → KRW' },
+  { from: 'HKD', to: 'KRW', name: 'HKD → KRW' },
+  { from: 'TWD', to: 'KRW', name: 'TWD → KRW' },
+  { from: 'VND', to: 'KRW', name: 'VND → KRW' },
+  { from: 'THB', to: 'KRW', name: 'THB → KRW' },
+];
+
+const currencies = ['KRW', 'USD', 'JPY', 'EUR', 'CNY', 'GBP', 'AUD', 'CAD', 'HKD', 'TWD', 'VND', 'THB', 'SGD', 'IDR', 'PHP', 'MYR'];
+---
+<Layout
+  title="환율 계산기 — USD JPY EUR CNY → KRW 실시간"
+  description="달러·엔·유로·위안·홍콩달러 등 16개 통화 ↔ 원화 실시간 환율 계산. 시중은행 대비 Wise 절약액 자동 표시."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      실시간 환율
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">환율 계산기</span> + 송금 절약
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      16개 통화 실시간 환율. 시중은행 vs Wise 송금 비용 차이 자동 비교.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <div class="grid grid-cols-[1fr_auto_1fr] gap-3 items-end">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">송금/구매 금액</span>
+          <div class="flex gap-2">
+            <input
+              id="amount"
+              type="number"
+              value="1000"
+              step="100"
+              class="flex-1 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums"
+            />
+            <select id="from-cur" class="rounded-lg bg-zinc-900 border border-zinc-700 px-3 py-3 text-white">
+              {currencies.map((c) => (
+                <option value={c} selected={c === 'USD'}>{c}</option>
+              ))}
+            </select>
+          </div>
+        </label>
+        <button type="button" id="swap-btn" class="rounded-full bg-zinc-800 hover:bg-emerald-500 text-zinc-300 hover:text-zinc-950 p-3 transition" aria-label="통화 전환">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m-8 6H4m0 0l4 4m-4-4l4-4"/></svg>
+        </button>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">받는 금액</span>
+          <div class="flex gap-2">
+            <input
+              id="result"
+              type="text"
+              readonly
+              class="flex-1 rounded-lg bg-zinc-900 border border-emerald-500/40 outline-none px-4 py-3 text-xl font-black text-emerald-300 tabular-nums"
+            />
+            <select id="to-cur" class="rounded-lg bg-zinc-900 border border-zinc-700 px-3 py-3 text-white">
+              {currencies.map((c) => (
+                <option value={c} selected={c === 'KRW'}>{c}</option>
+              ))}
+            </select>
+          </div>
+        </label>
+      </div>
+      <p id="rate-info" class="mt-4 text-xs text-zinc-500 text-center">실시간 환율 가져오는 중…</p>
+    </div>
+  </section>
+
+  <!-- Wise vs 시중은행 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-emerald-500/5 p-6">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">해외송금 비교</p>
+      <h2 class="mt-2 text-xl font-black">시중은행 vs Wise — 같은 금액 보낼 때</h2>
+      <p class="mt-2 text-sm text-zinc-400">시중은행 평균 환전 마진 1.5–3% + 송금 수수료 ₩2–5만. Wise 0.5% 마진 + ₩수천 수수료.</p>
+      <div class="mt-4 grid sm:grid-cols-3 gap-3 text-center">
+        <div class="rounded-xl border border-rose-500/30 bg-rose-500/5 p-4">
+          <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">시중은행</p>
+          <p id="bank-cost" class="mt-2 text-xl font-black text-rose-300">₩-</p>
+          <p class="text-[10px] text-zinc-500 mt-1">2% 마진 + ₩3만 수수료</p>
+        </div>
+        <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
+          <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">트래블월렛</p>
+          <p id="travel-cost" class="mt-2 text-xl font-black text-amber-300">₩-</p>
+          <p class="text-[10px] text-zinc-500 mt-1">0.5% 마진 (앱 결제)</p>
+        </div>
+        <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+          <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">Wise</p>
+          <p id="wise-cost" class="mt-2 text-xl font-black text-cyan-300">₩-</p>
+          <p class="text-[10px] text-zinc-500 mt-1">0.4% 마진 + 정찰 수수료</p>
+        </div>
+      </div>
+      <p id="savings" class="mt-4 text-center text-sm font-bold text-emerald-300"></p>
+      <div class="mt-5 text-center">
+        <AffiliateLink to="wise" label="Wise 가입 → 첫 송금 ₩900K 무료" />
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR PAIRS QUICK -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">자주 검색되는 환율</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      {popularPairs.map((p) => (
+        <button type="button" class="quick-pair rounded-lg border border-zinc-700 hover:border-emerald-500/60 bg-zinc-900/40 hover:bg-zinc-800/60 px-3 py-2 text-xs text-left transition" data-from={p.from} data-to={p.to}>
+          {p.name}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <AffiliateDisclosure />
+</Layout>
+
+<script is:inline>
+  let rates = null;
+  let baseCurrency = 'USD';
+
+  function fmt(n, dec = 0) {
+    return n.toLocaleString('ko-KR', { maximumFractionDigits: dec });
+  }
+
+  async function fetchRates(base) {
+    try {
+      const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+      if (!res.ok) throw new Error(res.statusText);
+      const json = await res.json();
+      if (json.result !== 'success') throw new Error('API error');
+      rates = json.rates;
+      baseCurrency = base;
+      return true;
+    } catch (e) {
+      console.error('exchange rate fetch failed:', e);
+      document.getElementById('rate-info').textContent = '환율 가져오기 실패 — 잠시 후 새로고침';
+      return false;
+    }
+  }
+
+  function compute() {
+    if (!rates) return;
+    const amount = parseFloat(document.getElementById('amount').value) || 0;
+    const from = document.getElementById('from-cur').value;
+    const to = document.getElementById('to-cur').value;
+
+    // 모든 환율은 base에 대한 1:N. 직접 환산: amount * rates[to] / rates[from]
+    if (!rates[from] || !rates[to]) {
+      document.getElementById('result').value = '?';
+      return;
+    }
+    const inUsd = amount / rates[from] * rates['USD'] || amount / rates[from];
+    const converted = amount * rates[to] / rates[from];
+    document.getElementById('result').value = fmt(converted, to === 'KRW' ? 0 : 4);
+
+    const rateDisplay = (rates[to] / rates[from]).toLocaleString('ko-KR', { maximumFractionDigits: 4 });
+    document.getElementById('rate-info').textContent =
+      `1 ${from} = ${rateDisplay} ${to} · 마지막 갱신 ${new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}`;
+
+    // 시중은행 vs Wise 비교 (받는 통화로 환산된 금액 기준)
+    const krwEquiv = to === 'KRW' ? converted : (rates['KRW'] / rates[from]) * amount;
+    const bankCost = krwEquiv * 0.02 + 30000;
+    const travelCost = krwEquiv * 0.005;
+    const wiseCost = krwEquiv * 0.004 + 5000;
+    document.getElementById('bank-cost').textContent = '−₩' + fmt(bankCost);
+    document.getElementById('travel-cost').textContent = '−₩' + fmt(travelCost);
+    document.getElementById('wise-cost').textContent = '−₩' + fmt(wiseCost);
+    document.getElementById('savings').textContent =
+      `같은 금액 보낼 때 Wise vs 시중은행 ₩${fmt(bankCost - wiseCost)} 절약`;
+
+    if (window.va) { try { window.va('event', { name: 'currency_convert', data: { from, to } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'currency_convert', { from, to, value: amount, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  async function refreshFor(from) {
+    if (!rates || baseCurrency !== from) {
+      await fetchRates(from);
+    }
+    compute();
+  }
+
+  document.getElementById('amount').addEventListener('input', compute);
+  document.getElementById('from-cur').addEventListener('change', async (e) => {
+    await refreshFor(e.target.value);
+  });
+  document.getElementById('to-cur').addEventListener('change', compute);
+  document.getElementById('swap-btn').addEventListener('click', async () => {
+    const from = document.getElementById('from-cur');
+    const to = document.getElementById('to-cur');
+    [from.value, to.value] = [to.value, from.value];
+    await refreshFor(from.value);
+  });
+  document.querySelectorAll('.quick-pair').forEach((b) => {
+    b.addEventListener('click', async () => {
+      document.getElementById('from-cur').value = b.getAttribute('data-from');
+      document.getElementById('to-cur').value = b.getAttribute('data-to');
+      await refreshFor(b.getAttribute('data-from'));
+    });
+  });
+
+  // Initial load
+  refreshFor('USD');
+</script>
