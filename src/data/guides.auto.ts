@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-14-adobe-creative-cloud-한국-vs-외국-가격-차이",
+    "title": "어도비 크리에이티브 클라우드, 해외 직구하면 얼마나 쌀까?",
+    "excerpt": "어도비 CC, 해외 직구로 더 저렴하게 이용하는 방법은? 한국 공식 가격과 비교해 보세요.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T19:24:04.154Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-figma-학생-무료-vs-pro-차이",
+    "title": "Figma 학생 무료 vs Pro: 기능 비교 및 절약 팁",
+    "excerpt": "Figma 학생 무료 vs Pro 플랜, 어떤 차이가 있을까요? 기능 비교 및 절약 팁 확인하세요.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T19:24:18.025Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-github-pro-학생-무료-패키지에-뭐-들어있나",
+    "title": "GitHub Pro 학생 무료 혜택 총정리",
+    "excerpt": "GitHub Pro 학생 무료 패키지로 코딩 실력을 키우세요! 주요 기능과 혜택을 알아봅니다.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T19:24:23.532Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-스팀-서브노티카-75-할인-33700-8420",
+    "title": "스팀 서브노티카 75% 할인: 지금 ₩8,420에 구매하세요",
+    "excerpt": "인기 생존 게임 서브노티카, 스팀에서 75% 할인 중! 단돈 ₩8,420에 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-14T19:24:27.779Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-스팀-red-dead-redemption-2-75-할인-73000-18250",
+    "title": "스팀 Red Dead Redemption 2 75% 할인! ₩18,250에 구매 기회",
+    "excerpt": "스팀에서 Red Dead Redemption 2 75% 할인! ₩73,000 → ₩18,250에 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-14T19:24:31.903Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-14-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
     "title": "11번가·쿠팡·G마켓 해외직구 최저가 비교",
     "excerpt": "11번가, 쿠팡, G마켓 해외직구 상품별 최저가 비교 분석. 알뜰 쇼핑 팁 제공.",
