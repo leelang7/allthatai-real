@@ -126,44 +126,89 @@ const isHome = path === '/';
   </head>
   <body class="bg-zinc-950 text-zinc-100 antialiased min-h-dvh flex flex-col">
     <header id="topnav" class="nav-scroll sticky top-0 z-50 border-b border-transparent">
-      <div class="mx-auto max-w-6xl flex items-center justify-between px-4 py-4">
-        <a href="/" class="flex items-center gap-2.5 font-bold text-lg group">
-          <img src="/logo.png" alt="AllThatAI" width="36" height="36" class="w-9 h-9 rounded-xl object-cover shadow-lg shadow-cyan-500/20" loading="eager" />
-          <span class="text-white">AllThatAI <span class="text-cyan-400">Real</span></span>
+      <div class="mx-auto max-w-6xl flex items-center justify-between gap-3 px-4 py-3 sm:py-4">
+        <a href="/" class="flex items-center gap-2 font-bold text-base sm:text-lg group shrink-0">
+          <img src="/logo.png" alt="AllThatAI" width="32" height="32" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-cover shadow-lg shadow-cyan-500/20" loading="eager" />
+          <span class="text-white whitespace-nowrap">AllThatAI <span class="text-cyan-400">Real</span></span>
         </a>
-        <nav class="flex gap-4 sm:gap-5 text-sm text-zinc-400">
-          <a href="/traps" class="hover:text-rose-300 transition font-semibold">
+
+        <!-- Desktop: 3 핵심 + 메뉴 토글 -->
+        <nav class="hidden md:flex items-center gap-5 text-sm text-zinc-400">
+          <a href="/traps" class="hover:text-rose-300 transition font-semibold whitespace-nowrap">
             <span class="text-rose-400">⚠</span> 대행함정
           </a>
-          <a href="/store" class="hover:text-amber-300 transition font-semibold">
+          <a href="/store" class="hover:text-amber-300 transition font-semibold whitespace-nowrap">
             <span class="text-amber-400">$</span> 스토어
           </a>
-          <a href="/issues" class="hover:text-white transition flex items-center gap-1.5 hidden sm:flex">
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
-            이슈
-          </a>
-          <a href="/snippets" class="hover:text-cyan-300 transition font-semibold hidden lg:inline">
-            <span class="text-cyan-400">{`</>`}</span> 복붙
-          </a>
-          <a href="/symbols" class="hover:text-cyan-300 transition font-semibold hidden sm:inline">
-            <span class="text-cyan-400">☑</span> 특수문자
-          </a>
-          <a href="/lol" class="hover:text-violet-300 transition font-semibold hidden sm:inline">
+          <a href="/deals/" class="hover:text-cyan-300 transition font-semibold whitespace-nowrap">핫딜</a>
+          <a href="/lol/" class="hover:text-violet-300 transition font-semibold whitespace-nowrap">
             <span class="text-violet-400">⚔</span> LoL
           </a>
-          <a href="/deals/ai" class="hover:text-cyan-300 transition font-semibold hidden md:inline">AI 도구</a>
-          <a href="/deals/games" class="hover:text-violet-300 transition hidden lg:inline">스팀 핫딜</a>
-          <a href="/deals/vpn" class="hover:text-emerald-300 transition hidden lg:inline">VPN</a>
-          <a href="/free" class="hover:text-emerald-300 transition font-semibold hidden sm:inline">무료</a>
-          <a href="/guides" class="hover:text-white transition hidden lg:inline">가이드</a>
-          <a href="/services/play-launch" class="hover:text-white transition hidden md:inline">출시 대행</a>
           <a href="/search" class="hover:text-white transition" aria-label="검색">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
           </a>
-          <a href="/contact" class="hidden sm:inline-block rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-1.5 hover:border-cyan-500/50 hover:text-white transition">광고 문의</a>
+          <button type="button" id="menu-toggle" class="rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-1.5 hover:border-cyan-500/50 hover:text-white transition flex items-center gap-1.5" aria-label="메뉴 열기" aria-expanded="false">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <span class="text-xs">메뉴</span>
+          </button>
         </nav>
+
+        <!-- Mobile: 햄버거만 -->
+        <button type="button" id="menu-toggle-mobile" class="md:hidden rounded-lg border border-zinc-800 bg-zinc-900/50 p-2 hover:border-cyan-500/50 transition" aria-label="메뉴 열기" aria-expanded="false">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+
+      <!-- DROPDOWN PANEL -->
+      <div id="menu-panel" class="hidden border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-md">
+        <div class="mx-auto max-w-6xl px-4 py-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-5">
+          <div>
+            <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">콘텐츠</p>
+            <ul class="space-y-1.5 text-sm">
+              <li><a href="/traps/" class="text-rose-300 hover:text-rose-200">⚠ 대행함정</a></li>
+              <li><a href="/issues/" class="text-zinc-300 hover:text-white">이슈 (자동)</a></li>
+              <li><a href="/guides/" class="text-zinc-300 hover:text-white">가이드</a></li>
+              <li><a href="/trackers/" class="text-zinc-300 hover:text-white">실시간 추적</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">핫딜 / 비교</p>
+            <ul class="space-y-1.5 text-sm">
+              <li><a href="/deals/ai/" class="text-cyan-300 hover:text-cyan-200">AI 도구</a></li>
+              <li><a href="/deals/games/" class="text-zinc-300 hover:text-white">스팀 세일</a></li>
+              <li><a href="/deals/keys/" class="text-zinc-300 hover:text-white">게임 키</a></li>
+              <li><a href="/deals/vpn/" class="text-zinc-300 hover:text-white">VPN 비교</a></li>
+              <li><a href="/deals/hotels/" class="text-zinc-300 hover:text-white">호텔</a></li>
+              <li><a href="/deals/flights/" class="text-zinc-300 hover:text-white">항공권</a></li>
+              <li><a href="/deals/aliexpress/" class="text-zinc-300 hover:text-white">알리·Temu</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">도구 / 계산기</p>
+            <ul class="space-y-1.5 text-sm">
+              <li><a href="/tools/agent-fee-calc/" class="text-zinc-300 hover:text-white">대행 절감 계산</a></li>
+              <li><a href="/tools/ai-pricing/" class="text-zinc-300 hover:text-white">AI 비용 계산</a></li>
+              <li><a href="/tools/card-pick/" class="text-zinc-300 hover:text-white">카드 추천</a></li>
+              <li><a href="/tools/team-plan-match/" class="text-zinc-300 hover:text-white">팀 플랜 분담</a></li>
+              <li><a href="/lol/spell-timer/" class="text-zinc-300 hover:text-white">롤 스펠 쿨다운</a></li>
+              <li><a href="/lotto/" class="text-amber-300 hover:text-amber-200">로또 추천</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">기타</p>
+            <ul class="space-y-1.5 text-sm">
+              <li><a href="/store/" class="text-amber-300 hover:text-amber-200">$ 스토어</a></li>
+              <li><a href="/free/" class="text-emerald-300 hover:text-emerald-200">무료 자료</a></li>
+              <li><a href="/services/play-launch/" class="text-zinc-300 hover:text-white">출시 대행</a></li>
+              <li><a href="/snippets/" class="text-zinc-300 hover:text-white">복붙 스니펫</a></li>
+              <li><a href="/symbols/" class="text-zinc-300 hover:text-white">☑ 특수문자</a></li>
+              <li><a href="/lol/" class="text-zinc-300 hover:text-white">⚔ LoL 가이드</a></li>
+              <li><a href="/contact/" class="text-zinc-300 hover:text-white">광고 문의</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -219,6 +264,35 @@ const isHome = path === '/';
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+
+      // Menu dropdown toggle
+      const panel = document.getElementById('menu-panel');
+      const toggles = [
+        document.getElementById('menu-toggle'),
+        document.getElementById('menu-toggle-mobile'),
+      ].filter(Boolean);
+      function togglePanel(force) {
+        if (!panel) return;
+        const isOpen = !panel.classList.contains('hidden');
+        const next = force == null ? !isOpen : force;
+        if (next) panel.classList.remove('hidden');
+        else panel.classList.add('hidden');
+        toggles.forEach((t) => t && t.setAttribute('aria-expanded', String(next)));
+      }
+      toggles.forEach((t) => t && t.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePanel();
+      }));
+      // Close on outside click or escape
+      document.addEventListener('click', (e) => {
+        if (!panel || panel.classList.contains('hidden')) return;
+        if (!panel.contains(e.target) && !toggles.some((t) => t && t.contains(e.target))) {
+          togglePanel(false);
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') togglePanel(false);
+      });
     </script>
 
     <script>
