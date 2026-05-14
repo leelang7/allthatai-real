@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-14-디즈니플러스-연간-vs-월간-결제-차이-프로모션-코드",
+    "title": "디즈니플러스 연간 vs 월간, 어떤 결제가 더 쌀까?",
+    "excerpt": "디즈니플러스, 연간 결제가 월간보다 얼마나 더 저렴할까요? 프로모션 코드 활용법도 알려드려요.",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T08:20:55.626Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-넷플릭스-가족-추가-멤버-분담-5000",
+    "title": "넷플릭스 가족 추가 멤버, 월 5천 원으로 나눠 쓰는 법",
+    "excerpt": "넷플릭스 가족 추가 멤버, 월 5천 원으로 저렴하게 이용하는 방법을 알아보세요.",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T08:21:02.700Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
+    "title": "Steam Deck vs ROG Ally vs Legion Go, 가격 비교 및 구매 가이드",
+    "excerpt": "휴대용 게임기 끝판왕, Steam Deck, ROG Ally, Legion Go 가격 비교 및 구매 팁!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T08:21:10.554Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-에어비앤비-vs-호텔-가격-비교-한국에서-출국-시",
+    "title": "에어비앤비 vs 호텔, 한국 출발 시 가성비 비교",
+    "excerpt": "한국 출발 여행, 에어비앤비 vs 호텔 실제 가격 비교하고 예산 절약하세요!",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T08:21:17.151Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-14-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
+    "title": "진에어·제주항공·티웨이 특가 잡는 법: 프로모션 완벽 공략",
+    "excerpt": "진에어, 제주항공, 티웨이항공 특가 프로모션, 언제 어떻게 잡아야 할까요? 완벽 공략법 공개!",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-14T08:21:27.109Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-14-플레이스테이션-psn-세일-잘-사는-시기",
     "title": "PSN 게임, 언제 사야 가장 쌀까? 세일 시기 완벽 분석",
     "excerpt": "PSN 게임, 최대 할인 타이밍은? 주요 세일 기간과 꿀팁을 모두 알려드려요!",
