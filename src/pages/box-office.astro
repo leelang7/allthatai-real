@@ -1,0 +1,124 @@
+---
+/**
+ * /box-office — 한국 박스오피스 (KOFIC 공공 API 사용).
+ *
+ * 영화진흥위원회(KOFIC) 공개 API — Build-time fetch:
+ * http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
+ *
+ * API 키 필수지만 발급 무료 + 즉시. 미발급 시 fallback 메시지.
+ * 한국 매일 큰 검색량 — "박스오피스", "영화 순위", "{영화제목} 관객"
+ */
+import Layout from '../layouts/Layout.astro';
+import CoupangSearch from '../components/CoupangSearch.astro';
+
+interface BoxOfficeRow {
+  rank: string;
+  movieNm: string;
+  audiAcc: string;
+  audiInten?: string;
+  openDt?: string;
+  salesAmt: string;
+  rankOldAndNew?: string;
+}
+
+let rows: BoxOfficeRow[] = [];
+let targetDate = '';
+let fetchError = '';
+
+const kobisKey = (import.meta.env as any).KOBIS_API_KEY as string | undefined;
+
+if (kobisKey) {
+  // 어제 날짜 기준
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yyyy = yesterday.getFullYear();
+  const mm = String(yesterday.getMonth() + 1).padStart(2, '0');
+  const dd = String(yesterday.getDate()).padStart(2, '0');
+  targetDate = `${yyyy}-${mm}-${dd}`;
+  const dateKey = `${yyyy}${mm}${dd}`;
+
+  try {
+    const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${kobisKey}&targetDt=${dateKey}`;
+    const res = await fetch(url);
+    if (res.ok) {
+      const json = await res.json() as any;
+      rows = json?.boxOfficeResult?.dailyBoxOfficeList || [];
+    } else {
+      fetchError = `KOBIS API ${res.status}`;
+    }
+  } catch (e) {
+    fetchError = e instanceof Error ? e.message : 'fetch failed';
+  }
+} else {
+  fetchError = 'KOBIS_API_KEY 미설정';
+}
+
+const fmt = (s: string) => parseInt(s, 10).toLocaleString('ko-KR');
+---
+<Layout
+  title="박스오피스 — 한국 영화 일별 순위 (KOFIC 공식)"
+  description="한국 일별 박스오피스 Top 10 — 영화진흥위원회 공식 데이터. 관객수·매출·전일대비 변동."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+      KOFIC 공식 데이터
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      한국 <span class="text-gradient">박스오피스</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      영화진흥위원회 공식 일별 관객 순위. 매일 자정 갱신.
+    </p>
+    {targetDate && <p class="mt-2 text-xs text-zinc-500">기준일: {targetDate}</p>}
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    {rows.length > 0 ? (
+      <div class="space-y-2">
+        {rows.map((r) => (
+          <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 flex items-center gap-4">
+            <div class="text-3xl font-black w-12 text-center text-rose-300 tabular-nums">{r.rank}</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-white leading-snug">{r.movieNm}</p>
+              <p class="mt-1 text-xs text-zinc-500">
+                개봉 {r.openDt}
+                {r.rankOldAndNew === 'NEW' && <span class="ml-2 rounded bg-rose-500/20 text-rose-300 px-1.5 py-0.5 text-[10px] font-bold">신규</span>}
+              </p>
+            </div>
+            <div class="text-right shrink-0">
+              <p class="text-sm font-bold tabular-nums">{fmt(r.audiAcc)}명</p>
+              <p class="text-[10px] text-zinc-500">누적</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 text-sm text-zinc-300">
+        <p class="font-bold text-amber-300 mb-2">⚠ 데이터 없음</p>
+        <p class="text-xs leading-relaxed">
+          {fetchError || '데이터 가져오기 실패'} — KOBIS_API_KEY 환경변수 설정 필요.
+          <a href="https://www.kobis.or.kr/kobisopenapi/homepg/apiservice/searchServiceInfo.do" target="_blank" rel="noopener" class="text-cyan-300 underline">KOFIC OpenAPI</a>에서 무료 발급 (즉시).
+        </p>
+      </div>
+    )}
+  </section>
+
+  <!-- 영화 관련 쿠팡 검색 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <CoupangSearch
+      title="영화 관련 굿즈 / DVD / 4K UHD"
+      subtitle="영화 굿즈·블루레이·OST를 쿠팡에서"
+      placeholder="예: 영화 굿즈, 4K UHD, 블루레이"
+    />
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <p class="text-sm font-bold text-zinc-400 mb-2">관련</p>
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/deals/games/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">스팀 핫딜 →</a>
+      <a href="/issues/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">최신 이슈 →</a>
+      <a href="/trackers/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">실시간 추적 →</a>
+    </div>
+  </section>
+</Layout>

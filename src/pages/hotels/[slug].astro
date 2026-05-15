@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import CoupangSearch from '../../components/CoupangSearch.astro';
 import { SEO_CITIES } from '../../data/seo-targets';
 
 export async function getStaticPaths() {
@@ -96,6 +97,15 @@ const q = encodeURIComponent(city.name);
         <li>→ <strong>호텔 직접 연락</strong> — 가끔 예약 사이트보다 직접 가격이 더 쌀 때 있음</li>
       </ul>
     </div>
+  </section>
+
+  <!-- 여행 용품 쿠팡 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <CoupangSearch
+      title={`${city.korName} 여행용 — 쿠팡 검색`}
+      subtitle="캐리어·여권지갑·여행어댑터·휴대용 충전기 등"
+      placeholder="예: 캐리어, 여행어댑터, 보조배터리"
+    />
   </section>
 
   <AffiliateDisclosure />

@@ -1,0 +1,154 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="디데이 계산기 — 시험·기념일·D-day 자동 계산"
+  description="목표일 입력 → D-day 자동 계산 (수능, 시험, 기념일, 출산예정일 등). 100일·1000일 자동 표시 + 공유 가능 링크."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+      디데이
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">디데이</span> 계산기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      목표일 입력 → 남은 일수 + 시·분·초 + 100일·1000일 자동 표시.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <label class="block mb-4">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">제목 (선택)</span>
+        <input id="title" type="text" placeholder="예: 수능, 첫만남 100일" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white" />
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">목표일 / 기준일</span>
+        <input id="target" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-3 text-xl text-white" />
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border border-rose-500/40 bg-gradient-to-br from-rose-500/15 to-pink-500/5 p-8 text-center">
+      <p id="r-title" class="text-sm text-rose-300 font-bold uppercase tracking-widest"></p>
+      <p id="r-status" class="mt-2 text-7xl sm:text-8xl font-black text-white tabular-nums">D-?</p>
+      <p id="r-date" class="mt-3 text-sm text-zinc-400"></p>
+      <p id="r-detail" class="mt-2 text-xs text-zinc-500"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div id="milestones" class="hidden">
+      <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">주요 기념일</h2>
+      <div id="milestones-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <p class="text-sm font-bold text-zinc-400 mb-2">자주 쓰는 D-day</p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <button type="button" class="quick-set rounded-lg border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-3 text-sm transition" data-title="2026 수능" data-date="2026-11-13">수능 2026</button>
+      <button type="button" class="quick-set rounded-lg border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-3 text-sm transition" data-title="설날" data-date="2027-02-17">설날 2027</button>
+      <button type="button" class="quick-set rounded-lg border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-3 text-sm transition" data-title="크리스마스" data-date="2026-12-25">크리스마스</button>
+      <button type="button" class="quick-set rounded-lg border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-3 text-sm transition" data-title="새해" data-date="2027-01-01">새해 2027</button>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $title = document.getElementById('title');
+  const $target = document.getElementById('target');
+  const $rTitle = document.getElementById('r-title');
+  const $rStatus = document.getElementById('r-status');
+  const $rDate = document.getElementById('r-date');
+  const $rDetail = document.getElementById('r-detail');
+  const $milestones = document.getElementById('milestones');
+  const $milestonesList = document.getElementById('milestones-list');
+
+  function diffDays(target) {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const t = new Date(target);
+    t.setHours(0, 0, 0, 0);
+    return Math.round((t - now) / (24 * 60 * 60 * 1000));
+  }
+
+  function fmtDate(d) {
+    return d.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long' });
+  }
+
+  function render() {
+    const titleText = $title.value.trim() || '디데이';
+    const dateStr = $target.value;
+    if (!dateStr) return;
+    const targetDate = new Date(dateStr);
+    if (isNaN(targetDate.getTime())) return;
+    const days = diffDays(dateStr);
+
+    $rTitle.textContent = titleText;
+    if (days > 0) {
+      $rStatus.textContent = `D-${days}`;
+    } else if (days === 0) {
+      $rStatus.textContent = '오늘 D-day';
+    } else {
+      $rStatus.textContent = `D+${Math.abs(days)}`;
+    }
+    $rDate.textContent = fmtDate(targetDate);
+    if (days > 0) {
+      const weeks = Math.floor(days / 7);
+      const months = Math.floor(days / 30);
+      $rDetail.textContent = `${months}개월 / ${weeks}주 ${days % 7}일 남음`;
+    } else if (days < 0) {
+      const passed = Math.abs(days);
+      $rDetail.textContent = `${passed}일 경과 (${Math.floor(passed / 30)}개월 ${passed % 30}일)`;
+    } else {
+      $rDetail.textContent = '오늘이 그날입니다.';
+    }
+
+    // milestones for relationship-style dates (past)
+    if (days < 0) {
+      const passed = Math.abs(days);
+      const startDate = new Date(dateStr);
+      const milestones = [22, 50, 100, 200, 300, 365, 500, 1000, 1500, 2000, 3000, 4000];
+      const upcoming = milestones.filter((m) => m > passed).slice(0, 4);
+      if (upcoming.length > 0) {
+        $milestones.classList.remove('hidden');
+        $milestonesList.innerHTML = upcoming.map((m) => {
+          const d = new Date(startDate);
+          d.setDate(d.getDate() + m);
+          const daysToM = m - passed;
+          return `<div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3 text-center">
+            <p class="text-[10px] text-zinc-500">${m}일</p>
+            <p class="mt-1 text-sm font-bold text-rose-300">D-${daysToM}</p>
+            <p class="mt-1 text-[10px] text-zinc-500">${d.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' })}</p>
+          </div>`;
+        }).join('');
+      } else {
+        $milestones.classList.add('hidden');
+      }
+    } else {
+      $milestones.classList.add('hidden');
+    }
+
+    if (window.va) { try { window.va('event', { name: 'dday_calc' }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'dday_calc', { event_category: 'tools' }); } catch (_) {} }
+  }
+
+  // Default: 2026 수능
+  $target.value = '2026-11-13';
+  $title.value = '2026 수능';
+  render();
+
+  $target.addEventListener('input', render);
+  $title.addEventListener('input', render);
+  document.querySelectorAll('.quick-set').forEach((b) => {
+    b.addEventListener('click', () => {
+      $title.value = b.getAttribute('data-title');
+      $target.value = b.getAttribute('data-date');
+      render();
+    });
+  });
+</script>

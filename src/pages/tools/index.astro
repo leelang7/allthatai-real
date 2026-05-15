@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const tools = [
+  { href: '/tools/salary-calc/', title: '연봉 실수령액', desc: '2026 4대보험 + 소득세 자동 차감', emoji: '💰', tag: '재무' },
+  { href: '/tools/currency/', title: '환율 계산기', desc: '16개 통화 실시간 + Wise 송금 절약', emoji: '💱', tag: '재무' },
+  { href: '/tools/card-pick/', title: '신용카드 추천', desc: '월 소비 패턴 → 최고 캐시백 카드', emoji: '💳', tag: '재무' },
+  { href: '/tools/agent-fee-calc/', title: '대행 절감 계산', desc: 'NICE·통신판매업·사업자 직접 vs 대행', emoji: '⚠', tag: '재무' },
+  { href: '/tools/age-korean/', title: '만 나이 계산기', desc: '한국 만나이 통일법 기준', emoji: '🎂', tag: '생활' },
+  { href: '/tools/dday/', title: '디데이 계산기', desc: '시험·기념일 + 100일·1000일 자동', emoji: '📅', tag: '생활' },
+  { href: '/tools/leave-days/', title: '연차 계산기', desc: '입사일 → 발생 연차일 (근로기준법)', emoji: '🏝️', tag: '생활' },
+  { href: '/tools/bmi/', title: 'BMI + 칼로리', desc: '한국 기준 비만도 + 일일 권장 kcal', emoji: '⚖️', tag: '건강' },
+  { href: '/lotto/', title: '로또 번호 추천', desc: 'Hot/Cold 통계 + AI 가중치 추천', emoji: '🎰', tag: '취미' },
+  { href: '/tools/ai-pricing/', title: 'AI 비용 계산', desc: '사용 패턴 → 최적 AI 도구 조합', emoji: '🤖', tag: 'AI' },
+  { href: '/tools/team-plan-match/', title: '팀 플랜 분담', desc: 'Claude Team·Notion 5인 공동구매', emoji: '👥', tag: 'AI' },
+  { href: '/lol/spell-timer/', title: '롤 스펠 타이머', desc: '점멸·텔포·점화 쿨다운 카운트', emoji: '⚔️', tag: 'LoL' },
+];
+
+const grouped: Record<string, typeof tools> = {};
+tools.forEach((t) => {
+  if (!grouped[t.tag]) grouped[t.tag] = [];
+  grouped[t.tag].push(t);
+});
+const ordered = ['재무', '생활', '건강', '취미', 'AI', 'LoL'];
+---
+<Layout
+  title="무료 계산기 / 도구 모음 — 연봉·환율·만나이·디데이·BMI·로또"
+  description="한국에서 자주 쓰는 무료 계산기 모음. 연봉 실수령액, 환율, 만 나이, 디데이, 연차, BMI, 로또, AI 비용 등."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      무료 도구 모음
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">{tools.length}개 무료</span> 계산기 / 도구
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      재무·생활·건강·AI — 한국 사용자가 자주 검색하는 도구 모음. 광고 없이 즉시 사용.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-24 space-y-10">
+    {ordered.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
+      <div>
+        <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">{cat}</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {grouped[cat].map((t) => (
+            <a href={t.href} class="card-lift block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-5 transition">
+              <div class="flex items-start gap-3">
+                <span class="text-3xl">{t.emoji}</span>
+                <div class="flex-1 min-w-0">
+                  <p class="font-black text-white">{t.title}</p>
+                  <p class="mt-1 text-xs text-zinc-400 leading-relaxed">{t.desc}</p>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</Layout>

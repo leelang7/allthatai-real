@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="연차 계산기 — 입사일 기준 발생 연차일 자동 산정"
+  description="입사일 입력 → 본인 연차 며칠인지 자동 계산. 1년 미만 월 1일, 1년 이상 15일 + 3년마다 +1일 (최대 25일)."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      근로기준법 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">연차</span> 계산기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      입사일 입력 → 본인 연차 며칠 + 다음 인상 시점.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">입사일</span>
+        <input id="hired" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl text-white" />
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">연차 발생</p>
+      <p id="r-days" class="mt-2 text-7xl font-black text-white tabular-nums">- 일</p>
+      <p id="r-detail" class="mt-3 text-sm text-zinc-300"></p>
+      <p id="r-next" class="mt-2 text-xs text-zinc-500"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">연차 발생 규칙</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>1년 미만 입사자</strong>: 1개월 만근 시 월 1일 (최대 11일)</li>
+        <li>→ <strong>1년 이상</strong>: 기본 15일</li>
+        <li>→ <strong>3년차부터 +1일</strong>: 매 2년마다 +1일 (최대 25일)</li>
+        <li>→ <strong>예시</strong>: 3년차 16일 / 5년차 17일 / 7년차 18일 / 21년차 25일</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⓲ 회사 사규 우선</p>
+      <p class="text-xs leading-relaxed">
+        근로기준법은 <strong>최저 기준</strong>. 회사 단체협약·취업규칙에서 더 많이 부여하면 그것 우선. 본 계산은 법정 최저 기준만.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  function calc() {
+    const hiredStr = document.getElementById('hired').value;
+    if (!hiredStr) return;
+    const hired = new Date(hiredStr);
+    const now = new Date();
+    if (isNaN(hired.getTime()) || hired > now) {
+      document.getElementById('r-days').textContent = '0일';
+      document.getElementById('r-detail').textContent = '입사일이 미래입니다.';
+      return;
+    }
+    const ms = now - hired;
+    const days = Math.floor(ms / (24 * 60 * 60 * 1000));
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365.25);
+
+    let leave = 0;
+    let detail = '';
+    let nextNote = '';
+    if (years < 1) {
+      // 1년 미만 — 월 1일 (최대 11일)
+      leave = Math.min(11, months);
+      detail = `입사 ${Math.floor(years * 12) + (months % 12)}개월 · 월 1일 적용`;
+      nextNote = `1년 미만 — 1년 시점에 15일로 reset`;
+    } else {
+      // 1년 이상 — 15 + (years - 1)/2 floor, max 25
+      leave = Math.min(25, 15 + Math.floor((years - 1) / 2));
+      const nextYearForBump = years % 2 === 1 ? years + 1 : years + 2;
+      const nextBumpDate = new Date(hired);
+      nextBumpDate.setFullYear(hired.getFullYear() + nextYearForBump);
+      detail = `근속 ${years}년 ${Math.floor((days - years * 365.25) / 30)}개월`;
+      if (leave < 25) {
+        nextNote = `다음 인상 (+1일): ${nextBumpDate.toLocaleDateString('ko-KR')}`;
+      } else {
+        nextNote = '최대 25일 도달';
+      }
+    }
+    document.getElementById('r-days').textContent = leave + '일';
+    document.getElementById('r-detail').textContent = detail;
+    document.getElementById('r-next').textContent = nextNote;
+    if (window.va) { try { window.va('event', { name: 'leave_calc' }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'leave_calc', { event_category: 'tools' }); } catch (_) {} }
+  }
+
+  // Default: 3 years ago
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - 3);
+  document.getElementById('hired').value = d.toISOString().slice(0, 10);
+  calc();
+  document.getElementById('hired').addEventListener('input', calc);
+</script>

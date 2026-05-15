@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="만 나이 계산기 — 한국 만나이 통일법 기준"
+  description="생년월일 입력 → 만 나이 / 연 나이 / 세는 나이 즉시 계산. 2023년 6월 만나이 통일법 시행 후 한국 공식 만 나이 기준."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      만나이 통일법 (2023.6 시행)
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">만 나이</span> 계산기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      생년월일 입력 → 만 나이 + 연 나이 + 세는 나이 비교.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">생년월일</span>
+        <input id="dob" type="date" value="1990-01-01" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl text-white" />
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-6">
+        <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">만 나이 (공식)</p>
+        <p id="r-real" class="mt-2 text-5xl font-black text-white tabular-nums">-</p>
+        <p class="mt-2 text-xs text-zinc-400">생일 지난 후 +1</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">연 나이</p>
+        <p id="r-year" class="mt-2 text-5xl font-black text-zinc-200 tabular-nums">-</p>
+        <p class="mt-2 text-xs text-zinc-500">올해 - 출생연도</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">세는 나이 (옛)</p>
+        <p id="r-counting" class="mt-2 text-5xl font-black text-zinc-200 tabular-nums">-</p>
+        <p class="mt-2 text-xs text-zinc-500">태어나면 1살, 새해마다 +1</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>만 나이가 공식</strong>: 2023년 6월 28일부터 한국 법령·행정상 만 나이 통일</li>
+        <li>→ <strong>주류·담배·운전</strong>: 연 나이 기준 (만 나이 18세, 19세 시작 연도)</li>
+        <li>→ <strong>병역</strong>: 연 나이 기준</li>
+        <li>→ <strong>초등학교 입학</strong>: 만 6세 (3월 기준)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <p class="text-sm font-bold text-zinc-400 mb-2">관련 도구</p>
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/dday/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">디데이 계산기 →</a>
+      <a href="/tools/leave-days/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">연차 계산기 →</a>
+      <a href="/tools/salary-calc/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">연봉 실수령액 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  function calc() {
+    const dob = document.getElementById('dob').value;
+    if (!dob) return;
+    const d = new Date(dob);
+    if (isNaN(d.getTime())) return;
+    const now = new Date();
+    let age = now.getFullYear() - d.getFullYear();
+    const beforeBirthday = now.getMonth() < d.getMonth() || (now.getMonth() === d.getMonth() && now.getDate() < d.getDate());
+    if (beforeBirthday) age -= 1;
+    const yearAge = now.getFullYear() - d.getFullYear();
+    const counting = yearAge + 1;
+    document.getElementById('r-real').textContent = age + '세';
+    document.getElementById('r-year').textContent = yearAge + '세';
+    document.getElementById('r-counting').textContent = counting + '세';
+    if (window.va) { try { window.va('event', { name: 'age_calc' }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'age_calc', { event_category: 'tools' }); } catch (_) {} }
+  }
+  document.getElementById('dob').addEventListener('input', calc);
+  calc();
+</script>

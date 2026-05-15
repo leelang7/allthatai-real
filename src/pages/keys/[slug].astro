@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import KeyPriceCompare from '../../components/KeyPriceCompare.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import CoupangSearch from '../../components/CoupangSearch.astro';
 import { SEO_GAMES } from '../../data/seo-targets';
 
 export async function getStaticPaths() {
@@ -72,6 +73,14 @@ const breadcrumbLd = {
         퍼블리셔 직접 공급 또는 검증된 wholesaler에서 받은 정식 키.
       </p>
     </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <CoupangSearch
+      title={`${game.korName || game.name} 굿즈 / 게이밍 장비`}
+      subtitle="게이밍 장비·굿즈·피규어를 쿠팡에서"
+      placeholder="예: 게이밍 마우스, 모니터, 굿즈"
+    />
   </section>
 
   <AffiliateDisclosure />

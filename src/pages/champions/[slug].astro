@@ -6,6 +6,7 @@
  * 실시간 빌드는 롤버틀러로 funnel.
  */
 import Layout from '../../layouts/Layout.astro';
+import CoupangSearch from '../../components/CoupangSearch.astro';
 import { champions, ROLE_LABEL } from '../../data/champions';
 
 export async function getStaticPaths() {
@@ -123,6 +124,15 @@ const difficultyLabel = ['', '쉬움', '중간', '어려움'][champion.difficult
         </div>
       )}
     </div>
+  </section>
+
+  <!-- COUPANG: LOL 굿즈 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <CoupangSearch
+      title={`${champion.korName} / LoL 관련 굿즈`}
+      subtitle="키보드·마우스·헤드셋·게이밍 의자를 쿠팡에서"
+      placeholder={`예: 게이밍 마우스, 기계식 키보드, LoL 굿즈`}
+    />
   </section>
 
   <!-- RELATED LINKS -->
