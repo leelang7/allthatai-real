@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-15-microsoft-365-한국-vs-학생-라이선스-가격",
+    "title": "Microsoft 365 한국 vs 학생 할인 비교",
+    "excerpt": "Microsoft 365, 한국 정가와 학생 할인 중 어떤 게 더 쌀까? 꼼꼼 비교 분석!",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T13:20:01.328Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-adobe-creative-cloud-한국-vs-외국-가격-차이",
+    "title": "Adobe Creative Cloud, 해외 직구 시 얼마나 쌀까?",
+    "excerpt": "Adobe Creative Cloud, 한국 vs 해외 가격 비교! 숨겨진 절약 팁과 주의사항까지 알려드려요.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T13:20:10.735Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-notion-학생-무료-자격신청법",
+    "title": "Notion 학생 무료 혜택 완벽 가이드",
+    "excerpt": "Notion 학생 무료 요금제, 자격 조건과 신청 방법을 자세히 알려드립니다.",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T13:20:17.394Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-figma-학생-무료-vs-pro-차이",
+    "title": "Figma 학생 무료 vs Pro: 비용 절약 비교",
+    "excerpt": "Figma 학생 무료 혜택과 Pro 플랜 비교. 어떤 플랜이 당신에게 유리할까요?",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T13:20:24.088Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-github-pro-학생-무료-패키지에-뭐-들어있나",
+    "title": "GitHub Pro 학생 무료 혜택 총정리 (2024년)",
+    "excerpt": "GitHub Pro 학생 무료 패키지의 모든 혜택을 확인하고 코딩 실력을 키우세요!",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T13:20:31.998Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-15-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
     "title": "진에어·제주항공·티웨이 특가 잡는 법: 프로모션 총정리",
     "excerpt": "진에어, 제주항공, 티웨이항공 프로모션 비교하고 특가 항공권 놓치지 마세요!",
