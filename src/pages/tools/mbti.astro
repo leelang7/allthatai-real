@@ -1,0 +1,202 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+interface Q {
+  q: string;
+  axis: 'EI' | 'SN' | 'TF' | 'JP';
+  /** + 점이면 첫째 글자 쪽 */
+  a1: string; a2: string;
+}
+
+const questions: Q[] = [
+  // E/I
+  { q: '주말에 더 끌리는 것', a1: '친구 만남·모임', a2: '혼자 집에서 충전', axis: 'EI' },
+  { q: '낯선 사람과 대화', a1: '에너지 받음', a2: '에너지 소모', axis: 'EI' },
+  { q: '대화에서 본인은', a1: '먼저 말 시작', a2: '듣는 편이 많음', axis: 'EI' },
+  // S/N
+  { q: '책/영화에서 끌리는 것', a1: '현실·역사 기반', a2: '판타지·SF', axis: 'SN' },
+  { q: '여행 계획', a1: '세부 일정 + 예약 다 함', a2: '큰 그림만 + 즉흥', axis: 'SN' },
+  { q: '문제 풀 때', a1: '경험·구체적 사실 우선', a2: '큰 패턴·가능성 우선', axis: 'SN' },
+  // T/F
+  { q: '친구가 고민 상담 옴', a1: '해결책 제시', a2: '공감·들어줌', axis: 'TF' },
+  { q: '결정할 때', a1: '논리·효율 우선', a2: '사람·관계 우선', axis: 'TF' },
+  { q: '잘못 지적할 때', a1: '직설적으로 말함', a2: '상대 감정 고려', axis: 'TF' },
+  // J/P
+  { q: '책상 / 방 상태', a1: '정리정돈 좋아함', a2: '약간 흐트러져도 OK', axis: 'JP' },
+  { q: '마감일', a1: '미리 끝냄', a2: '벼락치기', axis: 'JP' },
+  { q: '여행 갔을 때', a1: '계획대로 진행', a2: '그때그때 결정', axis: 'JP' },
+];
+
+// MBTI 16 brief
+const mbtiInfo: Record<string, { name: string; pitch: string; tag: string }> = {
+  INTJ: { name: '전략가', pitch: '독립적·계획적·논리적 — 장기 비전', tag: '분석가' },
+  INTP: { name: '논리술사', pitch: '호기심·이론·논쟁 — 가능성 탐구', tag: '분석가' },
+  ENTJ: { name: '통솔자', pitch: '리더십·결단·목표 지향', tag: '분석가' },
+  ENTP: { name: '변론가', pitch: '도전·창의·논쟁 즐김', tag: '분석가' },
+  INFJ: { name: '옹호자', pitch: '이상주의·통찰 — 의미 추구', tag: '외교관' },
+  INFP: { name: '중재자', pitch: '이상·가치 — 진정성 추구', tag: '외교관' },
+  ENFJ: { name: '선도자', pitch: '카리스마·공감 — 사람 영감', tag: '외교관' },
+  ENFP: { name: '활동가', pitch: '열정·창의·자유 — 새 가능성', tag: '외교관' },
+  ISTJ: { name: '현실주의자', pitch: '신뢰·책임·전통 — 사실 기반', tag: '관리자' },
+  ISFJ: { name: '수호자', pitch: '헌신·세심 — 보호자 역할', tag: '관리자' },
+  ESTJ: { name: '경영자', pitch: '관리·질서·실용 — 효율 운영', tag: '관리자' },
+  ESFJ: { name: '집정관', pitch: '협력·관계 — 사람 챙김', tag: '관리자' },
+  ISTP: { name: '장인', pitch: '실용·도구 — 즉흥 문제해결', tag: '탐험가' },
+  ISFP: { name: '모험가', pitch: '예술·자유 — 자기 표현', tag: '탐험가' },
+  ESTP: { name: '사업가', pitch: '활동·즉흥·실용 — 모험가', tag: '탐험가' },
+  ESFP: { name: '연예인', pitch: '에너지·재미·사교 — 즐거움', tag: '탐험가' },
+};
+---
+<Layout
+  title="MBTI 무료 검사 — 12문항 간이 테스트 결과 즉시"
+  description="공식 MBTI 240문항이 부담스럽다면 12문항 간이 버전. E/I·S/N·T/F·J/P 4축 결과 + 16개 유형 설명 즉시."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      간이 12문항
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">MBTI</span> 무료 검사
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      12문항으로 4축 결정 → 16유형 결과. 정확도는 공식 240문항 대비 70%.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div id="quiz" class="space-y-3"></div>
+    <button id="result-btn" type="button" disabled class="mt-6 w-full rounded-lg bg-violet-500 hover:bg-violet-400 disabled:bg-zinc-800 disabled:text-zinc-500 text-white font-bold px-6 py-3 transition">
+      결과 보기 (모든 문항 답하기)
+    </button>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-3xl border border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-pink-500/5 p-8 text-center">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">당신의 유형</p>
+      <p id="r-type" class="mt-2 text-7xl sm:text-8xl font-black text-white tabular-nums tracking-wide">-</p>
+      <p id="r-name" class="mt-3 text-2xl font-black text-violet-300">-</p>
+      <p id="r-pitch" class="mt-2 text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">-</p>
+    </div>
+
+    <div class="mt-4 grid grid-cols-4 gap-2 text-center">
+      <div id="ax-EI" class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
+        <p class="text-[10px] text-zinc-500 uppercase tracking-widest">E / I</p>
+        <p class="mt-1 text-xl font-black tabular-nums">-</p>
+      </div>
+      <div id="ax-SN" class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
+        <p class="text-[10px] text-zinc-500 uppercase tracking-widest">S / N</p>
+        <p class="mt-1 text-xl font-black tabular-nums">-</p>
+      </div>
+      <div id="ax-TF" class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
+        <p class="text-[10px] text-zinc-500 uppercase tracking-widest">T / F</p>
+        <p class="mt-1 text-xl font-black tabular-nums">-</p>
+      </div>
+      <div id="ax-JP" class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-3">
+        <p class="text-[10px] text-zinc-500 uppercase tracking-widest">J / P</p>
+        <p class="mt-1 text-xl font-black tabular-nums">-</p>
+      </div>
+    </div>
+
+    <button type="button" id="retry-btn" class="mt-6 w-full rounded-lg border border-zinc-700 hover:border-violet-500/50 bg-zinc-900/40 text-zinc-300 font-bold px-6 py-3 transition">
+      다시 검사
+    </button>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⓲ 주의</p>
+      <p class="text-xs leading-relaxed">
+        본 검사는 <strong>간이 버전</strong>입니다. MBTI는 칼 융 이론 기반의 자기보고형 검사 — 과학적 신뢰도 한정적.
+        결과는 자기이해 참고용으로만 활용하세요. 진학·취업·관계 결정에 단독 근거 X.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ questions, mbtiInfo }}>
+  const $quiz = document.getElementById('quiz');
+  const $btn = document.getElementById('result-btn');
+  const $result = document.getElementById('result');
+
+  function renderQuiz() {
+    $quiz.innerHTML = questions.map((q, i) => `
+      <div class="quiz-row rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5" data-i="${i}" data-axis="${q.axis}">
+        <p class="text-xs text-zinc-500 uppercase tracking-widest mb-2">Q${i + 1}</p>
+        <p class="font-bold text-white mb-4">${q.q}</p>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" class="opt rounded-lg border border-zinc-700 hover:border-violet-500/60 bg-zinc-900/60 px-4 py-3 text-sm text-left transition" data-val="1">A. ${q.a1}</button>
+          <button type="button" class="opt rounded-lg border border-zinc-700 hover:border-violet-500/60 bg-zinc-900/60 px-4 py-3 text-sm text-left transition" data-val="-1">B. ${q.a2}</button>
+        </div>
+      </div>
+    `).join('');
+
+    $quiz.querySelectorAll('.opt').forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const row = opt.closest('.quiz-row');
+        row.querySelectorAll('.opt').forEach((o) => {
+          o.classList.remove('bg-violet-500/20', 'border-violet-500/70', 'text-white');
+        });
+        opt.classList.add('bg-violet-500/20', 'border-violet-500/70', 'text-white');
+        row.setAttribute('data-answer', opt.getAttribute('data-val'));
+        checkComplete();
+      });
+    });
+  }
+
+  function checkComplete() {
+    const rows = $quiz.querySelectorAll('.quiz-row');
+    const answered = [...rows].filter((r) => r.getAttribute('data-answer'));
+    $btn.disabled = answered.length < rows.length;
+    if (answered.length === rows.length) {
+      $btn.textContent = '결과 보기 →';
+    }
+  }
+
+  function compute() {
+    const rows = $quiz.querySelectorAll('.quiz-row');
+    const scores = { EI: 0, SN: 0, TF: 0, JP: 0 };
+    rows.forEach((r) => {
+      const axis = r.getAttribute('data-axis');
+      const val = parseInt(r.getAttribute('data-answer'), 10);
+      scores[axis] += val;
+    });
+    const type = (scores.EI >= 0 ? 'E' : 'I') + (scores.SN >= 0 ? 'S' : 'N') + (scores.TF >= 0 ? 'T' : 'F') + (scores.JP >= 0 ? 'J' : 'P');
+    return { type, scores };
+  }
+
+  $btn.addEventListener('click', () => {
+    const { type, scores } = compute();
+    const info = mbtiInfo[type];
+    document.getElementById('r-type').textContent = type;
+    document.getElementById('r-name').textContent = info?.name || '?';
+    document.getElementById('r-pitch').textContent = info?.pitch || '';
+
+    const setAx = (id, score, pos, neg) => {
+      const tile = document.getElementById('ax-' + id);
+      const letter = score >= 0 ? pos : neg;
+      const pct = Math.round(Math.abs(score) / 3 * 100);
+      tile.querySelector('p:nth-child(2)').textContent = letter + ' ' + Math.min(100, pct) + '%';
+    };
+    setAx('EI', scores.EI, 'E', 'I');
+    setAx('SN', scores.SN, 'S', 'N');
+    setAx('TF', scores.TF, 'T', 'F');
+    setAx('JP', scores.JP, 'J', 'P');
+
+    $result.classList.remove('hidden');
+    $result.scrollIntoView({ behavior: 'smooth' });
+
+    if (window.va) { try { window.va('event', { name: 'mbti_result', data: { type } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'mbti_result', { mbti_type: type, event_category: 'tools' }); } catch (_) {} }
+  });
+
+  document.getElementById('retry-btn').addEventListener('click', () => {
+    renderQuiz();
+    $result.classList.add('hidden');
+    $btn.disabled = true;
+    $btn.textContent = '결과 보기 (모든 문항 답하기)';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  renderQuiz();
+</script>
