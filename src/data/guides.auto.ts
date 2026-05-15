@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-15-aws-무료-12개월-가입-시-주의할-청구",
+    "title": "AWS 무료 12개월, 숨은 청구 위험 3가지",
+    "excerpt": "AWS 무료 티어 12개월, 안심해도 될까요? 숨은 청구 위험과 절약 팁을 알려드립니다.",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T19:10:02.578Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-cloudflare-무료-한도-vs-가비아-vs-vercel-비교",
+    "title": "Cloudflare vs 가비아 vs Vercel: 무료 vs 유료 비교",
+    "excerpt": "Cloudflare, 가비아, Vercel 중 어떤 서비스를 선택해야 할까? 무료/유료 플랜 비교 분석.",
+    "tag": "AI 도구",
+    "minutes": 6,
+    "generatedAt": "2026-05-15T19:10:10.032Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-한국에서-결제-가능한-ai-챗봇-카드-거부율-비교",
+    "title": "AI 챗봇 결제 카드 비교: 거부율 낮고 혜택 많은 카드 추천",
+    "excerpt": "AI 챗봇 결제, 카드 거부율 걱정되시나요? 혜택까지 챙기는 카드 비교 분석!",
+    "tag": "AI 도구",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T19:10:15.422Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-주택청약종합저축-가입-시점월-납입금당첨-가점-계산",
+    "title": "주택청약종합저축, 가입 시점·월 납입금·가점 계산법 총정리",
+    "excerpt": "주택청약종합저축, 언제 가입하고 얼마를 넣어야 유리할까? 당첨 가점 계산법까지 알려드려요.",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T19:10:27.679Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-스팀-서브노티카-75-할인-33700-8420",
+    "title": "스팀 서브노티카 75% 할인: 지금 ₩8,420에 구매하세요!",
+    "excerpt": "인기 생존 게임 서브노티카, 스팀에서 75% 할인된 ₩8,420에 구매하세요!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-15T19:10:32.728Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-15-microsoft-365-한국-vs-학생-라이선스-가격",
     "title": "Microsoft 365 한국 vs 학생 할인 비교",
     "excerpt": "Microsoft 365, 한국 정가와 학생 할인 중 어떤 게 더 쌀까? 꼼꼼 비교 분석!",
