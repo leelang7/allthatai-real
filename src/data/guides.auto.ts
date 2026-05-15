@@ -3,6 +3,42 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-15-디즈니플러스-연간-vs-월간-결제-차이-프로모션-코드",
+    "title": "디즈니플러스 연간 vs 월간 결제, 프로모션 코드 꿀팁",
+    "excerpt": "디즈니플러스, 연간 vs 월간 결제? 프로모션 코드 활용법 총정리!",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T01:46:36.723Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-넷플릭스-가족-추가-멤버-분담-5000",
+    "title": "넷플릭스 가족 추가 멤버 5천원으로 이용하는 법",
+    "excerpt": "넷플릭스 가족 추가 멤버, 5천원으로 이용하는 꿀팁!",
+    "tag": "OTT",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T01:47:18.305Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
+    "title": "Steam Deck vs ROG Ally vs Legion Go, 가격 비교와 구매 팁",
+    "excerpt": "휴대용 게임기 3대장, Steam Deck, ROG Ally, Legion Go 가격 비교 및 한국 구매 꿀팁!",
+    "tag": "게임할인",
+    "minutes": 6,
+    "generatedAt": "2026-05-15T01:47:26.214Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-15-에어비앤비-vs-호텔-가격-비교-한국에서-출국-시",
+    "title": "에어비앤비 vs 호텔, 한국 출발 시 가성비 비교",
+    "excerpt": "한국 출발 여행, 에어비앤비 vs 호텔 실제 가격 비교로 현명한 숙소 선택하세요.",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-15T01:47:32.114Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-14-adobe-creative-cloud-한국-vs-외국-가격-차이",
     "title": "어도비 크리에이티브 클라우드, 해외 직구하면 얼마나 쌀까?",
     "excerpt": "어도비 CC, 해외 직구로 더 저렴하게 이용하는 방법은? 한국 공식 가격과 비교해 보세요.",
