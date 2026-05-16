@@ -14,6 +14,10 @@ const tools = [
   { href: '/tools/ai-pricing/', title: 'AI 비용 계산', desc: '사용 패턴 → 최적 AI 도구 조합', emoji: '🤖', tag: 'AI' },
   { href: '/tools/team-plan-match/', title: '팀 플랜 분담', desc: 'Claude Team·Notion 5인 공동구매', emoji: '👥', tag: 'AI' },
   { href: '/lol/spell-timer/', title: '롤 스펠 타이머', desc: '점멸·텔포·점화 쿨다운 카운트', emoji: '⚔️', tag: 'LoL' },
+  { href: '/tools/mbti/', title: 'MBTI 무료 검사', desc: '12문항 간이 → 16유형 즉시', emoji: '🧠', tag: '취미' },
+  { href: '/box-office/', title: '박스오피스', desc: '한국 일별 영화 관객 순위 (KOFIC)', emoji: '🎬', tag: '취미' },
+  { href: '/symbols/', title: '특수문자 복사', desc: '체크박스 ☑ 별 ★ 한 번 클릭 복사', emoji: '☑', tag: '생활' },
+  { href: '/snippets/', title: '복붙 스니펫', desc: '정규식·Git·Linux·SQL·한국 특화', emoji: '📋', tag: '개발' },
 ];
 
 const grouped: Record<string, typeof tools> = {};
@@ -21,7 +25,7 @@ tools.forEach((t) => {
   if (!grouped[t.tag]) grouped[t.tag] = [];
   grouped[t.tag].push(t);
 });
-const ordered = ['재무', '생활', '건강', '취미', 'AI', 'LoL'];
+const ordered = ['재무', '생활', '건강', '취미', 'AI', 'LoL', '개발'];
 ---
 <Layout
   title="무료 계산기 / 도구 모음 — 연봉·환율·만나이·디데이·BMI·로또"
