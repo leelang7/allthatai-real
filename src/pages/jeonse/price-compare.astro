@@ -2,14 +2,13 @@
 /**
  * /jeonse/price-compare — 국토부 실거래가 + KB시세 비교 도구.
  *
- * 외부 데이터:
- *   - 국토부 공공데이터 API (실거래가) — 무료 API key 필요
- *   - KB부동산 시세 (스크래핑 — 사용자가 수동 입력으로 대체)
- *   - 공시지가 (R-ONE 한국감정원)
- *
- * 본인 보증금이 동일 단지 평균 거래 대비 안전한 지 1초 확인.
+ * 자동 조회: /api/realestate-apt — 국토부 공공데이터 API (data.go.kr)
+ * 수동 입력: KB시세·네이버·다음 — 사용자가 본인 매물 직접 확인 후 입력
  */
 import Layout from '../../layouts/Layout.astro';
+import { lawdCodes } from '../../data/lawd-codes';
+
+const regions = [...new Set(lawdCodes.map((l) => l.region))];
 ---
 <Layout
   title="전세 보증금 vs 시세 비교 — 국토부 실거래가 + KB시세"
@@ -23,6 +22,35 @@ import Layout from '../../layouts/Layout.astro';
     <p class="mt-4 text-base text-zinc-400 leading-relaxed">
       국토부 실거래가 + KB시세 직접 조회 + 안전 비율 자동 계산.
     </p>
+  </section>
+
+  <!-- AUTO LOOKUP (data.go.kr 국토부 실거래가) -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 p-6">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest mb-2">⚡ 자동 조회 — 국토부 공공 API</p>
+      <h2 class="text-xl font-black">지역 + 거래월 → 실거래 평균 자동</h2>
+      <div class="mt-4 grid sm:grid-cols-3 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">지역</span>
+          <select id="auto-region" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2.5 text-white text-sm">
+            {regions.map((r) => <option value={r}>{r}</option>)}
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">시군구</span>
+          <select id="auto-district" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2.5 text-white text-sm"></select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">거래월 (YYYYMM)</span>
+          <input id="auto-yyyymm" type="text" placeholder="202604" maxlength="6" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+        </label>
+      </div>
+      <div class="mt-4 flex gap-2">
+        <button id="auto-sale-btn" type="button" class="flex-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-4 py-2.5 text-sm transition">매매가 조회</button>
+        <button id="auto-rent-btn" type="button" class="flex-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-4 py-2.5 text-sm transition">전월세 조회</button>
+      </div>
+      <div id="auto-result" class="mt-4 hidden"></div>
+    </div>
   </section>
 
   <!-- DIRECT LINKS to official sources -->
@@ -199,4 +227,80 @@ import Layout from '../../layouts/Layout.astro';
     $(id).addEventListener('input', calc);
   });
   calc();
+</script>
+
+<script is:inline define:vars={{ lawdCodesData: lawdCodes }}>
+  window.__lawdCodes = lawdCodesData;
+  const aRegion = document.getElementById('auto-region');
+  const aDistrict = document.getElementById('auto-district');
+  const aYyyymm = document.getElementById('auto-yyyymm');
+  const aResult = document.getElementById('auto-result');
+
+  // default = 지난달
+  const d = new Date();
+  d.setMonth(d.getMonth() - 1);
+  aYyyymm.value = d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0');
+
+  function fillDistricts() {
+    const region = aRegion.value;
+    const subs = window.__lawdCodes.filter((c) => c.region === region);
+    aDistrict.innerHTML = subs.map((c) => `<option value="${c.code}">${c.name}</option>`).join('');
+  }
+  aRegion.addEventListener('change', fillDistricts);
+  fillDistricts();
+
+  async function fetchPrices(type) {
+    const lawdCd = aDistrict.value;
+    const yyyymm = aYyyymm.value;
+    aResult.classList.remove('hidden');
+    aResult.innerHTML = `<p class="text-sm text-zinc-400">조회 중…</p>`;
+    try {
+      const res = await fetch(`/api/realestate-apt?lawdCd=${lawdCd}&yyyymm=${yyyymm}&type=${type}`);
+      const json = await res.json();
+      if (!json.ok) {
+        aResult.innerHTML = `<div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4">
+          <p class="font-bold text-rose-300">조회 실패</p>
+          <p class="mt-2 text-xs text-zinc-400">${json.error || '알 수 없는 오류'}</p>
+        </div>`;
+        return;
+      }
+      if (json.count === 0) {
+        aResult.innerHTML = `<div class="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4">
+          <p class="font-bold text-amber-300">해당 월 데이터 없음</p>
+          <p class="mt-2 text-xs text-zinc-400">다른 거래월 (지지난달) 시도</p>
+        </div>`;
+        return;
+      }
+      const fmt = (n) => '₩' + (n / 100000000).toFixed(2) + '억';
+      aResult.innerHTML = `
+        <div class="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4">
+          <p class="font-bold text-emerald-300">${type === 'sale' ? '매매' : '전월세'} 거래 ${json.count}건 (${json.yyyymm})</p>
+          <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+            <div><p class="text-xs text-zinc-400">평균</p><p class="text-xl font-black tabular-nums">${fmt(json.avgPrice)}</p></div>
+            <div><p class="text-xs text-zinc-400">중간값</p><p class="text-xl font-black tabular-nums">${fmt(json.medianPrice)}</p></div>
+          </div>
+          <button type="button" id="auto-apply-btn" class="mt-4 w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold py-2 text-sm transition">
+            ${type === 'sale' ? 'KB시세 매매' : '국토부 실거래 평균'} 칸에 자동 입력 →
+          </button>
+        </div>
+      `;
+      document.getElementById('auto-apply-btn').addEventListener('click', () => {
+        if (type === 'sale') {
+          document.getElementById('kbSale').value = json.avgPrice;
+        } else {
+          document.getElementById('rtMolit').value = json.avgPrice;
+        }
+        document.getElementById('kbSale').dispatchEvent(new Event('input'));
+      });
+      if (window.va) { try { window.va('event', { name: 'realestate_lookup', data: { type, count: json.count } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'realestate_lookup', { type, count: json.count, event_category: 'tools' }); } catch (_) {} }
+    } catch (e) {
+      aResult.innerHTML = `<div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4">
+        <p class="font-bold text-rose-300">네트워크 오류</p>
+      </div>`;
+    }
+  }
+
+  document.getElementById('auto-sale-btn').addEventListener('click', () => fetchPrices('sale'));
+  document.getElementById('auto-rent-btn').addEventListener('click', () => fetchPrices('rent'));
 </script>
