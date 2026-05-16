@@ -1,0 +1,120 @@
+---
+/**
+ * /tools/insurance-medical — 실손·암·종신·정기·자녀 보험 가이드.
+ *
+ * 한국 검색량 매우 큼 + 보험 commission 매우 큼.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+---
+<Layout
+  title="실손·암·종신 보험 비교 가이드 — 한국 8개 보험사 + 절약 팁"
+  description="실손의료비·암보험·종신보험·정기보험·자녀보험 가입 전 비교. 8개 손해보험사 + 5가지 절약 팁."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      종합 보험 가이드
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">실손·암·종신</span> 보험
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">5가지 보험 — 본인에게 필요한 것만 + 가입 전 비교 사이트.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">5가지 의료·생명 보험 정리</h2>
+    <div class="space-y-3">
+      <div class="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-5">
+        <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">실손의료비 (4세대)</p>
+        <p class="mt-1 font-black">실손보험 = 모든 사람 1순위</p>
+        <p class="mt-2 text-sm text-zinc-300 leading-relaxed">매월 ₩2–10만 — 의료비 자기부담금 외 모두 보장. 4세대 (2021~)가 가장 저렴. 단점: 비급여 자기부담 30%.</p>
+        <p class="mt-2 text-xs text-emerald-300">→ 무조건 가입 권장</p>
+      </div>
+      <div class="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-5">
+        <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">암보험</p>
+        <p class="mt-1 font-black">암 진단 시 일시금 + 치료비</p>
+        <p class="mt-2 text-sm text-zinc-300 leading-relaxed">진단금 ₩1–5천만 + 입원/수술 별도. 갱신형 (10–20년)과 비갱신형 (평생). 가족력 있으면 필수.</p>
+        <p class="mt-2 text-xs text-amber-300">→ 가족력·40대+ 가입 권장</p>
+      </div>
+      <div class="rounded-2xl border border-violet-500/30 bg-violet-500/5 p-5">
+        <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">종신보험</p>
+        <p class="mt-1 font-black">사망 시 가족에게 보장금</p>
+        <p class="mt-2 text-sm text-zinc-300 leading-relaxed">사망 시 ₩1–5억 보장 + 적립금 노후 활용. 매월 ₩20–100만 부담. 결혼·자녀 있을 때 검토.</p>
+        <p class="mt-2 text-xs text-amber-300">→ 부양가족 있을 때만</p>
+      </div>
+      <div class="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">정기보험</p>
+        <p class="mt-1 font-black">기간 한정 보장 — 가성비 1위</p>
+        <p class="mt-2 text-sm text-zinc-300 leading-relaxed">예: 30년 만기 + 사망 시 ₩1–5억. 종신 대비 1/3 가격. 자녀 독립까지 보장 받고 종료.</p>
+        <p class="mt-2 text-xs text-emerald-300">→ 종신 대신 가성비 선택</p>
+      </div>
+      <div class="rounded-2xl border border-pink-500/30 bg-pink-500/5 p-5">
+        <p class="text-[10px] font-bold text-pink-300 uppercase tracking-widest">자녀보험</p>
+        <p class="mt-1 font-black">자녀 출생~만 30세까지 평생</p>
+        <p class="mt-2 text-sm text-zinc-300 leading-relaxed">어린이 실손 + 진단금 + 입원금. 0세 가입 시 평생 보험료 ₩2–5만. 만 30세까지 갱신 X.</p>
+        <p class="mt-2 text-xs text-emerald-300">→ 자녀 0세 즉시 가입 권장</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 보험사 비교 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">8개 손해보험사 (다이렉트 가입 가능)</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {[
+        { name: '삼성화재', url: 'https://direct.samsungfire.com', strength: '시장 1위 + 사고처리 빠름' },
+        { name: '현대해상', url: 'https://www.hi.co.kr', strength: '하이카 앱 + 자녀 보험 강함' },
+        { name: 'DB손해보험', url: 'https://www.directdb.co.kr', strength: '다이렉트 가성비' },
+        { name: 'KB손해보험', url: 'https://www.kbinsure.co.kr', strength: 'KB금융 그룹 연계' },
+        { name: '메리츠화재', url: 'https://direct.meritzfire.com', strength: '암보험 강함' },
+        { name: '한화손해보험', url: 'https://www.hwgeneralins.com', strength: '실손 + 어린이 보험' },
+        { name: 'NH농협손해보험', url: 'https://www.nhfire.co.kr', strength: '농어민 우대' },
+        { name: 'AXA손해보험', url: 'https://www.axa.co.kr', strength: '외국계 — 해외 의료비' },
+      ].map((ins) => (
+        <a href={ins.url} target="_blank" rel="sponsored noopener" class="card-lift block rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-4 transition">
+          <p class="font-black">{ins.name}</p>
+          <p class="mt-1 text-xs text-zinc-400">{ins.strength}</p>
+          <p class="mt-2 text-xs text-amber-300">사이트 →</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 비교 사이트 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 p-6">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest mb-2">한 번에 비교</p>
+      <h2 class="text-xl font-black">8개 보험사 견적 동시 — 보험다모아 (정부) + 토스 / 뱅크샐러드</h2>
+      <p class="mt-3 text-sm text-zinc-300">실손·암·종신 한 번에 견적 비교. 정부 공식 + 민간.</p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="https://e-insmarket.or.kr" target="_blank" rel="noopener" class="rounded-lg border border-cyan-500/40 hover:bg-cyan-500/10 px-4 py-2 text-sm font-bold transition">보험다모아 (정부)</a>
+        <AffiliateLink to="toss" label="토스 보험" />
+        <a href="https://www.banksalad.com/insurance" target="_blank" rel="noopener" class="rounded-lg border border-zinc-700 hover:bg-zinc-800 px-4 py-2 text-sm font-bold transition">뱅크샐러드</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 절약 팁 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">절약 팁 5가지</h2>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <ul class="space-y-2.5 text-sm text-zinc-300">
+        <li>→ <strong>4세대 실손 (2021~)</strong>: 1–3세대보다 30–50% 저렴. 단 자기부담 30%.</li>
+        <li>→ <strong>비갱신형 vs 갱신형</strong>: 비갱신형이 장기적으로 30% 더 쌈. 60세까지 동일 보험료.</li>
+        <li>→ <strong>중복 가입 피하기</strong>: 같은 회사 + 같은 보장 2개 X. 한 회사 통합 가입.</li>
+        <li>→ <strong>특약 줄이기</strong>: 본 보장만 + 잡다한 특약 제거 — 보험료 20–40% 감소.</li>
+        <li>→ <strong>비교 사이트 + 직접 가입</strong>: 설계사 통하지 말고 다이렉트. 10–20% 저렴.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 본 페이지는 정보 제공용</p>
+      <p class="text-xs leading-relaxed">
+        보험 가입은 본인 나이·건강·가족 구성·소득에 따라 다름. 각 보험사 견적 직접 받아 비교 필수.
+      </p>
+    </div>
+  </section>
+</Layout>
