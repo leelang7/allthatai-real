@@ -1,5 +1,7 @@
-https://allthatai-real.vercel.app/issues/deal-2026-05-16-오피스텔-청약-vs-아파트-청약-세금전매주거기준-비교/
-https://allthatai-real.vercel.app/issues/deal-2026-05-16-재개발재건축-분양권-일반분양-청약과의-차이/
-https://allthatai-real.vercel.app/issues/deal-2026-05-16-무순위-청약줍줍-자격당첨-후-절차/
-https://allthatai-real.vercel.app/issues/deal-2026-05-16-주택임대차계약-신고제-위반-과태료-면제-조건/
-https://allthatai-real.vercel.app/issues/deal-2026-05-16-취득세-감면-생애최초신혼중과-면제-조건-정리/
+https://allthatai-real.vercel.app/trackers/lck-2026/
+https://allthatai-real.vercel.app/trackers/bitcoin-krw/
+https://allthatai-real.vercel.app/trackers/apt-buy-2026/
+https://allthatai-real.vercel.app/trackers/youth-policy/
+https://allthatai-real.vercel.app/trackers/ai-model-launch/
+https://allthatai-real.vercel.app/trackers/jeonse-fraud/
+https://allthatai-real.vercel.app/trackers/faker-grok/
