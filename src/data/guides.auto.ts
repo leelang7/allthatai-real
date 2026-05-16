@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-16-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
+    "title": "진에어·제주항공·티웨이 저가항공 프로모션 잡는 법",
+    "excerpt": "진에어, 제주항공, 티웨이항공 프로모션 최신 정보와 특가 항공권 구매 꿀팁!",
+    "tag": "항공/여행",
+    "minutes": 5,
+    "generatedAt": "2026-05-16T01:27:03.742Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-16-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
+    "title": "11번가·쿠팡·G마켓 직구 최저가 비교: 같은 상품 어디가 쌀까",
+    "excerpt": "11번가, 쿠팡, G마켓 직구 상품, 어디가 가장 쌀까요? 최저가 비교 분석 및 구매 팁.",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-16T01:27:11.755Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-16-블랙프라이데이-vs-1111-vs-박싱데이-같은-제품-어디가-더-쌌나",
+    "title": "블프 vs 광군제 vs 박싱데이: 같은 상품, 어디가 가장 쌀까?",
+    "excerpt": "연말 최대 쇼핑 시즌, 블랙프라이데이/광군제/박싱데이 중 언제 사야 가장 쌀까? 실제 비교 분석!",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-16T01:27:20.212Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-16-한국에서-gpu-살-때-다나와-vs-컴파인-vs-컴퓨존-가격차",
+    "title": "GPU 최저가 비교: 다나와 vs 컴파인 vs 컴퓨존",
+    "excerpt": "다나와, 컴파인, 컴퓨존 GPU 가격 비교! 어디서 사야 가장 쌀까?",
+    "tag": "직구/쇼핑",
+    "minutes": 5,
+    "generatedAt": "2026-05-16T01:27:27.602Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-16-nordvpn-1년-vs-2년-결제-어느-시점이-가장-싼가",
+    "title": "NordVPN 1년 vs 2년 결제, 언제 사야 가장 쌀까?",
+    "excerpt": "NordVPN, 1년 vs 2년 약정 가격 비교 분석. 장기 약정으로 VPN 비용 절약하는 꿀팁!",
+    "tag": "소프트웨어",
+    "minutes": 5,
+    "generatedAt": "2026-05-16T01:27:34.495Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-15-aws-무료-12개월-가입-시-주의할-청구",
     "title": "AWS 무료 12개월, 숨은 청구 위험 3가지",
     "excerpt": "AWS 무료 티어 12개월, 안심해도 될까요? 숨은 청구 위험과 절약 팁을 알려드립니다.",
