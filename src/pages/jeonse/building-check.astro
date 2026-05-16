@@ -1,0 +1,187 @@
+---
+/**
+ * /jeonse/building-check — 건축물대장 위반건축물 자동 확인.
+ *
+ * 외부 API: /api/building-info (국토부 건축HUB)
+ * 위반건축물 = HUG 보증 가입 불가 + 추후 보증금 회수 어려움.
+ */
+import Layout from '../../layouts/Layout.astro';
+import { lawdCodes } from '../../data/lawd-codes';
+
+const regions = [...new Set(lawdCodes.map((l) => l.region))];
+---
+<Layout
+  title="건축물대장 위반건축물 자동 조회 — 전세사기 방지"
+  description="주소 입력 → 국토부 건축물대장 자동 조회. 불법 증축·용도 위반·미등록 건물 즉시 탐지."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/jeonse/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 전세사기 방지</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      국토부 건축HUB 실시간
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      <span class="text-gradient">건축물대장</span> 위반 확인
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      위반건축물이면 HUG 보증 가입 불가 + 추후 보증금 회수 어려움. 계약 전 확인 필수.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <p class="text-xs text-zinc-400 mb-3">주소 입력 (지번 주소 기준)</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">지역</span>
+          <select id="region" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2.5 text-white text-sm">
+            {regions.map((r) => <option value={r}>{r}</option>)}
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">시군구</span>
+          <select id="district" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2.5 text-white text-sm"></select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">법정동 코드 (5자리)</span>
+          <input id="bjdong" type="text" placeholder="10300" maxlength="5" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">행정안전부 법정동코드. 등기부등본 1번 줄에 표시</span>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">번지 (본번 + 부번)</span>
+          <div class="flex gap-2">
+            <input id="bun" type="text" placeholder="0001" maxlength="4" class="flex-1 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+            <input id="ji" type="text" placeholder="0000" maxlength="4" class="flex-1 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+          </div>
+        </label>
+      </div>
+      <button id="check-btn" type="button" class="mt-5 w-full rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-6 py-3 transition">
+        🔍 위반건축물 조회
+      </button>
+    </div>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-6"></section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">건축물대장이 뭐길래</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>국토부 공식 건물 등록부</strong>: 모든 건물 등록 의무. 미등록 = 불법</li>
+        <li>→ <strong>위반건축물 표시 (Y)</strong>: 무단 증축·용도 변경·옥탑방 등. HUG·SGI 보증 가입 거절</li>
+        <li>→ <strong>주용도</strong>: 주거용 vs 상가 vs 다세대 — 전세 가능한지 확인</li>
+        <li>→ <strong>사용승인일</strong>: 건물 준공일. 오래된 건물은 안전 점검 필수</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 법정동 코드 / 번지 찾는 법</p>
+      <ol class="text-xs leading-relaxed space-y-1 list-decimal pl-5">
+        <li>인터넷등기소에서 등기부등본 발급</li>
+        <li>1번째 페이지 "표제부" 첫줄에 지번 주소 + 코드</li>
+        <li>예: "서울특별시 강남구 역삼동 736-2" → 시군구코드 11680, 법정동 10300, 본번 0736, 부번 0002</li>
+        <li>또는 <a href="https://www.juso.go.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">도로명주소 안내시스템</a>에서 검색</li>
+      </ol>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ lawdCodesData: lawdCodes }}>
+  window.__lawd = lawdCodesData;
+  const $region = document.getElementById('region');
+  const $district = document.getElementById('district');
+  const $bjdong = document.getElementById('bjdong');
+  const $bun = document.getElementById('bun');
+  const $ji = document.getElementById('ji');
+  const $btn = document.getElementById('check-btn');
+  const $result = document.getElementById('result');
+
+  function fillDistricts() {
+    const region = $region.value;
+    const subs = window.__lawd.filter((c) => c.region === region);
+    $district.innerHTML = subs.map((c) => `<option value="${c.code}">${c.name}</option>`).join('');
+  }
+  $region.addEventListener('change', fillDistricts);
+  fillDistricts();
+
+  $btn.addEventListener('click', async () => {
+    const sigunguCd = $district.value;
+    const bjdongCd = $bjdong.value.padStart(5, '0');
+    const bun = $bun.value.padStart(4, '0');
+    const ji = ($ji.value || '0').padStart(4, '0');
+
+    if (!/^\d{5}$/.test(bjdongCd) || !/^\d{4}$/.test(bun)) {
+      alert('법정동 코드 5자리 + 본번 4자리 입력');
+      return;
+    }
+
+    $result.classList.remove('hidden');
+    $result.innerHTML = '<p class="text-sm text-zinc-400 text-center">조회 중…</p>';
+
+    try {
+      const res = await fetch(`/api/building-info?sigunguCd=${sigunguCd}&bjdongCd=${bjdongCd}&bun=${bun}&ji=${ji}`);
+      const json = await res.json();
+
+      if (!json.ok) {
+        $result.innerHTML = `<div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4">
+          <p class="font-bold text-rose-300">조회 실패</p>
+          <p class="mt-2 text-xs text-zinc-400">${json.error}</p>
+        </div>`;
+        return;
+      }
+
+      if (json.count === 0) {
+        $result.innerHTML = `<div class="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4">
+          <p class="font-bold text-amber-300">⚠ 건축물대장 없음</p>
+          <p class="mt-2 text-xs text-zinc-300">${json.note || '입력 주소에 등록된 건물 없음.'} 주소 확인 필요. 미등록 건물은 무허가 가능성.</p>
+        </div>`;
+        return;
+      }
+
+      const violationBldgs = json.items.filter((b) => b.violation);
+      const hasViolation = violationBldgs.length > 0;
+
+      let summary = '';
+      let color = '#10b981';
+      if (hasViolation) {
+        color = '#ef4444';
+        summary = `🚨 위반건축물 ${violationBldgs.length}건 발견. HUG 보증 가입 불가. 계약 보류 권장.`;
+      } else {
+        summary = `✓ 위반 없음. 합법 건축물.`;
+      }
+
+      const fmtDate = (d) => d.length === 8 ? `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}` : d;
+
+      $result.innerHTML = `
+        <div class="rounded-2xl border-2 p-6" style="border-color: ${color};">
+          <p class="text-lg font-black" style="color: ${color};">${summary}</p>
+          <p class="mt-2 text-sm text-zinc-400">건물 ${json.count}건 조회됨</p>
+          <div class="mt-5 space-y-3">
+            ${json.items.map((b) => `
+              <div class="rounded-xl border ${b.violation ? 'border-rose-500/40 bg-rose-500/10' : 'border-zinc-700 bg-zinc-900/40'} p-4">
+                <p class="font-bold ${b.violation ? 'text-rose-300' : 'text-white'}">
+                  ${b.violation ? '⚠ ' : ''}${b.bldNm || '(이름 없음)'}
+                </p>
+                <p class="mt-1 text-xs text-zinc-400">${b.newPlatPlc || b.platPlc}</p>
+                <div class="mt-2 grid grid-cols-2 gap-2 text-xs">
+                  <p>주용도: <strong class="text-zinc-200">${b.mainPurpsCdNm || '?'}</strong></p>
+                  <p>연면적: <strong class="text-zinc-200">${b.totArea} ㎡</strong></p>
+                  <p>지상층: <strong class="text-zinc-200">${b.grndFlrCnt}층</strong></p>
+                  <p>구조: <strong class="text-zinc-200">${b.strctCdNm || '?'}</strong></p>
+                  <p class="col-span-2">사용승인일: <strong class="text-zinc-200">${fmtDate(b.useAprDay)}</strong></p>
+                </div>
+                ${b.violation ? `<p class="mt-2 text-xs text-rose-300">위반 내용: ${b.violationReason}</p>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+
+      if (window.va) { try { window.va('event', { name: 'building_check', data: { count: json.count, violation: hasViolation } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'building_check', { violation: String(hasViolation), event_category: 'tools' }); } catch (_) {} }
+    } catch (e) {
+      $result.innerHTML = `<div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4"><p class="font-bold text-rose-300">네트워크 오류</p></div>`;
+    }
+  });
+</script>

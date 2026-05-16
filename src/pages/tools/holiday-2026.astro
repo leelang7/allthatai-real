@@ -74,6 +74,24 @@ const upcomingHolidays = holidays.filter((h) => diffDays(h.date) >= 0).slice(0, 
     </p>
   </section>
 
+  <!-- Year switcher with live API -->
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4 flex items-center justify-between gap-3 flex-wrap">
+      <p class="text-sm font-bold">📅 다른 해도 보기 (한국천문연구원 실시간)</p>
+      <div class="flex items-center gap-2">
+        <select id="year-select" class="rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-3 py-1.5 text-sm text-white">
+          <option value="">2026 (기본)</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+        </select>
+        <button type="button" id="year-fetch" class="rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-bold px-3 py-1.5 text-sm">조회</button>
+      </div>
+    </div>
+    <div id="live-result" class="mt-4 hidden"></div>
+  </section>
+
   <!-- Next 3 holidays -->
   {upcomingHolidays.length > 0 && (
     <section class="mx-auto max-w-3xl px-4 py-6">
@@ -165,3 +183,38 @@ const upcomingHolidays = holidays.filter((h) => diffDays(h.date) >= 0).slice(0, 
     </div>
   </section>
 </Layout>
+
+<script is:inline>
+  const yearBtn = document.getElementById('year-fetch');
+  const yearSel = document.getElementById('year-select');
+  const live = document.getElementById('live-result');
+
+  yearBtn?.addEventListener('click', async () => {
+    const year = yearSel.value || '2026';
+    live.classList.remove('hidden');
+    live.innerHTML = '<p class="text-sm text-zinc-400">조회 중…</p>';
+    try {
+      const res = await fetch(`/api/holiday?year=${year}&type=holi`);
+      const json = await res.json();
+      if (!json.ok || json.count === 0) {
+        live.innerHTML = `<div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 text-sm">조회 실패: ${json.error || '데이터 없음'}</div>`;
+        return;
+      }
+      const fmt = (d) => `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`;
+      const today = new Date().toISOString().slice(0,10).replace(/-/g,'');
+      live.innerHTML = `
+        <div class="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4">
+          <p class="font-bold text-emerald-300 mb-3">✓ ${year}년 공휴일 ${json.count}개 (한국천문연구원 공식)</p>
+          <div class="space-y-1 text-sm">
+            ${json.items.map((h) => {
+              const passed = h.date < today;
+              return `<div class="flex justify-between ${passed ? 'opacity-50' : ''}"><span class="font-mono text-xs">${fmt(h.date)}</span><span>${h.name}</span></div>`;
+            }).join('')}
+          </div>
+        </div>`;
+      if (window.va) { try { window.va('event', { name: 'holiday_lookup', data: { year } }); } catch (_) {} }
+    } catch (e) {
+      live.innerHTML = `<div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 text-sm">네트워크 오류</div>`;
+    }
+  });
+</script>
