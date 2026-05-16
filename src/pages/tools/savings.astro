@@ -1,0 +1,184 @@
+---
+/**
+ * /tools/savings — 적금 / 예금 만기 금액 계산기.
+ * 한국 큰 검색량: "적금 계산기", "예금 만기 금액", "복리 계산기"
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="적금·예금 만기 금액 계산기 — 단리/복리 + 세후 수령액"
+  description="월 적립 또는 일시 예치 → 만기 시 받을 금액 + 세후 실수령액. 단리·복리 둘 다 계산. 한국 이자소득세 15.4% 자동 차감."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      이자소득세 15.4% 차감 적용
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">적금 / 예금</span> 만기 계산
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      월 적립 OR 일시 예치 → 세전 / 세후 만기 금액 즉시 계산.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <div class="flex gap-2 mb-4">
+        <button type="button" id="tab-jeokgeum" class="tab-btn flex-1 rounded-lg bg-cyan-500 text-zinc-950 font-bold py-2.5 text-sm transition">적금 (월 적립)</button>
+        <button type="button" id="tab-yegeum" class="tab-btn flex-1 rounded-lg bg-zinc-800 text-zinc-300 font-bold py-2.5 text-sm transition">예금 (일시 예치)</button>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block" id="row-monthly">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">월 적립액 (₩)</span>
+          <input id="monthly" type="number" value="500000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block hidden" id="row-lump">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">일시 예치액 (₩)</span>
+          <input id="lump" type="number" value="10000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연 이자율 (%)</span>
+          <input id="rate" type="number" value="4.0" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">기간 (개월)</span>
+          <input id="months" type="number" value="36" min="1" max="240" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">이자 방식</span>
+          <select id="method" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-white">
+            <option value="simple">단리</option>
+            <option value="compound" selected>월복리</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">총 적립액</p>
+        <p id="r-principal" class="mt-2 text-2xl font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-5">
+        <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">세전 이자</p>
+        <p id="r-interest" class="mt-2 text-2xl font-black text-amber-300 tabular-nums">-</p>
+        <p id="r-tax" class="mt-1 text-xs text-rose-300 tabular-nums">−이자소득세 -</p>
+      </div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">세후 만기 금액</p>
+        <p id="r-final" class="mt-2 text-2xl font-black text-emerald-300 tabular-nums">-</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">한국 적금·예금 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>이자소득세 15.4%</strong> (소득세 14% + 지방세 1.4%) 자동 원천징수</li>
+        <li>→ <strong>비과세 종합저축</strong>: 만 65세 이상·국가유공자 등. 5천만원 한도 비과세</li>
+        <li>→ <strong>청년도약계좌</strong>: 만 19–34세. 월 70만 5년 + 정부 매칭 + 비과세</li>
+        <li>→ <strong>ISA 계좌</strong>: 3년 보유. 수익 200만원까지 비과세 + 9.9% 분리과세</li>
+        <li>→ <strong>저축은행 vs 시중은행</strong>: 저축은행 이자율 1–2%p 높음. 5천만원까지 예금자 보호</li>
+        <li>→ <strong>중도해지 이율</strong>: 1년 미만 해지 시 약정 이율의 30–50%만. 만기 채우는 게 유리</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  let mode = 'jeokgeum';
+
+  function calc() {
+    const rate = (+$('rate').value || 0) / 100;
+    const months = +$('months').value || 1;
+    const method = $('method').value;
+    const monthlyRate = rate / 12;
+
+    let principal = 0;
+    let final = 0;
+
+    if (mode === 'jeokgeum') {
+      const monthly = +$('monthly').value || 0;
+      principal = monthly * months;
+      if (method === 'simple') {
+        // 단리 적금: 각 회차 (n월차 → 만기까지 (months-n+1)개월 이자)
+        let totalInterest = 0;
+        for (let n = 1; n <= months; n++) {
+          totalInterest += monthly * monthlyRate * (months - n + 1);
+        }
+        final = principal + totalInterest;
+      } else {
+        // 월복리 적금
+        // 미래가치 = M * ((1+r)^n - 1) / r
+        if (monthlyRate > 0) {
+          final = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+        } else {
+          final = principal;
+        }
+      }
+    } else {
+      const lump = +$('lump').value || 0;
+      principal = lump;
+      if (method === 'simple') {
+        final = lump * (1 + rate * months / 12);
+      } else {
+        final = lump * Math.pow(1 + monthlyRate, months);
+      }
+    }
+
+    const interest = final - principal;
+    const tax = interest * 0.154;
+    const afterTax = final - tax;
+
+    $('r-principal').textContent = fmt(principal);
+    $('r-interest').textContent = fmt(interest);
+    $('r-tax').textContent = '−이자소득세 ' + fmt(tax);
+    $('r-final').textContent = fmt(afterTax);
+
+    if (window.va) { try { window.va('event', { name: 'savings_calc', data: { mode, interest: Math.round(interest) } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'savings_calc', { value: interest, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  function setMode(m) {
+    mode = m;
+    const j = document.getElementById('tab-jeokgeum');
+    const y = document.getElementById('tab-yegeum');
+    const rowM = document.getElementById('row-monthly');
+    const rowL = document.getElementById('row-lump');
+    if (m === 'jeokgeum') {
+      j.classList.replace('bg-zinc-800', 'bg-cyan-500');
+      j.classList.replace('text-zinc-300', 'text-zinc-950');
+      y.classList.replace('bg-cyan-500', 'bg-zinc-800');
+      y.classList.replace('text-zinc-950', 'text-zinc-300');
+      rowM.classList.remove('hidden');
+      rowL.classList.add('hidden');
+    } else {
+      y.classList.replace('bg-zinc-800', 'bg-cyan-500');
+      y.classList.replace('text-zinc-300', 'text-zinc-950');
+      j.classList.replace('bg-cyan-500', 'bg-zinc-800');
+      j.classList.replace('text-zinc-950', 'text-zinc-300');
+      rowL.classList.remove('hidden');
+      rowM.classList.add('hidden');
+    }
+    calc();
+  }
+
+  document.getElementById('tab-jeokgeum').addEventListener('click', () => setMode('jeokgeum'));
+  document.getElementById('tab-yegeum').addEventListener('click', () => setMode('yegeum'));
+
+  ['monthly', 'lump', 'rate', 'months', 'method'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+
+  calc();
+</script>

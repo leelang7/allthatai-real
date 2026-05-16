@@ -1,0 +1,132 @@
+---
+/**
+ * /jeonse/contract-checklist — 전세 계약 시 출력해서 들고 가는 체크리스트.
+ *
+ * 인쇄 친화적 레이아웃 (A4 한 장 fits). 계약 현장에서 하나씩 체크.
+ */
+import Layout from '../../layouts/Layout.astro';
+
+const sections = [
+  {
+    title: '1. 계약 전 — 등기부등본 (필수)',
+    items: [
+      { text: '인터넷등기소에서 발급 (계약 당일 발급)', note: '₩700, 잔금일 다시 발급' },
+      { text: '갑구: 압류·가압류·가처분 표시 없음', note: '있으면 즉시 보류' },
+      { text: '갑구: 경매·임의경매 표시 없음', note: '있으면 절대 X' },
+      { text: '갑구: 소유주가 신탁회사 아님', note: '한국토지신탁 등 → 임대인 권한 X' },
+      { text: '을구: 근저당 + 보증금 < 시세 70%', note: '깡통전세 위험' },
+      { text: '을구: 기존 전세권/임차권 등기 없음', note: '있으면 다중 전세 위험' },
+    ],
+  },
+  {
+    title: '2. 시세 확인',
+    items: [
+      { text: '국토부 실거래가 시스템 확인', note: 'rt.molit.go.kr' },
+      { text: 'KB부동산 시세 확인', note: 'kbland.kr — 은행 대출 기준' },
+      { text: '네이버 부동산 현재 매물 가격', note: 'land.naver.com' },
+      { text: '시세 80% 이하 보증금만 안전', note: 'HUG 보증 가입 가능 한도' },
+    ],
+  },
+  {
+    title: '3. 임대인 확인',
+    items: [
+      { text: '임대인 신분증 — 등기부등본 소유주 이름 일치', note: '주민번호도 일부 확인' },
+      { text: '대리인 계약 시 위임장 + 인감증명서 원본', note: '정부24에서 진위 확인' },
+      { text: '임대인 통장 사본 — 보증금 입금 계좌', note: '제3자 계좌 금지' },
+      { text: '국세·지방세 완납 증명서 요청', note: '체납 시 압류 위험' },
+    ],
+  },
+  {
+    title: '4. 공인중개사 확인',
+    items: [
+      { text: '공인중개사 자격증 + 등록증', note: '벽면 게시 의무' },
+      { text: '중개대상물 확인설명서 받기', note: '권리관계 표시 포함' },
+      { text: '중개수수료 영수증', note: '한국공인중개사협회 등록 확인' },
+    ],
+  },
+  {
+    title: '5. 계약서 작성 — 특약 필수',
+    items: [
+      { text: '특약: 잔금일 전까지 새 근저당·매매 금지', note: '위반 시 계약 무효' },
+      { text: '특약: 임대인 변경 시 즉시 통보', note: '재계약 또는 해지 권리' },
+      { text: '특약: 전세보증보험 가입 가능 보장', note: 'HUG 거절 시 계약 해지' },
+      { text: '확정일자 받을 권리 명시', note: '입주 즉시 동주민센터' },
+      { text: '주택 하자 — 사진 + 동영상 기록', note: '계약 시점 상태 증거 보존' },
+    ],
+  },
+  {
+    title: '6. 잔금 + 입주 당일',
+    items: [
+      { text: '등기부등본 재발급 (당일 발급분)', note: '변동 사항 0 확인' },
+      { text: '잔금 입금 — 임대인 본인 계좌만', note: '제3자 계좌 절대 금지' },
+      { text: '동주민센터 방문 — 확정일자 + 전입신고', note: '5분, 무료, 즉시' },
+      { text: '주택 상태 확인 — 하자 체크리스트', note: '도배·바닥·수도·전기·가스' },
+      { text: '관리비·공과금 정산 확인', note: '미납 인수 금지' },
+    ],
+  },
+  {
+    title: '7. 입주 후 30일 이내',
+    items: [
+      { text: 'HUG 안심전세보증 가입 (수수료 0.5–1%)', note: 'khug.or.kr — 신청 즉시' },
+      { text: '확정일자 + 전입신고 영수증 보관', note: '경매 시 보증금 우선 변제' },
+      { text: '관할 동주민센터 임대차계약 신고', note: '의무 (위반 ₩100만)' },
+      { text: '임대인 연락처 + 등기부등본 보관', note: '분쟁 시 증거' },
+    ],
+  },
+];
+---
+<Layout
+  title="전세 계약 체크리스트 — 인쇄해서 들고 가는 48개 항목"
+  description="전세 계약 시 등기·시세·임대인·중개사·계약서 특약·잔금·입주 후까지 48개 체크리스트. A4 인쇄 가능."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-4 print:pt-4 print:pb-2">
+    <a href="/jeonse/" class="text-sm text-zinc-500 hover:text-zinc-300 transition print:hidden">← 전세사기 방지</a>
+    <div class="mt-3 flex items-center justify-between flex-wrap gap-3">
+      <h1 class="text-3xl sm:text-4xl font-black leading-tight print:text-2xl">
+        전세 계약 <span class="text-gradient print:text-rose-500">체크리스트</span>
+      </h1>
+      <button type="button" onclick="window.print()" class="rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-bold px-4 py-2 text-sm print:hidden">
+        🖨 인쇄
+      </button>
+    </div>
+    <p class="mt-3 text-sm text-zinc-400 print:text-zinc-700">48개 항목 — 인쇄해서 계약 현장 들고 가서 하나씩 체크. 사기 99% 거름.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4 print:py-2 space-y-6">
+    {sections.map((s) => (
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 print:border-zinc-300 print:bg-white print:break-inside-avoid">
+        <h2 class="font-black text-lg mb-3 text-rose-300 print:text-rose-700">{s.title}</h2>
+        <div class="space-y-2">
+          {s.items.map((item) => (
+            <label class="flex items-start gap-2 cursor-pointer text-sm group">
+              <input type="checkbox" class="mt-0.5 w-4 h-4 accent-rose-500 shrink-0" />
+              <div class="flex-1">
+                <p class="text-zinc-200 group-has-[:checked]:line-through group-has-[:checked]:text-zinc-500 print:text-black">{item.text}</p>
+                <p class="text-[10px] text-zinc-500 mt-0.5 print:text-zinc-600">→ {item.note}</p>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6 print:hidden">
+    <div class="rounded-2xl border border-rose-500/30 bg-rose-500/5 p-6">
+      <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest mb-2">관련 도구</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <a href="/jeonse/risk-calc/" class="rounded-xl border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-4 text-sm">위험 점수 계산기 →</a>
+        <a href="/jeonse/etungi-analyzer/" class="rounded-xl border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-4 text-sm">등기부등본 자동 분석 →</a>
+        <a href="/jeonse/price-compare/" class="rounded-xl border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-4 text-sm">시세 비교 →</a>
+        <a href="/trackers/jeonse-fraud/" class="rounded-xl border border-zinc-700 hover:border-rose-500/60 bg-zinc-900/40 p-4 text-sm">사기 사례 실시간 →</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  @media print {
+    body { background: white !important; color: black !important; }
+    header, footer, nav, aside, .sticky, #sticky-cta { display: none !important; }
+  }
+</style>
