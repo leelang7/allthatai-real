@@ -1,0 +1,202 @@
+---
+/**
+ * /jeonse/price-compare — 국토부 실거래가 + KB시세 비교 도구.
+ *
+ * 외부 데이터:
+ *   - 국토부 공공데이터 API (실거래가) — 무료 API key 필요
+ *   - KB부동산 시세 (스크래핑 — 사용자가 수동 입력으로 대체)
+ *   - 공시지가 (R-ONE 한국감정원)
+ *
+ * 본인 보증금이 동일 단지 평균 거래 대비 안전한 지 1초 확인.
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="전세 보증금 vs 시세 비교 — 국토부 실거래가 + KB시세"
+  description="동일 단지 / 동일 평형 실거래 평균 보증금과 본인 계약 비교. 시세 80% 이하면 안전 / 90% 초과면 위험."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/jeonse/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 전세사기 방지</a>
+    <h1 class="mt-4 text-3xl sm:text-4xl font-black leading-tight">
+      <span class="text-gradient">시세 vs 보증금</span> 안전 비교
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      국토부 실거래가 + KB시세 직접 조회 + 안전 비율 자동 계산.
+    </p>
+  </section>
+
+  <!-- DIRECT LINKS to official sources -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-cyan-500/30 bg-cyan-500/5 p-6">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest mb-3">공식 시세 조회 — 본인 주소 입력</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <a href="https://rt.molit.go.kr/pre.html" target="_blank" rel="noopener" class="rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/60 p-4 transition">
+          <p class="font-black">🏛 국토부 실거래가</p>
+          <p class="mt-1 text-xs text-zinc-400">공식 통계 — 동일 단지 전세/매매 실거래</p>
+          <p class="mt-2 text-xs text-cyan-300">바로가기 →</p>
+        </a>
+        <a href="https://kbland.kr" target="_blank" rel="noopener" class="rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/60 p-4 transition">
+          <p class="font-black">🏦 KB부동산 (KB시세)</p>
+          <p class="mt-1 text-xs text-zinc-400">은행 대출 기준 시세 — 가장 보수적</p>
+          <p class="mt-2 text-xs text-cyan-300">바로가기 →</p>
+        </a>
+        <a href="https://new.land.naver.com" target="_blank" rel="noopener" class="rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/60 p-4 transition">
+          <p class="font-black">🟢 네이버 부동산</p>
+          <p class="mt-1 text-xs text-zinc-400">현재 매물 호가 + 실거래</p>
+          <p class="mt-2 text-xs text-cyan-300">바로가기 →</p>
+        </a>
+        <a href="https://www.realestate.daum.net" target="_blank" rel="noopener" class="rounded-xl border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/60 p-4 transition">
+          <p class="font-black">📊 다음 부동산</p>
+          <p class="mt-1 text-xs text-zinc-400">실거래 + 분양가 + 학군</p>
+          <p class="mt-2 text-xs text-cyan-300">바로가기 →</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <p class="text-sm font-bold text-zinc-300">위 사이트에서 확인한 값 입력 →</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">내 계약 전세보증금 (₩)</span>
+          <input id="deposit" type="number" value="300000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">국토부 실거래 전세 평균 (₩)</span>
+          <input id="rtMolit" type="number" value="280000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">KB시세 매매 (₩)</span>
+          <input id="kbSale" type="number" value="400000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">KB시세 전세 (₩)</span>
+          <input id="kbJeonse" type="number" value="320000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div id="result-panel" class="rounded-3xl border-2 p-8" style="border-color: #71717a;">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">안전성 분석</p>
+
+      <div class="mt-4 grid sm:grid-cols-2 gap-3">
+        <div>
+          <p class="text-xs text-zinc-500">매매가 대비</p>
+          <p id="r-ratio-sale" class="mt-1 text-4xl font-black tabular-nums">-</p>
+          <p id="r-ratio-sale-note" class="mt-1 text-xs"></p>
+        </div>
+        <div>
+          <p class="text-xs text-zinc-500">실거래가 대비</p>
+          <p id="r-ratio-rt" class="mt-1 text-4xl font-black tabular-nums">-</p>
+          <p id="r-ratio-rt-note" class="mt-1 text-xs"></p>
+        </div>
+      </div>
+
+      <p id="r-label" class="mt-6 text-2xl font-black">-</p>
+      <p id="r-summary" class="mt-2 text-sm text-zinc-300 leading-relaxed">-</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">안전 기준 (대법원·HUG 기준)</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong class="text-emerald-300">매매가 60% 이하</strong>: 안전. 경매 시 1순위 변제 가능</li>
+        <li>→ <strong class="text-cyan-300">60–70%</strong>: 양호. HUG 보증 무난</li>
+        <li>→ <strong class="text-amber-300">70–80%</strong>: 주의. HUG 보증 가입 필수</li>
+        <li>→ <strong class="text-orange-300">80–90%</strong>: 위험. 추가 검증 + 보증 가입 필수</li>
+        <li>→ <strong class="text-rose-300">90% 초과</strong>: 깡통전세 위험. HUG 가입 불가 가능</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 시세는 변동 — 잔금일 한 번 더</p>
+      <p class="text-xs leading-relaxed">
+        부동산 시세는 분기별로 변동. 계약일 시세와 잔금일 시세 다를 수 있음. 잔금 직전 KB시세 한 번 더 확인.
+        본 도구는 위 4개 공식 사이트에서 직접 확인한 값을 입력하는 자가 진단 도구.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+
+  function fmt(n) {
+    return '₩' + (n / 100000000).toFixed(2) + '억';
+  }
+
+  function calc() {
+    const dep = +$('deposit').value || 0;
+    const kbSale = +$('kbSale').value || 0;
+    const rtMolit = +$('rtMolit').value || 0;
+    const kbJeonse = +$('kbJeonse').value || 0;
+
+    let ratioSale = 0, ratioRt = 0;
+    if (kbSale > 0) ratioSale = (dep / kbSale) * 100;
+    if (rtMolit > 0) ratioRt = (dep / rtMolit) * 100;
+
+    let colorSale, colorRt;
+    function color(r) {
+      if (r >= 90) return { c: '#ef4444', label: '🔴 깡통전세 위험' };
+      if (r >= 80) return { c: '#f97316', label: '🟠 위험' };
+      if (r >= 70) return { c: '#eab308', label: '🟡 주의' };
+      if (r >= 60) return { c: '#10b981', label: '🟢 양호' };
+      return { c: '#06b6d4', label: '✓ 안전' };
+    }
+
+    const sale = color(ratioSale);
+    const rt = color(ratioRt);
+
+    $('r-ratio-sale').textContent = ratioSale.toFixed(1) + '%';
+    $('r-ratio-sale').style.color = sale.c;
+    $('r-ratio-sale-note').textContent = sale.label;
+    $('r-ratio-sale-note').style.color = sale.c;
+
+    $('r-ratio-rt').textContent = ratioRt.toFixed(1) + '%';
+    $('r-ratio-rt').style.color = rt.c;
+    $('r-ratio-rt-note').textContent = rt.label;
+    $('r-ratio-rt-note').style.color = rt.c;
+
+    // Combined judgement
+    const maxRatio = Math.max(ratioSale, ratioRt);
+    const judgement = color(maxRatio);
+
+    let summary;
+    if (maxRatio >= 90) {
+      summary = '⚠ 보증금이 매매가/실거래에 너무 가까움. 경매 시 보증금 일부 못 받을 수 있음. 보증금 인하 요청 또는 계약 보류.';
+    } else if (maxRatio >= 80) {
+      summary = '보증금이 시세 80% 초과. HUG 안심전세 보증 가입 필수. 그래도 가입 거부될 수 있음 (시세 90% 한도).';
+    } else if (maxRatio >= 70) {
+      summary = '일반적인 비율 (70–80%). 정상 절차 + HUG 보증 가입으로 안전성 확보.';
+    } else if (maxRatio >= 60) {
+      summary = '양호한 비율. HUG 보증 가입 무난. 큰 위험 X.';
+    } else {
+      summary = '시세 대비 보증금 매우 낮음. 안전. 단 너무 저렴하면 사기 가능성 — 등기 한 번 더 확인.';
+    }
+
+    if (kbJeonse > 0 && dep > kbJeonse * 1.05) {
+      summary += ' ⚠ 시세보다 보증금 5%+ 높음 — 시세 거품 의심.';
+    }
+
+    $('r-label').textContent = judgement.label;
+    $('r-label').style.color = judgement.c;
+    $('r-summary').textContent = summary;
+    $('result-panel').style.borderColor = judgement.c;
+
+    if (window.va) { try { window.va('event', { name: 'jeonse_price_compare', data: { ratio: maxRatio.toFixed(0) } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'jeonse_price_compare', { value: maxRatio, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  ['deposit', 'rtMolit', 'kbSale', 'kbJeonse'].forEach((id) => {
+    $(id).addEventListener('input', calc);
+  });
+  calc();
+</script>

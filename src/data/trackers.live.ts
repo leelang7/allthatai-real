@@ -16,6 +16,7 @@ export type TrackerLive = Record<string, {
 }>;
 
 export const trackerLive: TrackerLive = {
+  "jeonse-fraud": { "lastUpdated": "2026-05-16T00:00:00Z", "items": [] },
   "lck-2026": {
     "lastUpdated": "2026-05-15T16:49:50.371Z",
     "items": [

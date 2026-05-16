@@ -1,0 +1,275 @@
+---
+/**
+ * /jeonse/etungi-analyzer — 등기부등본 텍스트 자동 분석기.
+ *
+ * 사용자가 등기부등본 PDF를 텍스트로 복붙 → 정규식 기반 자동 추출:
+ *   - 갑구 (소유권 + 압류 + 가압류 + 신탁)
+ *   - 을구 (근저당 + 전세권 + 임차권)
+ *   - 위험 요소 자동 강조
+ *   - 점수 → /jeonse/risk-calc 결과로 funnel
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="등기부등본 자동 분석 — 텍스트 복붙으로 위험 요소 자동 추출"
+  description="등기부등본 PDF의 텍스트 복붙 → 압류·근저당·신탁·소유주 변경 자동 추출 + 위험도 표시. AI 없이 정규식 기반."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/jeonse/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 전세사기 방지</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+      자동 분석
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      등기부등본 <span class="text-gradient">자동 분석</span>
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      인터넷등기소 PDF 텍스트 복붙 → 위험 요소 자동 추출. 본인 PC에서만 처리 (서버 전송 X).
+    </p>
+  </section>
+
+  <!-- INPUT -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <label class="block mb-3">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">등기부등본 본문 텍스트 (전체 복붙)</span>
+        <textarea id="etungi" rows="14" placeholder="등기부등본 PDF를 열고 텍스트 전체 선택 (Ctrl+A) → 복사 (Ctrl+C) → 여기 붙여넣기 (Ctrl+V)"
+          class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-3 text-sm text-white resize-y font-mono"></textarea>
+      </label>
+      <button id="analyze-btn" type="button" class="w-full rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-bold px-6 py-3 transition">
+        🔍 자동 분석 →
+      </button>
+      <p class="mt-3 text-[10px] text-zinc-500 leading-relaxed">
+        🔒 텍스트는 서버에 전송 안 됨. 본인 브라우저에서만 처리. 페이지 닫으면 다 사라짐.
+      </p>
+    </div>
+  </section>
+
+  <!-- HOW TO GET TEXT -->
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <details class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <summary class="cursor-pointer font-bold text-sm">등기부등본 어디서 떼고 어떻게 텍스트 복사하나</summary>
+      <div class="mt-4 space-y-3 text-sm text-zinc-300 leading-relaxed">
+        <p><strong>1.</strong> <a href="https://www.iros.go.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">인터넷등기소 (iros.go.kr)</a> 접속</p>
+        <p><strong>2.</strong> 회원가입 (공동인증서 필요) → 부동산 → 열람/발급</p>
+        <p><strong>3.</strong> 주소 또는 부동산 고유번호로 검색 → 열람 ₩700 또는 발급 ₩1,000</p>
+        <p><strong>4.</strong> PDF 다운로드 → 열기 → <kbd>Ctrl+A</kbd> 전체 선택 → <kbd>Ctrl+C</kbd> 복사</p>
+        <p><strong>5.</strong> 이 페이지 위 텍스트박스에 <kbd>Ctrl+V</kbd> 붙여넣기</p>
+        <p class="text-xs text-zinc-500 mt-3">⚠ PDF가 이미지 스캔이면 텍스트 복사 안 됨. 그럴 땐 OCR 또는 등기소에서 텍스트 PDF로 재발급.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-3xl border-2 border-zinc-700 bg-zinc-900/40 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">자동 분석 결과</p>
+
+      <!-- Overall risk -->
+      <div id="r-overall" class="mt-4"></div>
+
+      <!-- Property info -->
+      <div id="r-property" class="mt-6"></div>
+
+      <!-- 갑구 -->
+      <div id="r-gap" class="mt-6"></div>
+
+      <!-- 을구 -->
+      <div id="r-eul" class="mt-6"></div>
+
+      <!-- Recommended next -->
+      <div id="r-next" class="mt-6"></div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+
+  function fmtKrw(n) {
+    if (n >= 100000000) return `${(n / 100000000).toFixed(2)}억`;
+    if (n >= 10000) return `${(n / 10000).toLocaleString('ko-KR')}만`;
+    return `₩${n.toLocaleString('ko-KR')}`;
+  }
+  function parseKrw(s) {
+    // "금500,000,000원" 또는 "5억원" 등을 숫자로
+    s = s.replace(/[,\s원]/g, '');
+    let total = 0;
+    const eok = s.match(/(\d+)억/);
+    if (eok) { total += parseInt(eok[1], 10) * 100000000; s = s.replace(/\d+억/, ''); }
+    const cheon = s.match(/(\d+)천만/);
+    if (cheon) { total += parseInt(cheon[1], 10) * 10000000; s = s.replace(/\d+천만/, ''); }
+    const man = s.match(/(\d+)만/);
+    if (man) { total += parseInt(man[1], 10) * 10000; s = s.replace(/\d+만/, ''); }
+    const remaining = parseInt(s.replace(/[^\d]/g, ''), 10);
+    if (!isNaN(remaining)) {
+      // 1억 이상의 숫자가 그대로 있다면 (예: 500000000)
+      if (total === 0) total = remaining;
+    }
+    return total;
+  }
+
+  function analyze() {
+    const text = $('etungi').value.trim();
+    if (text.length < 100) {
+      alert('등기부등본 텍스트가 너무 짧습니다. 전체 내용 복사 후 붙여넣기 해주세요.');
+      return;
+    }
+
+    // 1. 부동산 정보
+    const addrMatch = text.match(/(?:소재지번|소재지|건물명)\s*[:：]?\s*([^\n]{5,100})/);
+    const purposeMatch = text.match(/(?:용도|건물의 용도)\s*[:：]?\s*(아파트|연립주택|다세대주택|단독주택|오피스텔|상가|근린생활시설|[^\n]{2,30})/);
+    const areaMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:㎡|m²|평방미터)/);
+
+    // 2. 갑구 분석
+    const isOwnerChanged = /소유권이전.*?매매/.test(text);
+    const ownershipChanges = (text.match(/소유권이전/g) || []).length;
+    const hasAuction = /임의경매개시결정|강제경매개시결정|경매신청|매각결정/.test(text);
+    const hasSeize = /(?:^|\s)압류|가압류|가처분/m.test(text);
+    const hasTax = /국세체납|지방세체납|체납처분/.test(text);
+    const isTrust = /신탁등기|신탁회사|한국토지신탁|한국자산신탁|코람코신탁|대한토지신탁|아시아신탁/.test(text);
+
+    // Owner name (최근 소유주 추출)
+    const ownerMatches = [...text.matchAll(/소유자\s*([가-힣\s\(\)]{2,30})/g)];
+    const latestOwner = ownerMatches.length > 0 ? ownerMatches[ownerMatches.length - 1][1].trim() : '?';
+
+    // Recent change date
+    const dateMatches = [...text.matchAll(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/g)];
+    const latestDate = dateMatches.length > 0 ? dateMatches[dateMatches.length - 1] : null;
+
+    // 3. 을구 분석 - 근저당
+    const mortgageMatches = [...text.matchAll(/근저당설정[^\n]*?채권최고액[^\n]*?금([\d,]+)\s*원/g)];
+    let mortgageTotal = 0;
+    const mortgages = [];
+    mortgageMatches.forEach((m) => {
+      const amt = parseInt(m[1].replace(/,/g, ''), 10);
+      mortgageTotal += amt;
+      // 채권자 추출
+      const ctxStart = m.index;
+      const ctx = text.slice(ctxStart, ctxStart + 500);
+      const creditorMatch = ctx.match(/근저당권자[^\n]{0,150}/);
+      mortgages.push({
+        amount: amt,
+        creditor: creditorMatch ? creditorMatch[0].replace(/근저당권자/, '').trim().slice(0, 100) : '?',
+      });
+    });
+
+    // 전세권/임차권
+    const hasPriorJeonse = /전세권설정|임차권등기명령/.test(text);
+
+    // 4. 위험 점수 계산
+    let score = 0;
+    const flags = [];
+
+    if (hasAuction) { score += 35; flags.push({ level: 'high', text: '⚠ 경매 진행 중' }); }
+    if (hasSeize) { score += 25; flags.push({ level: 'high', text: '⚠ 압류 / 가압류 / 가처분 있음' }); }
+    if (hasTax) { score += 22; flags.push({ level: 'high', text: '⚠ 세금 체납 압류' }); }
+    if (isTrust) { score += 28; flags.push({ level: 'high', text: '⚠ 신탁회사 명의 — 임대인 권한 모호' }); }
+    if (ownershipChanges >= 3) { score += 12; flags.push({ level: 'mid', text: `⚠ 소유주 변경 ${ownershipChanges}회 — 명의 자주 바뀜` }); }
+    if (mortgageTotal > 0) {
+      score += Math.min(30, Math.round(mortgageTotal / 100000000 * 4));
+      flags.push({ level: 'mid', text: `근저당 총액: ${fmtKrw(mortgageTotal)} (${mortgages.length}건)` });
+    }
+    if (hasPriorJeonse) { score += 15; flags.push({ level: 'mid', text: '⚠ 기존 전세권/임차권 등기 — 다중 전세 위험' }); }
+
+    score = Math.max(0, Math.min(100, score));
+
+    // 5. 결과 렌더
+    $('result').classList.remove('hidden');
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    let overallLabel, overallColor, overallSummary;
+    if (score >= 60) {
+      overallLabel = '🔴 매우 위험';
+      overallColor = '#ef4444';
+      overallSummary = '여러 고위험 신호가 감지됨. 계약 즉시 보류 권장. 전문가 상담 필수.';
+    } else if (score >= 30) {
+      overallLabel = '🟠 위험 — 추가 검증 필요';
+      overallColor = '#f97316';
+      overallSummary = '주요 위험 요소 있음. 잔금 직전 등기 재발급 + HUG 보증 가능 여부 확인.';
+    } else if (score >= 10) {
+      overallLabel = '🟡 주의';
+      overallColor = '#eab308';
+      overallSummary = '큰 사기 신호 없음. 일반 검증 절차 진행. 확정일자 + 전입신고 잊지 마세요.';
+    } else {
+      overallLabel = '🟢 안전';
+      overallColor = '#10b981';
+      overallSummary = '큰 위험 요소 없음. 정상 계약 절차 가능. 잔금일 한 번 더 확인 권장.';
+    }
+
+    $('r-overall').innerHTML = `
+      <div class="rounded-2xl border-2 p-5" style="border-color: ${overallColor};">
+        <div class="flex items-baseline gap-3 flex-wrap">
+          <p class="text-5xl font-black tabular-nums" style="color: ${overallColor};">${score}</p>
+          <p class="text-sm text-zinc-500">/ 100</p>
+          <p class="text-xl font-black" style="color: ${overallColor};">${overallLabel}</p>
+        </div>
+        <p class="mt-3 text-sm text-zinc-300">${overallSummary}</p>
+      </div>
+    `;
+
+    $('r-property').innerHTML = `
+      <p class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3">부동산 정보</p>
+      <div class="rounded-xl border border-zinc-700 bg-zinc-900/60 p-4 space-y-2 text-sm">
+        <p><strong>소재지:</strong> <span class="text-zinc-300">${addrMatch ? addrMatch[1].trim() : '추출 실패'}</span></p>
+        <p><strong>용도:</strong> <span class="text-zinc-300">${purposeMatch ? purposeMatch[1].trim() : '?'}</span></p>
+        <p><strong>전용면적:</strong> <span class="text-zinc-300">${areaMatch ? areaMatch[1] + ' ㎡' : '?'}</span></p>
+        <p><strong>최근 소유주:</strong> <span class="text-zinc-300">${latestOwner}</span></p>
+        ${latestDate ? `<p><strong>최근 등기일:</strong> <span class="text-zinc-300">${latestDate[1]}년 ${latestDate[2]}월 ${latestDate[3]}일</span></p>` : ''}
+      </div>
+    `;
+
+    $('r-gap').innerHTML = `
+      <p class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3">갑구 (소유권 관련)</p>
+      <div class="rounded-xl border border-zinc-700 bg-zinc-900/60 p-4 space-y-2 text-sm">
+        <p>소유권 이전 횟수: <strong class="${ownershipChanges >= 3 ? 'text-amber-300' : 'text-zinc-300'}">${ownershipChanges}회</strong></p>
+        <p>경매: ${hasAuction ? '<strong class="text-rose-300">⚠ 진행 중</strong>' : '<span class="text-emerald-300">없음 ✓</span>'}</p>
+        <p>압류·가압류·가처분: ${hasSeize ? '<strong class="text-rose-300">⚠ 있음</strong>' : '<span class="text-emerald-300">없음 ✓</span>'}</p>
+        <p>세금 체납: ${hasTax ? '<strong class="text-rose-300">⚠ 있음</strong>' : '<span class="text-emerald-300">없음 ✓</span>'}</p>
+        <p>신탁회사 명의: ${isTrust ? '<strong class="text-rose-300">⚠ 신탁등기</strong>' : '<span class="text-emerald-300">없음 ✓</span>'}</p>
+      </div>
+    `;
+
+    $('r-eul').innerHTML = `
+      <p class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3">을구 (저당권 관련)</p>
+      <div class="rounded-xl border border-zinc-700 bg-zinc-900/60 p-4">
+        <p class="text-sm mb-3">근저당설정 ${mortgages.length}건 · 합계 <strong class="${mortgageTotal > 100000000 ? 'text-amber-300' : 'text-zinc-300'}">${fmtKrw(mortgageTotal)}</strong></p>
+        ${mortgages.length > 0 ? `<div class="space-y-2 mt-3">${mortgages.map((m, i) => `
+          <div class="text-xs text-zinc-400 border-l-2 border-zinc-700 pl-3">
+            <p><strong>${i + 1}.</strong> ${fmtKrw(m.amount)} <span class="text-zinc-600">·</span> ${m.creditor}</p>
+          </div>
+        `).join('')}</div>` : '<p class="text-xs text-zinc-500">없음</p>'}
+        <p class="mt-3 text-sm">기존 전세권/임차권: ${hasPriorJeonse ? '<strong class="text-amber-300">⚠ 있음</strong>' : '<span class="text-emerald-300">없음 ✓</span>'}</p>
+      </div>
+    `;
+
+    // Next actions
+    const nexts = [];
+    if (score >= 30) {
+      nexts.push({ title: '계약 보류 또는 추가 검증', desc: '본 결과 + 등기부등본 들고 부동산 전문가/법무사 상담', url: '' });
+    }
+    if (mortgageTotal > 0) {
+      nexts.push({ title: '근저당 + 보증금 합계 vs 시세 확인', desc: '/jeonse/risk-calc/ 에서 시세 입력 후 종합 점수 확인', url: '/jeonse/risk-calc/' });
+    }
+    nexts.push({ title: 'HUG 안심전세보증 가능 여부 확인', desc: '시세 90% 이내 보증금이면 대부분 가능. 수수료 0.5–1%', url: 'https://www.khug.or.kr' });
+    nexts.push({ title: '전세사기 최신 사례 확인', desc: '본인 상황과 유사한 사례 있는지 확인', url: '/trackers/jeonse-fraud/' });
+
+    $('r-next').innerHTML = `
+      <p class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3">다음 조치</p>
+      <div class="space-y-2">
+        ${nexts.map((n) => `
+          <div class="rounded-xl border border-zinc-700 bg-zinc-900/60 p-4">
+            <p class="font-bold text-sm">${n.title}</p>
+            <p class="mt-1 text-xs text-zinc-400">${n.desc}</p>
+            ${n.url ? `<a href="${n.url}" ${n.url.startsWith('http') ? 'target="_blank" rel="noopener"' : ''} class="mt-2 inline-block text-xs text-cyan-300 hover:text-cyan-200 underline">바로가기 →</a>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    if (window.va) { try { window.va('event', { name: 'jeonse_etungi_analyze', data: { score, mortgages: mortgages.length } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'jeonse_etungi_analyze', { value: score, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  $('analyze-btn').addEventListener('click', analyze);
+</script>

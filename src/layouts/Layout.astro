@@ -134,7 +134,10 @@ const isHome = path === '/';
 
         <!-- Desktop: 3 핵심 + 메뉴 토글 -->
         <nav class="hidden md:flex items-center gap-5 text-sm text-zinc-400">
-          <a href="/traps" class="hover:text-rose-300 transition font-semibold whitespace-nowrap">
+          <a href="/jeonse" class="hover:text-rose-300 transition font-semibold whitespace-nowrap">
+            <span class="text-rose-400">🏠</span> 전세사기
+          </a>
+          <a href="/traps" class="hover:text-rose-300 transition font-semibold whitespace-nowrap hidden lg:inline">
             <span class="text-rose-400">⚠</span> 대행함정
           </a>
           <a href="/store" class="hover:text-amber-300 transition font-semibold whitespace-nowrap">
@@ -168,6 +171,7 @@ const isHome = path === '/';
           <div>
             <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">콘텐츠</p>
             <ul class="space-y-1.5 text-sm">
+              <li><a href="/jeonse/" class="text-rose-300 hover:text-rose-200">🏠 전세사기 방지</a></li>
               <li><a href="/traps/" class="text-rose-300 hover:text-rose-200">⚠ 대행함정</a></li>
               <li><a href="/issues/" class="text-zinc-300 hover:text-white">이슈 (자동)</a></li>
               <li><a href="/guides/" class="text-zinc-300 hover:text-white">가이드</a></li>
@@ -189,6 +193,8 @@ const isHome = path === '/';
           <div>
             <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">도구 / 계산기</p>
             <ul class="space-y-1.5 text-sm">
+              <li><a href="/jeonse/risk-calc/" class="text-rose-300 hover:text-rose-200">전세 위험 점수</a></li>
+              <li><a href="/jeonse/etungi-analyzer/" class="text-rose-300 hover:text-rose-200">등기부등본 분석</a></li>
               <li><a href="/tools/agent-fee-calc/" class="text-zinc-300 hover:text-white">대행 절감 계산</a></li>
               <li><a href="/tools/ai-pricing/" class="text-zinc-300 hover:text-white">AI 비용 계산</a></li>
               <li><a href="/tools/card-pick/" class="text-zinc-300 hover:text-white">카드 추천</a></li>

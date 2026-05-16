@@ -111,6 +111,22 @@ export const trackers: TrackerSpec[] = [
     createdAt: '2026-05-09',
   },
   {
+    slug: 'jeonse-fraud',
+    title: '전세사기 사례·판결·정부 발표 — 실시간 추적',
+    description: '신규 전세사기 사례·법원 판결·HUG 정책·국토부 특별법 변경 자동 수집.',
+    tagline: '전세사기 모든 새 소식 매일 갱신',
+    query: '전세사기',
+    context: '한국 전세사기 관련 모든 새 보도·판결·정부 발표를 자동 수집합니다. 사기 수법·HUG 보증 정책 변경·특별법 진행·피해자 지원 절차 등.',
+    relatedSites: [
+      { name: '전세사기 위험 진단', url: '/jeonse/risk-calc/' },
+      { name: '등기부등본 분석', url: '/jeonse/etungi-analyzer/' },
+      { name: 'HUG 안심전세', url: 'https://www.khug.or.kr' },
+    ],
+    tag: '전세사기',
+    tagColor: 'bg-rose-500/10 text-rose-300 border-rose-500/30',
+    createdAt: '2026-05-16',
+  },
+  {
     slug: 'faker-grok',
     title: '페이커 그록 대결 — 실시간 추적',
     description: 'T1 페이커 vs xAI 그록 — 모든 공식 발표·인터뷰·매치 결과를 자동 수집. Google News + 공식 채널 기반.',
