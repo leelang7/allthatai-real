@@ -1,0 +1,167 @@
+---
+/**
+ * /tools/holiday-2026 — 한국 2026 공휴일 + 대체공휴일 + 황금연휴.
+ *
+ * 매년 큰 검색량: "공휴일 2026", "2026 황금연휴", "대체공휴일"
+ */
+import Layout from '../../layouts/Layout.astro';
+
+interface Holiday {
+  date: string;
+  name: string;
+  weekday: string;
+  substitute?: boolean;
+  isWeekend?: boolean;
+  golden?: boolean;
+}
+
+const holidays: Holiday[] = [
+  { date: '2026-01-01', name: '신정', weekday: '목' },
+  { date: '2026-02-16', name: '설날 (연휴 시작)', weekday: '월' },
+  { date: '2026-02-17', name: '설날', weekday: '화' },
+  { date: '2026-02-18', name: '설날 (연휴 끝)', weekday: '수' },
+  { date: '2026-03-01', name: '삼일절', weekday: '일', isWeekend: true },
+  { date: '2026-03-02', name: '삼일절 대체공휴일', weekday: '월', substitute: true },
+  { date: '2026-05-05', name: '어린이날', weekday: '화' },
+  { date: '2026-05-24', name: '부처님오신날', weekday: '일', isWeekend: true },
+  { date: '2026-05-25', name: '부처님오신날 대체공휴일', weekday: '월', substitute: true },
+  { date: '2026-06-06', name: '현충일', weekday: '토', isWeekend: true },
+  { date: '2026-08-15', name: '광복절', weekday: '토', isWeekend: true },
+  { date: '2026-08-17', name: '광복절 대체공휴일', weekday: '월', substitute: true },
+  { date: '2026-09-24', name: '추석 (연휴 시작)', weekday: '목' },
+  { date: '2026-09-25', name: '추석', weekday: '금' },
+  { date: '2026-09-26', name: '추석 (연휴 끝)', weekday: '토', isWeekend: true },
+  { date: '2026-09-28', name: '추석 대체공휴일', weekday: '월', substitute: true },
+  { date: '2026-10-03', name: '개천절', weekday: '토', isWeekend: true },
+  { date: '2026-10-05', name: '개천절 대체공휴일', weekday: '월', substitute: true },
+  { date: '2026-10-09', name: '한글날', weekday: '금' },
+  { date: '2026-12-25', name: '성탄절', weekday: '금' },
+];
+
+// 황금연휴 자동 계산 (연속 3일 이상 + 주말 포함)
+const goldenRanges = [
+  { start: '2026-02-14', end: '2026-02-18', days: 5, name: '설날 + 주말 5일' },
+  { start: '2026-05-23', end: '2026-05-25', days: 3, name: '부처님오신날 + 주말 3일' },
+  { start: '2026-09-23', end: '2026-09-28', days: 6, name: '추석 + 주말 6일 (개천절 인근)' },
+  { start: '2026-10-03', end: '2026-10-05', days: 3, name: '개천절 + 주말 3일' },
+  { start: '2026-12-25', end: '2026-12-27', days: 3, name: '성탄절 + 주말 3일' },
+];
+
+const now = new Date();
+const nowKey = now.toISOString().slice(0, 10);
+function diffDays(target: string) {
+  const t = new Date(target);
+  const today = new Date(nowKey);
+  return Math.ceil((t.getTime() - today.getTime()) / (24 * 60 * 60 * 1000));
+}
+
+const upcomingHolidays = holidays.filter((h) => diffDays(h.date) >= 0).slice(0, 3);
+---
+<Layout
+  title="2026 한국 공휴일·대체공휴일·황금연휴 — 디데이 자동 계산"
+  description="2026 한국 공휴일 20개 + 대체공휴일 4개 + 황금연휴 5개 자동 정리. 다음 공휴일까지 디데이 자동 계산."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+      대체공휴일 + 황금연휴 자동
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      2026 <span class="text-gradient">한국 공휴일</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      20개 법정공휴일 + 4개 대체공휴일 + 5개 황금연휴 모음.
+    </p>
+  </section>
+
+  <!-- Next 3 holidays -->
+  {upcomingHolidays.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-6">
+      <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">다음 공휴일 (D-day)</h2>
+      <div class="grid sm:grid-cols-3 gap-3">
+        {upcomingHolidays.map((h) => {
+          const dday = diffDays(h.date);
+          return (
+            <div class="rounded-2xl border border-rose-500/40 bg-gradient-to-br from-rose-500/15 to-pink-500/5 p-5">
+              <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">{h.weekday}요일</p>
+              <p class="mt-2 text-4xl font-black text-white tabular-nums">D-{dday}</p>
+              <p class="mt-2 text-sm font-bold">{h.name}</p>
+              <p class="text-xs text-zinc-400">{h.date}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <!-- Golden weeks -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">2026 황금연휴 5개</h2>
+    <div class="space-y-2">
+      {goldenRanges.map((g) => (
+        <div class="rounded-xl border border-amber-500/40 bg-amber-500/5 p-4 flex items-center justify-between gap-3">
+          <div>
+            <p class="font-bold">{g.name}</p>
+            <p class="text-xs text-zinc-400 mt-0.5">{g.start} ~ {g.end}</p>
+          </div>
+          <span class="text-2xl font-black text-amber-300 tabular-nums">{g.days}일</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- All holidays table -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">전체 공휴일 ({holidays.length}개)</h2>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-900/60 text-zinc-500">
+          <tr>
+            <th class="px-4 py-2 text-left">날짜</th>
+            <th class="px-4 py-2 text-left">요일</th>
+            <th class="px-4 py-2 text-left">공휴일</th>
+            <th class="px-4 py-2 text-right">상태</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-800">
+          {holidays.map((h) => {
+            const dday = diffDays(h.date);
+            return (
+              <tr class={`${h.substitute ? 'bg-cyan-500/5' : ''} ${h.isWeekend ? 'opacity-60' : ''}`}>
+                <td class="px-4 py-2 font-mono text-xs">{h.date}</td>
+                <td class={`px-4 py-2 ${h.weekday === '토' || h.weekday === '일' ? 'text-rose-300' : ''}`}>{h.weekday}</td>
+                <td class="px-4 py-2 font-bold">
+                  {h.name}
+                  {h.substitute && <span class="ml-2 text-[9px] text-cyan-300 font-bold">대체</span>}
+                </td>
+                <td class="px-4 py-2 text-right text-xs">
+                  {dday > 0 ? `D-${dday}` : dday === 0 ? '오늘' : `D+${Math.abs(dday)}`}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>대체공휴일</strong>: 일요일과 겹치면 → 다음 평일이 휴일 (2022년 확대)</li>
+        <li>→ <strong>설날·추석</strong>: 토·일과 겹치면 1일만 대체 (3일 연속 X)</li>
+        <li>→ <strong>회사 휴무</strong>: 법정공휴일은 모든 회사 의무. 단 5인 미만 사업장은 적용 X (2022 개정)</li>
+        <li>→ <strong>임시공휴일</strong>: 대통령령 지정. 보통 한 해 1–2일 (지정 후 발표)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/dday/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">디데이 계산기 →</a>
+      <a href="/tools/leave-days/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">연차 계산기 →</a>
+      <a href="/deals/flights/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">황금연휴 항공권 →</a>
+    </div>
+  </section>
+</Layout>
