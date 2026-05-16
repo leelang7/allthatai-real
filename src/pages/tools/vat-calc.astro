@@ -1,0 +1,79 @@
+---
+/**
+ * /tools/vat-calc — 부가세 계산기 (10%).
+ *
+ * 한국 사업자·프리랜서 큰 검색량: "부가세 계산", "VAT 계산", "공급가액 부가세"
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="부가세 계산기 — 공급가액 ↔ 합계금액 ↔ 부가세 자동 분리"
+  description="공급가액 / 부가세 / 합계금액 — 어느 하나 입력하면 나머지 자동 계산. 한국 부가세율 10% 기준."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">부가세</span> 계산기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">공급가액·부가세·합계 셋 중 하나 입력하면 나머지 둘 자동.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">공급가액 (₩, 부가세 제외)</span>
+        <input id="supply" type="number" value="1000000" step="10000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-2xl font-black text-white tabular-nums" />
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-amber-300 mb-1.5">부가세 (₩, 10%)</span>
+        <input id="vat" type="number" value="100000" step="1000" class="w-full rounded-lg bg-zinc-900 border border-amber-500/40 focus:border-amber-500 outline-none px-4 py-3 text-2xl font-black text-amber-300 tabular-nums" />
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-emerald-300 mb-1.5">합계 금액 (₩, 공급가액 + 부가세)</span>
+        <input id="total" type="number" value="1100000" step="11000" class="w-full rounded-lg bg-zinc-900 border border-emerald-500/40 focus:border-emerald-500 outline-none px-4 py-3 text-2xl font-black text-emerald-300 tabular-nums" />
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>일반과세자</strong>: 부가세 10% 가산. 매입세액 공제 가능</li>
+        <li>→ <strong>간이과세자</strong>: 부가가치율 기준 (15–30%) — 연 매출 1억 미만</li>
+        <li>→ <strong>면세사업자</strong>: 부가세 부과 X (의료/교육/농축수산물 등)</li>
+        <li>→ <strong>부가세 신고</strong>: 1기 (1.1–6.30) → 7.25, 2기 (7.1–12.31) → 1.25</li>
+        <li>→ <strong>홈택스 직접 신고</strong>: 세무사 ₩30–50만 절약</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $supply = document.getElementById('supply');
+  const $vat = document.getElementById('vat');
+  const $total = document.getElementById('total');
+
+  let lastChanged = 'supply';
+
+  function recalc(source) {
+    lastChanged = source;
+    if (source === 'supply') {
+      const s = +$supply.value || 0;
+      $vat.value = Math.round(s * 0.1);
+      $total.value = Math.round(s * 1.1);
+    } else if (source === 'vat') {
+      const v = +$vat.value || 0;
+      $supply.value = Math.round(v * 10);
+      $total.value = Math.round(v * 11);
+    } else {
+      const t = +$total.value || 0;
+      $supply.value = Math.round(t / 1.1);
+      $vat.value = Math.round(t - t / 1.1);
+    }
+    if (window.va) { try { window.va('event', { name: 'vat_calc' }); } catch (_) {} }
+  }
+
+  $supply.addEventListener('input', () => recalc('supply'));
+  $vat.addEventListener('input', () => recalc('vat'));
+  $total.addEventListener('input', () => recalc('total'));
+</script>

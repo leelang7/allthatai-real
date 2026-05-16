@@ -1,0 +1,161 @@
+---
+/**
+ * /tools/parental-leave — 육아휴직 급여 계산기 (2026 기준).
+ *
+ * 큰 검색량: "육아휴직 급여", "육아휴직 통상임금", "육아휴직 6+6"
+ *
+ * 2026 기준:
+ *   - 1–3개월: 통상임금 100% (상한 250만/월)
+ *   - 4–6개월: 통상임금 80% (상한 200만/월)
+ *   - 7–12개월: 통상임금 80% (상한 160만/월)
+ *   - 부모 모두 사용 시 6+6 부모육아휴직 (각 6개월 100%)
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="육아휴직 급여 계산기 2026 — 통상임금 기준 + 6+6 부모육아휴직"
+  description="육아휴직 12개월치 월별 급여 자동 계산. 통상임금·상한액·6+6 부모육아휴직 옵션 반영."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      2026 고용보험법 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">육아휴직</span> 급여 계산
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">통상임금 + 휴직 개월 → 매월 받을 급여 + 사후지급금.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">월 통상임금 (세전, ₩)</span>
+        <input id="wage" type="number" value="3000000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">기본급 + 정기수당. 휴직 직전 평균</span>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">휴직 개월 수 (최대 12)</span>
+        <input id="months" type="number" value="12" min="1" max="12" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+      </label>
+      <label class="flex items-center gap-2 cursor-pointer text-sm">
+        <input id="parental6" type="checkbox" class="w-4 h-4 accent-emerald-500" />
+        <span class="text-zinc-300"><strong>6+6 부모육아휴직제</strong> 적용 — 부모 모두 사용 시 첫 6개월 통상임금 100% (상한 450만)</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">매월 즉시 지급 (75%)</p>
+        <p id="r-monthly" class="mt-2 text-3xl font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-5">
+        <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">사후지급 (25%, 복직 6개월 후)</p>
+        <p id="r-deferred" class="mt-2 text-3xl font-black text-amber-300 tabular-nums">-</p>
+      </div>
+    </div>
+    <div class="mt-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">총 수령액 (12개월 합)</p>
+      <p id="r-total" class="mt-2 text-4xl font-black text-cyan-300 tabular-nums">-</p>
+    </div>
+  </section>
+
+  <!-- Monthly breakdown -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-800 bg-zinc-900/60"><p class="text-sm font-black">월별 급여</p></div>
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-900/40"><tr><th class="px-4 py-2 text-left">월</th><th class="px-4 py-2 text-right">기준</th><th class="px-4 py-2 text-right">총 급여</th><th class="px-4 py-2 text-right">즉시 (75%)</th></tr></thead>
+        <tbody id="breakdown" class="divide-y divide-zinc-800"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">육아휴직 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>대상</strong>: 만 8세 또는 초2 이하 자녀 (부모 모두 가능)</li>
+        <li>→ <strong>최대 1년</strong>: 부모 각자 1년씩. 부모 모두 사용 시 자녀 1명당 최대 2년</li>
+        <li>→ <strong>6+6 부모육아휴직제</strong>: 2024 신설. 부모 모두 첫 6개월 통상임금 100% (월 450만 상한)</li>
+        <li>→ <strong>75% 즉시 + 25% 사후</strong>: 복직 후 6개월 근무 시 사후 지급 (퇴사 시 X)</li>
+        <li>→ <strong>휴직 종료 후</strong>: 동일·유사 직무 복직 보장</li>
+        <li>→ <strong>육아기 근로시간 단축</strong>: 휴직 대신 주 15–35시간 단축 근무 (만 12세 이하)</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function calc() {
+    const wage = +$('wage').value || 0;
+    const months = Math.min(12, Math.max(1, +$('months').value || 0));
+    const parental6 = $('parental6').checked;
+
+    const breakdown = [];
+    let totalGross = 0;
+
+    for (let m = 1; m <= months; m++) {
+      let monthly = 0;
+      let basis = '';
+      let upperLimit = 0;
+
+      if (parental6 && m <= 6) {
+        // 6+6 부모육아휴직제 — 통상임금 100% (상한 450만)
+        upperLimit = 4500000;
+        monthly = Math.min(wage, upperLimit);
+        basis = '6+6 100%';
+      } else if (m <= 3) {
+        upperLimit = 2500000;
+        monthly = Math.min(wage, upperLimit);
+        basis = '100%';
+      } else if (m <= 6) {
+        upperLimit = 2000000;
+        monthly = Math.min(wage * 0.8, upperLimit);
+        basis = '80% (상한 200만)';
+      } else {
+        upperLimit = 1600000;
+        monthly = Math.min(wage * 0.8, upperLimit);
+        basis = '80% (상한 160만)';
+      }
+
+      // 하한선 70만원
+      monthly = Math.max(monthly, 700000);
+
+      const immediate = monthly * 0.75;
+      breakdown.push({ month: m, basis, total: monthly, immediate });
+      totalGross += monthly;
+    }
+
+    const totalImmediate = totalGross * 0.75;
+    const totalDeferred = totalGross * 0.25;
+
+    $('r-monthly').textContent = fmt(totalImmediate / months) + '/월';
+    $('r-deferred').textContent = fmt(totalDeferred);
+    $('r-total').textContent = fmt(totalGross);
+
+    $('breakdown').innerHTML = breakdown.map((b) => `
+      <tr>
+        <td class="px-4 py-2">${b.month}개월차</td>
+        <td class="px-4 py-2 text-right text-xs text-zinc-400">${b.basis}</td>
+        <td class="px-4 py-2 text-right font-bold tabular-nums">${fmt(b.total)}</td>
+        <td class="px-4 py-2 text-right text-emerald-300 tabular-nums">${fmt(b.immediate)}</td>
+      </tr>
+    `).join('');
+
+    if (window.va) { try { window.va('event', { name: 'parental_calc', data: { wage, months } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'parental_calc', { value: totalGross, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  ['wage', 'months', 'parental6'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>
