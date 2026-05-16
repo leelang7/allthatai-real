@@ -1,0 +1,235 @@
+---
+/**
+ * /jeonse/hug-simulator — HUG 안심전세보증 가입 가능 여부 시뮬레이션.
+ *
+ * HUG 가입 조건:
+ * 1. 보증금이 일정 한도 이하 (서울 9억, 광역시 7억, 그 외 5억 — 2024 기준)
+ * 2. 보증금이 시세 90% 이하 (단독·다세대) / 100% (아파트)
+ * 3. 등기부등본 깨끗 (압류·신탁 X)
+ * 4. 임대인 동의 (90일 이내 자동 동의)
+ *
+ * 수수료: 보증금 × 보증료율 (0.115% ~ 0.154%)
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="HUG 안심전세보증 가입 가능 시뮬레이션 + 보증료 자동 계산"
+  description="HUG 안심전세보증 가입 가능 여부 + 보증료 자동 계산. 보증금·시세·지역·주택 종류 입력 → 즉시 결과."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/jeonse/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 전세사기 방지</a>
+    <h1 class="mt-4 text-3xl sm:text-4xl font-black leading-tight">
+      HUG <span class="text-gradient">안심전세보증</span> 가능 여부
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      가입 가능 + 수수료 자동 계산. 가입하면 임대인 부도 시 보증금 100% 회수.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">지역</span>
+          <select id="region" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-white">
+            <option value="seoul">서울특별시</option>
+            <option value="metro">광역시 (부산·대구·인천 등)</option>
+            <option value="other">기타 시·군·도</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 종류</span>
+          <select id="houseType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-white">
+            <option value="apt">아파트</option>
+            <option value="house">단독·다세대·다가구</option>
+            <option value="officetel">오피스텔 (주거용)</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">보증금 (₩)</span>
+          <input id="deposit" type="number" value="300000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">매매가 (KB시세, ₩)</span>
+          <input id="market" type="number" value="400000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+      </div>
+
+      <div class="space-y-2 pt-2 border-t border-zinc-800">
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input id="clean" type="checkbox" checked class="w-4 h-4 accent-cyan-500" />
+          <span>등기부등본 깨끗 (압류·가압류·신탁 X)</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input id="taxClean" type="checkbox" checked class="w-4 h-4 accent-cyan-500" />
+          <span>임대인 국세 체납 없음</span>
+        </label>
+        <label class="flex items-center gap-2 text-sm cursor-pointer">
+          <input id="permitted" type="checkbox" checked class="w-4 h-4 accent-cyan-500" />
+          <span>주택 합법 (건축물대장 — 불법 증축·용도위반 X)</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div id="result-panel" class="rounded-3xl border-2 p-8" style="border-color: #71717a;">
+      <p id="r-status-label" class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">가입 가능 여부</p>
+      <p id="r-status" class="mt-2 text-4xl font-black">-</p>
+      <div id="r-criteria" class="mt-5 space-y-2 text-sm"></div>
+      <div id="r-fee" class="mt-5"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">HUG 안심전세보증 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>보증료율</strong>: 0.115% (아파트) ~ 0.154% (단독) — 보증금의 0.1–0.2%</li>
+        <li>→ <strong>가입 한도</strong>: 서울 9억 / 광역시 7억 / 기타 5억 (2024)</li>
+        <li>→ <strong>전세가율 한도</strong>: 아파트 100% / 단독·다세대 90%</li>
+        <li>→ <strong>임대인 동의</strong>: 90일 이내 답 없으면 자동 동의 처리</li>
+        <li>→ <strong>지급 받는 법</strong>: 임대인 부도·잠적 시 HUG가 보증금 대신 지급 → 임대인 구상권</li>
+        <li>→ <strong>가입 시기</strong>: 계약 후 잔금일 전 또는 잔금일 후 1년 이내</li>
+        <li>→ <strong>대체 옵션</strong>: SGI 서울보증 (한도 ↑, 수수료 ↑)</li>
+      </ul>
+      <a href="https://www.khug.or.kr" target="_blank" rel="noopener" class="mt-5 inline-block rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-5 py-2.5 text-sm transition">
+        HUG 안심전세 공식 →
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  // 한도 (만원 단위 → 원)
+  const limits = {
+    seoul: 900000000,
+    metro: 700000000,
+    other: 500000000,
+  };
+
+  // 전세가율 한도 (시세 대비)
+  const ltvLimit = {
+    apt: 1.00,
+    house: 0.90,
+    officetel: 0.90,
+  };
+
+  // 보증료율 (연간, 보증금 대비)
+  const feeRate = {
+    apt: 0.00115,
+    house: 0.00154,
+    officetel: 0.00128,
+  };
+
+  function calc() {
+    const region = $('region').value;
+    const houseType = $('houseType').value;
+    const deposit = +$('deposit').value || 0;
+    const market = +$('market').value || 0;
+    const clean = $('clean').checked;
+    const taxClean = $('taxClean').checked;
+    const permitted = $('permitted').checked;
+
+    const criteria = [];
+    let pass = true;
+
+    // 1. 한도
+    const limit = limits[region];
+    if (deposit <= limit) {
+      criteria.push({ ok: true, text: `보증금 한도 통과 (${fmt(limit)} 이하)` });
+    } else {
+      criteria.push({ ok: false, text: `⚠ 한도 초과 (${region === 'seoul' ? '서울 9억' : region === 'metro' ? '광역시 7억' : '기타 5억'} 한도)` });
+      pass = false;
+    }
+
+    // 2. 전세가율
+    if (market > 0) {
+      const ratio = deposit / market;
+      const limit2 = ltvLimit[houseType];
+      if (ratio <= limit2) {
+        criteria.push({ ok: true, text: `전세가율 통과 (${(ratio * 100).toFixed(1)}% ≤ ${(limit2 * 100).toFixed(0)}%)` });
+      } else {
+        criteria.push({ ok: false, text: `⚠ 전세가율 초과 (${(ratio * 100).toFixed(1)}% > ${(limit2 * 100).toFixed(0)}% 한도)` });
+        pass = false;
+      }
+    }
+
+    // 3. 등기 깨끗
+    if (clean) {
+      criteria.push({ ok: true, text: '등기부등본 깨끗 ✓' });
+    } else {
+      criteria.push({ ok: false, text: '⚠ 등기에 압류·가압류·신탁 → 가입 불가' });
+      pass = false;
+    }
+
+    if (taxClean) {
+      criteria.push({ ok: true, text: '임대인 국세 체납 없음 ✓' });
+    } else {
+      criteria.push({ ok: false, text: '⚠ 국세 체납 — 보증금 후순위 → 가입 어려움' });
+      pass = false;
+    }
+
+    if (permitted) {
+      criteria.push({ ok: true, text: '건축물대장 합법 ✓' });
+    } else {
+      criteria.push({ ok: false, text: '⚠ 불법 증축·용도위반 → 가입 불가' });
+      pass = false;
+    }
+
+    // Status
+    const $st = $('r-status');
+    if (pass) {
+      $st.textContent = '✓ 가입 가능';
+      $st.style.color = '#10b981';
+      $('result-panel').style.borderColor = '#10b981';
+    } else {
+      $st.textContent = '✗ 가입 어려움';
+      $st.style.color = '#ef4444';
+      $('result-panel').style.borderColor = '#ef4444';
+    }
+
+    // Criteria
+    $('r-criteria').innerHTML = criteria.map((c) =>
+      `<div class="flex items-start gap-2"><span class="${c.ok ? 'text-emerald-300' : 'text-rose-300'}">${c.ok ? '✓' : '✗'}</span><span class="${c.ok ? 'text-zinc-300' : 'text-rose-300'}">${c.text}</span></div>`
+    ).join('');
+
+    // Fee
+    if (pass) {
+      const fee = deposit * feeRate[houseType];
+      $('r-fee').innerHTML = `
+        <div class="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4">
+          <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">예상 보증료 (연)</p>
+          <p class="mt-1 text-3xl font-black text-emerald-300 tabular-nums">${fmt(fee)}</p>
+          <p class="mt-2 text-xs text-zinc-300">보증금 ${(feeRate[houseType] * 100).toFixed(3)}% — 임대 기간 동안 1회 납부 (재계약 시 갱신)</p>
+          <a href="https://www.khug.or.kr" target="_blank" rel="noopener" class="mt-3 inline-block text-xs text-cyan-300 hover:text-cyan-200 underline">HUG 신청 →</a>
+        </div>
+      `;
+    } else {
+      $('r-fee').innerHTML = `
+        <div class="rounded-xl border border-rose-500/40 bg-rose-500/10 p-4">
+          <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">대안</p>
+          <p class="mt-2 text-sm text-zinc-300">HUG 가입 불가 시 SGI 서울보증 검토 (한도 ↑, 수수료 ↑). 또는 보증금 인하 협상.</p>
+          <div class="mt-3 flex gap-2 flex-wrap">
+            <a href="https://www.sgic.co.kr" target="_blank" rel="noopener" class="text-xs text-cyan-300 hover:text-cyan-200 underline">SGI 서울보증 →</a>
+            <a href="/jeonse/risk-calc/" class="text-xs text-cyan-300 hover:text-cyan-200 underline">위험 점수 다시 →</a>
+          </div>
+        </div>
+      `;
+    }
+
+    if (window.va) { try { window.va('event', { name: 'hug_sim', data: { pass } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'hug_sim', { pass: String(pass), event_category: 'tools' }); } catch (_) {} }
+  }
+
+  ['region', 'houseType', 'deposit', 'market', 'clean', 'taxClean', 'permitted'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>
