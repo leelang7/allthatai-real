@@ -1,0 +1,83 @@
+---
+/**
+ * /tools/car-price — 중고차 시세 비교 + 직거래 vs 딜러.
+ *
+ * 한국 큰 검색량 + 보험 어필 funnel.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+import CoupangSearch from '../../components/CoupangSearch.astro';
+
+const platforms = [
+  { name: 'KB차차차', url: 'https://www.kbchachacha.com', desc: 'KB금융 — 시세 보수적·신뢰 1순위', strength: '실거래 누적 데이터' },
+  { name: '엔카닷컴', url: 'https://www.encar.com', desc: '국내 1위 — 매물 가장 많음', strength: '딜러 검증 + 점검 보증' },
+  { name: '헤이딜러', url: 'https://www.heydealer.com', desc: '딜러 경매 — 본인 차 비교 견적', strength: '직접 거래 + 출장' },
+  { name: '직카', url: 'https://www.jicaca.com', desc: '개인 직거래 — 중개수수료 0', strength: '가성비 최고' },
+  { name: '클라우드원격검사', url: 'https://www.cloudchacha.kr', desc: '구매 전 차량 점검 출장', strength: '사고이력·미세결함 발견' },
+];
+
+const tips = [
+  { title: '시세 조회 — 3곳 동시', desc: 'KB차차차 + 엔카 + 헤이딜러 동일 차종 시세 비교. ₩100–300만 차이 흔함.' },
+  { title: '사고이력 확인 — 카히스토리', desc: 'carhistory.or.kr — 정부 공식. 본인 차 무료, 매수 차 ₩1,000.' },
+  { title: '주행거리 vs 연식 vs 정비이력', desc: '연 1.5–2만km 이하 = 정상. 정비기록부에 큰 정비 (엔진/미션 교체) 있는지 확인.' },
+  { title: '취득세·등록세 별도', desc: '차량가의 4–7% 추가. 견적 비교 시 포함해서 계산.' },
+  { title: '직거래 vs 딜러 차익', desc: '딜러 마진 10–20%. 직거래로 사면 ₩200–500만 절약 가능 (단 리스크 본인 부담).' },
+];
+---
+<Layout
+  title="중고차 시세 비교 + 직거래 vs 딜러 가이드 — 한국 5개 플랫폼"
+  description="KB차차차·엔카·헤이딜러·직카·클라우드원격검사 5개 비교. 시세 + 사고이력 + 직거래 절약 팁."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">중고차 시세</span> 비교
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      5개 플랫폼 + 사고이력 + 직거래 절약 팁.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">5개 시세 플랫폼 — 동시 비교</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {platforms.map((p) => (
+        <a href={p.url} target="_blank" rel="sponsored noopener nofollow" class="card-lift block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-5 transition">
+          <p class="font-black">{p.name}</p>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">{p.desc}</p>
+          <p class="mt-2 text-[10px] text-emerald-300">강점: {p.strength}</p>
+          <p class="mt-2 text-xs text-cyan-300 font-bold">사이트 →</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">절약 + 사기 방지 팁 5개</h2>
+    <div class="space-y-3">
+      {tips.map((t, i) => (
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">#{String(i + 1).padStart(2, '0')}</p>
+          <p class="mt-1 font-black">{t.title}</p>
+          <p class="mt-2 text-sm text-zinc-300 leading-relaxed">{t.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-orange-500/5 p-6">
+      <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">차량 구매 후 — 보험 견적</p>
+      <h2 class="text-xl font-black">자동차 보험 9개사 동시 견적</h2>
+      <p class="mt-3 text-sm text-zinc-300">신차·중고차 등록 직후 30일 안에 가입. 9개 보험사 견적 동시 비교.</p>
+      <a href="/tools/auto-insurance/" class="mt-5 inline-block rounded-lg bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-5 py-2.5 text-sm transition">
+        자동차 보험 비교 →
+      </a>
+    </div>
+  </section>
+
+  <CoupangSearch
+    title="차량 관련 액세서리 — 쿠팡"
+    subtitle="블랙박스·하이패스·세차용품·발판매트"
+    placeholder="예: 블랙박스, 하이패스, 차량 거치대"
+  />
+</Layout>

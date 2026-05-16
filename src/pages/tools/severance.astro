@@ -1,0 +1,152 @@
+---
+/**
+ * /tools/severance — 퇴직금 계산기 + 퇴직소득세.
+ * 한국 큰 검색량 + 매년 수십만 명이 사용.
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="퇴직금 계산기 — 평균임금 기준 + 퇴직소득세 자동"
+  description="입사일·퇴사일·최근 3개월 급여 입력 → 퇴직금 + 퇴직소득세 자동. 근로기준법 평균임금 기준 (1년당 30일분)."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      근로기준법 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">퇴직금</span> 계산기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      근속년수 + 평균임금 → 퇴직금 + 퇴직소득세 + 세후 수령액.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">입사일</span>
+          <input id="hired" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-white" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">퇴사일</span>
+          <input id="left" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-white" />
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">최근 3개월 평균 월급 (세전, ₩)</span>
+          <input id="salary" type="number" value="4000000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">기본급 + 식대 + 상여금 평균 (퇴직 직전 3개월)</span>
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연간 상여금 (보너스, ₩)</span>
+          <input id="bonus" type="number" value="4000000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-lg text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">정기상여·명절상여 등 (12분의 3 가산 — 평균임금 포함)</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-8">
+      <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">세후 퇴직금</p>
+      <p id="r-net" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-detail" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-800 bg-zinc-900/60"><p class="text-sm font-black">계산 내역</p></div>
+      <div class="divide-y divide-zinc-800">
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">근속년수</span><span id="b-years" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">1일 평균임금</span><span id="b-daily" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">퇴직금 (30일 × 근속년수)</span><span id="b-gross" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-rose-300">퇴직소득세</span><span id="b-tax" class="font-bold text-rose-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-rose-300">지방소득세 (10%)</span><span id="b-local" class="font-bold text-rose-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3 bg-emerald-500/10"><span class="text-sm font-black text-emerald-300">세후 수령액</span><span id="b-net" class="font-black text-emerald-300 tabular-nums">-</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>1년 미만 퇴사</strong>: 퇴직금 발생 X (근로기준법)</li>
+        <li>→ <strong>퇴직소득세</strong>: 근속년수 길수록 세율 낮음 (장기근속 우대)</li>
+        <li>→ <strong>IRP 이체</strong>: 퇴직금을 IRP에 입금하면 과세이연 + 연금 수령 시 분리과세</li>
+        <li>→ <strong>중간정산</strong>: 본인 사정 (주택 매입·의료비 등) 시 가능. 그 후 퇴직금 별도 계산</li>
+        <li>→ <strong>퇴직금 vs 퇴직연금</strong>: 회사가 DC형/DB형 가입하면 그 운영실적 따라</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function calc() {
+    const hired = new Date($('hired').value);
+    const left = new Date($('left').value);
+    const salary = +$('salary').value || 0;
+    const bonus = +$('bonus').value || 0;
+
+    if (isNaN(hired.getTime()) || isNaN(left.getTime()) || left <= hired) return;
+
+    const ms = left - hired;
+    const days = ms / (24 * 60 * 60 * 1000);
+    const years = days / 365.25;
+
+    if (years < 1) {
+      $('r-net').textContent = '없음';
+      $('r-detail').textContent = '근속 1년 미만 — 퇴직금 발생 안 함 (근로기준법)';
+      return;
+    }
+
+    // 1일 평균임금 = (3개월 임금 + 상여 3/12) / 90일
+    const threeMonthSalary = salary * 3;
+    const bonusPortion = bonus * 3 / 12;
+    const dailyAverage = (threeMonthSalary + bonusPortion) / 90;
+
+    // 퇴직금 = 30일 × 근속일수/365
+    const gross = dailyAverage * 30 * (days / 365);
+
+    // 퇴직소득세 (단순화 — 근속연수공제 + 환산급여공제)
+    // 정확한 계산은 매우 복잡. 여기서는 평균세율 추정
+    const yearsRounded = Math.round(years * 10) / 10;
+    let taxRate;
+    if (yearsRounded <= 5) taxRate = 0.08;
+    else if (yearsRounded <= 10) taxRate = 0.06;
+    else if (yearsRounded <= 20) taxRate = 0.045;
+    else taxRate = 0.03;
+
+    const tax = gross * taxRate;
+    const localTax = tax * 0.10;
+    const totalTax = tax + localTax;
+    const net = gross - totalTax;
+
+    $('b-years').textContent = years.toFixed(1) + '년';
+    $('b-daily').textContent = fmt(dailyAverage);
+    $('b-gross').textContent = fmt(gross);
+    $('b-tax').textContent = '−' + fmt(tax);
+    $('b-local').textContent = '−' + fmt(localTax);
+    $('b-net').textContent = fmt(net);
+
+    $('r-net').textContent = fmt(net);
+    $('r-detail').textContent = `근속 ${years.toFixed(1)}년 · 퇴직소득세 ${fmt(totalTax)} (실효세율 ${((totalTax / gross) * 100).toFixed(1)}%)`;
+
+    if (window.va) { try { window.va('event', { name: 'severance_calc', data: { years: yearsRounded } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'severance_calc', { value: net, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  // Default: 3 years
+  const today = new Date();
+  const threeYearsAgo = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
+  $('hired').value = threeYearsAgo.toISOString().slice(0, 10);
+  $('left').value = today.toISOString().slice(0, 10);
+
+  ['hired', 'left', 'salary', 'bonus'].forEach((id) => $(id).addEventListener('input', calc));
+  calc();
+</script>

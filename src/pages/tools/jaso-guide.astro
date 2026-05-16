@@ -1,0 +1,177 @@
+---
+/**
+ * /tools/jaso-guide — 자기소개서 AI 작성 가이드 + 한국 인기 AI 도구 어필.
+ *
+ * 큰 검색량 (구직 시즌): "자소서 AI", "자기소개서 작성법", "ChatGPT 자소서"
+ * Claude/ChatGPT 어필 (어필 program 없지만 traffic magnet)
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+
+const aiTools = [
+  { name: 'Claude (Anthropic)', desc: '긴 텍스트 분석·정확성 1위 — 자소서 1000자 이상 추천', strength: 'Sonnet 무제한, 한국어 강함', affKey: 'claude' as const },
+  { name: 'ChatGPT (OpenAI)', desc: 'GPT-4o — 가장 대중적 + 한국 결제 간편', strength: 'Plus $20 — DALL-E + Voice', affKey: 'chatgpt' as const },
+  { name: 'Gemini Advanced', desc: 'Google Workspace 연동 + 한국어 최적', strength: 'Google Pay 한국카드 가장 잘 통과', affKey: null },
+  { name: 'Notion AI', desc: '자소서 + 포트폴리오 한 곳에 정리', strength: '학생 무료 (.ac.kr 인증)', affKey: 'notion' as const },
+];
+
+const prompts = [
+  {
+    title: '성장과정 — 핵심 사건 3개 추출',
+    prompt: `다음 정보를 바탕으로 성장과정 자기소개서를 500자로 작성해줘:
+- 가정 환경: [본인 입력]
+- 인생 핵심 경험 3개: [본인 입력]
+- 현재 지원 회사 직무: [본인 입력]
+
+조건:
+- 시간 순서 아닌 핵심 경험 중심
+- "저는"으로 시작 X
+- 결론에 직무 연관성 한 줄
+- 한국 회사 자소서 톤 (겸손 + 구체)`,
+  },
+  {
+    title: '지원동기 — STAR 기법',
+    prompt: `STAR 기법으로 지원동기 자기소개서 600자 작성:
+- 회사 이름: [입력]
+- 직무: [입력]
+- 본인 강점 3개: [입력]
+- 본인 약점 1개 + 보완 노력: [입력]
+
+조건:
+- Situation: 본인 경험 1개
+- Task: 그 상황의 역할
+- Action: 본인이 한 행동 (수치 포함)
+- Result: 결과 (수치)
+- 마지막 한 문장: 회사 비전과 본인 연결`,
+  },
+  {
+    title: '입사 후 포부 — 3년·5년 계획',
+    prompt: `입사 후 포부 자소서 500자:
+- 회사: [입력]
+- 본인이 지원한 직무: [입력]
+- 3년 후 목표 (직급 / 스킬): [입력]
+- 5년 후 목표 (조직 기여): [입력]
+
+조건:
+- 1년차: 학습·적응 구체화
+- 3년차: 본인이 책임지는 영역 명시
+- 5년차: 회사·팀 기여
+- 막연한 표현 (열심히 / 최선) X — 구체 행동 동사`,
+  },
+];
+
+const tips = [
+  '회사명 + 인재상 키워드 자소서에 3회 자연스럽게 반복',
+  '수치로 증명 (몇 명·몇 %·몇 시간 등) — 추상 표현 금지',
+  'AI 결과 그대로 X — 본인 경험에 맞춰 30% 수정',
+  '맞춤법 검사 — 네이버 맞춤법 검사기 무료 (search.naver.com)',
+  '글자 수 — 자수 카운터 정확히 (공백 포함/제외 회사 별 다름)',
+  '제출 전 사람 1명 이상 읽기 (가족·친구·취업 멘토)',
+];
+---
+<Layout
+  title="자기소개서 AI 작성 가이드 — Claude / ChatGPT / Gemini 한국어 자소서"
+  description="Claude·ChatGPT·Gemini 자소서 작성 프롬프트 3개 + 한국 자소서 톤 + 6가지 작성 팁. 그대로 복붙해서 시작."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      AI 자소서 작성
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">AI 자소서</span> 작성 가이드
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      Claude/ChatGPT/Gemini로 한국 자소서 — 그대로 복붙하는 프롬프트 3개 + 톤·맞춤법 팁.
+    </p>
+  </section>
+
+  <!-- 4 AI tools comparison -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">한국 자소서에 적합한 AI 4개</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {aiTools.map((t) => (
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <p class="font-black">{t.name}</p>
+          <p class="mt-2 text-sm text-zinc-300 leading-relaxed">{t.desc}</p>
+          <p class="mt-2 text-xs text-emerald-300">{t.strength}</p>
+          <div class="mt-3">
+            {t.affKey ? (
+              <AffiliateLink to={t.affKey} label="가입 →" />
+            ) : (
+              <a href="https://gemini.google.com/advanced" target="_blank" rel="noopener" class="text-xs text-cyan-300 hover:text-cyan-200 underline">사이트 →</a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Prompts to copy -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">복붙 프롬프트 3개</h2>
+    <p class="text-xs text-zinc-500 mb-4">아래 프롬프트 복사 → AI 도구에 붙여넣고 [본인 입력] 부분만 채움</p>
+    <div class="space-y-4">
+      {prompts.map((p, i) => (
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+          <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900/60">
+            <p class="text-sm font-bold">#{i + 1}. {p.title}</p>
+            <button type="button" class="copy-btn rounded bg-zinc-800 hover:bg-cyan-500 text-zinc-300 hover:text-zinc-950 text-xs font-bold px-3 py-1 transition" data-target={`p-${i}`}>
+              📋 복사
+            </button>
+          </div>
+          <pre class="overflow-x-auto p-4 text-xs leading-relaxed bg-zinc-950/50 whitespace-pre-wrap"><code id={`p-${i}`}>{p.prompt}</code></pre>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">한국 자소서 작성 팁 6개</h2>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <ul class="space-y-2 text-sm text-zinc-300">
+        {tips.map((t) => (
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-300 mt-0.5">✓</span>
+            <span>{t}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ AI 자소서 — 주의</p>
+      <p class="text-xs leading-relaxed">
+        AI가 쓴 자소서를 그대로 제출하면 표절 위험 + 진정성 X. <strong>30–50% 본인 경험으로 수정</strong>해야 통과.
+        대기업·공기업은 AI 글 판별 도구 사용 — GPT 톤 그대로면 감점 가능.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const t = btn.getAttribute('data-target');
+      const code = document.getElementById(t);
+      if (!code) return;
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        const original = btn.innerHTML;
+        btn.innerHTML = '✓ 복사됨';
+        btn.classList.add('bg-emerald-500', 'text-zinc-950');
+        btn.classList.remove('bg-zinc-800', 'text-zinc-300');
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.classList.remove('bg-emerald-500', 'text-zinc-950');
+          btn.classList.add('bg-zinc-800', 'text-zinc-300');
+        }, 1500);
+      } catch (_) {}
+      if (window.va) { try { window.va('event', { name: 'jaso_prompt_copy', data: { prompt: t } }); } catch (_) {} }
+      if (window.gtag) { try { window.gtag('event', 'jaso_prompt_copy', { event_category: 'tools' }); } catch (_) {} }
+    });
+  });
+</script>
