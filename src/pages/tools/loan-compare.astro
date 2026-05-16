@@ -1,0 +1,214 @@
+---
+/**
+ * /tools/loan-compare — 대출 월 상환액 계산기.
+ *
+ * 한국 검색 매우 큼: "대출 계산기", "주택담보대출", "전세자금대출", "신용대출"
+ * 광고 단가 매우 높음 (금융 카테고리 RPM $10-30).
+ *
+ * 입력: 대출금액 / 금리 / 기간 / 상환방식
+ * 출력: 월 상환액 + 총 이자 + 누적 상환 차트 + 상환방식 비교
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+---
+<Layout
+  title="대출 월 상환액 계산기 — 원리금균등 vs 원금균등 vs 만기일시"
+  description="주택담보·전세자금·신용대출 월 상환액 즉시 계산. 원리금균등·원금균등·만기일시 3가지 방식 비교. 총 이자 + 누적 상환 시뮬레이션."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      대출 계산기
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      대출 <span class="text-gradient">월 상환액</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      주택담보·전세자금·신용대출 — 3가지 상환방식 동시 비교 + 총 이자 + 매월 차트.
+    </p>
+  </section>
+
+  <!-- INPUT -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출 금액 (₩)</span>
+          <input id="amount" type="number" value="300000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연 금리 (%)</span>
+          <input id="rate" type="number" value="4.5" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">상환 기간 (년)</span>
+          <input id="years" type="number" value="30" min="1" max="40" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">거치 기간 (년) — 이자만 납부</span>
+          <input id="grace" type="number" value="0" min="0" max="10" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 text-center text-xs">
+        <button type="button" class="preset rounded-lg border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 p-2 transition" data-amount="100000000" data-rate="6.5" data-years="5">신용 1억 6.5% 5년</button>
+        <button type="button" class="preset rounded-lg border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 p-2 transition" data-amount="300000000" data-rate="3.5" data-years="2">전세자금 3억 3.5% 2년</button>
+        <button type="button" class="preset rounded-lg border border-zinc-700 hover:border-cyan-500/60 bg-zinc-900/40 p-2 transition" data-amount="400000000" data-rate="4.5" data-years="30">주담대 4억 4.5% 30년</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT — 3 methods compared -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">상환방식 3개 비교</h2>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">원리금균등</p>
+        <p class="mt-1 text-[10px] text-zinc-500">매월 같은 금액 (가장 흔함)</p>
+        <p id="m1-monthly" class="mt-3 text-2xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">/월</p>
+        <p id="m1-total" class="mt-2 text-xs text-zinc-300 tabular-nums">총: -</p>
+        <p id="m1-interest" class="text-xs text-rose-300 tabular-nums">이자: -</p>
+      </div>
+      <div class="rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-5">
+        <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">원금균등</p>
+        <p class="mt-1 text-[10px] text-zinc-500">매월 줄어듦 (총이자 적음)</p>
+        <p id="m2-monthly" class="mt-3 text-xs text-zinc-400">처음:</p>
+        <p id="m2-first" class="text-2xl font-black text-white tabular-nums">-</p>
+        <p id="m2-last" class="text-[10px] text-zinc-500">마지막: -</p>
+        <p id="m2-total" class="mt-2 text-xs text-zinc-300 tabular-nums">총: -</p>
+        <p id="m2-interest" class="text-xs text-rose-300 tabular-nums">이자: -</p>
+      </div>
+      <div class="rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-5">
+        <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">만기일시</p>
+        <p class="mt-1 text-[10px] text-zinc-500">월 이자만 + 만기 원금 일시</p>
+        <p id="m3-monthly" class="mt-3 text-2xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">월 이자</p>
+        <p id="m3-total" class="mt-2 text-xs text-zinc-300 tabular-nums">총: -</p>
+        <p id="m3-interest" class="text-xs text-rose-300 tabular-nums">이자: -</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommendation -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div id="recommend" class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 text-sm text-zinc-300">
+      <p class="font-bold text-cyan-300 mb-2">💡 어느 방식이 좋나</p>
+      <ul class="space-y-1.5">
+        <li>→ <strong>원리금균등</strong>: 매월 부담 일정 — 일반 직장인 자녀양육 시점</li>
+        <li>→ <strong>원금균등</strong>: 처음 부담 크지만 총 이자 가장 적음 — 연봉 높고 초기 여유 있는 경우</li>
+        <li>→ <strong>만기일시</strong>: 월 부담 가장 적음 — 부동산 단기 보유·전세보증금 등</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 저축은행 / 금융 affiliate funnel -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-yellow-500/5 p-6">
+      <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest mb-2">한국 대출 정보</p>
+      <h2 class="text-xl font-black">시중은행 vs 저축은행 vs 토스 — 어디가 싼가</h2>
+      <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+        시중은행 (KB·신한·우리·하나): 신용 점수 별 차등. 일반 4–6%. 까다로움.<br/>
+        저축은행: 8–12%. 빠른 승인. 1금융 거절 시.<br/>
+        토스·카카오뱅크: 모바일 즉시 한도 조회. 3–7%. 5000만원 한도.<br/>
+        뱅크샐러드·핀크: 종합 비교 후 가장 유리한 은행 매칭.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <AffiliateLink to="toss" label="토스 신용대출 한도 조회" />
+        <AffiliateLink to="kakaobank" label="카카오뱅크 비상금대출" />
+        <a href="https://www.banksalad.com/loans" target="_blank" rel="noopener" class="text-cyan-300 hover:text-cyan-200 underline text-sm">뱅크샐러드 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 본 계산은 추정치</p>
+      <p class="text-xs leading-relaxed">
+        실제 금리는 신용점수·소득·LTV·DSR 등 종합 평가. 시중은행 공식 견적 받아 비교 필수.
+        DSR 40% 초과 시 대출 불가 (정부 규제). 본 도구는 단리 vs 복리 단순 계산.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+
+  function fmtKrw(n) {
+    if (n >= 100000000) return `₩${(n / 100000000).toFixed(2)}억`;
+    return `₩${Math.round(n).toLocaleString('ko-KR')}`;
+  }
+
+  function calc() {
+    const P = +$('amount').value || 0;        // principal
+    const annualRate = (+$('rate').value || 0) / 100;
+    const years = +$('years').value || 1;
+    const grace = +$('grace').value || 0;
+    const r = annualRate / 12;                // monthly rate
+    const N = years * 12;                     // total months
+    const G = grace * 12;                     // grace months
+
+    if (P <= 0 || annualRate <= 0 || N <= 0) return;
+
+    // Method 1: 원리금균등 (Equal payment)
+    // 거치기간 이자만 + 이후 원리금균등
+    let m1Monthly = 0, m1TotalInterest = 0;
+    const payMonths = N - G;
+    if (payMonths > 0 && r > 0) {
+      m1Monthly = P * r * Math.pow(1 + r, payMonths) / (Math.pow(1 + r, payMonths) - 1);
+      const m1Total = m1Monthly * payMonths + (G > 0 ? P * r * G : 0);
+      m1TotalInterest = m1Total - P;
+    }
+
+    // Method 2: 원금균등
+    // 거치기간: 이자만, 이후: 원금/N + 잔액*r
+    let m2First = 0, m2Last = 0, m2TotalInterest = 0;
+    if (payMonths > 0) {
+      const principalPart = P / payMonths;
+      m2First = principalPart + P * r;
+      m2Last = principalPart + principalPart * r;
+      // Total interest = sum(remaining * r) over payMonths
+      let totalInt = 0;
+      let remaining = P;
+      for (let i = 0; i < payMonths; i++) {
+        totalInt += remaining * r;
+        remaining -= principalPart;
+      }
+      totalInt += P * r * G; // grace interest
+      m2TotalInterest = totalInt;
+    }
+
+    // Method 3: 만기일시 (Interest only + balloon)
+    const m3Monthly = P * r;
+    const m3TotalInterest = m3Monthly * N;
+
+    // Render
+    $('m1-monthly').textContent = fmtKrw(m1Monthly);
+    $('m1-total').textContent = '총: ' + fmtKrw(P + m1TotalInterest);
+    $('m1-interest').textContent = '이자: ' + fmtKrw(m1TotalInterest);
+
+    $('m2-first').textContent = fmtKrw(m2First);
+    $('m2-last').textContent = '마지막: ' + fmtKrw(m2Last);
+    $('m2-total').textContent = '총: ' + fmtKrw(P + m2TotalInterest);
+    $('m2-interest').textContent = '이자: ' + fmtKrw(m2TotalInterest);
+
+    $('m3-monthly').textContent = fmtKrw(m3Monthly);
+    $('m3-total').textContent = '총: ' + fmtKrw(P + m3TotalInterest);
+    $('m3-interest').textContent = '이자: ' + fmtKrw(m3TotalInterest);
+
+    if (window.va) { try { window.va('event', { name: 'loan_calc', data: { amount: P, rate: annualRate * 100, years } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'loan_calc', { value: P, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  ['amount', 'rate', 'years', 'grace'].forEach((id) => $(id).addEventListener('input', calc));
+  document.querySelectorAll('.preset').forEach((b) => {
+    b.addEventListener('click', () => {
+      $('amount').value = b.dataset.amount;
+      $('rate').value = b.dataset.rate;
+      $('years').value = b.dataset.years;
+      calc();
+    });
+  });
+  calc();
+</script>

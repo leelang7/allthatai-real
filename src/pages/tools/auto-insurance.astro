@@ -1,0 +1,135 @@
+---
+/**
+ * /tools/auto-insurance — 자동차 보험 비교 가이드.
+ *
+ * 한국 매년 갱신 시즌 (~9월) 트래픽 폭발.
+ * 보험사 어필 commission 매우 큼 (1건당 ₩수만~수십만).
+ * 토스 보험·뱅크샐러드·보험다모아 funnel.
+ */
+import Layout from '../../layouts/Layout.astro';
+import AffiliateLink from '../../components/AffiliateLink.astro';
+
+const insurers = [
+  { name: '삼성화재', web: 'https://direct.samsungfire.com', share: '20.5%', strength: '국내 1위 시장점유율 + 사고 처리 빠름' },
+  { name: '현대해상', web: 'https://www.hi.co.kr', share: '17.0%', strength: '하이카 모바일 앱 강함' },
+  { name: 'DB손해보험', web: 'https://www.directdb.co.kr', share: '14.8%', strength: '온라인 다이렉트 가성비' },
+  { name: 'KB손해보험', web: 'https://www.kbinsure.co.kr', share: '12.3%', strength: 'KB금융 그룹 연계' },
+  { name: '메리츠화재', web: 'https://direct.meritzfire.com', share: '11.0%', strength: '가격 경쟁력 + 광고 많음' },
+  { name: '롯데손해보험', web: 'https://www.lotteins.co.kr', share: '5.2%', strength: '롯데멤버스 연계' },
+  { name: 'AXA손해보험', web: 'https://www.axa.co.kr', share: '3.8%', strength: '외국계 — 해외 운전 강함' },
+  { name: '캐롯손해보험', web: 'https://www.carrotins.com', share: '2.5%', strength: '주행거리 별 차등 (퍼마일)' },
+  { name: '하나손해보험', web: 'https://www.hanainsure.co.kr', share: '2.0%', strength: '하나금융 그룹' },
+];
+
+const tips = [
+  { title: '직접 vs 다이렉트', desc: '오프라인 설계사 vs 인터넷 다이렉트. 다이렉트가 보통 10–20% 저렴. 단순 비교 가능.', best: '인터넷 다이렉트 첫 선택' },
+  { title: '특약 — 자기차량손해', desc: '내 차 수리비 보장. 신차·고가차 필수. 10년 이상 노후차는 빼는 편이 합리적.', best: '5년 이상 노후차 → 자차 OFF' },
+  { title: '특약 — 자손/자상', desc: '운전자 본인·동승자 상해. 의무 가입.', best: '가족·친구 자주 태우면 자상 필수' },
+  { title: '운전자 한정', desc: '본인만 / 가족 / 친구·지인까지. 좁을수록 보험료 ↓.', best: '본인만 운전 → 본인 한정' },
+  { title: '연령 한정', desc: '21세/26세/30세/35세 이상. 어릴수록 비쌈.', best: '본인 나이 + 5세 위로 설정 → 보험료 ↓' },
+  { title: '주행거리 (퍼마일)', desc: '연 5천/1만/1.5만 km. 적게 타면 큰 폭 할인 (캐롯).', best: '연 5천 km 이하 → 캐롯 50%+ 할인' },
+];
+
+const seasons = [
+  { month: '1–2월', vol: '중', note: '새해 가입자' },
+  { month: '3–5월', vol: '저', note: '비수기 — 보험료 협상력 있음' },
+  { month: '6–8월', vol: '중', note: '휴가철 사고 → 보험료 인상 가능' },
+  { month: '9–11월', vol: '🔴 폭발', note: '갱신 시즌 — 견적 비교 최적' },
+  { month: '12월', vol: '중', note: '연말 갱신 마감' },
+];
+---
+<Layout
+  title="자동차 보험 비교 — 다이렉트 9개 보험사 + 절약 팁 6가지"
+  description="삼성화재·현대해상·DB·KB·메리츠 등 9개 다이렉트 보험 비교. 자차·자상·운전자한정 특약별 절약 팁 + 갱신 시즌 견적 비교 가이드."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      매년 갱신 시즌 견적 비교
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      자동차 <span class="text-gradient">보험 비교</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      9개 다이렉트 보험사 + 6가지 절약 팁. 같은 차·같은 운전자도 보험사별 ₩30–80만 차이.
+    </p>
+  </section>
+
+  <!-- Insurers grid -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">다이렉트 9개 보험사</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {insurers.map((ins) => (
+        <a href={ins.web} target="_blank" rel="sponsored noopener nofollow" class="card-lift block rounded-2xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-5 transition">
+          <div class="flex items-center justify-between gap-2">
+            <p class="font-black">{ins.name}</p>
+            <span class="text-[10px] text-zinc-500">시장 {ins.share}</span>
+          </div>
+          <p class="mt-2 text-xs text-zinc-400 leading-relaxed">{ins.strength}</p>
+          <p class="mt-3 text-xs text-amber-300 font-bold">견적 보기 →</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Aggregators -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 p-6">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest mb-2">한 번에 비교</p>
+      <h2 class="text-xl font-black">9개 보험사 견적 동시 비교 — 보험다모아 / 토스</h2>
+      <p class="mt-3 text-sm text-zinc-300 leading-relaxed">
+        각 보험사 사이트 일일이 들어가지 말고 한 번에 9개 견적 받기. 정부 공식 (보험다모아) + 민간 (토스/뱅크샐러드).
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="https://e-insmarket.or.kr" target="_blank" rel="noopener" class="rounded-lg border border-cyan-500/40 hover:bg-cyan-500/10 px-4 py-2 text-sm font-bold transition">보험다모아 (정부)</a>
+        <AffiliateLink to="toss" label="토스 자동차보험" />
+        <a href="https://www.banksalad.com/cars/insurance" target="_blank" rel="noopener" class="rounded-lg border border-zinc-700 hover:bg-zinc-800 px-4 py-2 text-sm font-bold transition">뱅크샐러드</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">절약 팁 6가지</h2>
+    <div class="space-y-3">
+      {tips.map((t, i) => (
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <div class="flex items-start gap-3">
+            <span class="text-[10px] font-bold w-12 shrink-0 mt-1">#{String(i + 1).padStart(2, '0')}</span>
+            <div class="flex-1">
+              <p class="font-black">{t.title}</p>
+              <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{t.desc}</p>
+              <p class="mt-2 text-xs text-emerald-300"><strong>→ 추천:</strong> {t.best}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Season calendar -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <h2 class="text-xl font-black mb-3">갱신 시즌 캘린더</h2>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="divide-y divide-zinc-800">
+        {seasons.map((s) => (
+          <div class="flex items-center gap-4 px-5 py-3">
+            <span class="text-sm font-bold w-24 shrink-0">{s.month}</span>
+            <span class="text-xs text-zinc-400 flex-1">{s.note}</span>
+            <span class={`text-xs font-bold ${s.vol.includes('폭발') ? 'text-rose-300' : s.vol === '중' ? 'text-amber-300' : 'text-emerald-300'}`}>{s.vol}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 본 페이지는 정보 제공용</p>
+      <p class="text-xs leading-relaxed">
+        보험 가입 결정은 본인 차량·운전 패턴·운전 경력에 따라 다름. 각 보험사 견적 직접 받아 비교 필수.
+        본 페이지의 9개 보험사 링크는 일부 어필리에이트 제휴 가능성 있음 (가격 동일, 본인 부담 X).
+      </p>
+    </div>
+  </section>
+</Layout>

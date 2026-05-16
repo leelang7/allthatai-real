@@ -1,0 +1,255 @@
+---
+/**
+ * /tools/tax-refund — 연말정산 환급 추정 + 종합소득세 추정.
+ *
+ * 한국 매년 5월 종합소득세 시즌 트래픽 폭발 + 1~2월 연말정산 시즌.
+ * 검색량 큼: "연말정산 환급금", "종합소득세 계산기", "세금 환급".
+ *
+ * 단순화 — 2026년 기준 누진세율 + 표준공제만 적용.
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="연말정산 / 종합소득세 환급 계산기 2026"
+  description="총급여 + 부양가족 + 신용카드 사용액 입력 → 연말정산 환급 예상액 + 종합소득세 자동 계산. 2026년 최신 누진세율 기준."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      2026 누진세율 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">세금 환급</span> 예상
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
+      연말정산·종합소득세 — 환급 vs 추징 즉시 계산. 부양가족·신용카드·기부금 자동 반영.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연간 총급여 (₩)</span>
+          <input id="salary" type="number" value="50000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">기납부 소득세 (연) — 원천징수</span>
+          <input id="paid" type="number" value="2400000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">매월 급여 명세서 소득세 × 12</span>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">부양가족 (본인 포함)</span>
+          <input id="dependents" type="number" value="1" min="1" max="10" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">20세 이하 자녀 (인원)</span>
+          <input id="children" type="number" value="0" min="0" max="10" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">신용카드 사용액 (연, ₩)</span>
+          <input id="card" type="number" value="15000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">체크카드·현금영수증 (연, ₩)</span>
+          <input id="cash" type="number" value="3000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">의료비 (연, ₩)</span>
+          <input id="medical" type="number" value="500000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">기부금 (연, ₩)</span>
+          <input id="donate" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div id="result-panel" class="rounded-3xl border-2 p-8" style="border-color: #71717a;">
+      <p id="r-status-label" class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">결과</p>
+      <p id="r-amount" class="mt-2 text-6xl sm:text-7xl font-black text-white tabular-nums">-</p>
+      <p id="r-status" class="mt-3 text-2xl font-black">-</p>
+      <p id="r-summary" class="mt-3 text-sm text-zinc-300 leading-relaxed">-</p>
+    </div>
+  </section>
+
+  <!-- Breakdown -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-800 bg-zinc-900/60">
+        <p class="text-sm font-black">계산 내역</p>
+      </div>
+      <div class="divide-y divide-zinc-800">
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">총급여</span><span id="b-salary" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">근로소득공제</span><span id="b-emp-deduct" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">인적공제 (부양가족 × 150만)</span><span id="b-person" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">신용카드 등 공제</span><span id="b-card" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">의료비 공제</span><span id="b-medical" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">기부금 세액공제</span><span id="b-donate" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3 bg-zinc-900/60"><span class="text-sm font-bold">과세표준</span><span id="b-base" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-rose-300">산출세액 (누진세율)</span><span id="b-calc" class="font-bold text-rose-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-emerald-300">자녀 세액공제</span><span id="b-child" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3 bg-zinc-900/60"><span class="text-sm font-bold text-rose-300">결정세액</span><span id="b-final" class="font-bold text-rose-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-cyan-300">기납부 (원천징수)</span><span id="b-paid" class="font-bold text-cyan-300 tabular-nums">-</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">2026 종합소득세 누진세율</h2>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-500"><tr><th class="text-left py-1">과세표준</th><th class="text-right py-1">세율</th><th class="text-right py-1">누진공제</th></tr></thead>
+        <tbody>
+          <tr><td>1,400만 이하</td><td class="text-right">6%</td><td class="text-right">0</td></tr>
+          <tr><td>1,400~5,000만</td><td class="text-right">15%</td><td class="text-right">126만</td></tr>
+          <tr><td>5,000~8,800만</td><td class="text-right">24%</td><td class="text-right">576만</td></tr>
+          <tr><td>8,800~1.5억</td><td class="text-right">35%</td><td class="text-right">1,544만</td></tr>
+          <tr><td>1.5억~3억</td><td class="text-right">38%</td><td class="text-right">1,994만</td></tr>
+          <tr><td>3억~5억</td><td class="text-right">40%</td><td class="text-right">2,594만</td></tr>
+          <tr><td>5억~10억</td><td class="text-right">42%</td><td class="text-right">3,594만</td></tr>
+          <tr><td>10억 초과</td><td class="text-right">45%</td><td class="text-right">6,594만</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 본 계산은 단순화</p>
+      <p class="text-xs leading-relaxed">
+        실제 연말정산은 보장성 보험·연금 저축·청약저축·주택자금·교육비·신용카드 한도 등 매우 복잡한 공제 체계.
+        본 도구는 단순 4–5개 항목만 반영한 추정치. 정확한 계산은 <a href="https://hometax.go.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">홈택스 연말정산 미리보기</a> 또는 세무사 상담.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  // 2026 근로소득공제 (총급여 구간별)
+  function empDeduction(salary) {
+    if (salary <= 5000000) return salary * 0.7;
+    if (salary <= 15000000) return 3500000 + (salary - 5000000) * 0.4;
+    if (salary <= 45000000) return 7500000 + (salary - 15000000) * 0.15;
+    if (salary <= 100000000) return 12000000 + (salary - 45000000) * 0.05;
+    return 14750000 + (salary - 100000000) * 0.02;
+  }
+
+  // 2026 누진세율
+  function calculateTax(base) {
+    if (base <= 14000000) return base * 0.06;
+    if (base <= 50000000) return base * 0.15 - 1260000;
+    if (base <= 88000000) return base * 0.24 - 5760000;
+    if (base <= 150000000) return base * 0.35 - 15440000;
+    if (base <= 300000000) return base * 0.38 - 19940000;
+    if (base <= 500000000) return base * 0.40 - 25940000;
+    if (base <= 1000000000) return base * 0.42 - 35940000;
+    return base * 0.45 - 65940000;
+  }
+
+  function calc() {
+    const salary = +$('salary').value || 0;
+    const paid = +$('paid').value || 0;
+    const dependents = +$('dependents').value || 1;
+    const children = +$('children').value || 0;
+    const card = +$('card').value || 0;
+    const cash = +$('cash').value || 0;
+    const medical = +$('medical').value || 0;
+    const donate = +$('donate').value || 0;
+
+    // 근로소득공제
+    const empDeduct = empDeduction(salary);
+    const earned = salary - empDeduct;
+
+    // 인적공제
+    const personDeduct = dependents * 1500000;
+
+    // 신용카드 공제 (총급여 25% 초과분 × 15%, 체크카드 × 30%) 한도 300만
+    const cardThreshold = salary * 0.25;
+    const cardExcess = Math.max(0, (card + cash) - cardThreshold);
+    // 카드 vs 체크 비율로 차등 적용 (단순화)
+    const cardCredit = Math.min(3000000, cardExcess * 0.18); // 평균 18%
+
+    // 의료비 세액공제 (총급여 3% 초과분 × 15%)
+    const medicalThreshold = salary * 0.03;
+    const medicalCredit = Math.max(0, medical - medicalThreshold) * 0.15;
+
+    // 기부금 세액공제 (10만원까지 15%, 초과분 30% — 단순화)
+    let donateCredit = 0;
+    if (donate > 0) {
+      if (donate <= 100000) donateCredit = donate * 0.15;
+      else donateCredit = 100000 * 0.15 + (donate - 100000) * 0.30;
+    }
+
+    // 과세표준
+    const base = Math.max(0, earned - personDeduct - cardCredit - medicalCredit);
+
+    // 산출세액
+    const calculated = calculateTax(base);
+
+    // 자녀 세액공제 (1명 15만, 2명 35만, 3명 65만 ...)
+    let childCredit = 0;
+    if (children === 1) childCredit = 150000;
+    else if (children === 2) childCredit = 350000;
+    else if (children >= 3) childCredit = 350000 + (children - 2) * 300000;
+
+    // 결정세액 = 산출 - 자녀 세액공제 - 기부 세액공제 + 지방소득세 10%
+    let final = Math.max(0, calculated - childCredit - donateCredit);
+    final = final * 1.1; // 지방세 10% 가산
+
+    // 환급/추징 = 기납부 - 결정
+    const refund = paid - final;
+
+    // Render breakdown
+    $('b-salary').textContent = fmt(salary);
+    $('b-emp-deduct').textContent = '−' + fmt(empDeduct);
+    $('b-person').textContent = '−' + fmt(personDeduct);
+    $('b-card').textContent = '−' + fmt(cardCredit) + ' (세액)';
+    $('b-medical').textContent = '−' + fmt(medicalCredit) + ' (세액)';
+    $('b-donate').textContent = '−' + fmt(donateCredit) + ' (세액)';
+    $('b-base').textContent = fmt(base);
+    $('b-calc').textContent = fmt(calculated);
+    $('b-child').textContent = '−' + fmt(childCredit);
+    $('b-final').textContent = fmt(final);
+    $('b-paid').textContent = '−' + fmt(paid);
+
+    // Final result
+    let label, color, summary;
+    if (refund > 0) {
+      label = '🎉 환급 예상';
+      color = '#10b981';
+      summary = `기납부 소득세 ${fmt(paid)} 중 ${fmt(refund)} 환급 받을 예정. 연말정산 시 자동 정산되거나 5월 종합소득세 신고 후 환급.`;
+      $('r-amount').textContent = '+' + fmt(refund);
+    } else if (refund < 0) {
+      label = '⚠ 추징 예상';
+      color = '#f97316';
+      summary = `결정세액이 기납부 보다 ${fmt(Math.abs(refund))} 많음 → 추가 납부 필요. 연말정산 시 회사가 차액 차감 또는 5월 신고 시 납부.`;
+      $('r-amount').textContent = fmt(refund);
+    } else {
+      label = '정확히 일치';
+      color = '#71717a';
+      summary = '환급도 추징도 없음.';
+      $('r-amount').textContent = '₩0';
+    }
+
+    $('r-amount').style.color = color;
+    $('r-status').textContent = label;
+    $('r-status').style.color = color;
+    $('r-summary').textContent = summary;
+    $('result-panel').style.borderColor = color;
+
+    if (window.va) { try { window.va('event', { name: 'tax_refund_calc', data: { refund: Math.round(refund) } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'tax_refund_calc', { value: refund, event_category: 'tools' }); } catch (_) {} }
+  }
+
+  ['salary', 'paid', 'dependents', 'children', 'card', 'cash', 'medical', 'donate'].forEach((id) => {
+    $(id).addEventListener('input', calc);
+  });
+  calc();
+</script>
