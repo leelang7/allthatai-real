@@ -1,0 +1,269 @@
+---
+/**
+ * /jeonse/full-check — 통합 검증 (한 번에).
+ *
+ * 한 화면에서 4개 항목 동시 검증:
+ *   1. 임대인 사업자번호 (있을 때)
+ *   2. 건축물대장 (위반건축물)
+ *   3. 실거래가 (동일 단지 평균)
+ *   4. 위험 점수 자동 계산
+ */
+import Layout from '../../layouts/Layout.astro';
+import { lawdCodes } from '../../data/lawd-codes';
+
+const regions = [...new Set(lawdCodes.map((l) => l.region))];
+---
+<Layout
+  title="전세 통합 검증 — 임대인 + 건축물 + 시세 한 번에"
+  description="한 화면에서 임대인 사업자번호·건축물대장·실거래가 동시 검증 + 종합 위험 점수. 국토부·국세청 공공 API 실시간."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/jeonse/" class="text-sm text-zinc-500 hover:text-zinc-300 transition">← 전세사기 방지</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      한 번에 통합 검증
+    </div>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-black leading-tight">
+      전세 <span class="text-gradient">통합 검증</span>
+    </h1>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed">
+      4개 공공 API 동시 호출 → 임대인 + 건축물 + 시세 + 위험 점수.
+    </p>
+  </section>
+
+  <!-- INPUT FORM -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-5">
+      <!-- 임대인 -->
+      <div>
+        <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-2">1. 임대인 (선택)</p>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">사업자등록번호 — 있을 때만</span>
+          <input id="bizNo" type="text" placeholder="개인 임대인이면 비움" maxlength="13" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+
+      <!-- 주소 -->
+      <div>
+        <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-2">2. 부동산 주소 (지번)</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">지역</span>
+            <select id="region" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2.5 text-white text-sm">
+              {regions.map((r) => <option value={r}>{r}</option>)}
+            </select>
+          </label>
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">시군구</span>
+            <select id="district" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2.5 text-white text-sm"></select>
+          </label>
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">법정동 코드 (5자리)</span>
+            <input id="bjdong" type="text" placeholder="10300" maxlength="5" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+          </label>
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">번지 (본번 — 부번)</span>
+            <div class="flex gap-2">
+              <input id="bun" type="text" placeholder="0001" maxlength="4" class="flex-1 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+              <input id="ji" type="text" placeholder="0000" maxlength="4" class="flex-1 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2.5 text-white text-sm tabular-nums" />
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 보증금 -->
+      <div>
+        <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-2">3. 계약 금액</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">내 보증금 (₩)</span>
+            <input id="deposit" type="number" value="300000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+          </label>
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">거래월 (YYYYMM)</span>
+            <input id="yyyymm" type="text" placeholder="202604" maxlength="6" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white text-sm tabular-nums" />
+          </label>
+        </div>
+      </div>
+
+      <button id="check-all" type="button" class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-6 py-4 text-lg transition">
+        🔍 4개 API 동시 검증 →
+      </button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-6 space-y-4">
+    <div id="r-overall" class="rounded-3xl border-2 p-8" style="border-color: #71717a;"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div id="r-landlord" class="rounded-xl border border-zinc-700 bg-zinc-900/40 p-4"></div>
+      <div id="r-building" class="rounded-xl border border-zinc-700 bg-zinc-900/40 p-4"></div>
+      <div id="r-price-sale" class="rounded-xl border border-zinc-700 bg-zinc-900/40 p-4"></div>
+      <div id="r-price-rent" class="rounded-xl border border-zinc-700 bg-zinc-900/40 p-4"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-zinc-300">
+      <p class="font-bold text-amber-300 mb-2">⚠ 본 도구는 참고용</p>
+      <p class="text-xs leading-relaxed">
+        본 검증은 공공 API 데이터 기반. <strong>등기부등본·임대인 인적 사항·실제 시세는 별도 확인</strong> 필수.
+        분쟁 발생 시 전문가 상담 필수.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ lawdCodesData: lawdCodes }}>
+  window.__lawd = lawdCodesData;
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + (n / 100000000).toFixed(2) + '억';
+
+  function fillDistricts() {
+    const region = $('region').value;
+    const subs = window.__lawd.filter((c) => c.region === region);
+    $('district').innerHTML = subs.map((c) => `<option value="${c.code}">${c.name}</option>`).join('');
+  }
+  $('region').addEventListener('change', fillDistricts);
+  fillDistricts();
+
+  // 거래월 기본 = 지난달
+  const d = new Date();
+  d.setMonth(d.getMonth() - 1);
+  $('yyyymm').value = d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0');
+
+  $('check-all').addEventListener('click', async () => {
+    const bizNo = $('bizNo').value.replace(/[-\s]/g, '');
+    const sigunguCd = $('district').value;
+    const bjdongCd = $('bjdong').value.padStart(5, '0');
+    const bun = $('bun').value.padStart(4, '0');
+    const ji = ($('ji').value || '0').padStart(4, '0');
+    const deposit = +$('deposit').value || 0;
+    const yyyymm = $('yyyymm').value;
+
+    if (!/^\d{5}$/.test(bjdongCd) || !/^\d{4}$/.test(bun)) {
+      alert('법정동 코드 5자리 + 번지 4자리 입력');
+      return;
+    }
+
+    $('result').classList.remove('hidden');
+    document.querySelectorAll('#r-landlord, #r-building, #r-price-sale, #r-price-rent').forEach((el) => {
+      el.innerHTML = '<p class="text-xs text-zinc-400">조회 중…</p>';
+    });
+    $('r-overall').innerHTML = '<p class="text-sm text-zinc-400">4개 API 동시 호출 중…</p>';
+
+    // Parallel calls
+    const [landlordRes, buildingRes, saleRes, rentRes] = await Promise.all([
+      bizNo ? fetch('/api/business-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bizNo }),
+      }).then(r => r.json()).catch(() => null) : Promise.resolve(null),
+      fetch(`/api/building-info?sigunguCd=${sigunguCd}&bjdongCd=${bjdongCd}&bun=${bun}&ji=${ji}`).then(r => r.json()).catch(() => null),
+      fetch(`/api/realestate-apt?lawdCd=${sigunguCd}&yyyymm=${yyyymm}&type=sale`).then(r => r.json()).catch(() => null),
+      fetch(`/api/realestate-apt?lawdCd=${sigunguCd}&yyyymm=${yyyymm}&type=rent`).then(r => r.json()).catch(() => null),
+    ]);
+
+    let riskScore = 0;
+    const flags = [];
+
+    // 1. 임대인
+    if (bizNo && landlordRes) {
+      if (landlordRes.ok) {
+        if (landlordRes.statusCode === '03') {
+          riskScore += 40;
+          flags.push('🚨 폐업 사업자');
+          $('r-landlord').innerHTML = `<p class="text-xs font-bold text-rose-300 uppercase">임대인</p><p class="mt-2 text-lg font-black text-rose-300">🚨 폐업</p><p class="mt-1 text-xs text-zinc-300">폐업일 ${landlordRes.endDate}</p>`;
+        } else if (landlordRes.statusCode === '02') {
+          riskScore += 18;
+          flags.push('⚠ 휴업 사업자');
+          $('r-landlord').innerHTML = `<p class="text-xs font-bold text-amber-300 uppercase">임대인</p><p class="mt-2 text-lg font-black text-amber-300">⚠ 휴업</p>`;
+        } else {
+          $('r-landlord').innerHTML = `<p class="text-xs font-bold text-emerald-300 uppercase">임대인</p><p class="mt-2 text-lg font-black text-emerald-300">✓ ${landlordRes.status}</p><p class="mt-1 text-xs text-zinc-300">${landlordRes.taxType || ''}</p>`;
+        }
+      } else {
+        $('r-landlord').innerHTML = `<p class="text-xs font-bold text-zinc-400 uppercase">임대인</p><p class="mt-2 text-sm text-zinc-500">${landlordRes.error || '조회 실패'}</p>`;
+      }
+    } else {
+      $('r-landlord').innerHTML = `<p class="text-xs font-bold text-zinc-400 uppercase">임대인</p><p class="mt-2 text-sm text-zinc-500">사업자번호 미입력 (개인 임대인)</p>`;
+    }
+
+    // 2. 건축물대장
+    if (buildingRes?.ok) {
+      if (buildingRes.hasViolation) {
+        riskScore += 35;
+        flags.push('🚨 위반건축물');
+        $('r-building').innerHTML = `<p class="text-xs font-bold text-rose-300 uppercase">건축물대장</p><p class="mt-2 text-lg font-black text-rose-300">🚨 위반건축물 발견</p><p class="mt-1 text-xs text-zinc-300">HUG 보증 가입 불가</p>`;
+      } else if (buildingRes.count === 0) {
+        riskScore += 22;
+        flags.push('⚠ 건축물대장 없음 (미등록)');
+        $('r-building').innerHTML = `<p class="text-xs font-bold text-amber-300 uppercase">건축물대장</p><p class="mt-2 text-lg font-black text-amber-300">⚠ 미등록</p>`;
+      } else {
+        const b = buildingRes.items[0];
+        $('r-building').innerHTML = `<p class="text-xs font-bold text-emerald-300 uppercase">건축물대장</p><p class="mt-2 text-lg font-black text-emerald-300">✓ 합법 (${buildingRes.count}건)</p><p class="mt-1 text-xs text-zinc-300">${b.mainPurpsCdNm || '?'} · ${b.totArea}㎡</p>`;
+      }
+    } else {
+      $('r-building').innerHTML = `<p class="text-xs font-bold text-zinc-400 uppercase">건축물대장</p><p class="mt-2 text-sm text-zinc-500">${buildingRes?.error || '조회 실패'}</p>`;
+    }
+
+    // 3. 매매 실거래
+    if (saleRes?.ok && saleRes.count > 0) {
+      $('r-price-sale').innerHTML = `<p class="text-xs font-bold text-cyan-300 uppercase">매매 평균 (${yyyymm})</p><p class="mt-2 text-lg font-black tabular-nums">${fmt(saleRes.avgPrice)}</p><p class="mt-1 text-xs text-zinc-400">${saleRes.count}건 · 중간 ${fmt(saleRes.medianPrice)}</p>`;
+      // 깡통 위험: 보증금 / 매매가
+      if (deposit > 0) {
+        const ratio = deposit / saleRes.avgPrice;
+        if (ratio >= 0.9) { riskScore += 25; flags.push(`⚠ 보증금 매매가 ${(ratio * 100).toFixed(0)}%`); }
+        else if (ratio >= 0.8) { riskScore += 12; flags.push(`보증금 매매가 ${(ratio * 100).toFixed(0)}%`); }
+      }
+    } else {
+      $('r-price-sale').innerHTML = `<p class="text-xs font-bold text-zinc-400 uppercase">매매 평균</p><p class="mt-2 text-sm text-zinc-500">${saleRes?.note || saleRes?.error || '데이터 없음'}</p>`;
+    }
+
+    // 4. 전월세 실거래
+    if (rentRes?.ok && rentRes.count > 0) {
+      $('r-price-rent').innerHTML = `<p class="text-xs font-bold text-violet-300 uppercase">전세 평균 (${yyyymm})</p><p class="mt-2 text-lg font-black tabular-nums">${fmt(rentRes.avgPrice)}</p><p class="mt-1 text-xs text-zinc-400">${rentRes.count}건</p>`;
+      if (deposit > 0 && deposit > rentRes.avgPrice * 1.1) {
+        riskScore += 10;
+        flags.push('보증금이 시세보다 10%+ 높음');
+      }
+    } else {
+      $('r-price-rent').innerHTML = `<p class="text-xs font-bold text-zinc-400 uppercase">전세 평균</p><p class="mt-2 text-sm text-zinc-500">${rentRes?.note || rentRes?.error || '데이터 없음'}</p>`;
+    }
+
+    // Overall score
+    riskScore = Math.min(100, riskScore);
+    let label, color, summary;
+    if (riskScore >= 50) {
+      label = '🚨 매우 위험';
+      color = '#ef4444';
+      summary = '여러 위험 신호 발견. 계약 즉시 보류 + 전문가 상담.';
+    } else if (riskScore >= 25) {
+      label = '⚠ 위험';
+      color = '#f97316';
+      summary = '주요 위험 요소 있음. 등기부등본 재확인 + HUG 보증 가입 가능 여부 검토.';
+    } else if (riskScore >= 10) {
+      label = '🟡 주의';
+      color = '#eab308';
+      summary = '소수 위험 신호. 정상 절차 + 확정일자/전입신고 필수.';
+    } else {
+      label = '🟢 양호';
+      color = '#10b981';
+      summary = '공공 API 기준 큰 위험 없음. 등기부등본 추가 확인 권장.';
+    }
+
+    $('r-overall').style.borderColor = color;
+    $('r-overall').innerHTML = `
+      <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">종합 위험 점수</p>
+      <div class="mt-2 flex items-baseline gap-3 flex-wrap">
+        <p class="text-6xl font-black tabular-nums" style="color: ${color};">${riskScore}</p>
+        <p class="text-sm text-zinc-500">/ 100</p>
+        <p class="text-xl font-black" style="color: ${color};">${label}</p>
+      </div>
+      <p class="mt-3 text-sm text-zinc-300">${summary}</p>
+      ${flags.length > 0 ? `<div class="mt-4 space-y-1 text-xs text-zinc-400">${flags.map((f) => `<p>• ${f}</p>`).join('')}</div>` : ''}
+    `;
+
+    if (window.va) { try { window.va('event', { name: 'jeonse_full_check', data: { score: riskScore } }); } catch (_) {} }
+    if (window.gtag) { try { window.gtag('event', 'jeonse_full_check', { value: riskScore, event_category: 'tools' }); } catch (_) {} }
+  });
+</script>
