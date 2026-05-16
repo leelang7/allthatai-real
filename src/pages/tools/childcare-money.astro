@@ -1,0 +1,152 @@
+---
+/**
+ * /tools/childcare-money — 자녀 양육수당 + 부모급여 + 첫만남이용권 통합.
+ *
+ * 한국 매우 큰 검색량: "양육수당", "부모급여", "첫만남이용권", "아동수당"
+ * 광고 단가 큼 (육아 카테고리).
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="자녀 지원금 총정리 — 부모급여·양육수당·아동수당·첫만남이용권 2026"
+  description="자녀 출생부터 만 8세까지 받을 수 있는 모든 정부 지원금 자동 계산. 2026 부모급여 100/50만 + 아동수당 + 첫만남 200만."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      2026 보건복지부 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      자녀 <span class="text-gradient">총 지원금</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">자녀 나이 입력 → 출생~만 8세까지 받을 정부 지원금 자동.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">자녀 출생일 (또는 출산예정일)</span>
+        <input id="birth" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-xl text-white" />
+      </label>
+      <label class="flex items-center gap-2 cursor-pointer text-sm">
+        <input id="daycare" type="checkbox" class="w-4 h-4 accent-emerald-500" />
+        <span class="text-zinc-300">어린이집 이용 (만 0–1세 부모급여 50만원 차감, 보육료로 전환)</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- Total -->
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">자녀 1명당 출생~만 8세까지 총</p>
+      <p id="r-total" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-detail" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+  </section>
+
+  <!-- Breakdown -->
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-800 bg-zinc-900/60"><p class="text-sm font-black">지원금 항목</p></div>
+      <div class="divide-y divide-zinc-800" id="breakdown"></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">2026 자녀 지원금 종합</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>첫만남 이용권</strong>: 출생 시 200만 (첫째)/300만 (둘째 이후) — 1회</li>
+        <li>→ <strong>부모급여 (0세)</strong>: 월 100만 × 12개월 = 연 1,200만</li>
+        <li>→ <strong>부모급여 (1세)</strong>: 월 50만 × 12개월 = 연 600만 (어린이집 X 시) / 월 5만 (어린이집 O 시)</li>
+        <li>→ <strong>아동수당</strong>: 월 10만 × 만 0–7세 96개월 = 960만</li>
+        <li>→ <strong>출산진료비 (국민행복카드)</strong>: 100만원 사용 가능 (1회)</li>
+        <li>→ <strong>지자체 출산장려금</strong>: 지역별 30–500만 (별도) — 본 계산 X</li>
+        <li>→ <strong>다자녀 추가</strong>: 셋째 이상 별도 가산금 + 교육비 감면</li>
+      </ul>
+      <p class="mt-3 text-xs text-zinc-500">※ 정부 정책은 매년 변경. 정확한 금액은 <a href="https://www.bokjiro.go.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">복지로</a>에서 확인.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/parental-leave/" class="rounded-xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-3 transition text-sm">육아휴직 급여 →</a>
+      <a href="/tools/age-korean/" class="rounded-xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-3 transition text-sm">만 나이 →</a>
+      <a href="/tools/dday/" class="rounded-xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-3 transition text-sm">디데이 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function ageInMonths(birth) {
+    const now = new Date();
+    return (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth());
+  }
+
+  function calc() {
+    const birthStr = $('birth').value;
+    if (!birthStr) return;
+    const birth = new Date(birthStr);
+    if (isNaN(birth.getTime())) return;
+    const daycare = $('daycare').checked;
+
+    const ageM = ageInMonths(birth);
+    const items = [];
+
+    // 첫만남 이용권 (출생 시 1회)
+    const firstMeet = 2000000;
+    items.push({ name: '첫만남 이용권 (1회)', amount: firstMeet, when: '출생 시', received: ageM >= 0 });
+
+    // 부모급여 (만 0세: 월 100만, 만 1세: 월 50만 or 어린이집 보육료)
+    const monthsAge0 = Math.min(12, Math.max(0, 12 - 0)); // 0–11개월
+    const monthsAge1 = Math.min(12, Math.max(0, 24 - 12)); // 12–23개월
+    const parentMoney0 = monthsAge0 * 1000000;
+    const parentMoney1 = daycare ? monthsAge1 * 50000 : monthsAge1 * 500000;
+    items.push({ name: '부모급여 (만 0세, 월 100만 × 12)', amount: parentMoney0, when: '0–11개월', received: ageM >= 12 });
+    items.push({
+      name: daycare ? '부모급여 (만 1세, 월 5만 × 12 - 어린이집)' : '부모급여 (만 1세, 월 50만 × 12)',
+      amount: parentMoney1,
+      when: '12–23개월',
+      received: ageM >= 24,
+    });
+
+    // 아동수당 (만 0–7세, 월 10만)
+    const childAllowance = 96 * 100000;
+    items.push({ name: '아동수당 (만 0–7세, 월 10만 × 96)', amount: childAllowance, when: '8년간', received: ageM >= 96 });
+
+    // 출산진료비 (국민행복카드)
+    items.push({ name: '국민행복카드 출산진료비 (1회)', amount: 1000000, when: '임신·출산 시', received: true });
+
+    const total = items.reduce((s, i) => s + i.amount, 0);
+
+    $('r-total').textContent = fmt(total);
+    $('r-detail').textContent = `현재 자녀 만 ${Math.floor(ageM / 12)}세 ${ageM % 12}개월 · 총 6가지 지원금 합산`;
+
+    $('breakdown').innerHTML = items.map((i) => `
+      <div class="flex items-center justify-between px-5 py-3">
+        <div>
+          <p class="text-sm font-bold ${i.received ? 'text-zinc-300' : 'text-zinc-500'}">${i.name}</p>
+          <p class="text-[10px] text-zinc-500">${i.when}</p>
+        </div>
+        <span class="font-bold tabular-nums ${i.received ? 'text-emerald-300' : 'text-zinc-500'}">${fmt(i.amount)}</span>
+      </div>
+    `).join('');
+
+    if (window.va) { try { window.va('event', { name: 'childcare_calc', data: { ageM, total } }); } catch (_) {} }
+  }
+
+  // Default: 6개월 전
+  const d = new Date();
+  d.setMonth(d.getMonth() - 6);
+  $('birth').value = d.toISOString().slice(0, 10);
+  calc();
+
+  ['birth', 'daycare'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+</script>

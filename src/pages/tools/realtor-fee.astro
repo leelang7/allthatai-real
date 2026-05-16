@@ -1,0 +1,190 @@
+---
+/**
+ * /tools/realtor-fee — 부동산 중개수수료 계산기.
+ * 한국 매우 큰 검색량: "부동산 중개수수료", "복비 계산"
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="부동산 중개수수료 계산기 — 매매·전세·월세 한도 자동"
+  description="거래금액 + 거래유형 → 중개수수료 한도 + VAT 자동. 2026 공인중개사법 시행규칙 기준."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      공인중개사법 시행규칙 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">중개수수료</span> 계산
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">매매·전세·월세 → 법정 한도 자동 + 사기 방지.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="flex gap-2 mb-2">
+        <button type="button" id="tab-sale" class="tab-btn flex-1 rounded-lg bg-amber-500 text-zinc-950 font-bold py-2.5 text-sm transition">매매</button>
+        <button type="button" id="tab-jeonse" class="tab-btn flex-1 rounded-lg bg-zinc-800 text-zinc-300 font-bold py-2.5 text-sm transition">전세</button>
+        <button type="button" id="tab-rent" class="tab-btn flex-1 rounded-lg bg-zinc-800 text-zinc-300 font-bold py-2.5 text-sm transition">월세</button>
+      </div>
+
+      <label class="block" id="row-amount">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5" id="amount-label">매매 가격 (₩)</span>
+        <input id="amount" type="number" value="500000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+      </label>
+      <div class="hidden grid grid-cols-2 gap-3" id="row-rent">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">보증금 (₩)</span>
+          <input id="deposit" type="number" value="20000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">월세 (₩)</span>
+          <input id="monthly" type="number" value="500000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-white tabular-nums" />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 종류</span>
+        <select id="houseType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-white">
+          <option value="house">주택 (아파트·단독·다세대)</option>
+          <option value="officetel">오피스텔</option>
+          <option value="commercial">상가·토지·기타</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-5">
+        <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">법정 최대 수수료</p>
+        <p id="r-max" class="mt-2 text-3xl font-black text-white tabular-nums">-</p>
+        <p id="r-rate" class="mt-1 text-xs text-zinc-400"></p>
+      </div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">+ VAT (10%)</p>
+        <p id="r-vat" class="mt-2 text-3xl font-black text-emerald-300 tabular-nums">-</p>
+        <p class="mt-1 text-xs text-zinc-400">총 부담</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">중개수수료 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>법정 한도</strong>: 시행규칙 표 — 거래금액 따라 차등. 초과 청구 시 거부 가능</li>
+        <li>→ <strong>매도자 + 매수자 각각</strong>: 양쪽 각자 부담 (한쪽이 다 부담 X)</li>
+        <li>→ <strong>VAT</strong>: 중개수수료의 10% 추가. 일반과세자 중개사만</li>
+        <li>→ <strong>법정 한도 초과 요구</strong>: 한국공인중개사협회 또는 구청 부동산정보과 신고</li>
+        <li>→ <strong>잔금일 지급</strong>: 잔금 직전 한 번에 (분할 X)</li>
+        <li>→ <strong>현금영수증 필수 요청</strong>: 소득공제 가능</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  let mode = 'sale';
+
+  // 한국 공인중개사법 시행규칙 한도 (주택 기준, 2026)
+  // [최저금액, 최대금액, 한도율, 한도액]
+  function getSaleRate(amount, houseType) {
+    if (houseType !== 'house') {
+      // 오피스텔: 거래금액 × 0.5% (한도 없음)
+      if (houseType === 'officetel') return { rate: 0.005, cap: Infinity };
+      // 상가·토지: 0.9% (한도 없음)
+      return { rate: 0.009, cap: Infinity };
+    }
+    // 주택 매매
+    if (amount < 50000000) return { rate: 0.006, cap: 250000 };
+    if (amount < 200000000) return { rate: 0.005, cap: 800000 };
+    if (amount < 900000000) return { rate: 0.004, cap: Infinity };
+    if (amount < 1200000000) return { rate: 0.005, cap: Infinity };
+    if (amount < 1500000000) return { rate: 0.006, cap: Infinity };
+    return { rate: 0.007, cap: Infinity };
+  }
+
+  function getRentRate(amount, houseType) {
+    if (houseType !== 'house') {
+      if (houseType === 'officetel') return { rate: 0.004, cap: Infinity };
+      return { rate: 0.009, cap: Infinity };
+    }
+    // 주택 임대
+    if (amount < 50000000) return { rate: 0.005, cap: 200000 };
+    if (amount < 100000000) return { rate: 0.004, cap: 300000 };
+    if (amount < 600000000) return { rate: 0.003, cap: Infinity };
+    if (amount < 1200000000) return { rate: 0.004, cap: Infinity };
+    if (amount < 1500000000) return { rate: 0.005, cap: Infinity };
+    return { rate: 0.006, cap: Infinity };
+  }
+
+  function calc() {
+    const houseType = $('houseType').value;
+    let amount = 0;
+
+    if (mode === 'sale') {
+      amount = +$('amount').value || 0;
+    } else if (mode === 'jeonse') {
+      amount = +$('amount').value || 0;
+    } else {
+      // 월세: 환산금액 = 보증금 + 월세 × 100 (한도금액 5천 미만은 70)
+      const deposit = +$('deposit').value || 0;
+      const monthly = +$('monthly').value || 0;
+      const multiplier = (deposit + monthly * 100) < 50000000 ? 70 : 100;
+      amount = deposit + monthly * multiplier;
+    }
+
+    const { rate, cap } = mode === 'sale' ? getSaleRate(amount, houseType) : getRentRate(amount, houseType);
+    const calculated = amount * rate;
+    const maxFee = Math.min(calculated, cap);
+    const vat = maxFee * 0.1;
+
+    $('r-max').textContent = fmt(maxFee);
+    $('r-rate').textContent = `요율 ${(rate * 100).toFixed(2)}%` + (cap === Infinity ? '' : ` (한도 ${fmt(cap)})`);
+    $('r-vat').textContent = fmt(maxFee + vat);
+
+    if (window.va) { try { window.va('event', { name: 'realtor_fee_calc', data: { mode, amount } }); } catch (_) {} }
+  }
+
+  function setMode(m) {
+    mode = m;
+    ['sale', 'jeonse', 'rent'].forEach((x) => {
+      const btn = document.getElementById('tab-' + x);
+      if (x === m) {
+        btn.classList.replace('bg-zinc-800', 'bg-amber-500');
+        btn.classList.replace('text-zinc-300', 'text-zinc-950');
+      } else {
+        btn.classList.replace('bg-amber-500', 'bg-zinc-800');
+        btn.classList.replace('text-zinc-950', 'text-zinc-300');
+      }
+    });
+    const amountLabel = document.getElementById('amount-label');
+    if (m === 'sale') {
+      document.getElementById('row-amount').classList.remove('hidden');
+      document.getElementById('row-rent').classList.add('hidden');
+      amountLabel.textContent = '매매 가격 (₩)';
+    } else if (m === 'jeonse') {
+      document.getElementById('row-amount').classList.remove('hidden');
+      document.getElementById('row-rent').classList.add('hidden');
+      amountLabel.textContent = '전세 보증금 (₩)';
+    } else {
+      document.getElementById('row-amount').classList.add('hidden');
+      document.getElementById('row-rent').classList.remove('hidden');
+    }
+    calc();
+  }
+
+  document.getElementById('tab-sale').addEventListener('click', () => setMode('sale'));
+  document.getElementById('tab-jeonse').addEventListener('click', () => setMode('jeonse'));
+  document.getElementById('tab-rent').addEventListener('click', () => setMode('rent'));
+
+  ['amount', 'deposit', 'monthly', 'houseType'].forEach((id) => {
+    $(id).addEventListener('input', calc);
+    $(id).addEventListener('change', calc);
+  });
+  calc();
+</script>

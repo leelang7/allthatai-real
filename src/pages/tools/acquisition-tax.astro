@@ -1,0 +1,182 @@
+---
+/**
+ * /tools/acquisition-tax — 주택 취득세 계산기 (2026 기준).
+ *
+ * 한국 매우 큰 검색량: "취득세 계산기", "주택 취득세", "다주택 취득세"
+ * 광고 단가 매우 큼 (부동산 카테고리).
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="주택 취득세 계산기 2026 — 매매·증여·상속 세율 자동"
+  description="매수가격 + 주택수 + 생애최초·신혼 옵션 → 취득세 + 농어촌특별세 + 지방교육세 자동 계산. 2026 기준."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      2026 지방세법 기준
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">취득세</span> 계산기
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">매수가 + 주택수 + 면적 → 취득세 + 농특세 + 지방교육세 자동.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">매수 가격 (₩)</span>
+          <input id="price" type="number" value="500000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">전용면적 (㎡)</span>
+          <input id="area" type="number" value="84" step="1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">85㎡ 초과 시 농특세 +0.2%</span>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">현재 본인 보유 주택수 (계약 전)</span>
+          <select id="owned" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-white">
+            <option value="0">0채 (무주택)</option>
+            <option value="1">1채 (1주택)</option>
+            <option value="2">2채 (다주택)</option>
+            <option value="3">3채 이상 (다주택)</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">지역</span>
+          <select id="region" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-white">
+            <option value="normal">일반 지역</option>
+            <option value="adjusted">조정대상지역 (서울·세종 등)</option>
+          </select>
+        </label>
+      </div>
+      <div class="space-y-2 pt-2 border-t border-zinc-800">
+        <label class="flex items-center gap-2 cursor-pointer text-sm">
+          <input id="firstHome" type="checkbox" class="w-4 h-4 accent-emerald-500" />
+          <span class="text-zinc-300"><strong>생애최초 주택구입</strong> — 최대 ₩200만원 감면 (소득·가격 한도)</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer text-sm">
+          <input id="newlywed" type="checkbox" class="w-4 h-4 accent-emerald-500" />
+          <span class="text-zinc-300"><strong>신혼부부</strong> 첫 주택 — 추가 감면 (혼인 5년 이내)</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-8">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">총 납부 세금</p>
+      <p id="r-total" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-rate" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-800 bg-zinc-900/60"><p class="text-sm font-black">세금 내역</p></div>
+      <div class="divide-y divide-zinc-800">
+        <div class="flex justify-between px-5 py-3"><span class="text-sm">취득세</span><span id="b-tax" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">농어촌특별세 (10%)</span><span id="b-rural" class="font-bold text-zinc-400 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-zinc-400">지방교육세 (10%)</span><span id="b-edu" class="font-bold text-zinc-400 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-emerald-300">감면 (생애최초/신혼)</span><span id="b-discount" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">2026 취득세율</h2>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-500"><tr><th class="text-left py-1">매수가</th><th class="text-right py-1">1주택</th><th class="text-right py-1">조정 2주택</th><th class="text-right py-1">조정 3주택+</th></tr></thead>
+        <tbody>
+          <tr><td>6억 이하</td><td class="text-right">1.0%</td><td class="text-right">8.0%</td><td class="text-right">12.0%</td></tr>
+          <tr><td>6–9억</td><td class="text-right">1.0–3.0%</td><td class="text-right">8.0%</td><td class="text-right">12.0%</td></tr>
+          <tr><td>9억 초과</td><td class="text-right">3.0%</td><td class="text-right">8.0%</td><td class="text-right">12.0%</td></tr>
+        </tbody>
+      </table>
+      <p class="mt-3 text-xs text-zinc-500">※ 일반(비조정) 지역은 2주택 1–3%, 3주택+ 8%. 생애최초·신혼은 한도 내 감면.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/realtor-fee/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">중개수수료 →</a>
+      <a href="/tools/loan-compare/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">대출 계산 →</a>
+      <a href="/jeonse/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">전세사기 방지 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function calcRate(price, owned, region) {
+    // 1주택 (owned = 0, 신규 1채)
+    if (owned == 0) {
+      if (price <= 600000000) return 0.01;
+      if (price <= 900000000) {
+        // 6-9억 사이 누진 (1% → 3%)
+        return 0.01 + (price - 600000000) / 300000000 * 0.02;
+      }
+      return 0.03;
+    }
+    // 2주택 (owned = 1, 신규 2번째)
+    if (owned == 1) {
+      if (region === 'adjusted') return 0.08;
+      // 비조정 — 1주택과 동일
+      if (price <= 600000000) return 0.01;
+      if (price <= 900000000) return 0.02;
+      return 0.03;
+    }
+    // 3주택 (owned >= 2)
+    if (region === 'adjusted') return 0.12;
+    return 0.08;
+  }
+
+  function calc() {
+    const price = +$('price').value || 0;
+    const area = +$('area').value || 0;
+    const owned = parseInt($('owned').value, 10);
+    const region = $('region').value;
+    const firstHome = $('firstHome').checked;
+    const newlywed = $('newlywed').checked;
+
+    const rate = calcRate(price, owned, region);
+    const tax = price * rate;
+    // 농특세: 85㎡ 초과 시 취득세의 10%
+    const rural = area > 85 ? tax * 0.1 : 0;
+    // 지방교육세: 취득세의 10%
+    const edu = tax * 0.1;
+
+    let discount = 0;
+    if (firstHome && owned == 0 && price <= 1200000000) {
+      // 생애최초 — 최대 200만원
+      discount += Math.min(2000000, tax);
+    }
+    if (newlywed && owned == 0 && price <= 600000000) {
+      // 신혼 — 추가 100만원 (단순화)
+      discount += Math.min(1000000, tax - discount);
+    }
+    discount = Math.min(discount, tax);
+
+    const total = tax + rural + edu - discount;
+
+    $('b-tax').textContent = fmt(tax) + ` (${(rate * 100).toFixed(2)}%)`;
+    $('b-rural').textContent = fmt(rural);
+    $('b-edu').textContent = fmt(edu);
+    $('b-discount').textContent = '−' + fmt(discount);
+    $('r-total').textContent = fmt(total);
+    $('r-rate').textContent = `매수가 ${(price / 100000000).toFixed(2)}억 · 실효세율 ${(total / price * 100).toFixed(2)}%`;
+
+    if (window.va) { try { window.va('event', { name: 'acquisition_tax', data: { price, owned } }); } catch (_) {} }
+  }
+
+  ['price', 'area', 'owned', 'region', 'firstHome', 'newlywed'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>
