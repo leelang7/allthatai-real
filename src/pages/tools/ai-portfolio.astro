@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 자산 포트폴리오 추천 — 자산·목표·위험 → 배분 + 구체 상품" description="자산·목표·기간·위험 입력 → Gemini가 주식·채권·예금 배분 + 한국 ETF/펀드 구체 추천 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-3 py-1 text-xs text-emerald-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Gemini — 포트폴리오</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 자산 포트폴리오</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">배분 + 구체 상품 + 리밸런싱.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">총 자산 (₩)</span><input id="totalAssets" type="number" value="100000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">월 추가 투자 (₩)</span><input id="monthlyContribution" type="number" value="500000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">나이</span><input id="age" type="number" value="35" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">목표</span><select id="goal" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2 text-white"><option value="growth">성장</option><option value="balanced">균형</option><option value="income">인컴 (배당)</option><option value="preservation">보존</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">기간</span><select id="horizon" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2 text-white"><option value="short">단기</option><option value="medium">중기</option><option value="long" selected>장기</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">위험 성향</span><select id="riskTolerance" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white"><option value="conservative">보수</option><option value="moderate" selected>중도</option><option value="aggressive">공격</option></select></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">소득원</span><input id="incomeSource" type="text" value="근로소득" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">현재 자산 배분</span><textarea id="currentAllocation" rows="2" placeholder="예: 예금 6천만, 국내주식 3천만 (삼성전자 위주), 미국 ETF 1천만" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-black py-3 disabled:opacity-50">AI 포트폴리오 분석</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><p id="currentAnalysis" class="text-sm text-zinc-200"></p><div class="mt-3 flex gap-3 text-sm"><span>위험 성향: <span id="riskAnalyzed" class="font-black">-</span></span><span>예상 수익: <span id="expReturn" class="font-black text-emerald-300">-</span></span><span>변동성: <span id="volatility" class="font-black">-</span></span></div></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📊 권장 자산 배분</h4><div id="allocation" class="grid grid-cols-3 sm:grid-cols-6 gap-2"></div></div>
+    <h3 class="text-xl font-black text-emerald-300">구체 상품 추천</h3>
+    <div id="picks" class="space-y-2"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">🔄 리밸런싱</h4><p id="rebal" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">💸 세금 최적화</h4><ul id="tax" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주의</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!+$('totalAssets').value) { $('status').textContent = '⚠ 자산 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 포트폴리오 분석 중...'; $('status').className = 'text-xs text-emerald-300 text-center animate-pulse';
+    const body = {};
+    ['totalAssets','age','goal','horizon','riskTolerance','currentAllocation','monthlyContribution','incomeSource'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-portfolio', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('currentAnalysis').textContent = data.currentAnalysis || '';
+      $('riskAnalyzed').textContent = data.riskTolerance || '-';
+      $('expReturn').textContent = data.expectedReturn || '-';
+      $('volatility').textContent = data.expectedVolatility || '-';
+      const a = data.recommendedAllocation || {};
+      $('allocation').innerHTML = Object.entries(a).map(([k, v]) => `<div class="rounded-lg bg-zinc-900/60 p-2 text-center"><p class="text-[10px] text-zinc-400">${esc(k)}</p><p class="text-lg font-black tabular-nums">${esc(String(v))}</p></div>`).join('');
+      $('picks').innerHTML = (data.specificPicks || []).map((p) => `<div class="rounded-lg bg-zinc-900/60 p-3"><div class="flex items-center justify-between mb-2"><span class="text-sm font-bold text-white">${esc(p.category || '')}</span><span class="text-xs font-black text-emerald-300">${esc(String(p.weight || ''))}</span></div><ul class="text-sm text-zinc-300 list-disc list-inside">${(p.products || []).map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p class="mt-1 text-xs text-zinc-400">${esc(p.reason || '')}</p></div>`).join('');
+      $('rebal').textContent = data.rebalancing || '';
+      $('tax').innerHTML = (data.taxOptimization || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_portfolio' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

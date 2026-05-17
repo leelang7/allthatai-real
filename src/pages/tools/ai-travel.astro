@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 여행 플래너 — 목적지·예산 → 일자별 상세 일정" description="목적지·기간·예산·인원 입력 → Gemini가 일자별 일정·식사·예산·꼭 봐야 할 것 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Gemini — 여행 플래너</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 여행 플래너</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">일자별 일정 · 식사 · 예산.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">목적지 *</span><input id="destination" type="text" value="제주도" placeholder="예: 제주도, 도쿄, 다낭, 발리" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" /></label>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">기간 (일)</span><input id="days" type="number" value="3" min="1" max="14" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">예산 (인당, ₩)</span><input id="budget" type="number" value="800000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">인원</span><input id="travelers" type="number" value="2" min="1" max="20" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">스타일</span><select id="travelStyle" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white"><option value="budget">가성비</option><option value="balanced" selected>균형</option><option value="luxury">럭셔리</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">시기</span><input id="season" type="text" placeholder="예: 2026-07 (7월)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" /></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">관심사</span><input id="interests" type="text" placeholder="예: 미술관·맛집·해변·쇼핑" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" /></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white font-black py-3 disabled:opacity-50">AI 일정 생성</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-8">
+      <p id="dest" class="text-3xl font-black text-white">-</p>
+      <p id="totalBudget" class="mt-2 text-2xl font-black text-cyan-300 tabular-nums">-</p>
+      <div class="mt-3 grid grid-cols-3 sm:grid-cols-6 gap-2" id="budgetBreakdown"></div>
+    </div>
+    <h3 class="text-xl font-black text-cyan-300">일자별 일정</h3>
+    <div id="itinerary" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">🍴 꼭 먹어야 할</h4><ul id="mustEat" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">📸 꼭 봐야 할</h4><ul id="mustSee" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">🎒 챙길 것</h4><ul id="packing" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">💰 절감 팁</h4><ul id="saving" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주의</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!$('destination').value.trim()) { $('status').textContent = '⚠ 목적지 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 일정 생성 중...'; $('status').className = 'text-xs text-cyan-300 text-center animate-pulse';
+    const body = {};
+    ['destination','days','budget','travelers','travelStyle','interests','season'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-travel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('dest').textContent = data.destination + ' · ' + (data.totalDays || 0) + '일';
+      $('totalBudget').textContent = fmt(data.totalBudget);
+      const bb = data.budgetBreakdown || {};
+      $('budgetBreakdown').innerHTML = Object.entries(bb).map(([k, v]) => `<div class="rounded-lg bg-zinc-900/60 p-2 text-center"><p class="text-[10px] text-zinc-400">${esc(k)}</p><p class="text-base font-black">${esc(String(v))}</p></div>`).join('');
+      $('itinerary').innerHTML = (data.itinerary || []).map((d) => {
+        const m = d.meals || {};
+        return `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <div class="flex items-center justify-between mb-2"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-cyan-500 text-white">Day ${d.day}</span><span class="text-xs font-black text-emerald-300 tabular-nums">${esc(d.estimatedCost || '')}</span></div>
+          <p class="text-sm font-bold text-white mb-2">${esc(d.theme || '')}</p>
+          <div class="space-y-1 text-sm text-zinc-300"><p>🌅 <strong>오전:</strong> ${esc(d.morning || '')}</p><p>☀️ <strong>오후:</strong> ${esc(d.afternoon || '')}</p><p>🌙 <strong>저녁:</strong> ${esc(d.evening || '')}</p></div>
+          <div class="mt-2 pt-2 border-t border-zinc-800 text-xs text-zinc-400"><span>🥢 ${esc(m.breakfast || '-')} / ${esc(m.lunch || '-')} / ${esc(m.dinner || '-')}</span></div>
+        </div>`;
+      }).join('');
+      $('mustEat').innerHTML = (data.mustEat || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('mustSee').innerHTML = (data.mustSee || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('packing').innerHTML = (data.packingList || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('saving').innerHTML = (data.savingTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_travel', data: { destination: $('destination').value } }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
