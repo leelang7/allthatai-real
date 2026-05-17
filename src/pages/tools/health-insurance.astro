@@ -1,0 +1,182 @@
+---
+/**
+ * /tools/health-insurance — 건강보험료 (지역/직장).
+ *
+ * 매우 큰 검색량: "건강보험료 계산", "지역가입자 보험료", "장기요양보험료"
+ *
+ * 2026 요율:
+ *   직장: 보수월액 7.09% (사용자·근로자 각 3.545%)
+ *   장기요양: 건강보험료의 12.95%
+ *   지역: 소득·재산·자동차 점수 기반 (점당 약 230원)
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="건강보험료 계산기 2026 — 직장·지역가입자 + 장기요양보험료"
+  description="월급 또는 소득·재산·차량 → 건강보험료·장기요양료 즉시. 2026 요율 7.09% / 12.95% 반영."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">건강보험료</span> 얼마?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">직장 7.09% · 장기요양 12.95% · 지역 점수.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="flex gap-2 p-1 bg-zinc-900 rounded-lg">
+        <button id="tab-emp" type="button" class="flex-1 py-2 px-4 rounded-md text-sm font-bold bg-cyan-500 text-white">직장가입자</button>
+        <button id="tab-reg" type="button" class="flex-1 py-2 px-4 rounded-md text-sm font-bold text-zinc-400">지역가입자</button>
+      </div>
+
+      <div id="form-emp" class="space-y-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">월 보수 (세전, ₩)</span>
+          <input id="wage" type="number" value="3000000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">보수 외 소득 (연 2,000만 초과분, ₩) — 있다면</span>
+          <input id="extraIncome" type="number" value="0" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">임대·이자·배당 등. 연 2천만 초과시 추가 보험료</span>
+        </label>
+      </div>
+
+      <div id="form-reg" class="hidden space-y-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연 소득 (₩)</span>
+          <input id="rIncome" type="number" value="30000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">재산세 과세표준 (₩) — 주택·토지·전월세보증금 30%</span>
+          <input id="rProperty" type="number" value="100000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">자동차 (4천만 이상 9년 미만)</span>
+          <select id="rCar" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white">
+            <option value="0">없음 / 면제</option>
+            <option value="50">4천~6,500만</option>
+            <option value="100">6,500만~9,500만</option>
+            <option value="150">9,500만~1.2억</option>
+            <option value="200">1.2억+</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-teal-500/5 p-8">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">월 본인 부담 (건강 + 장기요양)</p>
+      <p id="r-total" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-detail" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3 mt-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">건강보험료</p>
+        <p id="r-health" class="mt-1 text-lg font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">장기요양</p>
+        <p id="r-long" class="mt-1 text-lg font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">연 합계</p>
+        <p id="r-year" class="mt-1 text-lg font-black text-cyan-300 tabular-nums">-</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">건강보험 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>직장가입자</strong>: 보수월액 7.09% (사용자·근로자 각 3.545%)</li>
+        <li>→ <strong>장기요양보험료</strong>: 건강보험료의 12.95% (별도 부과)</li>
+        <li>→ <strong>지역가입자</strong>: 소득·재산·자동차 점수 환산 (점당 약 230원)</li>
+        <li>→ <strong>보수 외 소득</strong>: 연 2천만 초과분 → 본인 추가 부담 (사업주 부담 X)</li>
+        <li>→ <strong>피부양자 자격</strong>: 연 소득 2천만 이하 + 재산 5.4억 이하 (직장가입자 가족)</li>
+        <li>→ <strong>지역 → 직장 전환</strong>: 취업 시 자동 전환. 일반적으로 직장이 저렴</li>
+        <li>→ <strong>상한액</strong>: 월 약 848만 (직장 보수월액 약 1.2억)</li>
+      </ul>
+      <p class="mt-3 text-xs text-zinc-500">정확한 조회: <a href="https://www.nhis.or.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">국민건강보험공단</a></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/salary-calc/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">연봉 실수령 →</a>
+      <a href="/tools/national-pension/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">국민연금 →</a>
+      <a href="/tools/comprehensive-income-tax/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">종합소득세 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  let mode = 'emp';
+
+  $('tab-emp').addEventListener('click', () => {
+    mode = 'emp';
+    $('tab-emp').className = 'flex-1 py-2 px-4 rounded-md text-sm font-bold bg-cyan-500 text-white';
+    $('tab-reg').className = 'flex-1 py-2 px-4 rounded-md text-sm font-bold text-zinc-400';
+    $('form-emp').classList.remove('hidden');
+    $('form-reg').classList.add('hidden');
+    calc();
+  });
+  $('tab-reg').addEventListener('click', () => {
+    mode = 'reg';
+    $('tab-reg').className = 'flex-1 py-2 px-4 rounded-md text-sm font-bold bg-cyan-500 text-white';
+    $('tab-emp').className = 'flex-1 py-2 px-4 rounded-md text-sm font-bold text-zinc-400';
+    $('form-reg').classList.remove('hidden');
+    $('form-emp').classList.add('hidden');
+    calc();
+  });
+
+  function calc() {
+    let health = 0, detail = '';
+
+    if (mode === 'emp') {
+      const wage = +$('wage').value || 0;
+      const extra = +$('extraIncome').value || 0;
+      // 보수월액 × 7.09% × 1/2 (본인 부담)
+      health = wage * 0.0709 / 2;
+      // 보수 외 소득 → 본인 100% (월 환산 × 7.09%)
+      if (extra > 0) health += (extra / 12) * 0.0709;
+      detail = `보수 ${fmt(wage)} × 7.09% ÷ 2 = ${fmt(wage * 0.0709 / 2)}` + (extra > 0 ? ` + 추가 ${fmt(extra/12*0.0709)}` : '');
+    } else {
+      const income = +$('rIncome').value || 0;
+      const property = +$('rProperty').value || 0;
+      const car = +$('rCar').value || 0;
+      // 단순화: 소득점수 + 재산점수 + 차량점수 (점당 230원)
+      // 소득점수: 연소득 / 100만 × 1점 (단순화)
+      const incomeScore = Math.max(0, (income - 3360000) / 1000000) * 1;
+      // 재산점수: 5천만 = 22점, 1억 = 35점, 5억 = 100점 (단순화)
+      const propScore = Math.min(150, Math.sqrt(property / 1000000) * 4);
+      const carScore = car;
+      const totalScore = incomeScore + propScore + carScore;
+      health = totalScore * 230;
+      // 최저 보험료 약 19,500
+      health = Math.max(health, 19500);
+      detail = `소득 ${incomeScore.toFixed(0)}점 + 재산 ${propScore.toFixed(0)}점 + 차량 ${carScore}점 = ${totalScore.toFixed(0)}점 × 230`;
+    }
+
+    const longTerm = health * 0.1295;
+    const total = health + longTerm;
+
+    $('r-health').textContent = fmt(health);
+    $('r-long').textContent = fmt(longTerm);
+    $('r-total').textContent = fmt(total);
+    $('r-year').textContent = fmt(total * 12);
+    $('r-detail').textContent = detail;
+
+    if (window.va) { try { window.va('event', { name: 'health_insurance', data: { mode, total } }); } catch (_) {} }
+  }
+
+  ['wage', 'extraIncome', 'rIncome', 'rProperty', 'rCar'].forEach((id) => {
+    const el = $(id);
+    if (el) { el.addEventListener('input', calc); el.addEventListener('change', calc); }
+  });
+  calc();
+</script>

@@ -1,0 +1,192 @@
+---
+/**
+ * /tools/property-tax — 종합부동산세 (종부세).
+ *
+ * 매우 큰 검색량: "종부세 계산", "종합부동산세 1주택", "종부세 공정시장가액"
+ *
+ * 2026 기준:
+ *   1주택자 공제: 12억
+ *   다주택자 공제: 9억
+ *   공정시장가액비율: 60%
+ *   세율: 0.5% ~ 5% (다주택 중과)
+ *   장기보유공제: 5년 20%, 10년 40%, 15년 50%
+ *   고령자공제: 60세 20%, 65세 30%, 70세 40%
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="종합부동산세 계산기 2026 — 1주택 12억·다주택 9억 공제 + 장기보유"
+  description="공시가격 → 종부세 즉시. 1주택 12억 공제, 다주택 중과 0.5~5%, 장기보유·고령자 공제 자동."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">종합부동산세</span> 얼마?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">공시가격 + 보유 → 종부세 + 농특세 자동.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">공시가격 합계 (보유 주택 전체, ₩)</span>
+        <input id="price" type="number" value="1500000000" step="100000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">시세 아닌 정부 공시가격. 보통 시세의 70~80%</span>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 보유 수</span>
+        <select id="count" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white">
+          <option value="1">1주택 (공제 12억)</option>
+          <option value="2">2주택 (공제 9억)</option>
+          <option value="3">3주택 이상 (공제 9억 + 중과세율)</option>
+        </select>
+      </label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">보유 기간 (년)</span>
+          <input id="hold" type="number" value="3" min="0" max="30" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">만 나이 (1주택만)</span>
+          <input id="age" type="number" value="40" min="0" max="100" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-8">
+      <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">납부할 종부세 (농특세 20% 포함)</p>
+      <p id="r-total" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-note" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-3 mt-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">과세표준</p>
+        <p id="r-base" class="mt-1 text-base font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">기본 세액</p>
+        <p id="r-tax" class="mt-1 text-base font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">세액공제</p>
+        <p id="r-credit" class="mt-1 text-base font-black text-emerald-300 tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">농특세 (20%)</p>
+        <p id="r-farm" class="mt-1 text-base font-black text-white tabular-nums">-</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">2026 종부세 세율</h2>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-400 text-xs"><tr><th class="text-left py-1">과세표준</th><th class="text-right py-1">일반</th><th class="text-right py-1">3주택+</th></tr></thead>
+        <tbody class="text-zinc-300">
+          <tr><td class="py-1">3억 이하</td><td class="text-right">0.5%</td><td class="text-right">0.5%</td></tr>
+          <tr><td class="py-1">3~6억</td><td class="text-right">0.7%</td><td class="text-right">0.7%</td></tr>
+          <tr><td class="py-1">6~12억</td><td class="text-right">1.0%</td><td class="text-right">1.0%</td></tr>
+          <tr><td class="py-1">12~25억</td><td class="text-right">1.3%</td><td class="text-right">2.0%</td></tr>
+          <tr><td class="py-1">25~50억</td><td class="text-right">1.5%</td><td class="text-right">3.0%</td></tr>
+          <tr><td class="py-1">50~94억</td><td class="text-right">2.0%</td><td class="text-right">4.0%</td></tr>
+          <tr><td class="py-1">94억 초과</td><td class="text-right">2.7%</td><td class="text-right">5.0%</td></tr>
+        </tbody>
+      </table>
+      <ul class="mt-4 space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>공제</strong>: 1주택 12억 / 다주택 9억 (인별)</li>
+        <li>→ <strong>공정시장가액비율</strong>: 60% (공시가격 - 공제 후 적용)</li>
+        <li>→ <strong>장기보유공제 (1주택)</strong>: 5년 20% / 10년 40% / 15년 50%</li>
+        <li>→ <strong>고령자공제 (1주택)</strong>: 60세 20% / 65세 30% / 70세 40%</li>
+        <li>→ <strong>합산공제 상한</strong>: 80%</li>
+        <li>→ <strong>납부 기한</strong>: 매년 12/1 ~ 12/15</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/real-estate-capital-gains/" class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">양도세 →</a>
+      <a href="/tools/acquisition-tax/" class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">취득세 →</a>
+      <a href="/tools/gift-tax/" class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">증여세 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function progTax(base, isHeavy) {
+    if (isHeavy) {
+      if (base <= 300000000) return base * 0.005;
+      if (base <= 600000000) return base * 0.007 - 600000;
+      if (base <= 1200000000) return base * 0.01 - 2400000;
+      if (base <= 2500000000) return base * 0.02 - 14400000;
+      if (base <= 5000000000) return base * 0.03 - 39400000;
+      if (base <= 9400000000) return base * 0.04 - 89400000;
+      return base * 0.05 - 183400000;
+    }
+    if (base <= 300000000) return base * 0.005;
+    if (base <= 600000000) return base * 0.007 - 600000;
+    if (base <= 1200000000) return base * 0.01 - 2400000;
+    if (base <= 2500000000) return base * 0.013 - 6000000;
+    if (base <= 5000000000) return base * 0.015 - 11000000;
+    if (base <= 9400000000) return base * 0.02 - 36000000;
+    return base * 0.027 - 101800000;
+  }
+
+  function calc() {
+    const price = +$('price').value || 0;
+    const count = +$('count').value;
+    const hold = +$('hold').value || 0;
+    const age = +$('age').value || 0;
+
+    const deduction = count === 1 ? 1200000000 : 900000000;
+    const afterDed = Math.max(0, price - deduction);
+    const base = afterDed * 0.6; // 공정시장가액비율 60%
+    const tax = progTax(base, count >= 3);
+
+    // 세액공제 (1주택만)
+    let credit = 0;
+    if (count === 1) {
+      let longRate = 0;
+      if (hold >= 15) longRate = 0.5;
+      else if (hold >= 10) longRate = 0.4;
+      else if (hold >= 5) longRate = 0.2;
+
+      let ageRate = 0;
+      if (age >= 70) ageRate = 0.4;
+      else if (age >= 65) ageRate = 0.3;
+      else if (age >= 60) ageRate = 0.2;
+
+      const combined = Math.min(0.8, longRate + ageRate);
+      credit = tax * combined;
+    }
+
+    const finalTax = Math.max(0, tax - credit);
+    const farmTax = finalTax * 0.2;
+    const total = finalTax + farmTax;
+
+    $('r-base').textContent = fmt(base);
+    $('r-tax').textContent = fmt(tax);
+    $('r-credit').textContent = '-' + fmt(credit);
+    $('r-farm').textContent = fmt(farmTax);
+    $('r-total').textContent = total > 0 ? fmt(total) : '비과세';
+    if (total === 0 && price < deduction) {
+      $('r-note').textContent = `공시가격 ${fmt(price)} < 공제 ${fmt(deduction)} — 종부세 대상 아님`;
+    } else {
+      $('r-note').textContent = `공시 ${fmt(price)} - 공제 ${fmt(deduction)} × 60% = 과표 ${fmt(base)}` + (credit > 0 ? ` (세액공제 -${fmt(credit)})` : '');
+    }
+
+    if (window.va) { try { window.va('event', { name: 'property_tax', data: { price, count } }); } catch (_) {} }
+  }
+
+  ['price', 'count', 'hold', 'age'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>

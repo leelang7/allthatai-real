@@ -1,0 +1,205 @@
+---
+/**
+ * /tools/real-estate-capital-gains — 부동산 양도소득세.
+ *
+ * 매우 큰 검색량: "양도세 계산기", "1주택 양도세", "다주택 중과"
+ *
+ * 2026 기준:
+ *   1주택 비과세: 12억 이하 (12억 초과는 일부 과세)
+ *   다주택 중과: 2주택 +20%p, 3주택 +30%p (조정대상지역)
+ *   장기보유특별공제: 1주택 거주 최대 80%, 일반 최대 30%
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="부동산 양도세 계산기 2026 — 1주택 비과세·다주택 중과 자동"
+  description="매도가 - 매수가 → 양도세 즉시. 1주택 12억 비과세, 다주택 중과 +20~30%p, 장기보유공제 자동."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">부동산 양도세</span> 얼마?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">1주택 비과세 · 다주택 중과 · 장기보유공제 자동.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">매도가 (₩)</span>
+          <input id="sell" type="number" value="800000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-3 text-lg font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">매수가 (₩)</span>
+          <input id="buy" type="number" value="500000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-3 text-lg font-black text-white tabular-nums" />
+        </label>
+      </div>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">필요경비 (취득세·중개수수료·인테리어 등, ₩)</span>
+        <input id="cost" type="number" value="20000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+      </label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">보유 기간 (년)</span>
+          <input id="holdYears" type="number" value="5" min="0" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">거주 기간 (년, 1주택만)</span>
+          <input id="liveYears" type="number" value="3" min="0" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 보유 상태</span>
+        <select id="status" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white">
+          <option value="one">1주택 (양도 후 무주택)</option>
+          <option value="two">2주택 (조정대상지역)</option>
+          <option value="three">3주택+ (조정대상지역)</option>
+          <option value="non-adjusted">다주택 (비조정지역)</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-orange-500/40 bg-gradient-to-br from-orange-500/15 to-red-500/5 p-8">
+      <p class="text-[10px] font-bold text-orange-300 uppercase tracking-widest">납부할 양도세 (지방세 포함)</p>
+      <p id="r-tax" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-note" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-3 mt-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">양도차익</p>
+        <p id="r-gain" class="mt-1 text-base font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">장기보유공제</p>
+        <p id="r-ltax" class="mt-1 text-base font-black text-emerald-300 tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">과세표준</p>
+        <p id="r-base" class="mt-1 text-base font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">적용 세율</p>
+        <p id="r-rate" class="mt-1 text-base font-black text-white">-</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">양도세 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>1주택 비과세</strong>: 12억 이하 + 2년 보유 (조정지역 2년 거주) → 전액 비과세</li>
+        <li>→ <strong>12억 초과 1주택</strong>: 12억 초과분에만 과세 (안분)</li>
+        <li>→ <strong>2주택 중과</strong>: 조정지역 양도 시 기본세율 +20%p</li>
+        <li>→ <strong>3주택 중과</strong>: 조정지역 +30%p (최대 75%)</li>
+        <li>→ <strong>장기보유공제</strong>: 1주택 거주 시 보유년수 × 4% + 거주 × 4% (최대 80%)</li>
+        <li>→ <strong>일반 장기보유</strong>: 3년 6% ~ 15년 30% (최대 30%)</li>
+        <li>→ <strong>지방소득세</strong>: 양도세의 10% 별도</li>
+        <li>→ <strong>신고 기한</strong>: 양도일 다음 달 말일까지 (예정신고)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/acquisition-tax/" class="rounded-xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 p-3 transition text-sm">취득세 →</a>
+      <a href="/tools/capital-gains/" class="rounded-xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 p-3 transition text-sm">주식 양도세 →</a>
+      <a href="/tools/gift-tax/" class="rounded-xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 p-3 transition text-sm">증여세 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  // 양도세 기본세율 (2026)
+  function baseTax(b) {
+    if (b <= 14000000) return b * 0.06;
+    if (b <= 50000000) return b * 0.15 - 1260000;
+    if (b <= 88000000) return b * 0.24 - 5760000;
+    if (b <= 150000000) return b * 0.35 - 15440000;
+    if (b <= 300000000) return b * 0.38 - 19940000;
+    if (b <= 500000000) return b * 0.40 - 25940000;
+    if (b <= 1000000000) return b * 0.42 - 35940000;
+    return b * 0.45 - 65940000;
+  }
+
+  function calc() {
+    const sell = +$('sell').value || 0;
+    const buy = +$('buy').value || 0;
+    const cost = +$('cost').value || 0;
+    const hold = +$('holdYears').value || 0;
+    const live = +$('liveYears').value || 0;
+    const status = $('status').value;
+
+    const gain = Math.max(0, sell - buy - cost);
+
+    // 1주택 12억 이하 비과세 (2년 보유 충족 가정)
+    if (status === 'one' && sell <= 1200000000 && hold >= 2) {
+      $('r-tax').textContent = '비과세';
+      $('r-tax').className = 'mt-2 text-5xl sm:text-6xl font-black text-emerald-300 tabular-nums';
+      $('r-note').textContent = '1주택 + 12억 이하 + 2년 보유 — 전액 비과세 ✨';
+      $('r-gain').textContent = fmt(gain);
+      $('r-ltax').textContent = '-';
+      $('r-base').textContent = '0';
+      $('r-rate').textContent = '0%';
+      return;
+    }
+
+    // 1주택 12억 초과 — 12억 초과분만 과세
+    let taxableGain = gain;
+    if (status === 'one' && sell > 1200000000) {
+      taxableGain = gain * (sell - 1200000000) / sell;
+    }
+
+    // 장기보유공제
+    let ltDeduction = 0;
+    if (status === 'one') {
+      // 1주택: 보유 4%/년 + 거주 4%/년 (각 최대 40%, 합 최대 80%)
+      const holdRate = Math.min(0.4, Math.floor(hold) * 0.04);
+      const liveRate = Math.min(0.4, Math.floor(live) * 0.04);
+      ltDeduction = taxableGain * (holdRate + liveRate);
+    } else if (hold >= 3) {
+      // 일반: 3년 6% ~ 15년 30%
+      const rate = Math.min(0.3, 0.06 + (Math.floor(hold) - 3) * 0.02);
+      ltDeduction = taxableGain * rate;
+    }
+    ltDeduction = Math.min(ltDeduction, taxableGain);
+
+    // 인적공제 250만
+    const base = Math.max(0, taxableGain - ltDeduction - 2500000);
+
+    let tax = baseTax(base);
+    let surchargeLabel = '';
+    if (status === 'two') { tax += base * 0.20; surchargeLabel = ' +20%p'; }
+    else if (status === 'three') { tax += base * 0.30; surchargeLabel = ' +30%p'; }
+
+    // 단기 양도 (보유 1년 미만 70%, 2년 미만 60%)
+    if (hold < 1) { tax = Math.max(tax, base * 0.70); surchargeLabel = ' 단기 70%'; }
+    else if (hold < 2 && status === 'one') { tax = Math.max(tax, base * 0.60); surchargeLabel = ' 단기 60%'; }
+
+    const local = tax * 0.1;
+    const total = tax + local;
+
+    $('r-tax').textContent = fmt(total);
+    $('r-tax').className = 'mt-2 text-5xl sm:text-6xl font-black text-orange-300 tabular-nums';
+    $('r-note').textContent = `양도세 ${fmt(tax)} + 지방세 ${fmt(local)}${surchargeLabel}`;
+    $('r-gain').textContent = fmt(gain);
+    $('r-ltax').textContent = '-' + fmt(ltDeduction);
+    $('r-base').textContent = fmt(base);
+    const effective = base > 0 ? (tax / base * 100).toFixed(1) : 0;
+    $('r-rate').textContent = effective + '%';
+
+    if (window.va) { try { window.va('event', { name: 'real_estate_tax', data: { sell, status } }); } catch (_) {} }
+  }
+
+  ['sell', 'buy', 'cost', 'holdYears', 'liveYears', 'status'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>
