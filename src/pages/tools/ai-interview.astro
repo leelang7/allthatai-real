@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="AI 면접 질문 생성기 — 직무·회사별 예상 질문 10+ + 답변 가이드"
+  description="직무·회사·경력 입력 → Gemini가 실제 면접 질문 10~12개 + 의도·답변 프레임워크·차별화 포인트. 한국 면접 맞춤."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/5 px-3 py-1 text-xs text-purple-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+      Gemini — 직무 맞춤 면접 질문
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">AI 면접 질문</span> 예상
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">직무 + 회사 + 경력 → 예상 질문 10+ + 의도 + 답변 프레임워크.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">직무 *</span>
+          <input id="jobTitle" type="text" value="프론트엔드 개발자" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-purple-500 outline-none px-4 py-2.5 text-white" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">회사 (선택)</span>
+          <input id="company" type="text" value="" placeholder="네이버, 카카오, 토스 등" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-purple-500 outline-none px-4 py-2.5 text-white" />
+        </label>
+      </div>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">JD / 직무 설명 (선택, 붙여넣기)</span>
+        <textarea id="jobDescription" rows="4" placeholder="채용공고의 자격요건/우대사항을 붙여넣으면 더 맞춤형 질문이 나옵니다." class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-purple-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      </label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">경력 수준</span>
+          <select id="experience" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-purple-500 outline-none px-4 py-2.5 text-white">
+            <option value="newgrad">신입 (0년)</option>
+            <option value="junior" selected>주니어 (1~3년)</option>
+            <option value="mid">미들 (3~7년)</option>
+            <option value="senior">시니어 (7년+)</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">면접 유형</span>
+          <select id="type" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-purple-500 outline-none px-4 py-2.5 text-white">
+            <option value="general">종합 면접</option>
+            <option value="tech">기술 면접</option>
+            <option value="hr">인사 면접</option>
+            <option value="final">임원 면접</option>
+          </select>
+        </label>
+      </div>
+      <button id="generate" type="button" class="w-full rounded-lg bg-purple-500 hover:bg-purple-400 text-white font-black py-3 transition disabled:opacity-50">
+        AI 면접 질문 생성 (약 8초)
+      </button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+      <h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">💡 전체 면접 팁</h4>
+      <ul id="overallTips" class="space-y-1.5 text-sm text-zinc-300 list-disc list-inside"></ul>
+    </div>
+    <div class="mt-3 rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+      <h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 피해야 할 답변</h4>
+      <ul id="redFlags" class="space-y-1.5 text-sm text-zinc-300 list-disc list-inside"></ul>
+    </div>
+    <h3 class="mt-6 mb-3 text-xl font-black text-purple-300">예상 질문</h3>
+    <div id="questions" class="space-y-3"></div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/jaso-guide/" class="rounded-xl border border-zinc-800 hover:border-purple-500/40 bg-zinc-900/40 p-3 transition text-sm">자소서 가이드 →</a>
+      <a href="/tools/salary-calc/" class="rounded-xl border border-zinc-800 hover:border-purple-500/40 bg-zinc-900/40 p-3 transition text-sm">연봉 실수령 →</a>
+      <a href="/tools/" class="rounded-xl border border-zinc-800 hover:border-purple-500/40 bg-zinc-900/40 p-3 transition text-sm">전체 도구 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  const catColors = {
+    '인성': 'bg-emerald-500',
+    '직무': 'bg-blue-500',
+    '회사 적합도': 'bg-purple-500',
+    '압박': 'bg-rose-500',
+    '역량': 'bg-amber-500',
+  };
+
+  async function generate() {
+    const jobTitle = $('jobTitle').value.trim();
+    if (!jobTitle) { $('status').textContent = '⚠ 직무 입력 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('generate').disabled = true;
+    $('status').textContent = '🤖 면접 질문 생성 중... (약 8초)';
+    $('status').className = 'text-xs text-purple-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-interview', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobTitle,
+          company: $('company').value.trim(),
+          jobDescription: $('jobDescription').value.trim(),
+          experience: $('experience').value,
+          type: $('type').value,
+        }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        $('status').textContent = '❌ ' + (data.error || '실패');
+        $('status').className = 'text-xs text-rose-300 text-center';
+        $('generate').disabled = false; return;
+      }
+      $('result').classList.remove('hidden');
+      $('status').textContent = '✓ ' + (data.questions?.length || 0) + '개 질문 생성';
+      $('status').className = 'text-xs text-emerald-300 text-center';
+
+      $('overallTips').innerHTML = (data.overallTips || []).map((t) => `<li>${escapeHtml(t)}</li>`).join('');
+      $('redFlags').innerHTML = (data.redFlags || []).map((r) => `<li>${escapeHtml(r)}</li>`).join('');
+      $('questions').innerHTML = (data.questions || []).map((q, i) => {
+        const cat = q.category || '직무';
+        const color = catColors[cat] || 'bg-zinc-600';
+        return `<details class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 group">
+          <summary class="cursor-pointer list-none flex items-start gap-3">
+            <span class="text-[10px] font-black px-2 py-0.5 rounded ${color} text-white whitespace-nowrap mt-0.5">${escapeHtml(cat)}</span>
+            <span class="flex-1 font-bold text-white">Q${i+1}. ${escapeHtml(q.question || '')}</span>
+            <span class="text-xs text-zinc-500 group-open:hidden">펼치기 ▼</span>
+            <span class="text-xs text-zinc-500 hidden group-open:inline">접기 ▲</span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-zinc-800 space-y-3 text-sm">
+            <div><span class="text-xs font-black text-zinc-400 uppercase tracking-widest">면접관 의도</span><p class="text-zinc-300 mt-1">${escapeHtml(q.intent || '')}</p></div>
+            <div><span class="text-xs font-black text-zinc-400 uppercase tracking-widest">답변 프레임워크</span><p class="text-zinc-300 mt-1">${escapeHtml(q.answerFramework || '')}</p></div>
+            <div><span class="text-xs font-black text-zinc-400 uppercase tracking-widest">답변 방향</span><p class="text-zinc-300 mt-1">${escapeHtml(q.exampleAngle || '')}</p></div>
+            <div><span class="text-xs font-black text-emerald-400 uppercase tracking-widest">💡 팁</span><ul class="mt-1 space-y-1 text-zinc-300 list-disc list-inside">${(q.tips || []).map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul></div>
+          </div>
+        </details>`;
+      }).join('');
+
+      if (window.va) { try { window.va('event', { name: 'ai_interview', data: { jobTitle } }); } catch (_) {} }
+    } catch (e) {
+      $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center';
+    } finally { $('generate').disabled = false; }
+  }
+
+  $('generate').addEventListener('click', generate);
+</script>

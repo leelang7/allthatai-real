@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="AI 임차인 공문 작성기 — 보증금 반환·수리 요청·월세 인상 거부 자동"
+  description="상황 선택만 하면 AI가 정식 내용증명·공문·문자를 한국 법조항 인용해서 자동 작성. 등기 우편 발송 즉시."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      Gemini — 법조항 인용 자동 공문
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">AI 임차인 공문</span> 작성
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">상황 선택 → 정식 내용증명·공문 자동. 주임법 조항 인용.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">상황</span>
+        <select id="situation" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white">
+          <option value="보증금 반환 요청 (계약 만료)">보증금 반환 요청 (계약 만료)</option>
+          <option value="보증금 미반환 — 임차권 등기명령 예고">보증금 미반환 — 임차권 등기명령 예고</option>
+          <option value="월세 인상 거부 (5% 초과)">월세 인상 거부 (5% 초과)</option>
+          <option value="계약 갱신 요구 (갱신요구권)">계약 갱신 요구 (갱신요구권 행사)</option>
+          <option value="수리 요청 (누수·곰팡이 등)">수리 요청 (누수·곰팡이·하자)</option>
+          <option value="수리 미이행 — 수선비 공제 통보">수리 미이행 — 수선비 공제 통보</option>
+          <option value="원상복구 범위 이의 제기">원상복구 범위 이의 제기</option>
+          <option value="중도해지 통보 (사유 있는)">중도해지 통보 (사유 있는)</option>
+          <option value="임대인 출입 거부 (사전 동의 없음)">임대인 출입 거부 (사전 동의 없음)</option>
+          <option value="관리비 부당 청구 이의">관리비 부당 청구 이의</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">구체적 맥락 (선택)</span>
+        <textarea id="context" rows="4" placeholder="예: 계약 만료일 2026-06-30, 보증금 3억, 임대인이 새 임차인 못 구해서 반환 미루는 중. 이미 1회 구두 요청함."
+                  class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">어조</span>
+        <select id="formality" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white">
+          <option value="gentle">정중 (1차 협조 요청)</option>
+          <option value="formal" selected>정식 (표준 내용증명)</option>
+          <option value="firm">강경 (법적 조치 예고)</option>
+        </select>
+      </label>
+      <button id="generate" type="button" class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white font-black py-3 transition disabled:opacity-50">
+        AI 공문 작성 (약 5초)
+      </button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <p id="subject" class="text-xl font-black text-white">-</p>
+        <button id="copy" type="button" class="text-xs font-bold px-3 py-1.5 rounded-md bg-cyan-500 hover:bg-cyan-400 text-white">📋 복사</button>
+      </div>
+      <pre id="letter" class="whitespace-pre-wrap text-sm text-zinc-200 bg-zinc-900/60 rounded-lg p-4 font-mono leading-relaxed"></pre>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-3 mt-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">📋 발송 방법</h4>
+        <p id="sendMethod" class="text-sm text-zinc-200"></p>
+        <h4 class="mt-4 text-xs font-black text-amber-300 uppercase tracking-widest mb-3">📚 법적 근거</h4>
+        <ul id="legalBasis" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">⚡ 미이행 시 다음 조치</h4>
+        <ul id="nextSteps" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul>
+        <h4 class="mt-4 text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주의사항</h4>
+        <ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">내용증명 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>발송</strong>: 우체국에서 동일 문서 3부 (수취인·발신인·우체국 보관). 비용 약 5천원</li>
+        <li>→ <strong>법적 효력</strong>: 발송 사실·내용·일자 증거. 향후 소송에서 유력 증거</li>
+        <li>→ <strong>주임법 갱신요구권</strong>: 계약 만료 6~2개월 전 행사 → 2년 추가</li>
+        <li>→ <strong>차임 인상 한도</strong>: 5% (주임법). 초과 시 무효</li>
+        <li>→ <strong>임차권 등기명령</strong>: 보증금 미반환 시 신청 → 대항력 유지하며 이사 가능</li>
+      </ul>
+      <p class="mt-3 text-xs text-zinc-500">실제 분쟁 발생 시 부동산 변호사·법률구조공단 (132) 상담 권장.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/jeonse/ai-contract-check/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">AI 계약서 검토 →</a>
+      <a href="/jeonse/ai-etungi/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">AI 등기부 →</a>
+      <a href="/jeonse/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">전세 안전 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  function escapeHtml(s) { return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  async function generate() {
+    const situation = $('situation').value;
+    const context = $('context').value.trim();
+    const formality = $('formality').value;
+    $('generate').disabled = true;
+    $('status').textContent = '🤖 공문 작성 중...';
+    $('status').className = 'text-xs text-cyan-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-tenant-letter', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ situation, context, formality }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        $('status').textContent = '❌ ' + (data.error || '실패');
+        $('status').className = 'text-xs text-rose-300 text-center';
+        $('generate').disabled = false; return;
+      }
+      $('result').classList.remove('hidden');
+      $('status').textContent = '✓ 완료';
+      $('status').className = 'text-xs text-emerald-300 text-center';
+      $('subject').textContent = data.subject || '문서';
+      $('letter').textContent = data.letter || '';
+      $('sendMethod').textContent = data.suggestedSendMethod || '내용증명 우편';
+      $('legalBasis').innerHTML = (data.legalBasis || []).map((l) => `<li>${escapeHtml(l)}</li>`).join('');
+      $('nextSteps').innerHTML = (data.nextSteps || []).map((s) => `<li>${escapeHtml(s)}</li>`).join('');
+      $('warnings').innerHTML = (data.warningSigns || []).map((w) => `<li>${escapeHtml(w)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_letter', data: { situation } }); } catch (_) {} }
+    } catch (e) {
+      $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center';
+    } finally { $('generate').disabled = false; }
+  }
+
+  $('generate').addEventListener('click', generate);
+  $('copy').addEventListener('click', () => {
+    const text = $('letter').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      $('copy').textContent = '✓ 복사됨';
+      setTimeout(() => { $('copy').textContent = '📋 복사'; }, 2000);
+    });
+  });
+</script>
