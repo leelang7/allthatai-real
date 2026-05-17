@@ -1,8 +1,40 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { products } from '../data/products';
+import { trackers } from '../data/trackers';
+import { trackerLive } from '../data/trackers.live';
 
 const featuredProducts = products.slice(0, 3);
+
+const ICONS: Record<string, string> = {
+  'faker-grok': '⚔️',
+  'lck-2026': '🏆',
+  'bitcoin-krw': '₿',
+  'apt-buy-2026': '🏢',
+  'youth-policy': '🎓',
+  'ai-model-launch': '🤖',
+  'jeonse-fraud': '🛡️',
+};
+
+const HOT_ORDER = ['faker-grok', 'jeonse-fraud', 'ai-model-launch', 'bitcoin-krw', 'lck-2026', 'apt-buy-2026'];
+
+const hotTrackers = HOT_ORDER
+  .map((slug) => {
+    const spec = trackers.find((t) => t.slug === slug);
+    const live = trackerLive[slug];
+    if (!spec || !live) return null;
+    const latest = live.items[0];
+    const updated = new Date(live.lastUpdated);
+    const hoursAgo = Math.floor((Date.now() - updated.getTime()) / 3600000);
+    return {
+      ...spec,
+      icon: ICONS[slug] || '📡',
+      count: live.items.length,
+      latest: latest?.title?.replace(/\s*-\s*[^-]+$/, '') || '',
+      hoursAgo,
+    };
+  })
+  .filter(Boolean);
 
 const heroStats = [
   { value: '13', label: '공식 출처 가이드' },
@@ -143,6 +175,34 @@ const categories = [
           ))}
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- HOT TRACKERS — 매일 자동 갱신 -->
+  <section class="mx-auto max-w-6xl px-4 pt-12">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/40 bg-rose-500/10 px-3 py-1 text-xs">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+          <span class="font-bold text-rose-300">실시간 추적</span>
+        </div>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-black"><span class="text-gradient">지금 핫한 주제</span> — 매일 자동 갱신</h2>
+        <p class="mt-2 text-sm text-zinc-400">Google News + 공식 채널 기반 자동 수집. 각 주제 최신 50건.</p>
+      </div>
+      <a href="/trackers/" class="hidden sm:inline-flex text-sm text-rose-300 hover:text-rose-200 transition">전체 보기 →</a>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {hotTrackers.map((t) => (
+        <a href={`/trackers/${t!.slug}/`} class="card-lift group block rounded-2xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-5 transition">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-2"><span class="text-2xl">{t!.icon}</span><span class={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${t!.tagColor}`}>{t!.tag}</span></div>
+            <span class="text-[10px] font-bold text-emerald-300 tabular-nums">{t!.count}건</span>
+          </div>
+          <h3 class="font-black text-white group-hover:text-rose-300 transition">{t!.title.replace(/ — .*$/, '')}</h3>
+          <p class="mt-2 text-xs text-zinc-400 line-clamp-2 leading-relaxed">📰 {t!.latest}</p>
+          <p class="mt-2 text-[10px] text-zinc-500">{t!.hoursAgo < 1 ? '방금' : t!.hoursAgo < 24 ? `${t!.hoursAgo}시간 전 갱신` : `${Math.floor(t!.hoursAgo / 24)}일 전 갱신`}</p>
+        </a>
+      ))}
     </div>
   </section>
 
