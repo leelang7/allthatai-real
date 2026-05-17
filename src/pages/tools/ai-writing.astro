@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 글쓰기 첨삭 — 이메일·블로그·SNS 한국어 첨삭" description="글 + 용도·톤 → Gemini가 점수·강점·약점·수정안·다른 톤 예시 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/5 px-3 py-1 text-xs text-blue-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-blue-400"></span>Gemini — 글쓰기 첨삭</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 글쓰기 첨삭</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">이메일·블로그·SNS 한국어 첨삭.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">용도</span><select id="purpose" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white"><option value="general">일반</option><option value="email">이메일</option><option value="blog">블로그</option><option value="sns">SNS</option><option value="business">비즈니스</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">톤</span><select id="tone" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white"><option value="professional">전문적</option><option value="formal">격식</option><option value="friendly">친근</option><option value="persuasive">설득</option></select></label>
+      </div>
+      <textarea id="text" rows="10" placeholder="첨삭받을 글 (30자 이상)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      <button id="go" type="button" class="w-full rounded-lg bg-blue-500 hover:bg-blue-400 text-white font-black py-3 disabled:opacity-50">AI 첨삭</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="box" class="rounded-3xl border-2 p-8"><p class="text-[10px] font-bold uppercase tracking-widest" id="lbl">점수</p><p id="score" class="mt-2 text-6xl font-black tabular-nums">-</p><p id="verdict" class="mt-2 text-2xl font-black">-</p><p id="summary" class="mt-3 text-sm text-zinc-300"></p></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">✓ 강점</h4><ul id="strengths" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 문제 + 수정</h4><div id="issues" class="space-y-2"></div></div>
+    </div>
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">💡 개선 예시 (첫 문단)</h4><p id="rewrite" class="text-sm text-zinc-200"></p></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">🎭 다른 톤</h4><div id="tones" class="space-y-2"></div></div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">🔍 SEO 팁</h4><ul id="seo" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if ($('text').value.length < 30) { $('status').textContent = '⚠ 30자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 첨삭 중...'; $('status').className = 'text-xs text-blue-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-writing', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: $('text').value, purpose: $('purpose').value, tone: $('tone').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      const s = data.score || 0;
+      let color = 'text-emerald-300', bg = 'border-emerald-500/40 bg-emerald-500/5';
+      if (s < 50) { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (s < 70) { color = 'text-amber-300'; bg = 'border-amber-500/40 bg-amber-500/5'; }
+      $('box').className = 'rounded-3xl border-2 p-8 ' + bg;
+      $('lbl').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('score').className = 'mt-2 text-6xl font-black tabular-nums ' + color;
+      $('verdict').className = 'mt-2 text-2xl font-black ' + color;
+      $('score').textContent = s + ' / 100';
+      $('verdict').textContent = data.verdict || '-';
+      $('summary').textContent = data.summary || '';
+      $('strengths').innerHTML = (data.strengths || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('issues').innerHTML = (data.issues || []).map((i) => `<div class="rounded-lg bg-zinc-900/60 p-3"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-rose-500 text-white">${esc(i.type || '')}</span><p class="text-sm text-zinc-200 mt-1">${esc(i.problem || '')}</p><p class="text-xs text-emerald-300 mt-1">→ ${esc(i.fix || '')}</p></div>`).join('');
+      $('rewrite').textContent = data.rewriteSample || '';
+      $('tones').innerHTML = (data.alternativeTones || []).map((t) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-xs font-black text-cyan-300">${esc(t.tone || '')}</p><p class="text-sm text-zinc-200 mt-1 italic">"${esc(t.example || '')}"</p></div>`).join('');
+      $('seo').innerHTML = (data.seoTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_writing' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

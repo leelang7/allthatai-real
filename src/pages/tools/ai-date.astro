@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 데이트 코스 — 지역·예산 → 시간순 코스 자동" description="지역·예산·관계 단계 → Gemini가 시간순 장소·이동·복장·날씨 대안·인생샷 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400"></span>Gemini — 데이트 코스</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 데이트 코스</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">시간순 장소·복장·인생샷.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">지역 *</span><input id="region" type="text" placeholder="예: 홍대, 성수, 강남, 인사동" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">예산 (2인, ₩)</span><input id="budget" type="number" value="150000" step="10000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">관계</span><select id="stage" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-3 py-2 text-white"><option value="first">첫 데이트</option><option value="dating" selected>연애 중</option><option value="long">오래된</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">길이</span><select id="duration" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-3 py-2 text-white"><option value="short">짧음</option><option value="halfday" selected>반나절</option><option value="fullday">하루 종일</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">시간대</span><select id="time" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-3 py-2 text-white"><option value="morning">오전</option><option value="afternoon" selected>오후</option><option value="evening">저녁</option><option value="night">밤</option></select></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">관심사</span><input id="interests" type="text" placeholder="예: 미술관, 보드게임, 한식" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">시기</span><input id="season" type="text" placeholder="예: 봄, 여름, 비 오는 날" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white" /></label>
+      </div>
+      <button id="go" type="button" class="w-full rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-black py-3 disabled:opacity-50">AI 코스 생성</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-rose-500/40 bg-gradient-to-br from-rose-500/15 to-pink-500/5 p-8">
+      <p id="theme" class="text-2xl font-black text-white"></p>
+      <p id="total" class="mt-2 text-3xl font-black text-rose-300 tabular-nums"></p>
+      <p id="duration" class="mt-1 text-sm text-zinc-300"></p>
+    </div>
+    <h3 class="text-xl font-black text-rose-300">코스</h3>
+    <div id="stops" class="space-y-3"></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><p class="text-xs font-black text-cyan-300 uppercase mb-2">🚇 이동</p><p id="transportation" class="text-sm text-zinc-300"></p></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">👔 복장 팁</h4><ul id="outfit" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">☔ 우천 대안</h4><ul id="weather" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💬 대화 주제</h4><ul id="conv" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">📸 인생샷</h4><ul id="photo" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!$('region').value.trim()) { $('status').textContent = '⚠ 지역 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 코스 생성 중...'; $('status').className = 'text-xs text-rose-300 text-center animate-pulse';
+    const body = {};
+    ['region','budget','stage','duration','time','interests','season'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-date', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('theme').textContent = data.courseTheme || '';
+      $('total').textContent = fmt(data.totalBudget);
+      $('duration').textContent = '소요: ' + (data.duration || '-');
+      $('stops').innerHTML = (data.stops || []).map((s) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-start justify-between mb-2"><div><span class="text-[10px] font-black px-2 py-0.5 rounded bg-rose-500 text-white">#${s.order} · ${esc(s.time || '')}</span><span class="ml-2 text-xs font-black text-amber-300">${esc(s.type || '')}</span></div><span class="text-sm font-black text-rose-300 tabular-nums">${fmt(s.cost)}</span></div>
+        <h4 class="text-lg font-black text-white mb-1">${esc(s.name || '')}</h4>
+        <p class="text-xs text-zinc-400 mb-2">⏱ ${esc(s.duration || '')}</p>
+        <p class="text-sm text-zinc-300 mb-1">${esc(s.why || '')}</p>
+        <p class="text-xs text-cyan-300">💡 ${esc(s.tip || '')}</p>
+      </div>`).join('');
+      $('transportation').textContent = data.transportation || '';
+      $('outfit').innerHTML = (data.outfitTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('weather').innerHTML = (data.weatherBackup || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('conv').innerHTML = (data.conversationStarters || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('photo').innerHTML = (data.photoSpots || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_date' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

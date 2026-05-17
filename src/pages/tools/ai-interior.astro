@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 인테리어 가이드 — 평수·예산·스타일 → 가구·동선 자동" description="평수·예산·스타일 입력 → Gemini가 공간별 예산·가구·조명·DIY·동선 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>Gemini — 인테리어</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 인테리어</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">공간별 가구·조명·동선.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">평수</span><input id="pyeong" type="number" value="25" min="5" max="80" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">주거 유형</span><select id="propertyType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white"><option>아파트</option><option>빌라</option><option>오피스텔</option><option>주택</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">예산 (₩)</span><input id="budget" type="number" value="10000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">스타일</span><select id="style" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white"><option value="modern">모던</option><option value="minimal">미니멀</option><option value="natural">내추럴</option><option value="vintage">빈티지</option><option value="korean">한국적</option><option value="luxury">럭셔리</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">거주 형태</span><select id="occupants" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white"><option>1인 가구</option><option>신혼</option><option>아이 있는 가족</option><option>다자녀</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">우선순위</span><input id="priorities" type="text" placeholder="예: 수납, 채광, 워크스페이스" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">제한사항</span><input id="constraints" type="text" placeholder="예: 임대(못박기 X), 반려동물, 알레르기" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white" /></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-amber-500 hover:bg-amber-400 text-white font-black py-3 disabled:opacity-50">AI 인테리어 플랜</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><p id="style" class="text-lg font-black text-white"></p><p id="totalBudget" class="mt-2 text-2xl font-black text-amber-300 tabular-nums"></p><div id="palette" class="mt-3 flex gap-2"></div></div>
+    <h3 class="text-xl font-black text-amber-300">공간별 플랜</h3>
+    <div id="breakdown" class="space-y-2"></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">🛋 추천 가구</h4><div id="furniture" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">📐 동선</h4><p id="layout" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💡 조명</h4><ul id="lighting" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-5"><h4 class="text-xs font-black text-pink-300 uppercase tracking-widest mb-3">🔨 DIY</h4><ul id="diy" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 피하기</h4><ul id="avoid" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">📦 좁은 공간</h4><ul id="small" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!+$('pyeong').value || !+$('budget').value) { $('status').textContent = '⚠ 평수·예산 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 인테리어 분석 중...'; $('status').className = 'text-xs text-amber-300 text-center animate-pulse';
+    const body = {};
+    ['pyeong','propertyType','budget','style','occupants','priorities','constraints'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-interior', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('style').textContent = data.styleSummary || '';
+      $('totalBudget').textContent = fmt(data.totalBudget);
+      $('palette').innerHTML = (data.colorPalette || []).map((c) => `<span class="text-xs font-bold px-3 py-1 rounded-full bg-zinc-700 text-zinc-200">${esc(c)}</span>`).join('');
+      $('breakdown').innerHTML = (data.breakdown || []).map((b) => `<div class="rounded-lg bg-zinc-900/60 p-3"><div class="flex items-center justify-between mb-1"><span class="text-sm font-bold text-white">${esc(b.area || '')}</span><span class="text-sm font-black text-amber-300 tabular-nums">${fmt(b.budget)}</span></div><p class="text-xs text-zinc-300 mb-1">${(b.keyItems || []).map(esc).join(', ')}</p><p class="text-xs text-zinc-400">${esc(b.tips || '')}</p></div>`).join('');
+      $('furniture').innerHTML = (data.furnitureList || []).map((f) => `<div class="flex items-center justify-between text-sm"><span class="text-zinc-200"><strong>${esc(f.item || '')}</strong> · ${esc(f.brand || '')}</span><span class="text-emerald-300 tabular-nums">${esc(f.price || '')}</span></div>`).join('');
+      $('layout').textContent = data.spaceLayout || '';
+      $('lighting').innerHTML = (data.lightingTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('diy').innerHTML = (data.diy || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('avoid').innerHTML = (data.avoidThese || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('small').innerHTML = (data.smallSpaceTricks || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_interior' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

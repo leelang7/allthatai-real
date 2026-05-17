@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 결혼 플래너 — 예산·인원 → 항목별 추천 + 타임라인 + 절감" description="총 예산·하객·지역·스타일 입력 → Gemini가 항목별 비용·타임라인·절감 전략·사기 패턴 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-pink-500/30 bg-pink-500/5 px-3 py-1 text-xs text-pink-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-pink-400"></span>Gemini — 결혼 플래너</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 결혼 플래너</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">항목별 + 타임라인 + 절감.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">총 예산 (₩)</span><input id="budget" type="number" value="50000000" step="5000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">하객 수</span><input id="guests" type="number" value="200" min="20" max="500" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">결혼까지 (개월)</span><input id="monthsUntil" type="number" value="12" min="1" max="36" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">지역</span><input id="region" type="text" value="서울" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">스타일</span><select id="style" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white"><option value="minimal">미니멀</option><option value="standard" selected>표준</option><option value="luxury">럭셔리</option><option value="destination">데스티네이션</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">우선순위</span><input id="priorities" type="text" placeholder="예: 식사 좋은 곳, 사진 잘 나오는 곳" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white" /></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-pink-500 hover:bg-pink-400 text-white font-black py-3 disabled:opacity-50">AI 결혼 플랜</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-pink-500/40 bg-gradient-to-br from-pink-500/15 to-rose-500/5 p-8">
+      <p class="text-[10px] font-bold text-pink-300 uppercase tracking-widest">총 예산</p>
+      <p id="totalBudget" class="mt-2 text-5xl font-black text-white tabular-nums">-</p>
+      <div class="mt-3 grid grid-cols-3 gap-2 text-sm" id="range"></div>
+    </div>
+    <h3 class="text-xl font-black text-pink-300">항목별 예산</h3>
+    <div id="breakdown" class="space-y-2"></div>
+    <h3 class="text-xl font-black text-cyan-300">타임라인</h3>
+    <div id="timeline" class="space-y-2"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💰 절감 전략</h4><ul id="saving" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">🚨 사기·과잉</h4><ul id="scam" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!+$('budget').value) { $('status').textContent = '⚠ 예산 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 결혼 플랜 생성 중...'; $('status').className = 'text-xs text-pink-300 text-center animate-pulse';
+    const body = {};
+    ['budget','guests','region','style','monthsUntil','priorities'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-wedding', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('totalBudget').textContent = fmt(data.totalBudget);
+      const r = data.totalRange || {};
+      $('range').innerHTML = `<div class="rounded-lg bg-zinc-900/60 p-2"><p class="text-[10px] text-zinc-400">최저</p><p class="text-base font-black text-emerald-300 tabular-nums">${esc(r.low || '-')}</p></div><div class="rounded-lg bg-zinc-900/60 p-2"><p class="text-[10px] text-zinc-400">평균</p><p class="text-base font-black text-amber-300 tabular-nums">${esc(r.average || '-')}</p></div><div class="rounded-lg bg-zinc-900/60 p-2"><p class="text-[10px] text-zinc-400">럭셔리</p><p class="text-base font-black text-rose-300 tabular-nums">${esc(r.luxury || '-')}</p></div>`;
+      $('breakdown').innerHTML = (data.breakdown || []).map((b) => `<div class="rounded-lg bg-zinc-900/60 p-3"><div class="flex items-center justify-between mb-2"><span class="text-sm font-bold text-white">${esc(b.category || '')}</span><span class="text-sm font-black text-pink-300 tabular-nums">${fmt(b.recommended)}</span></div><ul class="text-xs text-zinc-300 list-disc list-inside mb-2">${(b.tips || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul><div class="flex gap-2 text-xs">${(b.options || []).map((o) => `<span class="rounded bg-zinc-800 px-2 py-1">${esc(o.tier || '')}: ${esc(o.price || '')}</span>`).join('')}</div></div>`).join('');
+      $('timeline').innerHTML = (data.timeline || []).map((t) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-cyan-300">${esc(t.month || '')}</p><ul class="text-sm text-zinc-300 list-disc list-inside mt-1">${(t.tasks || []).map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+      $('saving').innerHTML = (data.savingStrategies || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('scam').innerHTML = (data.scamWarnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_wedding' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

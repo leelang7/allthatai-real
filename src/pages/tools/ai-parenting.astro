@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 자녀 양육 가이드 — 발달·학습·생활 자동" description="자녀 나이·성격 → Gemini가 발달 단계·학습·식단·행동 가이드 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/5 px-3 py-1 text-xs text-orange-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-orange-400"></span>Gemini — 양육 가이드</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 자녀 양육</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">발달·학습·식단·행동.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">자녀 나이 *</span><input id="childAge" type="text" placeholder="예: 18개월, 5살, 초3" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">성별</span><select id="childGender" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white"><option></option><option>남</option><option>여</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">성격·특징</span><input id="personality" type="text" placeholder="예: 활발, 내성적, 호기심 많음" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">고민·관심사</span><textarea id="concerns" rows="2" placeholder="예: 한글 늦음, 친구 못 사귐, 잠을 안 잠" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">교육 목표</span><input id="educationGoals" type="text" placeholder="예: 영어 노출, 창의성, 자립심" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="flex items-center gap-2"><input id="workingParent" type="checkbox" class="w-4 h-4 accent-orange-500" /><span class="text-sm text-zinc-300">맞벌이</span></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-orange-500 hover:bg-orange-400 text-white font-black py-3 disabled:opacity-50">AI 양육 가이드</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-orange-500/40 bg-orange-500/5 p-5"><p id="stage" class="text-sm text-zinc-200"></p><p id="budget" class="mt-2 text-lg font-black text-orange-300 tabular-nums"></p></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📊 발달 지표</h4><div id="milestones" class="grid grid-cols-2 gap-2 text-sm"></div></div>
+    <h3 class="text-xl font-black text-emerald-300">학습 추천</h3>
+    <div id="learning" class="space-y-2"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">📅 일일 루틴</h4><p id="routine" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">🍽 식단 + 📱 화면 시간</h4><p id="diet" class="text-sm text-zinc-300 mb-1"></p><p id="screen" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💡 행동 지도</h4><ul id="behavior" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 발달 우려 신호</h4><ul id="redFlags" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">🧘 부모 자기 관리</h4><p id="selfcare" class="text-sm text-zinc-300"></p></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('childAge').value.trim()) { $('status').textContent = '⚠ 나이 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 양육 분석 중...'; $('status').className = 'text-xs text-orange-300 text-center animate-pulse';
+    const body = {};
+    ['childAge','childGender','personality','concerns','educationGoals'].forEach((id) => { body[id] = $(id).value; });
+    body.workingParent = $('workingParent').checked;
+    try {
+      const res = await fetch('/api/ai-parenting', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('stage').textContent = data.developmentalStage || '';
+      $('budget').textContent = '월 양육 예산: ' + (data.monthlyBudget || '-');
+      const m = data.milestones || {};
+      $('milestones').innerHTML = Object.entries(m).map(([k, v]) => `<div class="rounded-lg bg-zinc-900/60 p-2"><p class="text-[10px] text-zinc-400">${esc(k)}</p><p class="text-xs text-zinc-300">${esc(String(v))}</p></div>`).join('');
+      $('learning').innerHTML = (data.learningRecommendations || []).map((l) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-emerald-300">${esc(l.area || '')}</p><p class="text-sm text-zinc-200 mt-1">${esc(l.method || '')}</p><ul class="text-xs text-zinc-400 list-disc list-inside mt-1">${(l.resources || []).map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>`).join('');
+      $('routine').textContent = data.dailyRoutine || '';
+      $('diet').textContent = '식단: ' + (data.diet || '');
+      $('screen').textContent = '화면: ' + (data.screenTime || '');
+      $('behavior').innerHTML = (data.behaviorTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('redFlags').innerHTML = (data.redFlags || []).map((x) => `<li>${esc(x)}</li>`).join('') || '<li class="list-none text-zinc-500">없음</li>';
+      $('selfcare').textContent = data.parentalSelfCare || '';
+      if (window.va) { try { window.va('event', { name: 'ai_parenting' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
