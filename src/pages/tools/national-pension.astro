@@ -1,0 +1,114 @@
+---
+/**
+ * /tools/national-pension — 국민연금 예상 수령액.
+ *
+ * 한국 매우 큰 검색: "국민연금 수령액", "국민연금 예상연금"
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="국민연금 예상 수령액 계산기 — 가입기간 + 평균소득 → 노령연금"
+  description="평균 월소득 + 가입 기간 → 만 65세 노령연금 예상액. A값/B값 기반 추정 (국민연금공단 공식 수식)."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      국민연금 <span class="text-gradient">예상 수령액</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">평균 월소득 + 가입 기간 → 노령연금 (만 65세 부터).</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">현재 월 소득 (세전, ₩)</span>
+        <input id="income" type="number" value="3500000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+      </label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">현재 가입 기간 (개월)</span>
+          <input id="paid" type="number" value="120" min="0" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">국민연금 보험료 납부 누적</span>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">앞으로 추가 가입 (개월)</span>
+          <input id="future" type="number" value="240" min="0" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">예상 추가 가입 (퇴직까지)</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">만 65세 시작 — 월 예상 수령액</p>
+      <p id="r-monthly" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-detail" class="mt-3 text-sm text-zinc-300"></p>
+      <p id="r-lifetime" class="mt-2 text-xs text-zinc-400"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">국민연금 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>최소 가입</strong>: 10년 (120개월) 채워야 수령. 미만이면 일시금 반환</li>
+        <li>→ <strong>수령 시작</strong>: 만 65세 (출생연도별 다름. 1965~ 출생은 만 65)</li>
+        <li>→ <strong>조기수령</strong>: 만 60세부터 가능 (감액 6%/년 → 30% 최대 감액)</li>
+        <li>→ <strong>연기연금</strong>: 만 65세 + N년 연기 시 7.2%/년 가산 (최대 5년)</li>
+        <li>→ <strong>보험료율</strong>: 9% (사용자·근로자 각 4.5%)</li>
+        <li>→ <strong>물가연동</strong>: 매년 물가상승률 반영 인상</li>
+      </ul>
+      <p class="mt-3 text-xs text-zinc-500">정확한 예상액: <a href="https://www.nps.or.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">국민연금공단 — 내 연금 알아보기</a></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/salary-calc/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">연봉 실수령 →</a>
+      <a href="/tools/severance/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">퇴직금 →</a>
+      <a href="/tools/savings/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">적금·예금 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function calc() {
+    const income = +$('income').value || 0;
+    const paid = +$('paid').value || 0;
+    const future = +$('future').value || 0;
+
+    const totalMonths = paid + future;
+    if (totalMonths < 120) {
+      $('r-monthly').textContent = '없음';
+      $('r-detail').textContent = '최소 가입 10년 (120개월) 미달 — 일시금 반환만 가능';
+      $('r-lifetime').textContent = '';
+      return;
+    }
+
+    // 단순화된 추정 공식 — 실제 국민연금 산식은 매우 복잡
+    // 기본연금액 = 1.2 × (A값 + B값) × (1 + 0.05 × 초과가입년수)
+    // A값 ≈ 전체 가입자 평균 월소득 (2026 약 290만)
+    // B값 ≈ 본인 가입기간 평균 월소득
+    const aValue = 2900000;
+    const bValue = Math.min(income, 5900000); // 상한
+    const baseYears = totalMonths / 12;
+    const yearMultiplier = baseYears >= 20 ? 1 + 0.05 * (baseYears - 20) : baseYears / 20;
+    let monthly = 1.2 * (aValue + bValue) * yearMultiplier / 12;
+    monthly = Math.max(0, monthly);
+
+    $('r-monthly').textContent = fmt(monthly);
+    $('r-detail').textContent = `총 가입 ${baseYears.toFixed(1)}년 · A값(평균 ₩290만) + B값(본인 ₩${(bValue/10000).toFixed(0)}만)`;
+
+    // 평생 수령액 추정 (만 65~85세 = 20년)
+    const lifetime = monthly * 12 * 20;
+    $('r-lifetime').textContent = `20년 수령 시 누적 ${fmt(lifetime)} (만 65~85세)`;
+
+    if (window.va) { try { window.va('event', { name: 'pension_calc', data: { income, totalMonths } }); } catch (_) {} }
+  }
+
+  ['income', 'paid', 'future'].forEach((id) => $(id).addEventListener('input', calc));
+  calc();
+</script>

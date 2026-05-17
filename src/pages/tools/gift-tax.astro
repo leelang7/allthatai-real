@@ -1,0 +1,142 @@
+---
+/**
+ * /tools/gift-tax — 증여세 계산기 (2026).
+ *
+ * 한국 큰 검색량: "증여세 계산기", "부모 자녀 증여", "주택 증여세"
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="증여세 계산기 — 부모·자녀·배우자 친족 공제 자동 적용"
+  description="증여재산 + 관계 입력 → 증여세 자동. 직계존비속·배우자·기타친족 공제 + 누진세율 + 신고세액공제."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">증여세</span> 계산
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">증여재산 + 관계 → 누진세율 + 친족 공제 자동.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">증여 재산 가액 (₩)</span>
+        <input id="value" type="number" value="100000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">증여자 → 수증자 관계</span>
+        <select id="relation" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-white">
+          <option value="spouse">배우자 (공제 ₩6억)</option>
+          <option value="adult-child" selected>성년 자녀 (공제 ₩5천)</option>
+          <option value="minor-child">미성년 자녀 (공제 ₩2천)</option>
+          <option value="parent">직계존속 (부모→자녀 시 ₩5천)</option>
+          <option value="other-relative">기타 친족 6촌 이내 (공제 ₩1천)</option>
+          <option value="other">타인 (공제 ₩0)</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">최근 10년 내 동일 관계로 받은 증여 합계 (₩)</span>
+        <input id="prior" type="number" value="0" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">10년 합산 — 같은 관계 증여는 누적 공제</span>
+      </label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input id="self-report" type="checkbox" checked class="w-4 h-4 accent-emerald-500" />
+        <span class="text-zinc-300">3개월 내 자진 신고 (세액 3% 공제)</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-8">
+      <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">증여세 총액</p>
+      <p id="r-total" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-rate" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden">
+      <div class="px-5 py-3 border-b border-zinc-800 bg-zinc-900/60"><p class="text-sm font-black">계산 내역</p></div>
+      <div class="divide-y divide-zinc-800">
+        <div class="flex justify-between px-5 py-3"><span class="text-sm">증여재산</span><span id="b-value" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-emerald-300">친족 공제</span><span id="b-deduction" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3 bg-zinc-900/60"><span class="text-sm font-bold">과세표준</span><span id="b-base" class="font-bold tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-rose-300">산출세액 (누진)</span><span id="b-tax" class="font-bold text-rose-300 tabular-nums">-</span></div>
+        <div class="flex justify-between px-5 py-3"><span class="text-sm text-emerald-300">신고세액공제 (3%)</span><span id="b-self" class="font-bold text-emerald-300 tabular-nums">-</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">증여세 누진세율 (2026)</h2>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-500"><tr><th class="text-left py-1">과세표준</th><th class="text-right py-1">세율</th><th class="text-right py-1">누진공제</th></tr></thead>
+        <tbody>
+          <tr><td>1억 이하</td><td class="text-right">10%</td><td class="text-right">0</td></tr>
+          <tr><td>5억 이하</td><td class="text-right">20%</td><td class="text-right">1,000만</td></tr>
+          <tr><td>10억 이하</td><td class="text-right">30%</td><td class="text-right">6,000만</td></tr>
+          <tr><td>30억 이하</td><td class="text-right">40%</td><td class="text-right">1억 6천</td></tr>
+          <tr><td>30억 초과</td><td class="text-right">50%</td><td class="text-right">4억 6천</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  const deductions = {
+    spouse: 600000000,
+    'adult-child': 50000000,
+    'minor-child': 20000000,
+    parent: 50000000,
+    'other-relative': 10000000,
+    other: 0,
+  };
+
+  function calculateTax(base) {
+    if (base <= 0) return 0;
+    if (base <= 100000000) return base * 0.10;
+    if (base <= 500000000) return base * 0.20 - 10000000;
+    if (base <= 1000000000) return base * 0.30 - 60000000;
+    if (base <= 3000000000) return base * 0.40 - 160000000;
+    return base * 0.50 - 460000000;
+  }
+
+  function calc() {
+    const value = +$('value').value || 0;
+    const relation = $('relation').value;
+    const prior = +$('prior').value || 0;
+    const selfReport = $('self-report').checked;
+
+    const total = value + prior;
+    const deduction = deductions[relation];
+    const base = Math.max(0, total - deduction);
+    const tax = calculateTax(base);
+    // 10년 합산 — 이전 분 세액 차감 (단순화)
+    const priorTax = prior > 0 ? calculateTax(Math.max(0, prior - deduction)) : 0;
+    const currentTax = Math.max(0, tax - priorTax);
+    const selfDeduction = selfReport ? currentTax * 0.03 : 0;
+    const final = currentTax - selfDeduction;
+
+    $('b-value').textContent = fmt(value);
+    $('b-deduction').textContent = '−' + fmt(deduction);
+    $('b-base').textContent = fmt(base);
+    $('b-tax').textContent = fmt(currentTax);
+    $('b-self').textContent = '−' + fmt(selfDeduction);
+    $('r-total').textContent = fmt(final);
+    $('r-rate').textContent = `과세표준 ${fmt(base)} · 실효세율 ${value > 0 ? (final / value * 100).toFixed(2) : 0}%`;
+
+    if (window.va) { try { window.va('event', { name: 'gift_tax', data: { value, relation } }); } catch (_) {} }
+  }
+
+  ['value', 'relation', 'prior', 'self-report'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>
