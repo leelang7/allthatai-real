@@ -1,0 +1,174 @@
+---
+/**
+ * /tools/comprehensive-income-tax — 종합소득세 계산기 (5월 신고).
+ *
+ * 검색 폭증 시즌: 5/1~5/31 신고 기간
+ * 검색량: "종합소득세 계산기", "프리랜서 세금", "사업소득세"
+ *
+ * 2026 누진세율:
+ *   1,400만 이하: 6%
+ *   1,400~5,000: 15% - 126만
+ *   5,000~8,800: 24% - 576만
+ *   8,800~1.5억: 35% - 1,544만
+ *   1.5억~3억: 38% - 1,994만
+ *   3억~5억: 40% - 2,594만
+ *   5억~10억: 42% - 3,594만
+ *   10억 초과: 45% - 6,594만
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="종합소득세 계산기 2026 — 프리랜서·사업소득 5월 신고 (누진세 + 지방세)"
+  description="사업·기타소득 + 필요경비 → 종합소득세·지방소득세 즉시. 단순경비율·기준경비율 자동, 신고 마감 5/31."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/5 px-3 py-1 text-xs text-rose-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+      신고 마감 5/31 — D-14
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">종합소득세</span> 얼마 낼까?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">프리랜서·사업·기타소득 → 누진세율 자동 + 지방세 10%.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">연 총수입 (₩)</span>
+        <input id="income" type="number" value="50000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">세금계산서·지급명세서 합산</span>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">소득 유형</span>
+        <select id="type" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white">
+          <option value="freelance">프리랜서 (3.3% 원천징수)</option>
+          <option value="business">개인 사업자 (사업소득)</option>
+          <option value="other">기타소득 (강연·원고료)</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">필요경비 비율 또는 직접입력</span>
+        <select id="expenseMode" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white mb-2">
+          <option value="simple">단순경비율 (자동 추정)</option>
+          <option value="standard">기준경비율 (장부 미작성)</option>
+          <option value="actual">실제 경비 (장부 작성)</option>
+        </select>
+        <input id="expense" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white tabular-nums" placeholder="실제 경비 입력 (실제만)" />
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">이미 납부한 원천징수 (₩)</span>
+        <input id="prepaid" type="number" value="1650000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">3.3% 원천 = 총수입 × 3.3% (프리랜서 기준)</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div id="r-result" class="rounded-3xl border-2 border-rose-500/40 bg-gradient-to-br from-rose-500/15 to-pink-500/5 p-8">
+      <p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">납부할 세액 (or 환급)</p>
+      <p id="r-final" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-detail" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3 mt-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">과세표준</p>
+        <p id="r-base" class="mt-1 text-lg font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">소득세</p>
+        <p id="r-tax" class="mt-1 text-lg font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">지방소득세 (10%)</p>
+        <p id="r-local" class="mt-1 text-lg font-black text-white tabular-nums">-</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">2026 종합소득세 누진세율</h2>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-400 text-xs"><tr><th class="text-left py-1">과세표준</th><th class="text-right py-1">세율</th><th class="text-right py-1">누진공제</th></tr></thead>
+        <tbody class="text-zinc-300">
+          <tr><td class="py-1">1,400만 이하</td><td class="text-right">6%</td><td class="text-right">-</td></tr>
+          <tr><td class="py-1">1,400~5,000만</td><td class="text-right">15%</td><td class="text-right">126만</td></tr>
+          <tr><td class="py-1">5,000~8,800만</td><td class="text-right">24%</td><td class="text-right">576만</td></tr>
+          <tr><td class="py-1">8,800만~1.5억</td><td class="text-right">35%</td><td class="text-right">1,544만</td></tr>
+          <tr><td class="py-1">1.5억~3억</td><td class="text-right">38%</td><td class="text-right">1,994만</td></tr>
+          <tr><td class="py-1">3억~5억</td><td class="text-right">40%</td><td class="text-right">2,594만</td></tr>
+          <tr><td class="py-1">5억~10억</td><td class="text-right">42%</td><td class="text-right">3,594만</td></tr>
+          <tr><td class="py-1">10억 초과</td><td class="text-right">45%</td><td class="text-right">6,594만</td></tr>
+        </tbody>
+      </table>
+      <p class="mt-3 text-xs text-zinc-500">정확한 신고: <a href="https://www.hometax.go.kr" target="_blank" rel="noopener" class="text-rose-300 underline">홈택스 → 종합소득세 신고</a></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/tax-refund/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">연말정산 환급 →</a>
+      <a href="/tools/vat-calc/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">부가세 →</a>
+      <a href="/tools/capital-gains/" class="rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition text-sm">양도세 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+  const fmtSign = (n) => (n >= 0 ? '+' : '-') + '₩' + Math.abs(Math.round(n)).toLocaleString('ko-KR');
+
+  // 단순경비율 (업종별 평균) — 프리랜서 75%, 사업 65%, 기타 60%
+  const simpleRate = { freelance: 0.75, business: 0.65, other: 0.60 };
+  const standardRate = { freelance: 0.60, business: 0.45, other: 0.40 };
+
+  function progTax(base) {
+    if (base <= 14000000) return base * 0.06;
+    if (base <= 50000000) return base * 0.15 - 1260000;
+    if (base <= 88000000) return base * 0.24 - 5760000;
+    if (base <= 150000000) return base * 0.35 - 15440000;
+    if (base <= 300000000) return base * 0.38 - 19940000;
+    if (base <= 500000000) return base * 0.40 - 25940000;
+    if (base <= 1000000000) return base * 0.42 - 35940000;
+    return base * 0.45 - 65940000;
+  }
+
+  function calc() {
+    const income = +$('income').value || 0;
+    const type = $('type').value;
+    const mode = $('expenseMode').value;
+    const actualExpense = +$('expense').value || 0;
+    const prepaid = +$('prepaid').value || 0;
+
+    let expense = 0;
+    if (mode === 'simple') expense = income * simpleRate[type];
+    else if (mode === 'standard') expense = income * standardRate[type];
+    else expense = actualExpense;
+
+    const netIncome = Math.max(0, income - expense);
+    // 인적공제 150만 (본인) 기본 차감
+    const base = Math.max(0, netIncome - 1500000);
+    const tax = progTax(base);
+    const local = tax * 0.1;
+    const totalTax = tax + local;
+    const final = totalTax - prepaid;
+
+    $('r-base').textContent = fmt(base);
+    $('r-tax').textContent = fmt(tax);
+    $('r-local').textContent = fmt(local);
+    $('r-final').textContent = final >= 0 ? fmt(final) + ' 납부' : fmt(-final) + ' 환급';
+    $('r-final').className = 'mt-2 text-5xl sm:text-6xl font-black tabular-nums ' + (final >= 0 ? 'text-rose-300' : 'text-emerald-300');
+    $('r-detail').textContent = `총수입 ${fmt(income)} - 경비 ${fmt(expense)} - 공제 ₩150만 = 과표 ${fmt(base)}`;
+
+    if (window.va) { try { window.va('event', { name: 'income_tax_calc', data: { income, type } }); } catch (_) {} }
+  }
+
+  ['income', 'type', 'expenseMode', 'expense', 'prepaid'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>

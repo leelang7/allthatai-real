@@ -1,0 +1,170 @@
+---
+/**
+ * /tools/housing-subscription — 주택청약 가점 계산기.
+ *
+ * 매우 큰 검색량: "청약 가점 계산", "청약 가점표", "무주택 가점"
+ *
+ * 청약 가점제 (최대 84점):
+ *   무주택 기간: 32점 (15년+)
+ *   부양가족: 35점 (6명+)
+ *   청약통장 가입: 17점 (15년+)
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="청약 가점 계산기 2026 — 무주택·부양가족·통장 → 84점 만점"
+  description="청약 가점 자동 계산. 무주택 기간 32 + 부양가족 35 + 통장가입 17 = 84점 만점. 당첨 커트라인 비교."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">청약 가점</span> 몇 점?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">무주택 + 부양가족 + 통장가입 → 84점 만점.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-5">
+      <div>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">무주택 기간 (년) — 만 30세 이후 또는 결혼일 이후 누적</span>
+          <input id="noHouse" type="number" value="5" min="0" max="20" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">최대 15년+ = 32점</span>
+        </label>
+      </div>
+      <div>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">부양가족 수 (본인 제외)</span>
+          <input id="family" type="number" value="2" min="0" max="10" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">배우자·직계존비속 (주민등록 동일). 최대 6명+ = 35점</span>
+        </label>
+      </div>
+      <div>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">청약통장 가입기간 (년)</span>
+          <input id="bank" type="number" value="3" min="0" max="20" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">최대 15년+ = 17점</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-8">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">총 청약 가점 / 84점</p>
+      <p id="r-total" class="mt-2 text-6xl sm:text-7xl font-black text-white tabular-nums">-</p>
+      <p id="r-grade" class="mt-3 text-lg font-bold"></p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3 mt-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">무주택 기간</p>
+        <p id="r-noHouse" class="mt-1 text-2xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">/ 32점</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">부양가족</p>
+        <p id="r-family" class="mt-1 text-2xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">/ 35점</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">통장 가입</p>
+        <p id="r-bank" class="mt-1 text-2xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">/ 17점</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">2024~2025 주요 단지 당첨 커트라인</h2>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-400 text-xs"><tr><th class="text-left py-1">지역·단지</th><th class="text-right py-1">평균 당첨가점</th><th class="text-right py-1">최저</th></tr></thead>
+        <tbody class="text-zinc-300">
+          <tr><td class="py-1">서울 강남구</td><td class="text-right">73점</td><td class="text-right">68</td></tr>
+          <tr><td class="py-1">서울 송파·서초</td><td class="text-right">68점</td><td class="text-right">62</td></tr>
+          <tr><td class="py-1">서울 일반구</td><td class="text-right">58점</td><td class="text-right">50</td></tr>
+          <tr><td class="py-1">경기 과천·판교</td><td class="text-right">65점</td><td class="text-right">58</td></tr>
+          <tr><td class="py-1">경기 1·2기 신도시</td><td class="text-right">52점</td><td class="text-right">42</td></tr>
+          <tr><td class="py-1">지방 광역시</td><td class="text-right">45점</td><td class="text-right">35</td></tr>
+        </tbody>
+      </table>
+      <p class="mt-3 text-xs text-zinc-500">민영주택 가점제 기준. 공공주택 별도. 시기·평형별 차이 있음.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">청약 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>무주택 기준</strong>: 본인 + 세대원 전원 무주택. 분양권·입주권도 주택으로 봄</li>
+        <li>→ <strong>부양가족</strong>: 동일 주민등록 + 60세 이상 부모는 별도 거주도 OK</li>
+        <li>→ <strong>청약통장</strong>: 주택청약종합저축. 월 2~50만 자유납입. 15년 가입하면 만점</li>
+        <li>→ <strong>특별공급</strong>: 가점제 대신 신혼·생애최초·다자녀·노부모 부양 (별도 자격)</li>
+        <li>→ <strong>1순위</strong>: 청약통장 가입 24개월 + 무주택 + 지역 거주 2년 (수도권)</li>
+        <li>→ <strong>분양가상한제</strong>: 시세 70~80% 분양. 의무거주 2~5년</li>
+      </ul>
+      <p class="mt-3 text-xs text-zinc-500">정확한 자격: <a href="https://www.applyhome.co.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">청약홈 → 청약 자격 확인</a></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/acquisition-tax/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">취득세 →</a>
+      <a href="/tools/loan-compare/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">대출 비교 →</a>
+      <a href="/jeonse/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">전세 안전 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+
+  // 무주택 기간 점수 (1년 미만 = 2, 매년 +2, 최대 32)
+  function noHouseScore(years) {
+    if (years < 1) return 2;
+    if (years >= 15) return 32;
+    return 2 + Math.floor(years) * 2;
+  }
+  // 부양가족 점수 (0=5, 1=10, ... 6+=35)
+  function familyScore(n) {
+    n = Math.min(6, Math.max(0, n));
+    return 5 + n * 5;
+  }
+  // 청약통장 점수 (6개월 미만 1, 1년 2, ... 15년+ 17)
+  function bankScore(years) {
+    if (years < 0.5) return 1;
+    if (years < 1) return 2;
+    if (years >= 15) return 17;
+    return 2 + Math.floor(years);
+  }
+
+  function calc() {
+    const n = +$('noHouse').value || 0;
+    const f = +$('family').value || 0;
+    const b = +$('bank').value || 0;
+
+    const sn = noHouseScore(n);
+    const sf = familyScore(f);
+    const sb = bankScore(b);
+    const total = sn + sf + sb;
+
+    $('r-noHouse').textContent = sn;
+    $('r-family').textContent = sf;
+    $('r-bank').textContent = sb;
+    $('r-total').textContent = total;
+
+    let grade = '';
+    let color = '';
+    if (total >= 70) { grade = '✨ 강남·서초 도전 가능'; color = 'text-emerald-300'; }
+    else if (total >= 60) { grade = '🏆 서울 일반구·과천 가능'; color = 'text-cyan-300'; }
+    else if (total >= 50) { grade = '🎯 수도권 일반 가능'; color = 'text-blue-300'; }
+    else if (total >= 40) { grade = '🔸 지방 광역시·신도시'; color = 'text-amber-300'; }
+    else { grade = '⏳ 무주택·통장 더 쌓아야'; color = 'text-zinc-400'; }
+    $('r-grade').textContent = grade;
+    $('r-grade').className = 'mt-3 text-lg font-bold ' + color;
+
+    if (window.va) { try { window.va('event', { name: 'subscription_score', data: { total } }); } catch (_) {} }
+  }
+
+  ['noHouse', 'family', 'bank'].forEach((id) => $(id).addEventListener('input', calc));
+  calc();
+</script>

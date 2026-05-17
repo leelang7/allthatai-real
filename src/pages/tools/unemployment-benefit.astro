@@ -1,0 +1,141 @@
+---
+/**
+ * /tools/unemployment-benefit — 실업급여 (구직급여) 계산기.
+ *
+ * 매우 큰 검색량: "실업급여 계산기", "실업급여 얼마", "구직급여 일액"
+ *
+ * 2026 기준:
+ *   - 1일 평균임금의 60% (이직 전 3개월)
+ *   - 상한: 66,000원/일 (월 약 198만)
+ *   - 하한: 최저임금 80% × 8h = 약 63,104원/일
+ *   - 수급기간: 연령+가입기간별 120~270일
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="실업급여 계산기 2026 — 구직급여 일액 + 총 수령액 + 수급기간"
+  description="평균임금 + 연령 + 가입기간 → 실업급여 일액·총액·수급일수 즉시. 2026 고용보험 상하한 반영."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+      2026 고용보험법
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">실업급여</span> 얼마 받나?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">평균임금 + 연령 + 가입 → 일액·총액·수급일수.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">이직 전 3개월 평균임금 (월, ₩)</span>
+        <input id="wage" type="number" value="3000000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">기본급 + 정기수당 + 상여금 (월 평균)</span>
+      </label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">만 나이</span>
+          <input id="age" type="number" value="35" min="15" max="75" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">고용보험 가입기간 (년)</span>
+          <input id="years" type="number" value="5" min="0" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">피보험 단위기간 기준 (최소 180일)</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-5">
+        <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">1일 구직급여</p>
+        <p id="r-daily" class="mt-2 text-2xl font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">수급 기간</p>
+        <p id="r-days" class="mt-2 text-2xl font-black text-white tabular-nums">-</p>
+      </div>
+      <div class="rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-5">
+        <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">총 수령 예상</p>
+        <p id="r-total" class="mt-2 text-2xl font-black text-cyan-300 tabular-nums">-</p>
+      </div>
+    </div>
+    <p id="r-note" class="mt-3 text-xs text-zinc-400"></p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">실업급여 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>수급 자격</strong>: 이직일 전 18개월 중 피보험단위기간 180일 이상</li>
+        <li>→ <strong>비자발적 이직</strong>: 권고사직·계약만료·경영악화 (자진퇴사 원칙 X)</li>
+        <li>→ <strong>구직활동 의무</strong>: 1~4주마다 고용센터 출석 + 구직활동 증빙</li>
+        <li>→ <strong>일액 상한</strong>: 66,000원 (월 약 198만)</li>
+        <li>→ <strong>일액 하한</strong>: 약 63,104원 (최저임금 80%)</li>
+        <li>→ <strong>조기재취업수당</strong>: 잔여 수급일수 1/2 이상 남기고 재취업 → 잔여 50% 일시금</li>
+        <li>→ <strong>실업인정일 미출석</strong>: 그날 분 미지급 (3회 이상 → 수급자격 상실)</li>
+      </ul>
+      <p class="mt-3 text-xs text-zinc-500">정확한 신청: <a href="https://www.ei.go.kr" target="_blank" rel="noopener" class="text-amber-300 underline">고용보험 — 실업급여 신청</a></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/severance/" class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">퇴직금 →</a>
+      <a href="/tools/parental-leave/" class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">육아휴직 급여 →</a>
+      <a href="/tools/salary-calc/" class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">연봉 실수령 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function calc() {
+    const wage = +$('wage').value || 0;
+    const age = +$('age').value || 0;
+    const years = +$('years').value || 0;
+
+    // 일 평균임금 = 월 / 30
+    const dailyWage = wage / 30;
+    let daily = dailyWage * 0.6;
+
+    // 상한 66,000 / 하한 63,104 (2026)
+    const upper = 66000;
+    const lower = 63104;
+    daily = Math.min(Math.max(daily, lower), upper);
+
+    // 수급일수 (연령 + 가입기간)
+    let days = 0;
+    const ageGroup = age < 50 ? 'young' : 'old'; // 만 50세 + 장애인은 별도, 단순화
+    if (years < 0.5) { days = 0; }
+    else if (years < 1) { days = 120; }
+    else if (years < 3) { days = ageGroup === 'young' ? 150 : 180; }
+    else if (years < 5) { days = ageGroup === 'young' ? 180 : 210; }
+    else if (years < 10) { days = ageGroup === 'young' ? 210 : 240; }
+    else { days = ageGroup === 'young' ? 240 : 270; }
+
+    if (days === 0) {
+      $('r-daily').textContent = '자격 없음';
+      $('r-days').textContent = '-';
+      $('r-total').textContent = '-';
+      $('r-note').textContent = '⚠ 피보험단위기간 180일 미달 — 수급 자격 없음 (최소 가입 6개월)';
+      return;
+    }
+
+    const total = daily * days;
+    $('r-daily').textContent = fmt(daily);
+    $('r-days').textContent = days + '일';
+    $('r-total').textContent = fmt(total);
+    $('r-note').textContent = `약 ${(days/30).toFixed(1)}개월간 매월 약 ${fmt(daily*30)} 수령 (실업인정 출석 시)`;
+
+    if (window.va) { try { window.va('event', { name: 'unemployment_calc', data: { wage, age, years } }); } catch (_) {} }
+  }
+
+  ['wage', 'age', 'years'].forEach((id) => $(id).addEventListener('input', calc));
+  calc();
+</script>

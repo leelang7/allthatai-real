@@ -1,0 +1,174 @@
+---
+/**
+ * /tools/loan-limit — DSR/DTI/LTV 대출 한도 계산기.
+ *
+ * 매우 큰 검색량: "DSR 계산", "DTI 한도", "주담대 한도", "스트레스 DSR"
+ *
+ * 2026 규제:
+ *   - 스트레스 DSR 2단계: 가산금리 0.75% 적용 (가계대출 전체)
+ *   - DSR 40% (은행), 50% (제2금융)
+ *   - LTV: 무주택 70%, 1주택 60%, 다주택 0~30%
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="DSR·DTI·LTV 대출 한도 계산기 2026 — 스트레스 DSR 2단계 반영"
+  description="연소득 + 기존대출 → 받을 수 있는 주담대 한도 즉시. DSR 40% / 스트레스 +0.75% / LTV 자동."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      2026 스트레스 DSR 2단계
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">대출 한도</span> 얼마?
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">DSR + 스트레스 +0.75% + LTV → 실제 받을 금액.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연소득 (세전, ₩)</span>
+          <input id="income" type="number" value="60000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 매매가 (₩)</span>
+          <input id="price" type="number" value="500000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" />
+        </label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출 기간 (년)</span>
+          <input id="years" type="number" value="30" min="5" max="40" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">기준 금리 (%)</span>
+          <input id="rate" type="number" value="4.5" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 보유 현황</span>
+        <select id="status" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white">
+          <option value="none">무주택 (생애최초·신혼 포함)</option>
+          <option value="one">1주택 (대체 취득)</option>
+          <option value="multi">다주택자 (조정대상지역)</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">기존 연간 원리금 상환 (₩)</span>
+        <input id="existing" type="number" value="0" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        <span class="block text-[10px] text-zinc-500 mt-1">신용대출·전세대출·자동차할부 연간 합계</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-fuchsia-500/5 p-8">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">실제 받을 수 있는 한도 (DSR·LTV 中 작은 값)</p>
+      <p id="r-limit" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p id="r-bottle" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3 mt-3">
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">DSR 한도</p>
+        <p id="r-dsr" class="mt-1 text-xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">40% × 연소득</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">LTV 한도</p>
+        <p id="r-ltv" class="mt-1 text-xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500" id="r-ltv-rate">-</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase">월 상환액</p>
+        <p id="r-monthly" class="mt-1 text-xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500">스트레스 +0.75% 반영</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">DSR / DTI / LTV — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>DSR (총부채원리금상환비율)</strong>: 모든 대출 연 원리금 ÷ 연소득. 은행 40% 한도</li>
+        <li>→ <strong>스트레스 DSR 2단계</strong>: 2026년부터 가계대출 전체에 가산금리 0.75% 적용 (실제 금리보다 높게 계산)</li>
+        <li>→ <strong>LTV (담보인정비율)</strong>: 대출 ÷ 주택가. 무주택 70%, 1주택 60%, 다주택 30% (조정지역)</li>
+        <li>→ <strong>DTI는 폐지</strong>: 2023년부터 DSR로 통합. DTI는 더 이상 사용 X</li>
+        <li>→ <strong>예외</strong>: 청년·신혼 보금자리론·디딤돌은 DSR 적용 안 함 (단, 한도 별도)</li>
+        <li>→ <strong>제2금융권</strong>: DSR 50%까지. 단, 금리 1~2%p 더 높음</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/loan-compare/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">대출 상환 방식 →</a>
+      <a href="/tools/acquisition-tax/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">취득세 →</a>
+      <a href="/tools/housing-subscription/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">청약 가점 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  function pmt(principal, annualRate, years) {
+    const r = annualRate / 12;
+    const n = years * 12;
+    if (r === 0) return principal / n;
+    return principal * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+  }
+
+  // 한도 역산: 월 상환 = pmt → principal 풀기
+  function maxLoan(monthlyPayment, annualRate, years) {
+    const r = annualRate / 12;
+    const n = years * 12;
+    if (r === 0) return monthlyPayment * n;
+    return monthlyPayment * (Math.pow(1+r, n) - 1) / (r * Math.pow(1+r, n));
+  }
+
+  function calc() {
+    const income = +$('income').value || 0;
+    const price = +$('price').value || 0;
+    const years = +$('years').value || 30;
+    const rate = (+$('rate').value || 0) / 100;
+    const stressRate = rate + 0.0075; // 스트레스 +0.75%
+    const status = $('status').value;
+    const existing = +$('existing').value || 0;
+
+    // DSR 한도: 연 (원리금 합) ≤ 연소득 × 40%
+    const dsrLimit = income * 0.4;
+    const monthlyDsrLimit = (dsrLimit - existing) / 12;
+    const dsrLoanMax = monthlyDsrLimit > 0 ? maxLoan(monthlyDsrLimit, stressRate, years) : 0;
+
+    // LTV
+    const ltvRates = { none: 0.7, one: 0.6, multi: 0.3 };
+    const ltvRate = ltvRates[status];
+    const ltvLoanMax = price * ltvRate;
+
+    const finalLimit = Math.min(dsrLoanMax, ltvLoanMax);
+    const bottleneck = dsrLoanMax < ltvLoanMax ? 'DSR (소득)' : 'LTV (주택가)';
+
+    const monthly = pmt(finalLimit, stressRate, years);
+
+    $('r-limit').textContent = fmt(Math.max(0, finalLimit));
+    $('r-bottle').textContent = `병목: ${bottleneck} — ${bottleneck === 'DSR (소득)' ? '소득 더 높이거나 기존 대출 줄여야' : '주택가가 한도 결정'}`;
+    $('r-dsr').textContent = fmt(Math.max(0, dsrLoanMax));
+    $('r-ltv').textContent = fmt(ltvLoanMax);
+    $('r-ltv-rate').textContent = `${(ltvRate*100).toFixed(0)}% × 주택가`;
+    $('r-monthly').textContent = fmt(monthly) + '/월';
+
+    if (window.va) { try { window.va('event', { name: 'loan_limit', data: { income, price, status } }); } catch (_) {} }
+  }
+
+  ['income', 'price', 'years', 'rate', 'status', 'existing'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>
