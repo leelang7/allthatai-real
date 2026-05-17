@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 학습 플래너 — 시험·자격증 주차별 플랜 자동" description="목표·기간·수준 입력 → Gemini가 주차별 플랜·자료·일정·약점 보강 전략 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/5 px-3 py-1 text-xs text-sky-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-sky-400"></span>Gemini — 학습 코치</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 학습 플래너</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">주차별 플랜·자료·전략.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">학습 목표 *</span><input id="goal" type="text" placeholder="예: 정보처리기사 합격, 토익 900, 한국사 1급" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-sky-500 outline-none px-4 py-2.5 text-white" /></label>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">현재 수준</span><select id="currentLevel" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-sky-500 outline-none px-3 py-2 text-white"><option value="beginner">초보</option><option value="intermediate">중급</option><option value="advanced">고급</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">목표 날짜</span><input id="targetDate" type="date" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-sky-500 outline-none px-3 py-2 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">하루 가용 (시간)</span><input id="hoursPerDay" type="number" value="2" step="0.5" min="0.5" max="12" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-sky-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">약한 영역</span><input id="weakAreas" type="text" placeholder="예: 듣기, 문법, 데이터베이스" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-sky-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">학습 스타일</span><select id="learningStyle" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-sky-500 outline-none px-4 py-2.5 text-white"><option value="mixed">혼합</option><option value="reading">독서/책</option><option value="video">영상 강의</option><option value="practice">문제 풀이</option><option value="audio">청취</option></select></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-black py-3 disabled:opacity-50">AI 플랜 생성</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-sky-500/40 bg-gradient-to-br from-sky-500/15 to-blue-500/5 p-8">
+      <p class="text-[10px] font-bold text-sky-300 uppercase tracking-widest">학습 플랜</p>
+      <p id="totalWeeks" class="mt-2 text-5xl font-black text-white tabular-nums">-</p>
+      <p id="weekly" class="mt-2 text-sm text-zinc-300"></p>
+      <p id="daily" class="mt-2 text-sm text-zinc-300"></p>
+    </div>
+    <h3 class="text-xl font-black text-sky-300">주차별 계획</h3>
+    <div id="phases" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💡 기억 유지 팁</h4><ul id="retention" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">🎯 약점 보강</h4><p id="weakStrategy" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 흔한 실수</h4><ul id="mistakes" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">🏆 합격 팁</h4><ul id="passing" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('goal').value.trim()) { $('status').textContent = '⚠ 목표 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 플랜 생성 중...'; $('status').className = 'text-xs text-sky-300 text-center animate-pulse';
+    const body = {};
+    ['goal','currentLevel','targetDate','hoursPerDay','weakAreas','learningStyle'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-study-plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('totalWeeks').textContent = (data.totalWeeks || 0) + '주';
+      $('weekly').textContent = '주당 ' + (data.studyHoursPerWeek || 0) + '시간';
+      $('daily').textContent = '일정: ' + (data.dailySchedule || '-');
+      $('phases').innerHTML = (data.phases || []).map((p) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-center gap-2 mb-2"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-sky-500 text-white">${esc(p.weekRange || '')}</span><span class="text-sm font-bold text-white">${esc(p.focus || '')}</span></div>
+        <div class="mb-2"><p class="text-xs font-black text-zinc-400 mb-1">📚 주제</p><ul class="text-sm text-zinc-300 list-disc list-inside">${(p.topics || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>
+        <div class="mb-2"><p class="text-xs font-black text-zinc-400 mb-1">📖 자료</p><ul class="text-sm text-zinc-300 list-disc list-inside">${(p.resources || []).map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
+        <div><p class="text-xs font-black text-emerald-400 mb-1">✓ 체크포인트</p><ul class="text-sm text-zinc-300 list-disc list-inside">${(p.milestones || []).map((m) => `<li>${esc(m)}</li>`).join('')}</ul></div>
+      </div>`).join('');
+      $('retention').innerHTML = (data.tipsForRetention || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('weakStrategy').textContent = data.weakAreaStrategy || '';
+      $('mistakes').innerHTML = (data.commonMistakes || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('passing').innerHTML = (data.passingTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_study' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
