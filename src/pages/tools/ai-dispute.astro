@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 부동산 분쟁 해결 가이드 — 단계·증거·비용·시간 자동" description="분쟁 상황 입력 → Gemini가 승소 가능성·법조항·증거·단계별 비용·소요 시간·무료 자원 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>Gemini — 분쟁 법적 가이드
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 분쟁 해결</span> 가이드</h1>
+    <p class="mt-4 text-lg text-zinc-400">단계별 비용·시간·승소 가능성 자동.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">분쟁 유형</span><select id="disputeType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white"><option>보증금 미반환</option><option>월세·관리비 분쟁</option><option>원상복구 분쟁</option><option>계약 갱신 거절</option><option>중도해지 위약금</option><option>수리 의무 불이행</option><option>임대인 출입 분쟁</option><option>매매 계약 파기</option><option>하자 발생</option><option>기타</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">내 입장</span><select id="role" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white"><option value="tenant">임차인</option><option value="landlord">임대인</option><option value="buyer">매수인</option><option value="seller">매도인</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">분쟁 금액 (₩)</span><input id="amount" type="number" value="30000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">구체 상황 (30자 이상)</span><textarea id="situation" rows="6" placeholder="예: 계약 만료 2개월 지났는데 임대인이 보증금 반환 미루고 있음. 새 임차인 못 구해서 그렇다는데 이미 1차 구두 요청했고 연락도 잘 안 받음. 보증금 3억." class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-black py-3 disabled:opacity-50">AI 분쟁 해결 가이드</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-fuchsia-500/5 p-8">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">법적 평가</p>
+      <p id="assessment" class="mt-2 text-lg font-black text-white">-</p>
+      <div class="mt-4 grid grid-cols-3 gap-3">
+        <div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-[10px] text-zinc-400">승소 가능성</p><p id="winProb" class="text-base font-black">-</p></div>
+        <div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-[10px] text-zinc-400">예상 총 비용</p><p id="totalCost" class="text-base font-black tabular-nums">-</p></div>
+        <div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-[10px] text-zinc-400">예상 소요</p><p id="duration" class="text-base font-black">-</p></div>
+      </div>
+    </div>
+    <h3 class="text-xl font-black text-violet-300">단계별 진행</h3>
+    <div id="steps" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📚 관련 법조항</h4><ul id="law" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">📋 수집 증거</h4><ul id="evidence" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">↔ 소송 외 대안</h4><ul id="alts" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">🆓 무료 자원</h4><ul id="free" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주의</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if ($('situation').value.length < 30) { $('status').textContent = '⚠ 상황 30자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 분쟁 분석 중...'; $('status').className = 'text-xs text-violet-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-dispute', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ disputeType: $('disputeType').value, situation: $('situation').value, amount: +$('amount').value, role: $('role').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('assessment').textContent = data.legalAssessment || '';
+      const wp = data.winProbability || '-';
+      const wpColor = wp === '매우 높음' || wp === '높음' ? 'text-emerald-300' : wp === '낮음' ? 'text-rose-300' : 'text-amber-300';
+      $('winProb').className = 'text-base font-black ' + wpColor;
+      $('winProb').textContent = wp;
+      $('totalCost').textContent = fmt(data.estimatedTotalCost);
+      $('duration').textContent = data.estimatedDuration || '-';
+      $('steps').innerHTML = (data.steps || []).map((s, i) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-center gap-2 mb-2"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-violet-500 text-white">${i+1}단계</span><span class="text-sm font-bold text-white">${esc(s.stage || '')}</span></div>
+        <p class="text-sm text-zinc-200 mb-2">${esc(s.action || '')}</p>
+        <div class="flex flex-wrap gap-3 text-xs"><span class="text-cyan-300">⏱ ${esc(s.duration || '')}</span><span class="text-amber-300 tabular-nums">💰 ${fmt(s.cost)}</span><span class="text-zinc-400">→ ${esc(s.outcome || '')}</span></div>
+      </div>`).join('');
+      $('law').innerHTML = (data.applicableLaw || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('evidence').innerHTML = (data.evidence || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('alts').innerHTML = (data.alternatives || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('free').innerHTML = (data.freeResources || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_dispute' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

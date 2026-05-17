@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 부동산 협상 대본 — 매매·전월세 협상 전략 + 실제 대사 자동" description="제시가·시세·내 입장 → Gemini가 협상력·목표가·대본·반박 시나리오 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/5 px-3 py-1 text-xs text-orange-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-orange-400"></span>Gemini — 협상 대본
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 부동산 협상</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">실제 대사 + 반박 시나리오.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">거래</span><select id="dealType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white"><option value="sale">매매</option><option value="jeonse">전세</option><option value="monthly">월세</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">제시가 (₩)</span><input id="askPrice" type="number" value="500000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">시세 (₩)</span><input id="marketPrice" type="number" value="480000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <textarea id="propertyInfo" rows="2" placeholder="매물 정보 (단지·평수·층·특이사항)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+      <textarea id="myPosition" rows="2" placeholder="내 입장 (예산 한도, 우선순위, 강점 - 현금 보유, 즉시 계약 가능 등)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+      <textarea id="sellerPosition" rows="2" placeholder="상대 입장 (왜 파는지, 시급한지 등 알려진 것)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">내 시급성</span><select id="urgency" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white"><option value="urgent">높음 (빨리 결정)</option><option value="moderate" selected>보통</option><option value="flexible">여유 있음</option></select></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-orange-500 hover:bg-orange-400 text-white font-black py-3 disabled:opacity-50">AI 협상 전략 생성</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">시작가</p><p id="opening" class="mt-2 text-xl font-black text-white tabular-nums">-</p></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">목표가</p><p id="target" class="mt-2 text-xl font-black text-emerald-300 tabular-nums">-</p></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><p class="text-[10px] font-bold text-rose-300 uppercase tracking-widest">한계가</p><p id="walkAway" class="mt-2 text-xl font-black text-rose-300 tabular-nums">-</p></div>
+    </div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">💪 내 협상력</h4><ul id="leverage" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <h3 class="text-xl font-black text-orange-300">협상 대본</h3>
+    <div id="scripts" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">📋 양보 전략</h4><p id="concession" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">+ 가격 외 얻을 수 있는 것</h4><ul id="alts" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 피해야 할 패턴</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!+$('askPrice').value) { $('status').textContent = '⚠ 제시가 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 협상 전략 생성 중...'; $('status').className = 'text-xs text-orange-300 text-center animate-pulse';
+    const body = {};
+    ['dealType','askPrice','marketPrice','propertyInfo','myPosition','sellerPosition','urgency'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-negotiation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('opening').textContent = fmt(data.openingPrice);
+      $('target').textContent = fmt(data.targetPrice);
+      $('walkAway').textContent = fmt(data.walkAwayPrice);
+      $('leverage').innerHTML = (data.leveragePoints || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('scripts').innerHTML = (data.scripts || []).map((s) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-center gap-2 mb-2"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-orange-500 text-white">${esc(s.phase || '')}</span><span class="text-sm font-bold text-white">${esc(s.situation || '')}</span></div>
+        <div class="rounded-lg bg-zinc-900/60 p-3 mb-2"><p class="text-xs text-zinc-400 mb-1">💬 당신이 할 말</p><p class="text-sm text-emerald-200 italic">"${esc(s.youSay || '')}"</p></div>
+        <div class="rounded-lg bg-zinc-900/60 p-3 mb-2"><p class="text-xs text-zinc-400 mb-1">↩ 상대 예상 반응</p><p class="text-sm text-amber-200 italic">"${esc(s.expectedResponse || '')}"</p></div>
+        <div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-xs text-zinc-400 mb-1">🎯 대응</p><p class="text-sm text-zinc-200">${esc(s.counterMove || '')}</p></div>
+      </div>`).join('');
+      $('concession').textContent = data.concessionStrategy || '';
+      $('alts').innerHTML = (data.alternativeWins || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_negotiation' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

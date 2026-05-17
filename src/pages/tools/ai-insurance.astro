@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 보험 포트폴리오 추천 — 종신 함정 피하고 실속 보험만" description="가족·자산·건강 입력 → Gemini가 필수 보험·피할 보험·월 보험료·절감 팁 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/5 px-3 py-1 text-xs text-teal-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-teal-400"></span>Gemini — 보험 포트폴리오
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 보험 추천</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">종신 함정 피하고 실속 위주.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">만 나이</span><input id="age" type="number" value="35" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">성별</span><select id="gender" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-3 py-2 text-white"><option>남</option><option>여</option></select></label>
+        <label class="flex items-center gap-2 pt-6"><input id="smoker" type="checkbox" class="w-4 h-4 accent-teal-500" /><span class="text-sm text-zinc-300">흡연자</span></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">월 소득 (₩)</span><input id="monthlyIncome" type="number" value="3500000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">가족</span><select id="family" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white"><option>미혼</option><option>기혼</option><option>한부모</option></select></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">부양가족 수</span><input id="dependents" type="number" value="0" min="0" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">직업 위험</span><select id="occupationRisk" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white"><option value="low">낮음 (사무직)</option><option value="medium">보통</option><option value="high">높음 (현장직)</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">가족력 (콤마 구분: 암, 심혈관, 당뇨 등)</span><input id="familyHistory" type="text" placeholder="예: 위암, 고혈압" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">현재 가입 중인 보험</span><textarea id="currentInsurance" rows="2" placeholder="예: 실손 1개, 암보험 1개, 종신보험 50만/월" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-teal-500 hover:bg-teal-400 text-white font-black py-3 disabled:opacity-50">AI 보험 분석</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-teal-500/40 bg-gradient-to-br from-teal-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-teal-300 uppercase tracking-widest">권장 월 보험료</p>
+      <p id="monthly" class="mt-2 text-5xl font-black text-white tabular-nums">-</p>
+    </div>
+    <h3 class="text-xl font-black text-emerald-300">✓ 필수·권장 보험</h3>
+    <div id="essential" class="space-y-3"></div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 피해야 할 보험</h4><div id="avoid" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">💰 절감 팁</h4><ul id="tips" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">⚪ 보장 공백</h4><ul id="gaps" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📌 오늘 할 일</h4><ul id="actions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!+$('age').value || !+$('monthlyIncome').value) { $('status').textContent = '⚠ 나이·월소득 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 보험 분석 중...'; $('status').className = 'text-xs text-teal-300 text-center animate-pulse';
+    const body = {};
+    ['age','gender','monthlyIncome','family','dependents','occupationRisk','currentInsurance'].forEach((id) => { body[id] = $(id).value; });
+    body.smoker = $('smoker').checked;
+    body.familyHistory = $('familyHistory').value.split(',').map(s => s.trim()).filter(Boolean);
+    try {
+      const res = await fetch('/api/ai-insurance', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('monthly').textContent = fmt(data.currentMonthlyEstimate);
+      $('essential').innerHTML = (data.essential || []).map((e) => {
+        const pc = e.priority === '필수' ? 'bg-rose-500' : e.priority === '권장' ? 'bg-amber-500' : 'bg-zinc-600';
+        return `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <div class="flex items-start justify-between mb-2"><div><span class="text-[10px] font-black px-2 py-0.5 rounded ${pc} text-white">${esc(e.priority || '권장')}</span><span class="ml-2 font-black text-white">${esc(e.type || '')}</span></div><span class="text-sm font-black text-emerald-300 tabular-nums">${fmt(e.monthlyPremium)}/월</span></div>
+          <p class="text-sm text-zinc-300 mb-2"><strong>보장:</strong> ${esc(e.coverage || '')}</p>
+          <p class="text-sm text-zinc-400">${esc(e.reason || '')}</p>
+        </div>`;
+      }).join('');
+      $('avoid').innerHTML = (data.avoid || []).map((a) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-rose-300">❌ ${esc(a.type || '')}</p><p class="text-xs text-zinc-300 mt-1">${esc(a.reason || '')}</p></div>`).join('');
+      $('tips').innerHTML = (data.savingsTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('gaps').innerHTML = (data.gaps || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('actions').innerHTML = (data.actionItems || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_insurance' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
