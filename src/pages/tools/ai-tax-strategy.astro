@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 절세 전략 가이드 — 소득·지출 → 절세 전략 + 예상 절세액" description="소득 + 가족 + 의료비/교육비/연금 입력 → Gemini가 한국 세법 기반 절세 전략·신청 기한·놓친 공제 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/5 px-3 py-1 text-xs text-amber-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400"></span>Gemini — 세법 기반 절세 전략
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 절세 전략</span> 가이드</h1>
+    <p class="mt-4 text-lg text-zinc-400">소득·지출·가족 → 절세 전략 + 예상 절세액.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">소득 유형</span><select id="incomeType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white"><option>직장</option><option>프리랜서</option><option>사업자</option><option>임대</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">연소득 (₩) *</span><input id="annualIncome" type="number" value="50000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">가족</span><select id="family" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white"><option>미혼</option><option>기혼</option><option>한부모</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">자녀</span><input id="children" type="number" value="0" min="0" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">주택</span><select id="homeOwnership" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white"><option>무주택</option><option>1주택</option><option>다주택</option></select></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">의료비 (연, ₩)</span><input id="medicalSpend" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">교육비 (연, ₩)</span><input id="eduSpend" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">기부금 (연, ₩)</span><input id="donations" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">연금저축 (연, ₩)</span><input id="pensionSave" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">카드 사용 (연, ₩)</span><input id="cardSpend" type="number" value="20000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <textarea id="extra" rows="2" placeholder="추가 정보 (예: 주식 양도차익, 부동산 매각 예정 등)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-amber-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+      <button id="go" type="button" class="w-full rounded-lg bg-amber-500 hover:bg-amber-400 text-white font-black py-3 disabled:opacity-50">AI 절세 전략 분석</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">예상 절세 가능액</p>
+      <p id="savings" class="mt-2 text-6xl font-black text-white tabular-nums">-</p>
+      <p class="mt-2 text-sm text-zinc-300">현재 예상 세금: <span id="current" class="font-black">-</span></p>
+    </div>
+    <h3 class="text-xl font-black text-amber-300">절세 전략</h3>
+    <div id="strategies" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 놓치기 쉬운 공제</h4><ul id="missed" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📌 오늘 할 일</h4><ul id="actions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">주의</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!+$('annualIncome').value) { $('status').textContent = '⚠ 연소득 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 절세 전략 분석 중...'; $('status').className = 'text-xs text-amber-300 text-center animate-pulse';
+    const body = {};
+    ['incomeType','annualIncome','family','children','homeOwnership','medicalSpend','eduSpend','donations','pensionSave','cardSpend','extra'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-tax-strategy', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('savings').textContent = '₩' + (+(data.potentialSavings || '0').toString().replace(/[^\d]/g, '')).toLocaleString('ko-KR');
+      $('current').textContent = '₩' + (+(data.currentTaxEstimate || '0').toString().replace(/[^\d]/g, '')).toLocaleString('ko-KR');
+      $('strategies').innerHTML = (data.strategies || []).map((s) => {
+        const diffColor = s.difficulty === '쉬움' ? 'text-emerald-300' : s.difficulty === '복잡' ? 'text-rose-300' : 'text-amber-300';
+        return `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <div class="flex items-start justify-between mb-2"><h4 class="font-black text-white">${esc(s.title || '')}</h4><span class="text-xs font-black px-2 py-0.5 rounded bg-emerald-500 text-white">₩${(+(s.savings || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR')}</span></div>
+          <p class="text-sm text-zinc-300 mb-2">${esc(s.description || '')}</p>
+          <div class="flex flex-wrap gap-3 text-xs"><span class="text-zinc-400">⏰ ${esc(s.deadline || '')}</span><span class="${diffColor}">난이도: ${esc(s.difficulty || '')}</span><span class="text-zinc-500">📚 ${esc(s.legalBasis || '')}</span></div>
+        </div>`;
+      }).join('');
+      $('missed').innerHTML = (data.missedDeductions || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('actions').innerHTML = (data.actionItems || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_tax_strategy' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
