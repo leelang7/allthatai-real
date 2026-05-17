@@ -1,0 +1,166 @@
+---
+/**
+ * /jeonse/ai-etungi — AI 등기부등본 분석 (Gemini 호출).
+ *
+ * 기존 etungi-analyzer.astro는 정규식 기반. 이건 진짜 LLM 분석.
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="AI 등기부등본 분석 — Gemini 자연어 위험 판단 + 위험 요소 자동 추출"
+  description="등기부등본 텍스트 붙여넣기 → Gemini AI가 자연어로 위험 분석. 압류·가압류·근저당·신탁 자동 탐지."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      Gemini 2.0 Flash 실시간 분석
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">AI 등기부등본</span> 분석
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">정규식 아닌 진짜 LLM이 분석. 갑구·을구·신탁·압류·근저당 자동 탐지.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">등기부등본 텍스트 (전체 또는 일부)</span>
+        <textarea id="text" rows="12" placeholder="인터넷등기소(iros.go.kr)에서 발급한 등기부등본 텍스트를 그대로 붙여넣으세요. PDF는 텍스트 복사 후 붙여넣기."
+                  class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-sm text-zinc-200 font-mono tabular-nums"></textarea>
+        <span class="block text-[10px] text-zinc-500 mt-1">최소 50자, 최대 30,000자. 개인정보는 마스킹 후 사용 권장</span>
+      </label>
+      <button id="analyze" type="button" class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white font-black py-3 transition disabled:opacity-50">
+        AI 분석 시작 (약 3-5초)
+      </button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+
+  <!-- 결과 영역 -->
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2">
+    <div id="risk-box" class="rounded-3xl border-2 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest" id="risk-label">위험 점수</p>
+      <p id="risk-score" class="mt-2 text-6xl sm:text-7xl font-black tabular-nums">-</p>
+      <p id="risk-level" class="mt-2 text-2xl font-black">-</p>
+      <p id="risk-summary" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-3 mt-3">
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+        <h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">🚨 위험 요소</h4>
+        <ul id="redFlags" class="space-y-1.5 text-sm text-zinc-300 list-disc list-inside"></ul>
+      </div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5">
+        <h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">✓ 권장 조치</h4>
+        <ul id="recos" class="space-y-1.5 text-sm text-zinc-300 list-disc list-inside"></ul>
+      </div>
+    </div>
+
+    <div class="mt-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">자동 추출 정보</h4>
+      <table class="w-full text-sm">
+        <tbody id="extracted" class="divide-y divide-zinc-800/50"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">AI 분석 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>모델</strong>: Google Gemini 2.0 Flash (실시간 LLM 추론)</li>
+        <li>→ <strong>등기부 발급</strong>: <a href="https://www.iros.go.kr" target="_blank" rel="noopener" class="text-cyan-300 underline">인터넷등기소</a> 700원/통</li>
+        <li>→ <strong>면책</strong>: AI 판단은 참고용. 최종 결정은 부동산 변호사·법무사와 상담</li>
+        <li>→ <strong>개인정보</strong>: 주민번호·주소 마스킹 후 사용 권장 (서버 로그에 남지 않지만 LLM 호출에 전달됨)</li>
+        <li>→ <strong>한계</strong>: 텍스트만 분석 (스캔 이미지 X). 등기부 외 정보 (시세, 임대인 신용)는 별도 확인</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/jeonse/etungi-analyzer/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">정규식 분석 →</a>
+      <a href="/jeonse/full-check/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">통합 검증 →</a>
+      <a href="/jeonse/landlord-verify/" class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">임대인 검증 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  async function analyze() {
+    const text = $('text').value.trim();
+    if (text.length < 50) {
+      $('status').textContent = '⚠ 최소 50자 이상 입력하세요';
+      $('status').className = 'text-xs text-rose-300 text-center';
+      return;
+    }
+
+    $('analyze').disabled = true;
+    $('status').textContent = '🤖 Gemini 분석 중...';
+    $('status').className = 'text-xs text-cyan-300 text-center animate-pulse';
+
+    try {
+      const res = await fetch('/api/ai-etungi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+      const data = await res.json();
+
+      if (!data.ok) {
+        $('status').textContent = '❌ ' + (data.error || '분석 실패');
+        $('status').className = 'text-xs text-rose-300 text-center';
+        $('analyze').disabled = false;
+        return;
+      }
+
+      // 결과 렌더
+      $('result').classList.remove('hidden');
+      $('status').textContent = '✓ 분석 완료';
+      $('status').className = 'text-xs text-emerald-300 text-center';
+
+      const score = data.riskScore || 0;
+      const level = data.riskLevel || '미상';
+      let color = 'text-emerald-300', boxColor = 'border-emerald-500/40 bg-emerald-500/5';
+      if (score >= 76) { color = 'text-rose-300'; boxColor = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (score >= 51) { color = 'text-orange-300'; boxColor = 'border-orange-500/40 bg-orange-500/5'; }
+      else if (score >= 31) { color = 'text-amber-300'; boxColor = 'border-amber-500/40 bg-amber-500/5'; }
+
+      $('risk-box').className = 'rounded-3xl border-2 p-8 ' + boxColor;
+      $('risk-label').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('risk-score').className = 'mt-2 text-6xl sm:text-7xl font-black tabular-nums ' + color;
+      $('risk-level').className = 'mt-2 text-2xl font-black ' + color;
+      $('risk-score').textContent = score + ' / 100';
+      $('risk-level').textContent = level;
+      $('risk-summary').textContent = data.summary || '';
+
+      $('redFlags').innerHTML = (data.redFlags || []).map((f) => `<li>${escapeHtml(f)}</li>`).join('') || '<li class="list-none text-zinc-500">없음</li>';
+      $('recos').innerHTML = (data.recommendations || []).map((r) => `<li>${escapeHtml(r)}</li>`).join('') || '<li class="list-none text-zinc-500">없음</li>';
+
+      const info = data.extractedInfo || {};
+      $('extracted').innerHTML = `
+        <tr><td class="py-1.5 text-zinc-400">소유자</td><td class="py-1.5 text-right font-bold">${escapeHtml(info.owner || '미확인')}</td></tr>
+        <tr><td class="py-1.5 text-zinc-400">근저당 채권최고액 합</td><td class="py-1.5 text-right font-bold tabular-nums">${info.mortgageTotal ? fmt(info.mortgageTotal) : '0 또는 미확인'}</td></tr>
+        <tr><td class="py-1.5 text-zinc-400">신탁 등기</td><td class="py-1.5 text-right font-bold ${info.hasTrust ? 'text-rose-300' : 'text-emerald-300'}">${info.hasTrust ? '있음 ⚠' : '없음'}</td></tr>
+        <tr><td class="py-1.5 text-zinc-400">압류·가압류</td><td class="py-1.5 text-right font-bold ${info.hasSeizure ? 'text-rose-300' : 'text-emerald-300'}">${info.hasSeizure ? '있음 ⚠' : '없음'}</td></tr>
+        <tr><td class="py-1.5 text-zinc-400">임차권 등기명령</td><td class="py-1.5 text-right font-bold ${info.hasLeaseRegistration ? 'text-rose-300' : 'text-emerald-300'}">${info.hasLeaseRegistration ? '있음 ⚠' : '없음'}</td></tr>
+      `;
+
+      if (window.va) { try { window.va('event', { name: 'ai_etungi', data: { score, level } }); } catch (_) {} }
+    } catch (e) {
+      $('status').textContent = '❌ 네트워크 오류: ' + e.message;
+      $('status').className = 'text-xs text-rose-300 text-center';
+    } finally {
+      $('analyze').disabled = false;
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  $('analyze').addEventListener('click', analyze);
+</script>

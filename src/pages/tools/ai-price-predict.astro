@@ -1,0 +1,196 @@
+---
+/**
+ * /tools/ai-price-predict — AI 부동산 시세 예측 (Gemini + 국토부 실거래가).
+ */
+import Layout from '../../layouts/Layout.astro';
+import { lawdCodes } from '../../data/lawd-codes';
+
+const grouped: Record<string, typeof lawdCodes> = {};
+lawdCodes.forEach((c) => {
+  if (!grouped[c.region]) grouped[c.region] = [];
+  grouped[c.region].push(c);
+});
+---
+<Layout
+  title="AI 부동산 시세 예측 — 국토부 실거래가 + Gemini 자연어 분석"
+  description="지역·평수·층·연식 입력 → 국토부 최근 6개월 실거래 데이터를 AI가 분석. 적정 시세·신뢰구간·추세 자동."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      Gemini + 국토부 실거래가 실시간
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">AI 부동산 시세</span> 예측
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">최근 6개월 실거래 → AI가 적정가·신뢰구간·추세 자연어 분석.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">지역 (시군구)</span>
+        <select id="lawdCd" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white">
+          {Object.entries(grouped).map(([region, list]) => (
+            <optgroup label={region}>
+              {list.map((c) => (
+                <option value={c.code} selected={c.code === '11680'}>{region} {c.name}</option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+      </label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">전용면적 (m²)</span>
+          <input id="areaM2" type="number" value="84.96" step="0.01" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">25평 ≈ 84m², 32평 ≈ 105m²</span>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">층</span>
+          <input id="floor" type="number" value="10" min="1" max="80" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">준공 연도</span>
+          <input id="builtYear" type="number" value="2015" min="1980" max="2026" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">거래 유형</span>
+          <select id="dealType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white">
+            <option value="sale">매매</option>
+            <option value="rent">전세 (보증금)</option>
+          </select>
+        </label>
+      </div>
+      <button id="predict" type="button" class="w-full rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-black py-3 transition disabled:opacity-50">
+        AI 시세 예측 시작 (약 5-10초)
+      </button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-fuchsia-500/5 p-8">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">AI 예측 적정가</p>
+      <p id="r-predicted" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <p class="mt-2 text-sm text-zinc-300">
+        신뢰구간: <span id="r-low" class="font-black text-amber-300">-</span> ~ <span id="r-high" class="font-black text-emerald-300">-</span>
+      </p>
+      <div class="mt-3 flex flex-wrap gap-3 text-sm">
+        <span>신뢰도: <span id="r-conf" class="font-black">-</span></span>
+        <span>추세: <span id="r-trend" class="font-black">-</span></span>
+        <span>평균 대비: <span id="r-vs" class="font-black">-</span></span>
+      </div>
+      <p id="r-reasoning" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+
+    <div class="mt-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">최근 거래 (상위 5건)</h4>
+      <table class="w-full text-sm">
+        <thead class="text-zinc-400 text-xs"><tr><th class="text-left py-1">단지</th><th class="text-right py-1">면적</th><th class="text-right py-1">층</th><th class="text-right py-1">일자</th><th class="text-right py-1">가격</th></tr></thead>
+        <tbody id="recentDeals" class="divide-y divide-zinc-800/50"></tbody>
+      </table>
+      <p id="dataPoints" class="mt-3 text-xs text-zinc-500"></p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">AI 시세 예측 — 알아두면 좋은 것</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>데이터</strong>: 국토교통부 실거래가 공개시스템 (최근 6개월)</li>
+        <li>→ <strong>모델</strong>: Google Gemini 2.0 Flash (실거래 데이터 입력 → 자연어 분석)</li>
+        <li>→ <strong>필터링</strong>: 동일 시군구 + 면적 ±15% + 층·연식 조정</li>
+        <li>→ <strong>한계</strong>: 동 단위 필터링 불가 (시군구 단위). 학군·역세권 별도 고려 필요</li>
+        <li>→ <strong>면책</strong>: AI 예측은 참고용. 실제 거래 시 부동산 사장님·감정평가사 상담</li>
+        <li>→ <strong>한국부동산원</strong>: <a href="https://www.reb.or.kr" target="_blank" rel="noopener" class="text-violet-300 underline">공식 시세 KB부동산</a> 별도 확인</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/jeonse/ai-etungi/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">AI 등기부 분석 →</a>
+      <a href="/jeonse/full-check/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">전세 통합 검증 →</a>
+      <a href="/tools/real-estate-lifecycle/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">라이프사이클 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+  const fmt만 = (n) => (n / 100000000).toFixed(2) + '억';
+
+  async function predict() {
+    const lawdCd = $('lawdCd').value;
+    const areaM2 = +$('areaM2').value;
+    const floor = +$('floor').value;
+    const builtYear = +$('builtYear').value;
+    const dealType = $('dealType').value;
+
+    if (!lawdCd || !areaM2) {
+      $('status').textContent = '⚠ 지역·면적 필수';
+      return;
+    }
+
+    $('predict').disabled = true;
+    $('status').textContent = '🤖 국토부 데이터 수집 + AI 분석 중... (약 5-10초)';
+    $('status').className = 'text-xs text-violet-300 text-center animate-pulse';
+
+    try {
+      const res = await fetch('/api/ai-price-predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lawdCd, areaM2, floor, builtYear, dealType }),
+      });
+      const data = await res.json();
+
+      if (!data.ok) {
+        $('status').textContent = '❌ ' + (data.error || '예측 실패');
+        $('status').className = 'text-xs text-rose-300 text-center';
+        $('predict').disabled = false;
+        return;
+      }
+
+      $('result').classList.remove('hidden');
+      $('status').textContent = '✓ 예측 완료';
+      $('status').className = 'text-xs text-emerald-300 text-center';
+
+      $('r-predicted').textContent = fmt(data.predicted) + ' (' + fmt만(data.predicted) + ')';
+      $('r-low').textContent = fmt만(data.low);
+      $('r-high').textContent = fmt만(data.high);
+      $('r-conf').textContent = data.confidence || '-';
+      $('r-trend').textContent = data.trend || '-';
+      $('r-trend').className = 'font-black ' + (data.trend === '상승' ? 'text-rose-300' : data.trend === '하락' ? 'text-emerald-300' : 'text-zinc-300');
+      $('r-vs').textContent = (data.vsAverage || '0') + '%';
+      $('r-reasoning').textContent = data.reasoning || '';
+
+      $('recentDeals').innerHTML = (data.recentDeals || []).map((d) => `
+        <tr>
+          <td class="py-1.5 text-zinc-300 text-xs">${escapeHtml(d.apartment || '-')}</td>
+          <td class="py-1.5 text-right tabular-nums">${d.area.toFixed(1)}m²</td>
+          <td class="py-1.5 text-right tabular-nums">${d.floor}층</td>
+          <td class="py-1.5 text-right text-xs text-zinc-400">${d.dealDate}</td>
+          <td class="py-1.5 text-right font-bold tabular-nums">${fmt만(d.amount)}</td>
+        </tr>
+      `).join('');
+      $('dataPoints').textContent = `분석 거래 ${data.dataPoints}건 · 평균 ${fmt만(data.stats?.avg || 0)} · 중간값 ${fmt만(data.stats?.median || 0)}`;
+
+      if (window.va) { try { window.va('event', { name: 'ai_price_predict', data: { lawdCd, predicted: data.predicted } }); } catch (_) {} }
+    } catch (e) {
+      $('status').textContent = '❌ 네트워크 오류: ' + e.message;
+      $('status').className = 'text-xs text-rose-300 text-center';
+    } finally {
+      $('predict').disabled = false;
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  $('predict').addEventListener('click', predict);
+</script>
