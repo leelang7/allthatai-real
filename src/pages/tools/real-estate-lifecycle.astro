@@ -1,0 +1,391 @@
+---
+/**
+ * /tools/real-estate-lifecycle — 부동산 매수→보유→매도 통합 시뮬레이터.
+ *
+ * 핵심 차별화: 다른 사이트엔 없는 라이프사이클 통합 분석.
+ * 취득세 + 보유세 + 종부세 + 이자 + 양도세 한 페이지에 합산.
+ *
+ * 검색: "부동산 수익률", "주택 투자 수익", "부동산 세금 총합"
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="부동산 라이프사이클 시뮬 — 매수→보유→매도 전체 세금·수익률"
+  description="취득세 + 재산세 + 종부세 + 대출이자 + 양도세 통합 시뮬. 보유 N년 후 실수익 즉시. 1주택·다주택 자동."
+>
+  <section class="mx-auto max-w-4xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/5 px-3 py-1 text-xs text-violet-300">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+      통합 시뮬레이터 — 5개 세금 한꺼번에
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">부동산 라이프사이클</span> 시뮬
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">매수→보유→매도 전체 세금 + 이자 + 실수익률 한 번에.</p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-6">
+    <div class="grid lg:grid-cols-2 gap-4">
+      <!-- 매수 정보 -->
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+        <h3 class="text-sm font-black text-violet-300 uppercase tracking-widest">① 매수</h3>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">매수가 (₩)</span>
+          <input id="buyPrice" type="number" value="700000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출 (₩)</span>
+          <input id="loanAmt" type="number" value="350000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+        </label>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출 금리 (%)</span>
+            <input id="loanRate" type="number" value="4.5" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+          </label>
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출기간 (년)</span>
+            <input id="loanYears" type="number" value="30" min="1" max="40" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+          </label>
+        </div>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">주택 상태 (매수 직후)</span>
+          <select id="status" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white">
+            <option value="one-first">생애최초 1주택</option>
+            <option value="one">일반 1주택</option>
+            <option value="two">2주택 (조정지역)</option>
+            <option value="three">3주택+ (조정지역)</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- 보유 + 매도 -->
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+        <h3 class="text-sm font-black text-violet-300 uppercase tracking-widest">② 보유 + 매도</h3>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">보유 기간 (년)</span>
+          <input id="holdYears" type="number" value="5" min="0" max="30" step="0.5" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">예상 연 상승률 (%)</span>
+          <input id="growth" type="number" value="3" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">공시가격 / 매매가 비율 (%)</span>
+          <input id="pubRatio" type="number" value="70" min="50" max="100" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+          <span class="block text-[10px] text-zinc-500 mt-1">보통 70~80% (재산세·종부세 계산 기준)</span>
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">월 임대수익 (₩, 자가거주면 0)</span>
+          <input id="rentMonthly" type="number" value="0" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-white tabular-nums" />
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer text-xs">
+          <input id="liveInside" type="checkbox" checked class="w-4 h-4 accent-violet-500" />
+          <span class="text-zinc-300">실거주 (장기보유공제 거주 가산 + 1주택 비과세 적용)</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 결과: 최종 수익 -->
+  <section class="mx-auto max-w-4xl px-4 py-2">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">전체 기간 순수익 (세금·이자·비용 모두 차감)</p>
+      <p id="r-net" class="mt-2 text-5xl sm:text-6xl font-black text-white tabular-nums">-</p>
+      <div class="mt-3 flex flex-wrap gap-4 text-sm">
+        <span class="text-zinc-300">자기자본 ROI: <span id="r-roi" class="font-black text-emerald-300">-</span></span>
+        <span class="text-zinc-300">연 환산: <span id="r-yearly" class="font-black text-cyan-300">-</span></span>
+        <span class="text-zinc-300">월 환산: <span id="r-monthly" class="font-black text-zinc-200">-</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 결과 분해 -->
+  <section class="mx-auto max-w-4xl px-4 py-6">
+    <div class="grid lg:grid-cols-2 gap-4">
+      <!-- 매수 비용 -->
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">① 매수 시 비용</h4>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-zinc-800/50">
+            <tr><td class="py-1.5 text-zinc-300">매수가</td><td id="t-buy" class="py-1.5 text-right font-bold tabular-nums">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">취득세 (지방세 포함)</td><td id="t-acq" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">중개수수료</td><td id="t-broker" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">법무사·등기비</td><td id="t-legal" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+            <tr><td class="py-1.5 font-black text-zinc-100">매수 초기비용 합계</td><td id="t-buy-total" class="py-1.5 text-right font-black tabular-nums text-rose-300">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 보유 비용 -->
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">② 보유 중 비용 (총)</h4>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-zinc-800/50">
+            <tr><td class="py-1.5 text-zinc-300">대출 이자 (누적)</td><td id="t-interest" class="py-1.5 text-right font-bold tabular-nums text-amber-300">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">재산세 (누적)</td><td id="t-prop" class="py-1.5 text-right font-bold tabular-nums text-amber-300">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">종부세 (누적)</td><td id="t-jongbu" class="py-1.5 text-right font-bold tabular-nums text-amber-300">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">임대수익 (누적)</td><td id="t-rent" class="py-1.5 text-right font-bold tabular-nums text-emerald-300">-</td></tr>
+            <tr><td class="py-1.5 font-black text-zinc-100">보유 순지출</td><td id="t-hold-total" class="py-1.5 text-right font-black tabular-nums text-amber-300">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 매도 -->
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">③ 매도 시</h4>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-zinc-800/50">
+            <tr><td class="py-1.5 text-zinc-300">예상 매도가</td><td id="t-sell" class="py-1.5 text-right font-bold tabular-nums">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">양도차익</td><td id="t-gain" class="py-1.5 text-right font-bold tabular-nums">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">양도세 (지방세 포함)</td><td id="t-cgt" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">대출 잔액 상환</td><td id="t-loanLeft" class="py-1.5 text-right font-bold tabular-nums">-</td></tr>
+            <tr><td class="py-1.5 font-black text-zinc-100">매도 후 회수</td><td id="t-sell-net" class="py-1.5 text-right font-black tabular-nums text-emerald-300">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 종합 -->
+      <div class="rounded-2xl border-2 border-violet-500/40 bg-violet-500/5 p-5">
+        <h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">④ 종합 — 자기자본 추적</h4>
+        <table class="w-full text-sm">
+          <tbody class="divide-y divide-zinc-800/50">
+            <tr><td class="py-1.5 text-zinc-300">초기 자기자본 투입</td><td id="t-equity-in" class="py-1.5 text-right font-bold tabular-nums">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">최종 회수</td><td id="t-equity-out" class="py-1.5 text-right font-bold tabular-nums">-</td></tr>
+            <tr><td class="py-1.5 text-zinc-300">총 비용 (세금+이자+수수료)</td><td id="t-total-cost" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+            <tr><td class="py-1.5 font-black text-violet-200">실 순수익</td><td id="t-final-net" class="py-1.5 text-right font-black tabular-nums text-emerald-300">-</td></tr>
+            <tr><td class="py-1.5 font-black text-violet-200">자기자본 대비 ROI</td><td id="t-final-roi" class="py-1.5 text-right font-black tabular-nums">-</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">계산 기준 (2026)</h2>
+      <ul class="space-y-1.5 text-sm text-zinc-300">
+        <li>→ <strong>취득세</strong>: 1주택 1~3%, 2주택 8%, 3주택+ 12% (조정지역)</li>
+        <li>→ <strong>재산세</strong>: 공시가격 × 60% × 0.1~0.4% (구간별 누진)</li>
+        <li>→ <strong>종부세</strong>: 1주택 12억·다주택 9억 공제 + 공정가액 60%</li>
+        <li>→ <strong>양도세</strong>: 1주택 12억 비과세 (2년 보유), 다주택 중과 +20~30%p</li>
+        <li>→ <strong>장기보유공제</strong>: 1주택 거주 시 보유 4% + 거주 4% (최대 80%)</li>
+        <li>→ <strong>대출 이자</strong>: 원리금균등 가정. 실제는 변동금리 시 변동</li>
+        <li>→ <strong>한계</strong>: 인플레이션·물가연동 미반영. 임대수익 세금 단순화 (개인사업소득 X)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/rental-yield/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">임대 수익률 →</a>
+      <a href="/tools/jeonse-monthly-conversion/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">전월세 전환 →</a>
+      <a href="/jeonse/" class="rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-3 transition text-sm">전세 안전 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+
+  // 취득세율
+  function acqRate(price, status) {
+    if (status === 'one-first' && price <= 1500000000) return 0.011; // 생애최초 감면
+    if (status === 'one' || status === 'one-first') {
+      if (price <= 600000000) return 0.011;
+      if (price <= 900000000) return 0.022;
+      return 0.033;
+    }
+    if (status === 'two') return 0.088;
+    if (status === 'three') return 0.132;
+    return 0.011;
+  }
+
+  // 재산세 (단순화: 공시가격 과표 × 누진)
+  function propertyTax(pubBase) {
+    const taxBase = pubBase * 0.6;
+    let tax = 0;
+    if (taxBase <= 60000000) tax = taxBase * 0.001;
+    else if (taxBase <= 150000000) tax = 60000 + (taxBase - 60000000) * 0.0015;
+    else if (taxBase <= 300000000) tax = 195000 + (taxBase - 150000000) * 0.0025;
+    else tax = 570000 + (taxBase - 300000000) * 0.004;
+    // 도시지역분 + 지역자원시설세 + 지방교육세 약 30% 가산 (단순화)
+    return tax * 1.3;
+  }
+
+  // 종부세 (단순화)
+  function jongbuTax(pubPrice, status) {
+    const deduction = (status === 'one' || status === 'one-first') ? 1200000000 : 900000000;
+    const afterDed = Math.max(0, pubPrice - deduction);
+    const base = afterDed * 0.6;
+    if (base === 0) return 0;
+    const isHeavy = status === 'three';
+    let tax = 0;
+    if (isHeavy) {
+      if (base <= 300000000) tax = base * 0.005;
+      else if (base <= 600000000) tax = base * 0.007 - 600000;
+      else if (base <= 1200000000) tax = base * 0.01 - 2400000;
+      else if (base <= 2500000000) tax = base * 0.02 - 14400000;
+      else tax = base * 0.03 - 39400000;
+    } else {
+      if (base <= 300000000) tax = base * 0.005;
+      else if (base <= 600000000) tax = base * 0.007 - 600000;
+      else if (base <= 1200000000) tax = base * 0.01 - 2400000;
+      else if (base <= 2500000000) tax = base * 0.013 - 6000000;
+      else tax = base * 0.015 - 11000000;
+    }
+    return tax * 1.2; // 농특세 포함
+  }
+
+  // 양도세
+  function capitalGainsTax(gain, hold, live, status, sellPrice) {
+    // 1주택 12억 이하 비과세
+    if ((status === 'one' || status === 'one-first') && sellPrice <= 1200000000 && hold >= 2 && live >= 2) {
+      return 0;
+    }
+    let taxableGain = gain;
+    if ((status === 'one' || status === 'one-first') && sellPrice > 1200000000) {
+      taxableGain = gain * (sellPrice - 1200000000) / sellPrice;
+    }
+    let ltDed = 0;
+    if (status === 'one' || status === 'one-first') {
+      const holdRate = Math.min(0.4, Math.floor(hold) * 0.04);
+      const liveRate = Math.min(0.4, Math.floor(live) * 0.04);
+      ltDed = taxableGain * (holdRate + liveRate);
+    } else if (hold >= 3) {
+      ltDed = taxableGain * Math.min(0.3, 0.06 + (Math.floor(hold) - 3) * 0.02);
+    }
+    const base = Math.max(0, taxableGain - ltDed - 2500000);
+
+    function progTax(b) {
+      if (b <= 14000000) return b * 0.06;
+      if (b <= 50000000) return b * 0.15 - 1260000;
+      if (b <= 88000000) return b * 0.24 - 5760000;
+      if (b <= 150000000) return b * 0.35 - 15440000;
+      if (b <= 300000000) return b * 0.38 - 19940000;
+      if (b <= 500000000) return b * 0.40 - 25940000;
+      if (b <= 1000000000) return b * 0.42 - 35940000;
+      return b * 0.45 - 65940000;
+    }
+    let tax = progTax(base);
+    if (status === 'two') tax += base * 0.20;
+    else if (status === 'three') tax += base * 0.30;
+    if (hold < 1) tax = Math.max(tax, base * 0.70);
+    return tax * 1.1; // 지방세 10%
+  }
+
+  // 대출 이자 + 잔액 (원리금균등)
+  function loanProgression(P, r, years, holdYears) {
+    const monthlyR = r / 12;
+    const n = years * 12;
+    if (monthlyR === 0) {
+      const monthly = P / n;
+      const heldMonths = Math.min(holdYears * 12, n);
+      const principalPaid = monthly * heldMonths;
+      return { interest: 0, remaining: P - principalPaid, monthlyPmt: monthly };
+    }
+    const monthly = P * monthlyR * Math.pow(1+monthlyR, n) / (Math.pow(1+monthlyR, n) - 1);
+    let bal = P, interest = 0;
+    const heldMonths = Math.min(holdYears * 12, n);
+    for (let i = 0; i < heldMonths; i++) {
+      const intM = bal * monthlyR;
+      const prnM = monthly - intM;
+      interest += intM;
+      bal -= prnM;
+    }
+    return { interest, remaining: Math.max(0, bal), monthlyPmt: monthly };
+  }
+
+  function calc() {
+    const buyPrice = +$('buyPrice').value || 0;
+    const loanAmt = +$('loanAmt').value || 0;
+    const loanRate = (+$('loanRate').value || 0) / 100;
+    const loanYears = +$('loanYears').value || 30;
+    const holdYears = +$('holdYears').value || 0;
+    const growth = (+$('growth').value || 0) / 100;
+    const pubRatio = (+$('pubRatio').value || 70) / 100;
+    const rentMonthly = +$('rentMonthly').value || 0;
+    const status = $('status').value;
+    const liveInside = $('liveInside').checked;
+
+    // ① 매수
+    const aqRate = acqRate(buyPrice, status);
+    const acquisition = buyPrice * aqRate;
+    // 중개수수료 (매매 0.4% 가정)
+    const brokerFee = Math.min(buyPrice * 0.004, 9000000) * 1.1; // VAT
+    const legalFee = Math.max(500000, buyPrice * 0.0008); // 법무사·등기
+    const buyTotal = acquisition + brokerFee + legalFee;
+
+    // ② 보유
+    const loanData = loanProgression(loanAmt, loanRate, loanYears, holdYears);
+    let propSum = 0, jongbuSum = 0;
+    for (let y = 0; y < holdYears; y++) {
+      const yearPrice = buyPrice * Math.pow(1 + growth, y);
+      const pubPrice = yearPrice * pubRatio;
+      propSum += propertyTax(pubPrice);
+      jongbuSum += jongbuTax(pubPrice, status);
+    }
+    const rentTotal = rentMonthly * 12 * holdYears;
+    const holdNet = loanData.interest + propSum + jongbuSum - rentTotal;
+
+    // ③ 매도
+    const sellPrice = buyPrice * Math.pow(1 + growth, holdYears);
+    const gain = sellPrice - buyPrice - buyTotal; // 필요경비 차감
+    const liveYears = liveInside ? holdYears : 0;
+    const cgt = capitalGainsTax(Math.max(0, gain), holdYears, liveYears, status, sellPrice);
+    const loanLeft = loanData.remaining;
+    const sellBrokerFee = Math.min(sellPrice * 0.004, 9000000) * 1.1;
+    const sellNet = sellPrice - cgt - loanLeft - sellBrokerFee;
+
+    // ④ 종합
+    const equityIn = buyPrice - loanAmt + buyTotal; // 초기 자기자본
+    const finalNet = sellNet + rentTotal - (buyTotal + loanData.interest + propSum + jongbuSum - rentTotal) - equityIn;
+    // 단순화: 순수익 = 매도 회수 - 초기 자기자본 - 보유 비용 + 임대수익
+    const trueCost = buyTotal + loanData.interest + propSum + jongbuSum + cgt + sellBrokerFee;
+    const trueRevenue = (sellPrice - loanLeft) + rentTotal - equityIn;
+    // ROI: (sellNet - equityIn + rentTotal - (other holding costs)) / equityIn
+    const cleanProfit = sellNet + rentTotal - propSum - jongbuSum - equityIn;
+    const roi = equityIn > 0 ? (cleanProfit / equityIn * 100) : 0;
+    const yearlyROI = holdYears > 0 ? Math.pow(1 + cleanProfit/equityIn, 1/holdYears) - 1 : 0;
+
+    // Render
+    $('t-buy').textContent = fmt(buyPrice);
+    $('t-acq').textContent = fmt(acquisition);
+    $('t-broker').textContent = fmt(brokerFee);
+    $('t-legal').textContent = fmt(legalFee);
+    $('t-buy-total').textContent = fmt(buyTotal);
+
+    $('t-interest').textContent = fmt(loanData.interest);
+    $('t-prop').textContent = fmt(propSum);
+    $('t-jongbu').textContent = fmt(jongbuSum);
+    $('t-rent').textContent = '+' + fmt(rentTotal);
+    $('t-hold-total').textContent = fmt(holdNet);
+
+    $('t-sell').textContent = fmt(sellPrice);
+    $('t-gain').textContent = fmt(gain);
+    $('t-cgt').textContent = cgt === 0 ? '비과세' : fmt(cgt);
+    $('t-loanLeft').textContent = '-' + fmt(loanLeft);
+    $('t-sell-net').textContent = fmt(sellNet);
+
+    $('t-equity-in').textContent = fmt(equityIn);
+    $('t-equity-out').textContent = fmt(sellNet + rentTotal);
+    $('t-total-cost').textContent = fmt(trueCost);
+    $('t-final-net').textContent = fmt(cleanProfit);
+    $('t-final-roi').textContent = roi.toFixed(1) + '%';
+
+    $('r-net').textContent = fmt(cleanProfit);
+    $('r-net').className = 'mt-2 text-5xl sm:text-6xl font-black tabular-nums ' + (cleanProfit >= 0 ? 'text-emerald-300' : 'text-rose-300');
+    $('r-roi').textContent = roi.toFixed(1) + '%';
+    $('r-yearly').textContent = (yearlyROI * 100).toFixed(1) + '%/년';
+    $('r-monthly').textContent = fmt(cleanProfit / Math.max(1, holdYears * 12));
+
+    if (window.va) { try { window.va('event', { name: 'lifecycle_sim', data: { buyPrice, holdYears, status } }); } catch (_) {} }
+  }
+
+  ['buyPrice','loanAmt','loanRate','loanYears','holdYears','growth','pubRatio','rentMonthly','status','liveInside'].forEach((id) => {
+    const el = $(id);
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+  calc();
+</script>

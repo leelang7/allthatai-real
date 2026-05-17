@@ -1,0 +1,194 @@
+---
+/**
+ * /tools/rental-yield — 임대 수익률 + 자기자본 ROI.
+ *
+ * 큰 검색량: "임대 수익률", "월세 수익률", "오피스텔 수익률"
+ *
+ * 계산:
+ *   - 표면 수익률 = 연 월세 / 매매가
+ *   - 실 수익률 = (연 월세 - 비용) / 매매가
+ *   - 자기자본 ROI = (연 월세 - 비용 - 이자) / 자기자본 (레버리지)
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="임대 수익률 계산기 — 표면·실·자기자본 ROI + 레버리지 분석"
+  description="매매가 + 보증금/월세 + 대출 → 표면 수익률·실 수익률·자기자본 ROI 즉시. 오피스텔·아파트 투자 판단."
+>
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">임대 수익률</span> 분석
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">표면 vs 실 vs 자기자본 ROI 3단 분해 + 레버리지 효과.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">매매가 (₩)</span>
+          <input id="price" type="number" value="200000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-3 text-lg font-black text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">취득세·중개비 등 (₩)</span>
+          <input id="acqCost" type="number" value="6000000" step="500000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-3 text-white tabular-nums" />
+        </label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">임대 보증금 (₩)</span>
+          <input id="deposit" type="number" value="20000000" step="5000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">월세 (₩)</span>
+          <input id="monthly" type="number" value="800000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출금 (₩) — 자기자본 ROI 계산</span>
+          <input id="loan" type="number" value="100000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">대출 금리 (%)</span>
+          <input id="rate" type="number" value="4.5" step="0.1" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+        </label>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">관리비 본인부담 (월, ₩)</span>
+          <input id="mgmt" type="number" value="30000" step="10000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">연 재산세·종부세 (₩)</span>
+          <input id="propTax" type="number" value="300000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2 text-white tabular-nums" />
+        </label>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">공실률 (%)</span>
+          <input id="vacancy" type="number" value="5" min="0" max="50" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2 text-white tabular-nums" />
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3단 수익률 -->
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">표면 수익률</p>
+        <p id="r-gross" class="mt-2 text-3xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500 mt-1">연 월세 / 매매가</p>
+      </div>
+      <div class="rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-5">
+        <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">실 수익률</p>
+        <p id="r-net" class="mt-2 text-3xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500 mt-1">비용·공실 차감 / 총투자</p>
+      </div>
+      <div class="rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-teal-500/5 p-5">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">자기자본 ROI</p>
+        <p id="r-equity" class="mt-2 text-3xl font-black text-white tabular-nums">-</p>
+        <p class="text-[10px] text-zinc-500 mt-1">레버리지 효과 포함</p>
+      </div>
+    </div>
+    <p id="r-judge" class="mt-4 text-sm text-zinc-300"></p>
+  </section>
+
+  <!-- 분해 -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">연 현금흐름 분해</h4>
+      <table class="w-full text-sm">
+        <tbody class="divide-y divide-zinc-800/50">
+          <tr><td class="py-1.5 text-zinc-300">월세 수입 (12개월)</td><td id="t-rent" class="py-1.5 text-right font-bold tabular-nums text-emerald-300">-</td></tr>
+          <tr><td class="py-1.5 text-zinc-300">공실 손실</td><td id="t-vac" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+          <tr><td class="py-1.5 text-zinc-300">관리비 본인부담</td><td id="t-mgmt" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+          <tr><td class="py-1.5 text-zinc-300">재산세·종부세</td><td id="t-prop" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+          <tr><td class="py-1.5 text-zinc-300">대출 이자</td><td id="t-int" class="py-1.5 text-right font-bold tabular-nums text-rose-300">-</td></tr>
+          <tr><td class="py-1.5 font-black text-zinc-100">연 순 현금흐름</td><td id="t-cf" class="py-1.5 text-right font-black tabular-nums">-</td></tr>
+          <tr><td class="py-1.5 text-zinc-400 text-xs">월 평균</td><td id="t-cf-monthly" class="py-1.5 text-right text-zinc-400 text-xs tabular-nums">-</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">수익률 — 판단 기준</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>표면 수익률</strong> = 연 월세 / 매매가. 단순 비교용. 진짜 수익 X</li>
+        <li>→ <strong>실 수익률</strong> = (월세 - 모든 비용 - 공실 손실) / 총 투자비. 매매 차익 미포함</li>
+        <li>→ <strong>자기자본 ROI</strong> = 순 현금흐름 / (총투자 - 대출). 레버리지 효과. 마이너스도 가능</li>
+        <li>→ <strong>오피스텔 평균</strong>: 표면 5~6%, 실 3~4%. 서울 중심부는 더 낮음</li>
+        <li>→ <strong>아파트 평균</strong>: 표면 2~3% (매매차익 노림). 임대만으론 마이너스 흔함</li>
+        <li>→ <strong>위험</strong>: 공실 10%+, 금리 인상 (이자 ↑), 보유세 인상, 임대법 변화</li>
+        <li>→ <strong>대출 금리 &gt; 표면 수익률</strong>: 레버리지 역효과. 자기자본 ROI 마이너스</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-2">
+      <a href="/tools/real-estate-lifecycle/" class="rounded-xl border border-zinc-800 hover:border-blue-500/40 bg-zinc-900/40 p-3 transition text-sm">라이프사이클 →</a>
+      <a href="/tools/jeonse-monthly-conversion/" class="rounded-xl border border-zinc-800 hover:border-blue-500/40 bg-zinc-900/40 p-3 transition text-sm">전월세 전환 →</a>
+      <a href="/tools/property-tax/" class="rounded-xl border border-zinc-800 hover:border-blue-500/40 bg-zinc-900/40 p-3 transition text-sm">종부세 →</a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '₩' + Math.round(n).toLocaleString('ko-KR');
+  const fmtSign = (n) => (n >= 0 ? '+' : '-') + '₩' + Math.abs(Math.round(n)).toLocaleString('ko-KR');
+
+  function calc() {
+    const price = +$('price').value || 0;
+    const acqCost = +$('acqCost').value || 0;
+    const deposit = +$('deposit').value || 0;
+    const monthly = +$('monthly').value || 0;
+    const loan = +$('loan').value || 0;
+    const rate = (+$('rate').value || 0) / 100;
+    const mgmt = +$('mgmt').value || 0;
+    const propTax = +$('propTax').value || 0;
+    const vacancy = (+$('vacancy').value || 0) / 100;
+
+    const totalInvest = price + acqCost;
+    const ownEquity = totalInvest - loan - deposit; // 보증금은 임차인이 부담, 차감
+    const annualRent = monthly * 12;
+    const vacancyLoss = annualRent * vacancy;
+    const annualMgmt = mgmt * 12;
+    const annualInterest = loan * rate;
+    const annualNet = annualRent - vacancyLoss - annualMgmt - propTax - annualInterest;
+
+    const grossYield = price > 0 ? annualRent / price * 100 : 0;
+    const netYield = totalInvest > 0 ? (annualRent - vacancyLoss - annualMgmt - propTax) / totalInvest * 100 : 0;
+    const equityROI = ownEquity > 0 ? annualNet / ownEquity * 100 : 0;
+
+    $('r-gross').textContent = grossYield.toFixed(2) + '%';
+    $('r-net').textContent = netYield.toFixed(2) + '%';
+    $('r-equity').textContent = equityROI.toFixed(2) + '%';
+    $('r-equity').className = 'mt-2 text-3xl font-black tabular-nums ' + (equityROI >= 0 ? 'text-white' : 'text-rose-300');
+
+    $('t-rent').textContent = '+' + fmt(annualRent);
+    $('t-vac').textContent = '-' + fmt(vacancyLoss);
+    $('t-mgmt').textContent = '-' + fmt(annualMgmt);
+    $('t-prop').textContent = '-' + fmt(propTax);
+    $('t-int').textContent = '-' + fmt(annualInterest);
+    $('t-cf').textContent = fmtSign(annualNet);
+    $('t-cf').className = 'py-1.5 text-right font-black tabular-nums ' + (annualNet >= 0 ? 'text-emerald-300' : 'text-rose-300');
+    $('t-cf-monthly').textContent = fmtSign(annualNet / 12);
+
+    let judge = '';
+    if (equityROI >= 8) judge = '✨ 우수 — 자기자본 8%+ 수익 (예금·국채 대비 매력)';
+    else if (equityROI >= 5) judge = '🎯 평균 — 자기자본 5%+ 안정적';
+    else if (equityROI >= 0) judge = '⚠ 낮음 — 매매 차익 기대만 / 인플레 헤지';
+    else judge = '❌ 역레버리지 — 대출 이자가 임대수익보다 큼. 매매 차익 없으면 손실';
+    $('r-judge').textContent = judge;
+
+    if (window.va) { try { window.va('event', { name: 'rental_yield', data: { price, equityROI } }); } catch (_) {} }
+  }
+
+  ['price','acqCost','deposit','monthly','loan','rate','mgmt','propTax','vacancy'].forEach((id) => {
+    $(id).addEventListener('input', calc);
+  });
+  calc();
+</script>
