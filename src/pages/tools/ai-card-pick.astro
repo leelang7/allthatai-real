@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 신용카드 추천 — 지출 패턴 → 최적 카드 5개 + 연 혜택" description="월 지출 카테고리별 입력 → Gemini가 최적 카드 5개 + 연 예상 혜택 + 단점 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/5 px-3 py-1 text-xs text-blue-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-blue-400"></span>Gemini — 카드 매칭</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 카드 추천</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">지출 패턴 → 최적 카드 + 연 혜택.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">월 총 지출 (₩)</span><input id="monthlyTotal" type="number" value="2000000" step="100000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-3 text-xl font-black text-white tabular-nums" /></label>
+      <p class="text-xs font-bold text-zinc-300">카테고리별 (₩)</p>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">식비</span><input id="food" type="number" value="500000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">교통</span><input id="transport" type="number" value="100000" step="10000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">쇼핑/마트</span><input id="shopping" type="number" value="300000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">온라인</span><input id="online" type="number" value="200000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">주유</span><input id="fuel" type="number" value="200000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">스트리밍</span><input id="streaming" type="number" value="30000" step="5000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">여행/항공</span><input id="travel" type="number" value="100000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">카페</span><input id="cafe" type="number" value="100000" step="10000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-[10px] text-zinc-400 mb-1">기타</span><input id="other" type="number" value="500000" step="50000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">선호 혜택</span><select id="preference" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white"><option value="cashback">캐시백 / 즉시 할인</option><option value="point">포인트 (적립)</option><option value="mileage">항공 마일리지</option></select></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-blue-500 hover:bg-blue-400 text-white font-black py-3 disabled:opacity-50">AI 카드 추천</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-blue-500/40 bg-gradient-to-br from-blue-500/15 to-cyan-500/5 p-8">
+      <p class="text-[10px] font-bold text-blue-300 uppercase tracking-widest">예상 연 혜택</p>
+      <p id="annual" class="mt-2 text-5xl font-black text-white tabular-nums">-</p>
+      <p id="analysis" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <h3 class="text-xl font-black text-blue-300">추천 카드 Top 5</h3>
+    <div id="cards" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💡 활용 팁</h4><ul id="tips" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 피해야 할 패턴</h4><ul id="avoid" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = (n) => '₩' + (+(n || '0').toString().replace(/[^\d]/g,'')).toLocaleString('ko-KR');
+  $('go').addEventListener('click', async () => {
+    if (!+$('monthlyTotal').value) { $('status').textContent = '⚠ 월 지출 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 카드 분석 중...'; $('status').className = 'text-xs text-blue-300 text-center animate-pulse';
+    const body = {};
+    ['monthlyTotal','food','transport','shopping','online','fuel','streaming','travel','cafe','other','preference'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-card-pick', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('annual').textContent = fmt(data.annualBenefit);
+      $('analysis').textContent = data.spendingAnalysis || '';
+      $('cards').innerHTML = (data.recommendations || []).map((c) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-start justify-between mb-2"><div><span class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-500 text-white">#${c.rank}</span><h4 class="inline ml-2 font-black text-white">${esc(c.cardName || '')}</h4><span class="text-xs text-zinc-500 ml-2">${esc(c.issuer || '')}</span></div><span class="text-xs font-black text-emerald-300 tabular-nums">${fmt(c.annualBenefit)}/년</span></div>
+        <div class="mb-2"><div class="flex items-center gap-2"><span class="text-xs text-zinc-400">매칭</span><div class="flex-1 bg-zinc-900 rounded-full h-1.5"><div class="bg-blue-500 h-1.5 rounded-full" style="width: ${c.matchScore || 0}%"></div></div><span class="text-xs font-bold tabular-nums">${c.matchScore || 0}</span></div></div>
+        <ul class="text-sm text-zinc-300 list-disc list-inside mb-2">${(c.keyBenefits || []).map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
+        <div class="flex flex-wrap gap-3 text-xs"><span class="text-amber-300">조건: ${esc(c.requirements || '')}</span><span class="text-zinc-400">연회비 ${fmt(c.fees)}</span></div>
+        ${(c.drawbacks && c.drawbacks.length) ? `<p class="mt-2 text-xs text-rose-300">⚠ ${(c.drawbacks || []).map(esc).join(' / ')}</p>` : ''}
+      </div>`).join('');
+      $('tips').innerHTML = (data.tips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('avoid').innerHTML = (data.avoidThese || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_card' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

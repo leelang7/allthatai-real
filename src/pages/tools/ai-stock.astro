@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 주식 분석 — 종목 → 매수·매도·보유 + 목표가 + 위험" description="티커 또는 종목명 입력 → Gemini가 투자 의견·목표가·긍정/부정·재무지표·위험 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/5 px-3 py-1 text-xs text-green-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-green-400"></span>Gemini — 종목 분석</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 주식 분석</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">의견·목표가·긍정/부정·위험 자동.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">티커 / 종목명 *</span><input id="ticker" type="text" value="삼성전자" placeholder="삼성전자 / TSLA / 005930" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-green-500 outline-none px-4 py-2.5 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">시장</span><select id="market" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-green-500 outline-none px-3 py-2 text-white"><option value="kr">한국</option><option value="us">미국</option><option value="jp">일본</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">투자 기간</span><select id="horizon" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-green-500 outline-none px-3 py-2 text-white"><option value="short">단기 (3개월)</option><option value="medium" selected>중기 (1년)</option><option value="long">장기 (3년+)</option></select></label>
+      </div>
+      <textarea id="additionalContext" rows="2" placeholder="추가 맥락 (선택, 예: 이미 보유 중 / 신규 매수 검토 / 평단 OO원)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-green-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+      <button id="go" type="button" class="w-full rounded-lg bg-green-500 hover:bg-green-400 text-white font-black py-3 disabled:opacity-50">AI 종목 분석</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+      <p class="text-[10px] text-zinc-500 text-center">⚠ 정보 제공용. 실제 매매는 본인 책임</p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="box" class="rounded-3xl border-2 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest" id="lbl">투자 의견</p>
+      <p id="rec" class="mt-2 text-5xl font-black">-</p>
+      <p id="company" class="mt-2 text-lg text-zinc-300">-</p>
+      <p id="thesis" class="mt-3 text-sm text-zinc-200"></p>
+      <div class="mt-4 flex flex-wrap gap-3 text-sm"><span>목표가: <span id="target" class="font-black text-emerald-300">-</span></span><span>범위: <span id="range" class="font-black">-</span></span></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">👍 긍정 요인</h4><ul id="bull" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">👎 부정 요인</h4><ul id="bear" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📊 주요 지표</h4><div id="metrics" class="grid grid-cols-4 gap-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">⚡ 가까운 트리거</h4><ul id="catalysts" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주요 위험</h4><ul id="risks" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">경쟁 환경 + 종합</h4><p id="competitive" class="text-sm text-zinc-300 mb-2"></p><p id="verdict" class="text-sm font-bold text-violet-300"></p></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('ticker').value.trim()) { $('status').textContent = '⚠ 티커 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 종목 분석 중...'; $('status').className = 'text-xs text-green-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-stock', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ticker: $('ticker').value, market: $('market').value, horizon: $('horizon').value, additionalContext: $('additionalContext').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      const r = data.recommendation || '-';
+      let color = 'text-zinc-200', bg = 'border-zinc-700 bg-zinc-900/40';
+      if (r === '강력매수' || r === '매수') { color = 'text-emerald-300'; bg = 'border-emerald-500/40 bg-emerald-500/5'; }
+      else if (r === '강력매도' || r === '매도') { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (r === '보유') { color = 'text-amber-300'; bg = 'border-amber-500/40 bg-amber-500/5'; }
+      $('box').className = 'rounded-3xl border-2 p-8 ' + bg;
+      $('lbl').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('rec').className = 'mt-2 text-5xl font-black ' + color;
+      $('rec').textContent = r;
+      $('company').textContent = (data.companyName || '') + ' (' + (data.ticker || '') + ')';
+      $('thesis').textContent = data.thesis || '';
+      $('target').textContent = data.targetPrice || '-';
+      const fv = data.fairValueRange || {};
+      $('range').textContent = (fv.low || '-') + ' ~ ' + (fv.high || '-');
+      $('bull').innerHTML = (data.bullCase || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('bear').innerHTML = (data.bearCase || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      const km = data.keyMetrics || {};
+      $('metrics').innerHTML = Object.entries(km).map(([k, v]) => `<div class="rounded-lg bg-zinc-900/60 p-2 text-center"><p class="text-[10px] text-zinc-400">${esc(k)}</p><p class="text-sm font-black">${esc(String(v))}</p></div>`).join('');
+      $('catalysts').innerHTML = (data.catalysts || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('risks').innerHTML = (data.risks || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('competitive').textContent = data.competitiveLandscape || '';
+      $('verdict').textContent = data.verdict || '';
+      if (window.va) { try { window.va('event', { name: 'ai_stock', data: { ticker: $('ticker').value } }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

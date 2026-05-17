@@ -1,0 +1,79 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 부동산 시장 트렌드 — 지역·기간 → 추세·동인·전망 자동" description="지역 + 매물 유형 + 기간 입력 → Gemini가 시장 추세·수급·동인·6~12개월 전망 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/5 px-3 py-1 text-xs text-fuchsia-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-fuchsia-400"></span>Gemini — 시장 트렌드</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 시장 트렌드</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">지역 + 기간 → 추세·동인·전망.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">지역 *</span><input id="region" type="text" value="서울 강남구" placeholder="예: 서울 강남구, 경기 분당, 부산 해운대" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-4 py-2.5 text-white" /></label>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">매물 유형</span><select id="propertyType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-4 py-2.5 text-white"><option>아파트</option><option>빌라</option><option>오피스텔</option><option>상가</option><option>토지</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">분석 기간</span><select id="horizon" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-4 py-2.5 text-white"><option value="3m">최근 3개월</option><option value="6m" selected>최근 6개월</option><option value="1y">최근 1년</option></select></label>
+      </div>
+      <button id="go" type="button" class="w-full rounded-lg bg-fuchsia-500 hover:bg-fuchsia-400 text-white font-black py-3 disabled:opacity-50">AI 시장 분석</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="box" class="rounded-3xl border-2 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest" id="lbl">시장 추세</p>
+      <p id="trend" class="mt-2 text-5xl font-black">-</p>
+      <p id="strength" class="mt-1 text-lg text-zinc-300">-</p>
+      <p id="summary" class="mt-3 text-sm text-zinc-200"></p>
+      <div class="mt-4 flex flex-wrap gap-3 text-sm"><span>가격 변동: <span id="priceChange" class="font-black">-</span></span><span>수급: <span id="supply" class="font-black">-</span></span></div>
+    </div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">⚡ 시장 동인</h4><div id="drivers" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">👥 인구·세대</h4><p id="demographics" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">🚇 인프라·호재</h4><p id="infra" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">📈 6~12개월 전망</h4><p id="outlook" class="text-sm text-zinc-200"></p></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">입장별 조언</h4><div id="advice" class="space-y-2 text-sm"></div></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 위험</h4><ul id="risks" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('region').value.trim()) { $('status').textContent = '⚠ 지역 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 시장 분석 중...'; $('status').className = 'text-xs text-fuchsia-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-market-trend', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ region: $('region').value, propertyType: $('propertyType').value, horizon: $('horizon').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      const t = data.overallTrend || '-';
+      let color = 'text-amber-300', bg = 'border-amber-500/40 bg-amber-500/5';
+      if (t === '상승') { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (t === '하락') { color = 'text-emerald-300'; bg = 'border-emerald-500/40 bg-emerald-500/5'; }
+      $('box').className = 'rounded-3xl border-2 p-8 ' + bg;
+      $('lbl').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('trend').className = 'mt-2 text-5xl font-black ' + color;
+      $('trend').textContent = t;
+      $('strength').textContent = '강도: ' + (data.trendStrength || '-');
+      $('summary').textContent = data.summary || '';
+      $('priceChange').textContent = data.priceChange || '-';
+      $('supply').textContent = data.supplyDemand || '-';
+      $('drivers').innerHTML = (data.drivers || []).map((d) => {
+        const ic = d.impact === '긍정' ? 'bg-emerald-500' : d.impact === '부정' ? 'bg-rose-500' : 'bg-zinc-600';
+        return `<div class="rounded-lg bg-zinc-900/60 p-3"><div class="flex items-center gap-2 mb-1"><span class="text-[10px] font-black px-2 py-0.5 rounded ${ic} text-white">${esc(d.impact || '')}</span><span class="text-sm font-bold text-zinc-200">${esc(d.factor || '')}</span></div><p class="text-xs text-zinc-300">${esc(d.explanation || '')}</p></div>`;
+      }).join('');
+      $('demographics').textContent = data.demographics || '';
+      $('infra').textContent = data.infrastructure || '';
+      $('outlook').textContent = data.outlook || '';
+      const ad = data.actionableAdvice || {};
+      $('advice').innerHTML = Object.entries(ad).map(([k, v]) => `<div><span class="text-xs font-black text-cyan-300">${esc(k === 'buyer' ? '매수자' : k === 'seller' ? '매도자' : k === 'tenant' ? '임차인' : '임대인')}</span><p class="text-zinc-300">${esc(String(v))}</p></div>`).join('');
+      $('risks').innerHTML = (data.risks || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_trend', data: { region: $('region').value } }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
