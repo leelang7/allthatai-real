@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 추천 지역 매칭 — 예산·라이프스타일 → 적합 지역 5곳" description="예산·직장·통근·우선순위 입력 → Gemini가 적합 지역 5곳 + 매칭 점수 + 장단점 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-pink-500/30 bg-pink-500/5 px-3 py-1 text-xs text-pink-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-pink-400"></span>Gemini — 지역 매칭</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 추천 지역</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">예산·통근·라이프 → 적합 지역 5.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">예산 (₩)</span><input id="budget" type="number" value="500000000" step="10000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">거래</span><select id="dealType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-3 py-2 text-white"><option value="sale">매매</option><option value="jeonse">전세</option><option value="monthly">월세</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">유형</span><select id="propertyType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-3 py-2 text-white"><option>아파트</option><option>빌라</option><option>오피스텔</option></select></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">직장 위치</span><input id="workplace" type="text" placeholder="예: 강남역, 판교, 여의도" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">최대 통근 (분)</span><input id="commute" type="number" value="60" min="10" max="180" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white tabular-nums" /></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">가족 구성</span><select id="family" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white"><option>1인 가구</option><option>신혼 부부</option><option>2자녀 가족</option><option>다자녀 가족</option><option>3대 동거</option></select></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">우선순위 (콤마 구분)</span><input id="priorities" type="text" placeholder="예: 학군, 지하철 도보, 자연환경, 안전" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">피하고 싶은 것 (콤마 구분)</span><input id="avoidances" type="text" placeholder="예: 유흥가, 공장, 소음" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">관심 지역 (선택)</span><input id="preferredAreas" type="text" placeholder="예: 마포, 강서, 송파" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-pink-500 outline-none px-4 py-2.5 text-white" /></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-pink-500 hover:bg-pink-400 text-white font-black py-3 disabled:opacity-50">AI 지역 매칭</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-5"><h4 class="text-xs font-black text-pink-300 uppercase tracking-widest mb-3">분석 요약</h4><p id="summary" class="text-sm text-zinc-200"></p></div>
+    <h3 class="text-xl font-black text-pink-300">추천 지역 Top 5</h3>
+    <div id="regions" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">⚖ 트레이드오프</h4><ul id="tradeoffs" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">↔ 대안</h4><ul id="alternatives" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!+$('budget').value) { $('status').textContent = '⚠ 예산 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 지역 매칭 중...'; $('status').className = 'text-xs text-pink-300 text-center animate-pulse';
+    const body = {};
+    ['budget','dealType','propertyType','workplace','commute','family','preferredAreas'].forEach((id) => { body[id] = $(id).value; });
+    body.priorities = $('priorities').value.split(',').map(s => s.trim()).filter(Boolean);
+    body.avoidances = $('avoidances').value.split(',').map(s => s.trim()).filter(Boolean);
+    try {
+      const res = await fetch('/api/ai-region-match', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('summary').textContent = data.summary || '';
+      $('regions').innerHTML = (data.regions || []).map((r) => {
+        const pr = r.estimatedPriceRange || {};
+        return `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <div class="flex items-start justify-between mb-2"><h4 class="font-black text-white text-lg">${esc(r.name || '')}</h4><span class="text-xs font-black px-2 py-0.5 rounded bg-pink-500 text-white">매칭 ${r.matchScore || 0}</span></div>
+          <p class="text-sm text-zinc-300 mb-2">${esc(r.lifestyle || '')}</p>
+          <div class="flex flex-wrap gap-3 text-xs mb-2"><span class="text-emerald-300">💰 매매 ${esc(pr.sale || '-')}</span><span class="text-cyan-300">전세 ${esc(pr.jeonse || '-')}</span></div>
+          <div class="grid grid-cols-2 gap-3 text-xs mb-2"><span>🚇 ${esc(r.transport || '')}</span><span>🎓 ${esc(r.schools || '')}</span><span>🏪 ${esc(r.amenities || '')}</span><span>👥 ${(r.suitableFor || []).map(esc).join(', ')}</span></div>
+          <div class="grid grid-cols-2 gap-2 text-xs"><div><p class="text-emerald-300 font-bold mb-1">장점</p>${(r.pros || []).map((x) => `<p class="text-zinc-300">• ${esc(x)}</p>`).join('')}</div><div><p class="text-rose-300 font-bold mb-1">단점</p>${(r.cons || []).map((x) => `<p class="text-zinc-300">• ${esc(x)}</p>`).join('')}</div></div>
+        </div>`;
+      }).join('');
+      $('tradeoffs').innerHTML = (data.tradeoffs || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('alternatives').innerHTML = (data.alternatives || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_region' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

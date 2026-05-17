@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 진료과 추천 — 증상 → 적합 과 + 응급도 + 예상 비용" description="증상 입력 → Gemini가 응급도·진료과·검사·가능 질환·집에서 할 일·예상 비용 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/5 px-3 py-1 text-xs text-red-300"><span class="inline-block w-1.5 h-1.5 rounded-full bg-red-400"></span>Gemini — 진료 안내</div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">AI 진료과 추천</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">증상 → 적합 과 + 응급도.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">증상 (10자 이상)</span><textarea id="symptoms" rows="4" placeholder="예: 어제 저녁부터 오른쪽 아랫배가 콕콕 쑤시고 누르면 더 아픔. 미열도 있음." class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-red-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea></label>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">지속</span><input id="duration" type="text" placeholder="예: 3일" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-red-500 outline-none px-3 py-2 text-white" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">나이</span><input id="age" type="number" value="30" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-red-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">성별</span><select id="gender" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-red-500 outline-none px-3 py-2 text-white"><option></option><option>남</option><option>여</option></select></label>
+      </div>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">기저 질환 (선택)</span><input id="conditions" type="text" placeholder="예: 당뇨, 고혈압" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-red-500 outline-none px-4 py-2.5 text-white" /></label>
+      <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">복용 약물 (선택)</span><input id="medications" type="text" placeholder="예: 아스피린, 메트포르민" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-red-500 outline-none px-4 py-2.5 text-white" /></label>
+      <button id="go" type="button" class="w-full rounded-lg bg-red-500 hover:bg-red-400 text-white font-black py-3 disabled:opacity-50">AI 진료과 안내</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+      <p class="text-[10px] text-zinc-500 text-center">⚠ 진단 아닌 안내. 응급은 119 즉시</p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="box" class="rounded-3xl border-2 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest" id="lbl">응급도</p>
+      <p id="urgency" class="mt-2 text-5xl font-black">-</p>
+      <p id="primaryDept" class="mt-3 text-2xl font-black text-white">-</p>
+      <p id="facility" class="mt-1 text-sm text-zinc-300"></p>
+      <p id="cost" class="mt-2 text-sm text-emerald-300"></p>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">🚨 즉시 응급실 신호</h4><ul id="redFlags" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">🔬 필요 검사</h4><ul id="tests" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">⚠ 가능 질환</h4><ul id="conditions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">🏠 집에서 할 일</h4><ul id="homeRemedies" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">💬 의사에게 물어볼 것</h4><ul id="questions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">💳 보험 팁</h4><ul id="insurance" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-4"><p class="text-xs text-zinc-400">대안 진료과:</p><p id="alternatives" class="text-sm font-bold text-zinc-200"></p></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if ($('symptoms').value.length < 10) { $('status').textContent = '⚠ 증상 10자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 진료과 분석 중...'; $('status').className = 'text-xs text-red-300 text-center animate-pulse';
+    const body = {};
+    ['symptoms','duration','age','gender','conditions','medications'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-medical-triage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      const u = data.urgency || '-';
+      let color = 'text-emerald-300', bg = 'border-emerald-500/40 bg-emerald-500/5';
+      if (u.includes('응급')) { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (u.includes('당일')) { color = 'text-orange-300'; bg = 'border-orange-500/40 bg-orange-500/5'; }
+      else if (u.includes('이번 주')) { color = 'text-amber-300'; bg = 'border-amber-500/40 bg-amber-500/5'; }
+      $('box').className = 'rounded-3xl border-2 p-8 ' + bg;
+      $('lbl').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('urgency').className = 'mt-2 text-5xl font-black ' + color;
+      $('urgency').textContent = u;
+      $('primaryDept').textContent = data.primaryDepartment || '-';
+      $('facility').textContent = '시설: ' + (data.facilityType || '-');
+      $('cost').textContent = '예상 비용: ' + (data.estimatedCost || '-');
+      $('redFlags').innerHTML = (data.redFlags || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('tests').innerHTML = (data.suggestedTests || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('conditions').innerHTML = (data.possibleConditions || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('homeRemedies').innerHTML = (data.homeRemedies || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('questions').innerHTML = (data.questionsToAsk || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('insurance').innerHTML = (data.insuranceTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('alternatives').textContent = (data.alternativeDepartments || []).join(', ');
+      if (window.va) { try { window.va('event', { name: 'ai_medical' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
