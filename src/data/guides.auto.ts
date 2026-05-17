@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-17-주거급여-임차가구-지원-한도와-신청-절차",
+    "title": "주거급여 임차가구 지원 한도 및 신청 방법 총정리",
+    "excerpt": "주거급여 임차가구 최대 지원 한도와 신청 방법을 자세히 알려드립니다.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-17T18:46:44.446Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-17-특허출원-대행-50만-vs-변리사-직접-vs-자가출원",
+    "title": "특허출원, 50만원 대행 vs 변리사 vs 직접출원 비교",
+    "excerpt": "특허출원, 50만원 대행 vs 변리사 vs 직접출원 비용 비교 분석!",
+    "tag": "대행함정",
+    "minutes": 6,
+    "generatedAt": "2026-05-17T18:46:51.160Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-17-stardew-valley-스팀-베스트셀러-50-할인",
+    "title": "스타듀밸리 스팀 50% 할인! 역대급 기회",
+    "excerpt": "스팀 인기작 스타듀밸리, 50% 할인 중! 지금이 바로 구매할 타이밍!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-17T18:46:55.699Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-17-양도소득세-1세대1주택-비과세-보유-2년거주-2년-요건",
     "title": "1세대1주택 양도소득세 비과세 요건 완벽 정리",
     "excerpt": "1세대1주택 비과세 요건, 보유 2년·거주 2년 충족 시 양도세 절약 가능!",

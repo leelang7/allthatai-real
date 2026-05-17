@@ -1,7 +1,3 @@
-https://allthatai-real.vercel.app/trackers/lck-2026/
-https://allthatai-real.vercel.app/trackers/bitcoin-krw/
-https://allthatai-real.vercel.app/trackers/apt-buy-2026/
-https://allthatai-real.vercel.app/trackers/youth-policy/
-https://allthatai-real.vercel.app/trackers/ai-model-launch/
-https://allthatai-real.vercel.app/trackers/jeonse-fraud/
-https://allthatai-real.vercel.app/trackers/faker-grok/
+https://allthatai-real.vercel.app/issues/deal-2026-05-17-주거급여-임차가구-지원-한도와-신청-절차/
+https://allthatai-real.vercel.app/issues/deal-2026-05-17-특허출원-대행-50만-vs-변리사-직접-vs-자가출원/
+https://allthatai-real.vercel.app/issues/deal-2026-05-17-stardew-valley-스팀-베스트셀러-50-할인/
