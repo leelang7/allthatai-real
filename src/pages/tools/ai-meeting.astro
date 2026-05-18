@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 회의록 정리 — 메모·녹취 → 구조화 회의록" description="회의 메모 → Gemini가 결정사항·액션아이템·논의 포인트·미해결 자동 정리.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 회의록</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">메모/녹취 → 구조화.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <input id="context" type="text" placeholder="회의 주제" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white" />
+      <input id="attendees" type="text" placeholder="참석자 (콤마)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white" />
+      <textarea id="notes" rows="12" placeholder="회의 메모 또는 녹취 텍스트 (50자 이상)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      <button id="go" type="button" class="w-full rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-black py-3 disabled:opacity-50">AI 정리</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5">
+      <div class="flex items-start justify-between mb-2"><h2 id="title" class="font-black text-xl text-white"></h2><button id="copy" type="button" class="text-xs font-bold px-3 py-1.5 rounded-md bg-violet-500 text-white">📋 복사</button></div>
+      <p id="summary" class="text-sm text-zinc-200"></p>
+    </div>
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">✓ 결정사항</h4><ul id="decisions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📌 액션 아이템</h4><div id="actions" class="space-y-2"></div></div>
+    <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">💬 논의 포인트</h4><div id="discussion" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">❓ 미해결</h4><ul id="questions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">🚧 블로커</h4><ul id="blockers" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">📅 다음 회의</h4><p id="next" class="text-sm text-zinc-200"></p></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if ($('notes').value.length < 50) { $('status').textContent = '⚠ 50자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 정리 중...'; $('status').className = 'text-xs text-violet-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-meeting', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notes: $('notes').value, context: $('context').value, attendees: $('attendees').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('title').textContent = data.title || '회의록';
+      $('summary').textContent = data.summary || '';
+      $('decisions').innerHTML = (data.keyDecisions || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('actions').innerHTML = (data.actionItems || []).map((a) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-white">${esc(a.task || '')}</p><div class="flex gap-3 text-xs mt-1"><span class="text-cyan-300">👤 ${esc(a.assignee || '')}</span><span class="text-amber-300">⏰ ${esc(a.deadline || '')}</span></div></div>`).join('');
+      $('discussion').innerHTML = (data.discussionPoints || []).map((d) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-zinc-200">${esc(d.topic || '')}</p><p class="text-xs text-zinc-400 mt-1">${esc(d.summary || '')}</p><p class="text-xs text-emerald-300 mt-1">→ ${esc(d.outcome || '')}</p></div>`).join('');
+      $('questions').innerHTML = (data.openQuestions || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('blockers').innerHTML = (data.blockers || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('next').textContent = data.nextMeeting || '';
+      if (window.va) { try { window.va('event', { name: 'ai_meeting' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+  $('copy').addEventListener('click', () => {
+    const t = $('title').textContent + '\n\n[요약]\n' + $('summary').textContent + '\n\n[결정사항]\n' + Array.from($('decisions').children).map((l) => '• ' + l.textContent).join('\n');
+    navigator.clipboard.writeText(t).then(() => { $('copy').textContent = '✓ 복사됨'; setTimeout(() => { $('copy').textContent = '📋 복사'; }, 2000); });
+  });
+</script>

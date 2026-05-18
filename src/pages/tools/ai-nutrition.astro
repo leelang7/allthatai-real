@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 영양 분석 — 음식 → 칼로리·매크로·점수" description="먹은 음식 → Gemini가 칼로리·단백질/탄수/지방·영양 점수·부족·과다·개선 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 영양 분석</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">음식 → 칼로리·매크로·점수.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <textarea id="foods" rows="4" placeholder="먹은 음식 (예: 김치찌개 1인분, 공기밥 1, 두부 100g, 우유 200ml)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      <input id="profile" type="text" placeholder="본인 정보 (예: 30세 남 70kg 170cm)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+      <select id="goal" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white"><option>균형식</option><option>다이어트</option><option>벌크업</option><option>당뇨 관리</option><option>혈압 관리</option></select>
+      <button id="go" type="button" class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-black py-3 disabled:opacity-50">AI 영양 분석</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="box" class="rounded-3xl border-2 p-8"><p class="text-[10px] font-bold uppercase tracking-widest" id="lbl">건강 점수</p><p id="score" class="mt-2 text-6xl font-black tabular-nums">-</p><p id="verdict" class="mt-2 text-xl font-black">-</p><p id="cal" class="mt-3 text-3xl font-black text-amber-300 tabular-nums"></p></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📊 매크로</h4><div id="macros" class="grid grid-cols-4 gap-2"></div></div>
+    <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">음식별</h4><table class="w-full text-sm"><thead class="text-zinc-400 text-xs"><tr><th class="text-left py-1">음식</th><th class="text-right py-1">kcal</th><th class="text-right py-1">단백</th><th class="text-right py-1">탄수</th><th class="text-right py-1">지방</th></tr></thead><tbody id="items" class="divide-y divide-zinc-800/50"></tbody></table></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">⚪ 부족</h4><ul id="missing" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 과다</h4><ul id="excess" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">💡 개선</h4><ul id="improve" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <p id="compare" class="text-sm text-zinc-400 px-4"></p>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('foods').value.trim()) { $('status').textContent = '⚠ 음식 입력 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 분석 중...'; $('status').className = 'text-xs text-emerald-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-nutrition', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ foods: $('foods').value, profile: $('profile').value, goal: $('goal').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      const s = data.healthScore || 0;
+      let color = 'text-emerald-300', bg = 'border-emerald-500/40 bg-emerald-500/5';
+      if (s < 50) { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (s < 70) { color = 'text-amber-300'; bg = 'border-amber-500/40 bg-amber-500/5'; }
+      $('box').className = 'rounded-3xl border-2 p-8 ' + bg;
+      $('lbl').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('score').className = 'mt-2 text-6xl font-black tabular-nums ' + color;
+      $('verdict').className = 'mt-2 text-xl font-black ' + color;
+      $('score').textContent = s + ' / 100';
+      $('verdict').textContent = data.verdict || '-';
+      $('cal').textContent = '총 ' + (data.totalCalories || '-') + ' kcal';
+      const m = data.macros || {};
+      $('macros').innerHTML = `<div class="rounded-lg bg-zinc-900/60 p-3 text-center"><p class="text-[10px] text-zinc-400">단백질</p><p class="text-lg font-black">${esc(m.protein || '-')}</p></div><div class="rounded-lg bg-zinc-900/60 p-3 text-center"><p class="text-[10px] text-zinc-400">탄수화물</p><p class="text-lg font-black">${esc(m.carbs || '-')}</p></div><div class="rounded-lg bg-zinc-900/60 p-3 text-center"><p class="text-[10px] text-zinc-400">지방</p><p class="text-lg font-black">${esc(m.fat || '-')}</p></div><div class="rounded-lg bg-zinc-900/60 p-3 text-center"><p class="text-[10px] text-zinc-400">섬유질</p><p class="text-lg font-black">${esc(m.fiber || '-')}</p></div>`;
+      $('items').innerHTML = (data.items || []).map((i) => `<tr><td class="py-1.5">${esc(i.name || '')}</td><td class="py-1.5 text-right tabular-nums">${esc(i.calories || '')}</td><td class="py-1.5 text-right tabular-nums">${esc(i.protein || '')}</td><td class="py-1.5 text-right tabular-nums">${esc(i.carbs || '')}</td><td class="py-1.5 text-right tabular-nums">${esc(i.fat || '')}</td></tr>`).join('');
+      $('missing').innerHTML = (data.missingNutrients || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('excess').innerHTML = (data.excessNutrients || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('improve').innerHTML = (data.improvements || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('compare').textContent = data.comparisonToDV || '';
+      if (window.va) { try { window.va('event', { name: 'ai_nutrition' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

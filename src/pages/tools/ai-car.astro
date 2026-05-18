@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 차량 추천 — 예산·용도 → 5개 추천 + 유지비" description="예산·용도·인원 → Gemini가 신차·중고차 5개 + 유지비·연비·할부 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 차량 추천</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">신차/중고 5 + 유지비.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">예산 (₩)</span><input id="budget" type="number" value="30000000" step="1000000" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">탑승</span><input id="passengers" type="number" value="4" min="1" max="9" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">신차/중고</span><select id="newOrUsed" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white"><option value="either">상관 없음</option><option value="new">신차만</option><option value="used">중고만</option></select></label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">주 용도</span><select id="usage" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white"><option value="commute">출퇴근</option><option value="family">가족용</option><option value="longtrip">장거리</option><option value="city">시내 위주</option><option value="business">비즈니스</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">연료</span><select id="fuelType" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white"><option value="any">아무</option><option value="gasoline">가솔린</option><option value="diesel">디젤</option><option value="hybrid">하이브리드</option><option value="ev">전기</option></select></label>
+      </div>
+      <input id="priorities" type="text" placeholder="우선순위 (예: 연비, 공간, 안전, 디자인)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white" />
+      <button id="go" type="button" class="w-full rounded-lg bg-blue-500 hover:bg-blue-400 text-white font-black py-3 disabled:opacity-50">AI 차량 추천</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><p id="summary" class="text-sm text-zinc-200"></p></div>
+    <div id="cars" class="space-y-3"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-2">신차 vs 중고</h4><p id="nvsu" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-2">할부·리스 조언</h4><p id="financing" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주의</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!+$('budget').value) { $('status').textContent = '⚠ 예산 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 차량 분석 중...'; $('status').className = 'text-xs text-blue-300 text-center animate-pulse';
+    const body = {}; ['budget','usage','passengers','fuelType','newOrUsed','priorities'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-car', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('summary').textContent = data.summary || '';
+      $('cars').innerHTML = (data.recommendations || []).map((c) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-start justify-between mb-2"><div><span class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-500 text-white">#${c.rank}</span><h4 class="inline ml-2 font-black text-lg text-white">${esc(c.model || '')}</h4><span class="text-xs text-zinc-500 ml-2">${esc(c.category || '')}</span></div><span class="text-xs font-black text-emerald-300">${c.matchScore || 0}%</span></div>
+        <div class="flex flex-wrap gap-3 text-xs mb-2"><span class="text-emerald-300">신차 ${esc(c.priceRange || '')}</span><span class="text-amber-300">중고 ${esc(c.usedPrice || '')}</span><span class="text-cyan-300">⛽ ${esc(c.fuelEconomy || '')}</span><span class="text-zinc-400">연 ${esc(c.annualCost || '')}</span></div>
+        <div class="grid grid-cols-2 gap-2 text-xs"><div><p class="text-emerald-300 font-bold mb-1">장점</p>${(c.pros || []).map((p) => `<p class="text-zinc-300">• ${esc(p)}</p>`).join('')}</div><div><p class="text-rose-300 font-bold mb-1">단점</p>${(c.cons || []).map((p) => `<p class="text-zinc-300">• ${esc(p)}</p>`).join('')}</div></div>
+        <p class="mt-2 text-xs text-zinc-400">유지비: ${esc(c.maintenance || '')}</p>
+      </div>`).join('');
+      $('nvsu').textContent = data.newVsUsed || '';
+      $('financing').textContent = data.financing || '';
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_car' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 영어 번역·회화·첨삭 — 한국인 맞춤" description="한↔영 번역 + 영작 첨삭 + 회화 표현. Gemini가 자연스러운 표현·문법·문화 노트 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 영어</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">번역 + 첨삭 + 회화.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <div class="grid sm:grid-cols-3 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">모드</span><select id="mode" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-indigo-500 outline-none px-3 py-2 text-white"><option value="translate">번역</option><option value="correct">영작 첨삭</option><option value="conversation">회화 연습</option><option value="expression">표현 추천</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">방향</span><select id="direction" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-indigo-500 outline-none px-3 py-2 text-white"><option value="ko-en">한 → 영</option><option value="en-ko">영 → 한</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">상황</span><input id="situation" type="text" placeholder="예: 비즈니스, 면접" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-indigo-500 outline-none px-3 py-2 text-white" /></label>
+      </div>
+      <textarea id="text" rows="5" placeholder="원문 입력" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-indigo-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      <button id="go" type="button" class="w-full rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-black py-3 disabled:opacity-50">AI 처리</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-indigo-500/40 bg-gradient-to-br from-indigo-500/15 to-blue-500/5 p-8">
+      <p class="text-[10px] font-bold text-indigo-300 uppercase tracking-widest">주 번역</p>
+      <p id="primary" class="mt-2 text-xl text-white leading-relaxed"></p>
+      <div class="mt-3 flex items-center gap-2"><span class="text-xs text-zinc-400">자연스러움:</span><span id="naturalness" class="text-sm font-black text-emerald-300"></span></div>
+    </div>
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">🎭 다른 톤</h4><div id="alternatives" class="space-y-2"></div></div>
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5" id="rewriteBox"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-2">✓ 더 나은 표현</h4><p id="rewrite" class="text-sm text-zinc-200"></p></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📚 문법</h4><ul id="grammar" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">📖 어휘</h4><div id="vocab" class="space-y-1 text-sm"></div></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 흔한 실수</h4><ul id="mistakes" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase tracking-widest mb-3">🌎 문화 노트</h4><p id="culture" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">💬 회화 예시</h4><div id="conversation" class="space-y-2"></div></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('text').value.trim()) { $('status').textContent = '⚠ 원문 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 처리 중...'; $('status').className = 'text-xs text-indigo-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-english', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: $('text').value, mode: $('mode').value, direction: $('direction').value, situation: $('situation').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('primary').textContent = data.primaryTranslation || '';
+      $('naturalness').textContent = (data.naturalness || 0) + '/100';
+      $('alternatives').innerHTML = (data.alternatives || []).map((a) => `<div class="rounded-lg bg-zinc-900/60 p-3"><div class="flex gap-2 mb-1"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-violet-500 text-white">${esc(a.tone || '')}</span><span class="text-xs text-zinc-400">${esc(a.whenToUse || '')}</span></div><p class="text-sm text-zinc-200 italic">"${esc(a.version || '')}"</p></div>`).join('');
+      if (data.betterRewrite) { $('rewrite').textContent = data.betterRewrite; } else { $('rewriteBox').style.display = 'none'; }
+      $('grammar').innerHTML = (data.grammarNotes || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('vocab').innerHTML = (data.vocabulary || []).map((v) => `<div class="rounded bg-zinc-900/60 p-2"><p class="text-zinc-200"><strong class="text-amber-300">${esc(v.word || '')}</strong> — ${esc(v.meaning || '')}</p><p class="text-xs text-zinc-400 italic">${esc(v.example || '')}</p></div>`).join('');
+      $('mistakes').innerHTML = (data.commonMistakes || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('culture').textContent = data.culturalNote || '';
+      $('conversation').innerHTML = (data.practiceConversation || []).map((c) => `<p class="text-sm"><strong class="text-cyan-300">${esc(c.speaker || '')}:</strong> ${esc(c.text || '')}</p>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_english' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

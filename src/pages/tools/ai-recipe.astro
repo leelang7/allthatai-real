@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 레시피 추천 — 보유 재료 → 요리 3개" description="냉장고 재료 → Gemini가 한식·일식·양식 레시피 3개 + 단계·꿀팁·대체재료 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 레시피</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">보유 재료 → 요리 3개.</p>
+  </section>
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <textarea id="ingredients" rows="3" placeholder="보유 재료 (콤마): 계란, 양파, 김치, 두부, 라면" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      <div class="grid sm:grid-cols-4 gap-3">
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">선호</span><select id="cuisine" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white"><option>아무</option><option>한식</option><option>일식</option><option>중식</option><option>양식</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">시간 (분)</span><input id="maxMinutes" type="number" value="30" min="5" max="120" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">난이도</span><select id="difficulty" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white"><option>쉬움</option><option>보통</option><option>어려움</option></select></label>
+        <label class="block"><span class="block text-xs font-bold text-zinc-300 mb-1.5">인분</span><input id="servings" type="number" value="2" min="1" max="10" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-3 py-2 text-white tabular-nums" /></label>
+      </div>
+      <input id="restrictions" type="text" placeholder="제약 (예: 다이어트, 알레르기, 채식)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-orange-500 outline-none px-4 py-2.5 text-white" />
+      <button id="go" type="button" class="w-full rounded-lg bg-orange-500 hover:bg-orange-400 text-white font-black py-3 disabled:opacity-50">AI 레시피</button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="recipes" class="space-y-3"></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-2">🛒 구매 추천</h4><p id="suggestion" class="text-sm text-zinc-300"></p></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('ingredients').value.trim()) { $('status').textContent = '⚠ 재료 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 레시피 생성 중...'; $('status').className = 'text-xs text-orange-300 text-center animate-pulse';
+    const body = {}; ['ingredients','cuisine','maxMinutes','difficulty','servings','restrictions'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-recipe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('recipes').innerHTML = (data.recipes || []).map((r) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-start justify-between mb-2"><h4 class="font-black text-xl text-white">${esc(r.name || '')}</h4><span class="text-xs font-black px-2 py-0.5 rounded bg-orange-500 text-white">${esc(r.cuisine || '')}</span></div>
+        <div class="flex flex-wrap gap-3 text-xs mb-3 text-zinc-400"><span>⏱ ${esc(String(r.totalMinutes || ''))}분</span><span>🍽 ${esc(String(r.servings || ''))}인분</span><span>🔥 ${esc(r.calories || '')}</span><span>📊 ${esc(r.difficulty || '')}</span></div>
+        <div class="mb-3"><p class="text-xs font-black text-zinc-400 mb-1">재료</p><p class="text-sm text-zinc-300">${(r.ingredients || []).map((i) => esc(i.name) + ' ' + esc(i.amount)).join(' · ')}</p></div>
+        <div class="mb-3"><p class="text-xs font-black text-zinc-400 mb-1">단계</p><ol class="text-sm text-zinc-300 list-decimal list-inside space-y-1">${(r.steps || []).map((s) => `<li>${esc(s)}</li>`).join('')}</ol></div>
+        ${(r.tips && r.tips.length) ? `<div class="mb-2"><p class="text-xs font-black text-emerald-400 mb-1">💡 꿀팁</p><ul class="text-xs text-zinc-300 list-disc list-inside">${(r.tips || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
+        ${(r.substitutes && r.substitutes.length) ? `<div><p class="text-xs font-black text-amber-400 mb-1">🔄 대체재료</p>${(r.substitutes || []).map((s) => `<p class="text-xs text-zinc-400">${esc(s.original)} → ${esc(s.alternative)}</p>`).join('')}</div>` : ''}
+      </div>`).join('');
+      $('suggestion').textContent = data.suggestion || '';
+      if (window.va) { try { window.va('event', { name: 'ai_recipe' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
