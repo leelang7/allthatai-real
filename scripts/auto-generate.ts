@@ -411,6 +411,36 @@ async function loadExistingSlugs(): Promise<Set<string>> {
   return set;
 }
 
+/**
+ * Topic key = slug after stripping "deal-YYYY-MM-DD-" prefix.
+ * Used for cross-date dedupe so the same topic doesn't regenerate daily.
+ */
+function topicKey(slug: string): string {
+  return slug.replace(/^deal-\d{4}-\d{2}-\d{2}-/, '');
+}
+
+async function loadExistingTopics(): Promise<Set<string>> {
+  const set = new Set<string>();
+  // Manual guides counted by their full slug (they don't have date prefix)
+  for (const g of allGuides) set.add(g.slug);
+  try {
+    const autoMeta = await import('../src/data/guides.auto');
+    for (const g of (autoMeta as any).autoGuides as GeneratedMeta[]) {
+      set.add(topicKey(g.slug));
+    }
+  } catch { /* */ }
+  // Also scan filesystem in case index drifted
+  try {
+    const fs = await import('fs');
+    const path = await import('path');
+    const issuesDir = path.join(ROOT, 'src/pages/issues');
+    for (const entry of fs.readdirSync(issuesDir)) {
+      if (entry.startsWith('deal-')) set.add(topicKey(entry));
+    }
+  } catch { /* */ }
+  return set;
+}
+
 const SYSTEM_PROMPT = `You are a Korean deal-curation writer for "AllThatAI Real" — a portal that helps
 readers find ACTUAL savings. You write practical, comparison-focused articles
 about deals, discounts, promotions, and student / new-user benefits.
@@ -911,11 +941,12 @@ async function main() {
   // YouTube search RSS is unreliable (returns 400 on many Korean queries).
   // Skipped for now; evergreen + Reddit cover content needs.
 
-  const existing = await loadExistingSlugs();
+  const existingTopics = await loadExistingTopics();
   const today = new Date().toISOString().slice(0, 10);
   const candidates = allItems
     .filter((t) => !isBlocked(t.title))
-    .filter((t) => !existing.has(`deal-${today}-${slugify(t.title)}`))
+    // dedupe by TOPIC (date-independent) so we don't regenerate the same article daily
+    .filter((t) => !existingTopics.has(slugify(t.title)))
     .slice(0, MAX_NEW_PER_RUN * 4);
 
   console.log(`2. ${candidates.length} candidates after filter (blocklist: ${BLOCKED_KEYWORDS.length} terms)`);
