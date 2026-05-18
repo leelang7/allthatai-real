@@ -3,6 +3,51 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-18-구글-플레이-콘솔-가입-대행-vs-직접-25-1회",
+    "title": "구글 플레이 콘솔 가입, 대행 vs 직접 비용 비교",
+    "excerpt": "구글 플레이 콘솔 개발자 계정, 직접 가입과 대행 서비스 비용 비교 및 주의사항",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-18T19:18:59.817Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-18-스팀-stardew-valley-50-할인-16000-8000",
+    "title": "스팀 스타듀밸리 50% 할인: 8천원에 농장 경영 시작!",
+    "excerpt": "스팀 인기 게임 스타듀밸리가 50% 할인된 8천원에 판매 중! 지금 바로 농장 경영을 시작하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-18T19:19:07.178Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-18-스팀-v-rising-55-할인-34500-15520",
+    "title": "스팀 V Rising 55% 할인: 1.5만원대로 즐기세요!",
+    "excerpt": "스팀 V Rising, 55% 할인! ₩34,500 → ₩15,520에 지금 바로 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-18T19:19:12.907Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-18-스팀-red-dead-redemption-2-75-할인-73000-18250",
+    "title": "스팀 RDR2 75% 할인: 18,250원에 명작 즐기기",
+    "excerpt": "스팀 'Red Dead Redemption 2' 75% 할인! 18,250원에 명작 서부극을 경험하세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-18T19:19:18.487Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-18-stardew-valley-스팀-베스트셀러-50-할인",
+    "title": "스타듀밸리 스팀 50% 할인! 역대급 가격 기회",
+    "excerpt": "인기 게임 스타듀 밸리, 스팀에서 50% 할인 중! 지금이 구매 적기입니다.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-18T19:19:27.158Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-18-양도소득세-1세대1주택-비과세-보유-2년거주-2년-요건",
     "title": "1세대 1주택 양도세 비과세 요건 (2년 보유·거주)",
     "excerpt": "1세대 1주택 양도세 비과세, 2년 보유 및 거주 요건과 예외 사항을 쉽게 알아보세요.",
