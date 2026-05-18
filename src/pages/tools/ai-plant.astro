@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 식물 케어 — 물·빛·온도·해충 자동" description="식물명 + 환경 → Gemini가 물·빛·토양·비료·분갈이·월별 일정 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 식물 케어</span></h1><p class="mt-4 text-lg text-zinc-400">물·빛·해충·월별 일정.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <input id="plant" type="text" placeholder="식물명 *" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+    <input id="environment" type="text" placeholder="환경 (예: 실내 거실 남향)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" />
+    <div class="grid sm:grid-cols-2 gap-3">
+      <select id="light" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2 text-white"><option value="low">어두움</option><option value="medium" selected>보통</option><option value="bright">밝음</option><option value="direct">직사광</option></select>
+      <select id="experience" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-3 py-2 text-white"><option value="beginner">초보</option><option value="intermediate">중급</option><option value="expert">고수</option></select>
+    </div>
+    <button id="go" type="button" class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-black py-3 disabled:opacity-50">AI 케어 가이드</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h2 id="plantName" class="font-black text-2xl text-white"></h2><div class="mt-2 flex gap-3 text-xs"><span class="text-zinc-400">난이도: <span id="difficulty" class="font-black"></span></span><span class="text-zinc-400">반려동물 독성: <span id="toxic" class="font-black"></span></span></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-2">💧 물</h4><div id="water" class="space-y-1 text-sm text-zinc-300"></div></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">☀️ 환경</h4><p id="light" class="text-sm text-zinc-300"></p><p id="temp" class="text-sm text-zinc-300"></p><p id="hum" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase mb-2">🌱 토양</h4><p id="soil" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase mb-2">💊 비료</h4><p id="fert" class="text-sm text-zinc-300"></p></div>
+      <div class="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-5"><h4 class="text-xs font-black text-pink-300 uppercase mb-2">🪴 분갈이</h4><p id="repot" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase mb-3">⚠ 흔한 문제</h4><div id="issues" class="space-y-2"></div></div>
+    <div class="rounded-2xl border border-zinc-700 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase mb-3">📅 월별 일정</h4><div id="monthly" class="grid grid-cols-2 gap-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">🐛 해충</h4><ul id="pests" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">💡 고급 팁</h4><ul id="tips" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('plant').value.trim()) { $('status').textContent = '⚠ 식물명 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 케어 분석 중...'; $('status').className = 'text-xs text-emerald-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-plant', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plant: $('plant').value, environment: $('environment').value, light: $('light').value, experience: $('experience').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('plantName').textContent = data.plantName || '';
+      $('difficulty').textContent = data.difficulty || '-';
+      $('toxic').textContent = data.isToxicToPets ? '있음 ⚠' : '없음';
+      $('toxic').className = data.isToxicToPets ? 'font-black text-rose-300' : 'font-black text-emerald-300';
+      const w = data.water || {};
+      $('water').innerHTML = `<p><strong>주기:</strong> ${esc(w.frequency || '-')}</p><p><strong>양:</strong> ${esc(w.amount || '-')}</p><p><strong>신호:</strong> ${esc(w.signs || '-')}</p>`;
+      $('light').textContent = '빛: ' + (data.light || '');
+      $('temp').textContent = '온도: ' + (data.temperature || '');
+      $('hum').textContent = '습도: ' + (data.humidity || '');
+      $('soil').textContent = data.soil || '';
+      $('fert').textContent = data.fertilizer || '';
+      $('repot').textContent = data.repotting || '';
+      $('issues').innerHTML = (data.commonIssues || []).map((i) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-rose-300">${esc(i.issue || '')}</p><p class="text-xs text-zinc-300 mt-1">증상: ${esc(i.symptoms || '')}</p><p class="text-xs text-emerald-300 mt-1">해결: ${esc(i.solution || '')}</p></div>`).join('');
+      $('monthly').innerHTML = (data.monthlySchedule || []).map((m) => `<div class="rounded-lg bg-zinc-900/60 p-2"><p class="text-xs font-bold text-zinc-200">${esc(m.month || '')}</p><ul class="text-xs text-zinc-400 list-disc list-inside">${(m.tasks || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>`).join('');
+      $('pests').innerHTML = (data.pests || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('tips').innerHTML = (data.tips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_plant' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

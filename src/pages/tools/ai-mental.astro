@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 정신건강 셀프체크 — 감정 분석 + 자원 안내" description="감정·상황 → Gemini가 상태·자가케어·자원·운동·응원 자동. 진단 X 안내 O.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 마음 셀프체크</span></h1><p class="mt-4 text-lg text-zinc-400">감정 분석 + 자원 안내.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <textarea id="feelings" rows="6" placeholder="요즘 어떤 감정·상황인지 솔직히 (20자 이상). 익명·로그 X." class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+    <input id="duration" type="text" placeholder="이런 상태 얼마나? (예: 2주)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+    <input id="sleep" type="text" placeholder="수면" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+    <input id="stressors" type="text" placeholder="주요 스트레스 요인" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+    <button id="go" type="button" class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white font-black py-3 disabled:opacity-50">AI 분석</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    <p class="text-[10px] text-zinc-500 text-center">⚠ 진단 X · 위기 시 1393 (자살예방) / 1577-0199 (정신건강 위기) / 응급실</p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="box" class="rounded-3xl border-2 p-8"><p class="text-[10px] font-bold uppercase tracking-widest" id="lbl">현재 상태</p><p id="severity" class="mt-2 text-3xl font-black">-</p><p id="state" class="mt-3 text-sm text-zinc-200"></p></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-3">감정 비율</h4><div id="emotions" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">🌱 오늘 시도</h4><ul id="selfcare" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase mb-2">🧘 훈련</h4><div id="exercises" class="space-y-2"></div></div>
+    </div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">전문가 도움</h4><p id="help" class="text-sm text-zinc-200"></p></div>
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase mb-3">📞 자원</h4><div id="resources" class="space-y-2"></div></div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase mb-2">⚠ 악화 신호</h4><ul id="warning" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-5 text-center"><p id="encourage" class="text-lg font-black text-white"></p></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if ($('feelings').value.length < 20) { $('status').textContent = '⚠ 20자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 따뜻하게 분석 중...'; $('status').className = 'text-xs text-cyan-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-mental', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ feelings: $('feelings').value, duration: $('duration').value, sleep: $('sleep').value, stressors: $('stressors').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      const sv = data.severity || '-';
+      let color = 'text-emerald-300', bg = 'border-emerald-500/40 bg-emerald-500/5';
+      if (sv === '위기') { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+      else if (sv === '상담 권장') { color = 'text-orange-300'; bg = 'border-orange-500/40 bg-orange-500/5'; }
+      else if (sv === '주의') { color = 'text-amber-300'; bg = 'border-amber-500/40 bg-amber-500/5'; }
+      $('box').className = 'rounded-3xl border-2 p-8 ' + bg;
+      $('lbl').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+      $('severity').className = 'mt-2 text-3xl font-black ' + color;
+      $('severity').textContent = sv;
+      $('state').textContent = data.currentState || '';
+      const eb = data.emotionalBreakdown || {};
+      $('emotions').innerHTML = Object.entries(eb).map(([k, v]) => `<div class="flex items-center gap-3"><span class="text-sm text-zinc-300 w-20">${esc(k)}</span><div class="flex-1 bg-zinc-900 rounded-full h-2"><div class="bg-cyan-500 h-2 rounded-full" style="width: ${parseInt(String(v))}%"></div></div><span class="text-xs tabular-nums w-12 text-right">${esc(String(v))}</span></div>`).join('');
+      $('selfcare').innerHTML = (data.selfCare || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('exercises').innerHTML = (data.exercises || []).map((e) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-violet-200">${esc(e.name || '')} <span class="text-xs text-zinc-500">${esc(e.duration || '')}</span></p><p class="text-xs text-zinc-300 mt-1">${esc(e.method || '')}</p></div>`).join('');
+      $('help').textContent = data.professionalHelp || '';
+      $('resources').innerHTML = (data.resources || []).map((r) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-blue-300">${esc(r.name || '')} · <span class="text-zinc-200">${esc(r.contact || '')}</span></p><p class="text-xs text-zinc-400 mt-1">${esc(r.when || '')}</p></div>`).join('');
+      $('warning').innerHTML = (data.warningsSigns || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('encourage').textContent = data.encouragement || '';
+      if (window.va) { try { window.va('event', { name: 'ai_mental' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

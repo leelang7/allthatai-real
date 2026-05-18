@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 일기 분석 — 감정·테마·인사이트 자동" description="일기 → Gemini가 주된 감정·반복 주제·패턴·성찰 질문·긍정 확언 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 일기 분석</span></h1><p class="mt-4 text-lg text-zinc-400">감정·테마·인사이트.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <textarea id="text" rows="12" placeholder="오늘의 일기 (50자 이상). 로그 X." class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-purple-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+    <button id="go" type="button" class="w-full rounded-lg bg-purple-500 hover:bg-purple-400 text-white font-black py-3 disabled:opacity-50">AI 분석</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-purple-500/40 bg-gradient-to-br from-purple-500/15 to-pink-500/5 p-8"><p class="text-[10px] font-bold text-purple-300 uppercase tracking-widest">주된 감정</p><p id="mood" class="mt-2 text-4xl font-black text-white"></p><div class="mt-3 flex items-center gap-3"><span class="text-xs text-zinc-400">감정 점수:</span><div class="flex-1 bg-zinc-900 rounded-full h-3"><div id="scoreBar" class="bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 h-3 rounded-full"></div></div><span id="moodScore" class="text-sm font-black"></span></div></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-3">감정 분해</h4><div id="emotions" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">🎯 반복 주제</h4><ul id="themes" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase mb-2">🔍 패턴</h4><p id="patterns" class="text-sm text-zinc-300"></p></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">👍 긍정 신호</h4><ul id="positives" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase mb-2">⚠ 걱정 신호</h4><ul id="concerns" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><h4 class="text-xs font-black text-blue-300 uppercase mb-2">💭 성찰</h4><p id="reflection" class="text-sm text-zinc-200"></p></div>
+    <div class="rounded-2xl border border-teal-500/40 bg-teal-500/5 p-5"><h4 class="text-xs font-black text-teal-300 uppercase mb-2">📌 오늘 시도</h4><ul id="actions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    <div class="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-5"><h4 class="text-xs font-black text-pink-300 uppercase mb-2">✨ 긍정 확언</h4><ul id="affirm" class="space-y-1 text-sm text-zinc-200 italic"></ul></div>
+    <p id="trend" class="text-xs text-zinc-500 italic px-4"></p>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if ($('text').value.length < 50) { $('status').textContent = '⚠ 50자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 분석 중...'; $('status').className = 'text-xs text-purple-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-diary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: $('text').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('mood').textContent = data.mood || '';
+      const ms = data.moodScore || 50;
+      $('scoreBar').style.width = ms + '%';
+      $('moodScore').textContent = ms + '/100';
+      $('emotions').innerHTML = (data.emotions || []).map((e) => `<div class="flex items-center gap-3"><span class="text-sm text-zinc-300 w-24">${esc(e.emotion || '')}</span><div class="flex-1 bg-zinc-900 rounded-full h-2"><div class="bg-purple-500 h-2 rounded-full" style="width: ${e.intensity || 0}%"></div></div><span class="text-xs tabular-nums w-10 text-right">${e.intensity || 0}</span></div>`).join('');
+      $('themes').innerHTML = (data.themes || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('patterns').textContent = data.patterns || '';
+      $('positives').innerHTML = (data.positives || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('concerns').innerHTML = (data.concerns || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('reflection').textContent = data.reflection || '';
+      $('actions').innerHTML = (data.actionableInsights || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('affirm').innerHTML = (data.affirmations || []).map((x) => `<li>"${esc(x)}"</li>`).join('');
+      $('trend').textContent = data.trendNote || '';
+      if (window.va) { try { window.va('event', { name: 'ai_diary' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

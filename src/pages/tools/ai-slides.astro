@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 발표 슬라이드 — 주제 → 구조 + 노트 + Q&A" description="주제·청중·시간 → Gemini가 슬라이드 구조 + 발표자 노트 + 예상 Q&A 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 슬라이드</span></h1><p class="mt-4 text-lg text-zinc-400">구조 + 노트 + Q&A.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <input id="topic" type="text" placeholder="주제 *" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-white" />
+    <div class="grid sm:grid-cols-3 gap-3">
+      <input id="audience" type="text" placeholder="청중" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white" />
+      <select id="purpose" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white"><option value="inform">정보 전달</option><option value="persuade">설득</option><option value="train">교육</option><option value="pitch">투자 피치</option></select>
+      <input id="duration" type="number" value="10" min="3" max="60" placeholder="분" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-3 py-2 text-white tabular-nums" />
+    </div>
+    <textarea id="keyPoints" rows="3" placeholder="핵심 포인트 (콤마)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-blue-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+    <button id="go" type="button" class="w-full rounded-lg bg-blue-500 hover:bg-blue-400 text-white font-black py-3 disabled:opacity-50">AI 슬라이드</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-blue-500/40 bg-blue-500/5 p-5"><div class="grid grid-cols-2 gap-3 text-sm"><span>총 슬라이드: <span id="total" class="font-black"></span></span><span>예상 시간: <span id="minutes" class="font-black"></span>분</span></div></div>
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">🎯 오프닝 후크</h4><p id="opening" class="text-sm text-zinc-200"></p></div>
+    <h3 class="text-xl font-black text-blue-300">슬라이드</h3>
+    <div id="slides" class="space-y-2"></div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">🎤 클로징</h4><p id="closing" class="text-sm text-zinc-200"></p></div>
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase mb-3">❓ 예상 Q&A</h4><div id="qa" class="space-y-2"></div></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-2">🎨 디자인 팁</h4><ul id="design" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('topic').value.trim()) { $('status').textContent = '⚠ 주제 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 슬라이드 생성 중...'; $('status').className = 'text-xs text-blue-300 text-center animate-pulse';
+    const body = {}; ['topic','audience','purpose','duration','keyPoints'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-slides', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('total').textContent = data.totalSlides || '-';
+      $('minutes').textContent = data.estimatedMinutes || '-';
+      $('opening').textContent = data.openingHook || '';
+      $('closing').textContent = data.closingMessage || '';
+      $('slides').innerHTML = (data.slides || []).map((s) => `<div class="rounded-lg bg-zinc-900/60 p-4"><div class="flex items-center gap-2 mb-2"><span class="text-[10px] font-black px-2 py-0.5 rounded bg-blue-500 text-white">#${s.number || ''}</span><span class="text-[10px] font-black px-2 py-0.5 rounded bg-zinc-700 text-zinc-300">${esc(s.type || '')}</span><span class="text-sm font-bold text-white">${esc(s.title || '')}</span></div><p class="text-xs text-cyan-300 mb-2">🎯 ${esc(s.keyMessage || '')}</p><ul class="text-sm text-zinc-300 list-disc list-inside mb-2">${(s.bullets || []).map((b) => `<li>${esc(b)}</li>`).join('')}</ul><p class="text-xs text-zinc-400 italic mb-1">📝 ${esc(s.speakerNotes || '')}</p><p class="text-xs text-violet-300">🎨 ${esc(s.visualSuggestion || '')}</p></div>`).join('');
+      $('qa').innerHTML = (data.qaPrep || []).map((q) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-violet-200">Q: ${esc(q.question || '')}</p><p class="text-sm text-zinc-300 mt-1">A: ${esc(q.answer || '')}</p></div>`).join('');
+      $('design').innerHTML = (data.designTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_slides' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
