@@ -1,0 +1,115 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { hiddenMoneySources, totalAvgRecovery } from '../../data/hidden-money';
+
+const grouped: Record<string, typeof hiddenMoneySources> = {};
+hiddenMoneySources.forEach((h) => {
+  if (!grouped[h.category]) grouped[h.category] = [];
+  grouped[h.category].push(h);
+});
+
+const categoryOrder: Array<keyof typeof grouped> = ['예금', '보험', '세금', '연금', '카드', '통신', '주식', '복지', '에너지'];
+const totalKrw = '₩' + totalAvgRecovery.toLocaleString('ko-KR');
+---
+<Layout
+  title={`숨은 돈 찾기 — 평균 ${totalKrw} 발견. 13개 정부·금융 공식 통합`}
+  description="휴면예금·미환급 세금·통신비·카드 포인트·항공 마일리지·복지·연금 — 평균 1,900만+ 미발견. 정부 공식 사이트 한 페이지 통합 + AI 우선순위 진단."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-bold text-emerald-300">한국인 1인 평균 미발견 추정</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-6xl font-black leading-tight">
+      <span class="text-gradient">{totalKrw}</span><br />
+      <span class="text-zinc-300 text-2xl sm:text-3xl">당신 명의로 잠자는 돈</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      휴면예금·미환급 세금·통신비·카드 포인트·항공 마일리지·복지·연금 — 정부·금융권 공식 사이트 13개 통합. <strong class="text-emerald-300">모두 본인이 직접 조회</strong>. 대행 X.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/hidden-money/ai-diagnose/" class="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 px-6 py-3 font-black transition shadow-lg shadow-emerald-500/20">🤖 AI 진단으로 우선순위 받기 →</a>
+      <a href="#categories" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-6 py-3 font-bold transition">전체 13개 보기</a>
+    </div>
+  </section>
+
+  <!-- Quick stats -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="grid sm:grid-cols-4 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">조사 카테고리</p>
+        <p class="mt-1 text-3xl font-black text-white tabular-nums">{hiddenMoneySources.length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">평균 발견</p>
+        <p class="mt-1 text-3xl font-black text-emerald-300 tabular-nums">{totalKrw}</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">가장 큰 단일 발견</p>
+        <p class="mt-1 text-3xl font-black text-cyan-300 tabular-nums">₩1,250만</p>
+        <p class="text-[10px] text-zinc-500">국민연금 일시금</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">5분 안에 찾기</p>
+        <p class="mt-1 text-3xl font-black text-amber-300 tabular-nums">7개</p>
+        <p class="text-[10px] text-zinc-500">payinfo·홈택스·카드</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick action: 5분 안에 찾기 -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="rounded-3xl border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-orange-500/5 p-8">
+      <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest">⚡ 지금 5분 — 평균 ₩200만</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-black">5분 안에 끝나는 7가지</h2>
+      <p class="mt-2 text-sm text-zinc-300">아래 7개 사이트 차례대로. 각 3-5분. 모두 본인 인증 1회만.</p>
+      <div class="mt-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+        {hiddenMoneySources.filter((h) => h.difficulty === '쉬움').map((h, i) => (
+          <a href={`/hidden-money/${h.slug}/`} class="rounded-xl border border-amber-500/30 hover:border-amber-400 bg-zinc-900/40 p-3 transition text-sm">
+            <span class="text-[10px] font-black text-amber-400">#{i+1}</span>
+            <p class="mt-1 font-bold text-white">{h.title}</p>
+            <p class="mt-1 text-xs text-emerald-300 tabular-nums">{h.avgAmount} · {h.timeToFind}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All categories grouped -->
+  <section id="categories" class="mx-auto max-w-5xl px-4 py-10">
+    <h2 class="text-3xl font-black mb-2">전체 13개 카테고리</h2>
+    <p class="text-sm text-zinc-400 mb-8">금융기관·국세청·통신사·복지부 공식 채널만</p>
+    {categoryOrder.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
+      <div class="mb-8">
+        <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">{cat}</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {grouped[cat].map((h) => (
+            <a href={`/hidden-money/${h.slug}/`} class="card-lift block rounded-2xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-5 transition">
+              <div class="flex items-start justify-between mb-2">
+                <h4 class="font-black text-white">{h.title}</h4>
+                <span class="text-sm font-black text-emerald-300 tabular-nums whitespace-nowrap">{h.avgAmount}</span>
+              </div>
+              <p class="text-xs text-zinc-400 leading-relaxed mb-2">{h.tagline}</p>
+              <div class="flex flex-wrap gap-2 text-[10px]">
+                <span class="rounded bg-zinc-800 px-2 py-0.5">⏱ {h.timeToFind}</span>
+                <span class={`rounded px-2 py-0.5 ${h.difficulty === '쉬움' ? 'bg-emerald-500/20 text-emerald-300' : h.difficulty === '복잡' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'}`}>{h.difficulty}</span>
+                <span class="rounded bg-zinc-800 px-2 py-0.5">미발견 {h.unclaimedRate}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- CTA -->
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 via-cyan-500/10 to-zinc-950 p-10 md:p-14">
+      <h2 class="text-3xl sm:text-4xl font-black">어디부터 시작할지 모르겠다면</h2>
+      <p class="mt-3 text-lg text-zinc-300 max-w-2xl">AI가 당신의 직장 이력·계좌·보험·통신사 등을 받아 <strong class="text-emerald-300">가장 큰 금액부터 우선순위</strong>로 안내합니다. 30초.</p>
+      <a href="/hidden-money/ai-diagnose/" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 px-8 py-4 font-black transition shadow-lg shadow-emerald-500/20">
+        🤖 AI 진단 시작 →
+      </a>
+    </div>
+  </section>
+</Layout>

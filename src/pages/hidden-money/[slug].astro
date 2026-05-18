@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { hiddenMoneySources } from '../../data/hidden-money';
+
+export function getStaticPaths() {
+  return hiddenMoneySources.map((h) => ({ params: { slug: h.slug }, props: { source: h } }));
+}
+
+const { source } = Astro.props;
+const related = hiddenMoneySources.filter((h) => h.slug !== source.slug && h.category === source.category).slice(0, 3);
+const others = hiddenMoneySources.filter((h) => h.slug !== source.slug && h.difficulty === '쉬움').slice(0, 4);
+---
+<Layout title={`${source.title} — 평균 ${source.avgAmount} 발견. 공식 조회 ${source.timeToFind}`} description={`${source.title} 조회·청구 단계별 가이드. ${source.officialName} 공식 사이트. 미발견율 ${source.unclaimedRate}.`}>
+  <section class="mx-auto max-w-3xl px-4 pt-12 pb-6">
+    <a href="/hidden-money/" class="text-sm text-zinc-500 hover:text-emerald-300 transition">← 숨은 돈 13개</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs">
+      <span class="font-bold text-emerald-300">{source.category}</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">{source.title}</h1>
+    <p class="mt-3 text-lg text-zinc-300">{source.tagline}</p>
+    <div class="mt-6 grid grid-cols-3 gap-3">
+      <div class="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4">
+        <p class="text-[10px] font-black text-emerald-300 uppercase">평균 발견</p>
+        <p class="mt-1 text-2xl font-black text-white tabular-nums">{source.avgAmount}</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-black text-zinc-400 uppercase">미발견율</p>
+        <p class="mt-1 text-2xl font-black text-amber-300 tabular-nums">{source.unclaimedRate}</p>
+      </div>
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+        <p class="text-[10px] font-black text-zinc-400 uppercase">소요 시간</p>
+        <p class="mt-1 text-2xl font-black text-cyan-300">{source.timeToFind}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <a href={source.officialUrl} target="_blank" rel="noopener" class="card-lift block rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-6 transition">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">공식 조회 사이트</p>
+      <h2 class="mt-2 text-2xl font-black text-white">{source.officialName}</h2>
+      <p class="mt-2 text-sm text-cyan-300 break-all">{source.officialUrl}</p>
+      <p class="mt-4 inline-flex items-center gap-2 text-sm font-black text-emerald-300">지금 바로 조회 → <span class="transition group-hover:translate-x-1">↗</span></p>
+    </a>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h3 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-4">📋 신청 단계</h3>
+      <ol class="space-y-3">
+        {source.steps.map((step, i) => (
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-500 text-zinc-950 font-black flex items-center justify-center text-sm">{i+1}</span>
+            <span class="text-sm text-zinc-200 leading-relaxed pt-0.5">{step}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5">
+      <h3 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">👤 이런 사람에게 가능성 높음</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {source.whoFits.map((w) => <li>{w}</li>)}
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+      <h3 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 주의·함정</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {source.warnings.map((w) => <li>{w}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-8">
+      <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">같은 카테고리</h3>
+      <div class="grid sm:grid-cols-3 gap-3">
+        {related.map((r) => (
+          <a href={`/hidden-money/${r.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-4 transition">
+            <p class="text-xs font-bold text-white">{r.title}</p>
+            <p class="mt-2 text-sm font-black text-emerald-300 tabular-nums">{r.avgAmount}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">⚡ 5분 안에 다른 것도</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+      {others.map((o) => (
+        <a href={`/hidden-money/${o.slug}/`} class="rounded-xl border border-zinc-800 hover:border-amber-500/40 bg-zinc-900/40 p-3 transition text-sm">
+          <p class="font-bold text-white">{o.title}</p>
+          <p class="mt-1 text-xs text-emerald-300 tabular-nums">{o.avgAmount}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <a href="/hidden-money/ai-diagnose/" class="block rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8 hover:border-emerald-400 transition">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">🤖 13개 모두 자동 진단</p>
+      <h3 class="mt-2 text-2xl font-black">내가 받을 수 있는 총 금액은?</h3>
+      <p class="mt-2 text-sm text-zinc-300">직장 이력·보험·계좌·통신사 30초 입력 → AI가 13개 카테고리 우선순위 + 예상 금액</p>
+      <p class="mt-4 inline-flex items-center gap-2 text-sm font-black text-emerald-300">AI 진단 시작 →</p>
+    </a>
+  </section>
+</Layout>
