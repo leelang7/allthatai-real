@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 진로 상담 — 학력·관심 → 직업 경로 + 자격증" description="나이·학력·관심·강점 → Gemini가 적합 직업 5개 + 연봉·경로·자격증·1개월 액션 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 진로 상담</span></h1><p class="mt-4 text-lg text-zinc-400">직업 5 + 경로 + 자격증.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <input id="age" type="number" value="28" placeholder="나이" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-3 py-2 text-white tabular-nums" />
+      <input id="education" type="text" placeholder="학력" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-3 py-2 text-white" />
+      <input id="currentJob" type="text" placeholder="현재 직업" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-3 py-2 text-white" />
+    </div>
+    <textarea id="interests" rows="2" placeholder="관심사·열정 영역" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+    <textarea id="strengths" rows="2" placeholder="강점·잘하는 것" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+    <input id="constraints" type="text" placeholder="제약 (예: 지역, 시간, 가족)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white" />
+    <input id="incomeGoal" type="number" value="50000000" step="5000000" placeholder="연봉 목표 (₩)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-teal-500 outline-none px-4 py-2.5 text-white tabular-nums" />
+    <button id="go" type="button" class="w-full rounded-lg bg-teal-500 hover:bg-teal-400 text-white font-black py-3 disabled:opacity-50">AI 진로 상담</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-teal-500/40 bg-teal-500/5 p-5"><h4 class="text-xs font-black text-teal-300 uppercase mb-2">적성 분석</h4><p id="fit" class="text-sm text-zinc-200"></p></div>
+    <h3 class="text-xl font-black text-teal-300">추천 직업</h3>
+    <div id="careers" class="space-y-2"></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-2">습득할 기술</h4><ul id="skills" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">추천 자격증</h4><ul id="certs" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5"><h4 class="text-xs font-black text-violet-300 uppercase mb-2">대안 경로</h4><ul id="alts" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">1개월 액션</h4><ul id="actions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase mb-2">⚠ 함정</h4><ul id="warnings" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!+$('age').value) { $('status').textContent = '⚠ 나이 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 분석 중...'; $('status').className = 'text-xs text-teal-300 text-center animate-pulse';
+    const body = {}; ['age','education','currentJob','interests','strengths','constraints','incomeGoal'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-career', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('fit').textContent = data.personalityFit || '';
+      $('careers').innerHTML = (data.topCareers || []).map((c) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-start justify-between mb-2"><h4 class="font-black text-lg text-white">${esc(c.title || '')}</h4><span class="text-xs font-black text-emerald-300">${c.matchScore || 0}%</span></div>
+        <div class="flex flex-wrap gap-3 text-xs mb-2"><span class="text-emerald-300">💰 ${esc(c.salaryRange || '')}</span><span class="text-cyan-300">📈 ${esc(c.growthOutlook || '')}</span><span class="text-amber-300">⏱ ${esc(c.yearsToReach || '')}</span></div>
+        <p class="text-sm text-zinc-300 mb-1"><strong>기술:</strong> ${(c.requiredSkills || []).map(esc).join(', ')}</p>
+        <p class="text-sm text-zinc-300"><strong>경로:</strong> ${esc(c.pathToEntry || '')}</p>
+      </div>`).join('');
+      $('skills').innerHTML = (data.skillsToBuild || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('certs').innerHTML = (data.certifications || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('alts').innerHTML = (data.alternativePaths || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('actions').innerHTML = (data.actionItems || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('warnings').innerHTML = (data.warnings || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_career' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

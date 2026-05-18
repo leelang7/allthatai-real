@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 이력서 작성 — ATS 통과 + 직무 맞춤" description="경력 정보 + JD → Gemini가 ATS 통과형 이력서 + 키워드 매칭 + 개선안 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 이력서</span></h1><p class="mt-4 text-lg text-zinc-400">ATS 통과 + 키워드 매칭.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <input id="targetRole" type="text" placeholder="타겟 직무 (예: 백엔드 개발자)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-white" />
+    <textarea id="jd" rows="3" placeholder="채용공고 (JD) 붙여넣기 (선택)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-2.5 text-sm text-zinc-200"></textarea>
+    <textarea id="info" rows="10" placeholder="경력·학력·기술·프로젝트 정보 (50자 이상)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+    <button id="go" type="button" class="w-full rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-black py-3 disabled:opacity-50">AI 이력서 작성</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-fuchsia-500/5 p-8"><p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">ATS 점수</p><p id="ats" class="mt-2 text-6xl font-black text-white tabular-nums">-</p><p id="summary" class="mt-3 text-sm text-zinc-200"></p></div>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-2">프로필</h4><p id="profile" class="text-sm text-zinc-200 whitespace-pre-wrap"></p></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">기술</h4><div id="skills" class="flex flex-wrap gap-2"></div></div>
+    <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase tracking-widest mb-3">경력</h4><div id="exp" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase mb-2">학력</h4><ul id="edu" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5"><h4 class="text-xs font-black text-zinc-300 uppercase mb-2">자격증</h4><ul id="certs" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-3">프로젝트</h4><div id="projects" class="space-y-2"></div></div>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-2">키워드 추가</h4><ul id="keywords" class="space-y-1 text-xs text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">개선</h4><ul id="improve" class="space-y-1 text-xs text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5"><h4 class="text-xs font-black text-rose-300 uppercase mb-2">피하기</h4><ul id="red" class="space-y-1 text-xs text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if ($('info').value.length < 50) { $('status').textContent = '⚠ 50자 이상'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 작성 중...'; $('status').className = 'text-xs text-violet-300 text-center animate-pulse';
+    try {
+      const res = await fetch('/api/ai-resume', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ info: $('info').value, targetRole: $('targetRole').value, jd: $('jd').value }) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('ats').textContent = (data.atsScore || 0) + '/100';
+      $('summary').textContent = data.summary || '';
+      const s = data.sections || {};
+      $('profile').textContent = s.profile || '';
+      $('skills').innerHTML = (s.skills || []).map((x) => `<span class="text-xs font-bold px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300">${esc(x)}</span>`).join('');
+      $('exp').innerHTML = (s.experience || []).map((e) => `<div class="rounded-lg bg-zinc-900/60 p-3"><div class="flex justify-between mb-1"><p class="font-bold text-white">${esc(e.role || '')} · ${esc(e.company || '')}</p><span class="text-xs text-zinc-500">${esc(e.period || '')}</span></div><ul class="text-sm text-zinc-300 list-disc list-inside">${(e.bullets || []).map((b) => `<li>${esc(b)}</li>`).join('')}</ul></div>`).join('');
+      $('edu').innerHTML = (s.education || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('certs').innerHTML = (s.certifications || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('projects').innerHTML = (s.projects || []).map((p) => `<div class="rounded-lg bg-zinc-900/60 p-3"><p class="text-sm font-bold text-white">${esc(p.name || '')}</p><p class="text-xs text-zinc-300">${esc(p.desc || '')}</p><p class="text-xs text-zinc-500 mt-1">기술: ${esc(p.tech || '')}</p></div>`).join('');
+      $('keywords').innerHTML = (data.keywordsToAdd || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('improve').innerHTML = (data.improvements || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('red').innerHTML = (data.redFlags || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_resume' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>

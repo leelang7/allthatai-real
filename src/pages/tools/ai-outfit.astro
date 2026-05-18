@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="AI 코디 추천 — 체형·상황·예산 → 코디 3개" description="체형·상황·예산 → Gemini가 코디 3개 + 브랜드·가격·색조합·플랫폼 자동.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8"><h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">AI 코디</span></h1><p class="mt-4 text-lg text-zinc-400">체형·상황 → 코디 3.</p></section>
+  <section class="mx-auto max-w-3xl px-4 py-6"><div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+    <div class="grid sm:grid-cols-4 gap-3">
+      <select id="gender" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white"><option></option><option>남</option><option>여</option></select>
+      <input id="age" type="number" value="28" placeholder="나이" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white tabular-nums" />
+      <input id="height" type="number" value="170" placeholder="키" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white tabular-nums" />
+      <input id="weight" type="number" value="65" placeholder="체중" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white tabular-nums" />
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <input id="bodyType" type="text" placeholder="체형 (예: 슬림, 어깨 좁음)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-4 py-2.5 text-white" />
+      <input id="occasion" type="text" placeholder="상황 (예: 소개팅, 면접, 출근)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-4 py-2.5 text-white" />
+    </div>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <input id="season" type="text" placeholder="계절·날씨" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white" />
+      <input id="budget" type="number" value="300000" step="50000" placeholder="예산 (₩)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white tabular-nums" />
+      <input id="style" type="text" placeholder="선호 스타일" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-fuchsia-500 outline-none px-3 py-2 text-white" />
+    </div>
+    <button id="go" type="button" class="w-full rounded-lg bg-fuchsia-500 hover:bg-fuchsia-400 text-white font-black py-3 disabled:opacity-50">AI 코디 추천</button>
+    <p id="status" class="text-xs text-zinc-400 text-center"></p>
+  </div></section>
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div class="rounded-2xl border border-fuchsia-500/40 bg-fuchsia-500/5 p-5"><h4 class="text-xs font-black text-fuchsia-300 uppercase mb-2">체형 분석</h4><p id="body" class="text-sm text-zinc-200"></p></div>
+    <div id="outfits" class="space-y-3"></div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5"><h4 class="text-xs font-black text-cyan-300 uppercase mb-3">색조합</h4><div id="palette" class="flex flex-wrap gap-2"></div></div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5"><h4 class="text-xs font-black text-emerald-300 uppercase mb-2">계절 팁</h4><ul id="seasonal" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5"><h4 class="text-xs font-black text-amber-300 uppercase mb-2">쇼핑 플랫폼</h4><ul id="platforms" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul></div>
+    </div>
+  </section>
+</Layout>
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('go').addEventListener('click', async () => {
+    if (!$('gender').value || !$('occasion').value) { $('status').textContent = '⚠ 성별·상황 필수'; $('status').className = 'text-xs text-rose-300 text-center'; return; }
+    $('go').disabled = true; $('status').textContent = '🤖 코디 생성 중...'; $('status').className = 'text-xs text-fuchsia-300 text-center animate-pulse';
+    const body = {}; ['gender','age','height','weight','bodyType','occasion','season','budget','style'].forEach((id) => { body[id] = $(id).value; });
+    try {
+      const res = await fetch('/api/ai-outfit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!data.ok) { $('status').textContent = '❌ ' + data.error; $('status').className = 'text-xs text-rose-300 text-center'; $('go').disabled = false; return; }
+      $('result').classList.remove('hidden'); $('status').textContent = '✓ 완료'; $('status').className = 'text-xs text-emerald-300 text-center';
+      $('body').textContent = data.bodyAnalysis || '';
+      $('outfits').innerHTML = (data.outfits || []).map((o) => `<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div class="flex items-start justify-between mb-2"><h4 class="font-black text-lg text-white">${esc(o.name || '')}</h4><span class="text-xs font-black text-fuchsia-300">${esc(o.totalPrice || '')}</span></div>
+        <p class="text-xs text-zinc-400 mb-2">${esc(o.occasion || '')}</p>
+        <div class="space-y-1 mb-2">${(o.items || []).map((i) => `<div class="flex items-center justify-between text-sm"><span class="text-zinc-200"><span class="text-[10px] text-zinc-500">${esc(i.category || '')}:</span> <strong>${esc(i.item || '')}</strong> · ${esc(i.brand || '')}</span><span class="text-emerald-300 tabular-nums">${esc(i.price || '')}</span></div>`).join('')}</div>
+        <div class="grid grid-cols-2 gap-2 text-xs"><div><p class="text-emerald-300 font-bold mb-1">포인트</p>${(o.stylePoints || []).map((p) => `<p class="text-zinc-300">• ${esc(p)}</p>`).join('')}</div><div><p class="text-rose-300 font-bold mb-1">피하기</p>${(o.avoidThese || []).map((p) => `<p class="text-zinc-300">• ${esc(p)}</p>`).join('')}</div></div>
+      </div>`).join('');
+      $('palette').innerHTML = (data.colorPalette || []).map((c) => `<span class="text-xs font-bold px-3 py-1 rounded-full bg-zinc-700 text-zinc-200">${esc(c)}</span>`).join('');
+      $('seasonal').innerHTML = (data.seasonalTips || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      $('platforms').innerHTML = (data.shoppingPlatforms || []).map((x) => `<li>${esc(x)}</li>`).join('');
+      if (window.va) { try { window.va('event', { name: 'ai_outfit' }); } catch (_) {} }
+    } catch (e) { $('status').textContent = '❌ ' + e.message; $('status').className = 'text-xs text-rose-300 text-center'; }
+    finally { $('go').disabled = false; }
+  });
+</script>
