@@ -1,0 +1,117 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { studentDeals } from '../../data/student-deals';
+
+export function getStaticPaths() {
+  return studentDeals.map((d) => ({ params: { slug: d.slug }, props: { item: d } }));
+}
+
+const { item } = Astro.props;
+const sameCat = studentDeals.filter((d) => d.slug !== item.slug && d.category === item.category).slice(0, 3);
+const altFree = studentDeals.filter((d) => d.slug !== item.slug && d.koreaOk && d.discount === '100%').slice(0, 4);
+---
+<Layout title={`${item.title} 학생 할인 — ${item.discount} (${item.studentPrice}). 한국 학생 ${item.koreaOk ? '가능' : '불가'}`} description={`${item.title} (${item.provider}) 학생 가격 ${item.studentPrice} (정가 ${item.normalPrice}). 인증 방법 ${item.verification}. ${item.tagline}`}>
+  <section class="mx-auto max-w-3xl px-4 pt-12 pb-6">
+    <a href="/student-deals/" class="text-sm text-zinc-500 hover:text-violet-300 transition">← 학생 할인 전체</a>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <span class="inline-flex items-center gap-2 rounded-full border border-violet-500/40 bg-violet-500/10 px-3 py-1 text-xs font-bold text-violet-300">{item.category}</span>
+      {item.koreaOk ? (
+        <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 text-emerald-300 px-3 py-1 text-xs font-bold">🇰🇷 한국 학생 OK</span>
+      ) : (
+        <span class="inline-flex items-center gap-2 rounded-full bg-rose-500/15 text-rose-300 px-3 py-1 text-xs font-bold">🇰🇷 한국 미적용</span>
+      )}
+      <span class="inline-flex items-center gap-2 rounded-full bg-amber-500/15 text-amber-300 px-3 py-1 text-xs font-bold tabular-nums">{item.discount}</span>
+      <span class="inline-flex items-center gap-2 rounded-full bg-zinc-800 text-zinc-300 px-3 py-1 text-xs font-bold">검증 {item.lastVerified}</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">{item.title}</h1>
+    <p class="mt-2 text-sm text-zinc-500">{item.provider}</p>
+    <p class="mt-4 text-lg text-zinc-300">{item.tagline}</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase">정가</p>
+        <p class="mt-1 text-xl font-black text-white line-through tabular-nums">{item.normalPrice}</p>
+      </div>
+      <div class="rounded-2xl border-2 border-emerald-500/40 bg-emerald-500/5 p-5">
+        <p class="text-[10px] font-black text-emerald-300 uppercase">학생 가격</p>
+        <p class="mt-1 text-xl font-black text-emerald-300 tabular-nums">{item.studentPrice}</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase">인증 방법</p>
+        <p class="mt-1 text-sm font-black text-cyan-300">{item.verification}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <a href={item.signupUrl} target="_blank" rel="noopener" class="card-lift block rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/15 to-fuchsia-500/5 p-6 transition">
+      <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">공식 신청 페이지</p>
+      <p class="mt-2 text-2xl font-black text-white">{item.provider}</p>
+      <p class="mt-2 text-sm text-violet-300 break-all">{item.signupUrl}</p>
+      <p class="mt-4 inline-flex items-center gap-2 text-sm font-black text-emerald-300">지금 신청 → ↗</p>
+    </a>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h3 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-4">📋 신청 단계</h3>
+      <ol class="space-y-3">
+        {item.steps.map((step, i) => (
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-violet-500 text-white font-black flex items-center justify-center text-sm">{i+1}</span>
+            <span class="text-sm text-zinc-200 leading-relaxed pt-0.5">{step}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5">
+      <h3 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">👤 어떤 학생에게</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {item.bestFor.map((b) => <li>{b}</li>)}
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+      <h3 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 함정·주의</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {item.pitfalls.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+      <h3 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">🎓 졸업 후</h3>
+      <p class="text-sm text-zinc-300">{item.afterGraduation}</p>
+    </div>
+  </section>
+
+  {sameCat.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-8">
+      <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">같은 카테고리 ({item.category})</h3>
+      <div class="grid sm:grid-cols-3 gap-3">
+        {sameCat.map((r) => (
+          <a href={`/student-deals/${r.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-4 transition">
+            <p class="text-xs font-bold text-white truncate">{r.title}</p>
+            <p class="mt-2 text-[10px] tabular-nums">{r.discount} · ★{r.recommend}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">🆓 한국 학생 100% 무료 다른 것</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+      {altFree.map((o) => (
+        <a href={`/student-deals/${o.slug}/`} class="rounded-xl border border-emerald-500/30 hover:border-emerald-400 bg-zinc-900/40 p-3 transition text-sm">
+          <p class="font-bold text-white truncate">{o.title}</p>
+          <p class="mt-1 text-[10px] text-emerald-300">100% 무료</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

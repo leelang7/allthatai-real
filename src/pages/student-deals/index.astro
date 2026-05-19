@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { studentDeals } from '../../data/student-deals';
+
+const grouped: Record<string, typeof studentDeals> = {};
+studentDeals.forEach((d) => {
+  if (!grouped[d.category]) grouped[d.category] = [];
+  grouped[d.category].push(d);
+});
+Object.keys(grouped).forEach((k) => grouped[k].sort((a, b) => b.recommend - a.recommend));
+
+const order = ['AI 챗봇', '코딩', 'AI 도구', '디자인', '학습·생산성', '음악·미디어', '검색', '하드웨어'];
+
+const koreaOk = studentDeals.filter((d) => d.koreaOk).sort((a, b) => b.recommend - a.recommend);
+const free100 = studentDeals.filter((d) => d.discount === '100%' && d.koreaOk).sort((a, b) => b.recommend - a.recommend);
+const verified2026 = studentDeals.filter((d) => d.lastVerified === '2026-05').length;
+---
+<Layout
+  title={`AI·SaaS 학생 할인 실체 2026 — Perplexity·ChatGPT·Cursor·Copilot ${studentDeals.length}개 검증`}
+  description="2026년 5월 기준 한국 학생(.ac.kr) 실제 받을 수 있는 학생 할인. Perplexity 캠퍼스·Cursor 무료·GitHub Student Pack·Notion·Adobe·Spotify 등 함정·졸업 후 가격까지."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-violet-500/40 bg-violet-500/10 px-3 py-1 text-xs">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+      <span class="font-bold text-violet-300">2026-05 최신 · {verified2026}개 검증</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-6xl font-black leading-tight">
+      <span class="text-gradient">학생 할인 실체</span><br />
+      <span class="text-zinc-300 text-2xl sm:text-3xl">Perplexity·Cursor·Copilot·Notion 진짜 받기</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      "학생 무료" 광고는 많지만 <strong class="text-rose-300">한국 학생이 실제 받는 건 다름</strong>. .ac.kr·SheerID·GitHub Student Pack 인증 가능 여부 + 졸업 후 가격까지 정리.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="#free100" class="rounded-xl bg-violet-500 hover:bg-violet-400 text-white px-6 py-3 font-black transition shadow-lg shadow-violet-500/20">🆓 한국 학생 100% 무료 ({free100.length}개) →</a>
+      <a href="#all" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-6 py-3 font-bold transition">전체 {studentDeals.length}개 보기</a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="grid sm:grid-cols-4 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">조사 서비스</p>
+        <p class="mt-1 text-3xl font-black text-white tabular-nums">{studentDeals.length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">한국 학생 OK</p>
+        <p class="mt-1 text-3xl font-black text-emerald-300 tabular-nums">{koreaOk.length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">100% 무료</p>
+        <p class="mt-1 text-3xl font-black text-violet-300 tabular-nums">{free100.length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">한국 X</p>
+        <p class="mt-1 text-3xl font-black text-rose-300 tabular-nums">{studentDeals.length - koreaOk.length}개</p>
+        <p class="text-[10px] text-zinc-500">ChatGPT·Gemini 등</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="free100" class="mx-auto max-w-5xl px-4 py-8">
+    <h2 class="text-3xl font-black mb-2">🆓 한국 학생 100% 무료</h2>
+    <p class="text-sm text-zinc-400 mb-6">진짜로 ₩0 받는 것 — .ac.kr 이메일 또는 GitHub Student Pack만</p>
+    <div class="space-y-3">
+      {free100.map((d) => (
+        <a href={`/student-deals/${d.slug}/`} class="card-lift group block rounded-3xl border border-emerald-500/30 hover:border-emerald-400 bg-gradient-to-br from-emerald-500/10 to-zinc-900/60 p-6 transition">
+          <div class="flex items-start gap-4 flex-wrap">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-3 mb-2 flex-wrap">
+                <div>
+                  <h3 class="font-black text-xl text-white group-hover:text-emerald-300 transition">{d.title}</h3>
+                  <p class="text-xs text-zinc-500">{d.provider}</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300">{d.discount}</span>
+                  <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300">{d.verification}</span>
+                </div>
+              </div>
+              <p class="text-sm text-zinc-300 leading-relaxed">{d.tagline}</p>
+              <div class="mt-2 flex gap-3 text-xs">
+                <span class="text-zinc-500">정가 <span class="line-through">{d.normalPrice}</span></span>
+                <span class="text-emerald-300 font-black tabular-nums">→ {d.studentPrice}</span>
+                <span class="text-amber-300">★ {d.recommend}/10</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section id="all" class="mx-auto max-w-5xl px-4 py-10">
+    <h2 class="text-3xl font-black mb-2">카테고리별 전체</h2>
+    <p class="text-sm text-zinc-400 mb-8">한국 X 표시된 건 미국·캐나다 등 시범국 학생만</p>
+    {order.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
+      <div class="mb-8">
+        <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">{cat}</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {grouped[cat].map((d) => (
+            <a href={`/student-deals/${d.slug}/`} class="card-lift block rounded-2xl border border-zinc-800 hover:border-violet-500/40 bg-zinc-900/40 p-5 transition">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-black text-white truncate">{d.title}</h4>
+                  <p class="text-xs text-zinc-500">{d.provider}</p>
+                </div>
+                <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                  {d.koreaOk ? (
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300">🇰🇷 OK</span>
+                  ) : (
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-300">🇰🇷 X</span>
+                  )}
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-300 tabular-nums">{d.discount}</span>
+                </div>
+              </div>
+              <p class="text-xs text-zinc-300 leading-relaxed mt-2 line-clamp-2">{d.tagline}</p>
+              <div class="mt-2 flex justify-between text-[10px]">
+                <span class="text-zinc-500"><span class="line-through">{d.normalPrice}</span> → <span class="text-emerald-300 tabular-nums">{d.studentPrice}</span></span>
+                <span class="text-amber-300 tabular-nums">★ {d.recommend}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <div class="rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/10 to-zinc-950 p-10 md:p-14">
+      <h2 class="text-3xl sm:text-4xl font-black">💡 인증 방법 정리</h2>
+      <div class="mt-6 grid sm:grid-cols-2 gap-4 text-sm">
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-violet-300 uppercase mb-2">GitHub Student Pack</p>
+          <p class="text-zinc-200">학생증 사진 + GitHub 계정 → 100+ 도구 동시 무료. Copilot·DigitalOcean·JetBrains·LinkedIn·DataCamp 포함</p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-cyan-300 uppercase mb-2">.ac.kr 이메일</p>
+          <p class="text-zinc-200">Notion·Microsoft 365·Cursor·JetBrains — 학교 메일만 있으면 즉시</p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-amber-300 uppercase mb-2">SheerID</p>
+          <p class="text-zinc-200">학교 자동 확인 시스템. 한국 대학 다수 등록됨. Spotify·YouTube·Figma·Adobe</p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-emerald-300 uppercase mb-2">캠퍼스 라이선스</p>
+          <p class="text-zinc-200">학교가 단체 도입 시 자동 (Perplexity 협약 대학, Claude Education)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
