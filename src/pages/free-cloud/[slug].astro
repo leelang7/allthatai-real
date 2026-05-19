@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { freeClouds } from '../../data/free-cloud';
+
+export function getStaticPaths() {
+  return freeClouds.map((f) => ({ params: { slug: f.slug }, props: { item: f } }));
+}
+
+const { item } = Astro.props;
+const sameCategory = freeClouds.filter((f) => f.slug !== item.slug && f.category === item.category).slice(0, 3);
+const otherTop = freeClouds.filter((f) => f.slug !== item.slug && !item.cardRequired === !f.cardRequired)
+  .sort((a, b) => b.recommend - a.recommend).slice(0, 4);
+---
+<Layout title={`${item.title} — ${item.duration} 무료 + 한국 가입 가이드`} description={`${item.title} (${item.provider}) ${item.duration} 무료 한도·가입 단계·청구 함정·확장 시 가격. ${item.tagline}`}>
+  <section class="mx-auto max-w-3xl px-4 pt-12 pb-6">
+    <a href="/free-cloud/" class="text-sm text-zinc-500 hover:text-cyan-300 transition">← 무료 클라우드 전체</a>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <span class="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1 text-xs font-bold text-cyan-300">{item.category}</span>
+      <span class={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold ${item.duration === '영구' ? 'bg-emerald-500/15 text-emerald-300' : item.duration === '학생' ? 'bg-violet-500/15 text-violet-300' : 'bg-amber-500/15 text-amber-300'}`}>{item.duration} 무료</span>
+      <span class={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold ${item.cardRequired ? 'bg-rose-500/15 text-rose-300' : 'bg-cyan-500/15 text-cyan-300'}`}>{item.cardRequired ? '💳 카드 필요' : '💳 카드 X'}</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">{item.title}</h1>
+    <p class="mt-2 text-sm text-zinc-500">{item.provider}</p>
+    <p class="mt-4 text-lg text-zinc-300">{item.tagline}</p>
+    <div class="mt-4 flex items-center gap-3">
+      <span class="text-xs text-zinc-400">추천도:</span>
+      <div class="flex-1 max-w-xs bg-zinc-900 rounded-full h-2"><div class="bg-gradient-to-r from-amber-500 to-emerald-500 h-2 rounded-full" style={`width: ${item.recommend * 10}%`}></div></div>
+      <span class="text-sm font-black text-emerald-300 tabular-nums">{item.recommend}/10</span>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <a href={item.signupUrl} target="_blank" rel="noopener" class="card-lift block rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-blue-500/5 p-6 transition">
+      <p class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest">공식 가입 페이지</p>
+      <p class="mt-2 text-2xl font-black text-white">{item.provider}</p>
+      <p class="mt-2 text-sm text-cyan-300 break-all">{item.signupUrl}</p>
+      <p class="mt-4 inline-flex items-center gap-2 text-sm font-black text-emerald-300">지금 가입 → ↗</p>
+    </a>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border-2 border-emerald-500/40 bg-emerald-500/5 p-6">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">📦 무료 한도</p>
+      <p class="mt-2 text-base text-zinc-100 leading-relaxed">{item.freeQuota}</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h3 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-4">📋 가입 단계</h3>
+      <ol class="space-y-3">
+        {item.steps.map((step, i) => (
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-500 text-zinc-950 font-black flex items-center justify-center text-sm">{i+1}</span>
+            <span class="text-sm text-zinc-200 leading-relaxed pt-0.5">{step}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5">
+      <h3 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">👤 이런 사람에게</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {item.bestFor.map((b) => <li>{b}</li>)}
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+      <h3 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">⚠ 함정·청구 위험</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {item.pitfalls.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+      <h3 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">📈 한도 초과 시</h3>
+      <p class="text-sm text-zinc-300">{item.scaleUp}</p>
+    </div>
+  </section>
+
+  {sameCategory.length > 0 && (
+    <section class="mx-auto max-w-3xl px-4 py-8">
+      <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">같은 카테고리 ({item.category})</h3>
+      <div class="grid sm:grid-cols-3 gap-3">
+        {sameCategory.map((r) => (
+          <a href={`/free-cloud/${r.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-4 transition">
+            <p class="text-xs font-bold text-white truncate">{r.title}</p>
+            <p class="mt-1 text-[10px] text-zinc-500 truncate">{r.provider}</p>
+            <p class="mt-2 text-[10px] text-cyan-300">★ {r.recommend}/10 · {r.duration}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">💡 {item.cardRequired ? '카드 X로 가능한 다른 것' : '추천 다른 무료 자원'}</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+      {otherTop.map((o) => (
+        <a href={`/free-cloud/${o.slug}/`} class="rounded-xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-3 transition text-sm">
+          <p class="font-bold text-white truncate">{o.title}</p>
+          <p class="mt-1 text-xs text-zinc-500 truncate">{o.provider}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

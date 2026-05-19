@@ -1,0 +1,156 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { freeClouds } from '../../data/free-cloud';
+
+const grouped: Record<string, typeof freeClouds> = {};
+freeClouds.forEach((f) => {
+  if (!grouped[f.category]) grouped[f.category] = [];
+  grouped[f.category].push(f);
+});
+Object.keys(grouped).forEach((k) => grouped[k].sort((a, b) => b.recommend - a.recommend));
+
+const categoryOrder = ['컴퓨트', '서버리스', 'DB', 'AI/GPU', 'IDE', '스토리지', 'CDN', '도메인'];
+
+const top5 = [...freeClouds].sort((a, b) => b.recommend - a.recommend).slice(0, 5);
+const cardFree = freeClouds.filter((f) => !f.cardRequired).sort((a, b) => b.recommend - a.recommend);
+---
+<Layout
+  title={`무료 클라우드 받는 법 — Oracle·AWS·GCP·Cloudflare·Vercel ${freeClouds.length}개 통합`}
+  description="영구 무료 vs 12개월 무료 vs 학생 크레딧. 카드 등록 필요 여부·한국 가입 가능·함정·청구 위험 한 페이지. Oracle Cloud Always Free·Cloudflare Workers·Vercel·Supabase·Neon·Gemini API."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-3 py-1 text-xs">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      <span class="font-bold text-cyan-300">한국 카드 OK · 카드 등록 X 가능</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-6xl font-black leading-tight">
+      <span class="text-gradient">{freeClouds.length}개 무료 클라우드</span><br />
+      <span class="text-zinc-300 text-2xl sm:text-3xl">대행·강의 사지 마세요</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      영구 무료 vs 12개월 vs 학생 — 한국에서 가입 가능한 것만. <strong class="text-cyan-300">청구 함정 + 카드 등록 여부</strong> 명시.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="#top5" class="rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 px-6 py-3 font-black transition shadow-lg shadow-cyan-500/20">🏆 추천 Top 5 →</a>
+      <a href="#card-free" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-6 py-3 font-bold transition">💳 카드 X 가능 ({cardFree.length}개)</a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="grid sm:grid-cols-4 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">총 서비스</p>
+        <p class="mt-1 text-3xl font-black text-white tabular-nums">{freeClouds.length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">영구 무료</p>
+        <p class="mt-1 text-3xl font-black text-emerald-300 tabular-nums">{freeClouds.filter((f) => f.duration === '영구').length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">카드 X 가능</p>
+        <p class="mt-1 text-3xl font-black text-cyan-300 tabular-nums">{cardFree.length}개</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">최고 추천</p>
+        <p class="mt-1 text-3xl font-black text-amber-300">Oracle</p>
+        <p class="text-[10px] text-zinc-500">24GB RAM 영구</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top 5 -->
+  <section id="top5" class="mx-auto max-w-5xl px-4 py-8">
+    <h2 class="text-3xl font-black mb-2">🏆 추천 Top 5</h2>
+    <p class="text-sm text-zinc-400 mb-6">실제 가치 + 한국 사용 편의 + 청구 함정 적은 순</p>
+    <div class="space-y-3">
+      {top5.map((f, i) => (
+        <a href={`/free-cloud/${f.slug}/`} class="card-lift group block rounded-3xl border border-zinc-800 hover:border-cyan-500/40 bg-gradient-to-br from-zinc-900/60 to-zinc-950 p-6 transition">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-cyan-500 text-zinc-950 font-black flex items-center justify-center text-2xl">{i+1}</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-3 mb-2 flex-wrap">
+                <div>
+                  <h3 class="font-black text-xl text-white group-hover:text-cyan-300 transition">{f.title}</h3>
+                  <p class="text-xs text-zinc-500">{f.provider}</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <span class={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${f.duration === '영구' ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' : f.duration === '학생' ? 'border-violet-500/40 bg-violet-500/10 text-violet-300' : 'border-amber-500/40 bg-amber-500/10 text-amber-300'}`}>{f.duration}</span>
+                  <span class={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${f.cardRequired ? 'bg-rose-500/10 text-rose-300' : 'bg-emerald-500/10 text-emerald-300'}`}>{f.cardRequired ? '카드 필요' : '카드 X'}</span>
+                </div>
+              </div>
+              <p class="text-sm text-zinc-300 leading-relaxed">{f.tagline}</p>
+              <p class="mt-2 text-xs text-cyan-300 tabular-nums">📦 {f.freeQuota}</p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Card-free 빠른 진입 -->
+  <section id="card-free" class="mx-auto max-w-5xl px-4 py-8">
+    <h2 class="text-3xl font-black mb-2">💳 카드 등록 X 즉시 가능</h2>
+    <p class="text-sm text-zinc-400 mb-6">카드 청구 함정 0%. 가입 후 사용량 초과해도 자동 정지</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {cardFree.map((f) => (
+        <a href={`/free-cloud/${f.slug}/`} class="card-lift block rounded-2xl border border-emerald-500/30 hover:border-emerald-400 bg-zinc-900/40 p-5 transition">
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-black text-white">{f.title}</h4>
+            <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">★ {f.recommend}</span>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">{f.tagline}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- All categories -->
+  <section class="mx-auto max-w-5xl px-4 py-10">
+    <h2 class="text-3xl font-black mb-2">카테고리별 전체</h2>
+    <p class="text-sm text-zinc-400 mb-8">{freeClouds.length}개 서비스 · 모두 한국 가입 OK</p>
+    {categoryOrder.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
+      <div class="mb-8">
+        <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">{cat}</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {grouped[cat].map((f) => (
+            <a href={`/free-cloud/${f.slug}/`} class="card-lift block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-5 transition">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-black text-white truncate">{f.title}</h4>
+                  <p class="text-xs text-zinc-500">{f.provider}</p>
+                </div>
+                <div class="flex flex-col items-end gap-1 flex-shrink-0">
+                  <span class={`text-[10px] font-bold px-2 py-0.5 rounded-full ${f.duration === '영구' ? 'bg-emerald-500/10 text-emerald-300' : f.duration === '학생' ? 'bg-violet-500/10 text-violet-300' : 'bg-amber-500/10 text-amber-300'}`}>{f.duration}</span>
+                  {!f.cardRequired && <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300">카드 X</span>}
+                </div>
+              </div>
+              <p class="text-xs text-zinc-300 leading-relaxed mt-2 line-clamp-2">{f.tagline}</p>
+              <p class="mt-2 text-[10px] text-zinc-500 tabular-nums">★ {f.recommend}/10</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <div class="rounded-3xl border-2 border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 via-blue-500/10 to-zinc-950 p-10 md:p-14">
+      <h2 class="text-3xl sm:text-4xl font-black">💡 조합 추천</h2>
+      <div class="mt-6 grid sm:grid-cols-3 gap-4 text-sm">
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-cyan-300 uppercase mb-2">정적 사이트 + API</p>
+          <p class="text-zinc-200">Cloudflare Pages + Workers + Neon + Gemini API → <span class="text-emerald-300 font-black">₩0/월</span></p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-cyan-300 uppercase mb-2">셀프 서버</p>
+          <p class="text-zinc-200">Oracle Always Free (Ampere 4코어/24GB) + Cloudflare DNS → <span class="text-emerald-300 font-black">₩0/월</span></p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-xs font-black text-cyan-300 uppercase mb-2">학생 풀스택</p>
+          <p class="text-zinc-200">GitHub Student Pack ($200 DO + .me 무료 + Codespaces 180h) → <span class="text-emerald-300 font-black">₩0</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
