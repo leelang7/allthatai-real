@@ -1,7 +1,17 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [{
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+  {
+    "slug": "deal-2026-05-19-서브노티카-스팀-베스트셀러-75-할인",
+    "title": "서브노티카 스팀 75% 할인! 역대급 기회 놓치지 마세요",
+    "excerpt": "심해 탐험 명작 '서브노티카' 스팀에서 75% 파격 할인 중!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-19T14:25:08.186Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-18-구글-플레이-콘솔-가입-대행-vs-직접-25-1회",
     "title": "구글 플레이 콘솔 가입, 대행 vs 직접 비용 비교",
     "excerpt": "구글 플레이 콘솔 개발자 계정, 직접 가입과 대행 서비스 비용 비교 및 주의사항",
