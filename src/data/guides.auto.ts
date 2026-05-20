@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-20-시드-마이어의-문명-vii-스팀-베스트셀러-40-할인",
+    "title": "문명 VII 스팀 40% 할인! 역대 최저가 기회",
+    "excerpt": "문명 VII 스팀 40% 할인! 역대 최저가 기회를 놓치지 마세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-20T01:52:30.057Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-20-subnautica-deep-ocean-bundle-스팀-베스트셀러-50-할인",
+    "title": "스팀 서브노티카 딥 오션 번들 50% 할인! 지금이 기회",
+    "excerpt": "스팀 서브노티카 딥 오션 번들, 50% 역대급 할인! 지금 바로 확인하세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-20T01:52:36.325Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-19-서브노티카-스팀-베스트셀러-75-할인",
     "title": "서브노티카 스팀 75% 할인! 역대급 기회 놓치지 마세요",
     "excerpt": "심해 탐험 명작 '서브노티카' 스팀에서 75% 파격 할인 중!",
