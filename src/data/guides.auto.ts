@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-21-스팀-warhammer-40000-space-marine-2-70-할인-69800-20940",
+    "title": "스팀 Warhammer 40,000: Space Marine 2 70% 할인",
+    "excerpt": "스팀 Warhammer 40,000: Space Marine 2, 70% 할인된 ₩20,940에 득템하세요!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-21T01:51:25.302Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-21-스팀-stray-50-할인-32000-16000",
+    "title": "스팀 Stray 50% 할인: 지금 ₩16,000에 득템 찬스",
+    "excerpt": "스팀 인기 게임 'Stray' 50% 할인! ₩32,000 → ₩16,000에 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-21T01:51:28.571Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-20-시드-마이어의-문명-vii-스팀-베스트셀러-40-할인",
     "title": "문명 VII 스팀 40% 할인! 역대 최저가 기회",
     "excerpt": "문명 VII 스팀 40% 할인! 역대 최저가 기회를 놓치지 마세요.",
