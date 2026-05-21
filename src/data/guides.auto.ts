@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-21-전세사기-자가-진단-등기부등본시세임대인-5분-체크",
+    "title": "전세사기 예방! 등기부등본, 시세 5분 체크법",
+    "excerpt": "전세사기 위험, 5분 만에 체크! 등기부등본, 시세, 임대인 정보 확인으로 안전한 계약하세요.",
+    "tag": "전세사기",
+    "minutes": 5,
+    "generatedAt": "2026-05-21T14:34:36.834Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-21-스팀-warhammer-40000-space-marine-2-70-할인-69800-20940",
     "title": "스팀 Warhammer 40,000: Space Marine 2 70% 할인",
     "excerpt": "스팀 Warhammer 40,000: Space Marine 2, 70% 할인된 ₩20,940에 득템하세요!",
