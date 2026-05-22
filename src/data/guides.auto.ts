@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-22-깡통전세-신호-보증금-vs-시세-80-초과-시-대응",
+    "title": "깡통전세 위험 신호: 보증금, 시세 80% 넘으면 즉시 대응!",
+    "excerpt": "보증금이 시세 80% 초과? 깡통전세 위험 신호와 즉각적인 대응 방법을 알아보세요.",
+    "tag": "전세사기",
+    "minutes": 5,
+    "generatedAt": "2026-05-22T08:43:49.515Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-22-전세보증보험-hug-vs-sgi-어느-게-본인에게-유리한가",
+    "title": "전세보증보험 HUG vs SGI, 나에게 유리한 건?",
+    "excerpt": "HUG vs SGI 전세보증보험 비교: 보장 내용, 보험료, 가입 조건 상세 안내",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-05-22T08:44:36.409Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-21-전세사기-자가-진단-등기부등본시세임대인-5분-체크",
     "title": "전세사기 예방! 등기부등본, 시세 5분 체크법",
     "excerpt": "전세사기 위험, 5분 만에 체크! 등기부등본, 시세, 임대인 정보 확인으로 안전한 계약하세요.",
