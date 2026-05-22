@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-22-확정일자-전입신고-잔금-당일-30분-안에-해야-하는-이유",
+    "title": "잔금 당일 확정일자+전입신고, 30분 안에 해야 하는 이유",
+    "excerpt": "전세사기 방지 필수! 잔금 당일 확정일자+전입신고, 30분 안에 완료해야 하는 이유와 방법을 알려드립니다.",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-05-22T19:18:39.766Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-22-깡통전세-신호-보증금-vs-시세-80-초과-시-대응",
     "title": "깡통전세 위험 신호: 보증금, 시세 80% 넘으면 즉시 대응!",
     "excerpt": "보증금이 시세 80% 초과? 깡통전세 위험 신호와 즉각적인 대응 방법을 알아보세요.",
