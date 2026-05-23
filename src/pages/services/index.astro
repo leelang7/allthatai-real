@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { services } from '../../data/services';
+
+const featured = services.filter((s) => s.featured);
+const all = services.sort((a, b) => b.priceKrw - a.priceKrw);
+
+const grouped: Record<string, typeof services> = {};
+services.forEach((s) => {
+  if (!grouped[s.category]) grouped[s.category] = [];
+  grouped[s.category].push(s);
+});
+const catOrder = ['전세 안전', '임대인 도구', '매수·매도', '분쟁·법무', '관리·구독'];
+---
+<Layout
+  title="부동산 유료 서비스 — AI + 사람. 전세 검토·임차인 검증·매수 코칭·분쟁"
+  description="전세 종합 검토 ₩99K, 임차인 검증 ₩29K, 매수·매도 코칭 ₩199K, 분쟁 내용증명 ₩30K, 건물주 모니터링 ₩9K/호/월. AI 자동 + 사람 검토."
+>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-bold text-emerald-300">AI 자동 + 사람 검토 · 24시간 처리</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-6xl font-black leading-tight">
+      <span class="text-gradient">부동산 유료 서비스</span><br />
+      <span class="text-zinc-300 text-2xl sm:text-3xl">변호사·법무사 ÷ 5~10배 가격</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+      전세 사고 1건 = 평균 ₩3억 손실. 이걸 막는 <strong class="text-emerald-300">₩99K 종합 검토</strong> + 임대인용 <strong class="text-cyan-300">임차인 검증 ₩29K</strong>. AI 4개 통합 + 사람 검토.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="#featured" class="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 px-6 py-3 font-black transition shadow-lg shadow-emerald-500/20">🔥 핵심 4개 서비스</a>
+      <a href="#all" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-6 py-3 font-bold transition">전체 {all.length}개</a>
+    </div>
+  </section>
+
+  <!-- Featured 4 -->
+  <section id="featured" class="mx-auto max-w-5xl px-4 py-6">
+    <div class="grid sm:grid-cols-2 gap-4">
+      {featured.map((s) => (
+        <a href={`/services/${s.slug}/`} class="card-lift group block rounded-3xl border-2 border-emerald-500/30 hover:border-emerald-400 bg-gradient-to-br from-emerald-500/10 via-zinc-900/60 to-zinc-950 p-6 transition">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-300">{s.category}</span>
+            <span class="text-2xl font-black text-emerald-300 tabular-nums">{s.priceLabel}</span>
+          </div>
+          <h3 class="text-2xl font-black text-white group-hover:text-emerald-300 transition">{s.title}</h3>
+          <p class="mt-2 text-sm text-zinc-300 leading-relaxed">{s.tagline}</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-[10px]">
+            <span class="rounded bg-zinc-800 px-2 py-0.5">⏱ {s.deliveryTime}</span>
+            <span class="rounded bg-cyan-500/20 text-cyan-300 px-2 py-0.5">자동 {s.automationPct}%</span>
+          </div>
+          <p class="mt-4 text-xs text-amber-300">💡 {s.uniqueValue}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- All by category -->
+  <section id="all" class="mx-auto max-w-5xl px-4 py-10">
+    <h2 class="text-3xl font-black mb-6">전체 {all.length}개 카테고리별</h2>
+    {catOrder.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
+      <div class="mb-8">
+        <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">{cat}</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {grouped[cat].map((s) => (
+            <a href={`/services/${s.slug}/`} class="card-lift block rounded-2xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-5 transition">
+              <div class="flex items-start justify-between mb-2">
+                <h4 class="font-black text-white">{s.title}</h4>
+                <span class="text-lg font-black text-emerald-300 tabular-nums whitespace-nowrap">{s.priceLabel}</span>
+              </div>
+              <p class="text-xs text-zinc-400 leading-relaxed line-clamp-2">{s.tagline}</p>
+              <div class="mt-2 flex flex-wrap gap-2 text-[10px]">
+                <span class="rounded bg-zinc-800 px-2 py-0.5">⏱ {s.deliveryTime}</span>
+                <span class="rounded bg-cyan-500/20 text-cyan-300 px-2 py-0.5">자동 {s.automationPct}%</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- How it works -->
+  <section class="mx-auto max-w-5xl px-4 py-10">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 via-cyan-500/10 to-zinc-950 p-10">
+      <h2 class="text-3xl font-black">처리 절차</h2>
+      <div class="mt-6 grid sm:grid-cols-4 gap-4 text-sm">
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-2xl font-black text-emerald-300">1</p>
+          <h3 class="mt-2 font-bold text-white">신청</h3>
+          <p class="mt-1 text-xs text-zinc-300">서비스 페이지에서 폼 작성. 즉시 신청 ID 발급.</p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-2xl font-black text-cyan-300">2</p>
+          <h3 class="mt-2 font-bold text-white">입금</h3>
+          <p class="mt-1 text-xs text-zinc-300">카카오뱅크 계좌 안내 + 입금자명 = 신청 ID로 자동 매칭</p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-2xl font-black text-violet-300">3</p>
+          <h3 class="mt-2 font-bold text-white">자료 요청</h3>
+          <p class="mt-1 text-xs text-zinc-300">입금 확인 → 1~3시간 내 자료(등기부·계약서 등) 요청 이메일</p>
+        </div>
+        <div class="rounded-2xl bg-zinc-900/60 p-5">
+          <p class="text-2xl font-black text-amber-300">4</p>
+          <h3 class="mt-2 font-bold text-white">보고서 + 통화</h3>
+          <p class="mt-1 text-xs text-zinc-300">AI 4개 분석 → PDF 보고서 이메일 + 필요 시 30분 통화</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="mx-auto max-w-5xl px-4 py-10">
+    <h2 class="text-2xl font-black mb-4">왜 우리</h2>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-2xl">🤖</p>
+        <h3 class="mt-2 font-bold text-white">AI 4개 통합</h3>
+        <p class="mt-1 text-xs text-zinc-400">등기부·계약서·시세·임대인 4개 데이터 1번에. 사람은 1시간 소요 → AI 5분.</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-2xl">💸</p>
+        <h3 class="mt-2 font-bold text-white">변호사 ÷ 5~10</h3>
+        <p class="mt-1 text-xs text-zinc-400">변호사 ₩200K-500K 상담 → AI + 사람 검토 ₩99K. 같은 위험 식별.</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <p class="text-2xl">🛡️</p>
+        <h3 class="mt-2 font-bold text-white">환불 보장</h3>
+        <p class="mt-1 text-xs text-zinc-400">오탐 발견 시 100% 환불 + 추가 보상. 결과 만족 안 시 50%.</p>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,191 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { services } from '../../data/services';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { svc: s } }));
+}
+
+const { svc } = Astro.props;
+const others = services.filter((s) => s.slug !== svc.slug).slice(0, 3);
+---
+<Layout title={`${svc.title} ${svc.priceLabel} — ${svc.tagline}`} description={`${svc.title} 신청. ${svc.tagline}. 처리 ${svc.deliveryTime}. ${svc.refund}`}>
+  <section class="mx-auto max-w-3xl px-4 pt-12 pb-6">
+    <a href="/services/" class="text-sm text-zinc-500 hover:text-emerald-300 transition">← 전체 서비스</a>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-300">{svc.category}</span>
+      <span class="rounded-full bg-zinc-800 text-zinc-300 px-3 py-1 text-xs font-bold">⏱ {svc.deliveryTime}</span>
+      <span class="rounded-full bg-cyan-500/20 text-cyan-300 px-3 py-1 text-xs font-bold">자동 {svc.automationPct}%</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">{svc.title}</h1>
+    <p class="mt-3 text-lg text-zinc-300">{svc.tagline}</p>
+
+    <div class="mt-6 rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-cyan-500/5 p-8 flex items-center justify-between flex-wrap gap-4">
+      <div>
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">{svc.priceType}</p>
+        <p class="mt-2 text-5xl font-black text-white tabular-nums">{svc.priceLabel}</p>
+        <p class="mt-2 text-sm text-zinc-300">{svc.uniqueValue}</p>
+      </div>
+      <a href="#apply" class="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 px-8 py-4 font-black transition shadow-lg shadow-emerald-500/20">지금 신청 →</a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-4">📦 받게 될 것</h2>
+      <ul class="space-y-2">
+        {svc.deliverables.map((d) => (
+          <li class="flex items-start gap-3 text-sm text-zinc-200">
+            <span class="text-emerald-400 flex-shrink-0">✓</span>
+            <span>{d}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5">
+      <h3 class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">👤 이런 분께</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {svc.forWhom.map((w) => <li>{w}</li>)}
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5">
+      <h3 class="text-xs font-black text-violet-300 uppercase tracking-widest mb-3">🔧 사용 기술</h3>
+      <div class="flex flex-wrap gap-2">
+        {svc.poweredBy.map((p) => (
+          <span class="rounded-full bg-zinc-800 text-zinc-200 px-3 py-1 text-xs">{p}</span>
+        ))}
+      </div>
+    </div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+      <h3 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-2">🛡 환불</h3>
+      <p class="text-sm text-zinc-200">{svc.refund}</p>
+    </div>
+  </section>
+
+  <!-- Apply form -->
+  <section id="apply" class="mx-auto max-w-3xl px-4 py-10">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-zinc-950 p-8">
+      <h2 class="text-2xl font-black mb-2">신청하기</h2>
+      <p class="text-sm text-zinc-400 mb-6">신청 ID 발급 → 입금 안내 이메일 → 입금 확인 후 처리 시작</p>
+
+      <div class="space-y-3">
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">이름 *</span>
+          <input id="f-name" type="text" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" placeholder="홍길동" />
+        </label>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">연락처 *</span>
+            <input id="f-contact" type="tel" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" placeholder="010-0000-0000 또는 카톡ID" />
+          </label>
+          <label class="block">
+            <span class="block text-xs font-bold text-zinc-300 mb-1.5">이메일 *</span>
+            <input id="f-email" type="email" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-2.5 text-white" placeholder="me@example.com" />
+          </label>
+        </div>
+        <label class="block">
+          <span class="block text-xs font-bold text-zinc-300 mb-1.5">상황 설명 (선택)</span>
+          <textarea id="f-details" rows="4" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-sm text-zinc-200" placeholder="예: 강남구 OO동 전세 3억 매물. 6/1 계약 예정. 등기부에 근저당 1.5억 발견..."></textarea>
+        </label>
+        <button id="f-submit" type="button" class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black py-3 transition disabled:opacity-50">
+          신청 + 신청 ID 발급 ({svc.priceLabel})
+        </button>
+        <p id="f-status" class="text-xs text-zinc-400 text-center"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success result -->
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-emerald-500/10 p-8">
+      <div class="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-300 mb-3">✓ 신청 접수됨</div>
+      <h2 class="text-2xl font-black text-white">신청 ID</h2>
+      <p id="r-id" class="mt-2 text-4xl font-black text-emerald-300 tabular-nums font-mono">-</p>
+
+      <div class="mt-6 rounded-2xl bg-zinc-900/70 p-5">
+        <p class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">💳 입금 안내</p>
+        <div class="space-y-2 text-sm text-zinc-200">
+          <p>금액: <strong id="r-price" class="text-emerald-300 tabular-nums"></strong></p>
+          <p>계좌: <strong id="r-account" class="text-cyan-300"></strong></p>
+          <p>입금자명: <strong id="r-id2" class="text-amber-300 font-mono"></strong> <span class="text-xs text-zinc-500">← 반드시 이대로 (자동 매칭)</span></p>
+        </div>
+      </div>
+
+      <div class="mt-4 rounded-2xl bg-zinc-900/70 p-5">
+        <p class="text-xs font-black text-cyan-300 uppercase tracking-widest mb-3">📋 다음 단계</p>
+        <ol id="r-steps" class="space-y-1 text-sm text-zinc-200 list-decimal list-inside"></ol>
+      </div>
+
+      <p class="mt-4 text-xs text-zinc-500">📧 동일 내용 이메일로 발송됨. 스팸함도 확인.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">다른 서비스</h3>
+    <div class="grid sm:grid-cols-3 gap-3">
+      {others.map((o) => (
+        <a href={`/services/${o.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-emerald-500/40 bg-zinc-900/40 p-4 transition">
+          <p class="text-xs font-bold text-white">{o.title}</p>
+          <p class="mt-2 text-sm font-black text-emerald-300 tabular-nums">{o.priceLabel}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ serviceSlug: svc.slug }}>
+  const $ = (id) => document.getElementById(id);
+  $('f-submit').addEventListener('click', async () => {
+    const name = $('f-name').value.trim();
+    const contact = $('f-contact').value.trim();
+    const email = $('f-email').value.trim();
+    const details = $('f-details').value.trim();
+    if (!name || !contact || !email) {
+      $('f-status').textContent = '⚠ 이름·연락처·이메일 필수';
+      $('f-status').className = 'text-xs text-rose-300 text-center';
+      return;
+    }
+    if (!email.includes('@')) {
+      $('f-status').textContent = '⚠ 이메일 형식 오류';
+      $('f-status').className = 'text-xs text-rose-300 text-center';
+      return;
+    }
+    $('f-submit').disabled = true;
+    $('f-status').textContent = '⏳ 처리 중...';
+    $('f-status').className = 'text-xs text-cyan-300 text-center';
+    try {
+      const res = await fetch('/api/service-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ service: serviceSlug, name, contact, email, details }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        $('f-status').textContent = '❌ ' + (data.error || '실패');
+        $('f-status').className = 'text-xs text-rose-300 text-center';
+        $('f-submit').disabled = false;
+        return;
+      }
+      $('result').classList.remove('hidden');
+      $('r-id').textContent = data.inquiryId;
+      $('r-id2').textContent = data.inquiryId;
+      $('r-price').textContent = data.price;
+      $('r-account').textContent = data.bankAccount;
+      $('r-steps').innerHTML = (data.instructions || []).map((s) => `<li>${s}</li>`).join('');
+      $('f-status').textContent = '✓ 신청 완료 — 아래 입금 안내 확인';
+      $('f-status').className = 'text-xs text-emerald-300 text-center';
+      $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (window.va) { try { window.va('event', { name: 'service_inquiry', data: { service: serviceSlug } }); } catch (_) {} }
+    } catch (e) {
+      $('f-status').textContent = '❌ 네트워크 오류: ' + e.message;
+      $('f-status').className = 'text-xs text-rose-300 text-center';
+    } finally {
+      $('f-submit').disabled = false;
+    }
+  });
+</script>
