@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-23-대리인-계약-위임장인감증명-진위-확인-4단계",
+    "title": "위임장·인감증명 진위 확인 4단계",
+    "excerpt": "대리인 계약 시 위임장/인감증명서 진위 확인 4단계",
+    "tag": "대행함정",
+    "minutes": 5,
+    "generatedAt": "2026-05-23T12:50:51.915Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-22-확정일자-전입신고-잔금-당일-30분-안에-해야-하는-이유",
     "title": "잔금 당일 확정일자+전입신고, 30분 안에 해야 하는 이유",
     "excerpt": "전세사기 방지 필수! 잔금 당일 확정일자+전입신고, 30분 안에 완료해야 하는 이유와 방법을 알려드립니다.",
