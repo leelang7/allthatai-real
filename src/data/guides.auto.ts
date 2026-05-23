@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-23-잔금일-등기부등본-재발급-0원-vs-700-차이",
+    "title": "잔금일 등기부등본 재발급: 0원 vs 700원 차이 비교",
+    "excerpt": "잔금일 등기부등본, 0원 발급 가능한 방법과 700원 유료 발급 시 차이점을 알아보세요.",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-05-23T18:49:16.914Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-23-대리인-계약-위임장인감증명-진위-확인-4단계",
     "title": "위임장·인감증명 진위 확인 4단계",
     "excerpt": "대리인 계약 시 위임장/인감증명서 진위 확인 4단계",
