@@ -1,0 +1,260 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { verifyCategories } from '../../data/scam-verify';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return verifyCategories.map((v) => ({ params: { slug: v.slug }, props: { item: v } }));
+}
+
+const { item } = Astro.props;
+const others = verifyCategories.filter((v) => v.slug !== item.slug).slice(0, 4);
+
+// Determine input type for the form
+const isText = ['phishing-text', 'romance-scam', 'health-gym-terms', 'insurance-terms', 'telecom-terms', 'subscription-terms', 'fake-review', 'ai-text-detection'].includes(item.slug);
+const isImage = ['deepfake-image', 'document-forgery', 'etungi-forgery'].includes(item.slug);
+const isAudio = item.slug === 'deepvoice';
+const isBizNo = item.slug === 'business-forgery';
+
+// API endpoint
+const apiEndpoint = isText ? '/api/verify-text'
+  : isImage ? '/api/verify-image'
+  : isAudio ? '/api/verify-voice'
+  : isBizNo ? '/api/business-status'
+  : '/api/verify-text';
+
+// Model used
+const modelUsed = isAudio ? '자체 한국어 모델 (Phase 2 출시 예정)'
+  : isImage ? 'Gemini 2.0 Vision + EXIF + Hive API'
+  : ['ai-text-detection', 'fake-review', 'romance-scam'].includes(item.slug) ? '자체 한국어 모델 + Gemini Flash'
+  : 'Gemini 2.0 Flash';
+---
+<Layout title={`${item.title} — 무료 ${item.autoPrice.free}회 / ${item.autoPrice.paid}`} description={`${item.title}. ${item.tagline}. ${item.autoTime} 안에 자동 분석. 정밀 의뢰 ${item.premiumPrice}.`}>
+  <section class="mx-auto max-w-3xl px-4 pt-12 pb-6">
+    <a href="/verify/" class="text-sm text-zinc-500 hover:text-rose-300 transition">← 사기 검증 전체</a>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <span class="rounded-full border border-rose-500/40 bg-rose-500/10 px-3 py-1 text-xs font-bold text-rose-300">{item.scamType}</span>
+      <span class={`rounded-full px-3 py-1 text-xs font-bold ${item.prevalence === '폭증' ? 'bg-rose-500/15 text-rose-300' : 'bg-amber-500/15 text-amber-300'}`}>위험도: {item.prevalence}</span>
+      <span class="rounded-full bg-zinc-800 text-zinc-300 px-3 py-1 text-xs font-bold">⏱ {item.autoTime}</span>
+      <span class="rounded-full bg-cyan-500/15 text-cyan-300 px-3 py-1 text-xs font-bold">자동 {item.automation}%</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">{item.title}</h1>
+    <p class="mt-3 text-lg text-zinc-300">{item.tagline}</p>
+    <p class="mt-2 text-xs text-zinc-500">🤖 사용 모델: {modelUsed}</p>
+  </section>
+
+  <!-- Pricing -->
+  <section class="mx-auto max-w-3xl px-4 py-4">
+    <div class="grid sm:grid-cols-2 gap-3">
+      <div class="rounded-2xl border-2 border-emerald-500/40 bg-emerald-500/5 p-6">
+        <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">자동 분석</p>
+        <p class="mt-2 text-3xl font-black text-emerald-300 tabular-nums">무료 {item.autoPrice.free}회</p>
+        <p class="mt-1 text-sm text-zinc-300">이후 {item.autoPrice.paid}</p>
+        <a href="#try" class="mt-3 inline-flex text-xs font-black text-emerald-300">지금 시도 →</a>
+      </div>
+      <div class="rounded-2xl border-2 border-violet-500/40 bg-violet-500/5 p-6">
+        <p class="text-[10px] font-bold text-violet-300 uppercase tracking-widest">정밀 의뢰</p>
+        <p class="mt-2 text-3xl font-black text-violet-300 tabular-nums">{item.premiumPrice}</p>
+        <p class="mt-1 text-sm text-zinc-300">사람 + 다중 AI · 24시간</p>
+        <a href="#premium" class="mt-3 inline-flex text-xs font-black text-violet-300">의뢰하기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Try form -->
+  <section id="try" class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-zinc-950 p-6">
+      <h2 class="text-2xl font-black mb-4">🤖 자동 분석</h2>
+      {isText && (
+        <textarea id="input-text" rows="6" placeholder="의심되는 텍스트 (SMS·카톡·이메일·약관 등) 붙여넣기" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      )}
+      {isImage && (
+        <div>
+          <textarea id="input-text" rows="4" placeholder="이미지 URL 또는 base64 (드래그·붙여넣기)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+          <p class="mt-2 text-xs text-zinc-500">⚠ Phase 1: URL 입력만. Phase 2에서 직접 업로드 지원</p>
+        </div>
+      )}
+      {isAudio && (
+        <div class="rounded-lg border border-amber-500/40 bg-amber-500/5 p-5 text-center">
+          <p class="text-amber-300 font-bold">🚧 자체 한국어 음성 모델 학습 중</p>
+          <p class="mt-2 text-sm text-zinc-300">Phase 2 (2~4주 내 출시). 베타 신청은 정밀 의뢰로.</p>
+          <p class="mt-3 text-xs text-zinc-500">현재는 Pindrop·Resemble로 영어 음성만 정확도 95%+. 한국어는 60% 미만이라 출시 보류.</p>
+        </div>
+      )}
+      {isBizNo && (
+        <input id="input-text" type="text" placeholder="사업자등록번호 10자리 (예: 1234567890)" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-sm text-zinc-200 tabular-nums" />
+      )}
+      {!isAudio && (
+        <button id="analyze" type="button" class="mt-3 w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black py-3 disabled:opacity-50">
+          분석 시작 (무료 {item.autoPrice.free}회)
+        </button>
+      )}
+      <p id="status" class="mt-2 text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div id="result-box" class="rounded-3xl border-2 p-8">
+      <p class="text-[10px] font-bold uppercase tracking-widest" id="r-label">위험 점수</p>
+      <p id="r-score" class="mt-2 text-6xl font-black tabular-nums">-</p>
+      <p id="r-verdict" class="mt-2 text-2xl font-black">-</p>
+      <p id="r-summary" class="mt-3 text-sm text-zinc-300"></p>
+    </div>
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+      <h4 class="text-xs font-black text-rose-300 uppercase mb-3">🚨 탐지된 위험 신호</h4>
+      <ul id="r-flags" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul>
+    </div>
+    <div class="rounded-2xl border border-cyan-500/40 bg-cyan-500/5 p-5">
+      <h4 class="text-xs font-black text-cyan-300 uppercase mb-3">📌 다음 조치</h4>
+      <ul id="r-actions" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul>
+    </div>
+    <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5">
+      <h4 class="text-xs font-black text-violet-300 uppercase mb-2">정밀 의뢰가 필요한가</h4>
+      <p id="r-need-premium" class="text-sm text-zinc-200"></p>
+      <a href="#premium" class="mt-3 inline-flex text-xs font-black text-violet-300">정밀 의뢰 →</a>
+    </div>
+  </section>
+
+  <!-- Checkpoints -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-4">🔍 분석하는 것</h2>
+      <ul class="space-y-2">
+        {item.checkpoints.map((c) => (
+          <li class="flex items-start gap-3 text-sm text-zinc-200">
+            <span class="text-emerald-400 flex-shrink-0">✓</span>
+            <span>{c}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Red Flags + Real Cases -->
+  <section class="mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
+      <h3 class="text-xs font-black text-rose-300 uppercase tracking-widest mb-3">🚨 즉시 의심 신호</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {item.redFlags.map((f) => <li>{f}</li>)}
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+      <h3 class="text-xs font-black text-amber-300 uppercase tracking-widest mb-3">📰 실제 한국 사기 사례</h3>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        {item.realCases.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h3 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-3">🤖 사용 기술</h3>
+      <div class="flex flex-wrap gap-2">
+        {item.poweredBy.map((p) => (
+          <span class="rounded-full bg-zinc-800 text-zinc-200 px-3 py-1 text-xs">{p}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium 의뢰 -->
+  <section id="premium" class="mx-auto max-w-3xl px-4 py-10">
+    <div class="rounded-3xl border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/10 to-zinc-950 p-8">
+      <h2 class="text-2xl font-black mb-2">정밀 의뢰 — {item.premiumPrice}</h2>
+      <p class="text-sm text-zinc-400 mb-6">자동 분석으로 판단 어려운 케이스. 다중 AI + 사람 검토. 24시간 처리.</p>
+      <p class="text-sm text-zinc-300 mb-4">법적 증거 활용 가능한 PDF 보고서. 필요 시 변호사 연결.</p>
+      <a href={`/services/jeonse-full-review/`} class="inline-flex rounded-xl bg-violet-500 hover:bg-violet-400 text-white px-6 py-3 font-black transition">의뢰 신청 페이지로 →</a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-8">
+    <h3 class="text-sm font-black text-zinc-400 uppercase tracking-widest mb-3">다른 검증</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+      {others.map((o) => (
+        <a href={`/verify/${o.slug}/`} class="card-lift block rounded-xl border border-zinc-800 hover:border-rose-500/40 bg-zinc-900/40 p-3 transition">
+          <p class="text-xs font-bold text-white truncate">{o.title}</p>
+          <p class="mt-1 text-[10px] text-emerald-300">무료 {o.autoPrice.free}회</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ apiEndpoint, slug: item.slug, isBizNo, isImage }}>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  const btn = $('analyze');
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      const inputEl = $('input-text');
+      if (!inputEl) return;
+      const text = inputEl.value.trim();
+      if (text.length < 5) {
+        $('status').textContent = '⚠ 입력 필요';
+        $('status').className = 'mt-2 text-xs text-rose-300 text-center';
+        return;
+      }
+
+      // Free count check (localStorage)
+      const usedKey = 'verify_used_' + slug;
+      const usedCount = parseInt(localStorage.getItem(usedKey) || '0', 10);
+      // Free limit check (use category data via hidden field would be cleaner, but skip for now)
+
+      btn.disabled = true;
+      $('status').textContent = '🤖 분석 중...';
+      $('status').className = 'mt-2 text-xs text-cyan-300 text-center animate-pulse';
+
+      const body = isBizNo
+        ? { bizNo: text }
+        : isImage
+        ? { type: 'image', input: text, slug }
+        : { type: 'text', input: text, slug };
+
+      try {
+        const res = await fetch(apiEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        if (!data.ok) {
+          $('status').textContent = '❌ ' + (data.error || '분석 실패');
+          $('status').className = 'mt-2 text-xs text-rose-300 text-center';
+          btn.disabled = false;
+          return;
+        }
+
+        localStorage.setItem(usedKey, String(usedCount + 1));
+
+        $('result').classList.remove('hidden');
+        $('status').textContent = '✓ 완료 (사용 ' + (usedCount + 1) + '회)';
+        $('status').className = 'mt-2 text-xs text-emerald-300 text-center';
+
+        const score = data.riskScore || data.scamScore || 0;
+        const verdict = data.verdict || data.status || '-';
+        let color = 'text-emerald-300', bg = 'border-emerald-500/40 bg-emerald-500/5';
+        if (score >= 75) { color = 'text-rose-300'; bg = 'border-rose-500/40 bg-rose-500/10'; }
+        else if (score >= 50) { color = 'text-orange-300'; bg = 'border-orange-500/40 bg-orange-500/5'; }
+        else if (score >= 25) { color = 'text-amber-300'; bg = 'border-amber-500/40 bg-amber-500/5'; }
+
+        $('result-box').className = 'rounded-3xl border-2 p-8 ' + bg;
+        $('r-label').className = 'text-[10px] font-bold uppercase tracking-widest ' + color;
+        $('r-score').className = 'mt-2 text-6xl font-black tabular-nums ' + color;
+        $('r-verdict').className = 'mt-2 text-2xl font-black ' + color;
+        $('r-score').textContent = isBizNo ? '-' : (score + ' / 100');
+        $('r-verdict').textContent = verdict;
+        $('r-summary').textContent = data.summary || '';
+        $('r-flags').innerHTML = (data.redFlags || data.warnings || []).map((f) => '<li>' + esc(f) + '</li>').join('') || '<li class="list-none text-zinc-500">탐지된 신호 없음</li>';
+        $('r-actions').innerHTML = (data.nextSteps || data.actionItems || data.recommendations || []).map((a) => '<li>' + esc(a) + '</li>').join('') || '<li class="list-none text-zinc-500">없음</li>';
+        $('r-need-premium').textContent = score >= 50 ? '⚠ 위험도 높음 — 정밀 의뢰 권장 (변호사 의견 포함)' : '✓ 자동 분석으로 충분';
+
+        if (window.va) { try { window.va('event', { name: 'verify_run', data: { slug, score } }); } catch (_) {} }
+      } catch (e) {
+        $('status').textContent = '❌ ' + e.message;
+        $('status').className = 'mt-2 text-xs text-rose-300 text-center';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>

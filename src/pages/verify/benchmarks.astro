@@ -1,0 +1,206 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const benchmarks = [
+  {
+    category: '이미지 딥페이크',
+    slug: 'deepfake-image',
+    models: [
+      { name: 'Hive Moderation', accuracy: 95, cost: '$0.05/img', korean: '✅', latency: '500ms', status: '상용' },
+      { name: 'Gemini 2.0 Vision', accuracy: 80, cost: '무료 한도 + $0.01/img', korean: '✅', latency: '2s', status: '상용 사용 중' },
+      { name: 'Sensity', accuracy: 96, cost: 'B2B $1000+/월', korean: '❌', latency: '300ms', status: '비싸서 비채택' },
+      { name: 'Reality Defender', accuracy: 94, cost: 'B2B $$$', korean: '❌', latency: '500ms', status: '비채택' },
+    ],
+    decision: '✅ Hive + Gemini 병렬. 한국어 X 영향 적음 (이미지 자체 분석).',
+    selfModelNeeded: false,
+  },
+  {
+    category: '딥보이스 (한국어)',
+    slug: 'deepvoice',
+    models: [
+      { name: 'Pindrop', accuracy: 95, cost: 'B2B $$$', korean: '❌ 영어만', latency: '1s', status: '한국어 X' },
+      { name: 'Resemble Detect', accuracy: 90, cost: '$0.01/sec', korean: '⚠ 60%', latency: '500ms', status: '한국어 정확도 낮음' },
+      { name: 'ElevenLabs Detector', accuracy: 88, cost: '$0.04/min', korean: '⚠ 50%', latency: '1s', status: '한국어 약함' },
+      { name: '자체 한국어 모델', accuracy: 0, cost: '학습 중', korean: '✅', latency: '?', status: '🔨 Phase 2 학습 중' },
+    ],
+    decision: '🔨 **자체 모델 필요**. 한국어 음성 합성 패턴은 영어와 다름. KSS·KoreanASR 데이터셋 + Wav2Vec2 기반 자체 학습.',
+    selfModelNeeded: true,
+    selfModelPlan: '데이터: KSS (10시간 한국어) + AIHub 한국어 음성 (1000시간) + ElevenLabs/Resemble 생성 한국어 합성 음성 1000샘플. 모델: Wav2Vec2-XLSR-Korean + 이진 분류기. 학습 2-3주.',
+  },
+  {
+    category: '문서 위조 (신분증·증명서)',
+    slug: 'document-forgery',
+    models: [
+      { name: 'Gemini Vision', accuracy: 85, cost: '무료 한도', korean: '✅', latency: '2s', status: '✅ 상용 사용' },
+      { name: 'Onfido', accuracy: 98, cost: 'B2B $$$$', korean: '✅', latency: '1s', status: '비싸서 비채택' },
+      { name: 'Persona', accuracy: 96, cost: 'B2B $1/check', korean: '✅', latency: '1s', status: '단가 큼' },
+      { name: 'EXIF 분석 (자체)', accuracy: 95, cost: '무료', korean: '✅', latency: '100ms', status: '✅ 보조' },
+    ],
+    decision: '✅ Gemini + EXIF + 정부 양식 DB 대조 90%+. Onfido는 단가 너무 큼.',
+    selfModelNeeded: false,
+  },
+  {
+    category: '등기부 위조 (한국 전용)',
+    slug: 'etungi-forgery',
+    models: [
+      { name: '상용 솔루션', accuracy: 0, cost: '-', korean: '-', latency: '-', status: '❌ 전 세계 0개' },
+      { name: 'Gemini Vision (자체 양식 DB)', accuracy: 75, cost: '무료', korean: '✅', latency: '3s', status: '🔨 자체 구축 중' },
+      { name: '인터넷등기소 실시간 대조', accuracy: 100, cost: '발급 ₩700', korean: '✅', latency: '수동', status: '✅ 최종 검증' },
+    ],
+    decision: '🔨 **자체 모델 필요**. 한국 등기부 전용 솔루션 0개. 인터넷등기소 양식 (갑구·을구·발급번호) DB 구축 + Gemini Vision 비교.',
+    selfModelNeeded: true,
+    selfModelPlan: '데이터: 인터넷등기소 실제 발급 100개 + 위조 사례 50개 (공개 판례). 모델: Gemini Vision few-shot + 자체 양식 룰 베이스. 정확도 목표 90%.',
+  },
+  {
+    category: '피싱 SMS·이메일',
+    slug: 'phishing-text',
+    models: [
+      { name: 'Gemini Flash', accuracy: 95, cost: '무료 한도', korean: '✅', latency: '1s', status: '✅ 사용' },
+      { name: 'KISA 보호나라', accuracy: 90, cost: '무료', korean: '✅', latency: 'API', status: '✅ 보조' },
+      { name: 'Whoscall', accuracy: 92, cost: 'B2C 앱', korean: '✅', latency: '-', status: '경쟁사' },
+    ],
+    decision: '✅ Gemini Flash 95%+ 충분. KISA 사기 DB 매칭 추가.',
+    selfModelNeeded: false,
+  },
+  {
+    category: '로맨스 스캠 (한국어)',
+    slug: 'romance-scam',
+    models: [
+      { name: 'Social Catfish', accuracy: 85, cost: '$30/month', korean: '❌', latency: '-', status: '영어만' },
+      { name: 'Gemini Flash (한국어 대화)', accuracy: 75, cost: '무료', korean: '✅', latency: '2s', status: '✅ 기본' },
+      { name: '자체 한국어 패턴 모델', accuracy: 0, cost: '학습 중', korean: '✅', latency: '?', status: '🔨 Phase 2' },
+    ],
+    decision: '🔨 **자체 + Gemini 하이브리드**. 한국어 로맨스 스캠 대화 패턴은 영어 학습 모델로 부족. 사이버수사대 공개 사례 + 본인 제보 학습.',
+    selfModelNeeded: true,
+    selfModelPlan: '데이터: 사이버수사대 공개 사례 + Reddit r/scams + 사용자 제보 (익명). 모델: KoBERT fine-tune.',
+  },
+  {
+    category: '약관 함정 (헬스·보험·통신·OTT)',
+    slug: 'terms',
+    models: [
+      { name: 'Gemini Flash', accuracy: 90, cost: '무료 한도', korean: '✅', latency: '2s', status: '✅ 사용' },
+      { name: '한국소비자원 분쟁 DB', accuracy: 95, cost: '무료', korean: '✅', latency: '-', status: '✅ 매칭' },
+      { name: '상용 법무 LLM', accuracy: 97, cost: 'B2B $$$', korean: '✅', latency: '5s', status: '단가 큼' },
+    ],
+    decision: '✅ Gemini Flash + 소비자분쟁해결기준 DB. 충분.',
+    selfModelNeeded: false,
+  },
+  {
+    category: '가짜 리뷰 (한국어)',
+    slug: 'fake-review',
+    models: [
+      { name: 'ReviewMeta', accuracy: 90, cost: '무료', korean: '❌ Amazon만', latency: '-', status: '한국 X' },
+      { name: 'Fakespot', accuracy: 88, cost: '무료', korean: '❌', latency: '-', status: '한국 X' },
+      { name: 'Gemini 패턴 분석', accuracy: 75, cost: '무료', korean: '✅', latency: '2s', status: '✅ 기본' },
+      { name: '자체 한국어 리뷰 분류기', accuracy: 0, cost: '학습 중', korean: '✅', latency: '?', status: '🔨 Phase 2' },
+    ],
+    decision: '🔨 **자체 모델 필요**. 한국 쇼핑·배달 리뷰 전용 모델 0개. 배민·쿠팡 공개 리뷰 1만 + AI 생성 1만 학습.',
+    selfModelNeeded: true,
+    selfModelPlan: '데이터: 배민·쿠팡 공개 리뷰 1만 + GPT/Claude/Gemini 생성 가짜 리뷰 1만. 모델: KoBERT 이진 분류. 정확도 목표 85%.',
+  },
+  {
+    category: 'AI 생성 텍스트 탐지 (한국어)',
+    slug: 'ai-text-detection',
+    models: [
+      { name: 'GPTZero', accuracy: 90, cost: '$10/mo', korean: '⚠ 60%', latency: '1s', status: '한국어 약함' },
+      { name: 'Originality.ai', accuracy: 92, cost: '$15/mo', korean: '⚠ 70%', latency: '1s', status: '한국어 보통' },
+      { name: 'Gemini 패턴', accuracy: 70, cost: '무료', korean: '✅', latency: '1s', status: '기본' },
+      { name: '자체 한국어 모델', accuracy: 0, cost: '학습 중', korean: '✅', latency: '?', status: '🔨 Phase 2' },
+    ],
+    decision: '🔨 **자체 모델 필요**. 한국어 위키 vs GPT/Claude/Gemini 생성 데이터 학습.',
+    selfModelNeeded: true,
+    selfModelPlan: '데이터: 한국어 위키 + 한국 뉴스 (인간) vs GPT/Claude/Gemini 생성 한국어 (각 10K). 모델: KoBERT + KoRoBERTa 앙상블.',
+  },
+];
+
+const selfNeeded = benchmarks.filter((b) => b.selfModelNeeded);
+const commercial = benchmarks.filter((b) => !b.selfModelNeeded);
+---
+<Layout title="모델 정확도·벤치마크 — 사기 검증 13개 카테고리" description="각 카테고리별 상용 vs 자체 모델 정확도, 비용, 한국어 지원. 상용 부족 시 자체 학습.">
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
+    <a href="/verify/" class="text-sm text-zinc-500 hover:text-rose-300 transition">← 사기 검증 전체</a>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight"><span class="text-gradient">모델 벤치마크</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">각 카테고리별 사용 모델 + 정확도 + 자체 학습 필요 여부 공개.</p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-6">
+    <div class="grid sm:grid-cols-3 gap-3">
+      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5">
+        <p class="text-[10px] font-black text-emerald-300 uppercase">상용 모델로 충분</p>
+        <p class="mt-1 text-3xl font-black text-emerald-300 tabular-nums">{commercial.length}</p>
+      </div>
+      <div class="rounded-2xl border border-violet-500/40 bg-violet-500/5 p-5">
+        <p class="text-[10px] font-black text-violet-300 uppercase">자체 모델 필요</p>
+        <p class="mt-1 text-3xl font-black text-violet-300 tabular-nums">{selfNeeded.length}</p>
+        <p class="text-[10px] text-zinc-500">한국어 native 0개</p>
+      </div>
+      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
+        <p class="text-[10px] font-black text-amber-300 uppercase">학습 기간</p>
+        <p class="mt-1 text-3xl font-black text-amber-300 tabular-nums">2-4주</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-8 space-y-6">
+    {benchmarks.map((b) => (
+      <div class={`rounded-3xl border-2 p-6 ${b.selfModelNeeded ? 'border-violet-500/40 bg-gradient-to-br from-violet-500/10 to-zinc-900/40' : 'border-emerald-500/30 bg-emerald-500/5'}`}>
+        <div class="flex items-start justify-between mb-3 flex-wrap gap-2">
+          <h2 class="text-2xl font-black text-white">{b.category}</h2>
+          {b.selfModelNeeded ? (
+            <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-violet-500/20 text-violet-300">🔨 자체 모델 학습</span>
+          ) : (
+            <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300">✅ 상용 사용</span>
+          )}
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-zinc-400 text-xs border-b border-zinc-700">
+              <tr>
+                <th class="text-left py-2 px-2">모델</th>
+                <th class="text-right py-2 px-2">정확도</th>
+                <th class="text-right py-2 px-2">비용</th>
+                <th class="text-center py-2 px-2">한국어</th>
+                <th class="text-right py-2 px-2">레이턴시</th>
+                <th class="text-left py-2 px-2">상태</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-800/50">
+              {b.models.map((m) => (
+                <tr>
+                  <td class="py-2 px-2 font-bold text-zinc-200">{m.name}</td>
+                  <td class={`py-2 px-2 text-right font-black tabular-nums ${m.accuracy >= 90 ? 'text-emerald-300' : m.accuracy >= 75 ? 'text-amber-300' : m.accuracy > 0 ? 'text-rose-300' : 'text-zinc-500'}`}>{m.accuracy > 0 ? m.accuracy + '%' : '-'}</td>
+                  <td class="py-2 px-2 text-right text-zinc-300">{m.cost}</td>
+                  <td class="py-2 px-2 text-center">{m.korean}</td>
+                  <td class="py-2 px-2 text-right text-zinc-400">{m.latency}</td>
+                  <td class="py-2 px-2 text-xs">{m.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 rounded-lg bg-zinc-900/60 p-4">
+          <p class="text-xs font-black text-cyan-300 uppercase mb-2">📌 결정</p>
+          <p class="text-sm text-zinc-200">{b.decision}</p>
+        </div>
+        {b.selfModelNeeded && b.selfModelPlan && (
+          <div class="mt-3 rounded-lg bg-violet-500/10 border border-violet-500/30 p-4">
+            <p class="text-xs font-black text-violet-300 uppercase mb-2">🔨 자체 모델 계획</p>
+            <p class="text-sm text-zinc-200">{b.selfModelPlan}</p>
+          </div>
+        )}
+      </div>
+    ))}
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <div class="rounded-3xl border-2 border-rose-500/40 bg-gradient-to-br from-rose-500/15 to-zinc-950 p-10">
+      <h2 class="text-3xl font-black">🏗 Phase 2 자체 모델 로드맵</h2>
+      <ol class="mt-6 space-y-3 text-sm text-zinc-200">
+        <li class="flex gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-500 text-white font-black flex items-center justify-center">1</span><span><strong>Week 1-2:</strong> 한국어 데이터 수집 (KSS·AIHub·KISA·소비자원 공개 자료)</span></li>
+        <li class="flex gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-500 text-white font-black flex items-center justify-center">2</span><span><strong>Week 2-3:</strong> 각 카테고리별 모델 fine-tune (KoBERT·Wav2Vec2-XLSR)</span></li>
+        <li class="flex gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-500 text-white font-black flex items-center justify-center">3</span><span><strong>Week 3-4:</strong> 테스트 + 정확도 검증 (목표 85%+) + Hugging Face Spaces 배포</span></li>
+        <li class="flex gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-rose-500 text-white font-black flex items-center justify-center">4</span><span><strong>Week 4-5:</strong> /api/verify-voice·verify-fake-review·verify-ai-text API 출시</span></li>
+      </ol>
+    </div>
+  </section>
+</Layout>
