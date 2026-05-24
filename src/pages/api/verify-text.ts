@@ -170,10 +170,44 @@ const PROMPTS: Record<string, string> = {
 
 const DEFAULT_PROMPT = PROMPTS['phishing-text'];
 
-export const POST: APIRoute = async ({ request }) => {
-  const apiKey = (import.meta.env as any).GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-  if (!apiKey) return new Response(JSON.stringify({ ok: false, error: 'GEMINI_API_KEY 미설정' }), { status: 500 });
+// 자체 한국어 모델로 우선 처리하는 slug (학습 완료 후 SCAM_MODEL_API 등록 시 활성)
+const SELF_MODEL_SLUGS = new Set(['ai-text-detection', 'fake-review', 'romance-scam']);
+const MODEL_SLUG_MAP: Record<string, string> = {
+  'ai-text-detection': 'ai-text',
+  'fake-review': 'fake-review',
+  'romance-scam': 'romance-scam',
+};
 
+async function trySelfModel(slug: string, input: string): Promise<any | null> {
+  const modelApi = (import.meta.env as any).SCAM_MODEL_API || process.env.SCAM_MODEL_API;
+  if (!modelApi || !SELF_MODEL_SLUGS.has(slug)) return null;
+  const endpoint = MODEL_SLUG_MAP[slug];
+  try {
+    const res = await fetch(`${modelApi}/verify/${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: input }),
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    // 자체 모델 결과를 Gemini 응답 형식으로 변환
+    return {
+      ok: true,
+      slug,
+      source: 'self-model:ko-bert',
+      riskScore: data.risk_score,
+      verdict: data.verdict,
+      summary: `자체 한국어 모델 분석. AI 확률 ${(data.positive_probability * 100).toFixed(1)}%`,
+      modelProbabilities: {
+        positive: data.positive_probability,
+        negative: data.negative_probability,
+      },
+    };
+  } catch { return null; }
+}
+
+export const POST: APIRoute = async ({ request }) => {
   let body: any;
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
@@ -182,6 +216,16 @@ export const POST: APIRoute = async ({ request }) => {
   const input = (body?.input || '').toString().trim();
   if (input.length < 5) return new Response(JSON.stringify({ ok: false, error: '입력 5자 이상' }), { status: 400 });
   if (input.length > 30000) return new Response(JSON.stringify({ ok: false, error: '입력 30,000자 초과' }), { status: 400 });
+
+  // 1순위: 자체 한국어 모델 (학습 완료 + SCAM_MODEL_API 등록 시)
+  const selfResult = await trySelfModel(slug, input);
+  if (selfResult) {
+    return new Response(JSON.stringify(selfResult), { headers: { 'Content-Type': 'application/json' } });
+  }
+
+  // 2순위: Gemini fallback
+  const apiKey = (import.meta.env as any).GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+  if (!apiKey) return new Response(JSON.stringify({ ok: false, error: 'GEMINI_API_KEY 미설정 (자체 모델도 비활성)' }), { status: 500 });
 
   const systemPrompt = PROMPTS[slug] || DEFAULT_PROMPT;
 

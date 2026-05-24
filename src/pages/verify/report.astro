@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { verifyCategories } from '../../data/scam-verify';
+---
+<Layout title="사기 사례 제보 — 채택 시 ₩5,000 보상" description="실제 당하거나 의심된 사기 사례 제보. 자체 한국어 모델 학습에 익명 활용. 채택 시 카카오페이 보상.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-8">
+    <a href="/verify/" class="text-sm text-zinc-500 hover:text-rose-300 transition">← 사기 검증</a>
+    <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-rose-500/40 bg-rose-500/10 px-3 py-1 text-xs">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+      <span class="font-bold text-rose-300">채택 시 카카오페이 ₩5,000</span>
+    </div>
+    <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+      <span class="text-gradient">사기 사례 제보</span>
+    </h1>
+    <p class="mt-4 text-lg text-zinc-400 leading-relaxed">실제 당하거나 의심된 사례를 익명으로 제보. <strong class="text-rose-300">자체 한국어 모델 학습 데이터</strong>로 활용. 한국 사기 탐지 정확도가 같이 올라감.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 space-y-3">
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">분류 *</span>
+        <select id="category" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white">
+          {verifyCategories.map((c) => <option value={c.slug}>{c.title} ({c.scamType})</option>)}
+          <option value="other">기타</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">사기 텍스트·상황 (20자 이상) *</span>
+        <textarea id="text" rows="8" placeholder="예시:&#10;[SMS 사기] '국세청입니다. 미환급금 32만원 발생. 확인은 http://gov-kr.xyz/refund' &#10;[로맨스 스캠] 인스타로 만난 미국 군인. 한국 와서 만나려면 비행기표 송금하라며...&#10;[헬스장 환불 거부] 12개월 결제 후 1개월만 사용. PT 자체 약관 환불 ₩0..."
+          class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">출처 (URL·SMS 발신·플랫폼)</span>
+        <input id="source" type="text" placeholder="예: 010-1234-XXXX 또는 카카오톡 ID 또는 사이트 URL" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white" />
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">결과</span>
+        <select id="outcome" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white">
+          <option>의심 단계</option>
+          <option>예방 성공</option>
+          <option>돈 잃음</option>
+          <option>신고 완료</option>
+          <option>기타</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="block text-xs font-bold text-zinc-300 mb-1.5">연락처 (보상 받을 카카오톡 ID·전화·이메일)</span>
+        <input id="contact" type="text" placeholder="채택 시 ₩5,000 카카오페이 송금" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-rose-500 outline-none px-4 py-2.5 text-white" />
+        <p class="mt-1 text-[10px] text-zinc-500">선택. 없으면 보상 X. 학습 데이터로만 익명 활용.</p>
+      </label>
+      <button id="submit" type="button" class="w-full rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-black py-3 disabled:opacity-50">
+        제보 제출
+      </button>
+      <p id="status" class="text-xs text-zinc-400 text-center"></p>
+    </div>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-3xl border-2 border-emerald-500/40 bg-emerald-500/10 p-8 text-center">
+      <p class="text-[10px] font-bold text-emerald-300 uppercase tracking-widest">✓ 제보 접수</p>
+      <p id="r-id" class="mt-2 text-3xl font-black text-white font-mono">-</p>
+      <p class="mt-3 text-sm text-zinc-300">자체 한국어 모델 학습 데이터로 익명 활용. 채택 시 카카오페이 ₩5,000 보상 (수동 검토 후).</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-10">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <h2 class="font-black mb-3">왜 제보 받나</h2>
+      <ul class="space-y-2 text-sm text-zinc-300">
+        <li>→ <strong>한국어 사기 탐지 모델 0개</strong>. Sensity·GPTZero·Fakespot 다 영어만.</li>
+        <li>→ 자체 모델 학습에 한국어 실제 사례 필요. 인터넷 공개 자료는 부족.</li>
+        <li>→ 제보 1건 = 한국 1만 명 추가 보호. 모델 정확도 1%마다 ₩수억 절감.</li>
+        <li>→ 익명 100%. 연락처는 보상 송금용만. 학습 데이터에서 PII 제거.</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const $ = (id) => document.getElementById(id);
+  $('submit').addEventListener('click', async () => {
+    const text = $('text').value.trim();
+    if (text.length < 20) {
+      $('status').textContent = '⚠ 20자 이상';
+      $('status').className = 'text-xs text-rose-300 text-center';
+      return;
+    }
+    $('submit').disabled = true;
+    $('status').textContent = '⏳ 제출 중...';
+    try {
+      const res = await fetch('/api/report-scam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: $('category').value,
+          text: text,
+          source: $('source').value.trim(),
+          outcome: $('outcome').value,
+          contact: $('contact').value.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        $('status').textContent = '❌ ' + (data.error || '실패');
+        $('status').className = 'text-xs text-rose-300 text-center';
+        $('submit').disabled = false;
+        return;
+      }
+      $('result').classList.remove('hidden');
+      $('r-id').textContent = data.id;
+      $('status').textContent = '✓ 완료';
+      $('status').className = 'text-xs text-emerald-300 text-center';
+      $('result').scrollIntoView({ behavior: 'smooth' });
+      if (window.va) { try { window.va('event', { name: 'scam_report' }); } catch (_) {} }
+    } catch (e) {
+      $('status').textContent = '❌ ' + e.message;
+      $('status').className = 'text-xs text-rose-300 text-center';
+    } finally {
+      $('submit').disabled = false;
+    }
+  });
+</script>
