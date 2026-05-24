@@ -657,6 +657,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-10T01:27:33.008Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-24T05:49:53.796Z"
   }
 ];
