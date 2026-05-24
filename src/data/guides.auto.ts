@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-24-전세금-반환-소송-임대인-잠적-시-1년-안에-받는-절차",
+    "title": "임대인 잠적 시 전세금 1년 안에 받는 절차",
+    "excerpt": "임대인이 잠적해도 전세금 1년 안에 받는 절차, 지금 바로 확인하세요.",
+    "tag": "전세사기",
+    "minutes": 5,
+    "generatedAt": "2026-05-24T12:52:19.479Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-24-국토부-실거래가-api로-시세-확인-5분-절차",
+    "title": "국토부 실거래가 API로 아파트 시세 5분 만에 확인하는 법",
+    "excerpt": "국토부 실거래가 API 연동, 아파트 시세 정보를 5분 안에 직접 확인하세요.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-24T12:52:27.095Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-24-스팀-the-outlast-trials-70-할인-42000-12600",
+    "title": "스팀 '아웃라스트 트라이얼즈' 70% 할인! ₩12,600에 구매 찬스",
+    "excerpt": "스팀 '아웃라스트 트라이얼즈' 70% 할인! ₩42,000 → ₩12,600에 구매 가능.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-24T12:52:31.372Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-23-잔금일-등기부등본-재발급-0원-vs-700-차이",
     "title": "잔금일 등기부등본 재발급: 0원 vs 700원 차이 비교",
     "excerpt": "잔금일 등기부등본, 0원 발급 가능한 방법과 700원 유료 발급 시 차이점을 알아보세요.",
