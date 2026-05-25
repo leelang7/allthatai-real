@@ -9,6 +9,7 @@
  * 제보자 보상: 채택 시 ₩5K 카카오페이 (수동 처리)
  */
 import type { APIRoute } from 'astro';
+import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
 
@@ -37,6 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
   let body: any;
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
+  incrEvent("scam_report");
 
   const category = (body?.category || '').toString();
   if (!ALLOWED_CATEGORIES.includes(category)) {

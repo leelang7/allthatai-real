@@ -7,6 +7,7 @@
  * 입력: POST { input: image URL, slug }
  */
 import type { APIRoute } from 'astro';
+import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
 
@@ -121,6 +122,8 @@ export const POST: APIRoute = async ({ request }) => {
   const slug = (body?.slug || 'deepfake-image').toString();
   const imageInput = (body?.input || '').toString().trim();
   if (!imageInput) return new Response(JSON.stringify({ ok: false, error: '이미지 URL 또는 base64 필요' }), { status: 400 });
+
+  incrEvent(`verify_image:${slug}`);
 
   const systemPrompt = PROMPTS[slug] || PROMPTS['deepfake-image'];
 

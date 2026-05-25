@@ -7,6 +7,7 @@
  * 환경변수 GEMINI_API_KEY, DATA_GO_KR_KEY 필요.
  */
 import type { APIRoute } from 'astro';
+import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
 
@@ -84,6 +85,7 @@ export const POST: APIRoute = async ({ request }) => {
   let body: any;
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
+  incrEvent("ai_price_predict");
 
   const lawdCd = (body?.lawdCd || '').toString();
   const dong = (body?.dong || '').toString();

@@ -1,164 +1,138 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// 매출 직결 핵심 이벤트만 추적
+export const prerender = false;
+
+const ADMIN_KEY = (import.meta.env as any).ADMIN_KEY || process.env.ADMIN_KEY;
+const providedKey = Astro.url.searchParams.get('key');
+const authed = ADMIN_KEY && providedKey === ADMIN_KEY;
+
 const CRITICAL_EVENTS = [
-  {
-    name: 'service_inquiry',
-    label: '유료 서비스 신청',
-    revenue: '직접 매출',
-    range: '₩19K~₩199K/건',
-    pages: ['/services/jeonse-full-review', '/services/property-coaching', '/services/tenant-verify', '/services/landlord-monitor', '/services/contract-review-only', '/services/dispute-letter', '/services/building-check'],
-    priority: 1,
-    alert: 'Telegram (즉시)',
-  },
-  {
-    name: 'scam_report',
-    label: '사기 사례 제보',
-    revenue: '학습 데이터 → 미래 매출',
-    range: '₩5K 보상/건',
-    pages: ['/verify/report'],
-    priority: 1,
-    alert: 'Telegram (즉시)',
-  },
-  {
-    name: 'verify_run',
-    label: '사기 검증 시도',
-    revenue: '페이월 잠재',
-    range: '무료 N회 → ₩2.9K~9.9K',
-    pages: ['/verify/[slug]'],
-    priority: 2,
-    alert: '미설정',
-  },
-  {
-    name: 'hidden_money_diagnose',
-    label: '숨은 돈 진단',
-    revenue: '컨설팅 업셀 잠재',
-    range: '평균 발견 ₩1,955만',
-    pages: ['/hidden-money/ai-diagnose'],
-    priority: 2,
-    alert: '미설정',
-  },
-  {
-    name: 'lifecycle_sim',
-    label: '부동산 라이프사이클',
-    revenue: '컨설팅 업셀',
-    range: '고관여 사용자',
-    pages: ['/tools/real-estate-lifecycle'],
-    priority: 3,
-    alert: '미설정',
-  },
-  {
-    name: 'ai_etungi',
-    label: 'AI 등기부 분석',
-    revenue: '전세 검토 ₩99K 업셀',
-    range: '유료 전환 잠재 큼',
-    pages: ['/jeonse/ai-etungi'],
-    priority: 2,
-    alert: '미설정',
-  },
-  {
-    name: 'ai_contract',
-    label: 'AI 계약서 함정',
-    revenue: '계약서 검토 ₩39K 업셀',
-    range: '직접 매출 직결',
-    pages: ['/jeonse/ai-contract-check'],
-    priority: 2,
-    alert: '미설정',
-  },
-  {
-    name: 'ai_price_predict',
-    label: 'AI 시세 예측',
-    revenue: '컨설팅 업셀',
-    range: '국토부 API 비용',
-    pages: ['/tools/ai-price-predict'],
-    priority: 3,
-    alert: '미설정',
-  },
+  { name: 'service_inquiry', label: '유료 서비스 신청', revenue: '₩19K~199K/건 직접', priority: 1 },
+  { name: 'scam_report', label: '사기 사례 제보', revenue: '₩5K 보상', priority: 1 },
+  { name: 'verify_text:phishing-text', label: '피싱 SMS 검증', revenue: '페이월 잠재', priority: 2 },
+  { name: 'verify_text:romance-scam', label: '로맨스 스캠', revenue: '페이월', priority: 2 },
+  { name: 'verify_text:health-gym-terms', label: '헬스장 약관', revenue: '페이월', priority: 2 },
+  { name: 'verify_text:insurance-terms', label: '보험 약관', revenue: '페이월', priority: 2 },
+  { name: 'verify_text:telecom-terms', label: '통신 약관', revenue: '페이월', priority: 3 },
+  { name: 'verify_text:subscription-terms', label: 'OTT 약관', revenue: '페이월', priority: 3 },
+  { name: 'verify_text:fake-review', label: '가짜 리뷰', revenue: '페이월', priority: 2 },
+  { name: 'verify_text:ai-text-detection', label: 'AI 텍스트 탐지', revenue: '페이월', priority: 2 },
+  { name: 'verify_image:deepfake-image', label: '딥페이크 이미지', revenue: '페이월', priority: 2 },
+  { name: 'verify_image:document-forgery', label: '문서 위조', revenue: '페이월', priority: 2 },
+  { name: 'verify_image:etungi-forgery', label: '등기부 위조', revenue: '전세 검토 ₩99K 업셀', priority: 1 },
+  { name: 'ai_etungi', label: 'AI 등기부 분석', revenue: '전세 검토 ₩99K 업셀', priority: 2 },
+  { name: 'ai_contract', label: 'AI 계약서 함정', revenue: '계약서 ₩39K 업셀', priority: 2 },
+  { name: 'ai_listing_fraud', label: 'AI 매물 사기', revenue: '전세 검토 ₩99K 업셀', priority: 2 },
+  { name: 'ai_price_predict', label: 'AI 시세 예측', revenue: '컨설팅 업셀', priority: 3 },
+  { name: 'hidden_money_diagnose', label: '숨은 돈 진단', revenue: '컨설팅 업셀', priority: 2 },
+  { name: 'lifecycle_sim', label: '부동산 라이프사이클', revenue: '컨설팅 업셀', priority: 3 },
 ];
 ---
-<Layout title="통계 — 매출 핵심 8개" description="매출 직결 8개 이벤트만 집중 추적">
-  <section class="mx-auto max-w-5xl px-4 pt-12 pb-6">
-    <h1 class="text-3xl font-black">📊 매출 핵심 8개</h1>
-    <p class="mt-2 text-sm text-zinc-400">전체 113개 이벤트 중 매출·전환 직결 8개만. 나머지는 페이지뷰만.</p>
-
-    <div class="mt-6 grid sm:grid-cols-3 gap-3">
-      <a href="https://vercel.com/dashboard" target="_blank" class="rounded-2xl border-2 border-cyan-500/40 bg-cyan-500/5 hover:border-cyan-400 p-5 transition">
-        <p class="text-[10px] font-black text-cyan-300 uppercase">실시간 카운트</p>
-        <p class="mt-1 text-lg font-black">Vercel Analytics</p>
-        <p class="mt-1 text-xs text-zinc-400">대시보드 → Analytics → Events ↗</p>
-      </a>
-      <div class="rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5">
-        <p class="text-[10px] font-black text-emerald-300 uppercase">즉시 Telegram</p>
-        <p class="mt-1 text-lg font-black">2개</p>
-        <p class="mt-1 text-xs text-zinc-400">service_inquiry · scam_report</p>
+<Layout title="📊 관리자 통계" description="매출 핵심 이벤트 실시간 카운트">
+  {!ADMIN_KEY && (
+    <section class="mx-auto max-w-3xl px-4 pt-20 pb-8">
+      <div class="rounded-3xl border-2 border-rose-500/40 bg-rose-500/10 p-8">
+        <h1 class="text-3xl font-black text-rose-300">🔒 ADMIN_KEY 미설정</h1>
+        <p class="mt-3 text-zinc-200">현재 누구나 접근 가능 — 보호 필요. Vercel 환경변수에 등록:</p>
+        <pre class="mt-4 rounded-lg bg-zinc-900 p-4 text-sm text-cyan-300"><code>ADMIN_KEY=원하는_긴_랜덤_문자열_32자</code></pre>
+        <p class="mt-4 text-sm text-zinc-400">등록 후 접근: <code class="bg-zinc-900 px-2 py-1 rounded text-cyan-300">/admin/stats?key=YOUR_KEY</code></p>
       </div>
-      <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">
-        <p class="text-[10px] font-black text-amber-300 uppercase">미설정 (잠재)</p>
-        <p class="mt-1 text-lg font-black">6개</p>
-        <p class="mt-1 text-xs text-zinc-400">알림 추가하려면 아래 ↓</p>
+    </section>
+  )}
+
+  {ADMIN_KEY && !authed && (
+    <section class="mx-auto max-w-md px-4 pt-32 pb-8">
+      <div class="rounded-3xl border-2 border-zinc-700 bg-zinc-900/40 p-8">
+        <h1 class="text-2xl font-black text-white">🔒 인증 필요</h1>
+        <p class="mt-2 text-sm text-zinc-400">URL 끝에 <code class="bg-zinc-900 px-2 py-1 rounded">?key=YOUR_KEY</code> 추가</p>
+        <form method="get" class="mt-6 space-y-3">
+          <input name="key" type="password" placeholder="ADMIN_KEY" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-cyan-500 outline-none px-4 py-2.5 text-white" />
+          <button class="w-full rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-black py-3">접속</button>
+        </form>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <section class="mx-auto max-w-5xl px-4 py-6">
-    <table class="w-full text-sm">
-      <thead class="text-zinc-400 text-xs border-b border-zinc-700">
-        <tr>
-          <th class="text-left py-2 px-2">#</th>
-          <th class="text-left py-2 px-2">이벤트</th>
-          <th class="text-left py-2 px-2">설명</th>
-          <th class="text-left py-2 px-2">매출</th>
-          <th class="text-left py-2 px-2">알림</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-zinc-800/50">
-        {CRITICAL_EVENTS.sort((a, b) => a.priority - b.priority).map((e) => (
-          <tr class={e.priority === 1 ? 'bg-emerald-500/5' : ''}>
-            <td class="py-3 px-2"><span class={`text-[10px] font-black px-2 py-0.5 rounded ${e.priority === 1 ? 'bg-emerald-500 text-white' : e.priority === 2 ? 'bg-amber-500 text-white' : 'bg-zinc-700 text-zinc-300'}`}>P{e.priority}</span></td>
-            <td class="py-3 px-2"><code class="text-xs bg-zinc-900 px-2 py-0.5 rounded text-cyan-300">{e.name}</code></td>
-            <td class="py-3 px-2">
-              <p class="font-bold text-white">{e.label}</p>
-              <p class="text-[10px] text-zinc-500 mt-0.5">{e.pages.slice(0, 1).join(', ')}{e.pages.length > 1 ? ` (+${e.pages.length - 1})` : ''}</p>
-            </td>
-            <td class="py-3 px-2"><p class="text-emerald-300 font-bold">{e.revenue}</p><p class="text-[10px] text-zinc-400">{e.range}</p></td>
-            <td class="py-3 px-2"><span class={`text-[10px] font-bold ${e.alert.includes('Telegram') ? 'text-emerald-300' : 'text-zinc-500'}`}>{e.alert}</span></td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </section>
+  {authed && (
+    <section class="mx-auto max-w-6xl px-4 pt-12 pb-6">
+      <div class="flex items-start justify-between flex-wrap gap-3">
+        <div>
+          <h1 class="text-3xl font-black">📊 매출 핵심 이벤트 실시간 카운트</h1>
+          <p class="mt-2 text-sm text-zinc-400">19개 추적. Upstash Redis 기반. <span id="updated" class="text-zinc-500"></span></p>
+        </div>
+        <button id="refresh" class="rounded-lg bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold px-4 py-2">🔄 새로고침</button>
+      </div>
 
-  <section class="mx-auto max-w-5xl px-4 py-8">
-    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-      <h2 class="font-black mb-3">📈 어디서 보나</h2>
-      <ol class="space-y-2 text-sm text-zinc-300 list-decimal list-inside">
-        <li><a href="https://vercel.com/dashboard" target="_blank" class="text-cyan-300 underline">Vercel 대시보드</a> → allthatai-real → <strong>Analytics 탭</strong> → Events 섹션</li>
-        <li>이벤트 이름으로 필터 (예: <code class="bg-zinc-900 px-1 rounded text-cyan-300">service_inquiry</code>) → 시간별 카운트·국가·디바이스</li>
-        <li>Telegram 알림 받는 2개 (service_inquiry, scam_report)는 채팅으로 즉시 전송</li>
-      </ol>
-    </div>
-  </section>
+      <div id="config-warning" class="hidden mt-6 rounded-2xl border-2 border-amber-500/40 bg-amber-500/10 p-6">
+        <p class="text-amber-300 font-black">⚠ Upstash Redis 미등록</p>
+        <p class="mt-2 text-sm text-zinc-200">실시간 카운트 보려면:</p>
+        <ol class="mt-2 text-sm text-zinc-300 list-decimal list-inside">
+          <li><a href="https://console.upstash.com" target="_blank" class="text-cyan-300 underline">console.upstash.com</a> 가입 (무료, 카드 X)</li>
+          <li>Create Redis Database (Tokyo 리전) → REST URL + Token 복사</li>
+          <li>Vercel env 등록: <code class="bg-zinc-900 px-2 py-0.5 rounded">UPSTASH_REDIS_REST_URL</code>, <code class="bg-zinc-900 px-2 py-0.5 rounded">UPSTASH_REDIS_REST_TOKEN</code></li>
+          <li>재배포 → 자동 작동</li>
+        </ol>
+      </div>
 
-  <section class="mx-auto max-w-5xl px-4 py-8">
-    <div class="rounded-3xl border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-zinc-950 p-8">
-      <h2 class="text-2xl font-black mb-3">⚡ 나머지 6개에 Telegram 알림 추가 (선택)</h2>
-      <p class="text-sm text-zinc-300 mb-4">실시간 매출 직결 신호 받고 싶으면 verify_run·hidden_money_diagnose·ai_etungi·ai_contract·ai_price_predict·lifecycle_sim 6개도 Telegram 보내도록 API에 1줄 추가. Vercel 환경변수 <code>TELEGRAM_BOT_TOKEN</code>, <code>TELEGRAM_CHAT_ID</code> 등록만 되면 자동 작동.</p>
-      <p class="text-xs text-zinc-500">⚠ 트래픽 많으면 알림 폭증. P2 핵심 6개만 추천. P3은 페이지뷰로 충분.</p>
-    </div>
-  </section>
-
-  <section class="mx-auto max-w-5xl px-4 py-8">
-    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-      <h2 class="font-black mb-3">🔧 더 정밀하게 (자체 카운터)</h2>
-      <p class="text-sm text-zinc-300 mb-2">Vercel Analytics는 페이지뷰·이벤트만. API 호출 단위 정밀 통계가 필요하면:</p>
-      <ol class="space-y-1 text-sm text-zinc-300 list-decimal list-inside">
-        <li><strong>Upstash Redis 무료</strong> (10K commands/일) — 카운터 INCR만 쓰면 충분</li>
-        <li><strong>Vercel KV</strong> (30K req/일 무료, Storage 탭에서 활성)</li>
-        <li>각 API에 <code>{`await redis.incr(\`stat:\${slug}:\${date}\`)`}</code> 추가</li>
-        <li><code>/api/stats</code> 만들어 GET으로 조회</li>
-      </ol>
-      <p class="mt-3 text-xs text-zinc-500">사용자가 Upstash/KV 등록만 하면 인프라 자동 구축 가능.</p>
-    </div>
-  </section>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="text-zinc-400 text-xs border-b border-zinc-700">
+            <tr>
+              <th class="text-left py-2 px-2">P</th>
+              <th class="text-left py-2 px-2">이벤트</th>
+              <th class="text-left py-2 px-2">매출</th>
+              <th class="text-right py-2 px-2">오늘</th>
+              <th class="text-right py-2 px-2">어제</th>
+              <th class="text-right py-2 px-2">누적</th>
+            </tr>
+          </thead>
+          <tbody id="stats-body" class="divide-y divide-zinc-800/50">
+            {CRITICAL_EVENTS.sort((a, b) => a.priority - b.priority).map((e) => (
+              <tr class={e.priority === 1 ? 'bg-emerald-500/5' : ''} data-event={e.name}>
+                <td class="py-3 px-2"><span class={`text-[10px] font-black px-2 py-0.5 rounded ${e.priority === 1 ? 'bg-emerald-500 text-white' : e.priority === 2 ? 'bg-amber-500 text-white' : 'bg-zinc-700 text-zinc-300'}`}>P{e.priority}</span></td>
+                <td class="py-3 px-2">
+                  <p class="font-bold text-white">{e.label}</p>
+                  <p class="text-[10px] text-zinc-500"><code>{e.name}</code></p>
+                </td>
+                <td class="py-3 px-2 text-emerald-300 text-xs">{e.revenue}</td>
+                <td class="py-3 px-2 text-right font-black text-cyan-300 tabular-nums" data-today>-</td>
+                <td class="py-3 px-2 text-right tabular-nums text-zinc-400" data-yesterday>-</td>
+                <td class="py-3 px-2 text-right font-black tabular-nums" data-total>-</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
 </Layout>
+
+{authed && (
+  <script is:inline define:vars={{ keyParam: providedKey }}>
+    async function loadStats() {
+      try {
+        const r = await fetch('/api/admin-stats?key=' + encodeURIComponent(keyParam));
+        const data = await r.json();
+        if (!data.ok) { console.error(data); return; }
+        if (!data.configured) {
+          document.querySelector('#config-warning').classList.remove('hidden');
+        } else {
+          document.querySelector('#config-warning').classList.add('hidden');
+          document.querySelectorAll('#stats-body tr').forEach((tr) => {
+            const ev = tr.dataset.event;
+            const s = data.stats[ev];
+            if (!s) return;
+            tr.querySelector('[data-today]').textContent = (s.today || 0).toLocaleString('ko-KR');
+            tr.querySelector('[data-yesterday]').textContent = (s.yesterday || 0).toLocaleString('ko-KR');
+            tr.querySelector('[data-total]').textContent = (s.total || 0).toLocaleString('ko-KR');
+          });
+        }
+        document.querySelector('#updated').textContent = '· 갱신 ' + new Date().toLocaleTimeString('ko-KR');
+      } catch (e) { console.error(e); }
+    }
+    document.querySelector('#refresh').addEventListener('click', loadStats);
+    loadStats();
+    setInterval(loadStats, 30000);
+  </script>
+)}

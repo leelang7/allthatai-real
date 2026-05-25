@@ -4,6 +4,7 @@
  * 사용자 프로필 → 가능 발견 금액 + 우선순위 + 즉시 조회 사이트.
  */
 import type { APIRoute } from 'astro';
+import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
 
@@ -50,6 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
   const apiKey = (import.meta.env as any).GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) return new Response(JSON.stringify({ ok: false, error: 'GEMINI_API_KEY 미설정' }), { status: 500 });
   let body: any; try { body = await request.json(); } catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
+  incrEvent("hidden_money_diagnose");
 
   const p = {
     age: +body?.age || 0,

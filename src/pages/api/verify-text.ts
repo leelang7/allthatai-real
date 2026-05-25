@@ -5,6 +5,7 @@
  * slug별로 시스템 프롬프트 + 카테고리 특화 분석.
  */
 import type { APIRoute } from 'astro';
+import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
 
@@ -216,6 +217,9 @@ export const POST: APIRoute = async ({ request }) => {
   const input = (body?.input || '').toString().trim();
   if (input.length < 5) return new Response(JSON.stringify({ ok: false, error: '입력 5자 이상' }), { status: 400 });
   if (input.length > 30000) return new Response(JSON.stringify({ ok: false, error: '입력 30,000자 초과' }), { status: 400 });
+
+  // 카운터 INCR (Upstash 등록 시)
+  incrEvent(`verify_text:${slug}`);
 
   // 1순위: 자체 한국어 모델 (학습 완료 + SCAM_MODEL_API 등록 시)
   const selfResult = await trySelfModel(slug, input);

@@ -2,6 +2,7 @@
  * /api/ai-listing-fraud — AI 매물 사기 패턴 탐지.
  */
 import type { APIRoute } from 'astro';
+import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
 
@@ -33,6 +34,7 @@ export const POST: APIRoute = async ({ request }) => {
   const apiKey = (import.meta.env as any).GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) return new Response(JSON.stringify({ ok: false, error: 'GEMINI_API_KEY 미설정' }), { status: 500 });
   let body: any; try { body = await request.json(); } catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
+  incrEvent("ai_listing_fraud");
   const listingText = (body?.listingText || '').toString().trim();
   const marketPrice = +body?.marketPrice || 0;
   const askPrice = +body?.askPrice || 0;
