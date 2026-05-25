@@ -3,6 +3,42 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-25-건축물대장-위반건축물-무허가-옥탑방-다세대-분할",
+    "title": "위반건축물 양성화 절차 및 비용 절약 팁",
+    "excerpt": "위반건축물 양성화, 복잡한 절차 속 숨겨진 비용 절약 팁을 확인하세요.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-25T19:10:15.070Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-25-깡통전세-vs-역전세-차이와-본인-매물-진단",
+    "title": "깡통전세 vs 역전세, 내 집은 안전할까? 진단 가이드",
+    "excerpt": "깡통전세와 역전세, 뭐가 다를까요? 내 전세집 위험도를 직접 진단하는 방법을 알려드립니다.",
+    "tag": "전세사기",
+    "minutes": 5,
+    "generatedAt": "2026-05-25T19:10:25.206Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-25-스팀-grand-theft-auto-v-인핸스드-50-할인-36790-18390",
+    "title": "스팀 GTA V, 50% 할인 중! 18,390원에 지금 바로 구매하세요",
+    "excerpt": "스팀 Grand Theft Auto V, 50% 할인! 18,390원에 구매 가능합니다.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-25T19:10:30.073Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-25-스팀-restaurats-52-할인-19950-9580",
+    "title": "스팀 Restaurats 52% 할인: 지금 ₩9,580에 구매하세요!",
+    "excerpt": "스팀 Restaurats, 52% 할인 적용! ₩9,580에 레스토랑 경영 시뮬레이션 게임을 즐기세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-25T19:10:35.039Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-25-신탁-부동산-전세-한국토지신탁코람코신탁-신호",
     "title": "신탁 부동산 전세, 한국토지신탁 vs 코람코신탁 비교",
     "excerpt": "신탁 부동산 전세, 한국토지신탁 vs 코람코신탁 상품 비교 및 선택 가이드",
