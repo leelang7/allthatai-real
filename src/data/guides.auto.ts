@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-25-전세사기-특별법-신청-자격절차받는-지원-한도",
+    "title": "전세사기 피해자 지원 신청 자격 및 절차 총정리",
+    "excerpt": "전세사기 피해자 지원 신청 자격, 절차, 지원 내용 및 한도까지 상세 안내",
+    "tag": "전세사기",
+    "minutes": 5,
+    "generatedAt": "2026-05-25T01:57:25.387Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-24-전세금-반환-소송-임대인-잠적-시-1년-안에-받는-절차",
     "title": "임대인 잠적 시 전세금 1년 안에 받는 절차",
     "excerpt": "임대인이 잠적해도 전세금 1년 안에 받는 절차, 지금 바로 확인하세요.",
