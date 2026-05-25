@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-25-아파트-전세가율-통계-본인-매물-vs-단지-평균",
+    "title": "아파트 전세가율 비교: 내 집 vs 단지 평균",
+    "excerpt": "내 아파트 전세가율, 단지 평균과 비교하고 시세 파악하세요.",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-05-25T09:41:46.212Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-25-전세사기-특별법-신청-자격절차받는-지원-한도",
     "title": "전세사기 피해자 지원 신청 자격 및 절차 총정리",
     "excerpt": "전세사기 피해자 지원 신청 자격, 절차, 지원 내용 및 한도까지 상세 안내",
