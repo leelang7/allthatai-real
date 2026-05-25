@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-25-신탁-부동산-전세-한국토지신탁코람코신탁-신호",
+    "title": "신탁 부동산 전세, 한국토지신탁 vs 코람코신탁 비교",
+    "excerpt": "신탁 부동산 전세, 한국토지신탁 vs 코람코신탁 상품 비교 및 선택 가이드",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-05-25T14:25:58.613Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-25-아파트-전세가율-통계-본인-매물-vs-단지-평균",
     "title": "아파트 전세가율 비교: 내 집 vs 단지 평균",
     "excerpt": "내 아파트 전세가율, 단지 평균과 비교하고 시세 파악하세요.",
