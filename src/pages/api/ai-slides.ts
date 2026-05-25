@@ -41,7 +41,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 청중 맞춤 슬라이드 구조 (1분당 1슬라이드 기준).`;
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
     const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ systemInstruction: { parts: [{ text: SYSTEM }] }, contents: [{ role: 'user', parts: [{ text: userMsg }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 4000, responseMimeType: 'application/json' } }) });
     if (!res.ok) return new Response(JSON.stringify({ ok: false, error: `Gemini ${res.status}` }), { status: 502 });

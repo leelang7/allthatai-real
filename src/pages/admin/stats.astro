@@ -155,7 +155,7 @@ const CRITICAL_EVENTS = [
       <ol class="space-y-1 text-sm text-zinc-300 list-decimal list-inside">
         <li><strong>Upstash Redis 무료</strong> (10K commands/일) — 카운터 INCR만 쓰면 충분</li>
         <li><strong>Vercel KV</strong> (30K req/일 무료, Storage 탭에서 활성)</li>
-        <li>각 API에 <code>await redis.incr(`stat:${slug}:${date}`)</code> 추가</li>
+        <li>각 API에 <code>{`await redis.incr(\`stat:\${slug}:\${date}\`)`}</code> 추가</li>
         <li><code>/api/stats</code> 만들어 GET으로 조회</li>
       </ol>
       <p class="mt-3 text-xs text-zinc-500">사용자가 Upstash/KV 등록만 하면 인프라 자동 구축 가능.</p>

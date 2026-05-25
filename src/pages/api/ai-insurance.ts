@@ -51,7 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
 위 정보로 최적 보험 포트폴리오를 추천하세요. 종신보험은 피하고 실속 위주로.`;
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
     const res = await fetch(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

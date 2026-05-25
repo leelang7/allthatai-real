@@ -71,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
 위 정보로 한국 면접에서 나올 만한 질문 10~12개를 생성하세요.`;
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

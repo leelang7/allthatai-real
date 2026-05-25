@@ -146,7 +146,7 @@ ${JSON.stringify(sampleDeals, null, 0)}
 - 최저~최고: ${amounts[0].toLocaleString('ko-KR')} ~ ${amounts[amounts.length-1].toLocaleString('ko-KR')}`;
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${geminiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
