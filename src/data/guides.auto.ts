@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-26-전세보증금-임의지급-hug-안심전세-1주일-절차",
+    "title": "HUG 안심전세, 전세보증금 임의지급 1주일 절차",
+    "excerpt": "HUG 안심전세, 전세보증금 임의지급 1주일 만에 받는 절차 상세 안내",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-26T19:50:12.476Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-26-스팀-no-mans-sky-60-할인-63000-25200",
+    "title": "스팀 No Man's Sky 60% 할인: 지금 ₩25,200에 구매하세요",
+    "excerpt": "스팀 No Man's Sky, 60% 할인! ₩63,000 → ₩25,200에 우주를 탐험하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-26T19:50:16.758Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-26-청년-안심전세-보증-만-34세-이하-우대-상품",
     "title": "청년 안심전세 보증: 만 34세 이하 혜택 총정리",
     "excerpt": "만 34세 이하 청년의 주거 안정을 위한 '청년 안심전세 보증' 상품 혜택을 알아보세요.",
