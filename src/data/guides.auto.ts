@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-26-스팀-kenshi-72-할인-31000-8680",
+    "title": "스팀 Kenshi 72% 할인: 지금 8천원대로 즐기세요!",
+    "excerpt": "스팀 Kenshi 72% 할인! 31,000원 → 8,680원. 지금 바로 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-26T01:48:51.279Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-25-건축물대장-위반건축물-무허가-옥탑방-다세대-분할",
     "title": "위반건축물 양성화 절차 및 비용 절약 팁",
     "excerpt": "위반건축물 양성화, 복잡한 절차 속 숨겨진 비용 절약 팁을 확인하세요.",
