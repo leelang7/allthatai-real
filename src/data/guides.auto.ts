@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-26-청년-안심전세-보증-만-34세-이하-우대-상품",
+    "title": "청년 안심전세 보증: 만 34세 이하 혜택 총정리",
+    "excerpt": "만 34세 이하 청년의 주거 안정을 위한 '청년 안심전세 보증' 상품 혜택을 알아보세요.",
+    "tag": "정부지원",
+    "minutes": 5,
+    "generatedAt": "2026-05-26T08:59:59.765Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-26-스팀-kenshi-72-할인-31000-8680",
     "title": "스팀 Kenshi 72% 할인: 지금 8천원대로 즐기세요!",
     "excerpt": "스팀 Kenshi 72% 할인! 31,000원 → 8,680원. 지금 바로 구매하세요.",
