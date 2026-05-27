@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-27-스팀-detroit-become-human-80-할인-45500-9100",
+    "title": "스팀 디트로이트: 비컴 휴먼 80% 할인, 9천원대 구매 찬스",
+    "excerpt": "스팀 '디트로이트: 비컴 휴먼', 80% 할인 적용된 9,100원에 구매하세요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-27T19:53:50.115Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-05-27-스팀-grand-theft-auto-트릴로지-데피니티브-에디션-67-할인-65000-21450",
+    "title": "스팀 GTA 트릴로지 67% 할인: 2만 원대로 즐기자!",
+    "excerpt": "스팀 GTA 트릴로지, 67% 할인된 21,450원에 구매 가능!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-27T19:53:53.701Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-27-스팀-어쌔신-크리드-섀도우스-50-할인-79000-39500",
     "title": "스팀 어쌔신 크리드 섀도우스 50% 할인: 39,500원에 구매 찬스",
     "excerpt": "스팀 '어쌔신 크리드 섀도우스' 50% 할인! 정가 79,000원에서 39,500원으로 구매 가능합니다.",
