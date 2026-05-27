@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-27-스팀-어쌔신-크리드-섀도우스-50-할인-79000-39500",
+    "title": "스팀 어쌔신 크리드 섀도우스 50% 할인: 39,500원에 구매 찬스",
+    "excerpt": "스팀 '어쌔신 크리드 섀도우스' 50% 할인! 정가 79,000원에서 39,500원으로 구매 가능합니다.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-27T08:54:59.251Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-26-전세보증금-임의지급-hug-안심전세-1주일-절차",
     "title": "HUG 안심전세, 전세보증금 임의지급 1주일 절차",
     "excerpt": "HUG 안심전세, 전세보증금 임의지급 1주일 만에 받는 절차 상세 안내",
