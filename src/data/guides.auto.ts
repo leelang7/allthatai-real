@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-28-전세사기-피해자-특별법-시행-2025-변경-요약",
+    "title": "전세사기 피해자 특별법 개정안: 2025년 변경점 요약",
+    "excerpt": "2025년 전세사기 피해자 특별법 개정안, 무엇이 달라지나요? 주요 변경점 총정리.",
+    "tag": "전세사기",
+    "minutes": 5,
+    "generatedAt": "2026-05-28T14:57:51.125Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-28-스팀-kingdom-come-deliverance-ii-50-할인-60800-30400",
     "title": "스팀 Kingdom Come: Deliverance II 50% 할인 중",
     "excerpt": "스팀 'Kingdom Come: Deliverance II' 50% 할인! ₩60,800 → ₩30,400에 구매하세요.",
