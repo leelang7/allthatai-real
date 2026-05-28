@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-28-스팀-ready-or-not-50-할인-53000-26500",
+    "title": "스팀 'Ready or Not' 50% 할인: 26,500원에 구매 기회",
+    "excerpt": "스팀 'Ready or Not' 50% 할인! 26,500원에 전술 FPS 게임을 즐기세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-05-28T19:59:26.075Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-28-전세사기-피해자-특별법-시행-2025-변경-요약",
     "title": "전세사기 피해자 특별법 개정안: 2025년 변경점 요약",
     "excerpt": "2025년 전세사기 피해자 특별법 개정안, 무엇이 달라지나요? 주요 변경점 총정리.",
