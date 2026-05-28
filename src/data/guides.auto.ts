@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-05-28-스팀-kingdom-come-deliverance-ii-50-할인-60800-30400",
+    "title": "스팀 Kingdom Come: Deliverance II 50% 할인 중",
+    "excerpt": "스팀 'Kingdom Come: Deliverance II' 50% 할인! ₩60,800 → ₩30,400에 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-05-28T01:28:34.171Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-27-스팀-detroit-become-human-80-할인-45500-9100",
     "title": "스팀 디트로이트: 비컴 휴먼 80% 할인, 9천원대 구매 찬스",
     "excerpt": "스팀 '디트로이트: 비컴 휴먼', 80% 할인 적용된 9,100원에 구매하세요!",
