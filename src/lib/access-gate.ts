@@ -38,6 +38,7 @@ export function modelHeaders(extra?: Record<string, string>): Record<string, str
   const key = (import.meta.env as any).SCAM_MODEL_KEY || process.env.SCAM_MODEL_KEY || '';
   return {
     'Content-Type': 'application/json',
+    'User-Agent': 'AllThatAI-Server/1.0',  // Cloudflare 봇 차단 회피
     ...(key ? { 'X-API-Key': key } : {}),
     ...(extra || {}),
   };
