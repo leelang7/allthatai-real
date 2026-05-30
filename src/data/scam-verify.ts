@@ -8,7 +8,7 @@ export interface VerifyCategory {
   title: string;
   tagline: string;
   /** 사기 유형 */
-  scamType: '딥페이크' | '딥보이스' | '문서위조' | '약관함정' | '텍스트사기' | '가짜리뷰' | '신원위조';
+  scamType: '딥페이크' | '딥보이스' | '문서위조' | '약관함정' | '텍스트사기' | '가짜리뷰' | '신원위조' | '인물도용';
   /** 자동 분석 단가 */
   autoPrice: { free: number; paid: string };
   /** 정밀 분석 의뢰 단가 */
@@ -71,6 +71,44 @@ export const verifyCategories: VerifyCategory[] = [
     ],
     category: '이미지·영상',
     automation: 90,
+  },
+  {
+    slug: 'person-theft',
+    title: '인물 사진 도용·사칭 탐지',
+    tagline: '프로필 사진이 다른 사람 것? 같은 얼굴이 여러 신원으로 쓰였는지 추적',
+    scamType: '인물도용',
+    autoPrice: { free: 3, paid: '₩2,900/건 or ₩9,900/월' },
+    premiumPrice: '₩49,000',
+    prevalence: '폭증',
+    autoTime: '30초',
+    forWhom: [
+      '소개팅·데이팅 앱 프로필 사진 의심',
+      '중고거래·당근 판매자 사진 의심',
+      '로맨스 스캠 (한 번도 못 만난 상대)',
+      '내 사진이 도용됐는지 확인하고 싶을 때',
+    ],
+    checkpoints: [
+      '얼굴 임베딩 매칭 (ArcFace) — 같은 사람 식별',
+      '전신·인물 임베딩 (DINOv2) — 얼굴 가려도 매칭',
+      '동일 사진 지문(pHash) — 크롭·압축 변형 견딤',
+      'AI 생성 얼굴 판별 (실존 인물 아님)',
+      '같은 얼굴이 다른 신원으로 등록됐는지',
+      '누적 신고 DB 대조',
+    ],
+    poweredBy: ['ArcFace 얼굴인식', 'DINOv2 인물임베딩', 'pHash', '자체 딥페이크 모델', '재사용 그래프 DB'],
+    realCases: [
+      '미국 군인 사진 도용 → 여러 이름으로 로맨스 스캠 (실제 손실 ₩3억)',
+      '연예인·일반인 사진 도용 → 가짜 데이팅 프로필 대량 생성',
+      '남의 집 인증샷 도용 → 가짜 중고 판매',
+    ],
+    redFlags: [
+      '프로필 사진이 너무 완벽함 (모델·연예인급)',
+      '얼굴은 또렷한데 신원 정보가 모호',
+      '같은 사진이 여러 앱·계정에서 보임',
+      '직접 만나거나 영상통화를 회피',
+    ],
+    category: '이미지·영상',
+    automation: 88,
   },
   {
     slug: 'deepvoice',
