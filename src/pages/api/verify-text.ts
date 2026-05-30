@@ -6,6 +6,7 @@
  */
 import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
+import { checkAccess, forbidden, modelHeaders } from '../../lib/access-gate';
 
 export const prerender = false;
 
@@ -186,9 +187,9 @@ async function trySelfModel(slug: string, input: string): Promise<any | null> {
   try {
     const res = await fetch(`${modelApi}/verify/${endpoint}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: modelHeaders(),
       body: JSON.stringify({ text: input }),
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return null;
     const data = await res.json();
@@ -213,6 +214,10 @@ export const POST: APIRoute = async ({ request }) => {
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
 
+  // 액세스 코드 게이트 (나·지정인만)
+  const gate = checkAccess(request, body);
+  if (!gate.ok) return forbidden(gate.reason!);
+
   const slug = (body?.slug || '').toString();
   const input = (body?.input || '').toString().trim();
   if (input.length < 5) return new Response(JSON.stringify({ ok: false, error: '입력 5자 이상' }), { status: 400 });
@@ -224,7 +229,9 @@ export const POST: APIRoute = async ({ request }) => {
   // 1순위: 자체 한국어 모델 (학습 완료 + SCAM_MODEL_API 등록 시)
   const selfResult = await trySelfModel(slug, input);
   if (selfResult) {
-    return new Response(JSON.stringify(selfResult), { headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ ...selfResult, privacy: 'no_input_storage' }), {
+      headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-input-storage' },
+    });
   }
 
   // 2순위: Gemini fallback
@@ -255,7 +262,9 @@ export const POST: APIRoute = async ({ request }) => {
     catch { try { parsed = JSON.parse(reply.replace(/```json|```/g, '').trim()); }
       catch { return new Response(JSON.stringify({ ok: false, error: 'JSON 파싱 실패', raw: reply.slice(0, 300) }), { status: 502 }); }
     }
-    return new Response(JSON.stringify({ ok: true, slug, ...parsed }), { headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ ok: true, slug, privacy: 'no_input_storage', ...parsed }), {
+      headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-input-storage' },
+    });
   } catch (e) {
     return new Response(JSON.stringify({ ok: false, error: e instanceof Error ? e.message : 'fetch failed' }), { status: 500 });
   }

@@ -8,6 +8,7 @@
  */
 import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
+import { checkAccess, forbidden } from '../../lib/access-gate';
 
 export const prerender = false;
 
@@ -119,6 +120,10 @@ export const POST: APIRoute = async ({ request }) => {
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
 
+  // 액세스 코드 게이트 (나·지정인만)
+  const gate = checkAccess(request, body);
+  if (!gate.ok) return forbidden(gate.reason!);
+
   const slug = (body?.slug || 'deepfake-image').toString();
   const imageInput = (body?.input || '').toString().trim();
   if (!imageInput) return new Response(JSON.stringify({ ok: false, error: '이미지 URL 또는 base64 필요' }), { status: 400 });
@@ -175,7 +180,9 @@ export const POST: APIRoute = async ({ request }) => {
     catch { try { parsed = JSON.parse(reply.replace(/```json|```/g, '').trim()); }
       catch { return new Response(JSON.stringify({ ok: false, error: 'JSON 파싱 실패', raw: reply.slice(0, 300) }), { status: 502 }); }
     }
-    return new Response(JSON.stringify({ ok: true, slug, ...parsed }), { headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ ok: true, slug, privacy: 'no_input_storage', ...parsed }), {
+      headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-input-storage' },
+    });
   } catch (e) {
     return new Response(JSON.stringify({ ok: false, error: e instanceof Error ? e.message : 'fetch failed' }), { status: 500 });
   }

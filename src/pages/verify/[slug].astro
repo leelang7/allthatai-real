@@ -65,7 +65,11 @@ const modelUsed = isAudio ? '자체 한국어 모델 (Phase 2 출시 예정)'
   <!-- Try form -->
   <section id="try" class="mx-auto max-w-3xl px-4 py-6">
     <div class="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-500/15 to-zinc-950 p-6">
-      <h2 class="text-2xl font-black mb-4">🤖 자동 분석</h2>
+      <h2 class="text-2xl font-black mb-2">🤖 자동 분석</h2>
+      <div class="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-[11px] text-emerald-200/90 flex items-start gap-2">
+        <span class="flex-shrink-0">🔒</span>
+        <span>입력 텍스트·이미지는 <strong>저장하지 않습니다</strong>. 분석 중 메모리에서만 처리되고 응답 직후 폐기됩니다. <a href="/privacy/" class="underline hover:text-emerald-100">방침 →</a></span>
+      </div>
       {isText && (
         <textarea id="input-text" rows="6" placeholder="의심되는 텍스트 (SMS·카톡·이메일·약관 등) 붙여넣기" class="w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-emerald-500 outline-none px-4 py-3 text-sm text-zinc-200"></textarea>
       )}
@@ -204,20 +208,31 @@ const modelUsed = isAudio ? '자체 한국어 모델 (Phase 2 출시 예정)'
       $('status').textContent = '🤖 분석 중...';
       $('status').className = 'mt-2 text-xs text-cyan-300 text-center animate-pulse';
 
+      // 액세스 코드 (베타 — 지정인만). localStorage 보관.
+      let accessCode = localStorage.getItem('access_code') || '';
+      if (!accessCode) {
+        accessCode = (prompt('베타 액세스 코드를 입력하세요 (지정된 사용자 전용)') || '').trim();
+        if (accessCode) localStorage.setItem('access_code', accessCode);
+      }
+
       const body = isBizNo
-        ? { bizNo: text }
+        ? { bizNo: text, accessCode }
         : isImage
-        ? { type: 'image', input: text, slug }
-        : { type: 'text', input: text, slug };
+        ? { type: 'image', input: text, slug, accessCode }
+        : { type: 'text', input: text, slug, accessCode };
 
       try {
         const res = await fetch(apiEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-Access-Code': accessCode },
           body: JSON.stringify(body),
         });
         const data = await res.json();
         if (!data.ok) {
+          // 액세스 코드 문제면 저장된 코드 삭제(재입력 유도)
+          if (data.reason === 'invalid_access_code' || data.reason === 'access_code_required') {
+            localStorage.removeItem('access_code');
+          }
           $('status').textContent = '❌ ' + (data.error || '분석 실패');
           $('status').className = 'mt-2 text-xs text-rose-300 text-center';
           btn.disabled = false;
