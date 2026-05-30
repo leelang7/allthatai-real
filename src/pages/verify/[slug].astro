@@ -133,6 +133,52 @@ const modelUsed = isAudio ? '자체 한국어 모델 (Phase 2 출시 예정)'
     </div>
   </section>
 
+  <!-- 다른 방법과 비교 (차별점) -->
+  <section class="mx-auto max-w-3xl px-4 py-6">
+    <div class="rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-900/80 to-zinc-950 p-6">
+      <h2 class="text-lg font-black text-white mb-1">🆚 다른 방법으로 하면?</h2>
+      <p class="text-xs text-zinc-500 mb-4">같은 걸 {isImage ? '네이버·구글 렌즈나 ' : ''}ChatGPT 단독으로 했을 때와 비교</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs sm:text-sm">
+          <thead class="text-zinc-400 border-b border-zinc-700">
+            <tr>
+              <th class="text-left py-2 pr-2 font-bold">항목</th>
+              {isImage && <th class="text-center py-2 px-1 font-bold">네이버/구글 렌즈</th>}
+              <th class="text-center py-2 px-1 font-bold">{isImage ? 'ChatGPT Vision' : 'ChatGPT·생성형AI'}</th>
+              <th class="text-center py-2 px-1 font-black text-emerald-300">올댓AI</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-800/60">
+            {(isImage ? [
+              ['일반인·한국 특화', '약함 (유명인 위주)', '환각·추측', '자체 한국 모델'],
+              ['변형(크롭·압축) 견딤', '✗ 못 찾음', '✗', 'pHash+임베딩 ✓'],
+              ['도용·재사용 이력', '✗ 없음', '✗ 없음', '누적 DB 그래프 ✓'],
+              ['사기 여부 판단', '✗ 유사이미지만', '불확실', '점수+근거 ✓'],
+              ['내 사진 보호', '추적·색인됨', '학습에 쓰일 수도', '비저장 ✓'],
+            ] : [
+              ['한국어 사기 패턴', '—', '일반론·환각', '자체 한국 모델 ✓'],
+              ['실시간 판단', '—', '불확실', '점수+근거 ✓'],
+              ['최신 수법 반영', '—', '학습 시점 한정', '한국 사례 DB ✓'],
+              ['입력 데이터 보호', '—', '학습에 쓰일 수도', '비저장 ✓'],
+            ]).map((row) => (
+              <tr>
+                <td class="py-2.5 pr-2 text-zinc-300 font-medium">{row[0]}</td>
+                {isImage && <td class="py-2.5 px-1 text-center text-zinc-500">{row[1]}</td>}
+                <td class="py-2.5 px-1 text-center text-zinc-500">{isImage ? row[2] : row[1]}</td>
+                <td class="py-2.5 px-1 text-center text-emerald-300 font-bold">{isImage ? row[3] : row[2]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-xs text-zinc-400 leading-relaxed">
+        💡 {isImage
+          ? '렌즈는 "비슷한 이미지 어디 있나"까지만, 생성형AI는 추측만 합니다. 올댓AI는 변형을 견디는 매칭 + 재사용 이력 + 사기 여부 판단까지 한국 도메인에 특화해 드립니다.'
+          : '생성형AI는 일반적인 답·환각이 섞입니다. 올댓AI는 한국 사기 패턴에 학습된 자체 모델로 점수와 근거를 제시하고, 입력은 저장하지 않습니다.'}
+      </p>
+    </div>
+  </section>
+
   <!-- Checkpoints -->
   <section class="mx-auto max-w-3xl px-4 py-6">
     <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
