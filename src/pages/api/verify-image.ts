@@ -40,9 +40,12 @@ async function trySelfImageModel(slug: string, imageInput: string): Promise<any 
       verdict: d.verdict,
       summary: d.summary,
       modelFakeProb: d.model_fake_prob,
-      signals: d.signals,          // 신호별 점수/영역/근거
+      signals: d.signals,          // 신호별 점수/영역/근거 (시각화용)
       annotatedImage: d.annotated_b64,  // 의심영역 박스+heatmap PNG
-      redFlags: (d.signals || []).filter((s: any) => s.score >= 35).map((s: any) => `${s.signal} (${s.score}): ${s.reason}`),
+      // 위험 신호는 서버가 task별로 구성한 red_flags 우선 (딥페이크는 모델 판단만)
+      redFlags: Array.isArray(d.red_flags)
+        ? d.red_flags
+        : (d.signals || []).filter((s: any) => s.score >= 40).map((s: any) => `${s.signal} (${s.score}): ${s.reason}`),
     };
   } catch { return null; }
 }
