@@ -8,6 +8,7 @@
 import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
 import { checkAccess, forbidden, modelHeaders } from '../../lib/access-gate';
+import { webDetect, webTheftSignal } from '../../lib/web-detection';
 
 export const prerender = false;
 
@@ -35,43 +36,58 @@ export const POST: APIRoute = async ({ request }) => {
   if (!b64) return new Response(JSON.stringify({ ok: false, error: '사진 파일을 직접 올려주세요 (URL 미지원)' }), { status: 400 });
 
   try {
-    const res = await fetch(`${modelApi}/verify/person-theft`, {
-      method: 'POST',
-      headers: modelHeaders(),
-      body: JSON.stringify({ image_b64: b64, identity, context: 'web-verify', store: true }),
-      signal: AbortSignal.timeout(25000),
-    });
-    if (!res.ok) {
-      return new Response(JSON.stringify({ ok: false, error: `도용탐지 ${res.status}` }), { status: 502 });
-    }
-    const d = await res.json();
-    if (!d.ok) return new Response(JSON.stringify({ ok: false, error: d.error || '분석 실패' }), { status: 502 });
+    // ① 자체 모델(재사용 매칭) + ② Google Vision 웹 역검색 — 병렬
+    const [selfRes, web] = await Promise.all([
+      fetch(`${modelApi}/verify/person-theft`, {
+        method: 'POST',
+        headers: modelHeaders(),
+        body: JSON.stringify({ image_b64: b64, identity, context: 'web-verify', store: true }),
+        signal: AbortSignal.timeout(25000),
+      }).then(async (r) => (r.ok ? r.json() : null)).catch(() => null),
+      webDetect(imageInput).catch(() => null),
+    ]);
 
-    // 다른 신원으로 재사용된 매치
+    if (!selfRes || !selfRes.ok) {
+      return new Response(JSON.stringify({ ok: false, error: '도용탐지 모델 응답 실패' }), { status: 502 });
+    }
+    const d = selfRes;
+
+    // 자체 DB 재사용 (다른 신원)
     const diffIdentity = (d.matches || []).filter((m: any) => m.different_identity);
     const redFlags: string[] = [];
     for (const r of (d.reasons || [])) redFlags.push(r);
 
-    const verdict = d.verdict || '정상';
-    const score = d.score ?? 0;
+    let score = d.score ?? 0;
+
+    // 웹 역검색 신호 결합
+    const webResult = web && web.available ? webTheftSignal(web) : { score: 0, reasons: [] };
+    if (webResult.reasons.length) redFlags.push(...webResult.reasons);
+    score = Math.max(score, webResult.score);
+
+    const verdict = score >= 70 ? '도용·사칭 의심 높음' : score >= 40 ? '의심' : score >= 20 ? '주의' : '정상';
 
     return new Response(JSON.stringify({
       ok: true,
       slug: 'person-theft',
-      source: 'self-model:person-theft',
+      source: 'self-model + google-web-detection',
       riskScore: score,
       verdict,
-      summary: redFlags.length ? redFlags[0] : '도용·사칭 정황이 발견되지 않았습니다.',
-      aiProbability: d.ai_probability != null ? `${Math.round(d.ai_probability * 100)}%` : null,
+      summary: redFlags.length ? redFlags[0] : '도용·사칭 정황이 발견되지 않았습니다. (자체 DB·웹 역검색 기준)',
       hasFace: d.has_face,
       nFaces: d.n_faces,
       reusedIdentities: diffIdentity.map((m: any) => ({
         identity: m.identity, via: m.via, score: m.score, at: m.at,
       })),
-      matchCount: (d.matches || []).length,
+      webMatches: web && web.available ? {
+        fullMatches: web.fullMatches,
+        partialMatches: web.partialMatches,
+        pages: web.pages,
+        bestGuess: web.bestGuessLabel,
+      } : null,
+      webAvailable: !!(web && web.available),
       redFlags,
-      nextSteps: score >= 50
-        ? ['상대에게 영상통화·실시간 인증 요청', '같은 사진이 쓰인 다른 계정 신고', '송금·투자 요청은 절대 응하지 말 것']
+      nextSteps: score >= 40
+        ? ['발견된 웹 출처에서 원본·다른 신원 확인', '상대에게 영상통화·실시간 인증 요청', '송금·투자 요청은 절대 응하지 말 것']
         : ['추가 정황이 있으면 다시 검증', '의심되면 영상통화로 본인 확인'],
       privacy: 'no_image_storage_embeddings_only',
     }), { headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-image-storage' } });

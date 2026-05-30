@@ -463,7 +463,7 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
           vis.classList.add('hidden');
         }
 
-        // 인물 도용: 재사용 신원 + AI 확률
+        // 인물 도용: 재사용 신원 + 웹 역검색 출처
         let flagsHtml = (data.redFlags || data.warnings || []).map((f) => '<li>' + esc(f) + '</li>').join('');
         if (slug === 'person-theft') {
           const reused = data.reusedIdentities || [];
@@ -474,6 +474,18 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
           }
           if (data.hasFace === false) {
             flagsHtml += '<li class="text-zinc-400">얼굴 미검출 — 전신·배경 기준으로 비교했습니다</li>';
+          }
+          // 웹 역검색 출처 목록
+          const wm = data.webMatches;
+          if (wm && (wm.pages || []).length) {
+            const pagesHtml = wm.pages.slice(0, 8).map((p) =>
+              '<li class="truncate"><a href="' + esc(p.url) + '" target="_blank" rel="noopener" class="text-cyan-300 hover:underline">🔗 ' + esc(p.title || p.url) + '</a></li>'
+            ).join('');
+            flagsHtml += '<li class="mt-2 font-bold text-amber-300">🌐 이 사진이 발견된 웹페이지 (' + wm.pages.length + '곳)</li>' + pagesHtml;
+          } else if (data.webAvailable === false) {
+            flagsHtml += '<li class="text-zinc-500 text-xs">웹 역검색 미작동 (GOOGLE_VISION_KEY 미설정 — 자체 DB만 사용)</li>';
+          } else if (data.webAvailable) {
+            flagsHtml += '<li class="text-zinc-400 text-xs">웹에서 동일 사진을 찾지 못했어요 (널리 퍼지지 않은 사진)</li>';
           }
         }
         $('r-flags').innerHTML = flagsHtml || '<li class="list-none text-zinc-500">탐지된 신호 없음</li>';
