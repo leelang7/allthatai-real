@@ -118,6 +118,13 @@ const modelUsed = isAudio ? '자체 한국어 모델 (Phase 2 출시 예정)'
       <p id="r-verdict" class="mt-2 text-2xl font-black">-</p>
       <p id="r-summary" class="mt-3 text-sm text-zinc-300"></p>
     </div>
+    <!-- 시각화 (자체 이미지 모델일 때만) -->
+    <div id="r-visual" class="hidden rounded-2xl border border-emerald-500/40 bg-emerald-500/5 p-5">
+      <h4 class="text-xs font-black text-emerald-300 uppercase mb-3">🔬 의심 영역 시각화</h4>
+      <img id="r-annotated" class="w-full rounded-lg border border-zinc-700" alt="의심 영역 표시" />
+      <p class="mt-2 text-[10px] text-zinc-500">빨간 박스·히트맵 = 위조/합성 의심 영역 (자체 모델 + 픽셀 포렌식)</p>
+      <div id="r-signals" class="mt-4 space-y-2"></div>
+    </div>
     <div class="rounded-2xl border border-rose-500/40 bg-rose-500/5 p-5">
       <h4 class="text-xs font-black text-rose-300 uppercase mb-3">🚨 탐지된 위험 신호</h4>
       <ul id="r-flags" class="space-y-1 text-sm text-zinc-300 list-disc list-inside"></ul>
@@ -353,6 +360,23 @@ const modelUsed = isAudio ? '자체 한국어 모델 (Phase 2 출시 예정)'
         $('r-score').textContent = isBizNo ? '-' : (score + ' / 100');
         $('r-verdict').textContent = verdict;
         $('r-summary').textContent = data.summary || '';
+
+        // 시각화 (자체 이미지 모델 결과)
+        const vis = $('r-visual');
+        if (data.annotatedImage && vis) {
+          $('r-annotated').src = data.annotatedImage;
+          const sigs = (data.signals || []).filter((s) => s.score > 0).slice(0, 6);
+          $('r-signals').innerHTML = sigs.map((s) => {
+            const w = Math.min(100, s.score);
+            const col = s.score >= 70 ? 'bg-rose-500' : s.score >= 40 ? 'bg-amber-500' : 'bg-emerald-500';
+            return '<div><div class="flex justify-between text-[11px] text-zinc-300 mb-0.5"><span>' + esc(s.signal) + '</span><span class="font-bold">' + s.score + '</span></div>'
+              + '<div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-full ' + col + '" style="width:' + w + '%"></div></div></div>';
+          }).join('');
+          vis.classList.remove('hidden');
+        } else if (vis) {
+          vis.classList.add('hidden');
+        }
+
         $('r-flags').innerHTML = (data.redFlags || data.warnings || []).map((f) => '<li>' + esc(f) + '</li>').join('') || '<li class="list-none text-zinc-500">탐지된 신호 없음</li>';
         $('r-actions').innerHTML = (data.nextSteps || data.actionItems || data.recommendations || []).map((a) => '<li>' + esc(a) + '</li>').join('') || '<li class="list-none text-zinc-500">없음</li>';
         $('r-need-premium').textContent = score >= 50 ? '⚠ 위험도 높음 — 정밀 의뢰 권장 (변호사 의견 포함)' : '✓ 자동 분석으로 충분';

@@ -8,7 +8,44 @@
  */
 import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
-import { checkAccess, forbidden } from '../../lib/access-gate';
+import { checkAccess, forbidden, modelHeaders } from '../../lib/access-gate';
+
+// 자체 이미지 모델 + 시각화 대상 slug
+const SELF_IMAGE_SLUGS = new Set(['deepfake-image', 'document-forgery', 'etungi-forgery', 'ai-image']);
+
+/** verify.allthatai.kr 자체 이미지 모델 호출 → 시각화 결과. 실패 시 null → Gemini fallback. */
+async function trySelfImageModel(slug: string, imageInput: string): Promise<any | null> {
+  const modelApi = (import.meta.env as any).SCAM_MODEL_API || process.env.SCAM_MODEL_API;
+  if (!modelApi || !SELF_IMAGE_SLUGS.has(slug)) return null;
+  // base64만 지원 (data:image/... 또는 순수 base64)
+  let b64 = imageInput;
+  if (!imageInput.startsWith('data:image/')) {
+    if (imageInput.startsWith('http')) return null; // URL은 Gemini로
+  }
+  try {
+    const res = await fetch(`${modelApi}/verify/image`, {
+      method: 'POST',
+      headers: modelHeaders(),
+      body: JSON.stringify({ image_b64: b64, slug }),
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!res.ok) return null;
+    const d = await res.json();
+    if (!d.ok) return null;
+    return {
+      ok: true,
+      slug,
+      source: d.source || 'self-model:visual',
+      riskScore: d.score,
+      verdict: d.verdict,
+      summary: d.summary,
+      modelFakeProb: d.model_fake_prob,
+      signals: d.signals,          // 신호별 점수/영역/근거
+      annotatedImage: d.annotated_b64,  // 의심영역 박스+heatmap PNG
+      redFlags: (d.signals || []).filter((s: any) => s.score >= 35).map((s: any) => `${s.signal} (${s.score}): ${s.reason}`),
+    };
+  } catch { return null; }
+}
 
 export const prerender = false;
 
@@ -129,6 +166,14 @@ export const POST: APIRoute = async ({ request }) => {
   if (!imageInput) return new Response(JSON.stringify({ ok: false, error: '이미지 URL 또는 base64 필요' }), { status: 400 });
 
   incrEvent(`verify_image:${slug}`);
+
+  // 1순위: 자체 이미지 모델 + 시각화 (deepfake/document/etungi/ai-image)
+  const visual = await trySelfImageModel(slug, imageInput);
+  if (visual) {
+    return new Response(JSON.stringify(visual), {
+      headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-image-storage' },
+    });
+  }
 
   const systemPrompt = PROMPTS[slug] || PROMPTS['deepfake-image'];
 
