@@ -62,7 +62,7 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM }] },
         contents: [{ role: 'user', parts: [{ text: userMsg }] }],
-        generationConfig: { temperature: 0.5, maxOutputTokens: 3500, responseMimeType: 'application/json' },
+        generationConfig: { temperature: 0.5, maxOutputTokens: 3500, thinkingConfig: { thinkingBudget: 0 }, responseMimeType: 'application/json' },
       }),
     });
     if (!res.ok) return new Response(JSON.stringify({ ok: false, error: `Gemini ${res.status}` }), { status: 502 });

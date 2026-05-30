@@ -78,7 +78,7 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM }] },
         contents: [{ role: 'user', parts: [{ text: userMsg }] }],
-        generationConfig: { temperature: 0.5, maxOutputTokens: 4000, responseMimeType: 'application/json' },
+        generationConfig: { temperature: 0.5, maxOutputTokens: 4000, thinkingConfig: { thinkingBudget: 0 }, responseMimeType: 'application/json' },
       }),
     });
 

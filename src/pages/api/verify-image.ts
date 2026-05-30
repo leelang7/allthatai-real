@@ -166,7 +166,7 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemPrompt }] },
         contents: [{ role: 'user', parts: [imagePart, { text: '이미지 분석하세요.' }] }],
-        generationConfig: { temperature: 0.2, maxOutputTokens: 2000, responseMimeType: 'application/json' },
+        generationConfig: { temperature: 0.2, maxOutputTokens: 2000, thinkingConfig: { thinkingBudget: 0 }, responseMimeType: 'application/json' },
       }),
     });
     if (!res.ok) {

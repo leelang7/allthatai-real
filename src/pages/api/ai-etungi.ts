@@ -82,7 +82,7 @@ export const POST: APIRoute = async ({ request }) => {
         contents: [{ role: 'user', parts: [{ text: `등기부등본 텍스트:\n\n${text}` }] }],
         generationConfig: {
           temperature: 0.2,
-          maxOutputTokens: 1500,
+          maxOutputTokens: 1500, thinkingConfig: { thinkingBudget: 0 },
           responseMimeType: 'application/json',
         },
       }),
