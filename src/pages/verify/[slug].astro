@@ -482,10 +482,18 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
               '<li class="truncate"><a href="' + esc(p.url) + '" target="_blank" rel="noopener" class="text-cyan-300 hover:underline">🔗 ' + esc(p.title || p.url) + '</a></li>'
             ).join('');
             flagsHtml += '<li class="mt-2 font-bold text-amber-300">🌐 이 사진이 발견된 웹페이지 (' + wm.pages.length + '곳)</li>' + pagesHtml;
-          } else if (data.webAvailable === false) {
-            flagsHtml += '<li class="text-zinc-500 text-xs">웹 역검색 미작동 (GOOGLE_VISION_KEY 미설정 — 자체 DB만 사용)</li>';
-          } else if (data.webAvailable) {
+          } else if (data.webAvailable === false && data.serpAvailable === false) {
+            flagsHtml += '<li class="text-zinc-500 text-xs">웹 역검색 미작동 (키 미설정 — 자체 DB만 사용)</li>';
+          } else if (data.webAvailable && !(data.serpMatches && data.serpMatches.length)) {
             flagsHtml += '<li class="text-zinc-400 text-xs">웹에서 동일 사진을 찾지 못했어요 (널리 퍼지지 않은 사진)</li>';
+          }
+          // SerpApi 구글렌즈 결과 (블로그·SNS 커버)
+          const sm = data.serpMatches;
+          if (sm && sm.length) {
+            const serpHtml = sm.slice(0, 8).map((m) =>
+              '<li class="truncate"><a href="' + esc(m.link) + '" target="_blank" rel="noopener" class="text-violet-300 hover:underline">🔎 ' + esc(m.title || m.source || m.link) + '</a></li>'
+            ).join('');
+            flagsHtml += '<li class="mt-2 font-bold text-violet-300">🔎 구글렌즈로 찾은 출처 (' + sm.length + '곳)</li>' + serpHtml;
           }
         }
         $('r-flags').innerHTML = flagsHtml || '<li class="list-none text-zinc-500">탐지된 신호 없음</li>';

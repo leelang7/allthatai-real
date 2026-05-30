@@ -9,6 +9,7 @@ import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
 import { checkAccess, forbidden, modelHeaders } from '../../lib/access-gate';
 import { webDetect, webTheftSignal } from '../../lib/web-detection';
+import { serpLensDetect, serpTheftSignal } from '../../lib/serp-detection';
 
 export const prerender = false;
 
@@ -36,8 +37,8 @@ export const POST: APIRoute = async ({ request }) => {
   if (!b64) return new Response(JSON.stringify({ ok: false, error: '사진 파일을 직접 올려주세요 (URL 미지원)' }), { status: 400 });
 
   try {
-    // ① 자체 모델(재사용 매칭) + ② Google Vision 웹 역검색 — 병렬
-    const [selfRes, web] = await Promise.all([
+    // ① 자체 모델(재사용) + ② Vision 웹역검색 + ③ SerpApi 구글렌즈 — 병렬
+    const [selfRes, web, serp] = await Promise.all([
       fetch(`${modelApi}/verify/person-theft`, {
         method: 'POST',
         headers: modelHeaders(),
@@ -45,6 +46,7 @@ export const POST: APIRoute = async ({ request }) => {
         signal: AbortSignal.timeout(25000),
       }).then(async (r) => (r.ok ? r.json() : null)).catch(() => null),
       webDetect(imageInput).catch(() => null),
+      serpLensDetect(imageInput).catch(() => null),
     ]);
 
     if (!selfRes || !selfRes.ok) {
@@ -59,10 +61,15 @@ export const POST: APIRoute = async ({ request }) => {
 
     let score = d.score ?? 0;
 
-    // 웹 역검색 신호 결합
+    // 웹 역검색(Vision) 신호
     const webResult = web && web.available ? webTheftSignal(web) : { score: 0, reasons: [] };
     if (webResult.reasons.length) redFlags.push(...webResult.reasons);
     score = Math.max(score, webResult.score);
+
+    // SerpApi 구글렌즈 신호 (블로그·SNS 커버)
+    const serpResult = serp && serp.available ? serpTheftSignal(serp) : { score: 0, reasons: [] };
+    if (serpResult.reasons.length) redFlags.push(...serpResult.reasons);
+    score = Math.max(score, serpResult.score);
 
     const verdict = score >= 70 ? '도용·사칭 의심 높음' : score >= 40 ? '의심' : score >= 20 ? '주의' : '정상';
 
@@ -85,6 +92,8 @@ export const POST: APIRoute = async ({ request }) => {
         bestGuess: web.bestGuessLabel,
       } : null,
       webAvailable: !!(web && web.available),
+      serpMatches: serp && serp.available ? serp.matches : null,
+      serpAvailable: !!(serp && serp.available),
       redFlags,
       nextSteps: score >= 40
         ? ['발견된 웹 출처에서 원본·다른 신원 확인', '상대에게 영상통화·실시간 인증 요청', '송금·투자 요청은 절대 응하지 말 것']
