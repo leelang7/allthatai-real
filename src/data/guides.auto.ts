@@ -756,7 +756,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "직구/쇼핑",
     "minutes": 5,
     "generatedAt": "2026-05-12T01:28:49.559Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.996Z"
   },
   {
     "slug": "deal-2026-05-12-해외-직접투자-신고-외환-대행-vs-외국환은행-직접",
@@ -765,7 +766,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-12T01:28:54.568Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.997Z"
   },
   {
     "slug": "deal-2026-05-11-스팀-서브노티카-빌로우-제로-75-할인-33700-8420",
@@ -774,7 +776,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-11T19:22:17.679Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.995Z"
   },
   {
     "slug": "deal-2026-05-11-부가세-신고-세무사-30만회-vs-홈택스-직접",
@@ -783,7 +786,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:44.885Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.992Z"
   },
   {
     "slug": "deal-2026-05-11-종합소득세-신고-대행-vs-홈택스-매출-5천만-미만",
@@ -792,7 +796,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:50.656Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.993Z"
   },
   {
     "slug": "deal-2026-05-11-사업자-통장-분리-가맹점-신청-셀프-가이드",
@@ -801,7 +806,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "카드/핀테크",
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:56.969Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.993Z"
   },
   {
     "slug": "deal-2026-05-11-신용카드-단말기-직접-계약-vs-대행-페이먼츠社-비교",
@@ -810,7 +816,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "카드/핀테크",
     "minutes": 5,
     "generatedAt": "2026-05-11T01:46:02.280Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.994Z"
   },
   {
     "slug": "deal-2026-05-11-pg사-직접-가입-vs-대행-토스페이먼츠이니시스kg이니시스",
@@ -819,7 +826,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "카드/핀테크",
     "minutes": 5,
     "generatedAt": "2026-05-11T01:46:08.565Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.995Z"
   },
   {
     "slug": "deal-2026-05-10-간이과세자-vs-일반과세자-세무사-없이-결정",
@@ -828,7 +836,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-10T18:41:06.267Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.990Z"
   },
   {
     "slug": "deal-2026-05-10-스팀-uncharted-레거시-오브-시브즈-컬렉션-67-할인-52800-17420",
@@ -837,7 +846,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-10T18:41:17.459Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-05-31T06:05:39.991Z"
   },
   {
     "slug": "deal-2026-05-10-쇼핑몰-사업자-등록-대행-vs-본인-직접-절차",
