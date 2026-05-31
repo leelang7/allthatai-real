@@ -42,6 +42,9 @@ async function trySelfImageModel(slug: string, imageInput: string): Promise<any 
       modelFakeProb: d.model_fake_prob,
       signals: d.signals,          // 신호별 점수/영역/근거 (시각화용)
       annotatedImage: d.annotated_b64,  // 의심영역 박스+heatmap PNG
+      deepfakeRegion: d.deepfake_region,  // 모델 주목 부위 (눈·코·입·윤곽)
+      deepfakeGrade: d.deepfake_grade,    // 합성 등급
+      notes: d.notes,
       // 위험 신호는 서버가 task별로 구성한 red_flags 우선 (딥페이크는 모델 판단만)
       redFlags: Array.isArray(d.red_flags)
         ? d.red_flags

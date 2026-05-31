@@ -444,6 +444,12 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
         $('r-verdict').textContent = verdict;
         $('r-summary').textContent = data.summary || '';
 
+        // 딥페이크 등급·부위 배지 (요약 위에)
+        if (data.deepfakeGrade) {
+          const badge = '🧬 ' + esc(data.deepfakeGrade) + (data.deepfakeRegion ? ' · 주목 부위: ' + esc(data.deepfakeRegion) : '');
+          $('r-summary').innerHTML = '<span class="inline-block mb-2 px-2 py-1 rounded-lg bg-violet-500/20 text-violet-200 text-xs font-bold">' + badge + '</span><br/>' + esc(data.summary || '');
+        }
+
         // 시각화 (자체 이미지 모델 결과)
         const vis = $('r-visual');
         if (data.annotatedImage && vis) {
