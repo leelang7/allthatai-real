@@ -7,7 +7,8 @@
  */
 import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
-import { checkAccess, forbidden, modelHeaders } from '../../lib/access-gate';
+import { modelHeaders } from '../../lib/access-gate';
+import { gateOrQuota, consumeQuota, FREE_LIMIT } from '../../lib/quota-gate';
 import { webDetect, webTheftSignal } from '../../lib/web-detection';
 import { serpLensDetect, serpTheftSignal } from '../../lib/serp-detection';
 
@@ -18,8 +19,8 @@ export const POST: APIRoute = async ({ request }) => {
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
 
-  const gate = checkAccess(request, body);
-  if (!gate.ok) return forbidden(gate.reason!);
+  const g = await gateOrQuota(request, body);
+  if (!g.ok) return g.response!;
 
   const imageInput = (body?.input || '').toString().trim();
   const identity = (body?.identity || '').toString().trim() || null;
@@ -73,9 +74,16 @@ export const POST: APIRoute = async ({ request }) => {
 
     const verdict = score >= 70 ? '도용·사칭 의심 높음' : score >= 40 ? '의심' : score >= 20 ? '주의' : '정상';
 
+    let freeTier: any = undefined;
+    if (g.useFree) {
+      const used = await consumeQuota(request);
+      freeTier = { used, limit: FREE_LIMIT, remaining: Math.max(0, FREE_LIMIT - used) };
+    }
+
     return new Response(JSON.stringify({
       ok: true,
       slug: 'person-theft',
+      freeTier,
       source: 'self-model + google-web-detection',
       riskScore: score,
       verdict,

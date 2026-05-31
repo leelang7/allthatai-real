@@ -388,12 +388,8 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
       $('status').textContent = '🤖 분석 중...';
       $('status').className = 'mt-2 text-xs text-cyan-300 text-center animate-pulse';
 
-      // 액세스 코드 (베타 — 지정인만). localStorage 보관.
+      // 액세스 코드 — 무료 3회는 코드 없이. 있으면 무제한.
       let accessCode = localStorage.getItem('access_code') || '';
-      if (!accessCode) {
-        accessCode = (prompt('베타 액세스 코드를 입력하세요 (지정된 사용자 전용)') || '').trim();
-        if (accessCode) localStorage.setItem('access_code', accessCode);
-      }
 
       const identityEl = $('identity-input');
       const identity = identityEl ? identityEl.value.trim() : '';
@@ -413,6 +409,20 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
         });
         const data = await res.json();
         if (!data.ok) {
+          // 무료 3회 소진 → 코드 입력 유도(있으면 재시도), 없으면 안내
+          if (res.status === 402 || data.reason === 'free_quota_exhausted') {
+            const code = (prompt('무료 ' + (data.limit || 3) + '회를 모두 사용했어요.\n계속 쓰려면 액세스 코드를 입력하세요. (없으면 취소)') || '').trim();
+            if (code) {
+              localStorage.setItem('access_code', code);
+              $('status').textContent = '🔄 코드 확인 중... 다시 [분석]을 눌러주세요';
+              $('status').className = 'mt-2 text-xs text-cyan-300 text-center';
+            } else {
+              $('status').innerHTML = '🔒 무료 ' + (data.limit || 3) + '회를 모두 사용했어요. <a href="/services/play-launch" class="underline text-cyan-300">이용권 문의</a>';
+              $('status').className = 'mt-2 text-xs text-amber-300 text-center';
+            }
+            btn.disabled = false;
+            return;
+          }
           // 액세스 코드 문제면 저장된 코드 삭제(재입력 유도)
           if (data.reason === 'invalid_access_code' || data.reason === 'access_code_required') {
             localStorage.removeItem('access_code');
@@ -426,8 +436,17 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
         localStorage.setItem(usedKey, String(usedCount + 1));
 
         $('result').classList.remove('hidden');
-        $('status').textContent = '✓ 완료 (사용 ' + (usedCount + 1) + '회)';
-        $('status').className = 'mt-2 text-xs text-emerald-300 text-center';
+        // 무료 잔여 횟수 안내 (코드 사용자는 freeTier 없음 = 무제한)
+        if (data.freeTier) {
+          const rem = data.freeTier.remaining;
+          $('status').textContent = rem > 0
+            ? '✓ 완료 · 무료 ' + rem + '회 남음'
+            : '✓ 완료 · 무료 횟수를 모두 썼어요 (다음부턴 코드 필요)';
+          $('status').className = 'mt-2 text-xs ' + (rem > 0 ? 'text-emerald-300' : 'text-amber-300') + ' text-center';
+        } else {
+          $('status').textContent = '✓ 완료';
+          $('status').className = 'mt-2 text-xs text-emerald-300 text-center';
+        }
 
         const score = data.riskScore || data.scamScore || 0;
         const verdict = data.verdict || data.status || '-';

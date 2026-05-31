@@ -8,7 +8,8 @@
  */
 import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
-import { checkAccess, forbidden, modelHeaders } from '../../lib/access-gate';
+import { modelHeaders } from '../../lib/access-gate';
+import { gateOrQuota, consumeQuota, FREE_LIMIT } from '../../lib/quota-gate';
 
 // 자체 이미지 모델 + 시각화 대상 slug
 const SELF_IMAGE_SLUGS = new Set(['deepfake-image', 'document-forgery', 'etungi-forgery', 'ai-image']);
@@ -163,9 +164,9 @@ export const POST: APIRoute = async ({ request }) => {
   try { body = await request.json(); }
   catch { return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON' }), { status: 400 }); }
 
-  // 액세스 코드 게이트 (나·지정인만)
-  const gate = checkAccess(request, body);
-  if (!gate.ok) return forbidden(gate.reason!);
+  // 게이트: 유효 코드 → 무제한, 없으면 무료 3회
+  const g = await gateOrQuota(request, body);
+  if (!g.ok) return g.response!;
 
   const slug = (body?.slug || 'deepfake-image').toString();
   const imageInput = (body?.input || '').toString().trim();
@@ -176,6 +177,10 @@ export const POST: APIRoute = async ({ request }) => {
   // 1순위: 자체 이미지 모델 + 시각화 (deepfake/document/etungi/ai-image)
   const visual = await trySelfImageModel(slug, imageInput);
   if (visual) {
+    if (g.useFree) {
+      const used = await consumeQuota(request);
+      visual.freeTier = { used, limit: FREE_LIMIT, remaining: Math.max(0, FREE_LIMIT - used) };
+    }
     return new Response(JSON.stringify(visual), {
       headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-image-storage' },
     });
@@ -231,7 +236,12 @@ export const POST: APIRoute = async ({ request }) => {
     catch { try { parsed = JSON.parse(reply.replace(/```json|```/g, '').trim()); }
       catch { return new Response(JSON.stringify({ ok: false, error: 'JSON 파싱 실패', raw: reply.slice(0, 300) }), { status: 502 }); }
     }
-    return new Response(JSON.stringify({ ok: true, slug, privacy: 'no_input_storage', ...parsed }), {
+    let freeTier: any = undefined;
+    if (g.useFree) {
+      const used = await consumeQuota(request);
+      freeTier = { used, limit: FREE_LIMIT, remaining: Math.max(0, FREE_LIMIT - used) };
+    }
+    return new Response(JSON.stringify({ ok: true, slug, privacy: 'no_input_storage', ...parsed, freeTier }), {
       headers: { 'Content-Type': 'application/json', 'X-Privacy-Policy': 'no-input-storage' },
     });
   } catch (e) {
