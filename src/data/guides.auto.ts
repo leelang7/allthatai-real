@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-02-청년-주택드림-청약통장-vs-일반-주택청약-차이와-갈아타기",
+    "title": "청년 주택드림 vs 일반 청약통장: 혜택 비교 및 전환 가이드",
+    "excerpt": "청년 주택드림 vs 일반 청약통장, 어떤 통장이 유리할까? 혜택 비교 및 전환 방법을 알아보세요.",
+    "tag": "주택/청약",
+    "minutes": 6,
+    "generatedAt": "2026-06-02T20:31:34.584Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-02-ready-or-not-스팀-베스트셀러-50-할인",
     "title": "Ready or Not 스팀 50% 할인! 지금이 기회",
     "excerpt": "Ready or Not, 스팀에서 50% 할인! 지금 바로 구매하세요.",
