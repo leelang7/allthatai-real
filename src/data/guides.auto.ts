@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-02-ready-or-not-스팀-베스트셀러-50-할인",
+    "title": "Ready or Not 스팀 50% 할인! 지금이 기회",
+    "excerpt": "Ready or Not, 스팀에서 50% 할인! 지금 바로 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-02T15:49:00.017Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-05-30-스팀-드래곤-퀘스트-xi-s-지나간-시간을-찾아서---definitive-edition-50-할인-49800-24900",
     "title": "스팀 드래곤 퀘스트 XI S 50% 할인: 24,900원에 구매 기회",
     "excerpt": "스팀 '드래곤 퀘스트 XI S' 50% 할인! 24,900원에 명작 RPG를 즐겨보세요.",
