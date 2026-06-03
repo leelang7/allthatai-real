@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-03-공공분양-vs-민간분양-가점-계산법과-당첨-확률-차이",
+    "title": "공공분양 vs 민간분양, 가점과 당첨 확률 비교",
+    "excerpt": "공공분양 vs 민간분양, 가점은 어떻게 다를까? 당첨 확률 높이는 핵심 비교!",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-06-03T10:26:24.481Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-03-특별공급-vs-일반공급-신혼생애최초다자녀노부모부양-자격",
     "title": "신혼·생애최초 특별공급 vs 일반공급 자격 비교",
     "excerpt": "특별공급 vs 일반공급, 어떤 조건이 나에게 유리할까? 신혼, 생애최초, 다자녀, 노부모부양 자격 총정리!",
