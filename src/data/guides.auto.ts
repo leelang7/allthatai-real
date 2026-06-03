@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-03-특별공급-vs-일반공급-신혼생애최초다자녀노부모부양-자격",
+    "title": "신혼·생애최초 특별공급 vs 일반공급 자격 비교",
+    "excerpt": "특별공급 vs 일반공급, 어떤 조건이 나에게 유리할까? 신혼, 생애최초, 다자녀, 노부모부양 자격 총정리!",
+    "tag": "주택/청약",
+    "minutes": 6,
+    "generatedAt": "2026-06-03T02:15:00.632Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-02-청년-주택드림-청약통장-vs-일반-주택청약-차이와-갈아타기",
     "title": "청년 주택드림 vs 일반 청약통장: 혜택 비교 및 전환 가이드",
     "excerpt": "청년 주택드림 vs 일반 청약통장, 어떤 통장이 유리할까? 혜택 비교 및 전환 방법을 알아보세요.",
