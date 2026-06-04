@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-04-버팀목-전세자금대출-vs-청년-버팀목-한도금리자격",
+    "title": "버팀목 vs 청년 버팀목 전세자금대출: 한도·금리 비교",
+    "excerpt": "나에게 맞는 버팀목 전세자금대출은? 한도, 금리, 자격 요건 꼼꼼 비교!",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-06-04T09:37:09.337Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-03-신혼부부-특별공급-소득기준자산기준-2025-최신-기준",
     "title": "2025 신혼부부 특별공급 소득·자산 기준 완벽 정리",
     "excerpt": "2025년 신혼부부 특별공급, 소득 및 자산 기준을 완벽 정리해 드립니다.",
