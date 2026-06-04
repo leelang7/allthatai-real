@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-04-생애최초-특별공급-자격-조건과-당첨-후-의무거주",
+    "title": "생애최초 특별공급: 자격 조건과 당첨 후 의무 거주 총정리",
+    "excerpt": "생애최초 특별공급, 까다로운 자격 요건과 의무 거주 기간까지 한눈에 파악하세요.",
+    "tag": "주택/청약",
+    "minutes": 5,
+    "generatedAt": "2026-06-04T14:23:51.800Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-04-버팀목-전세자금대출-vs-청년-버팀목-한도금리자격",
     "title": "버팀목 vs 청년 버팀목 전세자금대출: 한도·금리 비교",
     "excerpt": "나에게 맞는 버팀목 전세자금대출은? 한도, 금리, 자격 요건 꼼꼼 비교!",
