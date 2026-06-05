@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-05-스팀-sons-of-the-forest-70-할인-32000-9600",
+    "title": "스팀 Sons Of The Forest 70% 할인: 지금 ₩9,600에 구매하세요!",
+    "excerpt": "스팀 'Sons Of The Forest' 70% 할인! ₩32,000 → ₩9,600",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-05T08:58:51.424Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-06-05-monster-hunter-wilds-스팀-베스트셀러-58-할인",
+    "title": "몬스터 헌터 와일드 스팀 58% 할인, 역대 최저가?",
+    "excerpt": "몬스터 헌터 와일드, 스팀 58% 할인! 지금이 구매 적기일까요?",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-05T08:58:56.258Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-05-스팀-biohazard-re4-75-할인-49800-12450",
     "title": "스팀 바이오하자드 RE:4 75% 할인, 12,450원에 구매 기회",
     "excerpt": "스팀 '바이오하자드 RE:4' 75% 할인! 12,450원에 지금 바로 만나보세요.",
