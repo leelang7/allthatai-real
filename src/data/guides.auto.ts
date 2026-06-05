@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-05-스팀-biohazard-re4-75-할인-49800-12450",
+    "title": "스팀 바이오하자드 RE:4 75% 할인, 12,450원에 구매 기회",
+    "excerpt": "스팀 '바이오하자드 RE:4' 75% 할인! 12,450원에 지금 바로 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-05T01:57:22.610Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-04-생애최초-특별공급-자격-조건과-당첨-후-의무거주",
     "title": "생애최초 특별공급: 자격 조건과 당첨 후 의무 거주 총정리",
     "excerpt": "생애최초 특별공급, 까다로운 자격 요건과 의무 거주 기간까지 한눈에 파악하세요.",
