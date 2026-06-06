@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-06-backrooms-escape-together-스팀-베스트셀러-30-할인",
+    "title": "Backrooms: Escape Together 스팀 30% 할인 중",
+    "excerpt": "인기 협동 공포 게임 Backrooms: Escape Together, 스팀에서 30% 할인 중!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-06T18:59:25.293Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-05-스팀-sons-of-the-forest-70-할인-32000-9600",
     "title": "스팀 Sons Of The Forest 70% 할인: 지금 ₩9,600에 구매하세요!",
     "excerpt": "스팀 'Sons Of The Forest' 70% 할인! ₩32,000 → ₩9,600",
