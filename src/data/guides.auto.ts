@@ -738,7 +738,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "OTT",
     "minutes": 5,
     "generatedAt": "2026-05-15T01:46:36.723Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.023Z"
   },
   {
     "slug": "deal-2026-05-15-넷플릭스-가족-추가-멤버-분담-5000",
@@ -774,7 +775,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:01.551Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.020Z"
   },
   {
     "slug": "deal-2026-05-14-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
@@ -783,7 +785,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "항공/여행",
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:07.974Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.021Z"
   },
   {
     "slug": "deal-2026-05-14-카카오뱅크-신규가입-캐시백-토스뱅크-비교",
@@ -792,7 +795,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "카드/핀테크",
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:14.102Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.022Z"
   },
   {
     "slug": "deal-2026-05-14-쿠팡-와우-7890으로-ott-무료-로켓배송-경제성",
@@ -801,7 +805,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "OTT",
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:22.699Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.022Z"
   },
   {
     "slug": "deal-2026-05-13-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
@@ -810,7 +815,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "AI 도구",
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:27.684Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.017Z"
   },
   {
     "slug": "deal-2026-05-13-cursor-ide-무료-한도와-pro-20-결제-시점",
@@ -819,7 +825,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "AI 도구",
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:33.719Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.018Z"
   },
   {
     "slug": "deal-2026-05-13-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
@@ -828,7 +835,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "Steam",
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:39.728Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.018Z"
   },
   {
     "slug": "deal-2026-05-13-epic-games-무료게임-받는-법-이번-주-무료-정리",
@@ -837,7 +845,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:44.836Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.019Z"
   },
   {
     "slug": "deal-2026-05-12-클로드-pro-할인-받는-법-학생연간결제프로모션",
@@ -846,7 +855,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "AI 도구",
     "minutes": 5,
     "generatedAt": "2026-05-12T08:15:44.202Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-07T06:10:02.015Z"
   },
   {
     "slug": "deal-2026-05-12-직구-관세-대행-vs-uni-pass-직접-한도납부",
