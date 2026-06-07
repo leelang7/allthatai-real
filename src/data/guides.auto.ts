@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-07-core-keeper-스팀-베스트셀러-40-할인",
+    "title": "Core Keeper 스팀 40% 할인! 지금 바로 구매 기회",
+    "excerpt": "Core Keeper 스팀 40% 할인! 놓치면 후회할 역대급 기회!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-07T13:11:38.249Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-06-backrooms-escape-together-스팀-베스트셀러-30-할인",
     "title": "Backrooms: Escape Together 스팀 30% 할인 중",
     "excerpt": "인기 협동 공포 게임 Backrooms: Escape Together, 스팀에서 30% 할인 중!",
