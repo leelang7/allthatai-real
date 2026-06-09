@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-09-스팀-p의-거짓-lies-of-p-50-할인-64800-32400",
+    "title": "스팀 'P의 거짓' 50% 할인: 64,800원 → 32,400원",
+    "excerpt": "스팀 'P의 거짓' 50% 할인! 64,800원 → 32,400원. 지금 바로 확인하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-09T19:50:44.884Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-09-스팀-returnal-67-할인-62800-20720",
     "title": "스팀 Returnal™ 67% 할인: ₩20,720에 지금 바로 구매하세요!",
     "excerpt": "스팀 Returnal™ 67% 할인! ₩62,800 → ₩20,720. 지금 바로 구매하세요!",
