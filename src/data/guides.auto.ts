@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-09-스팀-returnal-67-할인-62800-20720",
+    "title": "스팀 Returnal™ 67% 할인: ₩20,720에 지금 바로 구매하세요!",
+    "excerpt": "스팀 Returnal™ 67% 할인! ₩62,800 → ₩20,720. 지금 바로 구매하세요!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-09T01:45:47.578Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-07-core-keeper-스팀-베스트셀러-40-할인",
     "title": "Core Keeper 스팀 40% 할인! 지금 바로 구매 기회",
     "excerpt": "Core Keeper 스팀 40% 할인! 놓치면 후회할 역대급 기회!",
