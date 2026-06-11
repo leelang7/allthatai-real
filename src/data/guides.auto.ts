@@ -3,6 +3,24 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-11-스팀-dying-light-2-reloaded-edition-80-할인-66000-13200",
+    "title": "스팀 다잉 라이트 2, 80% 할인… 13,200원에 구매 기회",
+    "excerpt": "스팀 '다잉 라이트 2' 80% 할인! 13,200원에 지금 바로 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-11T20:03:42.181Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-06-11-ea-sports-fc-26-스팀-베스트셀러-80-할인",
+    "title": "EA SPORTS FC™ 26 스팀 80% 할인! 지금이 최저가?",
+    "excerpt": "EA SPORTS FC™ 26 스팀에서 80% 할인! 역대급 기회, 지금 바로 확인하세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-11T20:03:46.429Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-09-스팀-p의-거짓-lies-of-p-50-할인-64800-32400",
     "title": "스팀 'P의 거짓' 50% 할인: 64,800원 → 32,400원",
     "excerpt": "스팀 'P의 거짓' 50% 할인! 64,800원 → 32,400원. 지금 바로 확인하세요.",
