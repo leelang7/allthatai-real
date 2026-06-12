@@ -3,6 +3,33 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-12-스팀-final-fantasy-vii-rebirth-60-할인-62800-25120",
+    "title": "스팀 FINAL FANTASY VII REBIRTH 60% 할인: ₩25,120에 구매 찬스",
+    "excerpt": "스팀 FINAL FANTASY VII REBIRTH, 60% 할인 적용된 ₩25,120에 구매하세요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-12T02:03:12.538Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-06-12-스팀-final-fantasy-vii-remake-intergrade-65-할인-49800-17430",
+    "title": "스팀 FF7 리메이크 INTERGRADE 65% 할인: 17,430원에 구매 찬스",
+    "excerpt": "스팀 FINAL FANTASY VII REMAKE INTERGRADE, 65% 할인 적용된 17,430원에 득템하세요!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-12T02:03:17.336Z",
+    "type": "issue"
+  },
+  {
+    "slug": "deal-2026-06-12-스팀-데이브-더-다이버-50-할인-24000-12000",
+    "title": "스팀 데이브 더 다이버 50% 할인! 단돈 12,000원에 즐기세요",
+    "excerpt": "인기 인디 게임 '데이브 더 다이버' 스팀 50% 할인! 12,000원에 구매 기회.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-12T02:03:21.269Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-11-스팀-dying-light-2-reloaded-edition-80-할인-66000-13200",
     "title": "스팀 다잉 라이트 2, 80% 할인… 13,200원에 구매 기회",
     "excerpt": "스팀 '다잉 라이트 2' 80% 할인! 13,200원에 지금 바로 만나보세요.",
