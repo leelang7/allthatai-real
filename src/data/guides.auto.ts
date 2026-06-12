@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-12-스팀-dont-starve-together-90-할인-15500-1550",
+    "title": "스팀 Don't Starve Together 90% 할인, 단돈 1,550원!",
+    "excerpt": "스팀 Don't Starve Together, 90% 할인 중! 1,550원에 지금 바로 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-12T09:49:18.048Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-12-스팀-final-fantasy-vii-rebirth-60-할인-62800-25120",
     "title": "스팀 FINAL FANTASY VII REBIRTH 60% 할인: ₩25,120에 구매 찬스",
     "excerpt": "스팀 FINAL FANTASY VII REBIRTH, 60% 할인 적용된 ₩25,120에 구매하세요!",
