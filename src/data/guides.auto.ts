@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-14-데이브-더-다이버-스팀-베스트셀러-50-할인",
+    "title": "데이브 더 다이버 스팀 50% 할인… 역대급 기회!",
+    "excerpt": "스팀 최고 인기작 '데이브 더 다이버' 50% 할인… 지금 바로 확인!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-14T08:56:59.417Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-12-스팀-dont-starve-together-90-할인-15500-1550",
     "title": "스팀 Don't Starve Together 90% 할인, 단돈 1,550원!",
     "excerpt": "스팀 Don't Starve Together, 90% 할인 중! 1,550원에 지금 바로 만나보세요.",
