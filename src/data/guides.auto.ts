@@ -738,7 +738,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "항공/여행",
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:03.742Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.215Z"
   },
   {
     "slug": "deal-2026-05-16-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
@@ -747,7 +748,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "직구/쇼핑",
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:11.755Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.216Z"
   },
   {
     "slug": "deal-2026-05-16-블랙프라이데이-vs-1111-vs-박싱데이-같은-제품-어디가-더-쌌나",
@@ -756,7 +758,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "직구/쇼핑",
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:20.212Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.217Z"
   },
   {
     "slug": "deal-2026-05-16-한국에서-gpu-살-때-다나와-vs-컴파인-vs-컴퓨존-가격차",
@@ -783,7 +786,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "AI 도구",
     "minutes": 5,
     "generatedAt": "2026-05-15T19:10:02.578Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.213Z"
   },
   {
     "slug": "deal-2026-05-15-cloudflare-무료-한도-vs-가비아-vs-vercel-비교",
@@ -792,7 +796,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "AI 도구",
     "minutes": 6,
     "generatedAt": "2026-05-15T19:10:10.032Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.213Z"
   },
   {
     "slug": "deal-2026-05-15-한국에서-결제-가능한-ai-챗봇-카드-거부율-비교",
@@ -801,7 +806,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "AI 도구",
     "minutes": 5,
     "generatedAt": "2026-05-15T19:10:15.422Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.214Z"
   },
   {
     "slug": "deal-2026-05-15-주택청약종합저축-가입-시점월-납입금당첨-가점-계산",
@@ -810,7 +816,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-15T19:10:27.679Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.215Z"
   },
   {
     "slug": "deal-2026-05-15-디즈니플러스-연간-vs-월간-결제-차이-프로모션-코드",
@@ -829,7 +836,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "OTT",
     "minutes": 5,
     "generatedAt": "2026-05-15T01:47:18.305Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.210Z"
   },
   {
     "slug": "deal-2026-05-15-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
@@ -838,7 +846,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 6,
     "generatedAt": "2026-05-15T01:47:26.214Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.211Z"
   },
   {
     "slug": "deal-2026-05-15-에어비앤비-vs-호텔-가격-비교-한국에서-출국-시",
@@ -847,7 +856,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "항공/여행",
     "minutes": 5,
     "generatedAt": "2026-05-15T01:47:32.114Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-14T06:22:59.212Z"
   },
   {
     "slug": "deal-2026-05-14-플레이스테이션-psn-세일-잘-사는-시기",
