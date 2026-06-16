@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-16-스팀-dead-by-daylight-60-할인-21500-8600",
+    "title": "스팀 데바데 60% 할인: ₩21,500 → ₩8,600",
+    "excerpt": "스팀 'Dead by Daylight' 60% 할인! ₩8,600에 구매하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-16T20:33:18.830Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-16-split-fiction-스팀-베스트셀러-35-할인",
     "title": "스팀 'Split Fiction' 35% 할인 중! 지금이 구매 찬스",
     "excerpt": "스팀 베스트셀러 'Split Fiction' 35% 할인! 지금 바로 확인하세요.",
