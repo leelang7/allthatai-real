@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-18-스팀-cyberpunk-2077-70-할인-66000-19800",
+    "title": "스팀 Cyberpunk 2077 70% 할인: 19,800원에 구매 찬스",
+    "excerpt": "스팀에서 '사이버펑크 2077' 70% 할인! 19,800원에 명작 RPG를 경험하세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-06-18T20:02:27.635Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-18-dave-the-diver---in-the-jungle-bundle-스팀-베스트셀러-33-할인",
     "title": "DAVE THE DIVER 할인: 스팀에서 33% 저렴하게 구매하세요!",
     "excerpt": "인기 스팀 게임 'DAVE THE DIVER - In the Jungle Bundle' 33% 할인 중!",
