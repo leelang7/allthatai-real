@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-18-dave-the-diver---in-the-jungle-bundle-스팀-베스트셀러-33-할인",
+    "title": "DAVE THE DIVER 할인: 스팀에서 33% 저렴하게 구매하세요!",
+    "excerpt": "인기 스팀 게임 'DAVE THE DIVER - In the Jungle Bundle' 33% 할인 중!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-18T10:00:03.843Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-16-스팀-dead-by-daylight-60-할인-21500-8600",
     "title": "스팀 데바데 60% 할인: ₩21,500 → ₩8,600",
     "excerpt": "스팀 'Dead by Daylight' 60% 할인! ₩8,600에 구매하세요.",
