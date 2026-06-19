@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-19-스팀-it-takes-two-70-할인-44000-13200",
+    "title": "스팀 'It Takes Two' 70% 할인: 1.3만원대로 명작 협동 게임 즐기기",
+    "excerpt": "스팀 'It Takes Two' 70% 할인! 1.3만원대로 협동 명작 게임을 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-19T10:06:17.534Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-19-스팀-dead-space-90-할인-66000-6600",
     "title": "스팀 데드 스페이스 90% 할인: 6,600원에 구매 기회",
     "excerpt": "스팀에서 'Dead Space' 90% 할인! 정가 66,000원 → 6,600원에 만나보세요.",
