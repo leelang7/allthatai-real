@@ -372,11 +372,13 @@ async function fetchGoogleTrends(): Promise<string[]> {
   }
 }
 
-// AI / tech-flow signal: Google News search RSS for recent AI headlines (3-day).
-async function fetchAiNews(): Promise<string[]> {
+// Topic news signal: Google News search RSS for recent Korean headlines on a
+// theme (AI launches, hit OTT dramas, etc.). selectTrendAngles() turns these
+// into deal/verify angles — e.g. a buzzed-about drama → "어디서 가장 싸게 보나".
+async function fetchTopicNews(query: string, max = 8): Promise<string[]> {
   const url =
     'https://news.google.com/rss/search?q=' +
-    encodeURIComponent('(AI OR 인공지능 OR OpenAI OR 클로드 OR Gemini OR ChatGPT) when:3d') +
+    encodeURIComponent(query) +
     '&hl=ko&gl=KR&ceid=KR:ko';
   try {
     const res = await fetch(url, {
@@ -387,13 +389,13 @@ async function fetchAiNews(): Promise<string[]> {
     const out: string[] = [];
     const itemRe = /<item>([\s\S]*?)<\/item>/g;
     let m: RegExpExecArray | null;
-    while ((m = itemRe.exec(xml)) !== null && out.length < 10) {
+    while ((m = itemRe.exec(xml)) !== null && out.length < max) {
       const title = m[1].match(/<title>(?:<!\[CDATA\[)?([^<\]]+)/)?.[1]?.trim();
       if (title) out.push(title);
     }
     return out;
   } catch (e) {
-    console.warn('ai news failed:', e instanceof Error ? e.message : e);
+    console.warn(`topic news failed (${query.slice(0, 30)}):`, e instanceof Error ? e.message : e);
     return [];
   }
 }
@@ -1042,7 +1044,13 @@ async function main() {
   // Trend discovery — search-volume spikes (dramas, events, AI launches) from
   // Google's realtime trending RSS + AI news, filtered by Claude to keep only
   // savings/deal/verify-worthy angles. Highest timeliness → generated first.
-  const trendRaw = [...(await fetchGoogleTrends()), ...(await fetchAiNews())];
+  const trendRaw = [
+    ...(await fetchGoogleTrends()),
+    // AI / tech flow (new model & tool launches → 가격·무료한도·진위 글)
+    ...(await fetchTopicNews('(AI OR 인공지능 OR OpenAI OR 클로드 OR Gemini OR ChatGPT) when:3d')),
+    // Hit OTT dramas/shows (사용자 의도: 인기 드라마 뜨면 → 어디서 싸게 보나 OTT 비교)
+    ...(await fetchTopicNews('(넷플릭스 OR 디즈니플러스 OR 티빙 OR 쿠팡플레이 OR 웨이브) (드라마 OR 공개 OR 신작 OR 화제) when:3d')),
+  ];
   if (trendRaw.length > 0) {
     const trendCands = await selectTrendAngles(trendRaw);
     if (trendCands.length > 0) {
