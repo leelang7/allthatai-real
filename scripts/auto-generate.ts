@@ -250,6 +250,7 @@ interface DealCandidate {
   context?: string;
   link?: string;
   evergreen?: boolean;
+  trendKey?: string; // original trending keyword, for cross-run dedupe
 }
 
 interface GeneratedMeta {
@@ -260,6 +261,7 @@ interface GeneratedMeta {
   minutes: number;
   generatedAt: string;
   type: 'issue';
+  trendKey?: string; // set for trend-sourced articles, for cross-run dedupe
 }
 
 function slugify(s: string): string {
@@ -441,6 +443,7 @@ async function selectTrendAngles(keywords: string[]): Promise<DealCandidate[]> {
         context: x.keyword
           ? `검색 급상승 키워드: "${x.keyword}". 지금 검색량이 오르는 중이라 선점 가치가 큼.`
           : '',
+        trendKey: x.keyword?.trim() || undefined,
       }));
   } catch {
     return [];
@@ -464,6 +467,19 @@ async function loadExistingSlugs(): Promise<Set<string>> {
  */
 function topicKey(slug: string): string {
   return slug.replace(/^deal-\d{4}-\d{2}-\d{2}-/, '');
+}
+
+/** Trend keywords already used by prior auto-issues — prevents the same hot
+ *  keyword (e.g. "클로봇") regenerating daily under slightly different titles. */
+async function loadTrendKeys(): Promise<Set<string>> {
+  const set = new Set<string>();
+  try {
+    const mod = await import('../src/data/guides.auto');
+    for (const g of ((mod as any).autoGuides || []) as GeneratedMeta[]) {
+      if (g.trendKey) set.add(g.trendKey.toLowerCase());
+    }
+  } catch { /* first run */ }
+  return set;
 }
 
 async function loadExistingTopics(): Promise<Set<string>> {
@@ -926,6 +942,7 @@ ${item.link ? `참고 링크: ${item.link}` : ''}
     minutes: parsed.minutes || 5,
     generatedAt: new Date().toISOString(),
     type: 'issue',
+    ...(item.trendKey ? { trendKey: item.trendKey } : {}),
   };
 
   const faqsAttr = Array.isArray(parsed.faqs) && parsed.faqs.length > 0
@@ -997,7 +1014,7 @@ async function appendAutoMeta(newMetas: GeneratedMeta[]) {
   const out = `// AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = ${JSON.stringify(
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = ${JSON.stringify(
     merged,
     null,
     2,
@@ -1053,11 +1070,15 @@ async function main() {
   ];
   if (trendRaw.length > 0) {
     const trendCands = await selectTrendAngles(trendRaw);
-    if (trendCands.length > 0) {
-      allItems.unshift(...trendCands); // front of queue: timely, generate first
-      console.log(`   trend (search spikes): ${trendRaw.length} raw → ${trendCands.length} usable angles`);
+    const seenKeys = await loadTrendKeys();
+    const freshTrend = trendCands.filter(
+      (c) => !c.trendKey || !seenKeys.has(c.trendKey.toLowerCase()),
+    );
+    if (freshTrend.length > 0) {
+      allItems.unshift(...freshTrend); // front of queue: timely, generate first
+      console.log(`   trend (search spikes): ${trendRaw.length} raw → ${trendCands.length} usable → ${freshTrend.length} fresh`);
     } else {
-      console.log(`   trend: ${trendRaw.length} raw → 0 usable (no deal/verify angle, or no OpenRouter key)`);
+      console.log(`   trend: ${trendRaw.length} raw → ${trendCands.length} usable → 0 fresh (all seen recently, or no LLM key)`);
     }
   }
 
