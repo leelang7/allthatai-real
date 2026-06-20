@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
+    "slug": "deal-2026-06-20-스팀-더-위쳐-3-와일드-헌트---컴플리트-에디션-80-할인-54800-10960",
+    "title": "스팀 위쳐 3 컴플리트 에디션 80% 할인: 1만 원대로 구매 기회",
+    "excerpt": "스팀에서 '더 위쳐 3: 와일드 헌트 - 컴플리트 에디션' 80% 할인 중! 1만 원대로 명작 RPG를 즐길 기회입니다.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-06-20T01:57:02.299Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-19-스팀-it-takes-two-70-할인-44000-13200",
     "title": "스팀 'It Takes Two' 70% 할인: 1.3만원대로 명작 협동 게임 즐기기",
     "excerpt": "스팀 'It Takes Two' 70% 할인! 1.3만원대로 협동 명작 게임을 만나보세요.",
