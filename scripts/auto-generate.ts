@@ -37,8 +37,9 @@ const ISSUES_DIR = path.join(ROOT, 'src/pages/issues');
 const META_FILE = path.join(ROOT, 'src/data/guides.auto.ts');
 
 const MAX_NEW_PER_RUN = parseInt(process.env.MAX_NEW_PER_RUN || '3', 10);
-// flash-lite: free tier ~1,000 RPD vs flash 250 RPD. Same Korean quality for our use.
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+// Quality-first: full flash (stronger Korean prose) over flash-lite. Only a
+// fallback here (Cerebras 120B runs first), so the lower 250 RPD is plenty.
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const QUOTA_RETRY_DELAY_MS = 30_000;
 const QUOTA_MAX_RETRIES = 1;
@@ -90,33 +91,6 @@ const REDDIT_DEAL_FEEDS = [
   'https://www.reddit.com/r/buildapcsales/top.json?t=day&limit=15',
   'https://www.reddit.com/r/AppHookup/top.json?t=week&limit=15', // mobile app deals
   'https://www.reddit.com/r/SteamDeals/top.json?t=day&limit=10',
-];
-
-// YouTube search RSS — title-only, no API key needed.
-// Korean deal-hunter keywords with strong commercial intent.
-const YT_KEYWORDS = [
-  '클로드 할인',
-  'chatgpt 프로모션',
-  '스팀 세일',
-  '에픽 무료게임',
-  '트래블월렛 혜택',
-  '쿠팡플레이 할인',
-  '디즈니플러스 할인',
-  '플레이스테이션 세일',
-  '닌텐도 세일',
-  'AI 도구 할인',
-  'cursor 할인',
-  '청년 지원금',
-  '신용카드 캐시백',
-  '항공권 특가',
-  '직구 꿀템',
-];
-
-// Google News topic feeds — broader Korean trend signal that we cross-reference
-// to bias category routing on the LLM call.
-const GOOGLE_NEWS_TOPICS = [
-  { url: 'https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=ko&gl=KR&ceid=KR:ko', tagHint: 'AI 도구' },
-  { url: 'https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ko&gl=KR&ceid=KR:ko', tagHint: '카드/핀테크' },
 ];
 
 // Korean government / 청년정책 RSS feeds — automatic 정부지원 idea injection.
@@ -368,34 +342,105 @@ async function fetchSteamSales(): Promise<DealCandidate[]> {
   }
 }
 
-async function fetchYouTubeKeyword(kw: string): Promise<DealCandidate[]> {
-  // YouTube exposes a feed for any search query at this URL.
-  const url = `https://www.youtube.com/feeds/videos.xml?search_query=${encodeURIComponent(kw)}`;
+// === Trend discovery (search-volume spikes) ===
+// Google's realtime "trending now" RSS surfaces what Korea is searching RIGHT
+// NOW (dramas, events, product launches). Most entries are gossip/sports we
+// can't use, so selectTrendAngles() (Claude) keeps only the ones that map to a
+// savings/deal/verification angle. This is the "인기 드라마 뜨면 검색량 늘어남"
+// signal the engine was missing.
+async function fetchGoogleTrends(): Promise<string[]> {
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': UA } });
+    const res = await fetch('https://trends.google.com/trending/rss?geo=KR', {
+      headers: { 'User-Agent': UA, Accept: 'application/rss+xml,application/xml,text/xml' },
+    });
     if (!res.ok) return [];
     const xml = await res.text();
-    const items: DealCandidate[] = [];
-    const entryRe = /<entry>([\s\S]*?)<\/entry>/g;
+    const out: string[] = [];
+    const re = /<title>(?:<!\[CDATA\[)?([^<\]]+)/g;
     let m: RegExpExecArray | null;
-    while ((m = entryRe.exec(xml))) {
-      const block = m[1];
-      const title = (
-        /<title[^>]*>(?:<!\[CDATA\[)?([^<\]]+?)(?:\]\]>)?<\/title>/.exec(block)?.[1] || ''
-      ).trim();
-      const link = (/<link[^>]+href="([^"]+)"/.exec(block)?.[1] || '').trim();
-      const ctx = (
-        /<media:description[^>]*>([\s\S]*?)<\/media:description>/.exec(block)?.[1] || ''
-      )
-        .replace(/<[^>]+>/g, '')
-        .trim()
-        .slice(0, 200);
-      if (title) items.push({ title, source: `yt:${kw}`, context: ctx, link });
-      if (items.length >= 5) break;
+    let skippedChannel = false;
+    while ((m = re.exec(xml)) !== null) {
+      if (!skippedChannel) { skippedChannel = true; continue; } // first <title> = channel name
+      const t = m[1].trim();
+      if (t) out.push(t);
+      if (out.length >= 20) break;
     }
-    return items;
+    return out;
   } catch (e) {
-    console.warn(`yt fetch ${kw} failed:`, e instanceof Error ? e.message : e);
+    console.warn('google trends failed:', e instanceof Error ? e.message : e);
+    return [];
+  }
+}
+
+// AI / tech-flow signal: Google News search RSS for recent AI headlines (3-day).
+async function fetchAiNews(): Promise<string[]> {
+  const url =
+    'https://news.google.com/rss/search?q=' +
+    encodeURIComponent('(AI OR 인공지능 OR OpenAI OR 클로드 OR Gemini OR ChatGPT) when:3d') +
+    '&hl=ko&gl=KR&ceid=KR:ko';
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': UA, Accept: 'application/rss+xml,application/xml,text/xml' },
+    });
+    if (!res.ok) return [];
+    const xml = await res.text();
+    const out: string[] = [];
+    const itemRe = /<item>([\s\S]*?)<\/item>/g;
+    let m: RegExpExecArray | null;
+    while ((m = itemRe.exec(xml)) !== null && out.length < 10) {
+      const title = m[1].match(/<title>(?:<!\[CDATA\[)?([^<\]]+)/)?.[1]?.trim();
+      if (title) out.push(title);
+    }
+    return out;
+  } catch (e) {
+    console.warn('ai news failed:', e instanceof Error ? e.message : e);
+    return [];
+  }
+}
+
+const TREND_SELECT_SYSTEM = `You triage trending Korean search terms / news headlines for "AllThatAI Real",
+a site about SAVINGS, deals, discounts, 정부지원금, 전세사기·계약 검증, and 공공API
+활용. From a list of currently-trending items, keep ONLY those you can turn into
+a genuinely useful practical article with a savings/deal/verification angle.
+
+DROP (do not output): pure celebrity gossip, individual people's private news,
+politics, sports match results, and anything with no shopping/savings/verify hook.
+
+For each kept item, rewrite it into a concrete title a Korean user would
+actually search — e.g. "폭염" → "폭염 전기요금 폭탄 피하는 법 — 누진구간·에어컨 절약",
+"새 OTT 드라마 화제" → "그 드라마 어디서 가장 싸게 보나 — OTT 요금 비교".
+Output JSON array ONLY, no prose:
+[{"keyword":"<original>","title":"<concrete article title, 60자 이내>","angle":"deal|gov|verify|compare"}]
+If nothing qualifies, output [].`;
+
+/**
+ * Ask the LLM to keep only trending items with a real savings/deal/verify angle
+ * and rewrite each into a concrete searchable title. Requires OPENROUTER key;
+ * without it we return [] (trend discovery off, engine runs on evergreen/etc).
+ */
+async function selectTrendAngles(keywords: string[]): Promise<DealCandidate[]> {
+  if (keywords.length === 0 || !HAS_LLM) return [];
+  const list = keywords.map((k, i) => `${i + 1}. ${k}`).join('\n');
+  const text = await complete(
+    TREND_SELECT_SYSTEM,
+    `지금 한국에서 검색량이 급상승 중인 키워드/뉴스 목록:\n${list}\n\n위 기준대로 쓸 만한 것만 골라 JSON 배열로.`,
+    1024,
+  );
+  if (!text) return [];
+  const match = text.match(/\[[\s\S]*\]/);
+  if (!match) return [];
+  try {
+    const arr = JSON.parse(match[0]) as Array<{ keyword?: string; title?: string; angle?: string }>;
+    return arr
+      .filter((x) => x && typeof x.title === 'string' && x.title.trim().length > 4)
+      .map((x) => ({
+        title: x.title!.trim(),
+        source: `trend:${x.angle || 'deal'}`,
+        context: x.keyword
+          ? `검색 급상승 키워드: "${x.keyword}". 지금 검색량이 오르는 중이라 선점 가치가 큼.`
+          : '',
+      }));
+  } catch {
     return [];
   }
 }
@@ -508,12 +553,12 @@ interface GeminiResponse {
   }>;
 }
 
-async function callGemini(userMsg: string): Promise<string | null> {
+async function callGemini(userMsg: string, system: string = SYSTEM_PROMPT): Promise<string | null> {
   if (QUOTA_EXHAUSTED) return null;
   if (API_KEYS.length === 0) throw new Error('No GEMINI_API_KEY* env vars set');
 
   const body = {
-    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    systemInstruction: { parts: [{ text: system }] },
     contents: [{ role: 'user', parts: [{ text: userMsg }] }],
     generationConfig: {
       temperature: 0.6,
@@ -572,6 +617,81 @@ async function callGemini(userMsg: string): Promise<string | null> {
     if (!transientError) return null;
     // else: outer loop picks next key
   }
+}
+
+// LLM fallback chain — ordered by QUALITY first (best model tried first):
+//   Cerebras gpt-oss-120b → Gemini 2.5 flash → Groq 70B → TokenMix → OpenRouter.
+// All except Gemini are OpenAI-compatible. Free tiers; if one is down or
+// quota-exhausted we fall through to the next. Only providers with a key set
+// participate. This avoids single-model failures (e.g. a free model going paid).
+interface OAProvider { name: string; url: string; key: string; model: string }
+
+// Tried before Gemini (higher-quality large models first).
+const OA_BEFORE_GEMINI: OAProvider[] = [
+  { name: 'Cerebras', url: 'https://api.cerebras.ai/v1/chat/completions', key: process.env.CEREBRAS_API_KEY || '', model: process.env.CEREBRAS_MODEL || 'gpt-oss-120b' },
+].filter((p) => p.key);
+
+// Tried after Gemini (70B-class fallbacks).
+const OA_AFTER_GEMINI: OAProvider[] = [
+  { name: 'Groq', url: 'https://api.groq.com/openai/v1/chat/completions', key: process.env.GROQ_API_KEY || '', model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile' },
+  { name: 'TokenMix', url: 'https://api.tokenmix.ai/v1/chat/completions', key: process.env.TOKENMIX_API_KEY || '', model: process.env.TOKENMIX_MODEL || 'llama-3.3-70b-versatile' },
+  { name: 'OpenRouter', url: 'https://openrouter.ai/api/v1/chat/completions', key: process.env.OPENROUTER_API_KEY || '', model: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free' },
+].filter((p) => p.key);
+
+const HAS_LLM = OA_BEFORE_GEMINI.length > 0 || OA_AFTER_GEMINI.length > 0 || API_KEYS.length > 0;
+
+async function callOpenAICompat(
+  p: OAProvider,
+  system: string,
+  userMsg: string,
+  maxTokens: number,
+): Promise<string | null> {
+  try {
+    const res = await fetch(p.url, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${p.key}` },
+      body: JSON.stringify({
+        model: p.model,
+        temperature: 0.6,
+        max_tokens: maxTokens,
+        messages: [
+          { role: 'system', content: system },
+          { role: 'user', content: userMsg },
+        ],
+      }),
+    });
+    if (!res.ok) {
+      console.warn(`   [llm] ${p.name} ${res.status}: ${(await res.text().catch(() => '')).slice(0, 160)}`);
+      return null;
+    }
+    const data = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const text = (data.choices?.[0]?.message?.content || '').trim();
+    return text || null;
+  } catch (e) {
+    console.warn(`   [llm] ${p.name} failed:`, e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
+/**
+ * Full fallback chain. Tries each keyed provider in order until one returns
+ * text; returns null only if every provider fails. `system` lets callers swap
+ * the article-writer prompt for the trend-triage prompt.
+ */
+async function complete(system: string, userMsg: string, maxTokens = 2048): Promise<string | null> {
+  for (const p of OA_BEFORE_GEMINI) {
+    const r = await callOpenAICompat(p, system, userMsg, maxTokens);
+    if (r) return r;
+  }
+  if (API_KEYS.length > 0) {
+    const r = await callGemini(userMsg, system);
+    if (r) return r;
+  }
+  for (const p of OA_AFTER_GEMINI) {
+    const r = await callOpenAICompat(p, system, userMsg, maxTokens);
+    if (r) return r;
+  }
+  return null;
 }
 
 // Brand → affiliates.ts key. Lowercased for case-insensitive matching.
@@ -767,7 +887,9 @@ ${item.link ? `참고 링크: ${item.link}` : ''}
 위 토픽으로 한국 사용자에게 실제 절약·할인 기회를 알려주는 글을 schema대로 작성.
 가격·날짜·할인율을 모르면 "(공식 사이트 확인 필요)"로 적고, 추측 절대 금지. JSON만 출력.`;
 
-  const text = await callGemini(userMsg);
+  // Full article body (body_md + faqs + howto) is long — give it headroom so the
+  // JSON isn't truncated mid-object (which would fail the parse below).
+  const text = await complete(SYSTEM_PROMPT, userMsg, 4096);
   if (!text) return null;
 
   if (text.trim() === 'SKIP_TOPIC' || text.includes('"SKIP_TOPIC"')) {
@@ -775,7 +897,10 @@ ${item.link ? `참고 링크: ${item.link}` : ''}
     return null;
   }
 
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  // Strip a leading ```json / ``` fence if the model wrapped its output, then
+  // grab the outermost JSON object. (Some models prepend reasoning prose.)
+  const cleaned = text.replace(/```(?:json)?/gi, '');
+  const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
     console.log(`  [skip] ${item.title} — no JSON output`);
     return null;
@@ -893,11 +1018,16 @@ function pickEvergreen(count: number): DealCandidate[] {
 }
 
 async function main() {
-  if (API_KEYS.length === 0) {
-    console.error('At least one of GEMINI_API_KEY / GEMINI_API_KEY_2 / GEMINI_API_KEY_3 must be set');
+  if (!HAS_LLM) {
+    console.error('Set at least one LLM key: CEREBRAS_API_KEY / GEMINI_API_KEY* / GROQ_API_KEY / TOKENMIX_API_KEY / OPENROUTER_API_KEY');
     process.exit(1);
   }
-  console.log(`Configured ${API_KEYS.length} Gemini API key(s) (rotation enabled)`);
+  const chain = [
+    ...OA_BEFORE_GEMINI.map((p) => `${p.name}(${p.model})`),
+    ...(API_KEYS.length ? [`Gemini(${MODEL})×${API_KEYS.length}`] : []),
+    ...OA_AFTER_GEMINI.map((p) => p.name),
+  ];
+  console.log(`LLM chain (quality-first): ${chain.join(' → ')}`);
 
   console.log('1. Fetching deal candidates...');
   const allItems: DealCandidate[] = [];
@@ -908,6 +1038,20 @@ async function main() {
   const evergreen = pickEvergreen(MAX_NEW_PER_RUN * 3);
   allItems.push(...evergreen);
   console.log(`   evergreen seeds (priority): ${evergreen.length}`);
+
+  // Trend discovery — search-volume spikes (dramas, events, AI launches) from
+  // Google's realtime trending RSS + AI news, filtered by Claude to keep only
+  // savings/deal/verify-worthy angles. Highest timeliness → generated first.
+  const trendRaw = [...(await fetchGoogleTrends()), ...(await fetchAiNews())];
+  if (trendRaw.length > 0) {
+    const trendCands = await selectTrendAngles(trendRaw);
+    if (trendCands.length > 0) {
+      allItems.unshift(...trendCands); // front of queue: timely, generate first
+      console.log(`   trend (search spikes): ${trendRaw.length} raw → ${trendCands.length} usable angles`);
+    } else {
+      console.log(`   trend: ${trendRaw.length} raw → 0 usable (no deal/verify angle, or no OpenRouter key)`);
+    }
+  }
 
   // Steam API — free, returns REAL ongoing sales with prices in KRW. Highest
   // signal for game-deal articles since the LLM can quote verified numbers.
@@ -937,9 +1081,6 @@ async function main() {
     console.log(`   ${url.split('?')[0].split('/r/')[1]}: ${items.length} → ${filtered.length} korea-relevant`);
     allItems.push(...filtered);
   }
-
-  // YouTube search RSS is unreliable (returns 400 on many Korean queries).
-  // Skipped for now; evergreen + Reddit cover content needs.
 
   const existingTopics = await loadExistingTopics();
   const today = new Date().toISOString().slice(0, 10);
