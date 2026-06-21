@@ -774,7 +774,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-17T01:43:36.212Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.655Z"
   },
   {
     "slug": "deal-2026-05-17-청년-주택드림-대출-분양가-80-최저-22-금리-조건",
@@ -783,7 +784,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-17T01:43:44.401Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.656Z"
   },
   {
     "slug": "deal-2026-05-17-lhsh-행복주택-vs-매입임대-vs-전세임대-자격-차이",
@@ -801,7 +803,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "주택/청약",
     "minutes": 6,
     "generatedAt": "2026-05-16T18:42:51.766Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.654Z"
   },
   {
     "slug": "deal-2026-05-16-microsoft-365-한국-vs-학생-라이선스-가격",
@@ -810,7 +813,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:11.290Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.651Z"
   },
   {
     "slug": "deal-2026-05-16-adobe-creative-cloud-한국-vs-외국-가격-차이",
@@ -819,7 +823,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:20.454Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.651Z"
   },
   {
     "slug": "deal-2026-05-16-notion-학생-무료-자격신청법",
@@ -828,7 +833,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:27.732Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.652Z"
   },
   {
     "slug": "deal-2026-05-16-figma-학생-무료-vs-pro-차이",
@@ -837,7 +843,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:35.574Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.653Z"
   },
   {
     "slug": "deal-2026-05-16-github-pro-학생-무료-패키지에-뭐-들어있나",
@@ -846,7 +853,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:42.301Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.653Z"
   },
   {
     "slug": "deal-2026-05-16-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
@@ -885,7 +893,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "직구/쇼핑",
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:27.602Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.648Z"
   },
   {
     "slug": "deal-2026-05-16-nordvpn-1년-vs-2년-결제-어느-시점이-가장-싼가",
@@ -894,7 +903,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:34.495Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-21T06:39:41.650Z"
   },
   {
     "slug": "deal-2026-05-15-aws-무료-12개월-가입-시-주의할-청구",
