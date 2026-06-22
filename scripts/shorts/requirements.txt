@@ -1,0 +1,15 @@
+# Local AI short-video pipeline (Python side). Node deps are in package.json.
+# Install: pip install -r scripts/shorts/requirements.txt
+# Also needs: ffmpeg + edge-tts on PATH, and torch with CUDA (installed separately
+#   per your GPU, e.g. pip install torch --index-url https://download.pytorch.org/whl/cu124).
+diffusers
+transformers
+accelerate
+imageio
+imageio-ffmpeg
+sentencepiece
+protobuf
+edge-tts
+fal-client
+google-auth-oauthlib
+google-api-python-client

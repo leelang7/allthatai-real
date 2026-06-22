@@ -17,6 +17,14 @@ pnpm-debug.log*
 .env
 .env.production
 
+# shorts pipeline artifacts (videos/images/work — code is tracked, outputs are not)
+scripts/shorts/_work/
+scripts/shorts/_*.mp4
+scripts/shorts/_*.png
+scripts/shorts/out/
+scripts/shorts/client_secret.json
+scripts/shorts/yt_token.json
+
 # macOS-specific files
 .DS_Store
 
