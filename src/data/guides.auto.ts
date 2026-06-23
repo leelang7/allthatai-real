@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-06-23-스팀-호라이즌-포비든-웨스트-컴플리트-에디션-50-할인-62800-31400",
+    "title": "스팀 호라이즌 포비든 웨스트 컴플리트 에디션 50% 할인",
+    "excerpt": "스팀 호라이즌 포비든 웨스트 컴플리트 에디션이 50% 할인 중입니다. 지금 바로 확인하세요!",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-06-23T01:52:10.648Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-06-20-스팀-더-위쳐-3-와일드-헌트---컴플리트-에디션-80-할인-54800-10960",
     "title": "스팀 위쳐 3 컴플리트 에디션 80% 할인: 1만 원대로 구매 기회",
