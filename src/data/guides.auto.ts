@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-06-26-deluxe-edition---djmax-respect-v-스팀-베스트셀러-67-할인",
+    "title": "DJMAX RESPECT V 디럭스 에디션 67% 할인 — 스팀 베스트셀러",
+    "excerpt": "스팀 베스트셀러 DJMAX RESPECT V 디럭스 에디션이 67% 할인 중입니다. 리듬 게임 팬이라면 주목!",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-06-26T08:44:17.129Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-06-23-스팀-호라이즌-포비든-웨스트-컴플리트-에디션-50-할인-62800-31400",
     "title": "스팀 호라이즌 포비든 웨스트 컴플리트 에디션 50% 할인",
     "excerpt": "스팀 호라이즌 포비든 웨스트 컴플리트 에디션이 50% 할인 중입니다. 지금 바로 확인하세요!",
