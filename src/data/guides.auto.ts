@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-06-26-deluxe-edition---djmax-respect-v-스팀-베스트셀러-67-할인",
     "title": "DJMAX RESPECT V 디럭스 에디션 67% 할인 — 스팀 베스트셀러",
@@ -702,7 +702,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-18T09:32:11.086Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.960Z"
   },
   {
     "slug": "deal-2026-05-18-취득세-감면-생애최초신혼중과-면제-조건-정리",
@@ -711,7 +712,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "정부지원",
     "minutes": 6,
     "generatedAt": "2026-05-18T09:32:32.669Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.961Z"
   },
   {
     "slug": "deal-2026-05-18-주거급여-임차가구-지원-한도와-신청-절차",
@@ -720,7 +722,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-18T09:32:54.852Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.961Z"
   },
   {
     "slug": "deal-2026-05-18-특허출원-대행-50만-vs-변리사-직접-vs-자가출원",
@@ -729,7 +732,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-18T09:33:05.489Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.962Z"
   },
   {
     "slug": "deal-2026-05-18-상표출원-대행-30만-vs-키프리스-직접",
@@ -747,7 +751,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-18T01:52:57.322Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.957Z"
   },
   {
     "slug": "deal-2026-05-18-오피스텔-청약-vs-아파트-청약-세금전매주거기준-비교",
@@ -756,7 +761,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-18T01:53:05.362Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.958Z"
   },
   {
     "slug": "deal-2026-05-18-재개발재건축-분양권-일반분양-청약과의-차이",
@@ -765,7 +771,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-18T01:53:11.935Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.959Z"
   },
   {
     "slug": "deal-2026-05-18-무순위-청약줍줍-자격당첨-후-절차",
@@ -774,7 +781,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 6,
     "generatedAt": "2026-05-18T01:53:19.840Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.959Z"
   },
   {
     "slug": "deal-2026-05-17-청약가점제-무주택기간부양가족통장가입기간-가점-계산",
@@ -783,7 +791,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-17T08:03:25.713Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.956Z"
   },
   {
     "slug": "deal-2026-05-17-신생아-특례-디딤돌-16-금리-자격과-한도",
@@ -812,7 +821,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-17T01:43:50.353Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-06-28T06:03:55.955Z"
   },
   {
     "slug": "deal-2026-05-16-디딤돌-대출-금리한도자격과-보금자리론과-비교",
