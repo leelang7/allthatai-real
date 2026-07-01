@@ -1,0 +1,77 @@
+---
+// 크라우드 음식반응 수집 현황 — 시각화(지도 + 리스트). 별점 아닌 실제 발화 RAG 풀을 눈으로.
+export const prerender = false;
+import { allPlaces } from '../../lib/places-redis';
+
+const places = await allPlaces(500);
+const totalReactions = places.reduce((s, p) => s + p.quotes.length, 0);
+const totalPeople = places.reduce((s, p) => s + p.people, 0);
+// 지도 마커용 JSON(좌표 있는 것만)
+const markers = places
+  .filter((p) => p.lat && p.lng)
+  .map((p) => ({ name: p.name, lat: p.lat, lng: p.lng, people: p.people, love: p.love }));
+---
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>크라우드 존맛 수집 현황</title>
+    <style>
+      body { background: #0e0f12; color: #e8e8ea; font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 20px; }
+      h1 { font-size: 20px; }
+      .kpis { display: flex; gap: 12px; margin: 14px 0; }
+      .kpi { background: #16161a; border: 1px solid #26262c; border-radius: 12px; padding: 14px 18px; }
+      .kpi b { font-size: 24px; display: block; color: #7fd1a0; }
+      .kpi span { font-size: 12px; color: #9aa; }
+      #map { height: 340px; border-radius: 12px; margin: 12px 0; background: #16161a; }
+      .card { background: #16161a; border: 1px solid #26262c; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+      .card h3 { margin: 0 0 4px; font-size: 15px; }
+      .meta { font-size: 12px; color: #9aa; margin-bottom: 6px; }
+      .q { font-size: 14px; font-style: italic; color: #dbe; margin: 2px 0; }
+      .menu { display: inline-block; font-size: 11px; color: #f0a; background: #3a1030; padding: 2px 8px; border-radius: 20px; }
+      .empty { color: #888; padding: 30px; text-align: center; }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  </head>
+  <body>
+    <h1>🍜 크라우드 존맛 수집 현황</h1>
+    <div class="kpis">
+      <div class="kpi"><b>{places.length}</b><span>수집된 가게</span></div>
+      <div class="kpi"><b>{totalReactions}</b><span>실제 반응(발화)</span></div>
+      <div class="kpi"><b>{totalPeople}</b><span>고유 기여자</span></div>
+    </div>
+
+    {markers.length > 0 && <div id="map"></div>}
+
+    {places.length === 0 && <div class="empty">아직 수집된 반응이 없습니다.<br />앱에서 "여기 맛집 등록" 하거나, 카톡 음식 칭찬이 감지되면 여기 쌓입니다.</div>}
+
+    {places.map((p) => (
+      <div class="card">
+        <h3>{p.name} {p.topMenu && <span class="menu">🍴 {p.topMenu}</span>}</h3>
+        <div class="meta">고유 {p.people}명 · 👍 {p.love} · 반응 {p.quotes.length}개 · ({p.lat.toFixed(4)}, {p.lng.toFixed(4)})</div>
+        {p.quotes.slice(0, 6).map((q) => (
+          <div class="q">{q.pos ? '👍' : '👎'} "{q.q}" {q.m && <span style="color:#f0a">[{q.m}]</span>}</div>
+        ))}
+      </div>
+    ))}
+
+    <script is:inline define:vars={{ markers }}>
+      if (markers.length > 0) {
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        s.onload = () => {
+          const first = markers[0];
+          const map = L.map('map').setView([first.lat, first.lng], 12);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+          for (const m of markers) {
+            L.circleMarker([m.lat, m.lng], {
+              radius: 6 + Math.min(m.people, 20),
+              color: '#7fd1a0', fillColor: '#2a8a4a', fillOpacity: 0.7,
+            }).addTo(map).bindPopup(`<b>${m.name}</b><br>고유 ${m.people}명 · 👍 ${m.love}`);
+          }
+        };
+        document.head.appendChild(s);
+      }
+    </script>
+  </body>
+</html>

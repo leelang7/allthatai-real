@@ -1,0 +1,196 @@
+// 크라우드 "존맛" 네트워크 — 여러 사람의 실제 행동(방문·재방문·존맛반응)을 익명 집계.
+// 별점 아님. Upstash Redis GEO + HyperLogLog(고유 사람 수)로 온-서버 집계.
+// keys:
+//   places:geo                 GEOADD(lng,lat, placeId)          — 위치 인덱스
+//   place:{id}:meta            HASH {name, lat, lng}
+//   place:{id}:people          HLL  (PFADD anon)                 — 실제 고유 방문자 수
+//   place:{id}:love            counter                           — "존맛" 반응 수
+//   place:{id}:revisit         counter                           — 재방문(단골) 신호 수
+
+function env() {
+  const url = (import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = (import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  return url && token ? { url, token } : null;
+}
+
+async function cmd(parts: (string | number)[]): Promise<any> {
+  const e = env();
+  if (!e) return null;
+  const r = await fetch(e.url, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${e.token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(parts),
+  });
+  if (!r.ok) return null;
+  return (await r.json().catch(() => null))?.result ?? null;
+}
+
+async function pipe(cmds: (string | number)[][]): Promise<any[]> {
+  const e = env();
+  if (!e) return [];
+  const r = await fetch(`${e.url}/pipeline`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${e.token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(cmds),
+  });
+  if (!r.ok) return [];
+  const j = await r.json().catch(() => null);
+  return Array.isArray(j) ? j.map((x) => x?.result ?? null) : [];
+}
+
+/** 같은 실제 장소를 기여자끼리 합치는 안정적 id: 정규화한 이름 + ~11m 격자. */
+export function placeId(name: string, lat: number, lng: number): string {
+  const n = (name || '')
+    .toLowerCase()
+    .replace(/[^0-9a-z가-힣]+/g, '')
+    .slice(0, 24) || 'spot';
+  const la = lat.toFixed(4);
+  const lo = lng.toFixed(4);
+  return `${n}@${la},${lo}`;
+}
+
+export interface Reaction {
+  name: string; // 가게명
+  lat: number;
+  lng: number;
+  quote: string; // 실제 발화(익명·정제됨): "들기름막국수 미쳤다"
+  menu?: string; // 추출된 메뉴(있으면)
+  positive: boolean; // 긍정 반응 여부
+  anon: string; // 익명 기기 해시
+}
+
+/** 검증된 실제 반응 1건을 RAG 풀에 적재(별점 아님 — 실제 발화 스니펫). */
+export async function addReaction(r: Reaction): Promise<{ ok: boolean; id: string }> {
+  const id = placeId(r.name, r.lat, r.lng);
+  const quote = r.quote.slice(0, 140);
+  const snippet = JSON.stringify({ q: quote, m: r.menu || '', t: r.positive ? 1 : 0 });
+  const cmds: (string | number)[][] = [
+    ['GEOADD', 'places:geo', r.lng, r.lat, id],
+    ['HSET', `place:${id}:meta`, 'name', r.name.slice(0, 60), 'lat', r.lat, 'lng', r.lng],
+    ['PFADD', `place:${id}:people`, r.anon], // 고유 인원(조작 방지)
+    ['LPUSH', `place:${id}:quotes`, snippet], // RAG 발화 스니펫
+    ['LTRIM', `place:${id}:quotes`, 0, 40], // 최근 41개만
+  ];
+  if (r.positive) cmds.push(['INCR', `place:${id}:love`]);
+  if (r.menu) cmds.push(['ZINCRBY', `place:${id}:menus`, 1, r.menu.slice(0, 30)]);
+  await pipe(cmds);
+  return { ok: true, id };
+}
+
+export interface NearPlace {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  distM: number;
+  people: number; // 실제 고유 방문자 수
+  love: number; // 긍정 반응 수
+  quotes: string[]; // 실제 발화 스니펫(RAG): "들기름막국수 미쳤다"
+  topMenu?: string; // 가장 많이 언급된 메뉴
+  score: number; // 실행동 종합(별점 아님)
+}
+
+export interface AdminPlace {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  people: number;
+  love: number;
+  quotes: { q: string; m: string; pos: boolean }[];
+  topMenu?: string;
+}
+
+/** 수집된 전체 장소 + 반응(시각화/관리용). geo set 전체를 훑는다. */
+export async function allPlaces(limit = 500): Promise<AdminPlace[]> {
+  const ids = await cmd(['ZRANGE', 'places:geo', 0, limit - 1]);
+  if (!Array.isArray(ids) || ids.length === 0) return [];
+  const metaCmds = ids.flatMap((id: string) => [
+    ['HGETALL', `place:${id}:meta`],
+    ['PFCOUNT', `place:${id}:people`],
+    ['GET', `place:${id}:love`],
+    ['LRANGE', `place:${id}:quotes`, 0, 20],
+    ['ZRANGE', `place:${id}:menus`, 0, 0, 'REV'],
+  ]);
+  const flat = await pipe(metaCmds);
+  const out: AdminPlace[] = [];
+  ids.forEach((id: string, i: number) => {
+    const meta = flat[i * 5];
+    const m: Record<string, string> = {};
+    if (Array.isArray(meta)) {
+      for (let k = 0; k + 1 < meta.length; k += 2) m[meta[k]] = meta[k + 1];
+    } else if (meta && typeof meta === 'object') {
+      Object.assign(m, meta);
+    }
+    const rawQuotes = Array.isArray(flat[i * 5 + 3]) ? flat[i * 5 + 3] : [];
+    const menuArr = Array.isArray(flat[i * 5 + 4]) ? flat[i * 5 + 4] : [];
+    const quotes = rawQuotes.map((s: string) => {
+      try { const o = JSON.parse(s); return { q: o.q || '', m: o.m || '', pos: o.t === 1 }; }
+      catch { return null; }
+    }).filter(Boolean) as { q: string; m: string; pos: boolean }[];
+    out.push({
+      id,
+      name: m.name || id.split('@')[0],
+      lat: Number(m.lat) || 0,
+      lng: Number(m.lng) || 0,
+      people: Number(flat[i * 5 + 1]) || 0,
+      love: Number(flat[i * 5 + 2]) || 0,
+      quotes,
+      topMenu: menuArr[0] || undefined,
+    });
+  });
+  out.sort((a, b) => b.people - a.people);
+  return out;
+}
+
+/** 근처 장소를 '다른 사람들의 실제 발화/행동' 기준으로 랭킹 + 실제 멘트 반환(RAG). */
+export async function nearby(
+  lat: number, lng: number, radiusM = 1500, limit = 20,
+): Promise<NearPlace[]> {
+  const res = await cmd([
+    'GEOSEARCH', 'places:geo', 'FROMLONLAT', lng, lat,
+    'BYRADIUS', radiusM, 'm', 'ASC', 'WITHCOORD', 'WITHDIST', 'COUNT', 80,
+  ]);
+  if (!Array.isArray(res) || res.length === 0) return [];
+  const ids: string[] = res.map((x: any) => x[0]);
+  const metaCmds = ids.flatMap((id) => [
+    ['PFCOUNT', `place:${id}:people`],
+    ['GET', `place:${id}:love`],
+    ['LRANGE', `place:${id}:quotes`, 0, 4],
+    ['ZRANGE', `place:${id}:menus`, 0, 0, 'REV'],
+  ]);
+  const flat = await pipe(metaCmds);
+  const out: NearPlace[] = [];
+  res.forEach((x: any, i: number) => {
+    const id = x[0];
+    const distM = parseFloat(x[1]) || 0;
+    const coord = x[2] || [];
+    const people = Number(flat[i * 4]) || 0;
+    const love = Number(flat[i * 4 + 1]) || 0;
+    const rawQuotes = Array.isArray(flat[i * 4 + 2]) ? flat[i * 4 + 2] : [];
+    const menuArr = Array.isArray(flat[i * 4 + 3]) ? flat[i * 4 + 3] : [];
+    const quotes: string[] = [];
+    for (const s of rawQuotes) {
+      try {
+        const o = JSON.parse(s);
+        if (o.t === 1 && o.q) quotes.push(o.q); // 긍정 발화만 노출
+      } catch { /* skip */ }
+    }
+    const behavior = people * 1.0 + love * 1.5;
+    const decay = 1 / (1 + distM / 400);
+    out.push({
+      id,
+      name: id.split('@')[0],
+      lat: parseFloat(coord[1]) || lat,
+      lng: parseFloat(coord[0]) || lng,
+      distM: Math.round(distM),
+      people,
+      love,
+      quotes: quotes.slice(0, 3),
+      topMenu: menuArr[0] || undefined,
+      score: behavior * decay,
+    });
+  });
+  out.sort((a, b) => b.score - a.score);
+  return out.slice(0, limit);
+}
