@@ -1,13 +1,12 @@
 ---
-// 크라우드 음식반응 수집 현황 — 시각화(지도 + 리스트). 별점 아닌 실제 발화 RAG 풀을 눈으로.
+// 크라우드 존맛 수집 현황 — orbit 스타일. 자동 회전 3D 글로브에 수집 가게가 빛나는 점.
 export const prerender = false;
 import { allPlaces } from '../../lib/places-redis';
 
 const places = await allPlaces(500);
 const totalReactions = places.reduce((s, p) => s + p.quotes.length, 0);
 const totalPeople = places.reduce((s, p) => s + p.people, 0);
-// 지도 마커용 JSON(좌표 있는 것만)
-const markers = places
+const points = places
   .filter((p) => p.lat && p.lng)
   .map((p) => ({ name: p.name, lat: p.lat, lng: p.lng, people: p.people, love: p.love }));
 ---
@@ -15,63 +14,83 @@ const markers = places
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>크라우드 존맛 수집 현황</title>
+    <title>크라우드 존맛 · Orbit</title>
     <style>
-      body { background: #0e0f12; color: #e8e8ea; font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 20px; }
-      h1 { font-size: 20px; }
-      .kpis { display: flex; gap: 12px; margin: 14px 0; }
-      .kpi { background: #16161a; border: 1px solid #26262c; border-radius: 12px; padding: 14px 18px; }
-      .kpi b { font-size: 24px; display: block; color: #7fd1a0; }
-      .kpi span { font-size: 12px; color: #9aa; }
-      #map { height: 340px; border-radius: 12px; margin: 12px 0; background: #16161a; }
-      .card { background: #16161a; border: 1px solid #26262c; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
-      .card h3 { margin: 0 0 4px; font-size: 15px; }
-      .meta { font-size: 12px; color: #9aa; margin-bottom: 6px; }
-      .q { font-size: 14px; font-style: italic; color: #dbe; margin: 2px 0; }
-      .menu { display: inline-block; font-size: 11px; color: #f0a; background: #3a1030; padding: 2px 8px; border-radius: 20px; }
-      .empty { color: #888; padding: 30px; text-align: center; }
+      * { box-sizing: border-box; }
+      body { background: radial-gradient(ellipse at top, #0b1220 0%, #05070c 60%, #000 100%); color: #e8ecf5; font-family: -apple-system, system-ui, sans-serif; margin: 0; overflow-x: hidden; }
+      .hero { position: relative; height: 62vh; min-height: 380px; }
+      #globe { position: absolute; inset: 0; }
+      .overlay { position: absolute; top: 0; left: 0; right: 0; padding: 24px 26px; pointer-events: none; z-index: 2; }
+      .overlay h1 { margin: 0; font-size: 22px; letter-spacing: -0.5px; text-shadow: 0 2px 20px #000; }
+      .overlay p { margin: 4px 0 0; color: #8aa0c8; font-size: 13px; }
+      .kpis { position: absolute; bottom: 18px; left: 26px; display: flex; gap: 14px; z-index: 2; }
+      .kpi { background: rgba(16,22,38,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(120,160,240,0.2); border-radius: 14px; padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+      .kpi b { font-size: 26px; display: block; background: linear-gradient(90deg,#7fd1a0,#5ad6ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .kpi span { font-size: 11px; color: #8aa0c8; }
+      .list { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+      .card { background: linear-gradient(180deg, rgba(20,28,48,0.9), rgba(12,18,32,0.9)); border: 1px solid rgba(120,160,240,0.14); border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.35); }
+      .card h3 { margin: 0 0 4px; font-size: 16px; }
+      .meta { font-size: 12px; color: #8aa0c8; margin-bottom: 8px; }
+      .q { font-size: 14.5px; font-style: italic; color: #cfe0ff; margin: 3px 0; }
+      .menu { display: inline-block; font-size: 11px; color: #ff7ac0; background: rgba(255,60,160,0.12); padding: 2px 9px; border-radius: 20px; margin-left: 6px; }
+      .empty { text-align: center; color: #6a7da0; padding: 40px 20px; }
+      .glow { color: #7fd1a0; }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   </head>
   <body>
-    <h1>🍜 크라우드 존맛 수집 현황</h1>
-    <div class="kpis">
-      <div class="kpi"><b>{places.length}</b><span>수집된 가게</span></div>
-      <div class="kpi"><b>{totalReactions}</b><span>실제 반응(발화)</span></div>
-      <div class="kpi"><b>{totalPeople}</b><span>고유 기여자</span></div>
+    <div class="hero">
+      <div id="globe"></div>
+      <div class="overlay">
+        <h1>🌐 크라우드 존맛 · <span class="glow">Live Orbit</span></h1>
+        <p>실제 사람들의 검증된 반응이 지도 위에서 살아 움직입니다 · 별점 아님</p>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>{places.length}</b><span>수집된 가게</span></div>
+        <div class="kpi"><b>{totalReactions}</b><span>실제 반응</span></div>
+        <div class="kpi"><b>{totalPeople}</b><span>고유 기여자</span></div>
+      </div>
     </div>
 
-    {markers.length > 0 && <div id="map"></div>}
+    <div class="list">
+      {places.length === 0 && (
+        <div class="empty">아직 궤도에 올라온 반응이 없습니다.<br />앱에서 "여기 맛집 등록" 하면 이 지구본 위에 빛나는 점으로 뜹니다 ✨</div>
+      )}
+      {places.map((p) => (
+        <div class="card">
+          <h3>{p.name}{p.topMenu && <span class="menu">🍴 {p.topMenu}</span>}</h3>
+          <div class="meta">고유 <b class="glow">{p.people}</b>명 · 👍 {p.love} · 반응 {p.quotes.length}개</div>
+          {p.quotes.slice(0, 5).map((q) => (
+            <div class="q">{q.pos ? '👍' : '👎'} "{q.q}"</div>
+          ))}
+        </div>
+      ))}
+    </div>
 
-    {places.length === 0 && <div class="empty">아직 수집된 반응이 없습니다.<br />앱에서 "여기 맛집 등록" 하거나, 카톡 음식 칭찬이 감지되면 여기 쌓입니다.</div>}
-
-    {places.map((p) => (
-      <div class="card">
-        <h3>{p.name} {p.topMenu && <span class="menu">🍴 {p.topMenu}</span>}</h3>
-        <div class="meta">고유 {p.people}명 · 👍 {p.love} · 반응 {p.quotes.length}개 · ({p.lat.toFixed(4)}, {p.lng.toFixed(4)})</div>
-        {p.quotes.slice(0, 6).map((q) => (
-          <div class="q">{q.pos ? '👍' : '👎'} "{q.q}" {q.m && <span style="color:#f0a">[{q.m}]</span>}</div>
-        ))}
-      </div>
-    ))}
-
-    <script is:inline define:vars={{ markers }}>
-      if (markers.length > 0) {
-        const s = document.createElement('script');
-        s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-        s.onload = () => {
-          const first = markers[0];
-          const map = L.map('map').setView([first.lat, first.lng], 12);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-          for (const m of markers) {
-            L.circleMarker([m.lat, m.lng], {
-              radius: 6 + Math.min(m.people, 20),
-              color: '#7fd1a0', fillColor: '#2a8a4a', fillOpacity: 0.7,
-            }).addTo(map).bindPopup(`<b>${m.name}</b><br>고유 ${m.people}명 · 👍 ${m.love}`);
-          }
-        };
-        document.head.appendChild(s);
-      }
+    <script is:inline define:vars={{ points }}>
+      import('https://esm.sh/globe.gl@2.33.0').then(({ default: Globe }) => {
+        const el = document.getElementById('globe');
+        const g = Globe()(el)
+          .backgroundColor('rgba(0,0,0,0)')
+          .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+          .atmosphereColor('#5ad6ff')
+          .atmosphereAltitude(0.18)
+          .pointsData(points)
+          .pointLat('lat').pointLng('lng')
+          .pointColor(() => '#7fd1a0')
+          .pointAltitude(d => 0.02 + Math.min(d.people, 30) * 0.006)
+          .pointRadius(d => 0.25 + Math.min(d.people, 20) * 0.03)
+          .pointsMerge(false)
+          .pointLabel(d => `<b>${d.name}</b><br>고유 ${d.people}명 · 👍 ${d.love}`);
+        // 한국 중심으로 시작 + 자동 회전
+        g.pointOfView({ lat: 36.5, lng: 127.8, altitude: points.length ? 1.6 : 2.4 }, 0);
+        g.controls().autoRotate = true;
+        g.controls().autoRotateSpeed = 0.5;
+        const resize = () => g.width(el.clientWidth).height(el.clientHeight);
+        resize(); window.addEventListener('resize', resize);
+        // 점 펄스(살아있는 느낌)
+        let t = 0;
+        setInterval(() => { t += 0.06; g.pointAltitude(d => 0.02 + Math.min(d.people,30)*0.006 + Math.sin(t)*0.004); }, 60);
+      }).catch(() => { document.getElementById('globe').innerHTML = '<div style="color:#556;text-align:center;padding-top:120px">globe 로드 실패</div>'; });
     </script>
   </body>
 </html>
