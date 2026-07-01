@@ -53,25 +53,26 @@ export interface Reaction {
   name: string; // 가게명
   lat: number;
   lng: number;
-  quote: string; // 실제 발화(익명·정제됨): "들기름막국수 미쳤다"
+  quote?: string; // 실제 발화(있으면). 무의식 행동 기여는 텍스트 없음 → 생략.
   menu?: string; // 추출된 메뉴(있으면)
-  positive: boolean; // 긍정 반응 여부
+  positive: boolean; // 긍정(무의식 행동으로 판정된 '진짜 좋아함' 포함)
   anon: string; // 익명 기기 해시
 }
 
-/** 검증된 실제 반응 1건을 RAG 풀에 적재(별점 아님 — 실제 발화 스니펫). */
+/** 검증된 반응 1건을 풀에 적재. 텍스트(quote)는 있으면 RAG 스니펫으로, 없으면 행동 신호만. */
 export async function addReaction(r: Reaction): Promise<{ ok: boolean; id: string }> {
   const id = placeId(r.name, r.lat, r.lng);
-  const quote = r.quote.slice(0, 140);
-  const snippet = JSON.stringify({ q: quote, m: r.menu || '', t: r.positive ? 1 : 0 });
   const cmds: (string | number)[][] = [
     ['GEOADD', 'places:geo', r.lng, r.lat, id],
     ['HSET', `place:${id}:meta`, 'name', r.name.slice(0, 60), 'lat', r.lat, 'lng', r.lng],
-    ['PFADD', `place:${id}:people`, r.anon], // 고유 인원(조작 방지)
-    ['LPUSH', `place:${id}:quotes`, snippet], // RAG 발화 스니펫
-    ['LTRIM', `place:${id}:quotes`, 0, 40], // 최근 41개만
+    ['PFADD', `place:${id}:people`, r.anon], // 고유 인원(무의식 발굴, 조작 방지)
   ];
-  if (r.positive) cmds.push(['INCR', `place:${id}:love`]);
+  const quote = (r.quote || '').trim().slice(0, 140);
+  if (quote) {
+    const snippet = JSON.stringify({ q: quote, m: r.menu || '', t: r.positive ? 1 : 0 });
+    cmds.push(['LPUSH', `place:${id}:quotes`, snippet], ['LTRIM', `place:${id}:quotes`, 0, 40]);
+  }
+  if (r.positive) cmds.push(['INCR', `place:${id}:love`]); // 진짜 좋아함(행동/발화 무관)
   if (r.menu) cmds.push(['ZINCRBY', `place:${id}:menus`, 1, r.menu.slice(0, 30)]);
   await pipe(cmds);
   return { ok: true, id };

@@ -19,12 +19,12 @@ export const POST: APIRoute = async ({ request }) => {
   const name = String(b.name || '').trim();
   const lat = Number(b.lat);
   const lng = Number(b.lng);
-  const quote = String(b.quote || '').trim();
+  const quote = String(b.quote || '').trim(); // 무의식 행동 기여는 quote 없음(선택)
   const menu = b.menu ? String(b.menu).trim().slice(0, 30) : undefined;
   const positive = b.positive !== false; // 기본 긍정
   const anon = String(b.anon || '').trim().slice(0, 64);
-  if (!name || !Number.isFinite(lat) || !Number.isFinite(lng) || !quote || !anon) {
-    return j({ ok: false, error: 'name·lat·lng·quote·anon 필요' }, 400);
+  if (!name || !Number.isFinite(lat) || !Number.isFinite(lng) || !anon) {
+    return j({ ok: false, error: 'name·lat·lng·anon 필요' }, 400);
   }
   const r = await addReaction({ name, lat, lng, quote, menu, positive, anon });
   return j(r);
