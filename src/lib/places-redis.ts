@@ -38,6 +38,44 @@ async function pipe(cmds: (string | number)[][]): Promise<any[]> {
   return Array.isArray(j) ? j.map((x) => x?.result ?? null) : [];
 }
 
+/** 가게명(+지역 힌트) → 좌표. Nominatim(무료·키없음) + Redis 캐시(재조회 0원, rate limit 회피).
+ *  카카오 로컬 키가 생기면 여기만 교체하면 됨(KAKAO_REST_KEY env 있으면 카카오 우선). */
+export async function geocodePlace(
+  name: string, region?: string,
+): Promise<{ lat: number; lng: number } | null> {
+  const q = [region, name].filter(Boolean).join(' ').trim();
+  if (!q) return null;
+  const ck = `geo:cache:${q.toLowerCase().replace(/\s+/g, ' ')}`;
+  const hit = await cmd(['GET', ck]);
+  if (typeof hit === 'string') {
+    if (hit === 'miss') return null; // 못 찾은 것도 캐시(반복 낭비 방지)
+    const [la, lo] = hit.split(',').map(Number);
+    if (Number.isFinite(la) && Number.isFinite(lo)) return { lat: la, lng: lo };
+  }
+  let out: { lat: number; lng: number } | null = null;
+  // 카카오 키 있으면 우선(정확), 없으면 Nominatim
+  const kakao = (import.meta.env as any).KAKAO_REST_KEY || process.env.KAKAO_REST_KEY;
+  try {
+    if (kakao) {
+      const r = await fetch(
+        `https://dapi.kakao.com/v2/local/search/keyword.json?query=${encodeURIComponent(q)}&size=1`,
+        { headers: { Authorization: `KakaoAK ${kakao}` } });
+      const j: any = await r.json().catch(() => null);
+      const d = j?.documents?.[0];
+      if (d) out = { lat: parseFloat(d.y), lng: parseFloat(d.x) };
+    }
+    if (!out) {
+      const r = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&countrycodes=kr&limit=1`,
+        { headers: { 'User-Agent': 'AllThatAI-places/1.0 (real.allthatai.kr)' } });
+      const j: any = await r.json().catch(() => null);
+      if (Array.isArray(j) && j[0]) out = { lat: parseFloat(j[0].lat), lng: parseFloat(j[0].lon) };
+    }
+  } catch { /* 네트워크 실패 → null */ }
+  await cmd(['SET', ck, out ? `${out.lat},${out.lng}` : 'miss', 'EX', 60 * 86400]);
+  return out;
+}
+
 /** 같은 실제 장소를 기여자끼리 합치는 안정적 id: 정규화한 이름 + ~11m 격자. */
 export function placeId(name: string, lat: number, lng: number): string {
   const n = (name || '')
