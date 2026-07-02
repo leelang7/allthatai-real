@@ -123,7 +123,9 @@ export async function addReaction(r: Reaction): Promise<{ ok: boolean; id: strin
   ];
   const quote = (r.quote || '').trim().slice(0, 140);
   if (quote) {
-    const snippet = JSON.stringify({ q: quote, m: r.menu || '', t: r.positive ? 1 : 0 });
+    // ts(epoch일) — RAG 최근성 가중/노후 발화 감쇠용
+    const ts = Math.floor(Date.now() / 86400000);
+    const snippet = JSON.stringify({ q: quote, m: r.menu || '', t: r.positive ? 1 : 0, ts });
     cmds.push(['LPUSH', `place:${id}:quotes`, snippet], ['LTRIM', `place:${id}:quotes`, 0, 40]);
   }
   if (r.positive) cmds.push(['INCR', `place:${id}:love`]); // 진짜 좋아함(행동/발화 무관)

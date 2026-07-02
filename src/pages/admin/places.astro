@@ -9,7 +9,10 @@ const totalReactions = places.reduce((s, p) => s + p.quotes.length, 0);
 const totalPeople = places.reduce((s, p) => s + p.people, 0);
 const points = places
   .filter((p) => p.lat && p.lng)
-  .map((p) => ({ name: p.name, lat: p.lat, lng: p.lng, people: p.people, love: p.love }));
+  .map((p) => ({
+    name: p.name, lat: p.lat, lng: p.lng, people: p.people, love: p.love,
+    q: (p.quotes.find((x) => x.pos)?.q || '').slice(0, 60), // 팝업에 실제 발화 한 줄
+  }));
 ---
 <html lang="ko">
   <head>
@@ -87,7 +90,7 @@ const points = places
           .pointAltitude(d => 0.02 + Math.min(d.people, 30) * 0.006)
           .pointRadius(d => 0.25 + Math.min(d.people, 20) * 0.03)
           .pointsMerge(false)
-          .pointLabel(d => `<b>${d.name}</b><br>고유 ${d.people}명 · 👍 ${d.love}`);
+          .pointLabel(d => `<b>${d.name}</b><br>고유 ${d.people}명 · 👍 ${d.love}` + (d.q ? `<br><i>"${d.q}"</i>` : ''));
         // 한국 중심으로 시작 + 자동 회전
         g.pointOfView({ lat: 36.5, lng: 127.8, altitude: points.length ? 1.6 : 2.4 }, 0);
         g.controls().autoRotate = true;
