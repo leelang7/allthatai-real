@@ -1,8 +1,9 @@
 ---
 // 크라우드 존맛 수집 현황 — orbit 스타일. 자동 회전 3D 글로브에 수집 가게가 빛나는 점.
 export const prerender = false;
-import { allPlaces } from '../../lib/places-redis';
+import { allPlaces, storageReady } from '../../lib/places-redis';
 
+const storage = storageReady();
 const places = await allPlaces(500);
 const totalReactions = places.reduce((s, p) => s + p.quotes.length, 0);
 const totalPeople = places.reduce((s, p) => s + p.people, 0);
@@ -52,8 +53,14 @@ const points = places
     </div>
 
     <div class="list">
-      {places.length === 0 && (
-        <div class="empty">아직 궤도에 올라온 반응이 없습니다.<br />앱에서 "여기 맛집 등록" 하면 이 지구본 위에 빛나는 점으로 뜹니다 ✨</div>
+      {!storage && (
+        <div class="empty" style="color:#ff8a8a;border:1px solid rgba(255,80,80,0.3);border-radius:12px;padding:14px">
+          ⚠️ 저장소(Upstash Redis) env 미설정 — 수집이 저장되지 않는 상태입니다.<br />
+          Vercel에 UPSTASH_REDIS_REST_URL / TOKEN을 등록하세요.
+        </div>
+      )}
+      {storage && places.length === 0 && (
+        <div class="empty">아직 궤도에 올라온 반응이 없습니다.<br />무의식 표현이 감지되면 이 지구본 위에 빛나는 점으로 뜹니다 ✨</div>
       )}
       {places.map((p) => (
         <div class="card">

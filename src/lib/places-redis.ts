@@ -25,6 +25,11 @@ async function cmd(parts: (string | number)[]): Promise<any> {
   return (await r.json().catch(() => null))?.result ?? null;
 }
 
+/** Redis 연결 가능 여부(진단용 — 저장 실패를 조용히 삼키지 않기 위해). */
+export function storageReady(): boolean {
+  return env() !== null;
+}
+
 async function pipe(cmds: (string | number)[][]): Promise<any[]> {
   const e = env();
   if (!e) return [];
