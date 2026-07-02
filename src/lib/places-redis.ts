@@ -104,6 +104,15 @@ export interface Reaction {
   anon: string; // 익명 기기 해시
 }
 
+/** 익명ID별 일일 기여 상한(스팸/조작 방어). true = 허용. */
+export async function withinDailyCap(anon: string, cap = 40): Promise<boolean> {
+  const day = new Date().toISOString().slice(0, 10);
+  const k = `signal:cap:${anon}:${day}`;
+  const n = await cmd(['INCR', k]);
+  if (n === 1) await cmd(['EXPIRE', k, 86400 + 3600]);
+  return typeof n === 'number' ? n <= cap : true; // Redis 불능 시 통과(가용성 우선)
+}
+
 /** 검증된 반응 1건을 풀에 적재. 텍스트(quote)는 있으면 RAG 스니펫으로, 없으면 행동 신호만. */
 export async function addReaction(r: Reaction): Promise<{ ok: boolean; id: string }> {
   const id = placeId(r.name, r.lat, r.lng);
