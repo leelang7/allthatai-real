@@ -8,8 +8,10 @@
 //   place:{id}:revisit         counter                           — 재방문(단골) 신호 수
 
 function env() {
-  const url = (import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = (import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const e = (k: string) => (import.meta.env as any)[k] || process.env[k];
+  // Vercel Upstash 통합은 KV_REST_API_* 로 주입 — 양쪽 이름 다 지원
+  const url = e('UPSTASH_REDIS_REST_URL') || e('KV_REST_API_URL');
+  const token = e('UPSTASH_REDIS_REST_TOKEN') || e('KV_REST_API_TOKEN');
   return url && token ? { url, token } : null;
 }
 
