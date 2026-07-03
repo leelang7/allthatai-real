@@ -227,14 +227,22 @@ export async function nearby(
     const rawQuotes = Array.isArray(flat[i * 4 + 2]) ? flat[i * 4 + 2] : [];
     const menuArr = Array.isArray(flat[i * 4 + 3]) ? flat[i * 4 + 3] : [];
     const quotes: string[] = [];
+    let freshestTs = 0; // 가장 최근 긍정 반응의 epoch-day
     for (const s of rawQuotes) {
       try {
         const o = JSON.parse(s);
-        if (o.t === 1 && o.q) quotes.push(o.q); // 긍정 발화만 노출
+        if (o.t === 1 && o.q) {
+          quotes.push(o.q); // 긍정 발화만 노출
+          if (typeof o.ts === 'number' && o.ts > freshestTs) freshestTs = o.ts;
+        }
       } catch { /* skip */ }
     }
     const behavior = people * 1.0 + love * 1.5;
     const decay = 1 / (1 + distM / 400);
+    // 최신성 가중: 최근 반응일수록 ↑, 오래된 발화는 감쇠(0.5까지). 데이터 없으면 중립(0.75).
+    const todayEd = Math.floor(Date.now() / 86400000);
+    const ageDays = freshestTs > 0 ? Math.max(0, todayEd - freshestTs) : 45;
+    const recency = 0.5 + 0.5 / (1 + ageDays / 60);
     out.push({
       id,
       name: id.split('@')[0],
@@ -245,7 +253,7 @@ export async function nearby(
       love,
       quotes: quotes.slice(0, 3),
       topMenu: menuArr[0] || undefined,
-      score: behavior * decay,
+      score: behavior * decay * recency,
     });
   });
   out.sort((a, b) => b.score - a.score);
