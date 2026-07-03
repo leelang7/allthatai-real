@@ -1,0 +1,9 @@
+# 웹앱(Astro) 배포에 불필요한 대용량/툴링 디렉토리 제외.
+# scripts/shorts/music/*.mp4 (최대 188MB)가 딸려가 100MB 배포 한도 초과 → 배포 실패하던 버그 수정.
+scripts/
+*.mp4
+*.mp3
+*.wav
+.git/
+build/
+tmp/
