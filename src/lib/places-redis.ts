@@ -47,11 +47,7 @@ async function pipe(cmds: (string | number)[][]): Promise<any[]> {
 
 /** 가게명(+지역 힌트) → 좌표. Nominatim(무료·키없음) + Redis 캐시(재조회 0원, rate limit 회피).
  *  카카오 로컬 키가 생기면 여기만 교체하면 됨(KAKAO_REST_KEY env 있으면 카카오 우선). */
-export async function geocodePlace(
-  name: string, region?: string,
-): Promise<{ lat: number; lng: number } | null> {
-  const q = [region, name].filter(Boolean).join(' ').trim();
-  if (!q) return null;
+async function geocodeQuery(q: string): Promise<{ lat: number; lng: number } | null> {
   const ck = `geo:cache:${q.toLowerCase().replace(/\s+/g, ' ')}`;
   const hit = await cmd(['GET', ck]);
   if (typeof hit === 'string') {
@@ -83,6 +79,22 @@ export async function geocodePlace(
   return out;
 }
 
+export async function geocodePlace(
+  name: string, region?: string,
+): Promise<{ lat: number; lng: number; approx?: boolean } | null> {
+  const full = [region, name].filter(Boolean).join(' ').trim();
+  if (!full) return null;
+  const precise = await geocodeQuery(full);
+  if (precise) return precise;
+  // 폴백: 정확 좌표 실패해도 지역만이라도 해석해 동네 중심에 근사 핀.
+  //   Nominatim은 한국 상호에 약해 자주 miss → 진짜 발화를 통째로 잃느니 area-level로 살린다.
+  if (region && region.trim() && region.trim() !== full) {
+    const area = await geocodeQuery(region.trim());
+    if (area) return { ...area, approx: true };
+  }
+  return null;
+}
+
 /** 같은 실제 장소를 기여자끼리 합치는 안정적 id: 정규화한 이름 + ~11m 격자. */
 export function placeId(name: string, lat: number, lng: number): string {
   const n = (name || '')
@@ -102,6 +114,7 @@ export interface Reaction {
   menu?: string; // 추출된 메뉴(있으면)
   positive: boolean; // 긍정(무의식 행동으로 판정된 '진짜 좋아함' 포함)
   anon: string; // 익명 기기 해시
+  approx?: boolean; // 좌표가 지역 중심 근사(정확 지오코딩 실패 폴백)인지
 }
 
 /** 익명ID별 일일 기여 상한(스팸/조작 방어). true = 허용. */
@@ -118,7 +131,8 @@ export async function addReaction(r: Reaction): Promise<{ ok: boolean; id: strin
   const id = placeId(r.name, r.lat, r.lng);
   const cmds: (string | number)[][] = [
     ['GEOADD', 'places:geo', r.lng, r.lat, id],
-    ['HSET', `place:${id}:meta`, 'name', r.name.slice(0, 60), 'lat', r.lat, 'lng', r.lng],
+    ['HSET', `place:${id}:meta`, 'name', r.name.slice(0, 60), 'lat', r.lat, 'lng', r.lng,
+      'approx', r.approx ? 1 : 0],
     ['PFADD', `place:${id}:people`, r.anon], // 고유 인원(무의식 발굴, 조작 방지)
   ];
   const quote = (r.quote || '').trim().slice(0, 140);
