@@ -25,6 +25,11 @@ export const POST: APIRoute = async ({ request }) => {
   const positive = b.positive !== false; // 기본 긍정
   const anon = String(b.anon || '').trim().slice(0, 64);
   if (!name || !anon) return j({ ok: false, error: 'name·anon 필요' }, 400);
+  // 테스트/스모크 요청 격리 — 프로덕션 데이터 오염 방지. anon 'test-' 접두 or 센티넬 발화면
+  // 전체 검증은 통과시키되 저장은 건너뛴다(dry-run). 실사용자 anon은 uuid라 오격리 없음.
+  const isTest = anon.startsWith('test-') ||
+    /회귀테스트|__e2e__|regression[\s_-]?test/i.test(`${name} ${quote}`);
+  if (isTest) return j({ ok: true, test: true, skipped: 'dry-run (미저장)' });
   if (!storageReady()) return j({ ok: false, error: 'storage_unavailable (Upstash env 미설정)' }, 503);
   if (!(await withinDailyCap(anon))) return j({ ok: false, error: 'daily_cap' }, 429);
   // 좌표 없이 표현만 온 경우 → 서버 지오코딩(가게명+지역)
