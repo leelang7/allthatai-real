@@ -171,6 +171,7 @@ export interface NearPlace {
   love: number; // 긍정 반응 수
   quotes: string[]; // 실제 발화 스니펫(RAG): "들기름막국수 미쳤다"
   topMenu?: string; // 가장 많이 언급된 메뉴
+  approx?: boolean; // 좌표가 동네 중심 근사(정확 지오코딩 실패)인지
   score: number; // 실행동 종합(별점 아님)
 }
 
@@ -242,6 +243,7 @@ export async function nearby(
     ['GET', `place:${id}:love`],
     ['LRANGE', `place:${id}:quotes`, 0, 4],
     ['ZRANGE', `place:${id}:menus`, 0, 0, 'REV'],
+    ['HGET', `place:${id}:meta`, 'approx'], // 좌표가 동네 근사핀인지
   ]);
   const flat = await pipe(metaCmds);
   const out: NearPlace[] = [];
@@ -249,10 +251,11 @@ export async function nearby(
     const id = x[0];
     const distM = parseFloat(x[1]) || 0;
     const coord = x[2] || [];
-    const people = Number(flat[i * 4]) || 0;
-    const love = Number(flat[i * 4 + 1]) || 0;
-    const rawQuotes = Array.isArray(flat[i * 4 + 2]) ? flat[i * 4 + 2] : [];
-    const menuArr = Array.isArray(flat[i * 4 + 3]) ? flat[i * 4 + 3] : [];
+    const people = Number(flat[i * 5]) || 0;
+    const love = Number(flat[i * 5 + 1]) || 0;
+    const rawQuotes = Array.isArray(flat[i * 5 + 2]) ? flat[i * 5 + 2] : [];
+    const menuArr = Array.isArray(flat[i * 5 + 3]) ? flat[i * 5 + 3] : [];
+    const approx = String(flat[i * 5 + 4] ?? '') === '1'; // 동네 근사핀 여부
     const quotes: string[] = [];
     let freshestTs = 0; // 가장 최근 긍정 반응의 epoch-day
     for (const s of rawQuotes) {
@@ -280,6 +283,7 @@ export async function nearby(
       love,
       quotes: quotes.slice(0, 3),
       topMenu: menuArr[0] || undefined,
+      approx,
       score: behavior * decay * recency,
     });
   });
