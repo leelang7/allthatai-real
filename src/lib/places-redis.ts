@@ -79,19 +79,32 @@ async function geocodeQuery(q: string): Promise<{ lat: number; lng: number } | n
   return out;
 }
 
+/** 두 좌표 사이 거리(m) — 대략 하버사인. */
+function distMeters(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const R = 6371000, toR = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * toR, dLng = (b.lng - a.lng) * toR;
+  const la1 = a.lat * toR, la2 = b.lat * toR;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
 export async function geocodePlace(
   name: string, region?: string,
 ): Promise<{ lat: number; lng: number; approx?: boolean } | null> {
   const full = [region, name].filter(Boolean).join(' ').trim();
   if (!full) return null;
   const precise = await geocodeQuery(full);
-  if (precise) return precise;
-  // 폴백: 정확 좌표 실패해도 지역만이라도 해석해 동네 중심에 근사 핀.
-  //   Nominatim은 한국 상호에 약해 자주 miss → 진짜 발화를 통째로 잃느니 area-level로 살린다.
-  if (region && region.trim() && region.trim() !== full) {
-    const area = await geocodeQuery(region.trim());
-    if (area) return { ...area, approx: true };
+  // 지역 힌트가 있으면 그 중심도 구해 둔다(캐시되어 사실상 0원). 정확 결과 신뢰성 검증 + 폴백용.
+  const rg = region?.trim();
+  const area = rg && rg !== full ? await geocodeQuery(rg) : null;
+  if (precise) {
+    // Nominatim은 한국 상호에 약해, 무의미/희귀 쿼리에도 엉뚱한 먼 좌표를 준다.
+    // 지역 중심을 알고 정확결과가 12km 밖이면 오매칭으로 보고 동네 근사핀으로 되돌린다.
+    if (area && distMeters(precise, area) > 12000) return { ...area, approx: true };
+    return precise;
   }
+  // 정확 좌표 실패 → 지역만이라도 해석해 동네 중심 근사핀(진짜 발화를 통째로 잃지 않음).
+  if (area) return { ...area, approx: true };
   return null;
 }
 
