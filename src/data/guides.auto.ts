@@ -612,7 +612,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-18T19:18:59.817Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.832Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-stardew-valley-50-할인-16000-8000",
@@ -621,7 +622,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-18T19:19:07.178Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.832Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-v-rising-55-할인-34500-15520",
@@ -630,7 +632,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-18T19:19:12.907Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.833Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-red-dead-redemption-2-75-할인-73000-18250",
@@ -639,7 +642,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-18T19:19:18.487Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.834Z"
   },
   {
     "slug": "deal-2026-05-18-stardew-valley-스팀-베스트셀러-50-할인",
@@ -657,7 +661,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-18T14:48:13.187Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.829Z"
   },
   {
     "slug": "deal-2026-05-18-종합부동산세-1주택자-공제합산-배제",
@@ -666,7 +671,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-18T14:48:30.340Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.829Z"
   },
   {
     "slug": "deal-2026-05-18-법인-설립-대행-3080만-vs-직접-함정과-차이",
@@ -675,7 +681,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-18T14:48:52.436Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.830Z"
   },
   {
     "slug": "deal-2026-05-18-apple-developer-등록-대행-vs-직접-99년-그대로",
@@ -684,7 +691,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "소프트웨어",
     "minutes": 5,
     "generatedAt": "2026-05-18T14:49:01.004Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.831Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-서브노티카-75-할인-33700-8420",
@@ -693,7 +701,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-18T14:49:11.455Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.831Z"
   },
   {
     "slug": "deal-2026-05-18-주택임대차계약-신고제-위반-과태료-면제-조건",
@@ -742,7 +751,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-18T09:33:16.524Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-05T05:49:52.827Z"
   },
   {
     "slug": "deal-2026-05-18-특별공급-추첨제-vs-가점제-어느-게-유리한가-2025-개편",
