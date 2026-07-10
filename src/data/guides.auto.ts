@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-07-10-스팀-grand-theft-auto-v-인핸스드-56-할인-55000-24200",
+    "title": "스팀 GTA V 인핸스드 56% 할인: ₩55,000 → ₩24,200",
+    "excerpt": "스팀에서 GTA V 인핸스드 에디션을 56% 할인된 ₩24,200에 구매할 수 있는 절호의 기회!",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-07-10T13:47:45.594Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-06-26-deluxe-edition---djmax-respect-v-스팀-베스트셀러-67-할인",
     "title": "DJMAX RESPECT V 디럭스 에디션 67% 할인 — 스팀 베스트셀러",
