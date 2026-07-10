@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-07-10-스팀-플래닛-주-95-할인-46000-2300",
+    "title": "스팀 플래닛 주 95% 할인: 46,000원 → 2,300원",
+    "excerpt": "스팀 '플래닛 주'가 정가 46,000원에서 95% 할인된 2,300원에 판매 중입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-07-10T19:11:54.911Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-07-10-스팀-grand-theft-auto-v-인핸스드-56-할인-55000-24200",
     "title": "스팀 GTA V 인핸스드 56% 할인: ₩55,000 → ₩24,200",
     "excerpt": "스팀에서 GTA V 인핸스드 에디션을 56% 할인된 ₩24,200에 구매할 수 있는 절호의 기회!",
