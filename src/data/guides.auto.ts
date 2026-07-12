@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-07-10-스팀-플래닛-주-95-할인-46000-2300",
     "title": "스팀 플래닛 주 95% 할인: 46,000원 → 2,300원",
@@ -549,7 +549,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-22T19:18:39.766Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.477Z"
   },
   {
     "slug": "deal-2026-05-22-깡통전세-신호-보증금-vs-시세-80-초과-시-대응",
@@ -558,7 +559,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "전세사기",
     "minutes": 5,
     "generatedAt": "2026-05-22T08:43:49.515Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.476Z"
   },
   {
     "slug": "deal-2026-05-22-전세보증보험-hug-vs-sgi-어느-게-본인에게-유리한가",
@@ -567,7 +569,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-22T08:44:36.409Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.477Z"
   },
   {
     "slug": "deal-2026-05-21-전세사기-자가-진단-등기부등본시세임대인-5분-체크",
@@ -576,7 +579,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "전세사기",
     "minutes": 5,
     "generatedAt": "2026-05-21T14:34:36.834Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.476Z"
   },
   {
     "slug": "deal-2026-05-21-스팀-warhammer-40000-space-marine-2-70-할인-69800-20940",
@@ -585,7 +589,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-21T01:51:25.302Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.475Z"
   },
   {
     "slug": "deal-2026-05-21-스팀-stray-50-할인-32000-16000",
@@ -594,7 +599,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-21T01:51:28.571Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.475Z"
   },
   {
     "slug": "deal-2026-05-20-시드-마이어의-문명-vii-스팀-베스트셀러-40-할인",
@@ -603,7 +609,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-20T01:52:30.057Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.474Z"
   },
   {
     "slug": "deal-2026-05-20-subnautica-deep-ocean-bundle-스팀-베스트셀러-50-할인",
@@ -612,7 +619,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-20T01:52:36.325Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.474Z"
   },
   {
     "slug": "deal-2026-05-19-서브노티카-스팀-베스트셀러-75-할인",
@@ -621,7 +629,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-19T14:25:08.186Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.473Z"
   },
   {
     "slug": "deal-2026-05-18-구글-플레이-콘솔-가입-대행-vs-직접-25-1회",
@@ -670,7 +679,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-18T19:19:27.158Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-12T05:00:20.472Z"
   },
   {
     "slug": "deal-2026-05-18-양도소득세-1세대1주택-비과세-보유-2년거주-2년-요건",
