@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-07-12-palworld-팰월드-스팀-베스트셀러-30-할인",
+    "title": "팰월드 스팀 30% 할인! 지금이 구매 적기?",
+    "excerpt": "스팀 베스트셀러 팰월드가 30% 할인된 가격으로 판매 중입니다. 구매 타이밍을 고민했다면 지금 확인하세요!",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-07-12T12:44:29.245Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-07-10-스팀-플래닛-주-95-할인-46000-2300",
     "title": "스팀 플래닛 주 95% 할인: 46,000원 → 2,300원",
