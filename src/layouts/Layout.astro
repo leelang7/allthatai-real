@@ -11,7 +11,7 @@ interface Props {
 const {
   title = 'AllThatAI Real — 불필요한 대행 거치지 마세요',
   description = '한국에서 모르고 돈 내고 있는 절차의 무료 우회 경로. AI · 세금 · 직구 · Play Store 가이드 + 시간 사는 풀패키지.',
-  ogImage = '/og.png',
+  ogImage = '/og.png?v=6',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -24,9 +24,9 @@ const isHome = path === '/';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/png" href="/logo.png" />
-    <link rel="apple-touch-icon" href="/logo.png" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/logo.png?v=6" />
+    <link rel="apple-touch-icon" href="/logo.png?v=6" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=6" />
     <link rel="canonical" href={canonical.toString()} />
     <link rel="alternate" type="application/rss+xml" title="AllThatAI Real" href="/rss.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
