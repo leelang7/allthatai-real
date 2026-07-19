@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-07-12-palworld-팰월드-스팀-베스트셀러-30-할인",
     "title": "팰월드 스팀 30% 할인! 지금이 구매 적기?",
@@ -450,7 +450,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-25T19:10:15.070Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.762Z"
   },
   {
     "slug": "deal-2026-05-25-깡통전세-vs-역전세-차이와-본인-매물-진단",
@@ -486,7 +487,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-25T14:25:58.613Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.762Z"
   },
   {
     "slug": "deal-2026-05-25-아파트-전세가율-통계-본인-매물-vs-단지-평균",
@@ -495,7 +497,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-25T09:41:46.212Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.761Z"
   },
   {
     "slug": "deal-2026-05-25-전세사기-특별법-신청-자격절차받는-지원-한도",
@@ -504,7 +507,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "전세사기",
     "minutes": 5,
     "generatedAt": "2026-05-25T01:57:25.387Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.761Z"
   },
   {
     "slug": "deal-2026-05-24-전세금-반환-소송-임대인-잠적-시-1년-안에-받는-절차",
@@ -513,7 +517,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "전세사기",
     "minutes": 5,
     "generatedAt": "2026-05-24T12:52:19.479Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.759Z"
   },
   {
     "slug": "deal-2026-05-24-국토부-실거래가-api로-시세-확인-5분-절차",
@@ -522,7 +527,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-24T12:52:27.095Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.759Z"
   },
   {
     "slug": "deal-2026-05-24-스팀-the-outlast-trials-70-할인-42000-12600",
@@ -531,7 +537,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-24T12:52:31.372Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.760Z"
   },
   {
     "slug": "deal-2026-05-23-잔금일-등기부등본-재발급-0원-vs-700-차이",
@@ -540,7 +547,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-05-23T18:49:16.914Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.758Z"
   },
   {
     "slug": "deal-2026-05-23-대리인-계약-위임장인감증명-진위-확인-4단계",
@@ -549,7 +557,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "대행함정",
     "minutes": 5,
     "generatedAt": "2026-05-23T12:50:51.915Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-19T04:55:57.756Z"
   },
   {
     "slug": "deal-2026-05-22-확정일자-전입신고-잔금-당일-30분-안에-해야-하는-이유",
@@ -1259,6 +1268,6 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-10T01:27:33.008Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-24T05:49:53.796Z"
+    "lastRefreshedAt": "2026-07-19T04:55:57.758Z"
   }
 ];
