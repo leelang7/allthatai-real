@@ -5,6 +5,7 @@ ach invoicing / net terms billing cycle monthly and annual annual annual adding 
 al plans are designed to cost less than monthly subscriptions
 both options are billed monthly
 does it cost less than if i pay monthly
+enterprise is billed annually and includes everything in team plus ad
 et the most out of claude from $100 per month try claude try claude try claude everyt
 ext next billing and payments can i pay annually
 ge than standard seats* $100 per seat / month if billed annually
@@ -14,6 +15,7 @@ k pro for everyday productivity $17 per month with annual subscription discount 
 lus more usage than pro* $20 per seat / month if billed annually
 moving from monthly to annual works the same way, with your
 predictable same amount each month variable some heavy users, some light h
+pricing is $20 per seat per month plus usage billed at api rates, so cost
 rades (for example pro annual to max 5x monthly), your remaining value on your old plan
 standard terms month-to-month or annual annual, with flexibility add
 usage in other ways, such as weekly and monthly caps or model and feature usage, at our
