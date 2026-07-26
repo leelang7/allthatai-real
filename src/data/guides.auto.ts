@@ -387,7 +387,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-27T19:53:50.115Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.870Z"
   },
   {
     "slug": "deal-2026-05-27-스팀-grand-theft-auto-트릴로지-데피니티브-에디션-67-할인-65000-21450",
@@ -396,7 +397,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-27T19:53:53.701Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.870Z"
   },
   {
     "slug": "deal-2026-05-27-스팀-어쌔신-크리드-섀도우스-50-할인-79000-39500",
@@ -405,7 +407,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-27T08:54:59.251Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.869Z"
   },
   {
     "slug": "deal-2026-05-26-전세보증금-임의지급-hug-안심전세-1주일-절차",
@@ -414,7 +417,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-26T19:50:12.476Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.868Z"
   },
   {
     "slug": "deal-2026-05-26-스팀-no-mans-sky-60-할인-63000-25200",
@@ -423,7 +427,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-26T19:50:16.758Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.868Z"
   },
   {
     "slug": "deal-2026-05-26-청년-안심전세-보증-만-34세-이하-우대-상품",
@@ -432,7 +437,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "정부지원",
     "minutes": 5,
     "generatedAt": "2026-05-26T08:59:59.765Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.867Z"
   },
   {
     "slug": "deal-2026-05-26-스팀-kenshi-72-할인-31000-8680",
@@ -441,7 +447,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-26T01:48:51.279Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.866Z"
   },
   {
     "slug": "deal-2026-05-25-건축물대장-위반건축물-무허가-옥탑방-다세대-분할",
@@ -460,7 +467,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "전세사기",
     "minutes": 5,
     "generatedAt": "2026-05-25T19:10:25.206Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.863Z"
   },
   {
     "slug": "deal-2026-05-25-스팀-grand-theft-auto-v-인핸스드-50-할인-36790-18390",
@@ -469,7 +477,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-25T19:10:30.073Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.865Z"
   },
   {
     "slug": "deal-2026-05-25-스팀-restaurats-52-할인-19950-9580",
@@ -478,7 +487,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-25T19:10:35.039Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-07-26T05:16:01.866Z"
   },
   {
     "slug": "deal-2026-05-25-신탁-부동산-전세-한국토지신탁코람코신탁-신호",
