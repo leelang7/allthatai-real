@@ -7,7 +7,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://allthatai-real.vercel.app',
+  site: 'https://real.allthatai.kr',
   trailingSlash: 'always',
   output: 'static',
   adapter: vercel({ webAnalytics: { enabled: false } }),
@@ -31,7 +31,7 @@ export default defineConfig({
         } else if (item.url.includes('/tag/')) {
           item.priority = 0.5;
           item.changefreq = 'weekly';
-        } else if (item.url === 'https://allthatai-real.vercel.app/') {
+        } else if (item.url === 'https://real.allthatai.kr/') {
           item.priority = 1.0;
           item.changefreq = 'daily';
         }

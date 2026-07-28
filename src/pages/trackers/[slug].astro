@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 const { tracker } = Astro.props as { tracker: typeof trackers[number] };
 const live = trackerLive[tracker.slug] || { lastUpdated: '', items: [] };
 
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 const url = `${SITE}/trackers/${tracker.slug}/`;
 const breadcrumbLd = {
   '@context': 'https://schema.org',

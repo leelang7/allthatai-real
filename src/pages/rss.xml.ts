@@ -2,7 +2,7 @@ import type { APIContext } from 'astro';
 import { allGuides } from '../data/guides';
 import { autoGuides } from '../data/guides.auto';
 
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 
 function escapeXml(s: string) {
   return s

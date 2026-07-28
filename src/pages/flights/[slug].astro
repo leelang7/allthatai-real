@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 const { route } = Astro.props as { route: typeof SEO_FLIGHTS[number] };
 
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 const url = `${SITE}/flights/${route.slug}/`;
 const breadcrumbLd = {
   '@context': 'https://schema.org',

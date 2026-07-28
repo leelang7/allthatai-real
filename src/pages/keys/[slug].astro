@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 const { game } = Astro.props as { game: typeof SEO_GAMES[number] };
 const fullName = game.korName ? `${game.korName} (${game.name})` : game.name;
 
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 const url = `${SITE}/keys/${game.slug}/`;
 const breadcrumbLd = {
   '@context': 'https://schema.org',

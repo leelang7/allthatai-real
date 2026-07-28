@@ -10,7 +10,7 @@ const { snippet } = Astro.props as { snippet: typeof snippets[number] };
 const colorClass = CATEGORY_COLOR[snippet.category];
 const categoryLabel = CATEGORY_LABEL[snippet.category];
 
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 const url = `${SITE}/snippets/${snippet.slug}/`;
 const breadcrumbLd = {
   '@context': 'https://schema.org',

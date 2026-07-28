@@ -44,7 +44,7 @@ const related = allGuides.filter((g) => g.tag === tag && g.slug !== slug).slice(
 
 // JSON-LD structured data — drives Google rich results (article cards, breadcrumb,
 // faq snippets when applicable). Inlined per-page so each article gets its own.
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 const articleUrl = new URL(Astro.url.pathname, SITE).toString();
 const datePublished = updated || new Date().toISOString().slice(0, 10);
 const articleLd = {

@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props as { product: typeof products[number] };
 
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';
 const productUrl = new URL(Astro.url.pathname, SITE).toString();
 const priceNumber = parseInt(product.priceKrw.replace(/[^\d]/g, ''), 10);
 const productLd = {
