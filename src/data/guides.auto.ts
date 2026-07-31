@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-07-31-스팀-marvels-spider-man-remastered-60-할인-62800-25120",
+    "title": "스팀 Marvel’s Spider-Man Remastered 60% 할인: 2.5만원대 기회",
+    "excerpt": "스팀에서 Marvel’s Spider-Man Remastered를 60% 할인된 가격 ₩25,120에 만나보세요. 역대급 할인 기회!",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-07-31T19:01:33.237Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-07-12-palworld-팰월드-스팀-베스트셀러-30-할인",
     "title": "팰월드 스팀 30% 할인! 지금이 구매 적기?",
