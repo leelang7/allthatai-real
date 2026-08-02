@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-07-31-스팀-marvels-spider-man-remastered-60-할인-62800-25120",
     "title": "스팀 Marvel’s Spider-Man Remastered 60% 할인: 2.5만원대 기회",
@@ -360,7 +360,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-30T01:46:43.787Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-02T05:11:31.257Z"
   },
   {
     "slug": "deal-2026-05-28-스팀-ready-or-not-50-할인-53000-26500",
@@ -369,7 +370,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-05-28T19:59:26.075Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-02T05:11:31.257Z"
   },
   {
     "slug": "deal-2026-05-28-전세사기-피해자-특별법-시행-2025-변경-요약",
@@ -378,7 +380,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "전세사기",
     "minutes": 5,
     "generatedAt": "2026-05-28T14:57:51.125Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-02T05:11:31.256Z"
   },
   {
     "slug": "deal-2026-05-28-스팀-kingdom-come-deliverance-ii-50-할인-60800-30400",
@@ -387,7 +390,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-05-28T01:28:34.171Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-02T05:11:31.254Z"
   },
   {
     "slug": "deal-2026-05-27-스팀-detroit-become-human-80-할인-45500-9100",
@@ -1217,7 +1221,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:44.885Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.992Z"
+    "lastRefreshedAt": "2026-08-02T05:11:31.259Z"
   },
   {
     "slug": "deal-2026-05-11-종합소득세-신고-대행-vs-홈택스-매출-5천만-미만",
@@ -1227,7 +1231,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:50.656Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.993Z"
+    "lastRefreshedAt": "2026-08-02T05:11:31.259Z"
   },
   {
     "slug": "deal-2026-05-11-사업자-통장-분리-가맹점-신청-셀프-가이드",
@@ -1237,7 +1241,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:56.969Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.993Z"
+    "lastRefreshedAt": "2026-08-02T05:11:31.260Z"
   },
   {
     "slug": "deal-2026-05-11-신용카드-단말기-직접-계약-vs-대행-페이먼츠社-비교",
@@ -1247,7 +1251,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-11T01:46:02.280Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.994Z"
+    "lastRefreshedAt": "2026-08-02T05:11:31.261Z"
   },
   {
     "slug": "deal-2026-05-11-pg사-직접-가입-vs-대행-토스페이먼츠이니시스kg이니시스",
@@ -1267,7 +1271,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-10T18:41:06.267Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.990Z"
+    "lastRefreshedAt": "2026-08-02T05:11:31.258Z"
   },
   {
     "slug": "deal-2026-05-10-스팀-uncharted-레거시-오브-시브즈-컬렉션-67-할인-52800-17420",
@@ -1277,7 +1281,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-10T18:41:17.459Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.991Z"
+    "lastRefreshedAt": "2026-08-02T05:11:31.258Z"
   },
   {
     "slug": "deal-2026-05-10-쇼핑몰-사업자-등록-대행-vs-본인-직접-절차",
