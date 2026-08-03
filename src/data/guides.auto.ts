@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-08-03-스팀-marvels-spider-man-miles-morales-60-할인-52800-21120",
+    "title": "스팀 Marvel’s Spider-Man: Miles Morales 60% 할인 — ₩21,120에 만나보세요!",
+    "excerpt": "스팀에서 Marvel’s Spider-Man: Miles Morales가 60% 할인된 ₩21,120에 판매 중입니다. 지금 바로 확인하세요!",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-03T01:19:39.320Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-07-31-스팀-marvels-spider-man-remastered-60-할인-62800-25120",
     "title": "스팀 Marvel’s Spider-Man Remastered 60% 할인: 2.5만원대 기회",
