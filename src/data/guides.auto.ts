@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-08-06-세피리아-스팀-베스트셀러-40-할인",
+    "title": "스팀 베스트셀러 세피리아 40% 할인: 구매 가이드",
+    "excerpt": "스팀 베스트셀러 '세피리아'가 40% 할인 중! 덱빌딩 로그라이크 팬을 위한 기회.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-06T01:09:40.967Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-08-03-스팀-marvels-spider-man-miles-morales-60-할인-52800-21120",
     "title": "스팀 Marvel’s Spider-Man: Miles Morales 60% 할인 — ₩21,120에 만나보세요!",
     "excerpt": "스팀에서 Marvel’s Spider-Man: Miles Morales가 60% 할인된 ₩21,120에 판매 중입니다. 지금 바로 확인하세요!",
