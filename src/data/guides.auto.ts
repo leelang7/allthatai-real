@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-08-07-스팀-peak-50-할인-8400-4200",
+    "title": "이번 주 스팀 핫딜: PEAK 50% 할인 정보 (₩8,400 → ₩4,200)",
+    "excerpt": "스팀 인기 퍼즐 게임 'PEAK'가 50% 할인된 ₩4,200에 판매 중입니다. 놓치지 마세요!",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-07T18:34:19.805Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-08-06-세피리아-스팀-베스트셀러-40-할인",
     "title": "스팀 베스트셀러 세피리아 40% 할인: 구매 가이드",
     "excerpt": "스팀 베스트셀러 '세피리아'가 40% 할인 중! 덱빌딩 로그라이크 팬을 위한 기회.",
