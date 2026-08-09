@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-08-07-스팀-peak-50-할인-8400-4200",
     "title": "이번 주 스팀 핫딜: PEAK 50% 할인 정보 (₩8,400 → ₩4,200)",
@@ -333,7 +333,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-06-04T09:37:09.337Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-09T03:21:43.646Z"
   },
   {
     "slug": "deal-2026-06-03-신혼부부-특별공급-소득기준자산기준-2025-최신-기준",
@@ -342,7 +343,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-06-03T16:08:16.460Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-09T03:21:43.645Z"
   },
   {
     "slug": "deal-2026-06-03-공공분양-vs-민간분양-가점-계산법과-당첨-확률-차이",
@@ -351,7 +353,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-06-03T10:26:24.481Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-09T03:21:43.644Z"
   },
   {
     "slug": "deal-2026-06-03-특별공급-vs-일반공급-신혼생애최초다자녀노부모부양-자격",
@@ -360,7 +363,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 6,
     "generatedAt": "2026-06-03T02:15:00.632Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-09T03:21:43.643Z"
   },
   {
     "slug": "deal-2026-06-02-청년-주택드림-청약통장-vs-일반-주택청약-차이와-갈아타기",
@@ -369,7 +373,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "주택/청약",
     "minutes": 6,
     "generatedAt": "2026-06-02T20:31:34.584Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-09T03:21:43.643Z"
   },
   {
     "slug": "deal-2026-06-02-ready-or-not-스팀-베스트셀러-50-할인",
@@ -378,7 +383,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-02T15:49:00.017Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-09T03:21:43.642Z"
   },
   {
     "slug": "deal-2026-05-30-스팀-드래곤-퀘스트-xi-s-지나간-시간을-찾아서---definitive-edition-50-할인-49800-24900",
@@ -1218,7 +1224,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-12T01:28:49.559Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.996Z"
+    "lastRefreshedAt": "2026-08-09T03:21:43.641Z"
   },
   {
     "slug": "deal-2026-05-12-해외-직접투자-신고-외환-대행-vs-외국환은행-직접",
@@ -1228,7 +1234,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-12T01:28:54.568Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.997Z"
+    "lastRefreshedAt": "2026-08-09T03:21:43.641Z"
   },
   {
     "slug": "deal-2026-05-11-스팀-서브노티카-빌로우-제로-75-할인-33700-8420",
@@ -1238,7 +1244,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-11T19:22:17.679Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.995Z"
+    "lastRefreshedAt": "2026-08-09T03:21:43.638Z"
   },
   {
     "slug": "deal-2026-05-11-부가세-신고-세무사-30만회-vs-홈택스-직접",
@@ -1288,7 +1294,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-11T01:46:08.565Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-05-31T06:05:39.995Z"
+    "lastRefreshedAt": "2026-08-09T03:21:43.640Z"
   },
   {
     "slug": "deal-2026-05-10-간이과세자-vs-일반과세자-세무사-없이-결정",
