@@ -13,7 +13,7 @@ import Layout from '../layouts/Layout.astro';
 interface SymbolGroup {
   title: string;
   hint: string;
-  symbols: { char: string; name: string }[];
+  symbols: { char: string; name: string; box?: boolean }[];
 }
 
 const groups: SymbolGroup[] = [
@@ -211,7 +211,7 @@ const groups: SymbolGroup[] = [
   },
   {
     title: '원/네모/괄호 숫자',
-    hint: '순서·번호 매기기 · 원①·네모1️⃣·괄호⑴·로마Ⅰ',
+    hint: '순서·번호 매기기 · 원①·투명네모·괄호⑴·로마Ⅰ',
     symbols: [
       { char: '①', name: '①' },
       { char: '②', name: '②' },
@@ -223,17 +223,16 @@ const groups: SymbolGroup[] = [
       { char: '⑧', name: '⑧' },
       { char: '⑨', name: '⑨' },
       { char: '⑩', name: '⑩' },
-      { char: '1️⃣', name: '네모 1' },
-      { char: '2️⃣', name: '네모 2' },
-      { char: '3️⃣', name: '네모 3' },
-      { char: '4️⃣', name: '네모 4' },
-      { char: '5️⃣', name: '네모 5' },
-      { char: '6️⃣', name: '네모 6' },
-      { char: '7️⃣', name: '네모 7' },
-      { char: '8️⃣', name: '네모 8' },
-      { char: '9️⃣', name: '네모 9' },
-      { char: '🔟', name: '네모 10' },
-      { char: '0️⃣', name: '네모 0' },
+      { char: '1', name: '네모 1', box: true },
+      { char: '2', name: '네모 2', box: true },
+      { char: '3', name: '네모 3', box: true },
+      { char: '4', name: '네모 4', box: true },
+      { char: '5', name: '네모 5', box: true },
+      { char: '6', name: '네모 6', box: true },
+      { char: '7', name: '네모 7', box: true },
+      { char: '8', name: '네모 8', box: true },
+      { char: '9', name: '네모 9', box: true },
+      { char: '0', name: '네모 0', box: true },
       { char: '⑴', name: '⑴' },
       { char: '⑵', name: '⑵' },
       { char: '⑶', name: '⑶' },
@@ -327,11 +326,11 @@ const breadcrumbLd = {
             <button
               type="button"
               class="sym-btn group rounded-xl border border-zinc-800 hover:border-cyan-500/60 bg-zinc-900/40 hover:bg-zinc-800/60 p-3 transition flex flex-col items-center justify-center min-h-[72px]"
-              data-char={s.char}
+              data-char={s.box ? s.char + '⃞' : s.char}
               data-name={s.name}
               title={`${s.name} 복사`}
             >
-              <span class="text-3xl text-white group-hover:scale-110 transition leading-none">{s.char}</span>
+              <span class="text-3xl text-white group-hover:scale-110 transition leading-none">{s.box ? (<span class="numbox">{s.char}</span>) : s.char}</span>
               <span class="mt-1.5 text-[9px] text-zinc-500 group-hover:text-zinc-300 leading-tight text-center line-clamp-1">{s.name}</span>
             </button>
           ))}
@@ -344,6 +343,16 @@ const breadcrumbLd = {
     <span id="toast-msg">복사됨</span>
   </div>
 </Layout>
+
+<style>
+  .numbox {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 0.92em; height: 0.92em;
+    border: 0.08em solid currentColor; border-radius: 3px;
+    font-size: 0.62em; line-height: 1; font-weight: 700;
+    box-sizing: border-box;
+  }
+</style>
 
 <script is:inline>
   const toast = document.getElementById('toast');
