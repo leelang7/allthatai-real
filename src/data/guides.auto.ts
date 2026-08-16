@@ -288,7 +288,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-06T18:59:25.293Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-16T02:49:28.470Z"
   },
   {
     "slug": "deal-2026-06-05-스팀-sons-of-the-forest-70-할인-32000-9600",
@@ -297,7 +298,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-05T08:58:51.424Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-16T02:49:28.468Z"
   },
   {
     "slug": "deal-2026-06-05-monster-hunter-wilds-스팀-베스트셀러-58-할인",
@@ -306,7 +308,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-05T08:58:56.258Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-16T02:49:28.469Z"
   },
   {
     "slug": "deal-2026-06-05-스팀-biohazard-re4-75-할인-49800-12450",
@@ -315,7 +318,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-05T01:57:22.610Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-16T02:49:28.467Z"
   },
   {
     "slug": "deal-2026-06-04-생애최초-특별공급-자격-조건과-당첨-후-의무거주",
@@ -324,7 +328,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "주택/청약",
     "minutes": 5,
     "generatedAt": "2026-06-04T14:23:51.800Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-16T02:49:28.466Z"
   },
   {
     "slug": "deal-2026-06-04-버팀목-전세자금대출-vs-청년-버팀목-한도금리자격",
@@ -1174,7 +1179,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:27.684Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.017Z"
+    "lastRefreshedAt": "2026-08-16T02:49:28.471Z"
   },
   {
     "slug": "deal-2026-05-13-cursor-ide-무료-한도와-pro-20-결제-시점",
@@ -1184,7 +1189,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:33.719Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.018Z"
+    "lastRefreshedAt": "2026-08-16T02:49:28.472Z"
   },
   {
     "slug": "deal-2026-05-13-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
@@ -1194,7 +1199,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:39.728Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.018Z"
+    "lastRefreshedAt": "2026-08-16T02:49:28.473Z"
   },
   {
     "slug": "deal-2026-05-13-epic-games-무료게임-받는-법-이번-주-무료-정리",
@@ -1204,7 +1209,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:44.836Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.019Z"
+    "lastRefreshedAt": "2026-08-16T02:49:28.473Z"
   },
   {
     "slug": "deal-2026-05-12-클로드-pro-할인-받는-법-학생연간결제프로모션",
@@ -1214,7 +1219,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-12T08:15:44.202Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.015Z"
+    "lastRefreshedAt": "2026-08-16T02:49:28.470Z"
   },
   {
     "slug": "deal-2026-05-12-직구-관세-대행-vs-uni-pass-직접-한도납부",
