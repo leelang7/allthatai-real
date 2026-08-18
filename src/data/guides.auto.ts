@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-08-18-스팀-kingdom-come-deliverance-ii-60-할인-60800-24320",
+    "title": "이번 주 스팀 핫딜: 킹덤 컴: 딜리버런스 II 60% 할인",
+    "excerpt": "스팀에서 중세 오픈월드 RPG '킹덤 컴: 딜리버런스 II'가 60% 할인된 ₩24,320에 판매 중입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-18T00:25:04.068Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-08-07-스팀-peak-50-할인-8400-4200",
     "title": "이번 주 스팀 핫딜: PEAK 50% 할인 정보 (₩8,400 → ₩4,200)",
