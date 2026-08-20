@@ -176,7 +176,7 @@ function draw(courses) {
 }
 
 app.innerHTML = '<p class="empty">자료를 불러오는 중…</p>';
-fetch("/api/class-data", { cache: "no-store" })
+fetch("/api/class-data/", { cache: "no-store" })
   .then(r => r.json())
   .then(d => draw(d.courses && d.courses.length ? d.courses : FALLBACK))
   .catch(() => draw(FALLBACK));
