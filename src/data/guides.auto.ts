@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-08-20-스팀-zombie-army-4-dead-war-95-할인-53000-2650",
+    "title": "스팀 Zombie Army 4: Dead War 95% 할인 — ₩53,000 → ₩2,650",
+    "excerpt": "스팀에서 Zombie Army 4: Dead War를 정가 ₩53,000에서 95% 할인된 ₩2,650에 만나보세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-08-20T12:19:03.146Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-08-18-스팀-kingdom-come-deliverance-ii-60-할인-60800-24320",
     "title": "이번 주 스팀 핫딜: 킹덤 컴: 딜리버런스 II 60% 할인",
     "excerpt": "스팀에서 중세 오픈월드 RPG '킹덤 컴: 딜리버런스 II'가 60% 할인된 ₩24,320에 판매 중입니다.",
