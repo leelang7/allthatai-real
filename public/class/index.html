@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>강의 자료실 — 이석창 강사</title>
-<meta name="description" content="수업에서 쓰는 자료·링크를 한곳에 모았습니다.">
+<meta name="description" content="과정별 강의 자료와 실습 링크를 한곳에서.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="강의 자료실 — 이석창 강사">
-<meta property="og:description" content="수업 자료와 실습 링크를 한곳에서.">
-<meta property="og:type" content="website">
+<meta property="og:description" content="과정별 강의 자료와 실습 링크를 한곳에서.">
+<meta property="og:image" content="https://real.allthatai.kr/class/avatar.jpg">
 <link rel="icon" href="/appicon.png">
 <style>
   :root{
@@ -22,122 +22,186 @@
     background:var(--bg);color:var(--ink);line-height:1.6;
     -webkit-font-smoothing:antialiased;padding:0 20px 64px;
   }
-  .wrap{max-width:760px;margin:0 auto}
+  .wrap{max-width:820px;margin:0 auto}
 
-  header{padding:56px 0 28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+  /* ── 헤더 ── */
+  header{padding:48px 0 26px;border-bottom:1px solid var(--line);margin-bottom:26px;
+    display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .avatar{
+    flex:none;width:84px;height:84px;border-radius:50%;object-fit:cover;
+    border:2px solid rgba(79,192,208,.45);box-shadow:0 4px 18px rgba(0,0,0,.4);
+  }
+  .head-txt{flex:1;min-width:220px}
   .eyebrow{
-    display:inline-block;font-size:.78rem;letter-spacing:.14em;color:var(--accent);
+    display:inline-block;font-size:.74rem;letter-spacing:.14em;color:var(--accent);
     border:1px solid rgba(79,192,208,.35);background:rgba(79,192,208,.08);
-    padding:5px 12px;border-radius:99px;margin-bottom:16px;
+    padding:4px 11px;border-radius:99px;margin-bottom:10px;
   }
-  h1{font-size:clamp(1.7rem,5vw,2.3rem);letter-spacing:-.02em;font-weight:800;line-height:1.25}
+  h1{font-size:clamp(1.5rem,4.5vw,2rem);letter-spacing:-.02em;font-weight:800;line-height:1.25}
   h1 span{color:var(--accent)}
-  .who{margin-top:10px;color:var(--sub);font-size:.98rem}
+  .who{margin-top:6px;color:var(--sub);font-size:.94rem}
 
-  .sec{margin:34px 0 14px;display:flex;align-items:baseline;gap:10px}
-  .sec h2{font-size:1.05rem;font-weight:700}
-  .sec small{color:var(--sub);font-size:.82rem}
+  /* ── 연락처 ── */
+  .contact{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:99px;
+    padding:7px 14px;font-size:.86rem;transition:.15s;
+  }
+  .chip:hover{border-color:var(--accent);color:var(--accent);background:var(--card2)}
 
-  .grid{display:grid;gap:12px}
-  .item{
-    display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;
+  /* ── 과정(폴더) ── */
+  .course{
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:16px 18px;transition:.15s;
+    margin-bottom:14px;overflow:hidden;
   }
-  .item:hover{border-color:var(--accent);background:var(--card2);transform:translateY(-1px)}
-  .ico{
-    flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
-    font-size:1.25rem;background:rgba(79,192,208,.12);border:1px solid rgba(79,192,208,.25);
+  .course > summary{
+    list-style:none;cursor:pointer;padding:18px 20px;display:flex;align-items:center;gap:14px;
+    transition:.15s;
   }
-  .txt{flex:1;min-width:0}
-  .txt b{display:block;font-size:1rem;font-weight:700}
-  .txt small{display:block;color:var(--sub);font-size:.85rem;margin-top:2px;
+  .course > summary::-webkit-details-marker{display:none}
+  .course > summary:hover{background:var(--card2)}
+  .folder{
+    flex:none;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:1.2rem;
+    background:rgba(79,192,208,.12);border:1px solid rgba(79,192,208,.25);
+  }
+  .c-txt{flex:1;min-width:0}
+  .c-txt b{display:block;font-size:1.02rem;font-weight:700}
+  .c-txt small{display:block;color:var(--sub);font-size:.84rem;margin-top:1px}
+  .count{flex:none;font-size:.76rem;color:var(--sub);background:var(--bg);
+    border:1px solid var(--line);border-radius:99px;padding:3px 10px}
+  .caret{flex:none;color:var(--sub);transition:.2s}
+  .course[open] .caret{transform:rotate(90deg);color:var(--accent)}
+
+  .files{padding:0 14px 14px;display:grid;gap:8px}
+  .file{
+    display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;
+    background:var(--bg);border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;transition:.15s;
+  }
+  .file:hover{border-color:var(--accent);background:var(--card2);transform:translateX(2px)}
+  .fi{flex:none;font-size:1.05rem;width:26px;text-align:center}
+  .ft{flex:1;min-width:0}
+  .ft b{display:block;font-size:.94rem;font-weight:600}
+  .ft small{display:block;color:var(--sub);font-size:.82rem;margin-top:1px;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .go{flex:none;color:var(--sub);font-size:1.1rem}
-  .item:hover .go{color:var(--accent)}
-  .badge{
-    flex:none;font-size:.7rem;padding:3px 8px;border-radius:99px;
-    background:rgba(124,156,255,.14);color:var(--accent2);border:1px solid rgba(124,156,255,.3);
-  }
+  .badge{flex:none;font-size:.68rem;padding:2px 8px;border-radius:99px;
+    background:rgba(124,156,255,.14);color:var(--accent2);border:1px solid rgba(124,156,255,.3)}
+  .go{flex:none;color:var(--sub);font-size:.95rem}
+  .file:hover .go{color:var(--accent)}
 
   .note{
-    margin-top:26px;background:var(--card);border:1px solid var(--line);
-    border-radius:var(--radius);padding:16px 18px;color:var(--sub);font-size:.9rem;
+    margin-top:22px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:15px 18px;color:var(--sub);font-size:.88rem;
   }
   .note b{color:var(--ink)}
-
-  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);
-    color:var(--sub);font-size:.85rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--sub);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   footer a{color:var(--accent);text-decoration:none}
   .empty{color:var(--sub);font-size:.9rem;padding:14px 2px}
+  @media (max-width:520px){ .avatar{width:64px;height:64px} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <span class="eyebrow">CLASS MATERIALS</span>
-    <h1>강의 <span>자료실</span></h1>
-    <p class="who">이석창 강사 · 수업에 쓰는 자료와 링크를 여기에 모아둡니다.</p>
+    <img class="avatar" src="avatar.jpg" alt="이석창 강사">
+    <div class="head-txt">
+      <span class="eyebrow">CLASS MATERIALS</span>
+      <h1>강의 <span>자료실</span></h1>
+      <p class="who">이석창 강사 · 과정별 자료와 실습 링크를 여기에 모아둡니다.</p>
+      <div class="contact">
+        <a class="chip" href="mailto:leescvsir@gmail.com">✉️ 이메일 문의</a>
+        <a class="chip" href="https://github.com/leelang7" target="_blank" rel="noopener">💻 GitHub</a>
+        <a class="chip" href="profile.jpg" target="_blank" rel="noopener">👤 강사 프로필</a>
+      </div>
+    </div>
   </header>
 
   <main id="app"></main>
 
   <div class="note">
-    <b>안내</b> · 자료는 수업 진행에 따라 계속 추가·수정됩니다. 이 주소(<b>real.allthatai.kr/class</b>)만 저장해두면
-    항상 최신 자료를 볼 수 있어요. 열리지 않으면 로그인한 구글 계정을 확인해 주세요.
+    <b>안내</b> · 과정 제목을 누르면 자료가 펼쳐집니다. 자료는 수업 진행에 따라 계속 추가·수정되니
+    이 주소(<b>real.allthatai.kr/class</b>)만 저장해두세요. 링크가 열리지 않으면 로그인한 구글 계정을 확인해 주세요.
   </div>
 
   <footer>
-    <span>© AllThatAI</span>
+    <span>© AllThatAI · 이석창</span>
     <span><a href="https://real.allthatai.kr">real.allthatai.kr</a></span>
   </footer>
 </div>
 
 <script>
-/* ───────────────────────────────────────────────────────────
-   자료 관리: 아래 RESOURCES 배열만 고치면 됩니다.
-     group : 묶음 제목 (같은 이름끼리 한 섹션으로 묶임)
-     icon  : 이모지 아이콘
-     title : 자료 이름
-     desc  : 한 줄 설명
-     url   : 링크
-     badge : (선택) 'NEW' 같은 표시
-   ─────────────────────────────────────────────────────────── */
-const RESOURCES = [
+/* ═══════════════════════════════════════════════════════════
+   ■ 자료 관리 — 여기만 고치면 됩니다.
+
+   과정(폴더) 하나 = { course, icon, desc, open, items:[...] }
+     course : 과정 이름 (폴더 제목)
+     icon   : 폴더 아이콘 이모지
+     desc   : 과정 한 줄 설명
+     open   : true 면 처음부터 펼쳐진 상태
+     items  : 그 과정의 자료 목록
+
+   자료 하나 = { title, desc, url, icon, badge }
+     badge  : (선택) 'NEW', '실습' 처럼 붙는 표시
+
+   ▸ 과정 추가 → COURSES 에 { ... } 통째로 하나 더
+   ▸ 자료 추가 → 해당 과정의 items 에 { ... } 하나 더
+   ═══════════════════════════════════════════════════════════ */
+const COURSES = [
   {
-    group: "수업 자료",
-    icon: "📁",
-    title: "강의 자료 폴더",
-    desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
-    url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
-    badge: "NEW"
+    course: "공통 자료",
+    icon: "📚",
+    desc: "모든 과정 공통 자료",
+    open: true,
+    items: [
+      {
+        icon: "📁",
+        title: "강의 자료 폴더",
+        desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
+        url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
+        badge: "NEW"
+      },
+    ]
   },
+  // 예시 ─ 과정을 추가할 때 아래 형태로 복사해서 쓰면 됩니다.
+  // {
+  //   course: "KDT 자율주행",
+  //   icon: "🚗",
+  //   desc: "1기 · 인공지능 트랙",
+  //   open: false,
+  //   items: [
+  //     { icon:"📄", title:"1주차 슬라이드", desc:"개요·환경설정", url:"https://..." },
+  //     { icon:"💻", title:"실습 코드", desc:"GitHub 저장소", url:"https://...", badge:"실습" },
+  //   ]
+  // },
 ];
 
 const app = document.getElementById("app");
-if (!RESOURCES.length) {
+const live = COURSES.filter(c => (c.items || []).length);
+
+if (!live.length) {
   app.innerHTML = '<p class="empty">등록된 자료가 아직 없습니다.</p>';
 } else {
-  const groups = [];
-  for (const r of RESOURCES) {
-    let g = groups.find(x => x.name === r.group);
-    if (!g) { g = { name: r.group, items: [] }; groups.push(g); }
-    g.items.push(r);
-  }
-  app.innerHTML = groups.map(g => `
-    <section>
-      <div class="sec"><h2>${g.name}</h2><small>${g.items.length}개</small></div>
-      <div class="grid">
-        ${g.items.map(i => `
-          <a class="item" href="${i.url}" target="_blank" rel="noopener">
-            <span class="ico">${i.icon || "🔗"}</span>
-            <span class="txt"><b>${i.title}</b><small>${i.desc || ""}</small></span>
+  app.innerHTML = live.map(c => `
+    <details class="course"${c.open ? " open" : ""}>
+      <summary>
+        <span class="folder">${c.icon || "📁"}</span>
+        <span class="c-txt"><b>${c.course}</b>${c.desc ? `<small>${c.desc}</small>` : ""}</span>
+        <span class="count">${c.items.length}개</span>
+        <span class="caret">›</span>
+      </summary>
+      <div class="files">
+        ${c.items.map(i => `
+          <a class="file" href="${i.url}" target="_blank" rel="noopener">
+            <span class="fi">${i.icon || "🔗"}</span>
+            <span class="ft"><b>${i.title}</b>${i.desc ? `<small>${i.desc}</small>` : ""}</span>
             ${i.badge ? `<span class="badge">${i.badge}</span>` : ""}
             <span class="go">↗</span>
           </a>`).join("")}
       </div>
-    </section>`).join("");
+    </details>`).join("");
 }
 </script>
 </body>
