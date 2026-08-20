@@ -133,76 +133,53 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   ■ 자료 관리 — 여기만 고치면 됩니다.
-
-   과정(폴더) 하나 = { course, icon, desc, open, items:[...] }
-     course : 과정 이름 (폴더 제목)
-     icon   : 폴더 아이콘 이모지
-     desc   : 과정 한 줄 설명
-     open   : true 면 처음부터 펼쳐진 상태
-     items  : 그 과정의 자료 목록
-
-   자료 하나 = { title, desc, url, icon, badge }
-     badge  : (선택) 'NEW', '실습' 처럼 붙는 표시
-
-   ▸ 과정 추가 → COURSES 에 { ... } 통째로 하나 더
-   ▸ 자료 추가 → 해당 과정의 items 에 { ... } 하나 더
-   ═══════════════════════════════════════════════════════════ */
-const COURSES = [
+/* 자료는 /api/class-data 에서 불러옵니다.
+   추가·수정·삭제는 관리 페이지(/class/admin)에서 GUI로 하세요.
+   API가 안 되면 아래 FALLBACK 으로 표시돼 페이지가 비지 않습니다. */
+const FALLBACK = [
   {
-    course: "공통 자료",
-    icon: "📚",
-    desc: "모든 과정 공통 자료",
-    open: true,
-    items: [
-      {
-        icon: "📁",
-        title: "강의 자료 폴더",
-        desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
-        url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
-        badge: "NEW"
-      },
-    ]
+    course: "공통 자료", icon: "📚", desc: "모든 과정 공통 자료", open: true,
+    items: [{
+      icon: "📁", title: "강의 자료 폴더",
+      desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
+      url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
+      badge: "NEW"
+    }]
   },
-  // 예시 ─ 과정을 추가할 때 아래 형태로 복사해서 쓰면 됩니다.
-  // {
-  //   course: "KDT 자율주행",
-  //   icon: "🚗",
-  //   desc: "1기 · 인공지능 트랙",
-  //   open: false,
-  //   items: [
-  //     { icon:"📄", title:"1주차 슬라이드", desc:"개요·환경설정", url:"https://..." },
-  //     { icon:"💻", title:"실습 코드", desc:"GitHub 저장소", url:"https://...", badge:"실습" },
-  //   ]
-  // },
 ];
 
 const app = document.getElementById("app");
-const live = COURSES.filter(c => (c.items || []).length);
+const esc = s => (s ?? "").toString()
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-if (!live.length) {
-  app.innerHTML = '<p class="empty">등록된 자료가 아직 없습니다.</p>';
-} else {
+function draw(courses) {
+  const live = (courses || []).filter(c => (c.items || []).length);
+  if (!live.length) { app.innerHTML = '<p class="empty">등록된 자료가 아직 없습니다.</p>'; return; }
   app.innerHTML = live.map(c => `
     <details class="course"${c.open ? " open" : ""}>
       <summary>
-        <span class="folder">${c.icon || "📁"}</span>
-        <span class="c-txt"><b>${c.course}</b>${c.desc ? `<small>${c.desc}</small>` : ""}</span>
+        <span class="folder">${esc(c.icon) || "📁"}</span>
+        <span class="c-txt"><b>${esc(c.course)}</b>${c.desc ? `<small>${esc(c.desc)}</small>` : ""}</span>
         <span class="count">${c.items.length}개</span>
         <span class="caret">›</span>
       </summary>
       <div class="files">
         ${c.items.map(i => `
-          <a class="file" href="${i.url}" target="_blank" rel="noopener">
-            <span class="fi">${i.icon || "🔗"}</span>
-            <span class="ft"><b>${i.title}</b>${i.desc ? `<small>${i.desc}</small>` : ""}</span>
-            ${i.badge ? `<span class="badge">${i.badge}</span>` : ""}
+          <a class="file" href="${esc(i.url)}" target="_blank" rel="noopener">
+            <span class="fi">${esc(i.icon) || "🔗"}</span>
+            <span class="ft"><b>${esc(i.title)}</b>${i.desc ? `<small>${esc(i.desc)}</small>` : ""}</span>
+            ${i.badge ? `<span class="badge">${esc(i.badge)}</span>` : ""}
             <span class="go">↗</span>
           </a>`).join("")}
       </div>
     </details>`).join("");
 }
+
+app.innerHTML = '<p class="empty">자료를 불러오는 중…</p>';
+fetch("/api/class-data", { cache: "no-store" })
+  .then(r => r.json())
+  .then(d => draw(d.courses && d.courses.length ? d.courses : FALLBACK))
+  .catch(() => draw(FALLBACK));
 </script>
 </body>
 </html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자료실 관리 — 이석창 강사</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/appicon.png">
+<style>
+  :root{
+    --bg:#0d1117; --card:#161b22; --card2:#1c232c; --line:#2a323d;
+    --ink:#e6edf3; --sub:#9aa7b4; --accent:#4fc0d0; --ok:#3fb950; --bad:#f85149;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Malgun Gothic",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;padding:0 16px 120px}
+  .wrap{max-width:900px;margin:0 auto}
+  a{color:var(--accent)}
+
+  header{padding:28px 0 18px;border-bottom:1px solid var(--line);margin-bottom:20px;
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  h1{font-size:1.3rem;font-weight:800}
+  .sub{color:var(--sub);font-size:.86rem}
+  .spacer{flex:1}
+
+  input,textarea,select{font:inherit;color:var(--ink);background:var(--bg);
+    border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:100%}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  label{display:block;font-size:.76rem;color:var(--sub);margin:0 0 4px 2px}
+
+  button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;border:1px solid var(--line);
+    background:var(--card);color:var(--ink);padding:9px 14px;transition:.15s}
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  .primary{background:var(--accent);color:#06222a;border-color:var(--accent)}
+  .primary:hover{filter:brightness(1.1);color:#06222a}
+  .danger{color:var(--bad);border-color:rgba(248,81,73,.35)}
+  .danger:hover{background:rgba(248,81,73,.1);color:var(--bad);border-color:var(--bad)}
+  .tiny{padding:5px 9px;font-size:.8rem}
+
+  /* 로그인 */
+  #gate{max-width:380px;margin:80px auto;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:26px}
+  #gate h2{font-size:1.05rem;margin-bottom:6px}
+  #gate p{color:var(--sub);font-size:.85rem;margin-bottom:16px}
+  #gate button{width:100%;margin-top:12px}
+
+  /* 과정 카드 */
+  .course{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    margin-bottom:14px;overflow:hidden}
+  .chead{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--card2);
+    border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .chead .ic{width:38px;flex:none}
+  .chead .nm{flex:1;min-width:140px}
+  .chead .ds{flex:1.4;min-width:160px}
+  .cbody{padding:12px 16px 16px}
+
+  .item{display:grid;grid-template-columns:44px 1.1fr 1.3fr 1.6fr 78px auto;gap:8px;align-items:center;
+    padding:9px;border:1px solid var(--line);border-radius:11px;background:var(--bg);margin-bottom:8px}
+  .item input{padding:7px 9px;font-size:.88rem}
+  .rowhead{display:grid;grid-template-columns:44px 1.1fr 1.3fr 1.6fr 78px auto;gap:8px;
+    padding:0 9px 4px;font-size:.72rem;color:var(--sub)}
+  @media (max-width:760px){
+    .item,.rowhead{grid-template-columns:1fr 1fr;}
+    .rowhead{display:none}
+  }
+
+  .rowbtns{display:flex;gap:6px;justify-content:flex-end}
+  .addrow{margin-top:4px}
+
+  /* 저장 바 */
+  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(13,17,23,.96);
+    border-top:1px solid var(--line);padding:12px 16px;backdrop-filter:blur(8px)}
+  .bar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .msg{font-size:.86rem}
+  .msg.ok{color:var(--ok)} .msg.bad{color:var(--bad)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<!-- 로그인 -->
+<div id="gate">
+  <h2>자료실 관리</h2>
+  <p>관리자 키를 입력하세요.</p>
+  <input id="key" type="password" placeholder="ADMIN_KEY" autocomplete="current-password">
+  <button class="primary" id="login">들어가기</button>
+  <p id="gateMsg" class="msg bad" style="margin-top:10px"></p>
+</div>
+
+<!-- 관리 화면 -->
+<div class="wrap hidden" id="admin">
+  <header>
+    <div>
+      <h1>자료실 관리</h1>
+      <div class="sub">과정별로 자료를 추가·수정·삭제하고 저장하면 바로 반영됩니다.</div>
+    </div>
+    <div class="spacer"></div>
+    <a href="/class/" target="_blank"><button class="tiny">학생 페이지 보기 ↗</button></a>
+  </header>
+
+  <div id="courses"></div>
+  <button id="addCourse">＋ 과정 추가</button>
+</div>
+
+<!-- 하단 저장 바 -->
+<div class="bar hidden" id="bar">
+  <div class="wrap">
+    <button class="primary" id="save">저장하기</button>
+    <button id="reload">불러오기(되돌리기)</button>
+    <span id="msg" class="msg"></span>
+  </div>
+</div>
+
+<script>
+const API = "/api/class-data";
+let KEY = "";
+let data = [];
+
+const $ = s => document.querySelector(s);
+const esc = s => (s ?? "").toString().replace(/"/g, "&quot;");
+
+/* ── 로그인 ── */
+$("#login").onclick = login;
+$("#key").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
+
+async function login() {
+  const k = $("#key").value.trim();
+  if (!k) return;
+  KEY = k;
+  $("#gateMsg").textContent = "확인 중…";
+  // 키 검증: 빈 저장을 시도하지 않고, 현재 데이터를 불러온 뒤 그대로 되저장해 권한만 확인
+  const r = await fetch(API);
+  const d = await r.json();
+  data = d.courses || [];
+  const probe = await fetch(`${API}?key=${encodeURIComponent(KEY)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ courses: data }),
+  });
+  const pd = await probe.json();
+  if (!pd.ok) { $("#gateMsg").textContent = pd.error || "인증 실패"; return; }
+  sessionStorage.setItem("classAdminKey", KEY);
+  $("#gate").classList.add("hidden");
+  $("#admin").classList.remove("hidden");
+  $("#bar").classList.remove("hidden");
+  render();
+}
+
+/* 세션에 키가 있으면 자동 로그인 시도 */
+const saved = sessionStorage.getItem("classAdminKey");
+if (saved) { $("#key").value = saved; login(); }
+
+/* ── 렌더 ── */
+function render() {
+  const box = $("#courses");
+  if (!data.length) {
+    box.innerHTML = `<p style="color:var(--sub);padding:14px 2px">과정이 없습니다. 아래 ‘과정 추가’를 누르세요.</p>`;
+    return;
+  }
+  box.innerHTML = data.map((c, ci) => `
+    <div class="course">
+      <div class="chead">
+        <input class="ic" value="${esc(c.icon || "📁")}" data-c="${ci}" data-f="icon" title="아이콘">
+        <input class="nm" value="${esc(c.course)}" data-c="${ci}" data-f="course" placeholder="과정명">
+        <input class="ds" value="${esc(c.desc || "")}" data-c="${ci}" data-f="desc" placeholder="과정 설명(선택)">
+        <label style="margin:0;display:flex;align-items:center;gap:5px;font-size:.78rem">
+          <input type="checkbox" style="width:auto" ${c.open ? "checked" : ""} data-c="${ci}" data-f="open"> 펼침
+        </label>
+        <button class="tiny" data-move="${ci}" data-dir="-1" title="위로">▲</button>
+        <button class="tiny" data-move="${ci}" data-dir="1" title="아래로">▼</button>
+        <button class="tiny danger" data-delc="${ci}">과정 삭제</button>
+      </div>
+      <div class="cbody">
+        <div class="rowhead"><span>아이콘</span><span>제목</span><span>설명</span><span>링크(URL)</span><span>배지</span><span></span></div>
+        ${(c.items || []).map((it, ii) => `
+          <div class="item">
+            <input value="${esc(it.icon || "🔗")}" data-c="${ci}" data-i="${ii}" data-f="icon">
+            <input value="${esc(it.title)}" data-c="${ci}" data-i="${ii}" data-f="title" placeholder="자료 제목">
+            <input value="${esc(it.desc || "")}" data-c="${ci}" data-i="${ii}" data-f="desc" placeholder="설명(선택)">
+            <input value="${esc(it.url)}" data-c="${ci}" data-i="${ii}" data-f="url" placeholder="https://...">
+            <input value="${esc(it.badge || "")}" data-c="${ci}" data-i="${ii}" data-f="badge" placeholder="NEW">
+            <span class="rowbtns">
+              <button class="tiny" data-imove="${ci}:${ii}" data-dir="-1">▲</button>
+              <button class="tiny" data-imove="${ci}:${ii}" data-dir="1">▼</button>
+              <button class="tiny danger" data-deli="${ci}:${ii}">삭제</button>
+            </span>
+          </div>`).join("")}
+        <button class="tiny addrow" data-addi="${ci}">＋ 자료 추가</button>
+      </div>
+    </div>`).join("");
+}
+
+/* ── 입력 반영 ── */
+$("#courses").addEventListener("input", e => {
+  const t = e.target;
+  const ci = t.dataset.c, ii = t.dataset.i, f = t.dataset.f;
+  if (ci === undefined || !f) return;
+  const val = t.type === "checkbox" ? t.checked : t.value;
+  if (ii === undefined) data[ci][f] = val;
+  else data[ci].items[ii][f] = val;
+});
+
+/* ── 버튼 처리 ── */
+$("#courses").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  if (b.dataset.delc !== undefined) {
+    const c = data[b.dataset.delc];
+    if (confirm(`"${c.course}" 과정을 삭제할까요? (자료 ${c.items.length}개 함께 삭제)`)) {
+      data.splice(b.dataset.delc, 1); render();
+    }
+  } else if (b.dataset.deli) {
+    const [ci, ii] = b.dataset.deli.split(":").map(Number);
+    if (confirm(`"${data[ci].items[ii].title}" 자료를 삭제할까요?`)) { data[ci].items.splice(ii, 1); render(); }
+  } else if (b.dataset.addi !== undefined) {
+    data[b.dataset.addi].items.push({ icon: "🔗", title: "", desc: "", url: "", badge: "" });
+    render();
+  } else if (b.dataset.move !== undefined) {
+    const i = Number(b.dataset.move), d = Number(b.dataset.dir), j = i + d;
+    if (j >= 0 && j < data.length) { [data[i], data[j]] = [data[j], data[i]]; render(); }
+  } else if (b.dataset.imove) {
+    const [ci, ii] = b.dataset.imove.split(":").map(Number);
+    const d = Number(b.dataset.dir), jj = ii + d, arr = data[ci].items;
+    if (jj >= 0 && jj < arr.length) { [arr[ii], arr[jj]] = [arr[jj], arr[ii]]; render(); }
+  }
+});
+
+$("#addCourse").onclick = () => {
+  data.push({ course: "새 과정", icon: "📁", desc: "", open: false, items: [] });
+  render();
+  window.scrollTo(0, document.body.scrollHeight);
+};
+
+/* ── 저장 / 불러오기 ── */
+$("#save").onclick = async () => {
+  const msg = $("#msg");
+  msg.className = "msg"; msg.textContent = "저장 중…";
+  const clean = data.map(c => ({
+    course: (c.course || "").trim(),
+    icon: (c.icon || "📁").trim(),
+    desc: (c.desc || "").trim(),
+    open: !!c.open,
+    items: (c.items || [])
+      .filter(i => (i.title || "").trim() && (i.url || "").trim())
+      .map(i => ({
+        icon: (i.icon || "🔗").trim(),
+        title: i.title.trim(),
+        desc: (i.desc || "").trim(),
+        url: i.url.trim(),
+        ...((i.badge || "").trim() ? { badge: i.badge.trim() } : {}),
+      })),
+  })).filter(c => c.course);
+
+  const r = await fetch(`${API}?key=${encodeURIComponent(KEY)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ courses: clean }),
+  });
+  const d = await r.json();
+  if (d.ok) {
+    data = clean; render();
+    msg.className = "msg ok";
+    msg.textContent = `저장됨 · 과정 ${d.saved.courses}개 / 자료 ${d.saved.items}개 (학생 페이지에 즉시 반영)`;
+  } else {
+    msg.className = "msg bad";
+    msg.textContent = d.error || "저장 실패";
+  }
+};
+
+$("#reload").onclick = async () => {
+  const r = await fetch(API);
+  const d = await r.json();
+  data = d.courses || [];
+  render();
+  $("#msg").className = "msg";
+  $("#msg").textContent = "저장된 내용으로 되돌렸습니다.";
+};
+</script>
+</body>
+</html>
