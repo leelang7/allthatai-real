@@ -108,14 +108,44 @@
   <div class="wrap">
     <button class="primary" id="save">저장하기</button>
     <button id="reload">불러오기(되돌리기)</button>
+    <button id="export" title="현재 편집본을 data.json 파일로 내려받아 교체·배포용으로 씁니다">파일로 내보내기</button>
+    <button id="copy" title="현재 편집본 JSON을 클립보드로 복사">JSON 복사</button>
+    <label class="tiny" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+      border:1px solid var(--line);border-radius:9px;padding:8px 12px;margin:0">
+      파일 가져오기<input id="import" type="file" accept="application/json,.json" style="display:none;width:auto">
+    </label>
     <span id="msg" class="msg"></span>
   </div>
 </div>
 
 <script>
 const API = "/api/class-data/";
+const LOCAL = "classAdminDraft";     // 브라우저 임시 보관(작업 중 날아감 방지)
 let KEY = "";
 let data = [];
+let serverSave = true;               // 서버 저장소 연결 여부
+
+function saveDraft() { try { localStorage.setItem(LOCAL, JSON.stringify(data)); } catch (_) {} }
+function loadDraft() {
+  try { const v = localStorage.getItem(LOCAL); return v ? JSON.parse(v) : null; } catch (_) { return null; }
+}
+function cleanData() {
+  return data.map(c => ({
+    course: (c.course || "").trim(),
+    icon: (c.icon || "📁").trim(),
+    desc: (c.desc || "").trim(),
+    open: !!c.open,
+    items: (c.items || [])
+      .filter(i => (i.title || "").trim() && (i.url || "").trim())
+      .map(i => ({
+        icon: (i.icon || "🔗").trim(),
+        title: i.title.trim(),
+        desc: (i.desc || "").trim(),
+        url: i.url.trim(),
+        ...((i.badge || "").trim() ? { badge: i.badge.trim() } : {}),
+      })),
+  })).filter(c => c.course);
+}
 
 const $ = s => document.querySelector(s);
 const esc = s => (s ?? "").toString().replace(/"/g, "&quot;");
@@ -139,8 +169,15 @@ async function login() {
     body: JSON.stringify({ courses: data }),
   });
   const pd = await probe.json();
-  if (!pd.ok) { $("#gateMsg").textContent = pd.error || "인증 실패"; return; }
+  if (!pd.ok) {
+    // 인증 실패는 막고, "저장소 미연결"은 로컬 편집 모드로 통과시킨다.
+    if (/인증 실패/.test(pd.error || "")) { $("#gateMsg").textContent = pd.error; return; }
+    serverSave = false;
+  }
   sessionStorage.setItem("classAdminKey", KEY);
+  // 서버에 저장 못 하는 환경에서 작업하다 만 초안이 있으면 그걸 우선 복원한다.
+  const draft = loadDraft();
+  if (!serverSave && draft && draft.length) data = draft;
   $("#gate").classList.add("hidden");
   $("#admin").classList.remove("hidden");
   $("#bar").classList.remove("hidden");
@@ -199,6 +236,7 @@ $("#courses").addEventListener("input", e => {
   const val = t.type === "checkbox" ? t.checked : t.value;
   if (ii === undefined) data[ci][f] = val;
   else data[ci].items[ii][f] = val;
+  saveDraft();
 });
 
 /* ── 버튼 처리 ── */
@@ -259,13 +297,52 @@ $("#save").onclick = async () => {
   });
   const d = await r.json();
   if (d.ok) {
-    data = clean; render();
+    data = clean; render(); saveDraft();
     msg.className = "msg ok";
     msg.textContent = `저장됨 · 과정 ${d.saved.courses}개 / 자료 ${d.saved.items}개 (학생 페이지에 즉시 반영)`;
   } else {
+    data = clean; render(); saveDraft();
     msg.className = "msg bad";
-    msg.textContent = d.error || "저장 실패";
+    msg.textContent = (d.error || "저장 실패") + " → 편집본은 이 브라우저에 보관했습니다. ‘파일로 내보내기’로 data.json을 받아 교체하면 반영됩니다.";
   }
+};
+
+$("#export").onclick = () => {
+  const blob = new Blob([JSON.stringify({ updated: new Date().toISOString().slice(0, 10), courses: cleanData() }, null, 2)],
+    { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "data.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  $("#msg").className = "msg ok";
+  $("#msg").textContent = "data.json 내려받음 — public/class/data.json 을 이 파일로 교체하고 배포하면 반영됩니다.";
+};
+
+$("#copy").onclick = async () => {
+  const text = JSON.stringify({ courses: cleanData() }, null, 2);
+  try { await navigator.clipboard.writeText(text); $("#msg").className = "msg ok"; $("#msg").textContent = "JSON을 복사했습니다."; }
+  catch (_) { $("#msg").className = "msg bad"; $("#msg").textContent = "복사 실패 — ‘파일로 내보내기’를 쓰세요."; }
+};
+
+$("#import").onchange = e => {
+  const f = e.target.files?.[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const j = JSON.parse(rd.result);
+      const c = Array.isArray(j) ? j : j.courses;
+      if (!Array.isArray(c)) throw new Error("courses 배열이 없습니다");
+      data = c; render(); saveDraft();
+      $("#msg").className = "msg ok";
+      $("#msg").textContent = `가져왔습니다 · 과정 ${c.length}개 (저장하기를 눌러야 반영됩니다)`;
+    } catch (err) {
+      $("#msg").className = "msg bad";
+      $("#msg").textContent = "가져오기 실패: " + err.message;
+    }
+    e.target.value = "";
+  };
+  rd.readAsText(f);
 };
 
 $("#reload").onclick = async () => {

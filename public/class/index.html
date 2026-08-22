@@ -133,24 +133,22 @@
 </div>
 
 <script>
-/* 자료는 /api/class-data 에서 불러옵니다.
-   추가·수정·삭제는 관리 페이지(/class/admin)에서 GUI로 하세요.
-   API가 안 되면 아래 FALLBACK 으로 표시돼 페이지가 비지 않습니다. */
-const FALLBACK = [
-  {
-    course: "공통 자료", icon: "📚", desc: "모든 과정 공통 자료", open: true,
-    items: [{
-      icon: "📁", title: "강의 자료 폴더",
-      desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
-      url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
-      badge: "NEW"
-    }]
-  },
-];
+/* 자료 출처 우선순위 (앞이 실패하면 뒤로):
+     1) /api/class-data/  — 관리 페이지에서 저장한 최신본(서버 저장소가 연결된 경우)
+     2) data.json         — 저장소 없이도 쓰는 정적 파일(내가 교체·배포)
+     3) FALLBACK          — 최후 방어. 어떤 경우에도 빈 화면이 되지 않게. */
+const FALLBACK = [{
+  course: "공통 자료", icon: "📚", desc: "모든 과정 공통 자료", open: true,
+  items: [{ icon: "📁", title: "강의 자료 폴더",
+    desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
+    url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
+    badge: "NEW" }]
+}];
 
 const app = document.getElementById("app");
 const esc = s => (s ?? "").toString()
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const safeUrl = u => /^https?:\/\//i.test(u ?? "") ? u : "#";
 
 function draw(courses) {
   const live = (courses || []).filter(c => (c.items || []).length);
@@ -165,7 +163,7 @@ function draw(courses) {
       </summary>
       <div class="files">
         ${c.items.map(i => `
-          <a class="file" href="${esc(i.url)}" target="_blank" rel="noopener">
+          <a class="file" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">
             <span class="fi">${esc(i.icon) || "🔗"}</span>
             <span class="ft"><b>${esc(i.title)}</b>${i.desc ? `<small>${esc(i.desc)}</small>` : ""}</span>
             ${i.badge ? `<span class="badge">${esc(i.badge)}</span>` : ""}
@@ -175,10 +173,13 @@ function draw(courses) {
     </details>`).join("");
 }
 
+const pick = d => (d && Array.isArray(d.courses) && d.courses.length) ? d.courses : null;
+
 app.innerHTML = '<p class="empty">자료를 불러오는 중…</p>';
 fetch("/api/class-data/", { cache: "no-store" })
-  .then(r => r.json())
-  .then(d => draw(d.courses && d.courses.length ? d.courses : FALLBACK))
+  .then(r => r.ok ? r.json() : null).then(d => pick(d) || Promise.reject())
+  .catch(() => fetch("data.json", { cache: "no-store" }).then(r => r.json()).then(d => pick(d)))
+  .then(c => draw(c || FALLBACK))
   .catch(() => draw(FALLBACK));
 </script>
 </body>
