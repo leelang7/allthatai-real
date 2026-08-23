@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-08-23-낚시-방법-스팀-베스트셀러-38-할인",
+    "title": "스팀 베스트셀러 '피싱 플래닛' 38% 할인, 놓치지 마세요!",
+    "excerpt": "스팀 베스트셀러 낚시 게임 '피싱 플래닛' 38% 할인! 현실적인 낚시 경험을 지금 저렴하게 만나보세요.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-23T18:10:06.879Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-08-23-스팀-페르소나3-리로드-65-할인-69800-24430",
     "title": "스팀 페르소나3 리로드 65% 할인! ₩24,430에 즐기세요",
     "excerpt": "스팀에서 '페르소나3 리로드'를 정가 대비 65% 할인된 ₩24,430에 구매할 수 있는 기회입니다.",
