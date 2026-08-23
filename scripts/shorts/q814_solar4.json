@@ -1,0 +1,54 @@
+{
+  "topic": "업스테이지 솔라 프로 4 한국 모델 최초 기록",
+  "tags": [
+    "업스테이지",
+    "솔라프로4",
+    "국산AI",
+    "LLM",
+    "오픈라우터",
+    "에이전트",
+    "한국AI",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a Korean AI model badge placed among global developer platform logos, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "국산 AI의 반격",
+        "업스테이지 솔라 프로 4",
+        "한국 모델 최초 등재"
+      ],
+      "highlightLine": 1,
+      "narration": "업스테이지 솔라 프로 4가 한국 모델 최초로 글로벌 개발자 플랫폼에 이름을 올렸어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "에이전트 특화 모델",
+      "body": "업스테이지가 8월 6일 API로 공개한 차세대 상용 모델. 실제 업무 흐름을 안정적으로 수행하는 데 초점을 맞춰 추론과 에이전트 역량을 강화했다.",
+      "narration": "업스테이지가 8월 6일 API로 공개한 차세대 상용 모델이에요. 실제 업무 흐름을 안정적으로 수행하는 데 초점을 맞춰서 추론이랑 에이전트 역량을 강화했습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "문서·터미널 20~30% 개선",
+      "body": "김성훈 대표에 따르면 문서 작업과 터미널 수행, 멀티턴 도구 사용에서 이전 모델보다 20~30% 나아졌다.",
+      "narration": "김성훈 대표에 따르면 문서 작업이랑 터미널 수행, 멀티턴 도구 사용에서 이전 모델보다 20에서 30퍼센트 나아졌어요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "오픈라우터에 오른 유일한 한국 모델",
+      "body": "API 라우팅 플랫폼 오픈라우터와 누스 리서치의 헤르메스 에이전트에 등재된 유일한 한국 모델이 됐다. 실사용성을 인정받은 셈.",
+      "narration": "API 라우팅 플랫폼 오픈라우터와 누스 리서치의 헤르메스 에이전트에 등재된 유일한 한국 모델이 됐어요. 실사용성을 인정받은 셈입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

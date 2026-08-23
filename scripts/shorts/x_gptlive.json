@@ -1,0 +1,13 @@
+{
+  "topic": "AI랑 말 끊기지 않고 대화한다 오픈AI GPT 라이브 비밀",
+  "tags": ["오픈AI", "GPT라이브", "음성AI", "실시간AI", "ChatGPT", "풀듀플렉스", "저지연", "음성비서", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "two sound waves flowing simultaneously without collision, seamless realtime conversation mood, cool teal and cyan accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI랑 대화할 때","말이 안 끊긴다","GPT 라이브의 비밀"],"highlightLine":1,"narration":"이제 AI랑 대화할 때 말이 뚝뚝 끊기지 않아요. 오픈AI가 GPT 라이브의 초저지연 비밀을 공개했습니다."},
+    {"kind":"tip","num":"①","head":"턴 감지기를 없앴다","body":"기존엔 침묵으로 말 끝을 판단해, 잠깐만 멈춰도 AI가 끼어들었다. GPT 라이브는 이 턴 감지기를 아예 제거했다.","narration":"기존엔 침묵으로 말이 끝났는지 판단해서, 잠깐만 멈춰도 AI가 끼어들었어요. GPT 라이브는 이 턴 감지기를 아예 없애버렸습니다."},
+    {"kind":"tip","num":"②","head":"듣기·말하기 동시에","body":"전이중(풀듀플렉스) 방식이라 사람처럼 듣는 동시에 말할 수 있다. 자연스러운 맞장구와 끼어들기가 가능해졌다.","narration":"듣는 동시에 말할 수 있는 전이중 방식이라, 사람처럼 자연스럽게 맞장구치고 끼어들 수 있어요."},
+    {"kind":"tip","num":"③","head":"빠른 길·느린 길 분리","body":"음성은 저지연 빠른 길로, 웹검색·추론 같은 무거운 작업은 별도 비동기 길로 분리. 첫 소리까지 300~600밀리초.","narration":"음성은 빠른 길로 흘리고, 웹검색이나 깊은 추론 같은 무거운 작업은 따로 분리했어요. 그래서 첫 소리가 나오기까지 0.3에서 0.6초밖에 안 걸립니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

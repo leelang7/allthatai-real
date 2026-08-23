@@ -1,0 +1,13 @@
+{
+  "topic": "증여세 절세",
+  "link": "https://real.allthatai.kr/tools/gift-tax/",
+  "tags": ["증여세", "증여세면제한도", "증여공제", "부모자녀증여", "증여세절세", "상속증여", "증여재산공제", "세금", "절세", "재테크", "부동산증여", "증여신고", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of an older parent's hands passing a small house key to an adult child's hands, warm cozy home interior, soft light, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "세금 0원 만들기", "titleLines": ["부모가 자녀에게", "증여세", "면제 한도"], "highlightLine": 1, "narration": "부모가 자녀에게 줄 때 증여세를 0원으로 만드는 공제 한도, 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "성인자녀 5천만원", "body": "성인 자녀는 10년간 5천만원, 미성년 자녀는 2천만원까지 세금 없이 증여돼요.", "narration": "첫째, 성인 자녀는 10년간 5천만 원, 미성년 자녀는 2천만 원까지 세금 없이 줄 수 있습니다." },
+    { "kind": "tip", "num": "②", "head": "배우자 6억원", "body": "배우자에게는 10년간 6억원까지 공제돼 증여세가 없어요.", "narration": "둘째, 배우자에게는 10년간 6억 원까지 공제되어 증여세가 없습니다." },
+    { "kind": "tip", "num": "③", "head": "10년마다 리셋", "body": "공제는 10년 단위로 초기화돼요. 미리 나눠 증여하면 절세돼요.", "narration": "셋째, 공제는 10년마다 초기화되니 미리 나눠서 증여하면 세금을 아낄 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 증여세가 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

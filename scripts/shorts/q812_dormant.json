@@ -1,0 +1,54 @@
+{
+  "topic": "잠자는 내 돈 휴면예금 계좌 한번에 찾기",
+  "tags": [
+    "휴면예금",
+    "숨은돈",
+    "어카운트인포",
+    "계좌조회",
+    "환급",
+    "금융꿀팁",
+    "재테크",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "forgotten bank accounts waking up with coins returning, warm gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "안 쓰는 계좌에",
+        "잠자는 내 돈",
+        "한번에 찾는 법"
+      ],
+      "highlightLine": 1,
+      "narration": "오래 안 쓴 계좌에 남은 돈, 한번에 조회해서 찾을 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "내 계좌 한눈에 조회",
+      "body": "금융결제원 어카운트인포에서 은행·증권 계좌를 한번에 조회할 수 있다. 잔액이 남은 채 잊고 있던 계좌가 그대로 뜬다.",
+      "narration": "금융결제원 어카운트인포에서 은행이랑 증권 계좌를 한번에 조회할 수 있어요. 잔액이 남은 채 잊고 있던 계좌가 그대로 뜹니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "휴면예금은 서민금융진흥원",
+      "body": "오래 거래가 없어 휴면으로 넘어간 예금·보험금은 서민금융진흥원 휴면예금 찾아줌에서 조회하고 지급 신청할 수 있다.",
+      "narration": "오래 거래가 없어서 휴면으로 넘어간 예금이나 보험금은, 서민금융진흥원 휴면예금 찾아줌에서 조회하고 지급 신청할 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "소액은 바로 정리",
+      "body": "조회한 계좌는 잔액을 내 주계좌로 옮기고 바로 해지할 수 있다. 안 쓰는 계좌를 줄이면 명의도용 위험도 함께 줄어든다.",
+      "narration": "조회한 계좌는 잔액을 내 주계좌로 옮기고 바로 해지할 수 있어요. 안 쓰는 계좌를 줄이면 명의도용 위험도 같이 줄어듭니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 숨은 돈이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

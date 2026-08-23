@@ -1,0 +1,14 @@
+{
+  "topic": "월드컵 3위 와일드카드 8팀",
+  "title": "3위도 32강! 와일드카드 8장 경쟁, 한국은?",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "와일드카드", "32강진출", "3위경우의수", "한국축구", "북중미월드컵", "48개국", "조별리그", "에콰도르", "스웨덴", "국가대표", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic aerial shot of a soccer stadium from above showing the full green pitch and crowd stands, daytime bright light, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "새 규칙", "titleLines": ["3위도 32강", "와일드카드", "8장 경쟁"], "highlightLine": 1, "narration": "조 3위도 32강에 가는 와일드카드 8장 경쟁, 한국 상황까지 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "3위 12팀 중 8팀", "body": "48개국 첫 대회라 각 조 3위 12팀 중 성적 좋은 8팀이 추가로 진출해요.", "narration": "첫째, 48개국 첫 대회라 각 조 3위 12팀 중 성적이 좋은 8팀이 추가로 진출합니다." },
+    { "kind": "tip", "num": "2", "head": "확정팀 속속", "body": "에콰도르·스웨덴·보스니아 등이 3위로 일찌감치 진출을 확정했어요.", "narration": "둘째, 에콰도르, 스웨덴, 보스니아 등이 3위로 일찌감치 진출을 확정했습니다." },
+    { "kind": "tip", "num": "3", "head": "한국도 유력", "body": "한국도 승점 3으로 상위 8팀 안에 들어 진출이 유력해요.", "narration": "셋째, 한국도 승점 3으로 상위 8팀 안에 들어 진출이 유력합니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

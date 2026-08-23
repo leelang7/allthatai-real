@@ -1,0 +1,13 @@
+{
+  "topic": "전월세 전환율 계산기 전세 월세 환산",
+  "tags": ["전월세전환율", "전세월세", "월세계산", "전환율", "임대차", "부동산", "세입자", "법정상한", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr/tools/jeonse-monthly-conversion",
+  "bgPrompt": "modern Korean apartment building exterior at dusk with warm window lights, housing and lease concept, cool teal and soft gold accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"부동산 꿀팁","titleLines":["전세를 월세로 바꾸면","월세 얼마가 적정?","법정 상한 넘었나 확인"],"highlightLine":1,"narration":"전세를 월세로 돌릴 때, 월세 얼마가 적정일까요? 그리고 집주인이 부른 게 법정 상한을 넘었는지 1초면 확인됩니다."},
+    {"kind":"tip","num":"①","head":"양방향 환산","body":"전세금을 월세로, 월세를 전세로 양방향 환산. 내 조건에서 적정 월세가 바로 나온다.","narration":"전세금을 월세로, 반대로 월세를 전세로 양쪽 다 환산해줘요. 내 조건에서 적정 월세가 얼마인지 바로 나옵니다."},
+    {"kind":"tip","num":"②","head":"법정 상한이 있다","body":"전환율엔 법정 상한이 있다 — 한국은행 기준금리 + 2%. 집주인이 이보다 높게 부르면 과하다는 신호.","narration":"중요한 건, 전환율엔 법정 상한이 있어요. 한국은행 기준금리 더하기 2%. 집주인이 이보다 높게 부르면 과한 거란 뜻입니다."},
+    {"kind":"tip","num":"③","head":"실거래랑 비교까지","body":"실거래 평균이랑 비교까지 돼서 계약·재계약 전에 손해 안 보게 체크. 세입자·집주인 둘 다 필수.","narration":"실거래 평균이랑 비교도 되니까, 계약이나 재계약 전에 손해 안 보게 꼭 확인하세요. 세입자든 집주인이든 둘 다 필수예요."},
+    {"kind":"cta","narration":"바로 계산은 프로필 링크의 '전월세 전환율 계산기'에서. 무료입니다."}
+  ]
+}

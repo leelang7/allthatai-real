@@ -1,0 +1,54 @@
+{
+  "topic": "스포츠강좌이용권 월 수강료 지원",
+  "tags": [
+    "스포츠강좌이용권",
+    "스포츠바우처",
+    "체육",
+    "아동",
+    "장애인",
+    "지원금",
+    "생활꿀팁",
+    "복지",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a child entering a sports class with a support voucher, cinematic photography with shallow depth of field, low angle looking up, dramatic scale, soft gradient background, diffused light, emerald green and lime highlights, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "운동 배우고 싶은데",
+        "스포츠강좌이용권",
+        "수강료를 지원한다"
+      ],
+      "highlightLine": 1,
+      "narration": "저소득층 아동·청소년과 장애인에게 스포츠 강습비를 지원하는 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "월 단위 수강료 지원",
+      "body": "지정된 가맹 시설의 스포츠 강좌 수강료를 매달 일정액까지 지원한다. 지원 금액과 기간은 사업 연도에 따라 달라진다.",
+      "narration": "지정된 가맹 시설의 스포츠 강좌 수강료를 매달 일정액까지 지원해요. 지원 금액이랑 기간은 사업 연도에 따라 달라집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "아동·청소년과 장애인",
+      "body": "기초생활수급·차상위 가정의 아동청소년과 장애인이 대상이다. 유형에 따라 연령 기준이 다르다.",
+      "narration": "기초생활수급이나 차상위 가정의 아동청소년과 장애인이 대상이에요. 유형에 따라 연령 기준이 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "모집 기간이 짧다",
+      "body": "예산이 정해져 있어 신청이 몰리면 조기 마감된다. 스포츠강좌이용권 누리집에서 모집 일정과 가맹 시설을 확인하자.",
+      "narration": "예산이 정해져 있어서 신청이 몰리면 조기 마감돼요. 스포츠강좌이용권 누리집에서 모집 일정이랑 가맹 시설을 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

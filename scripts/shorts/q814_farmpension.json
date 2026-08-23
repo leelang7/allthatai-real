@@ -1,0 +1,54 @@
+{
+  "topic": "농지도 연금이 된다 농지연금",
+  "tags": [
+    "농지연금",
+    "농어촌공사",
+    "농업인",
+    "노후",
+    "연금",
+    "농지",
+    "은퇴",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "farmland turning into steady monthly pension coins at sunrise, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "농사짓던 땅으로",
+        "매달 연금 받는다",
+        "농지연금"
+      ],
+      "highlightLine": 1,
+      "narration": "가지고 있는 농지를 담보로 매달 연금을 받는 제도가 있어요. 농사도 계속 지을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "농지 맡기고 매달 수령",
+      "body": "한국농어촌공사 농지연금은 소유한 농지를 담보로 매달 연금을 받는 제도다. 연금을 받으면서 그 농지에서 계속 농사를 짓거나 임대할 수도 있다.",
+      "narration": "한국농어촌공사 농지연금은 소유한 농지를 담보로 매달 연금을 받는 제도예요. 연금을 받으면서 그 농지에서 계속 농사를 짓거나 임대할 수도 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "나이·영농경력 요건",
+      "body": "가입자 연령과 영농 경력, 농지 요건을 충족해야 한다. 지급 방식은 평생 받는 종신형과 기간을 정하는 기간형 등으로 나뉜다.",
+      "narration": "가입자 연령이랑 영농 경력, 농지 요건을 충족해야 해요. 지급 방식은 평생 받는 종신형과 기간을 정하는 기간형 등으로 나뉩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "예상 연금 조회부터",
+      "body": "농지연금 포털에서 내 농지 기준 예상 월 수령액을 조회할 수 있다. 상속·중도해지 조건까지 상담으로 확인하는 게 안전하다.",
+      "narration": "농지연금 포털에서 내 농지 기준으로 예상 월 수령액을 조회할 수 있어요. 상속이나 중도해지 조건까지 상담으로 확인하는 게 안전합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

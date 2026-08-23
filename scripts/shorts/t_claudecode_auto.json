@@ -1,0 +1,13 @@
+{
+  "topic": "앤트로픽 클로드코드 자동모드 기본값 전환",
+  "tags": ["클로드코드", "앤트로픽", "Claude", "자동모드", "AI코딩", "바이브코딩", "개발자", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract futuristic code terminal and flowing data streams on a dark premium background, autonomous automation mood, teal and violet accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["이제 안 물어보고","알아서 실행한다","클로드코드 자동모드"],"highlightLine":1,"narration":"AI가 이제 매번 안 물어보고 알아서 코딩을 실행합니다. 앤트로픽이 클로드코드 자동모드를 기본값으로 켭니다."},
+    {"kind":"tip","num":"①","head":"8월 14일부터 기본 ON","body":"8월 14일부터 프로·맥스·팀 요금제에서 자동모드가 기본값. 단계마다 승인받던 걸 알아서 실행하는 방식으로 바뀐다.","narration":"8월 14일부터 프로, 맥스, 팀 요금제에서 자동모드가 기본이 됩니다. 단계마다 승인받던 걸 알아서 실행하는 방식으로요."},
+    {"kind":"tip","num":"②","head":"사람보다 위험 더 잘 막는다","body":"유료 사용자 1,053명 테스트에서 자동모드가 유해 행동의 89%를 걸러냈다. 사람 검수는 13.6%뿐. 사람은 승인창을 97% 그냥 눌러서다.","narration":"유료 사용자 천오십삼 명 테스트에서 자동모드가 위험한 행동의 89%를 걸러냈어요. 사람 검수는 13.6%뿐. 사람은 승인창을 97% 그냥 눌러버리거든요."},
+    {"kind":"tip","num":"③","head":"선은 지킨다","body":"되돌릴 수 없거나 파괴적이거나 내 환경 밖을 건드리는 작업은 여전히 멈춘다. 프롬프트 인젝션 검사와 하드 거부 규칙도 추가.","narration":"그래도 되돌릴 수 없거나 파괴적이거나 내 환경 밖을 건드리는 작업은 여전히 멈춥니다. 프롬프트 인젝션 검사랑 하드 거부 규칙도 새로 들어갔어요."},
+    {"kind":"cta","narration":"AI 코딩 어디까지 왔는지 더 궁금하면 프로필 링크에서 최신 AI 소식과 무료 도구 확인해보세요."}
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "청년 전세대출 버팀목 금리부터 확인",
+  "tags": [
+    "버팀목",
+    "전세자금대출",
+    "청년",
+    "주택도시기금",
+    "전세",
+    "금리",
+    "내집마련",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a house key with a low interest rate tag, warm gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "전세 구할 때",
+        "버팀목 전세자금",
+        "금리가 다르다"
+      ],
+      "highlightLine": 1,
+      "narration": "전세 구할 때 시중 금리만 보지 말고 정책 대출부터 확인하세요. 버팀목입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "주택도시기금 정책 대출",
+      "body": "버팀목 전세자금대출은 주택도시기금으로 운영되는 정책 상품이라 일반 전세대출보다 금리가 낮은 편이다. 청년 전용 상품도 따로 있다.",
+      "narration": "버팀목 전세자금대출은 주택도시기금으로 운영되는 정책 상품이라, 일반 전세대출보다 금리가 낮은 편이에요. 청년 전용 상품도 따로 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "소득·자산·보증금 요건",
+      "body": "부부합산 소득과 순자산, 임차 보증금과 주택 면적에 요건이 있다. 무주택 세대주가 기본 조건이고 조건에 따라 한도가 달라진다.",
+      "narration": "부부합산 소득과 순자산, 임차 보증금과 주택 면적에 요건이 있어요. 무주택 세대주가 기본 조건이고, 조건에 따라 한도가 달라집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "계약 전에 미리 상담",
+      "body": "기금e든든이나 취급 은행에서 자격과 한도를 미리 확인하자. 계약금 넣기 전에 알아봐야 조건에 맞는 집을 고를 수 있다.",
+      "narration": "기금이든든이나 취급 은행에서 자격이랑 한도를 미리 확인하세요. 계약금 넣기 전에 알아봐야 조건에 맞는 집을 고를 수 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "GPU보다 30배 빠르다는 AI 가속기 CS-4",
+  "tags": [
+    "세레브라스",
+    "CS4",
+    "AI가속기",
+    "추론",
+    "엔비디아",
+    "웨이퍼스케일",
+    "반도체",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a giant wafer-scale AI accelerator streaming tokens at extreme speed, layered paper cutout diorama, wide establishing shot, subject small in frame, golden hour warm sunlight, deep indigo and hot magenta accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "엔비디아에 정면 도전",
+        "GPU보다 30배 빠른",
+        "세레브라스 CS-4"
+      ],
+      "highlightLine": 1,
+      "narration": "GPU보다 최대 30배 빠르다는 AI 추론 가속기가 나왔어요. 세레브라스 CS-4입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "초당 4,400토큰",
+      "body": "GPT-OSS-120B 기준 사용자당 초당 4,400토큰이 넘는다. 가장 빠른 GPU 기반 서비스가 초당 350토큰 수준인 것과 비교된다.",
+      "narration": "GPT-OSS-120B 기준으로 사용자당 초당 4,400토큰이 넘어요. 가장 빠른 GPU 기반 서비스가 초당 350토큰 수준인 것과 비교됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "웨이퍼 3장을 붙였다",
+      "body": "WSE-3 터보 프로세서 3개를 묶어 총 750페타플롭스 연산과 초당 129.6페타바이트 메모리 대역폭을 낸다.",
+      "narration": "WSE-3 터보 프로세서 3개를 묶어서 총 750페타플롭스 연산과, 초당 129.6페타바이트 메모리 대역폭을 냅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "전력 효율도 10배",
+      "body": "이전 세대 CS-3보다 와트당 처리량이 최대 10배다. 전기값이 곧 비용인 데이터센터에선 이 숫자가 결정적이다. 첫 출하는 이번 분기.",
+      "narration": "이전 세대 CS-3보다 와트당 처리량이 최대 10배예요. 전기값이 곧 비용인 데이터센터에선 이 숫자가 결정적입니다. 첫 출하는 이번 분기입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

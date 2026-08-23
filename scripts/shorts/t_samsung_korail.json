@@ -1,0 +1,13 @@
+{
+  "topic": "삼성월렛 코레일 종이없는 승차권 KTX 모바일",
+  "tags": ["삼성월렛", "코레일", "KTX", "모바일승차권", "종이없는승차권", "기차표", "생활꿀팁", "교통", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract modern high-speed train and smartphone digital ticket concept on a dark premium background, sleek blue and silver accent glow, motion light trails, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["기차표 이제 폰에","삼성월렛에 쏙","코레일 종이없는 승차권"],"highlightLine":2,"narration":"기차표를 삼성 월렛에 넣고 탑니다. 코레일 종이 없는 승차권이 시작됐어요."},
+    {"kind":"tip","num":"①","head":"창구결제·앱에서 추가","body":"역 창구에서 삼성월렛으로 결제하면 자동으로 들어가고, 코레일+ 앱에서 발권한 표는 'Add to Wallet'으로 넣으면 된다.","narration":"역 창구에서 삼성월렛으로 결제하면 자동으로 들어가고요. 코레일 플러스 앱에서 발권한 표는 'Add to Wallet'으로 넣으면 됩니다."},
+    {"kind":"tip","num":"②","head":"8/10 시작, SRT는 9/1","body":"8월 10일 시작했고 국내 모바일 탑승권 최초 지원. SRT는 9월 운행분부터. 삼성월렛 안에서 환불도 바로 된다.","narration":"8월 10일 시작했고 국내 모바일 탑승권 최초 지원이에요. SRT는 9월 운행분부터 되고요. 삼성월렛 안에서 환불도 바로 됩니다."},
+    {"kind":"tip","num":"③","head":"탑승알림·친환경까지","body":"캘린더·나우 브리프와 연동돼 탑승 시간을 미리 알려주고, 종이 발급을 줄여 비용·환경에도 도움.","narration":"캘린더랑 나우 브리프에 연동돼서 탑승 시간을 미리 알려주고요. 종이 발급을 줄여서 비용이랑 환경에도 도움이 됩니다."},
+    {"kind":"cta","narration":"생활에 바로 쓰는 꿀팁이랑 도구, 프로필 링크에서 더 확인해보세요."}
+  ]
+}

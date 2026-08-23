@@ -1,0 +1,11 @@
+{
+  "topic": "청년미래적금 지원금",
+  "bgPrompt": "Cinematic close-up of golden coins stacking up and growing into tall piles, warm golden light, soft bokeh, money savings growing, slow smooth upward camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "놓치면 손해", "titleLines": ["월 50만원이", "2255만원", "청년미래적금"], "highlightLine": 1, "narration": "월 50만 원 넣으면 2천2백만 원으로 돌려받는 청년미래적금. 놓치면 손해입니다." },
+    { "kind": "tip", "num": "①", "head": "3년에 2255만원", "body": "월 50만 원씩 3년 납입하면 최대 2,255만 원. 이자에 세금도 안 붙어요.", "narration": "첫째, 월 50만 원씩 3년이면 최대 2천2백만 원. 이자도 비과세입니다." },
+    { "kind": "tip", "num": "②", "head": "7월 3일까지 딱 2주", "body": "가입은 6월 22일부터 7월 3일까지. 은행 앱에서 신청하세요.", "narration": "둘째, 가입은 6월 22일부터 7월 3일까지 딱 2주. 은행 앱에서 신청해요." },
+    { "kind": "tip", "num": "③", "head": "만 19~34세 대상", "body": "개인소득 6천만 원 이하. 중소기업 6개월 이내면 우대형이에요.", "narration": "셋째, 만 19세에서 34세, 소득 6천만 원 이하. 중소기업 다닌 지 6개월 안 됐으면 우대받습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "놓치기 쉬운 지원금, 올댓에이아이에서 챙기세요." }
+  ]
+}

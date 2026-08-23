@@ -1,0 +1,14 @@
+{
+  "topic": "GPT-5.6 공개",
+  "title": "GPT-5.6 공개! 뭐가 달라지나",
+  "link": "https://real.allthatai.kr/tools/",
+  "tags": ["GPT5", "GPT56", "오픈AI", "챗GPT", "OpenAI", "AI모델", "생성형AI", "AI에이전트", "코딩AI", "인공지능", "테크뉴스", "AI활용", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic shot of a glowing futuristic AI neural interface hologram in a dark room with blue light particles, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "차세대", "titleLines": ["GPT-5.6", "공개!", "뭐가 달라지나"], "highlightLine": 1, "narration": "오픈AI가 차세대 GPT-5.6을 공개했습니다. 뭐가 달라지는지 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "성능·비용 진화", "body": "지능과 비용 두 측면에서 한 단계 진화한 차세대 모델이에요.", "narration": "첫째, 지능과 비용 두 측면에서 한 단계 진화한 차세대 모델입니다." },
+    { "kind": "tip", "num": "2", "head": "에이전트·코딩 강화", "body": "AI 에이전트 기능과 코딩, 긴 문서 처리 능력이 크게 좋아졌어요.", "narration": "둘째, AI 에이전트 기능과 코딩, 긴 문서 처리 능력이 크게 강화됐습니다." },
+    { "kind": "tip", "num": "3", "head": "초기 제한 출시", "body": "미국 정부 요청으로 처음엔 일부 파트너에게만 제한적으로 풀렸어요.", "narration": "셋째, 미국 정부 요청으로 초기에는 일부 파트너에게만 제한적으로 출시됐습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "분야별 AI 도구, 올댓에이아이에서 골라 쓰세요. 구독!" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "AI가 스스로를 개선한다 구글이 천문학적 돈 붓는 진짜 이유",
+  "tags": ["구글", "딥마인드", "RSI", "자기개선AI", "AGI", "AI투자", "초지능", "capex", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI core upgrading its own glowing circuitry in a recursive loop, self-improving ai mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI가 스스로를","개선하기 시작한다","구글이 돈 붓는 이유"],"highlightLine":1,"narration":"AI가 스스로를 더 똑똑하게 개선한다? 구글이 천문학적인 돈을 AI에 붓는 진짜 이유가 바로 이겁니다."},
+    {"kind":"tip","num":"①","head":"AGI 다음은 RSI","body":"구글 딥마인드 최고전략책임자가 지금의 막대한 AI 투자는 '재귀적 자기개선(RSI)'을 향한 베팅이라고 밝혔다. 업계 화두가 AGI에서 RSI로 옮겨가는 중.","narration":"구글 딥마인드 최고전략책임자가, 지금의 막대한 AI 투자는 재귀적 자기개선, RSI를 향한 베팅이라고 밝혔어요. 업계 화두가 AGI에서 RSI로 넘어가는 중입니다."},
+    {"kind":"tip","num":"②","head":"복리처럼 똑똑해진다","body":"RSI는 AI가 자기 알고리즘·코드를 스스로 개선하고, 그 개선으로 다음 개선을 더 잘하는 것. 이자가 이자를 낳는 복리처럼 성능이 쌓인다.","narration":"RSI는 AI가 자기 알고리즘이랑 코드를 스스로 고치고, 그 개선으로 다음 개선을 더 잘하는 거예요. 이자가 이자를 낳는 복리처럼 성능이 쌓이는 거죠."},
+    {"kind":"tip","num":"③","head":"아직은 베팅 단계","body":"AI 매출이 투자를 못 따라가지만, 빅테크는 RSI가 열릴 미래에 베팅하고 있다. 단, 2026년 중반 현재 RSI 임박 징후는 아직 없다.","narration":"AI 매출이 투자를 못 따라가는데도, 빅테크는 RSI가 열릴 미래에 베팅하고 있어요. 다만 2026년 중반 지금, RSI가 임박했다는 징후는 아직 없습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

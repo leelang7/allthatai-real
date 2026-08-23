@@ -1,0 +1,11 @@
+{
+  "topic": "슈퍼걸 영화",
+  "bgPrompt": "Cinematic low-angle shot of a caped superhero silhouette soaring up through golden sunset clouds above a glowing city skyline, dramatic epic sky, lens flare, slow smooth upward camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "6월 24일 개봉", "titleLines": ["슈퍼맨 다음은", "슈퍼걸", "6월 24일"], "highlightLine": 1, "narration": "슈퍼맨 다음은 슈퍼걸. 6월 24일 드디어 개봉합니다." },
+    { "kind": "tip", "num": "①", "head": "크루엘라 감독·제임스 건", "body": "크루엘라 감독 크레이그 질레스피 연출, 제임스 건 제작이에요.", "narration": "첫째, 크루엘라 감독이 연출하고 제임스 건이 제작을 맡았습니다." },
+    { "kind": "tip", "num": "②", "head": "밀리 앨콕 X 제이슨 모모아", "body": "밀리 앨콕이 슈퍼걸, 아쿠아맨 제이슨 모모아가 안티히어로 로보로 나와요.", "narration": "둘째, 밀리 앨콕이 슈퍼걸을, 제이슨 모모아가 안티히어로 로보를 맡았습니다." },
+    { "kind": "tip", "num": "③", "head": "사실은 슈퍼맨의 누나", "body": "새 DC 유니버스 두 번째 작품. 카라는 어려 보여도 슈퍼맨의 누나예요.", "narration": "셋째, 새 DC 유니버스 두 번째 작품이고, 카라는 어려 보여도 슈퍼맨의 누나입니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "개봉 소식과 화제는 올댓에이아이에서 확인하세요." }
+  ]
+}

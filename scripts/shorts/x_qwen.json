@@ -1,0 +1,13 @@
+{
+  "topic": "알리바바 큐웬 이미지 3.0 정보 꽉찬 한장 만든다",
+  "tags": ["알리바바", "Qwen", "큐웬", "이미지생성AI", "AI이미지", "인포그래픽", "AI뉴스", "오픈소스AI", "생성AI", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "futuristic AI image generation interface with dense infographic panels and multilingual text, creative tech mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["예쁜 한 장 말고","정보 꽉 찬 한 장","알리바바 큐웬 3.0"],"highlightLine":1,"narration":"AI 이미지가 이제 예쁜 그림 말고 정보 꽉 찬 자료를 만든다? 알리바바가 큐웬 이미지 3.0을 공개했어요."},
+    {"kind":"tip","num":"①","head":"빽빽한 텍스트·표에 강하다","body":"조밀한 텍스트, 복잡한 레이아웃, 수식, UI 목업, 인포그래픽 등 그동안 AI가 약했던 부분을 정조준했다.","narration":"조밀한 글씨나 복잡한 레이아웃, 수식, 화면 목업, 인포그래픽처럼 그동안 AI 이미지가 약했던 걸 정조준했어요."},
+    {"kind":"tip","num":"②","head":"9장 한 번에·12개 언어","body":"긴 프롬프트로 지식 다이어그램 9개를 한 번에 생성. 10픽셀 작은 글씨도 처리하고 12개 언어를 지원한다.","narration":"긴 프롬프트 하나로 지식 다이어그램 9개를 한 번에 뽑고, 10픽셀짜리 작은 글씨도 처리해요. 12개 언어까지 지원합니다."},
+    {"kind":"tip","num":"③","head":"이제 자료를 만든다","body":"9칸 교육 인포그래픽, 수식 든 논문 페이지, 웹·게임 UI 화면까지. 예쁜 그림에서 실무 자료 생성 도구로 진화 중.","narration":"9칸 교육 인포그래픽이나 수식이 든 논문 페이지, 웹이랑 게임 화면 목업까지 만들어요. 예쁜 그림에서 실무 자료 도구로 진화하는 거죠."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 써먹으세요."}
+  ]
+}

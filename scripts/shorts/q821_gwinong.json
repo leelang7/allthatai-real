@@ -1,0 +1,54 @@
+{
+  "topic": "귀농귀촌 준비는 지원사업부터 확인",
+  "tags": [
+    "귀농귀촌",
+    "농업창업",
+    "주택자금",
+    "체류형",
+    "농촌",
+    "정착지원",
+    "생활꿀팁",
+    "정부지원",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a countryside house and farmland at sunrise with a welcome path, cinematic photography with shallow depth of field, symmetrical centered composition, calm balance, high contrast dramatic spotlight, deep indigo and hot magenta accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "무작정 내려가지 말고",
+        "귀농귀촌 지원사업",
+        "먼저 확인하세요"
+      ],
+      "highlightLine": 1,
+      "narration": "귀농귀촌을 생각한다면 정착 전에 지원사업부터 확인하는 게 순서예요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "창업자금·주택자금 융자",
+      "body": "귀농 농업창업 및 주택구입 지원사업은 영농 기반 마련과 집을 구하는 데 필요한 자금을 저리로 융자한다. 교육 이수 시간 등 요건이 있다.",
+      "narration": "귀농 농업창업 및 주택구입 지원사업은 영농 기반 마련이랑 집 구하는 데 필요한 자금을 저리로 융자해줘요. 교육 이수 시간 같은 요건이 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "먼저 살아보는 제도",
+      "body": "체류형 농업창업지원센터나 귀농인의 집처럼 일정 기간 살아보며 농업을 배우는 프로그램도 있다. 실패를 줄이는 안전장치다.",
+      "narration": "체류형 농업창업지원센터나 귀농인의 집처럼, 일정 기간 살아보면서 농업을 배우는 프로그램도 있어요. 실패를 줄이는 안전장치입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "귀농귀촌종합센터에서",
+      "body": "지역마다 정착 지원금과 조건이 다르다. 귀농귀촌종합센터 누리집에서 교육 일정과 지자체별 지원을 비교해보자.",
+      "narration": "지역마다 정착 지원금이랑 조건이 달라요. 귀농귀촌종합센터 누리집에서 교육 일정이랑 지자체별 지원을 비교해보세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

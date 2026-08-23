@@ -1,0 +1,13 @@
+{
+  "topic": "클로드가 인사도 거부? 앤트로픽 과잉거부 손본다",
+  "tags": ["앤트로픽", "클로드", "AI안전", "과잉거부", "안전분류기", "탈옥", "개발자", "AI규제", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI assistant over-cautiously rejecting harmless requests, ai over-refusal balance mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["클로드가","인사도 거부한다?","앤트로픽 과잉거부 손본다"],"highlightLine":1,"narration":"AI한테 안녕이라고 했는데 거부당한다? 너무 깐깐해진 클로드의 과잉 거부를 앤트로픽이 손보기로 했어요."},
+    {"kind":"tip","num":"①","head":"안전 위해 너무 조였다","body":"앤트로픽이 정부 요구를 맞추려 클로드 페이블 5의 안전장치를 보수적으로 조였더니, 'Hello' 같은 무해한 입력까지 거부하는 부작용이 생겼다.","narration":"앤트로픽이 정부 요구를 맞추려 클로드 페이블 5의 안전장치를 보수적으로 조였더니, Hello 같은 무해한 입력까지 거부하는 부작용이 생겼어요."},
+    {"kind":"tip","num":"②","head":"코딩 요청도 자꾸 막혀","body":"특히 평범한 코딩·디버깅 요청까지 위험으로 오판해 막는 '과잉 거부'가 개발자들의 불만을 샀다. 안전과 편의의 맞바꿈이었다.","narration":"특히 평범한 코딩이나 디버깅 요청까지 위험으로 오판해 막는 과잉 거부가, 개발자들 불만을 샀어요. 안전과 편의를 맞바꾼 셈이었죠."},
+    {"kind":"tip","num":"③","head":"새 분류기로 균형 잡기","body":"앤트로픽은 거부율을 크게 낮추고 비용도 줄인 차세대 '헌법적 분류기'를 개발. 유해 탐지는 지키되 헛거부는 줄이겠다며 사용자 피드백을 받고 있다.","narration":"앤트로픽은 거부율을 크게 낮추고 비용도 줄인 차세대 헌법적 분류기를 개발했어요. 진짜 유해한 건 잡되 헛거부는 줄이겠다며, 사용자 피드백을 받고 있습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

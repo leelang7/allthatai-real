@@ -1,0 +1,13 @@
+{
+  "topic": "10년 넘게 안 풀린 수학난제 10개 AI가 증명 오픈AI 아스트라",
+  "tags": ["오픈AI", "아스트라", "Astra", "AI수학", "수학난제", "AI과학", "AI연구", "난제증명", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract mathematical proofs and geometric theorems glowing in space, scientific breakthrough discovery mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["10년 넘게 못 푼","수학 난제 10개를","AI가 증명했다"],"highlightLine":1,"narration":"수십 년간 아무도 못 푼 수학 난제 10개를 AI가 증명했어요. 오픈AI가 차세대 모델 아스트라를 이렇게 공개했습니다."},
+    {"kind":"tip","num":"①","head":"수십 년 묵은 미해결 문제","body":"아스트라 내부 버전이 고차원 기하·부호이론·군론·양자복잡도 등에서 최소 10년, 대부분 수십 년간 진전 없던 문제 10개에 새 결과를 냈다.","narration":"아스트라 내부 버전이 고차원 기하학이랑 군론, 양자 복잡도 같은 분야에서, 최소 10년에서 수십 년간 진전이 없던 문제 열 개를 풀어냈어요."},
+    {"kind":"tip","num":"②","head":"비소픽 군 첫 구성 성공","body":"1999년 제기된 뒤 미해결이던 비소픽 군을 처음으로 명시적으로 구성하고, 콘의 강성 추측을 반증했다. 에르되시 난제도 3개 해결.","narration":"1999년에 제기된 뒤 아무도 못 풀던 비소픽 군을 처음으로 만들어냈고, 콘의 강성 추측도 반증했어요. 그 유명한 에르되시 난제도 세 개나 해결했습니다."},
+    {"kind":"tip","num":"③","head":"비용은 단돈 2천 달러","body":"이 증명들을 찾는 데 든 계산 비용은 약 2천 달러. 사람 연구자가 논문으로 다듬고 Lean 증명기로 정식 검증까지 마쳤다.","narration":"이 증명들을 찾는 데 든 비용이 고작 2천 달러 정도였어요. 사람 연구자가 논문으로 다듬고, Lean이라는 증명기로 정식 검증까지 마쳤습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

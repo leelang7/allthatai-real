@@ -1,0 +1,13 @@
+{
+  "topic": "3분의1 가격 예산형 AI가 자기 최고모델 이겼다 딥시크",
+  "tags": ["딥시크", "DeepSeek", "V4Flash", "AI에이전트", "코딩AI", "가성비AI", "오픈소스AI", "LLM", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a compact budget AI chip outperforming a premium tier server, cost efficiency breakthrough mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["3분의 1 가격 AI가","자기 회사 최고모델을","이겨버렸다"],"highlightLine":1,"narration":"가격이 3분의 1인 저렴한 AI가, 같은 회사의 최고급 모델을 이겨버렸어요. 딥시크가 V4 플래시를 정식 공개했습니다."},
+    {"kind":"tip","num":"①","head":"예산형이 플래그십을 추월","body":"재훈련을 거친 딥시크 V4 플래시가 에이전트 벤치마크 9개 전부에서 자사 상위 모델 V4 프로를 앞섰다. 코딩·도구사용 능력이 급상승.","narration":"재훈련을 거친 딥시크 V4 플래시가, 에이전트 벤치마크 아홉 개 전부에서 자사 상위 모델인 V4 프로를 앞섰어요. 코딩이랑 도구 사용 능력이 확 올랐습니다."},
+    {"kind":"tip","num":"②","head":"가격은 그대로, 성능만 급등","body":"입력 100만 토큰당 0.14달러 수준으로 프로의 약 3분의 1 가격. 터미널 에이전트 벤치 점수가 82점대로 껑충 뛰었다.","narration":"가격은 입력 100만 토큰당 0.14달러 정도로, 프로의 3분의 1 수준이에요. 대신 터미널 에이전트 벤치 점수는 82점대로 껑충 뛰었습니다."},
+    {"kind":"tip","num":"③","head":"기존 사용자는 자동 업그레이드","body":"같은 엔드포인트·같은 키·같은 모델명 그대로라 이미 쓰던 개발자는 손댈 것 없이 성능만 올라간다. 가성비 AI 경쟁이 더 뜨거워졌다.","narration":"같은 접속 주소에 같은 키, 같은 모델 이름 그대로라, 이미 쓰던 개발자는 아무것도 안 해도 성능만 올라가요. 가성비 AI 경쟁이 더 뜨거워졌습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

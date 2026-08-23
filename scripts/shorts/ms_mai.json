@@ -1,0 +1,13 @@
+{
+  "topic": "마이크로소프트 자체 AI 모델 MAI 공개",
+  "tags": ["마이크로소프트", "MAI", "오픈AI", "챗GPT", "자체AI", "빅테크", "AI뉴스", "생성형AI", "비용절감", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract corporate AI infrastructure, glowing server nodes and data flow, tech independence concept, cool blue and teal light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["MS, 오픈AI 손 놓나","자체 AI 모델로","비용 84% 절감"],"highlightLine":1,"narration":"마이크로소프트가 오픈AI 손을 슬슬 놓고 있습니다. 자체 AI 모델로 갈아타면서 비용을 확 줄이고 있어요."},
+    {"kind":"tip","num":"①","head":"자체 이미지·음성 모델","body":"MAI 이미지 2.5 프로는 이미지 속 '글자'까지 정확히 그리고 말로 편집. MAI 보이스 2 플래시는 응답 속도 2배, 비용 32% 절감.","narration":"새로 낸 이미지 모델은 그림 속 글자까지 정확하게 그리고 말로 편집이 되고요, 음성 모델은 반응 속도가 두 배 빨라지고 비용은 32% 줄었어요."},
+    {"kind":"tip","num":"②","head":"오픈AI 의존 줄이기","body":"챗GPT(오픈AI)에만 기대지 않고 빙·파워포인트·원드라이브·다이나믹스에 자체 모델을 심는 전략.","narration":"핵심은 챗GPT 만든 오픈AI에만 의존하지 않겠다는 거예요. 빙, 파워포인트, 원드라이브 같은 자기 제품에 직접 만든 모델을 심고 있습니다."},
+    {"kind":"tip","num":"③","head":"실제 제품에서 비용 폭감","body":"파워포인트 GPU 비용 최대 84%, 콜센터(다이나믹스365) 비용 89% 절감. 벤치마크보다 '실제 제품 경험'에 집중.","narration":"효과가 큽니다. 파워포인트는 GPU 비용을 최대 84%, 콜센터는 89%까지 줄였어요. 시험 점수보다 실제 제품에서의 경험을 챙기겠다는 방향입니다."},
+    {"kind":"cta","narration":"이런 AI 판도 소식은 프로필 링크에 정리해놨어요. 저장해두고 흐름 놓치지 마세요."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "앤트로픽도 자체 AI칩 만든다 클로드 비용 반토막 노린다",
+  "tags": ["앤트로픽", "클로드", "AI반도체", "자체칩", "실리콘", "삼성전자", "추론비용", "빅테크", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a custom AI chip being co-designed together with an AI model, in-house silicon design mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["앤트로픽도","자체 AI칩 만든다","클로드 비용 반토막"],"highlightLine":1,"narration":"구글, 아마존에 이어 앤트로픽도 자체 AI 칩을 만들어요. 클로드 구동 비용을 절반으로 줄이는 게 목표입니다."},
+    {"kind":"tip","num":"①","head":"실리콘 팀 공식 구축","body":"앤트로픽이 클로드 전용 칩을 설계할 사내 실리콘 팀 구성을 공식화. 반도체 엔지니어 채용 공고를 냈고 연봉은 32만~48만 달러 수준.","narration":"앤트로픽이 클로드 전용 칩을 설계할 사내 실리콘 팀 구성을 공식화했어요. 반도체 엔지니어 채용 공고를 냈는데, 연봉이 32만에서 48만 달러 수준입니다."},
+    {"kind":"tip","num":"②","head":"칩과 모델을 함께 설계","body":"칩과 클로드 모델을 함께 최적화 설계해, 토큰당 추론 비용을 약 50% 줄이는 걸 노린다. AI를 더 빠르고 싸게 돌리려는 것.","narration":"칩이랑 클로드 모델을 함께 최적화해서, 토큰당 추론 비용을 약 50퍼센트 줄이는 걸 노려요. AI를 더 빠르고 싸게 돌리려는 겁니다."},
+    {"kind":"tip","num":"③","head":"제조는 삼성과?","body":"앤트로픽은 이미 삼성전자와 위탁생산 협의를 진행한 것으로 알려졌다. 다만 첫 칩 완성 시점은 공개하지 않았다.","narration":"앤트로픽은 이미 삼성전자와 위탁생산 협의를 진행한 것으로 알려졌어요. 다만 첫 칩이 언제 나올지는 아직 공개하지 않았습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

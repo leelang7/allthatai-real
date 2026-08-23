@@ -1,0 +1,54 @@
+{
+  "topic": "스케일링 건강보험 연 1회 꼭 챙기세요",
+  "tags": [
+    "스케일링",
+    "건강보험",
+    "치과",
+    "치석제거",
+    "구강건강",
+    "의료비",
+    "생활꿀팁",
+    "건강",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a clean tooth with dental tools and a calendar mark, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "연 1회는 건강보험",
+        "스케일링",
+        "안 쓰면 사라진다"
+      ],
+      "highlightLine": 0,
+      "narration": "스케일링은 1년에 한 번 건강보험이 됩니다. 안 쓰면 그냥 사라져요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "만 19세 이상 연 1회",
+      "body": "만 19세 이상이면 치석 제거(스케일링)에 건강보험이 연 1회 적용된다. 치과에서 보험 적용으로 받겠다고 말하면 된다.",
+      "narration": "만 19세 이상이면 치석 제거, 스케일링에 건강보험이 1년에 한 번 적용돼요. 치과에서 보험 적용으로 받겠다고 말하면 됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "해가 바뀌면 초기화",
+      "body": "적용 횟수는 해마다 새로 생기고, 안 쓰고 넘기면 이월되지 않는다. 아직 올해 안 받았다면 연말 전에 챙기는 게 이득.",
+      "narration": "적용 횟수는 해마다 새로 생기고, 안 쓰고 넘기면 이월되지 않아요. 아직 올해 안 받았다면 연말 전에 챙기는 게 이득입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "잇몸병 예방이 더 남는 장사",
+      "body": "치석을 방치하면 잇몸병으로 번져 나중에 임플란트 같은 큰 비용이 든다. 정기 스케일링이 결과적으로 치료비를 줄인다.",
+      "narration": "치석을 방치하면 잇몸병으로 번져서 나중에 임플란트 같은 큰 비용이 들어요. 정기 스케일링이 결과적으로 치료비를 줄여줍니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 숨은 돈이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

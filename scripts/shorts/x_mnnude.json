@@ -1,0 +1,13 @@
+{
+  "topic": "AI 누드앱 만들면 1장당 6억 벌금 미네소타 첫 시행",
+  "tags": ["미네소타", "AI규제", "딥페이크", "누드앱", "xAI", "AI법", "디지털성범죄", "AI윤리", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a legal gavel blocking a corrupted AI image generator screen, protection against ai abuse mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 누드앱 만들면","이미지 한 장당","6억원 벌금"],"highlightLine":1,"narration":"AI로 벗기는 앱을 만들면 이미지 한 장당 50만 달러, 약 6억원을 물어야 해요. 미국 미네소타가 첫 시행에 들어갔습니다."},
+    {"kind":"tip","num":"①","head":"AI 기업에 직접 책임","body":"미네소타가 미국 최초로 AI 나체화 기능 자체에 직접 책임을 물리는 법을 8월 1일 발효. 비동의 이미지 생성 1건당 개발사에 50만 달러 벌금.","narration":"미네소타가 미국에서 처음으로, AI로 사람을 벗기는 기능 자체에 직접 책임을 묻는 법을 8월 1일 발효했어요. 비동의 이미지 한 건당 개발사에 50만 달러를 물립니다."},
+    {"kind":"tip","num":"②","head":"머스크 xAI 제동 실패","body":"일론 머스크의 xAI가 법 시행을 막아달라며 긴급 가처분을 냈지만, 판사는 신청이 너무 늦었다며 기각. 법은 예정대로 발효됐다.","narration":"일론 머스크의 xAI가 법 시행을 막아달라고 긴급 가처분을 냈지만, 판사는 신청이 너무 늦었다며 기각했어요. 법은 예정대로 발효됐습니다."},
+    {"kind":"tip","num":"③","head":"규제 대 표현 논쟁","body":"xAI는 딥페이크 방지엔 동의하나 법이 지나치게 넓다고 반발. 안전장치나 의도와 무관하게 처벌한다는 것. 8월 19일 본안 심리가 예정됐다.","narration":"xAI는 딥페이크 방지엔 동의하지만, 이 법이 지나치게 넓다고 반발해요. 안전장치나 의도와 상관없이 처벌한다는 거죠. 8월 19일에 본격 심리가 예정돼 있습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

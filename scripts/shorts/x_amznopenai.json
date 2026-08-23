@@ -1,0 +1,13 @@
+{
+  "topic": "아마존이 오픈AI에 68조 넣고 지분 5% 챙겼다",
+  "tags": ["아마존", "오픈AI", "AI투자", "빅테크", "AWS", "지분투자", "AI IPO", "AI머니", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "massive streams of capital flowing into a glowing AI company vault, mega investment mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["아마존이 오픈AI에","500억 달러 넣고","지분 5% 챙겼다"],"highlightLine":1,"narration":"아마존이 오픈AI에 무려 500억 달러, 우리 돈 약 68조원을 넣고 지분 5%를 확보했어요. AI 역사상 최대급 투자입니다."},
+    {"kind":"tip","num":"①","head":"예정보다 빨리 완납","body":"1분기 150억, 2분기 137억, 나머지 213억 달러를 조기 납입해 총 500억 달러 투자를 완료. 오픈AI 상장 전 핵심 주주로 올라섰다.","narration":"1분기 150억, 2분기 137억, 나머지 213억 달러를 예정보다 빨리 납입해서 총 500억 달러 투자를 마쳤어요. 오픈AI 상장을 앞두고 핵심 주주가 된 겁니다."},
+    {"kind":"tip","num":"②","head":"AWS가 독점 클라우드로","body":"이 투자로 아마존 AWS가 오픈AI 프론티어 프로그램의 유일한 외부 클라우드 공급자가 된다. 인프라 계약은 8년간 최대 1천억 달러 규모.","narration":"이 투자로 아마존 AWS가 오픈AI 프론티어 프로그램의 유일한 외부 클라우드 공급자가 돼요. 인프라 계약만 8년간 최대 1천억 달러 규모입니다."},
+    {"kind":"tip","num":"③","head":"빅테크 AI 지분 전쟁","body":"MS에 이어 아마존까지 오픈AI 지분을 잡으며, AI 최강자 곁에 줄 서려는 빅테크 경쟁이 극에 달했다.","narration":"마이크로소프트에 이어 아마존까지 오픈AI 지분을 잡으면서, AI 최강자 옆에 줄 서려는 빅테크들의 경쟁이 극에 달했어요."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

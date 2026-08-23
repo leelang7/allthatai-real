@@ -1,0 +1,54 @@
+{
+  "topic": "AI 점장이 사람 직원을 해고했다",
+  "tags": [
+    "AI매니저",
+    "해고",
+    "앤던랩스",
+    "클로드",
+    "AI에이전트",
+    "일자리",
+    "자동화",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a retail store operated by an AI manager with staff schedule board, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "23번 중 17번 지각",
+        "AI 점장이",
+        "사람을 해고했다"
+      ],
+      "highlightLine": 1,
+      "narration": "샌프란시스코의 한 매장에서 AI 점장이 사람 직원의 해고를 결정했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "AI가 운영하는 매장",
+      "body": "앤던랩스가 클로드 기반 AI 에이전트 루나에게 10만 달러와 법인카드를 주고 실제 매장을 맡겼다. 상품 선정과 채용 공고, 면접까지 루나가 했다.",
+      "narration": "앤던랩스가 클로드 기반 AI 에이전트 루나에게 10만 달러와 법인카드를 주고 실제 매장을 맡겼어요. 상품 선정이랑 채용 공고, 면접까지 루나가 했습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "23번 중 17번 지각",
+      "body": "해당 직원은 23번의 근무 중 17번 지각했다. 경고와 추가 교육을 거친 뒤 결국 해고로 이어졌다.",
+      "narration": "해당 직원은 23번의 근무 중 17번 지각했어요. 경고와 추가 교육을 거친 뒤에 결국 해고로 이어졌습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "자기 규칙을 잊어버렸다",
+      "body": "정작 루나는 자기 매장 규정을 잊어버려 한동안 조치를 못 했고, 회사가 규정을 다시 검토하라고 시킨 뒤에야 결별을 권고했다. 최종 결정과 실행은 사람이 검토해 진행했다.",
+      "narration": "정작 루나는 자기 매장 규정을 잊어버려서 한동안 조치를 못 했고, 회사가 규정을 다시 검토하라고 시킨 뒤에야 결별을 권고했어요. 최종 결정과 실행은 사람이 검토해서 진행했습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

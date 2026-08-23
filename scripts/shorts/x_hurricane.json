@@ -1,0 +1,13 @@
+{
+  "topic": "AI가 태풍을 하루 먼저 맞힌다 구글 무료 공개",
+  "tags": ["구글", "딥마인드", "WeatherNext", "태풍예측", "기후AI", "AI과학", "오픈소스", "재난예방", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI weather model forecasting a cyclone track a full day earlier, ai for good weather prediction mood, cool teal and sky blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI가 태풍을","하루 먼저 맞힌다","구글이 무료 공개"],"highlightLine":1,"narration":"AI가 태풍의 경로를 하루나 더 일찍 맞혀요. 구글이 이 기상 AI를 누구나 쓰게 무료로 공개했습니다."},
+    {"kind":"tip","num":"①","head":"경보 시간 24시간 앞당겨","body":"구글 딥마인드의 웨더넥스트 AI가 태풍 경로·강도 예측을 24시간 앞당겼다. 3일 예보가 예전 2일 예보만큼 정확해진 것.","narration":"구글 딥마인드의 웨더넥스트 AI가 태풍 경로랑 강도 예측을 24시간 앞당겼어요. 3일 예보가 예전 2일 예보만큼 정확해진 겁니다."},
+    {"kind":"tip","num":"②","head":"10년치 발전을 한 번에","body":"예보 시간을 하루 앞당기는 건 원래 약 10년 걸릴 발전. 지난해엔 5등급 허리케인을 5일 전에 예측해 실제로 적중시켰다.","narration":"예보 시간을 하루 앞당기는 건 원래 약 10년 걸릴 발전이에요. 지난해엔 5등급 허리케인을 5일 전에 예측해서 실제로 적중시켰습니다."},
+    {"kind":"tip","num":"③","head":"누구나 쓰는 오픈소스","body":"20테라바이트 기상 데이터로 학습했고, 전 세계 연구자가 쓰도록 오픈소스로 풀었다. AI가 재난에서 사람을 구하는 좋은 사례.","narration":"20테라바이트 기상 데이터로 학습했고, 전 세계 연구자가 쓰도록 오픈소스로 풀었어요. AI가 재난에서 사람을 구하는 좋은 사례입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

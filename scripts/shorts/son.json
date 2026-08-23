@@ -1,0 +1,13 @@
+{
+  "topic": "손흥민 선발 제외 남아공전",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["손흥민", "홍명보호", "한국남아공", "월드컵", "2026월드컵", "선발제외", "오현규", "국가대표", "북중미월드컵", "조별리그", "축구", "대한민국축구", "shorts", "쇼츠", "월드컵이슈"],
+  "bgPrompt": "Cinematic shot of an empty soccer stadium substitute bench beside the green pitch with a soccer ball on the sideline grass, evening floodlights, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "이번 대회 처음", "titleLines": ["손흥민 선발 제외", "남아공전", "무슨 일?"], "highlightLine": 0, "narration": "손흥민이 선발에서 빠진 한국 남아공전, 무슨 일이 있었는지 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "원톱은 오현규", "body": "홍명보 감독이 손흥민을 선발에서 빼고 오현규를 원톱으로 내세웠어요.", "narration": "첫째, 홍명보 감독은 손흥민을 선발에서 제외하고 오현규를 원톱으로 세웠습니다." },
+    { "kind": "tip", "num": "2", "head": "후반 교체 투입", "body": "후반 시작과 함께 손흥민을 교체로 넣어 변화를 노렸어요.", "narration": "둘째, 후반 시작과 함께 손흥민을 교체 투입하며 흐름을 바꾸려 했습니다." },
+    { "kind": "tip", "num": "3", "head": "후반 12분 실점", "body": "후반 12분 마세코에게 한 골을 내주며 0대1로 졌어요. A조 3위로 마무리.", "narration": "셋째, 후반 12분 실점하며 0대 1로 패해, 한국은 A조 3위로 마쳤습니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

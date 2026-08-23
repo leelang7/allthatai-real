@@ -1,0 +1,54 @@
+{
+  "topic": "챗GPT 이후 웹페이지 3분의 1이 AI가 썼다",
+  "tags": [
+    "AI글쓰기",
+    "퓨리서치",
+    "웹콘텐츠",
+    "챗GPT",
+    "AI탐지",
+    "em대시",
+    "인터넷",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "web pages filling up with machine-written text patterns, macro photography, crisp texture detail, wide establishing shot, subject small in frame, cool overcast even lighting, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "인터넷이 변했다",
+        "새 웹페이지 35%가",
+        "AI가 쓴 흔적"
+      ],
+      "highlightLine": 1,
+      "narration": "챗GPT 등장 이후 만들어진 웹페이지의 35퍼센트에서 AI가 쓴 흔적이 나왔어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "49만 페이지를 분석",
+      "body": "퓨리서치가 2021년 1월부터 2026년 7월까지 수집된 영어 웹페이지 약 49만 건을 AI 탐지 모델로 분석한 결과다.",
+      "narration": "퓨리서치가 2021년 1월부터 2026년 7월까지 수집된 영어 웹페이지 약 49만 건을, AI 탐지 모델로 분석한 결과예요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "상업 사이트가 10배",
+      "body": ".com 사이트는 .edu나 .gov보다 AI 사용 비율이 약 10배 높았다. 돈이 걸린 곳일수록 AI로 빠르게 찍어낸다는 뜻이다.",
+      "narration": "닷컴 사이트는 닷에듀나 닷거브보다 AI 사용 비율이 약 10배 높았어요. 돈이 걸린 곳일수록 AI로 빠르게 찍어낸다는 뜻입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "em 대시가 두 배로",
+      "body": "AI 특유의 문체 흔적도 늘었다. em 대시 사용 빈도가 약 두 배가 됐고, 옥스퍼드 콤마는 2023년 대비 63% 늘었다.",
+      "narration": "AI 특유의 문체 흔적도 늘었어요. em 대시 사용 빈도가 약 두 배가 됐고, 옥스퍼드 콤마는 2023년 대비 63퍼센트 늘었습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

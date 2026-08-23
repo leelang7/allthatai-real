@@ -1,0 +1,54 @@
+{
+  "topic": "전세보증금 떼이지 않으려면 반환보증",
+  "tags": [
+    "전세보증보험",
+    "전세사기",
+    "보증금",
+    "HUG",
+    "임차인",
+    "반환보증",
+    "부동산",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a lease deposit protected by a shield contract, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "집주인이 못 돌려줘도",
+        "보증기관이 대신 준다",
+        "전세보증금 반환보증"
+      ],
+      "highlightLine": 1,
+      "narration": "집주인이 보증금을 못 돌려줘도 보증기관이 대신 돌려주는 상품이 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "보증기관이 대신 지급",
+      "body": "주택도시보증공사(HUG), 한국주택금융공사(HF), SGI서울보증 등에서 전세보증금 반환보증에 가입하면, 집주인이 반환하지 못할 때 보증기관이 대신 지급한다.",
+      "narration": "주택도시보증공사나 한국주택금융공사, SGI서울보증에서 전세보증금 반환보증에 가입하면, 집주인이 못 돌려줄 때 보증기관이 대신 지급해요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "가입 기한과 요건 확인",
+      "body": "계약 기간이 일정 비율 이상 남아 있어야 가입할 수 있고, 주택 유형과 보증금 한도 등 요건이 있다. 계약 직후 알아보는 게 안전하다.",
+      "narration": "계약 기간이 일정 비율 이상 남아 있어야 가입할 수 있고, 주택 유형이나 보증금 한도 같은 요건이 있어요. 계약 직후에 알아보는 게 안전합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "보증료 지원사업도 있다",
+      "body": "청년·신혼부부 등을 대상으로 보증료를 지원하는 지자체 사업이 있다. 가입 후 정부24나 지자체에서 보증료 지원 신청을 챙기자.",
+      "narration": "청년이나 신혼부부를 대상으로 보증료를 지원하는 지자체 사업이 있어요. 가입한 뒤에 정부24나 지자체에서 보증료 지원 신청을 챙기세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

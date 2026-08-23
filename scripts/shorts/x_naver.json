@@ -1,0 +1,13 @@
+{
+  "topic": "네이버 분기 매출 첫 3.4조 AI가 광고를 끌어올렸다",
+  "tags": ["네이버", "실적", "AI광고", "AI팩토리", "엔비디아", "커머스", "국산AI", "클로바", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a korean tech portal posting record revenue driven by AI advertising, ai-powered business growth mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["네이버 분기 매출","첫 3.4조 돌파","AI가 광고 끌어올렸다"],"highlightLine":1,"narration":"네이버가 분기 매출 3조 4천억원을 처음 넘었어요. AI가 광고와 커머스를 끌어올린 결과입니다."},
+    {"kind":"tip","num":"①","head":"역대 최대 매출","body":"네이버 2분기 매출 3조3900억원으로 역대 최대, 전년비 16% 증가. 단 AI 인프라 선제 투자로 영업이익은 0.2% 소폭 감소했다.","narration":"네이버 2분기 매출이 3조 3900억원으로 역대 최대, 1년 전보다 16퍼센트 늘었어요. 다만 AI 인프라 선제 투자로 영업이익은 0.2퍼센트 소폭 줄었습니다."},
+    {"kind":"tip","num":"②","head":"AI 광고가 효자","body":"새로 선보인 'AI 브리핑 광고'는 클릭 전환율이 기존 검색광고보다 30% 이상 높았다. 광고 매출 성장의 60% 이상을 AI가 만들었다.","narration":"새로 선보인 AI 브리핑 광고는 클릭 전환율이 기존 검색광고보다 30퍼센트 넘게 높았어요. 광고 매출 성장의 60퍼센트 이상을 AI가 만들었습니다."},
+    {"kind":"tip","num":"③","head":"엔비디아 AI팩토리 내년 수익화","body":"엔비디아와 짓는 'AI 팩토리'는 2027년부터 수익 발생 예정. 55MW로 시작해 연말 100MW, 2028년 200MW로 키운다.","narration":"엔비디아와 함께 짓는 AI 팩토리는 2027년부터 수익이 나요. 55메가와트로 시작해서 연말 100, 2028년 200메가와트로 키웁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "여름 전기요금 폭탄 누진세 피하는 법",
+  "tags": ["전기요금", "누진세", "여름전기요금", "에어컨", "냉방비", "전기요금절약", "생활꿀팁", "절약", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract summer electricity saving concept, a glowing air conditioner with cool airflow beside a rising cost meter on a dark premium background, cool teal and warm red accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["에어컨 켜도","전기요금 폭탄 피한다","여름 누진세 공략"],"highlightLine":1,"narration":"에어컨 켜면서도 전기요금 폭탄 피하는 법, 여름 누진세만 알면 됩니다."},
+    {"kind":"tip","num":"①","head":"여름엔 누진 구간 완화","body":"주택용 전기요금은 쓸수록 단가가 오르는 3단계 누진제. 7~8월엔 구간을 넓혀줘서 같은 사용량이라도 요금 부담이 줄어든다.","narration":"주택용 전기요금은 쓸수록 단가가 오르는 3단계 누진제예요. 그런데 7,8월엔 구간을 넓혀줘서 같은 양을 써도 요금 부담이 줄어듭니다."},
+    {"kind":"tip","num":"②","head":"껐다 켜기보다 유지","body":"인버터 에어컨은 자주 껐다 켜는 것보다 26~28도로 계속 켜두는 게 효율적. 선풍기·제습 모드를 같이 쓰면 체감온도가 내려간다.","narration":"요즘 인버터 에어컨은 자주 껐다 켜는 것보다 26에서 28도로 계속 켜두는 게 더 효율적이에요. 선풍기랑 제습 모드를 같이 쓰면 체감온도가 내려갑니다."},
+    {"kind":"tip","num":"③","head":"필터청소·대기전력·바우처","body":"필터를 2주마다 청소하면 냉방 효율이 오른다. 안 쓰는 플러그는 뽑고, 수급자라면 에너지바우처까지 챙기자.","narration":"필터를 2주마다 청소하면 냉방 효율이 올라가요. 안 쓰는 플러그는 뽑고, 수급자라면 에너지바우처까지 챙기면 좋습니다."},
+    {"kind":"cta","narration":"생활비 아끼는 꿀팁 더 있어요. 프로필 링크에서 확인해보세요."}
+  ]
+}

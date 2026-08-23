@@ -1,0 +1,54 @@
+{
+  "topic": "청년 전세임대 시세보다 싸게 사는 법",
+  "tags": [
+    "청년전세임대",
+    "LH",
+    "전세",
+    "보증금",
+    "주거지원",
+    "대학생",
+    "사회초년생",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an affordable rental home key handed to a young tenant, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "목돈이 없어도",
+        "청년 전세임대",
+        "LH가 대신 계약"
+      ],
+      "highlightLine": 1,
+      "narration": "내가 살 집을 고르면 LH가 집주인과 전세계약을 맺고 저렴하게 다시 빌려주는 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "LH가 대신 계약",
+      "body": "입주 대상자로 뽑히면 본인이 원하는 주택을 찾고, LH가 그 집주인과 전세계약을 맺은 뒤 저렴한 임대료로 재임대한다.",
+      "narration": "입주 대상자로 뽑히면 본인이 원하는 주택을 찾고, LH가 그 집주인과 전세계약을 맺은 뒤에 저렴한 임대료로 다시 빌려줘요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "보증금 부담이 작다",
+      "body": "입주자는 소액의 보증금과 매달 임대료만 부담한다. 목돈이 없는 대학생·취업준비생·사회초년생에게 유리하다.",
+      "narration": "입주자는 소액의 보증금이랑 매달 임대료만 부담해요. 목돈이 없는 대학생이나 취업준비생, 사회초년생에게 유리합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "공고 기간이 짧다",
+      "body": "LH청약플러스에서 수시로 공고가 나오고 소득·자산 요건이 있다. 지원 가능한 주택 조건이 정해져 있으니 집을 구하기 전에 확인하자.",
+      "narration": "LH청약플러스에서 수시로 공고가 나오고 소득이랑 자산 요건이 있어요. 지원 가능한 주택 조건이 정해져 있으니까 집을 구하기 전에 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

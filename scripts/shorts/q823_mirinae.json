@@ -1,0 +1,54 @@
+{
+  "topic": "서울 미리내집 강남 신축도 시세 80%",
+  "tags": [
+    "미리내집",
+    "신혼부부",
+    "서울시",
+    "임대주택",
+    "주거지원",
+    "보증금",
+    "강남",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a newlywed couple receiving apartment keys at below-market price, textured oil painting, visible brush strokes, diagonal dynamic composition, strong leading lines, bright airy background, soft daylight, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "강남 신축도 나온다",
+        "미리내집 496세대",
+        "9월 7일부터 신청"
+      ],
+      "highlightLine": 1,
+      "narration": "서울시가 신혼부부에게 시세 80퍼센트 이하로 아파트를 공급합니다. 9월 초 신청이에요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "58개 단지 496세대",
+      "body": "이번 8차 모집은 58개 단지 496세대다. 디에이치 방배 전용 59㎡ 133세대를 비롯해 영등포자이 디그니티, 래미안 레벤투스, 오티에르 반포 등이 포함됐다.",
+      "narration": "이번 8차 모집은 58개 단지 496세대예요. 디에이치 방배 전용 59제곱미터 133세대를 비롯해, 영등포자이 디그니티나 래미안 레벤투스 같은 단지가 포함됐습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "보증금 70%만 내고 입주",
+      "body": "시세 80% 이하로 공급하고, 보증금 분할납부제를 쓰면 입주 때 70%만 내고 30%는 유예할 수 있다. 실제 입주 부담은 시세의 56% 수준까지 내려간다.",
+      "narration": "시세 80퍼센트 이하로 공급하고, 보증금 분할납부제를 쓰면 입주할 때 70퍼센트만 내고 30퍼센트는 유예할 수 있어요. 실제 입주 부담은 시세의 56퍼센트 수준까지 내려갑니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "9월 7~9일 신청",
+      "body": "혼인신고 7년 이내 신혼부부이거나, 입주 전까지 혼인을 증명할 수 있는 예비 신혼부부가 대상이다. 신청은 9월 7일부터 9일까지다.",
+      "narration": "혼인신고 7년 이내 신혼부부이거나, 입주 전까지 혼인을 증명할 수 있는 예비 신혼부부가 대상이에요. 신청은 9월 7일부터 9일까지입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

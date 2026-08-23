@@ -1,0 +1,54 @@
+{
+  "topic": "중국산 공유기 20종 백도어 직구족 주의보",
+  "tags": [
+    "공유기",
+    "백도어",
+    "보안",
+    "중국산",
+    "해킹",
+    "직구",
+    "네트워크",
+    "IT뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a home router silently sending signals to a remote server, red and teal warning glow, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "보안 경보",
+      "titleLines": [
+        "35초마다 중국으로 신호",
+        "중국산 공유기 20종",
+        "백도어 발견"
+      ],
+      "highlightLine": 1,
+      "narration": "중국산 공유기 20여 종에서 백도어가 발견됐어요. 직구로 산 공유기라면 확인해보세요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "35초마다 외부 접속",
+      "body": "보안업체 벌른체크가 Zbtlink·와이플라이어 공유기에서 백도어를 발견했다. 전원을 켜면 자동 실행돼 약 35초마다 외부 서버에 접속한다.",
+      "narration": "보안업체 벌른체크가 Zbtlink와 와이플라이어 공유기에서 백도어를 발견했어요. 전원을 켜면 자동 실행돼서 약 35초마다 외부 서버에 접속합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "인증 없이 관리자 권한",
+      "body": "인증 절차 없이 관리자 권한으로 원격 명령을 실행할 수 있는 구조. 취약점 번호 CVE-2026-66747, 위험도는 10점 만점에 9.3점 치명적 등급이다.",
+      "narration": "인증 절차 없이 관리자 권한으로 원격 명령을 실행할 수 있는 구조예요. 위험도는 10점 만점에 9.3점, 치명적 등급입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "전 세계 10만 대 이상",
+      "body": "해당 공유기는 전 세계 최소 10만 대 설치 추정. 공유기를 장악하면 같은 와이파이에 붙은 다른 기기까지 노릴 수 있어 국내 직구 사용자도 주의가 필요하다.",
+      "narration": "해당 공유기는 전 세계 최소 10만 대가 깔린 걸로 추정돼요. 공유기를 장악하면 같은 와이파이에 붙은 다른 기기까지 노릴 수 있어서, 국내 직구 사용자도 주의가 필요합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 보안·AI 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

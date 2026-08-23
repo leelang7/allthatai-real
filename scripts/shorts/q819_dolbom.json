@@ -1,0 +1,54 @@
+{
+  "topic": "초등 돌봄교실 신청 시기 놓치지 마세요",
+  "tags": [
+    "초등돌봄",
+    "늘봄학교",
+    "방과후",
+    "맞벌이",
+    "학교돌봄",
+    "보육",
+    "교육청",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an after-school care classroom with kids and supervision, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "학원 뺑뺑이 돌리기 전에",
+        "초등 돌봄·늘봄",
+        "학교 안에서 해결"
+      ],
+      "highlightLine": 1,
+      "narration": "초등학생 방과후를 학교 안에서 해결할 수 있는 돌봄 제도가 있어요. 신청 시기가 중요합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "수업 후 학교에서 돌봄",
+      "body": "정규 수업이 끝난 뒤 학교 안에서 돌봄과 프로그램을 제공한다. 학년과 학교에 따라 운영 시간과 정원이 다르다.",
+      "narration": "정규 수업이 끝난 뒤에 학교 안에서 돌봄이랑 프로그램을 제공해요. 학년과 학교에 따라 운영 시간과 정원이 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "맞벌이·저소득 우선",
+      "body": "정원이 넘치면 맞벌이, 한부모, 저소득 가정 등 돌봄이 더 필요한 순으로 선발한다. 증빙서류를 미리 챙기면 유리하다.",
+      "narration": "정원이 넘치면 맞벌이, 한부모, 저소득 가정처럼 돌봄이 더 필요한 순으로 뽑아요. 증빙서류를 미리 챙기면 유리합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "학기 시작 전에 모집",
+      "body": "보통 학기 시작 전에 모집하고 중간 충원도 있다. 학교 가정통신문과 교육청 안내를 놓치지 말고 확인하자.",
+      "narration": "보통 학기 시작 전에 모집하고 중간에 충원도 있어요. 학교 가정통신문이랑 교육청 안내를 놓치지 말고 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

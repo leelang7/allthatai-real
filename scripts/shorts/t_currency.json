@@ -1,0 +1,13 @@
+{
+  "topic": "환율 계산기 달러 엔화 실시간 절약",
+  "tags": ["환율계산기", "환율", "달러환율", "엔화", "해외여행", "해외직구", "환전", "여행경비", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr/tools/currency",
+  "bgPrompt": "world travel desk with passport and foreign currency notes and phone, exchange rate concept, cool teal and soft gold accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"여행 꿀팁","titleLines":["여행·직구 환전","은행에서 하면 손해?","환율 1초 계산"],"highlightLine":1,"narration":"해외여행이나 직구 앞두고 환전, 은행에서 그냥 하면 손해일 수 있어요. 환율 1초 계산해봅시다."},
+    {"kind":"tip","num":"①","head":"16개 통화 실시간","body":"달러·엔·유로·위안 등 16개 통화를 원화로 실시간 환산. 여행·직구 전에 얼마 드는지 바로 나온다.","narration":"달러, 엔화, 유로, 위안 같은 16개 통화를 원화로 실시간 환산해줘요. 여행이나 직구 전에 얼마 드는지 바로 나옵니다."},
+    {"kind":"tip","num":"②","head":"은행보다 얼마 아끼나","body":"시중은행 환전 대비 'Wise'로 얼마 아끼는지까지 자동 표시. 환전 수수료로 새는 돈을 잡아준다.","narration":"거기에 시중은행에서 환전할 때보다 와이즈로 하면 얼마 아끼는지까지 자동으로 보여줘요. 수수료로 새는 돈을 잡아주는 거죠."},
+    {"kind":"tip","num":"③","head":"예산 짤 때 필수","body":"일본·유럽 여행 예산 짤 때, 직구 결제 전에. 환율은 계속 바뀌니 실시간으로 확인.","narration":"일본이나 유럽 여행 예산 짤 때, 또 직구 결제 전에 써보세요. 환율은 계속 바뀌니까 실시간으로 확인하는 게 좋아요."},
+    {"kind":"cta","narration":"실시간 환율은 프로필 링크의 '환율 계산기'에서 바로. 은행보다 얼마 아끼는지도 나와요. 무료입니다."}
+  ]
+}

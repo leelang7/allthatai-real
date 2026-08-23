@@ -1,0 +1,13 @@
+{
+  "topic": "AI가 세상에 없던 바이러스를 처음 설계했다 스탠퍼드",
+  "tags": ["AI과학", "스탠퍼드", "바이러스", "게놈", "Evo2", "박테리오파지", "바이오보안", "AI설계", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI designing a novel viral genome from scratch in a research lab, ai bioengineering breakthrough mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI가 세상에 없던","바이러스를","처음 설계했다"],"highlightLine":1,"narration":"AI가 자연에 존재하지 않던 바이러스를 처음부터 설계해냈어요. 스탠퍼드 연구진의 세계 첫 성과입니다."},
+    {"kind":"tip","num":"①","head":"완전히 새로운 바이러스","body":"스탠퍼드·아크연구소가 게놈 언어모델 Evo2로 자연에 없던 바이러스 유전체를 설계. 302개 설계 중 16종이 실제로 조립·복제되는 기능성 바이러스로 확인됐다.","narration":"스탠퍼드랑 아크연구소가 게놈 언어모델 Evo2로, 자연에 없던 바이러스 유전체를 설계했어요. 302개 설계 중 16종이 실제로 조립되고 복제되는 기능성 바이러스로 확인됐습니다."},
+    {"kind":"tip","num":"②","head":"내성균을 잡는다","body":"이 바이러스는 사람·동물이 아니라 박테리아만 노리는 박테리오파지. 약이 안 듣는 내성 대장균을 감염시켜 죽였고, 일부는 자연 바이러스보다 강했다.","narration":"이 바이러스는 사람이나 동물이 아니라 박테리아만 노리는 박테리오파지예요. 약이 안 듣는 내성 대장균을 감염시켜 죽였고, 일부는 자연 바이러스보다 강력했습니다."},
+    {"kind":"tip","num":"③","head":"축복이자 경고","body":"내성균·난치병 치료의 새 길이지만, AI로 병원체를 만들 수 있다는 바이오보안 우려도 함께 커졌다. '만들 능력은 생겼는데 통제 규범은 없다'는 지적.","narration":"내성균이나 난치병 치료의 새 길이지만, AI로 병원체를 만들 수 있다는 바이오 보안 우려도 커졌어요. 만들 능력은 생겼는데 통제 규범은 없다는 지적이 나옵니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

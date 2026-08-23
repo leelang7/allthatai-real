@@ -1,0 +1,13 @@
+{
+  "topic": "챗GPT 헬스 AI 건강관리 시대",
+  "tags": ["챗GPT", "ChatGPT헬스", "오픈AI", "AI건강관리", "헬스케어AI", "디지털헬스", "AI뉴스", "생성형AI", "건강앱", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "smartphone showing health data dashboard with heart rate and wellness metrics, calm clinical mood, soft teal and mint accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 트렌드","titleLines":["AI가 내 건강기록 다 본다","챗GPT 헬스 출시","미국부터 시작"],"highlightLine":1,"narration":"AI가 내 건강 기록을 통째로 보고 상담해주는 시대가 열렸습니다. 오픈AI가 챗GPT 헬스를 내놨어요."},
+    {"kind":"tip","num":"①","head":"내 데이터로 답한다","body":"애플헬스·마이피트니스팔 같은 앱과 에픽·오라클 같은 병원 기록까지 연동. '나 이거 먹어도 돼?' 같은 걸 내 데이터 기반으로 답한다.","narration":"애플 헬스나 마이피트니스팔 같은 앱, 심지어 병원 진료 기록까지 연결해서요. 나 이거 먹어도 되냐 같은 질문에 내 데이터를 보고 답을 해줍니다."},
+    {"kind":"tip","num":"②","head":"아직은 미국부터","body":"현재는 미국 18세 이상, 무료·플러스·프로 요금제 모두 웹과 아이폰에서. 한국은 아직이지만 확대될 흐름.","narration":"다만 지금은 미국 18세 이상만, 무료 요금제까지 다 되고 웹이랑 아이폰에서 써요. 한국은 아직이지만, 이런 방향으로 퍼질 겁니다."},
+    {"kind":"tip","num":"③","head":"진단용은 아니다","body":"오픈AI는 진단·치료 목적이 아니라고 명시했고, 이 건강 데이터를 모델 학습엔 쓰지 않는다고 밝혔다. 중요한 건 꼭 전문가 확인.","narration":"단, 진단이나 치료용은 아니라고 못 박았고, 이 건강 데이터는 AI 학습에 쓰지 않는다고 했어요. 중요한 건 반드시 의사 같은 전문가한테 확인하세요."},
+    {"kind":"cta","narration":"이런 AI 트렌드와 지금 쓸 수 있는 도구는 프로필 링크에 모아놨어요. 저장해두고 챙겨 보세요."}
+  ]
+}

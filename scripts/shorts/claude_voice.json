@@ -1,0 +1,13 @@
+{
+  "topic": "클로드 음성모드 업그레이드 앱 연동",
+  "tags": ["클로드", "Claude", "앤트로픽", "음성모드", "AI에이전트", "AI비서", "생산성", "AI뉴스", "생성형AI", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "sleek desk with smartphone and glowing voice waveform connecting to app icons, hands-free productivity concept, warm amber and teal accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 활용","titleLines":["말로 시키면 앱까지 조작","클로드 음성모드","확 세졌다"],"highlightLine":1,"narration":"이제 말로 시키면 앱까지 조작합니다. 앤트로픽 클로드 음성모드가 확 세졌어요."},
+    {"kind":"tip","num":"①","head":"고급 대화까지","body":"예전엔 빠른 답만 됐는데, 이제 긴 대화·발표 연습·내 말투 피드백 같은 고급 대화까지 가능해졌다.","narration":"예전엔 빠르게 답만 하는 수준이었는데, 이제 긴 대화도 되고 발표 연습이나 내 말투 피드백까지 받을 수 있어요."},
+    {"kind":"tip","num":"②","head":"앱 연동해 실제 처리","body":"지메일·캘린더·슬랙·캔바·노션과 연동돼 회의 일정 변경, 이메일 작성, 문서 생성까지 말로 처리. 모델도 오퍼스·소네트·하이쿠 골라 쓴다.","narration":"지메일, 캘린더, 슬랙, 노션 같은 앱과 연동돼서 회의 일정 바꾸고 이메일 쓰고 문서 만드는 것까지 말로 시켜요. 모델도 오퍼스, 소네트, 하이쿠 중에 골라 쓰고요."},
+    {"kind":"tip","num":"③","head":"10개 언어 지원","body":"영어·프랑스어·독일어·일본어 등 10개 언어 지원. 음성으로 실제 '일 처리'가 된다는 게 핵심.","narration":"영어, 프랑스어, 독일어, 일본어까지 10개 언어를 지원해요. 그냥 수다가 아니라 음성으로 진짜 일 처리가 된다는 게 핵심입니다."},
+    {"kind":"cta","narration":"이렇게 바로 써먹는 AI 활용법은 프로필 링크에 정리해놨어요. 저장해두고 하나씩 따라 해보세요."}
+  ]
+}

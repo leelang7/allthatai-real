@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 실적 쇼크 주가 14% 폭락 왜",
+  "tags": ["테슬라", "TSLA", "테슬라주가", "로보택시", "일론머스크", "미국주식", "해외주식", "실적발표", "주식투자", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "stock market plunge mood, red declining candlestick chart glowing on trading screens, sleek electric car silhouette in shadow, tense financial atmosphere, cool teal with red accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["테슬라 주가","하루 만에 14% 폭락","무슨 일이?"],"highlightLine":1,"narration":"테슬라 주가가 하루 만에 14퍼센트 넘게 폭락했어요. 실적 발표 직후 무슨 일이 있었던 걸까요?"},
+    {"kind":"tip","num":"①","head":"매출은 늘었는데 이익은 감소","body":"2분기 매출은 282억 달러로 1년 전보다 26% 늘었지만, 순이익은 11억 달러로 오히려 줄고 시장 전망치도 밑돌았다.","narration":"2분기 매출은 282억 달러로 1년 전보다 26퍼센트나 늘었어요. 그런데 순이익은 11억 달러로 오히려 줄었고, 시장 전망치에도 못 미쳤습니다."},
+    {"kind":"tip","num":"②","head":"로보택시·AI에 돈 폭탄","body":"AI 데이터센터, 로보택시, 휴머노이드 옵티머스에 공격적으로 투자하며 자본지출이 급증했고, 잉여현금흐름이 마이너스로 돌아섰다.","narration":"AI 데이터센터에 로보택시, 휴머노이드 로봇 옵티머스까지 공격적으로 투자하며 돈을 쏟아부었어요. 결국 잉여현금흐름이 적자로 돌아섰습니다."},
+    {"kind":"tip","num":"③","head":"로보택시는 아직 7개 도시","body":"연내 미국 25~50% 지역 공언과 달리 7월 현재 7개 도시뿐. 일부는 아직 사람이 운전해 완전 자율주행도 아니다.","narration":"머스크는 연내 미국 25에서 50퍼센트 지역에 로보택시를 깔겠다고 했지만, 7월 현재 딱 7개 도시뿐이에요. 그마저도 일부는 아직 사람이 운전하고 있습니다."},
+    {"kind":"cta","narration":"이 종목 지금 사도 될까? 궁금하면 프로필 링크 AI 주식 분석에 티커만 넣어보세요. 매수·매도·목표가·위험까지 5초 만에 정리해줍니다."}
+  ]
+}

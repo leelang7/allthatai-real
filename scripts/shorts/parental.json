@@ -1,0 +1,13 @@
+{
+  "topic": "육아휴직급여 2026",
+  "link": "https://real.allthatai.kr/tools/parental-leave/",
+  "tags": ["육아휴직급여", "육아휴직", "6+6부모육아휴직", "통상임금", "출산휴가", "워킹맘", "워킹대디", "육아지원", "고용보험", "육아휴직신청", "저출산정책", "정부지원", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic warm shot of a parent gently holding a baby in a cozy bright living room, soft sunlight through window, tender mood, slow gentle camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "월 최대 250만원", "titleLines": ["2026 육아휴직", "월 250만원", "확 늘었다"], "highlightLine": 1, "narration": "2026년 확 늘어난 육아휴직급여, 월 최대 250만 원 받는 법 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "1~3개월 월 250만원", "body": "1~3개월 250만원, 4~6개월 200만원, 이후 160만원. 사후지급 폐지로 매월 전액 받아요.", "narration": "첫째, 1에서 3개월은 월 250만 원, 이후 단계적으로, 사후지급이 폐지돼 매월 전액 받습니다." },
+    { "kind": "tip", "num": "②", "head": "최대 1년 6개월", "body": "육아휴직 기간이 1년에서 1년 6개월로 확대됐어요.", "narration": "둘째, 육아휴직 기간이 1년에서 1년 6개월로 늘어났습니다." },
+    { "kind": "tip", "num": "③", "head": "6+6 통상임금 100%", "body": "부부가 모두 쓰면 첫 6개월은 통상임금 100%, 합산 수천만원까지 받아요.", "narration": "셋째, 부부가 모두 쓰는 6 더하기 6 제도는 첫 6개월 통상임금 100퍼센트를 지원합니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "우리 부부 육아휴직급여, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

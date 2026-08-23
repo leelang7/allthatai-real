@@ -1,0 +1,54 @@
+{
+  "topic": "앤트로픽이 오픈AI 매출 처음 앞질렀다",
+  "tags": [
+    "오픈AI",
+    "앤트로픽",
+    "실적",
+    "매출",
+    "영업손실",
+    "AI경쟁",
+    "클로드",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "two rival revenue lines crossing over on a financial chart, macro photography, crisp texture detail, symmetrical centered composition, calm balance, bright airy background, soft daylight, mint green and graphite accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "처음으로 뒤집혔다",
+        "앤트로픽 매출이",
+        "오픈AI를 넘었다"
+      ],
+      "highlightLine": 2,
+      "narration": "앤트로픽 분기 매출이 사상 처음으로 오픈AI를 앞질렀어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "116억 vs 67억 달러",
+      "body": "2분기 앤트로픽 매출은 116억 달러로 두 배 넘게 뛰었고, 오픈AI는 67억 달러에 그쳤다. 분기 매출에서 앤트로픽이 앞선 건 처음이다.",
+      "narration": "2분기 앤트로픽 매출은 116억 달러로 두 배 넘게 뛰었고, 오픈AI는 67억 달러에 그쳤어요. 분기 매출에서 앤트로픽이 앞선 건 처음입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "손실은 더 벌어졌다",
+      "body": "오픈AI 영업손실은 1분기 93억 달러에서 2분기 123억 달러로 커졌다. 매출 증가율 18%보다 손실이 빨리 늘었다.",
+      "narration": "오픈AI 영업손실은 1분기 93억 달러에서 2분기 123억 달러로 커졌어요. 매출 증가율 18퍼센트보다 손실이 더 빨리 늘었습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "한쪽은 흑자 전환",
+      "body": "같은 기간 앤트로픽은 5억 5900만 달러 규모의 조정 영업이익을 냈다. 성장세와 수익성이 동시에 갈리며 판도 변화 신호로 읽힌다.",
+      "narration": "같은 기간 앤트로픽은 5억 5900만 달러 규모의 조정 영업이익을 냈어요. 성장세와 수익성이 동시에 갈리면서 판도 변화 신호로 읽힙니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

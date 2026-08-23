@@ -1,0 +1,11 @@
+{
+  "topic": "GTA6 게임",
+  "bgPrompt": "Cinematic aerial drone shot of a neon-lit night city with tall palm trees and a sports car cruising down a wet street, Miami vice style, purple and pink neon glow, reflections, slow smooth camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "게임 대작", "titleLines": ["GTA6", "사전예약", "6월 25일"], "highlightLine": 2, "narration": "전 세계가 기다린 지티에이 식스, 드디어 사전예약이 시작됩니다." },
+    { "kind": "tip", "num": "①", "head": "사전예약 6월 25일", "body": "락스타 공식 발표. 6월 25일부터 디지털 스토어와 일부 매장에서 시작돼요.", "narration": "첫째, 락스타가 공식 발표했습니다. 6월 25일부터 사전예약이 열립니다." },
+    { "kind": "tip", "num": "②", "head": "콘솔 먼저, PC는 나중", "body": "PS5와 엑스박스로 먼저 출시. PC 버전은 약 1년 반 뒤로 예상됩니다.", "narration": "둘째, 피에스 파이브와 엑스박스가 먼저입니다. 피시는 전작처럼 1년 반쯤 뒤로 예상돼요." },
+    { "kind": "tip", "num": "③", "head": "가격은 역대급?", "body": "공식 가격은 아직 미정. 유럽 일부 매장은 99유로, 약 15만 원에 올렸어요.", "narration": "셋째, 가격은 아직 공식 발표 전이지만, 유럽 일부 매장이 99유로, 약 15만 원에 책정했습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "더 많은 화제는 올댓에이아이에서 확인하세요." }
+  ]
+}

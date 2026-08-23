@@ -1,0 +1,54 @@
+{
+  "topic": "지역화폐 충전만 해도 붙는 인센티브",
+  "tags": [
+    "지역화폐",
+    "지역사랑상품권",
+    "인센티브",
+    "캐시백",
+    "할인",
+    "지자체",
+    "생활비",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a local gift card charging up with bonus coins added, warm amber and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "충전만 해도 더 준다",
+        "지역화폐",
+        "인센티브 챙기기"
+      ],
+      "highlightLine": 1,
+      "narration": "지역화폐는 충전만 해도 일정 비율을 더 얹어줘요. 안 쓰면 그만큼 손해입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "충전액에 인센티브",
+      "body": "지역사랑상품권은 충전 금액의 일정 비율을 추가로 적립해준다. 비율과 월 한도는 지자체와 시기에 따라 다르다.",
+      "narration": "지역사랑상품권은 충전 금액의 일정 비율을 추가로 적립해줘요. 비율이랑 월 한도는 지자체와 시기에 따라 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "동네 가맹점에서 그대로",
+      "body": "카드형·모바일형으로 발급받아 동네 가맹점에서 일반 카드처럼 쓴다. 대형마트보다 동네 상권 위주라 가맹 여부를 미리 보면 좋다.",
+      "narration": "카드형이나 모바일형으로 발급받아서 동네 가맹점에서 일반 카드처럼 써요. 대형마트보다 동네 상권 위주라 가맹 여부를 미리 보면 좋습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "예산 소진되면 종료",
+      "body": "인센티브는 예산이 정해져 있어 소진되면 그 달 혜택이 끝난다. 매달 초에 충전하는 게 유리하고, 우리 동네 앱에서 일정부터 확인하자.",
+      "narration": "인센티브는 예산이 정해져 있어서 소진되면 그 달 혜택이 끝나요. 매달 초에 충전하는 게 유리하고, 우리 동네 앱에서 일정부터 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

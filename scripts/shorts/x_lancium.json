@@ -1,0 +1,13 @@
+{
+  "topic": "엔비디아가 전기까지 산다 발전사에 4조 투자",
+  "tags": ["엔비디아", "Lancium", "AI전력", "데이터센터", "스타게이트", "전력인프라", "블랙스톤", "AI인프라", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a chip giant investing in power plants and the electric grid for AI, ai power arms race mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["엔비디아가","전기까지 산다","발전사에 4조 투자"],"highlightLine":1,"narration":"칩만으로 부족하다? 엔비디아가 이번엔 전력 회사에 4조원을 투자해요. AI 전쟁이 전기 확보전으로 번졌습니다."},
+    {"kind":"tip","num":"①","head":"최대 30억 달러 투자","body":"엔비디아가 텍사스 전력·데이터센터 개발사 랜시움에 최대 30억 달러(약 4조원)를 투자. 우선 20억 달러로 지분 약 20% 확보.","narration":"엔비디아가 텍사스 전력 개발사 랜시움에 최대 30억 달러, 약 4조원을 투자해요. 우선 20억 달러로 지분 약 20퍼센트를 확보합니다."},
+    {"kind":"tip","num":"②","head":"스타게이트 전력 확보","body":"랜시움은 오픈AI·소프트뱅크·오라클의 초대형 AI 프로젝트 '스타게이트' 첫 가동 부지의 전력을 대는 회사. AI엔 이제 전기가 병목.","narration":"랜시움은 오픈AI, 소프트뱅크, 오라클의 초대형 AI 프로젝트 스타게이트 첫 부지에 전력을 대는 회사예요. AI엔 이제 전기가 병목입니다."},
+    {"kind":"tip","num":"③","head":"칩 전쟁 → 전력 전쟁","body":"AI 데이터센터가 폭증하며 전력망 확보가 경쟁력이 됐다. 엔비디아가 칩을 넘어 '전기'까지 손을 뻗는 이유다.","narration":"AI 데이터센터가 폭증하면서 전력망 확보가 경쟁력이 됐어요. 엔비디아가 칩을 넘어 전기까지 손을 뻗는 이유입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

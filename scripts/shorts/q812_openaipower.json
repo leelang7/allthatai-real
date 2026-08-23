@@ -1,0 +1,54 @@
+{
+  "topic": "오픈AI가 전기 트레이더를 뽑는 이유",
+  "tags": [
+    "오픈AI",
+    "데이터센터",
+    "전력",
+    "전기요금",
+    "AI인프라",
+    "에너지",
+    "메타",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "electricity grid lines feeding a massive AI data center at dusk, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "AI의 진짜 병목은 전기",
+        "오픈AI가 전기",
+        "트레이더를 뽑는다"
+      ],
+      "highlightLine": 1,
+      "narration": "오픈AI가 전력 트레이딩 책임자를 채용합니다. AI의 진짜 병목이 전기라는 신호예요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "전력 트레이딩 책임자 채용",
+      "body": "블룸버그에 따르면 오픈AI는 데이터센터 전력 포트폴리오 전반의 가격 위험을 관리할 전력 트레이딩 리드를 뽑고 있다. 연봉은 최대 28만 5천 달러.",
+      "narration": "블룸버그에 따르면 오픈AI가 데이터센터 전력 포트폴리오의 가격 위험을 관리할 전력 트레이딩 리드를 뽑고 있어요. 연봉은 최대 28만 5천 달러입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "사는 게 아니라 거래한다",
+      "body": "단순 구매가 아니라 미국 전력·가스 시장을 이해하고 헤지 전략을 짜는 자리. 전력 거래 경력 10년 이상을 요구한다.",
+      "narration": "단순 구매가 아니라 미국 전력이랑 가스 시장을 이해하고 헤지 전략을 짜는 자리예요. 전력 거래 경력 10년 이상을 요구합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "메타는 작년에 먼저",
+      "body": "메타는 2025년 11월 이미 전력 거래에 뛰어들었다. 전기 확보가 AI 데이터센터 증설의 가장 큰 제약이 되면서, 구매 부서가 아닌 트레이딩 조직이 답이 되고 있다.",
+      "narration": "메타는 2025년 11월에 이미 전력 거래에 뛰어들었어요. 전기 확보가 AI 데이터센터 증설의 가장 큰 제약이 되면서, 구매가 아니라 트레이딩이 답이 되고 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

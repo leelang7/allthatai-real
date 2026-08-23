@@ -1,0 +1,13 @@
+{
+  "topic": "DSR 대출한도",
+  "link": "https://real.allthatai.kr/tools/loan-limit/",
+  "tags": ["DSR", "대출한도", "스트레스DSR", "주택담보대출", "대출규제", "DSR계산", "내집마련", "총부채원리금", "대출", "부동산대출", "대출조회", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a modern bank interior with a counter and soft warm light, a desk with a pen and folder, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "내 대출 얼마까지?", "titleLines": ["내 대출 한도", "DSR로", "정해진다"], "highlightLine": 1, "narration": "내 대출 한도를 결정하는 DSR, 핵심만 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "은행 40%·2금융 50%", "body": "DSR은 연 원리금을 연소득으로 나눈 값. 은행은 40%, 2금융은 50% 한도예요.", "narration": "첫째, DSR은 연간 원리금을 연소득으로 나눈 값으로, 은행은 40퍼센트, 2금융은 50퍼센트가 한도입니다." },
+    { "kind": "tip", "num": "②", "head": "스트레스 DSR 3단계", "body": "2025년 7월부터 스트레스 금리를 더해 한도가 더 줄었어요.", "narration": "둘째, 2025년 7월 스트레스 DSR 3단계로 가산금리가 붙어 한도가 더 줄었습니다." },
+    { "kind": "tip", "num": "③", "head": "기존 빚 줄이면 한도↑", "body": "소득은 높을수록, 기존 대출은 적을수록 한도가 커져요.", "narration": "셋째, 소득이 높고 기존 대출이 적을수록 한도가 커지니, 기존 빚부터 줄이세요." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 대출 한도, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

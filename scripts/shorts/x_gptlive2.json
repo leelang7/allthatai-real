@@ -1,0 +1,13 @@
+{
+  "topic": "이제 보면서 대화한다 오픈AI GPT 라이브 확 커졌다",
+  "tags": ["오픈AI", "GPTLive", "음성AI", "ChatGPT", "실시간AI", "문서분석", "음성비서", "멀티모달", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a voice AI reading a document while holding a live conversation, multimodal voice assistant mood, cool teal and cyan accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["이제 보면서 대화한다","오픈AI","GPT 라이브 확 커졌다"],"highlightLine":1,"narration":"말로 대화하면서 문서까지 같이 보고 분석해줘요. 오픈AI가 실시간 음성 AI GPT 라이브를 확 키웠습니다."},
+    {"kind":"tip","num":"①","head":"음성 대화 + 문서 분석","body":"GPT 라이브에 실시간 음성 대화와 문서 분석 기능이 더해졌다. 말로 물으면서 자료를 함께 보고 답하는 식으로 쓸 수 있다.","narration":"GPT 라이브에 실시간 음성 대화랑 문서 분석 기능이 더해졌어요. 말로 물으면서 자료를 함께 보고 답하는 식으로 쓸 수 있습니다."},
+    {"kind":"tip","num":"②","head":"끊김 없는 대화 위에","body":"앞서 턴 감지기를 없애 말이 끊기지 않는 전이중 대화를 구현한 GPT 라이브. 여기에 눈(문서)까지 달아 더 실용적으로 진화했다.","narration":"앞서 턴 감지기를 없애서 말이 끊기지 않는 대화를 구현한 GPT 라이브예요. 여기에 눈, 문서까지 달아서 더 실용적으로 진화했습니다."},
+    {"kind":"tip","num":"③","head":"음성 비서 경쟁 가열","body":"구글·메타·카카오까지 실시간 음성 AI에 뛰어든 가운데, 오픈AI가 기능을 더해 격차를 벌리려 한다.","narration":"구글이랑 메타, 카카오까지 실시간 음성 AI에 뛰어든 가운데, 오픈AI가 기능을 더해서 격차를 벌리려 해요."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

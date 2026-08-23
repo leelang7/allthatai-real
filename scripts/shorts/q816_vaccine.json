@@ -1,0 +1,54 @@
+{
+  "topic": "어르신 무료 예방접종 챙기는 시기",
+  "tags": [
+    "예방접종",
+    "독감",
+    "폐렴구균",
+    "어르신",
+    "무료접종",
+    "보건소",
+    "건강",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a vaccination card with autumn health protection theme, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "가을 오기 전에",
+        "어르신 무료 예방접종",
+        "시기 놓치면 손해"
+      ],
+      "highlightLine": 1,
+      "narration": "어르신은 독감과 폐렴구균 예방접종을 무료로 받을 수 있어요. 시기가 정해져 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "인플루엔자 국가예방접종",
+      "body": "만 65세 이상 어르신은 인플루엔자 예방접종을 무료로 받을 수 있다. 보통 가을에 시작해 연령대별로 접종 시작일이 나뉜다.",
+      "narration": "만 65세 이상 어르신은 인플루엔자 예방접종을 무료로 받을 수 있어요. 보통 가을에 시작하고 연령대별로 접종 시작일이 나뉩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "폐렴구균도 대상",
+      "body": "만 65세 이상은 폐렴구균 예방접종도 보건소에서 무료로 받을 수 있다. 접종 이력에 따라 대상 여부가 달라진다.",
+      "narration": "만 65세 이상은 폐렴구균 예방접종도 보건소에서 무료로 받을 수 있어요. 접종 이력에 따라 대상 여부가 달라집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "지정 병원 찾기",
+      "body": "보건소뿐 아니라 지정 위탁의료기관에서도 받을 수 있다. 예방접종도우미 누리집에서 가까운 지정 병원과 올해 일정을 확인하자.",
+      "narration": "보건소뿐 아니라 지정 위탁의료기관에서도 받을 수 있어요. 예방접종도우미 누리집에서 가까운 지정 병원이랑 올해 일정을 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "구글이 라이벌 앤트로픽 21조 데이터센터 빚보증 섰다",
+  "tags": ["구글", "앤트로픽", "데이터센터", "AI인프라", "TPU", "순환금융", "빅테크", "AI투자", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "interconnected money guarantees flowing between two AI giant towers and a data center, ai circular financing mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["구글이 라이벌","앤트로픽의 21조","빚보증을 섰다"],"highlightLine":1,"narration":"구글이 경쟁사인 앤트로픽의 21조 원짜리 데이터센터 빚에 보증을 섰어요. AI판의 복잡한 돈 얽힘이 드러났습니다."},
+    {"kind":"tip","num":"①","head":"떼이면 구글이 갚는다","body":"앤트로픽이 데이터센터 임대료·전력비를 못 내면 구글이 대신 갚는 보증. 텍사스에 약 150억 달러(21조원) 규모 캠퍼스와 1.6GW 자체 발전소를 짓는다.","narration":"앤트로픽이 데이터센터 임대료랑 전력비를 못 내면 구글이 대신 갚아주는 보증이에요. 텍사스에 약 150억 달러, 21조 원 규모 캠퍼스랑 1.6기가와트 자체 발전소를 짓습니다."},
+    {"kind":"tip","num":"②","head":"구글은 지분 20% 챙긴다","body":"보증 대가로 구글은 데이터센터·발전소 지분 약 20%를 확보. 앤트로픽은 그곳에 구글이 설계한 AI 칩 TPU를 깐다.","narration":"보증 대가로 구글은 데이터센터랑 발전소 지분 약 20퍼센트를 확보해요. 앤트로픽은 거기에 구글이 설계한 AI 칩, TPU를 깝니다."},
+    {"kind":"tip","num":"③","head":"AI '순환 금융' 논란","body":"돈·칩·지분이 빅테크끼리 돌고 도는 '순환 금융'이라, 리스크가 커진다는 우려도 나온다. AI 인프라 경쟁의 그림자다.","narration":"돈이랑 칩, 지분이 빅테크끼리 돌고 도는 순환 금융이라, 리스크가 커진다는 우려도 나와요. AI 인프라 경쟁의 그림자입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

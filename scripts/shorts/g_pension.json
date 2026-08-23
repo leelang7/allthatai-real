@@ -1,0 +1,13 @@
+{
+  "topic": "2026 기초연금 만 65세 월 최대 34만원",
+  "tags": ["기초연금", "노후", "만65세", "노령연금", "정부지원", "복지로", "국민연금", "어르신", "연금", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "warm serene senior lifestyle mood, cozy home with soft sunlight, calm dignified atmosphere, gentle gold and teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["만 65세라면","매달 34만원","기초연금 챙기세요"],"highlightLine":1,"narration":"부모님이 만 65세 넘으셨다면 매달 최대 34만원, 기초연금 꼭 챙기세요. 신청 안 하면 못 받습니다."},
+    {"kind":"tip","num":"①","head":"2026년 월 최대 34만 9700원","body":"기준연금액이 올해 34만9700원으로 올랐다. 만 65세 이상이면서 소득 하위 70%면 매달 받는다.","narration":"올해 기초연금은 월 최대 34만 9700원으로 올랐어요. 만 65세 이상이면서 소득 하위 70퍼센트에 들면 매달 받습니다."},
+    {"kind":"tip","num":"②","head":"소득 얼마까지 되나","body":"단독가구는 월 소득인정액 247만원 이하, 부부가구는 395만2천원 이하면 대상. 재산도 소득으로 환산해 합친 금액 기준이다.","narration":"혼자 사시면 소득인정액 247만원 이하, 부부는 395만2천원 이하면 돼요. 재산도 소득으로 환산해서 합친 금액으로 봅니다."},
+    {"kind":"tip","num":"③","head":"신청해야 받는다","body":"자동 지급이 아니라 신청해야 받는다. 주소지 행정복지센터나 복지로, 국민연금공단에서 만 65세 생일 한 달 전부터 가능.","narration":"기초연금은 자동으로 안 나와요. 꼭 신청해야 받습니다. 주민센터나 복지로, 국민연금공단에서 만 65세 생일 한 달 전부터 신청할 수 있어요."},
+    {"kind":"cta","narration":"부모님 챙겨드릴 정부 지원금이랑 생활 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 하나씩 챙기세요."}
+  ]
+}

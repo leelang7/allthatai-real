@@ -1,0 +1,12 @@
+{
+  "topic": "본인부담상한제 환급",
+  "tags": ["본인부담상한제", "건강보험", "의료비환급", "건강보험공단", "병원비환급", "의료비지원", "본인부담금", "환급금", "건강보험환급", "의료비절약", "재테크", "정부지원", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a clean modern hospital corridor with soft natural light, medical documents and Korean won banknotes on a counter, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "병원비 돌려받기", "titleLines": ["병원비 많이 썼다면", "본인부담상한제", "환급"], "highlightLine": 1, "narration": "병원비 많이 쓴 해, 초과분을 돌려받는 본인부담상한제 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "상한 초과분 환급", "body": "1년간 본인부담 의료비가 상한액을 넘으면 초과분을 돌려줘요.", "narration": "첫째, 1년간 낸 병원비가 소득별 상한액을 넘으면 그 초과분을 돌려받습니다." },
+    { "kind": "tip", "num": "②", "head": "소득 낮을수록 유리", "body": "소득 분위가 낮을수록 상한액이 낮아 더 많이 환급돼요.", "narration": "둘째, 소득 분위가 낮을수록 상한액이 낮아서 더 많이 돌려받습니다." },
+    { "kind": "tip", "num": "③", "head": "공단이 자동 안내", "body": "건강보험공단이 대상자에게 신청 안내문을 보내줘요. 신청하면 끝.", "narration": "셋째, 건강보험공단이 대상자에게 안내문을 보내주니 신청만 하면 됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내가 환급 대상인지, 올댓에이아이에서 확인해 보세요." }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "AI 에이전트 400개 한곳에 카카오 정부사업 선정",
+  "tags": ["카카오", "AI마켓플레이스", "MCP", "PlayMCP", "AI에이전트", "과기정통부", "국민비서", "플랫폼", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a marketplace hub gathering hundreds of AI agents in one open platform, ai agent marketplace mood, cool teal and yellow accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 에이전트 400개를","한곳에서","카카오가 만든다"],"highlightLine":1,"narration":"흩어진 AI 에이전트를 한곳에서 골라 쓰는 장터가 열려요. 카카오가 정부 지원 AI 마켓플레이스 사업자로 선정됐습니다."},
+    {"kind":"tip","num":"①","head":"정부 지원 110억 사업","body":"과기정통부·NIA의 'AI 에이전트 마켓플레이스' 구축 사업자로 카카오 선정. 110억원 규모로 다양한 AI 에이전트와 도구를 한 플랫폼에 모은다.","narration":"과기정통부랑 NIA의 AI 에이전트 마켓플레이스 구축 사업자로 카카오가 선정됐어요. 110억원 규모로, 다양한 AI 에이전트와 도구를 한 플랫폼에 모읍니다."},
+    {"kind":"tip","num":"②","head":"MCP 서버 400개 연동","body":"핵심은 400개 이상 MCP 서버가 연동된 개방형 플랫폼 'PlayMCP'와 에이전트 개발도구 'AI Agent Builder'. 행안부 협업 'AI 국민비서'도 있다.","narration":"핵심은 400개가 넘는 MCP 서버가 연동된 개방형 플랫폼 플레이MCP랑, 에이전트 개발도구 AI 에이전트 빌더예요. 행안부와 협업한 AI 국민비서도 있습니다."},
+    {"kind":"tip","num":"③","head":"챌린지로 생태계 키운다","body":"AI 에이전트 챌린지·해커톤으로 우수 서비스를 발굴해 플랫폼 입점으로 연결. 국내 AI 에이전트 생태계의 허브를 노린다.","narration":"AI 에이전트 챌린지랑 해커톤으로 우수 서비스를 발굴해서 플랫폼 입점으로 연결해요. 국내 AI 에이전트 생태계의 허브를 노립니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "topic": "숨은 정부지원금 찾기",
+  "tags": ["숨은지원금", "정부지원금", "보조금24", "정부24", "미환급금", "숨은돈찾기", "카드포인트", "환급금조회", "정부혜택", "지원금조회", "재테크", "꿀팁정보", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of hands holding a smartphone showing a search app, Korean won coins and banknotes scattered on a table, warm light, shallow depth of field, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "내 숨은 돈", "titleLines": ["나도 모르는", "숨은 돈", "찾는 법"], "highlightLine": 1, "narration": "나도 모르게 쌓여있는 숨은 돈, 3분이면 찾는 방법 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "보조금24로 맞춤조회", "body": "정부24 보조금24에서 내가 받을 수 있는 지원금을 한 번에 조회해요.", "narration": "첫째, 정부24의 보조금24에서 내가 받을 수 있는 지원금을 한 번에 조회할 수 있습니다." },
+    { "kind": "tip", "num": "②", "head": "카드포인트 현금화", "body": "여신협회 카드포인트 통합조회로 흩어진 포인트를 계좌로 받아요.", "narration": "둘째, 카드포인트 통합조회로 흩어진 포인트를 현금으로 계좌에 받을 수 있습니다." },
+    { "kind": "tip", "num": "③", "head": "미환급금 조회", "body": "정부24 미환급금 조회로 못 받은 세금과 보험료를 돌려받아요.", "narration": "셋째, 미환급금 조회로 못 받은 세금이나 보험료를 돌려받을 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 숨은 돈이 얼마인지, 올댓에이아이에서 확인해 보세요." }
+  ]
+}

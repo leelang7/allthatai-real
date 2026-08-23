@@ -1,0 +1,54 @@
+{
+  "topic": "다자녀 가구가 놓치는 혜택 모음",
+  "tags": [
+    "다자녀",
+    "다자녀카드",
+    "전기요금",
+    "자동차취득세",
+    "국립시설",
+    "K패스",
+    "육아",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a family of four with benefit icons around them, warm amber and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "두 자녀부터 되는 것도",
+        "다자녀 혜택",
+        "안 챙기면 손해"
+      ],
+      "highlightLine": 1,
+      "narration": "다자녀 혜택은 세 자녀부터인 줄 알지만, 두 자녀부터 되는 것도 많아요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "공공요금 할인",
+      "body": "다자녀 가구는 전기요금 할인과 도시가스 요금 경감 등을 신청할 수 있다. 자동 적용이 아니라 신청해야 적용되는 경우가 많다.",
+      "narration": "다자녀 가구는 전기요금 할인이나 도시가스 요금 경감 같은 걸 신청할 수 있어요. 자동 적용이 아니라 신청해야 적용되는 경우가 많습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "교통·문화시설 감면",
+      "body": "지자체 다자녀 카드로 공영주차장, 도서관, 박물관, 공공 체육시설 등에서 감면을 받을 수 있다. 지역마다 범위가 다르다.",
+      "narration": "지자체 다자녀 카드로 공영주차장이나 도서관, 박물관, 공공 체육시설에서 감면을 받을 수 있어요. 지역마다 범위가 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "우리 지자체 기준 확인",
+      "body": "기준 자녀 수와 혜택은 지자체별로 다르고 해마다 바뀐다. 정부24나 우리 시·군·구 홈페이지에서 다자녀로 검색해 확인하자.",
+      "narration": "기준 자녀 수랑 혜택은 지자체마다 다르고 해마다 바뀌어요. 정부24나 우리 시군구 홈페이지에서 다자녀로 검색해서 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

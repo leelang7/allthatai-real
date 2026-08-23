@@ -1,0 +1,13 @@
+{
+  "topic": "연차 개수 계산",
+  "link": "https://real.allthatai.kr/tools/leave-days/",
+  "tags": ["연차", "연차수당", "연차개수", "연차계산", "근로기준법", "유급휴가", "직장인", "연차발생기준", "노동법", "월차", "근속연수", "직장인꿀팁", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a desk calendar with marked dates next to a coffee cup and a laptop, warm soft office light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "내 연차 며칠?", "titleLines": ["내 연차", "며칠", "맞을까"], "highlightLine": 1, "narration": "내가 받는 연차가 몇 개가 맞는지, 발생 기준을 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "1년 일하면 15일", "body": "1년간 80% 이상 출근하면 다음 해 연차 15일이 생겨요.", "narration": "첫째, 1년간 80퍼센트 이상 출근하면 그 다음 해에 연차 15일이 발생합니다." },
+    { "kind": "tip", "num": "②", "head": "3년부터 2년마다 +1", "body": "3년 차부터 2년마다 하루씩 늘어 최대 25일까지 받아요.", "narration": "둘째, 3년 차부터는 2년마다 하루씩 늘어 최대 25일까지 받습니다." },
+    { "kind": "tip", "num": "③", "head": "안 쓰면 연차수당", "body": "1년 미만은 한 달 개근마다 1일. 못 쓴 연차는 수당으로 받아요.", "narration": "셋째, 1년 미만은 한 달 개근마다 하루씩, 못 쓴 연차는 연차수당으로 받습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 연차 개수, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

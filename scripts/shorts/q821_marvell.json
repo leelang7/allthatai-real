@@ -1,0 +1,54 @@
+{
+  "topic": "구글이 마벨 주식 17조어치 살 권리를 받았다",
+  "tags": [
+    "구글",
+    "마벨",
+    "TPU",
+    "AI반도체",
+    "맞춤형칩",
+    "브로드컴",
+    "워런트",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a custom AI inference chip surrounded by storage and network controllers, isometric 3d render, clean studio lighting, low angle looking up, dramatic scale, cool overcast even lighting, slate blue and burnt orange accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "칩 사주고 지분까지",
+        "구글, 마벨 주식",
+        "122억 달러 워런트"
+      ],
+      "highlightLine": 1,
+      "narration": "구글이 반도체 기업 마벨의 주식을 122억 달러어치 살 수 있는 권리를 받았어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "칩을 살수록 지분이 늘어난다",
+      "body": "구글은 주당 206.58달러에 마벨 주식 최대 5897만 주를 살 수 있는 워런트를 받았다. 구글이 맞춤형 칩을 5억 달러 살 때마다 한 구간씩 권리가 확정되는 구조다.",
+      "narration": "구글은 주당 206.58달러에 마벨 주식 최대 5897만 주를 살 수 있는 워런트를 받았어요. 맞춤형 칩을 5억 달러 살 때마다 한 구간씩 권리가 확정되는 구조입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "TPU 주변을 통째로",
+      "body": "7월 29일 맺은 계약으로 마벨은 AI 추론 가속기와 스토리지·네트워크·메모리 인터페이스 컨트롤러까지 개발한다. 코드명 케스트럴 제품도 포함됐다.",
+      "narration": "7월 29일 맺은 계약으로 마벨은 AI 추론 가속기와 스토리지, 네트워크, 메모리 인터페이스 컨트롤러까지 개발해요. 코드명 케스트럴 제품도 포함됐습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "브로드컴 독점이 깨진다",
+      "body": "그동안 구글 TPU는 브로드컴이 주도했는데 마벨이 합류하며 공급망이 이원화된다. 공시 직후 마벨 주가는 10% 가까이 올랐다.",
+      "narration": "그동안 구글 TPU는 브로드컴이 주도했는데, 마벨이 합류하면서 공급망이 이원화돼요. 공시 직후 마벨 주가는 10퍼센트 가까이 올랐습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "인텔 200억 달러 증자 1971년 상장 후 처음",
+  "tags": [
+    "인텔",
+    "증자",
+    "AI반도체",
+    "파운드리",
+    "반도체투자",
+    "엔비디아",
+    "주식",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a semiconductor fab pouring capital into wafer production lines, gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "AI 수요 폭발",
+        "인텔 200억 달러 증자",
+        "1971년 상장 후 처음"
+      ],
+      "highlightLine": 1,
+      "narration": "인텔이 200억 달러 규모 유상증자에 나섰어요. 1971년 상장 이후 처음입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "150억에서 200억으로 증액",
+      "body": "당초 150억 달러 계획이었는데 수요가 몰리며 하루 만에 200억 달러로 늘렸다. 미국 기술기업 증자 중 최대 규모급이다.",
+      "narration": "당초 150억 달러 계획이었는데 수요가 몰리면서 하루 만에 200억 달러로 늘렸어요. 미국 기술기업 증자 중 최대 규모급입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "기관 수요 1000억 달러",
+      "body": "기관 주문이 1000억 달러 넘게 몰려 약 5대 1 경쟁률을 기록했다. AI 컴퓨팅 수요에 공장을 풀가동하는 인텔에 돈이 몰린 것.",
+      "narration": "기관 주문이 1000억 달러 넘게 몰려서 약 5대 1 경쟁률을 기록했어요. AI 컴퓨팅 수요에 공장을 풀가동하는 인텔에 돈이 몰린 겁니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "설비투자 200억 달러 이상",
+      "body": "인텔은 올해 설비투자 계획을 180억에서 200억 달러 이상으로 올렸다. 2분기 매출은 161억 달러로 15년 만에 가장 빠르게 늘었다.",
+      "narration": "인텔은 올해 설비투자 계획을 180억에서 200억 달러 이상으로 올렸어요. 2분기 매출은 161억 달러로, 15년 만에 가장 빠르게 늘었습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·반도체 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

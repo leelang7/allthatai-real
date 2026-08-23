@@ -1,0 +1,54 @@
+{
+  "topic": "이사하면 전입신고와 확정일자 당일에",
+  "tags": [
+    "전입신고",
+    "확정일자",
+    "대항력",
+    "보증금",
+    "이사",
+    "정부24",
+    "임차인",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a moving box with a stamped residence document protecting a deposit, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "하루 늦으면 순위 밀린다",
+        "전입신고·확정일자",
+        "이사 당일에 끝내라"
+      ],
+      "highlightLine": 1,
+      "narration": "이사한 날 전입신고와 확정일자를 끝내야 보증금을 지킬 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "대항력은 다음 날부터",
+      "body": "전입신고를 하고 실제로 거주해야 대항력이 생기는데, 효력은 신고 다음 날 0시부터다. 하루만 늦어도 그사이 설정된 권리에 밀릴 수 있다.",
+      "narration": "전입신고를 하고 실제로 거주해야 대항력이 생기는데, 효력은 신고 다음 날 0시부터예요. 하루만 늦어도 그사이 설정된 권리에 밀릴 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "확정일자는 우선변제",
+      "body": "확정일자를 받아두면 보증금을 우선변제 받을 순위가 생긴다. 계약서를 들고 주민센터에 가거나 인터넷등기소에서 받을 수 있다.",
+      "narration": "확정일자를 받아두면 보증금을 우선변제 받을 순위가 생겨요. 계약서를 들고 주민센터에 가거나 인터넷등기소에서 받을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "온라인으로도 가능",
+      "body": "전입신고는 정부24에서, 확정일자는 인터넷등기소에서 온라인으로 처리할 수 있다. 이사 당일에 둘 다 끝내는 걸 원칙으로 하자.",
+      "narration": "전입신고는 정부24에서, 확정일자는 인터넷등기소에서 온라인으로 처리할 수 있어요. 이사 당일에 둘 다 끝내는 걸 원칙으로 하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

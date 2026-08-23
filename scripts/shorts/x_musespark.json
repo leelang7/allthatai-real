@@ -1,0 +1,13 @@
+{
+  "topic": "메타도 AI 에이전트 참전 뮤즈 스파크 값은 4분의1",
+  "tags": ["메타", "뮤즈스파크", "MuseSpark", "AI에이전트", "컴퓨터사용", "코딩AI", "저가AI", "슈퍼인텔리전스", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI agent autonomously clicking through interfaces and writing code, agentic computer use mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["메타도 AI 에이전트 참전","값은 경쟁사","4분의 1"],"highlightLine":1,"narration":"메타가 스스로 행동하는 AI 에이전트 시장에 뛰어들었어요. 성능은 올리고 값은 경쟁사의 4분의 1로 낮췄습니다."},
+    {"kind":"tip","num":"①","head":"생각을 넘어 행동한다","body":"메타 슈퍼인텔리전스 랩의 두 번째 모델 뮤즈 스파크 1.1. 계획을 세우고, 하위 AI에 일을 시키고, 화면을 클릭하고, 스크린샷으로 디버깅까지 한다.","narration":"메타 슈퍼인텔리전스 랩의 두 번째 모델, 뮤즈 스파크 1.1이에요. 계획을 세우고, 하위 AI에 일을 시키고, 화면을 직접 클릭하고, 스크린샷으로 디버깅까지 합니다."},
+    {"kind":"tip","num":"②","head":"100만 토큰 기억력","body":"100만 토큰 맥락을 스스로 관리해, 한참 전 작업을 기억하고 필요한 단계만 압축해 이어간다. 긴 작업에 강하다.","narration":"100만 토큰 맥락을 스스로 관리해서, 한참 전 작업까지 기억하고 필요한 단계만 압축해 이어가요. 긴 작업에 강합니다."},
+    {"kind":"tip","num":"③","head":"값은 4분의 1","body":"입력 100만 토큰당 1.25달러로 오픈AI·앤트로픽 경쟁 모델의 약 4분의 1 가격. AI 에이전트 가격 경쟁에 메타까지 가세했다.","narration":"입력 100만 토큰당 1.25달러로, 오픈AI나 앤트로픽 경쟁 모델의 약 4분의 1 가격이에요. AI 에이전트 가격 경쟁에 메타까지 가세했습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

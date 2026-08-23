@@ -1,0 +1,14 @@
+{
+  "topic": "남아공 캐나다 32강 한국",
+  "title": "한국 잡은 남아공, 캐나다와 사상 첫 토너먼트",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["남아공축구", "캐나다축구", "월드컵", "2026월드컵", "한국남아공", "32강", "북중미월드컵", "A조", "월드컵이변", "축구", "국가대표", "월드컵32강", "shorts", "쇼츠", "월드컵중계"],
+  "bgPrompt": "Cinematic shot of a soccer stadium with a bright green pitch under floodlights and a soccer ball at center, daytime energetic atmosphere, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "오늘 격돌", "titleLines": ["한국 잡은 남아공", "캐나다와", "첫 토너먼트"], "highlightLine": 1, "narration": "한국을 꺾고 올라간 남아공이 오늘 캐나다와 사상 첫 토너먼트를 치릅니다." },
+    { "kind": "tip", "num": "1", "head": "남아공 A조 2위", "body": "남아공은 한국을 1대0으로 꺾고 승점 4로 A조 2위에 올랐어요.", "narration": "첫째, 남아공은 한국을 1대 0으로 꺾고 승점 4로 A조 2위에 올랐습니다." },
+    { "kind": "tip", "num": "2", "head": "사상 첫 토너먼트", "body": "남아공이 월드컵 토너먼트 무대를 밟는 건 이번이 처음이에요.", "narration": "둘째, 남아공이 월드컵 토너먼트 무대를 밟는 것은 이번이 사상 처음입니다." },
+    { "kind": "tip", "num": "3", "head": "상대는 개최국 캐나다", "body": "32강 상대는 개최국 캐나다. 두 팀 다 돌풍을 노려요.", "narration": "셋째, 32강 상대는 개최국 캐나다로, 두 팀 모두 돌풍을 노립니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "월드컵 32강 소식, 올댓에이아이에서 더 보세요. 구독!" }
+  ]
+}

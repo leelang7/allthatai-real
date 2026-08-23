@@ -1,0 +1,54 @@
+{
+  "topic": "앤트로픽 2028년 매출 2000억 달러 전망",
+  "tags": [
+    "앤트로픽",
+    "IPO",
+    "기업가치",
+    "매출전망",
+    "AI버블",
+    "상장",
+    "투자",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a valuation chart projecting far into the future above a trading floor, gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "3년 뒤 실적으로",
+        "지금 2조 달러 매긴다",
+        "앤트로픽 IPO 셈법"
+      ],
+      "highlightLine": 1,
+      "narration": "앤트로픽이 2028년 매출 2000억 달러를 제시했어요. 상장 가치의 근거가 이 전망입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "2028년 1900~2000억 달러",
+      "body": "로이터에 따르면 앤트로픽은 2028년 매출을 1900억에서 2000억 달러로 전망했다. 5월에 공개한 연환산 매출 470억 달러의 4배가 넘는 수치다.",
+      "narration": "로이터에 따르면 앤트로픽은 2028년 매출을 1900억에서 2000억 달러로 전망했어요. 5월에 공개한 연환산 매출 470억 달러의 4배가 넘는 수치입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "2조 달러 가치의 근거",
+      "body": "은행들은 올해 실적이 아니라 이 2028년 전망에 배수를 적용해 2조 달러 기업가치를 산정하고 있다. 사실상 3년치 실적을 건너뛰는 셈이다.",
+      "narration": "은행들은 올해 실적이 아니라 이 2028년 전망에 배수를 적용해서 2조 달러 기업가치를 매기고 있어요. 사실상 3년치 실적을 건너뛰는 셈입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "전제는 마진 개선",
+      "body": "컴퓨팅·학습·인재에 드는 비용이 매출보다 천천히 늘어야 성립하는 계산이다. 그래서 이 전망이 빗나가면 밸류에이션도 함께 흔들린다.",
+      "narration": "컴퓨팅이랑 학습, 인재에 드는 비용이 매출보다 천천히 늘어야 성립하는 계산이에요. 그래서 이 전망이 빗나가면 기업가치도 같이 흔들립니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "청년 임대주택 공고 놓치지 않는 법",
+  "tags": [
+    "행복주택",
+    "임대주택",
+    "청년",
+    "LH",
+    "SH",
+    "청약",
+    "주거지원",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an apartment building with an application notice board, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "시세보다 싼 임대주택",
+        "공고를 놓쳐서",
+        "매번 못 넣는다면"
+      ],
+      "highlightLine": 1,
+      "narration": "청년 임대주택은 공고 기간이 짧아요. 알림부터 걸어두는 게 핵심입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "행복주택·매입임대",
+      "body": "청년·신혼부부 대상 행복주택과 매입임대는 주변 시세보다 낮은 임대료로 공급된다. 유형에 따라 소득·자산 요건이 다르다.",
+      "narration": "청년이나 신혼부부 대상 행복주택과 매입임대는 주변 시세보다 낮은 임대료로 공급돼요. 유형에 따라 소득이랑 자산 요건이 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "공고는 LH·SH·마이홈",
+      "body": "LH청약플러스, SH공사, 마이홈포털에서 공고가 뜬다. 지역별로 나오는 시기가 달라 관심 지역 알림을 걸어두는 게 좋다.",
+      "narration": "LH청약플러스나 SH공사, 마이홈포털에서 공고가 떠요. 지역별로 나오는 시기가 달라서 관심 지역 알림을 걸어두는 게 좋습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "서류는 미리 준비",
+      "body": "접수 기간이 짧은 편이라 소득·자산 증빙 서류를 미리 챙겨두면 유리하다. 자격 요건은 공고문마다 다르니 그때그때 확인하자.",
+      "narration": "접수 기간이 짧은 편이라 소득이랑 자산 증빙 서류를 미리 챙겨두면 유리해요. 자격 요건은 공고문마다 다르니 그때그때 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

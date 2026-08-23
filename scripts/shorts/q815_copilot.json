@@ -1,0 +1,54 @@
+{
+  "topic": "MS 코파일럿 앱 하나로 합쳐진다",
+  "tags": [
+    "마이크로소프트",
+    "코파일럿",
+    "슈퍼앱",
+    "AI비서",
+    "윈도우",
+    "오피스",
+    "업무AI",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "two app icons merging into one unified assistant app, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "개인용·업무용 따로 끝",
+        "MS 코파일럿",
+        "앱 하나로 합친다"
+      ],
+      "highlightLine": 1,
+      "narration": "마이크로소프트가 개인용과 업무용 코파일럿을 하나의 앱으로 합칩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "8월 18일부터 통합",
+      "body": "8월 18일부터 소비자용과 기업용 코파일럿이 하나의 앱으로 합쳐진다. 모바일·웹이 먼저고, 윈도우와 맥 앱은 9월 중순으로 예정돼 있다.",
+      "narration": "8월 18일부터 소비자용과 기업용 코파일럿이 하나의 앱으로 합쳐져요. 모바일과 웹이 먼저고, 윈도우와 맥 앱은 9월 중순으로 예정돼 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "개인·회사 계정 전환",
+      "body": "개인 계정과 회사·학교 계정을 모두 연결해 앱 안에서 전환할 수 있다. 두 계정 사이에 데이터는 오가지 않고, 회사는 개인 활동을 볼 수 없다.",
+      "narration": "개인 계정과 회사, 학교 계정을 모두 연결해서 앱 안에서 전환할 수 있어요. 두 계정 사이에 데이터는 오가지 않고, 회사는 개인 활동을 볼 수 없습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "일부 기능은 종료",
+      "body": "코파일럿 팟캐스트, 그룹 채팅, 딥 리서치 같은 소비자 기능은 8월 18일부터 없어진다. 슈퍼앱 완성은 9월 말이 목표다.",
+      "narration": "코파일럿 팟캐스트나 그룹 채팅, 딥 리서치 같은 소비자 기능은 8월 18일부터 없어져요. 슈퍼앱 완성은 9월 말이 목표입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

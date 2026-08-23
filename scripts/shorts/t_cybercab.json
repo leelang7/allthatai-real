@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 사이버캡 3만달러 핸들 없는 무인택시",
+  "tags": ["테슬라", "사이버캡", "cybercab", "로보택시", "자율주행", "무인택시", "일론머스크", "전기차", "TSLA", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "futuristic driverless two-seat robotaxi without steering wheel on a glowing night city street, autonomous mobility mood, cool teal and blue accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["핸들도 페달도 없다","3만 달러 무인택시","테슬라 사이버캡"],"highlightLine":1,"narration":"핸들도 페달도 없는 테슬라 무인택시 사이버캡, 3만 달러도 안 되는 가격에 나옵니다. 자율주행 택시 시대 진짜 열릴까요?"},
+    {"kind":"tip","num":"①","head":"핸들·페달 없는 2인승","body":"운전대와 페달을 아예 없앤 완전 자율주행 전용 2인승. 가격은 3만 달러 미만으로 공개됐다.","narration":"운전대랑 페달을 아예 없앤 완전 자율주행 전용 2인승이에요. 가격은 3만 달러 미만으로 발표됐습니다."},
+    {"kind":"tip","num":"②","head":"연 200만대 목표","body":"2026년 4월부터 본격 생산 개시. 연간 최소 200만대, 궁극적으로 400만대 양산을 목표로 잡았다.","narration":"2026년 4월부터 본격 생산에 들어갔어요. 연간 최소 200만대, 궁극적으론 400만대까지 뽑겠다는 목표입니다."},
+    {"kind":"tip","num":"③","head":"근데 현실은?","body":"차주가 로보택시로 돈 버는 수익화는 당분간 시범·제한 단계에 머물 가능성이 크다. 기대는 크지만 상용화 속도가 관건.","narration":"다만 차주가 로보택시로 돈 버는 건 당분간 시범이나 제한된 단계에 머물 가능성이 커요. 기대는 크지만 진짜 상용화 속도가 관건입니다."},
+    {"kind":"cta","narration":"이게 테슬라 주가엔 어떨까요? 궁금하면 프로필 링크 AI 주식 분석에 티커만 넣어보세요. 매수·매도·목표가까지 정리해줍니다."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "에너지바우처 여름 냉방부터 겨울 난방까지 최대 70만원",
+  "tags": ["에너지바우처", "냉방비", "난방비", "정부지원", "복지로", "여름지원", "전기요금", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract summer cooling and winter heating energy concept, a glowing home split between cool and warm light on a dark premium background, teal and amber accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["냉방비 겁나는 여름","최대 70만원 지원","에너지바우처 신청"],"highlightLine":1,"narration":"여름 냉방비가 겁나는 분들, 에너지바우처로 최대 70만 원까지 지원받으세요."},
+    {"kind":"tip","num":"①","head":"수급자 + 세대원 특성","body":"생계·의료·주거·교육급여 수급자 가구 중, 세대원에 65세 이상, 장애인, 0~12세 미취학 아동이 있으면 대상.","narration":"생계, 의료, 주거, 교육급여 수급자 가구 중에서요. 세대원에 65세 이상, 장애인, 또는 0에서 12세 미취학 아동이 있으면 대상입니다."},
+    {"kind":"tip","num":"②","head":"연 최대 70만원, 여름·겨울 다","body":"가구원 수에 따라 1인 약 29만원부터 4인 이상 70만원까지. 2026년 7월부터 2027년 5월까지 여름 냉방·겨울 난방 요금에 쓸 수 있다.","narration":"금액은 가구원 수에 따라 1인 약 29만 원부터 4인 이상 70만 원까지예요. 2026년 7월부터 2027년 5월까지 여름 냉방이랑 겨울 난방 요금에 쓸 수 있습니다."},
+    {"kind":"tip","num":"③","head":"복지로·행복센터서 신청","body":"신청은 6월 15일부터 12월 31일까지. 읍면동 행정복지센터나 복지로 사이트에서 하면 된다.","narration":"신청은 6월 15일부터 12월 31일까지고요. 읍면동 행정복지센터나 복지로 사이트에서 하면 됩니다."},
+    {"kind":"cta","narration":"내가 받을 수 있는 다른 지원도 궁금하면 프로필 링크에서 확인해보세요."}
+  ]
+}

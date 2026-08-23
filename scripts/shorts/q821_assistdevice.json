@@ -1,0 +1,54 @@
+{
+  "topic": "장애인 보조기기 건강보험으로 지원받기",
+  "tags": [
+    "보조기기",
+    "장애인",
+    "건강보험",
+    "휠체어",
+    "보청기",
+    "지원금",
+    "생활꿀팁",
+    "복지",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "assistive devices like a wheelchair and hearing aid with support paperwork, long exposure light trails, motion energy, low angle looking up, dramatic scale, golden hour warm sunlight, forest green and warm brass accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "전액 부담하지 마세요",
+        "장애인 보조기기",
+        "건강보험 지원 대상"
+      ],
+      "highlightLine": 1,
+      "narration": "휠체어나 보청기 같은 보조기기는 건강보험에서 상당 부분을 지원받을 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "등록 장애인이 대상",
+      "body": "장애인으로 등록돼 있고 해당 유형에 맞는 보조기기라면 건강보험 급여로 구입 비용의 상당 부분을 지원받는다. 품목별 기준액과 내구연한이 정해져 있다.",
+      "narration": "장애인으로 등록돼 있고 해당 유형에 맞는 보조기기라면, 건강보험 급여로 구입 비용의 상당 부분을 지원받아요. 품목별 기준액이랑 내구연한이 정해져 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "처방전이 먼저",
+      "body": "의사 처방전을 받아 등록된 업소에서 구입한 뒤 급여를 신청하는 순서다. 순서를 어기면 지원을 못 받을 수 있다.",
+      "narration": "의사 처방전을 받아서 등록된 업소에서 구입한 뒤에 급여를 신청하는 순서예요. 순서를 어기면 지원을 못 받을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "지자체 추가 지원도",
+      "body": "건강보험 급여와 별개로 지자체나 복지관이 추가 지원하는 경우가 있다. 국민건강보험공단 1577-1000이나 주민센터에서 확인하자.",
+      "narration": "건강보험 급여와 별개로 지자체나 복지관이 추가 지원하는 경우가 있어요. 국민건강보험공단 1577-1000이나 주민센터에서 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

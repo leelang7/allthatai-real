@@ -1,0 +1,13 @@
+{
+  "topic": "얼굴도 목소리도 그대로 그록 이매진 1080p 업그레이드",
+  "tags": ["xAI", "그록", "그록이매진", "AI영상", "영상생성AI", "음성일관성", "1080p", "머스크", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a consistent AI character face repeated across multiple video frames, character and voice consistency mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["얼굴도 목소리도","그대로 유지","그록 이매진 확 세졌다"],"highlightLine":1,"narration":"AI 영상에서 캐릭터 얼굴이랑 목소리가 장면마다 그대로 유지돼요. 머스크의 그록 이매진이 큰 업그레이드를 받았습니다."},
+    {"kind":"tip","num":"①","head":"음성·얼굴 일관성 확보","body":"캐릭터 이미지와 음성 참조를 함께 넣으면 모든 장면에서 같은 얼굴, 같은 목소리가 유지된다. 오디오 참조 최대 3개 지원.","narration":"캐릭터 이미지랑 목소리 참조를 같이 넣으면, 모든 장면에서 같은 얼굴에 같은 목소리가 유지돼요. 오디오 참조를 최대 3개까지 넣을 수 있습니다."},
+    {"kind":"tip","num":"②","head":"네이티브 1080p 지원","body":"8월 1일 업데이트로 텍스트·이미지에서 풀HD 1080p 영상 생성을 지원. 참조 이미지도 최대 7개까지 넣어 요소를 고정할 수 있다.","narration":"8월 1일 업데이트로, 글이나 이미지에서 풀HD 1080p 영상 생성을 지원해요. 참조 이미지도 최대 7개까지 넣어서 원하는 요소를 고정할 수 있습니다."},
+    {"kind":"tip","num":"③","head":"영상 AI 경쟁 가열","body":"바이트댄스 시댄스, 미니맥스에 이어 xAI까지 참전. 단, 이 기능들은 유료 구독자 전용이다. AI 영상 시장 경쟁이 뜨겁다.","narration":"바이트댄스 시댄스, 미니맥스에 이어 xAI까지 뛰어들었어요. 다만 이 기능들은 유료 구독자 전용입니다. AI 영상 시장 경쟁이 정말 뜨거워지고 있어요."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

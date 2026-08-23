@@ -1,0 +1,13 @@
+{
+  "topic": "MS 인도 최대 데이터센터 열었다 29조 AI 베팅",
+  "tags": ["마이크로소프트", "인도", "데이터센터", "Azure", "AI인프라", "하이데라바드", "클라우드", "빅테크", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a massive new data center campus rising in india for AI cloud, mega cloud infrastructure mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["MS 인도 최대","데이터센터 열었다","29조 AI 베팅"],"highlightLine":1,"narration":"마이크로소프트가 인도 최대 데이터센터를 열었어요. 인도에만 약 29조원을 쏟는 AI 대베팅입니다."},
+    {"kind":"tip","num":"①","head":"하이데라바드 최대 거점","body":"MS가 인도 하이데라바드에 자국 내 최대 데이터센터를 가동. 네 번째 Azure 리전으로, 가용영역 3개는 크리켓 경기장 두 개 크기다.","narration":"MS가 인도 하이데라바드에 인도 내 최대 데이터센터를 가동했어요. 네 번째 Azure 리전인데, 가용영역 3개가 크리켓 경기장 두 개 크기입니다."},
+    {"kind":"tip","num":"②","head":"175억 달러 인도 투자","body":"2026~2029년 175억 달러(약 24조원), 총 205억 달러 규모 인도 투자의 핵심. 푸네·첸나이·뭄바이에 이어 최대 클라우드 사업자 지위를 굳힌다.","narration":"2026년부터 2029년까지 175억 달러, 총 205억 달러 규모 인도 투자의 핵심이에요. 기존 거점에 이어 인도 최대 클라우드 사업자 지위를 굳힙니다."},
+    {"kind":"tip","num":"③","head":"인도를 잡아라","body":"구글·아마존도 인도에 데이터센터를 쏟아붓는다. 거대한 AI 이용자 풀과 빠른 디지털화가 빅테크를 끌어당기고 있다.","narration":"구글이랑 아마존도 인도에 데이터센터를 쏟아붓고 있어요. 거대한 AI 이용자 풀과 빠른 디지털화가 빅테크를 끌어당기는 겁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

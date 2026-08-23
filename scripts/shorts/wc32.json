@@ -1,0 +1,14 @@
+{
+  "topic": "한국 월드컵 32강 진출 유력",
+  "title": "한국 32강 진출 유력! 확률 87.8%, 상대는?",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "한국축구", "32강진출", "16강경우의수", "와일드카드", "대한민국축구", "북중미월드컵", "손흥민", "국가대표", "축구", "월드컵중계", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, hopeful dramatic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "와일드카드", "titleLines": ["한국 32강", "진출 유력", "87.8%"], "highlightLine": 1, "narration": "한국 32강 진출이 유력해졌습니다. 지금 상황을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "3위팀 중 4위", "body": "조 3위지만, 12개 조 3위 중 상위 8팀이 진출해요. 한국은 현재 4위예요.", "narration": "첫째, 조 3위지만 12개 조 3위 중 상위 8팀이 진출하는데, 한국은 현재 4위에 있습니다." },
+    { "kind": "tip", "num": "2", "head": "진출 확률 87.8%", "body": "현재 기준 32강 진출 확률은 약 87.8%로 사실상 유력해요.", "narration": "둘째, 현재 기준 32강 진출 확률은 약 87.8퍼센트로 사실상 유력합니다." },
+    { "kind": "tip", "num": "3", "head": "상대는 캐나다 유력", "body": "32강에 가면 상대는 캐나다가 유력한 것으로 점쳐져요.", "narration": "셋째, 32강에 오르면 상대는 캐나다가 유력한 것으로 전망됩니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

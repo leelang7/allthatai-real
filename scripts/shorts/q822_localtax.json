@@ -1,0 +1,54 @@
+{
+  "topic": "주민세 재산세 감면 대상인지 확인하세요",
+  "tags": [
+    "주민세",
+    "재산세",
+    "지방세",
+    "감면",
+    "위택스",
+    "세금",
+    "생활꿀팁",
+    "절약",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a local tax bill with a reduction stamp applied, cinematic photography with shallow depth of field, diagonal dynamic composition, strong leading lines, dark moody background, rim lighting, mint green and graphite accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "자동으로 안 깎인다",
+        "지방세 감면",
+        "신청해야 적용"
+      ],
+      "highlightLine": 1,
+      "narration": "지방세도 감면 대상이 있는데, 대부분 신청해야 적용됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "대상이 꽤 넓다",
+      "body": "다자녀 가구 자동차 취득세, 장애인·국가유공자 차량, 임대주택, 소상공인 등 지방세 감면 대상이 여러 갈래로 있다.",
+      "narration": "다자녀 가구 자동차 취득세나 장애인, 국가유공자 차량, 임대주택, 소상공인처럼 지방세 감면 대상이 여러 갈래로 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "기한을 넘기면 못 받는다",
+      "body": "감면은 신청 기한이 정해진 경우가 많다. 이미 낸 세금도 요건이 맞으면 경정청구로 돌려받을 수 있다.",
+      "narration": "감면은 신청 기한이 정해진 경우가 많아요. 이미 낸 세금도 요건이 맞으면 경정청구로 돌려받을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "위택스·시군구청에서",
+      "body": "위택스나 관할 시군구청 세무과에서 내 감면 대상 여부를 확인할 수 있다. 상황이 바뀌면 다시 확인해보는 게 좋다.",
+      "narration": "위택스나 관할 시군구청 세무과에서 내 감면 대상 여부를 확인할 수 있어요. 상황이 바뀌면 다시 확인해보는 게 좋습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

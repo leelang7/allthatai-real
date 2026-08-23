@@ -1,0 +1,54 @@
+{
+  "topic": "만 65세 임플란트 건강보험 평생 2개 적용",
+  "tags": [
+    "임플란트",
+    "건강보험",
+    "틀니",
+    "65세",
+    "치과",
+    "의료비",
+    "시니어",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a dental implant model next to a health insurance card, warm gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "임플란트 본인부담 30%",
+        "만 65세부터",
+        "평생 2개 건강보험"
+      ],
+      "highlightLine": 1,
+      "narration": "만 65세부터는 임플란트도 건강보험이 됩니다. 본인부담 30퍼센트예요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "평생 2개, 본인부담 30%",
+      "body": "만 65세 이상은 임플란트에 건강보험이 적용돼 본인부담률 30%로 평생 2개까지 할 수 있다. 치과에서 대상자 등록 후 진행한다.",
+      "narration": "만 65세 이상은 임플란트에 건강보험이 적용돼서, 본인부담 30퍼센트로 평생 2개까지 할 수 있어요. 치과에서 대상자 등록 후에 진행합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "완전 무치악은 제외",
+      "body": "치아가 하나도 없는 완전 무치악은 임플란트 급여 대상이 아니다. 한 개 이상 치아가 남은 부분 무치악일 때만 적용된다.",
+      "narration": "치아가 하나도 없는 완전 무치악은 임플란트 급여 대상이 아니에요. 한 개 이상 치아가 남아있는 부분 무치악일 때만 적용됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "틀니도 65세부터 지원",
+      "body": "틀니는 만 65세 이상 상악 또는 하악 1개까지 건강보험이 적용되고, 7년마다 다시 받을 수 있다. 부담률은 임플란트보다 낮은 편.",
+      "narration": "틀니도 만 65세 이상이면 위 또는 아래 1개까지 건강보험이 적용되고, 7년마다 다시 받을 수 있어요. 부담률은 임플란트보다 낮은 편입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 숨은 돈이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "근로자 휴가지원 20만원 넣으면 40만원 여행",
+  "tags": ["근로자휴가지원", "여행지원금", "휴가비", "국내여행", "중소기업", "소상공인", "정부지원", "여름휴가", "여행포인트", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "summer domestic travel mood, scenic korean coastal getaway with suitcase, bright relaxing vacation atmosphere, teal and warm amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["20만원 넣으면","40만원 여행포인트","근로자 휴가지원"],"highlightLine":1,"narration":"내 돈 20만원 넣으면 40만원짜리 여행 포인트가 된다? 근로자 휴가지원사업이에요. 여름휴가 전에 챙기세요."},
+    {"kind":"tip","num":"①","head":"정부10만+기업10만 보탠다","body":"근로자가 20만원 적립하면 정부가 10만원, 회사가 10만원을 더해 총 40만원 국내여행 포인트가 된다.","narration":"근로자가 20만원을 적립하면, 정부가 10만원 회사가 10만원을 더해서 총 40만원 국내여행 포인트가 돼요. 두 배로 불어나는 거죠."},
+    {"kind":"tip","num":"②","head":"누가 되나","body":"중소기업·소상공인·비영리단체·사회복지시설 근로자가 대상. 개인이 아니라 회사(기업 단위)로 신청한다.","narration":"중소기업이나 소상공인, 비영리단체, 사회복지시설 근로자가 대상이에요. 개인이 아니라 다니는 회사가 기업 단위로 신청합니다."},
+    {"kind":"tip","num":"③","head":"12월 31일까지 사용","body":"여행 누리집(vacation.visitkorea.or.kr)에서 신청. 선착순이라 조기 마감될 수 있고, 포인트는 올해 12월 31일까지 써야 한다.","narration":"여행 누리집에서 신청하는데 선착순이라 예산 소진되면 마감돼요. 포인트는 올해 12월 31일까지 국내여행에 쓰면 됩니다."},
+    {"kind":"cta","narration":"이런 정부 지원금이랑 생활 꿀정보는 프로필 링크에 정리해놨어요. 회사에 신청하라고 얘기하고 저장해두세요."}
+  ]
+}

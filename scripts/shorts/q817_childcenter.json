@@ -1,0 +1,54 @@
+{
+  "topic": "육아종합지원센터 무료로 이렇게 쓴다",
+  "tags": [
+    "육아종합지원센터",
+    "장난감대여",
+    "육아",
+    "보육",
+    "상담",
+    "무료",
+    "아이키우기",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a family play space with toy library shelves, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "장난감 사지 말고",
+        "육아종합지원센터",
+        "무료로 빌리세요"
+      ],
+      "highlightLine": 1,
+      "narration": "장난감 대여부터 놀이공간, 육아 상담까지 무료로 쓸 수 있는 곳이 지역마다 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "장난감·도서 대여",
+      "body": "육아종합지원센터에서는 장난감과 도서를 빌릴 수 있다. 금방 싫증 내는 시기의 장난감을 사지 않아도 되니 비용이 크게 줄어든다.",
+      "narration": "육아종합지원센터에서는 장난감이랑 도서를 빌릴 수 있어요. 금방 싫증 내는 시기의 장난감을 사지 않아도 되니까 비용이 크게 줄어듭니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "놀이공간과 프로그램",
+      "body": "실내 놀이공간과 부모·아이 참여 프로그램을 운영한다. 날씨가 궂은 날 갈 곳이 마땅치 않을 때 특히 요긴하다.",
+      "narration": "실내 놀이공간이랑 부모와 아이가 함께하는 프로그램을 운영해요. 날씨가 궂은 날 갈 곳이 마땅치 않을 때 특히 요긴합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "육아 상담도 무료",
+      "body": "발달이나 훈육 고민을 상담할 수 있고, 어린이집 정보도 안내받을 수 있다. 중앙육아종합지원센터 누리집에서 우리 지역 센터를 찾자.",
+      "narration": "발달이나 훈육 고민을 상담할 수 있고, 어린이집 정보도 안내받을 수 있어요. 중앙육아종합지원센터 누리집에서 우리 지역 센터를 찾으세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

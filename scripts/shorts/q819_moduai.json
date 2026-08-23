@@ -1,0 +1,54 @@
+{
+  "topic": "모두의 AI 6파전 네이버는 왜 빠졌나",
+  "tags": [
+    "모두의AI",
+    "SKT",
+    "KT",
+    "카카오",
+    "이스트소프트",
+    "국가AI",
+    "과기정통부",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "six korean consortiums competing for a national AI project, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "전 국민 무료 AI",
+        "6개 진영 출사표",
+        "네이버는 불참"
+      ],
+      "highlightLine": 1,
+      "narration": "전 국민이 무료로 쓰는 AI를 만드는 모두의 AI 공모에 6개 사업자가 뛰어들었어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "SKT·KT·카카오 등 6곳",
+      "body": "SK텔레콤, KT, 카카오, 이스트소프트 등 6개 사업자·컨소시엄이 제안서를 냈다. 통신·플랫폼사는 금융·의료·교육·커머스·모빌리티 기업과 대규모 연합을 꾸렸다.",
+      "narration": "SK텔레콤이랑 KT, 카카오, 이스트소프트 등 6개 사업자와 컨소시엄이 제안서를 냈어요. 통신과 플랫폼사는 금융, 의료, 교육, 커머스 기업과 대규모 연합을 꾸렸습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "전략은 제각각",
+      "body": "SKT는 AI 풀스택 역량을, 카카오는 검증된 파트너와의 협업을, KT는 국내 AI 기업 연합을 앞세웠다. 서비스 경쟁력이 당락을 가를 전망이다.",
+      "narration": "SKT는 AI 풀스택 역량을, 카카오는 검증된 파트너와의 협업을, KT는 국내 AI 기업 연합을 앞세웠어요. 서비스 경쟁력이 당락을 가를 전망입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "8월 말 선정, 12월 정식",
+      "body": "과기정통부가 서류·서면·발표 평가를 거쳐 이달 말 사업자를 정한다. 9월 말 베타 서비스를 거쳐 12월 정식 출시가 목표다.",
+      "narration": "과기정통부가 서류와 서면, 발표 평가를 거쳐서 이달 말 사업자를 정해요. 9월 말 베타 서비스를 거쳐서 12월 정식 출시가 목표입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

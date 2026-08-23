@@ -1,0 +1,13 @@
+{
+  "topic": "남아공 첫 월드컵 16강",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["남아공축구", "월드컵", "2026월드컵", "한국남아공", "32강진출", "북중미월드컵", "A조", "조별리그", "월드컵이변", "축구", "국가대표", "월드컵32강", "shorts", "쇼츠", "월드컵이슈"],
+  "bgPrompt": "Cinematic shot of a soccer stadium with a bright green pitch under floodlights and a soccer ball at center, celebratory atmosphere, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "한국 잡고", "titleLines": ["남아공", "사상 첫", "월드컵 16강"], "highlightLine": 1, "narration": "한국을 꺾고 사상 첫 토너먼트에 오른 남아공, 어떻게 됐는지 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "승점 4로 A조 2위", "body": "남아공이 승점 4로 A조 2위에 올라 32강 토너먼트에 진출했어요.", "narration": "첫째, 남아공은 승점 4로 A조 2위에 올라 32강 토너먼트 진출을 확정했습니다." },
+    { "kind": "tip", "num": "2", "head": "막판 반전", "body": "첫 두 경기 승리가 없었지만 마지막 한국전을 잡으며 뒤집었어요.", "narration": "둘째, 첫 두 경기에서 이기지 못했지만 마지막 한국전을 잡으며 극적으로 뒤집었습니다." },
+    { "kind": "tip", "num": "3", "head": "새 역사", "body": "남아공이 월드컵 토너먼트에 오른 건 이번이 처음이에요.", "narration": "셋째, 남아공이 월드컵 토너먼트 무대를 밟는 것은 이번이 사상 처음입니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "월드컵 소식 더 보기, 올댓에이아이에서 챙기세요. 구독!" }
+  ]
+}

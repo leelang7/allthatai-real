@@ -1,0 +1,13 @@
+{
+  "topic": "439퍼센트 벌던 20대 AI 천재 한 달 만에 반토막 월가 충격",
+  "tags": ["AI버블", "월가", "헤지펀드", "반도체주", "AI투자", "AI거품", "시장충격", "엔비디아", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a soaring green stock chart suddenly crashing downward in red, market bubble bursting mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["439퍼센트 벌던","20대 AI 천재가","한 달 만에 반토막"],"highlightLine":1,"narration":"상반기에 439퍼센트를 벌던 20대 AI 천재의 펀드가, 단 한 달 만에 반토막 났어요. 월가가 크게 흔들렸습니다."},
+    {"kind":"tip","num":"①","head":"전 오픈AI 연구원의 베팅","body":"전 오픈AI 연구원이 세운 200억 달러 규모 AI 펀드가 6월까지 439% 급등. AI가 에너지·안보·산업 전반을 바꾼다는 데 크게 베팅했다.","narration":"전 오픈AI 연구원이 세운 200억 달러 규모의 AI 펀드가, 6월까지 439퍼센트나 급등했어요. AI가 에너지와 안보, 산업 전반을 바꾼다는 데 크게 베팅한 거죠."},
+    {"kind":"tip","num":"②","head":"7월에 3분의 2 증발","body":"그러나 7월 들어 레버리지가 역풍이 되며 가치의 3분의 2를 잃고, 160억 달러어치 주식을 대거 처분했다.","narration":"그런데 7월 들어 빚내서 투자한 레버리지가 역풍이 되면서, 가치의 3분의 2를 잃고 160억 달러어치 주식을 급하게 팔아치웠어요."},
+    {"kind":"tip","num":"③","head":"반도체주 3.3조 달러 증발","body":"여파로 글로벌 반도체주에서 약 3.3조 달러가 사라졌다. 골드만 모멘텀 지수는 이틀간 18% 급락, 닷컴 붕괴 이후 최악. AI 거품 논쟁이 다시 불붙었다.","narration":"그 여파로 글로벌 반도체주에서만 약 3조 3천억 달러가 사라졌어요. 골드만 지수도 이틀간 18퍼센트 급락하면서, AI 거품이냐 아니냐 논쟁이 다시 뜨겁게 불붙었습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

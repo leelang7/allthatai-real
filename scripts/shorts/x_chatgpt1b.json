@@ -1,0 +1,13 @@
+{
+  "topic": "챗GPT 주간 사용자 10억 눈앞 인류 8분의 1",
+  "tags": ["챗GPT", "ChatGPT", "OpenAI", "사용자10억", "오픈AI", "AI서비스", "생성AI", "AI뉴스", "월간활성", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "global network of glowing user connections across a world map, massive scale of AI adoption mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["챗GPT 주간 사용자","10억 명 눈앞","인류 8분의 1"],"highlightLine":1,"narration":"챗GPT를 매주 쓰는 사람이 10억 명에 육박했어요. 전 세계 인구 8명 중 1명이 매주 쓰는 셈입니다."},
+    {"kind":"tip","num":"①","head":"4년도 안 돼 10억","body":"출시 4년도 안 돼 주간 사용자 10억 육박. 월간으로는 이미 10억을 넘겨 역사상 가장 빨리 이 규모에 도달한 앱이 됐다.","narration":"출시된 지 4년도 안 돼 주간 사용자 10억에 육박했어요. 월간으로는 이미 10억을 넘겨서, 역사상 가장 빨리 이 규모에 도달한 앱이 됐습니다."},
+    {"kind":"tip","num":"②","head":"폭발적 성장 곡선","body":"2025년 2월 4억, 7월 7억, 연말 8억, 올해 6월 9억. 반년마다 수억 명씩 붇는 속도.","narration":"2025년 2월 4억, 7월 7억, 연말 8억, 올해 6월 9억. 반년마다 수억 명씩 붙는 무서운 속도예요."},
+    {"kind":"tip","num":"③","head":"근데 목표보단 7개월 늦어","body":"당초 계획보단 7개월 늦은 도달. 제미나이·클로드 등 경쟁이 거세지는 가운데 낸 성적표다. 연매출은 250억 달러 규모.","narration":"다만 원래 목표보단 7개월 늦었어요. 제미나이나 클로드 같은 경쟁이 거세지는 와중에 낸 성적표고, 연매출은 250억 달러 규모입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

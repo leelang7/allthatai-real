@@ -1,0 +1,13 @@
+{
+  "topic": "메타 역대최대 매출인데 주가 11% 폭락 왜",
+  "tags": ["메타", "Meta", "저커버그", "실적발표", "미국주식", "AI투자", "주가급락", "페이스북", "현금흐름", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "stock market plunge with red declining chart over a tech giant silhouette, AI spending burden mood, cool teal with red accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["역대 최대 매출인데","주가 11% 폭락","메타 무슨 일?"],"highlightLine":1,"narration":"메타가 역대 최대 매출을 냈는데 주가는 11퍼센트나 폭락했어요. 돈 잘 벌었는데 왜 떨어졌을까요?"},
+    {"kind":"tip","num":"①","head":"매출 608억, 역대최대","body":"2분기 매출 608억 달러로 1년 전보다 28% 늘며 역대 최고. 근데 주당순이익은 6.18달러로 시장 예상 7.14달러를 밑돌았다.","narration":"2분기 매출은 608억 달러로 1년 전보다 28퍼센트 늘어 역대 최고였어요. 그런데 주당순이익이 예상치를 밑돌았습니다."},
+    {"kind":"tip","num":"②","head":"AI에 돈 쏟다 현금흐름 90%↓","body":"데이터센터·AI 인프라에 자본지출 310억 달러. 잉여현금흐름이 85억에서 7.8억 달러로 90% 넘게 쪼그라들었다.","narration":"데이터센터랑 AI 인프라에 자본지출만 310억 달러예요. 그 바람에 잉여현금흐름이 85억 달러에서 7억8천만 달러로 90퍼센트 넘게 쪼그라들었습니다."},
+    {"kind":"tip","num":"③","head":"테슬라도 겪은 그 패턴","body":"매출·이익이 좋아도 AI 과잉투자로 현금이 마르면 주가가 빠진다. 빅테크마다 반복되는 AI 청구서 부담.","narration":"매출이 좋아도 AI에 너무 쏟아부어 현금이 마르면 주가가 빠져요. 테슬라도 똑같이 겪은, 빅테크마다 반복되는 AI 청구서 부담입니다."},
+    {"kind":"cta","narration":"이 종목 지금 어떨까요? 프로필 링크 AI 주식 분석에 티커 넣으면 매수·매도·목표가·위험까지 정리해줍니다."}
+  ]
+}

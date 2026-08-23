@@ -1,0 +1,13 @@
+{
+  "topic": "OpenAI 데이터센터에 5000억 달러 쏟는다 스타게이트",
+  "tags": ["OpenAI", "스타게이트", "Stargate", "데이터센터", "AI인프라", "소프트뱅크", "오라클", "오픈AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "colossal AI data center megaproject at dawn, endless server halls, massive infrastructure scale mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["데이터센터에","5000억 달러","OpenAI 스타게이트"],"highlightLine":1,"narration":"AI 굴리는 데 데이터센터에 5000억 달러를 쏟는다? OpenAI의 스타게이트 프로젝트입니다."},
+    {"kind":"tip","num":"①","head":"2029년까지 5000억 달러","body":"OpenAI가 소프트뱅크·오라클과 손잡고 2029년까지 약 5000억 달러를 투자해 미국에 초대형 데이터센터를 짓는다. 3년간만 4500억 달러.","narration":"OpenAI가 소프트뱅크, 오라클과 손잡고 2029년까지 약 5000억 달러를 쏟아부어요. 앞으로 3년간만 4500억 달러입니다."},
+    {"kind":"tip","num":"②","head":"미국 곳곳에 5곳 추가","body":"텍사스·뉴멕시코·오하이오 등 미국에 데이터센터 5곳을 추가 확장. 목표는 10기가와트급 AI 연산 능력 확보.","narration":"텍사스, 뉴멕시코, 오하이오 같은 미국 곳곳에 데이터센터 5곳을 추가로 지어요. 목표는 10기가와트급 AI 연산 능력 확보입니다."},
+    {"kind":"tip","num":"③","head":"AI는 결국 전기·땅 싸움","body":"AI 경쟁의 승부처가 모델을 넘어 전력·부지·인프라로 넘어갔다. 돈을 쏟는 쪽이 다음 AI를 쥔다는 신호.","narration":"이제 AI 경쟁은 모델을 넘어 전기랑 땅, 인프라 싸움으로 넘어갔어요. 돈을 쏟는 쪽이 다음 AI를 쥔다는 신호입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

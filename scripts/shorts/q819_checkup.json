@@ -1,0 +1,54 @@
+{
+  "topic": "직장인 건강검진 안 받으면 과태료 나옵니다",
+  "tags": [
+    "건강검진",
+    "과태료",
+    "직장인",
+    "산업안전보건법",
+    "사업주",
+    "건강보험",
+    "검진",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a health checkup notice with a deadline stamp, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "귀찮다고 미루면",
+        "건강검진 미수검",
+        "과태료 대상"
+      ],
+      "highlightLine": 1,
+      "narration": "직장인 건강검진은 권고가 아니라 의무예요. 안 받으면 과태료가 나올 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "근로자도 사업주도 부담",
+      "body": "산업안전보건법상 일반건강진단은 의무다. 미수검이 확인되면 사업주뿐 아니라 정당한 사유 없이 받지 않은 근로자도 과태료 대상이 될 수 있다.",
+      "narration": "산업안전보건법상 일반건강진단은 의무예요. 미수검이 확인되면 사업주뿐 아니라 정당한 사유 없이 안 받은 근로자도 과태료 대상이 될 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "주기는 사무직 2년",
+      "body": "보통 사무직은 2년에 1회, 비사무직은 1년에 1회 받는다. 내 대상 연도는 건강보험공단에서 확인할 수 있다.",
+      "narration": "보통 사무직은 2년에 한 번, 비사무직은 1년에 한 번 받아요. 내 대상 연도는 건강보험공단에서 확인할 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "연말은 예약 전쟁",
+      "body": "12월에 몰리면 원하는 병원 예약이 어렵다. 공단 홈페이지나 앱에서 대상 여부를 확인하고 미리 잡아두는 게 낫다.",
+      "narration": "12월에 몰리면 원하는 병원 예약이 어려워요. 공단 홈페이지나 앱에서 대상 여부를 확인하고 미리 잡아두는 게 낫습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

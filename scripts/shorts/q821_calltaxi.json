@@ -1,0 +1,54 @@
+{
+  "topic": "장애인 콜택시 미리 등록해두세요",
+  "tags": [
+    "장애인콜택시",
+    "이동지원",
+    "교통약자",
+    "특별교통수단",
+    "복지",
+    "휠체어",
+    "생활꿀팁",
+    "정부지원",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an accessible van with a wheelchair ramp waiting at a curb, cinematic photography with shallow depth of field, wide establishing shot, subject small in frame, bright airy background, soft daylight, forest green and warm brass accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "필요할 때 못 부른다",
+        "장애인 콜택시",
+        "등록부터 해두자"
+      ],
+      "highlightLine": 1,
+      "narration": "교통약자용 특별교통수단은 미리 등록해두지 않으면 급할 때 못 씁니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "등록이 먼저다",
+      "body": "지자체가 운영하는 특별교통수단(장애인 콜택시)은 이용 대상자로 먼저 등록해야 부를 수 있다. 등록에는 장애 정도나 보행상 어려움을 증명하는 서류가 필요하다.",
+      "narration": "지자체가 운영하는 특별교통수단, 장애인 콜택시는 이용 대상자로 먼저 등록해야 부를 수 있어요. 등록에는 장애 정도나 보행상 어려움을 증명하는 서류가 필요합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "요금은 시내버스 수준",
+      "body": "요금은 일반 택시보다 훨씬 저렴하게 책정돼 있고 지역마다 다르다. 휠체어 탑승이 가능한 차량이 배차된다.",
+      "narration": "요금은 일반 택시보다 훨씬 저렴하게 책정돼 있고 지역마다 달라요. 휠체어 탑승이 가능한 차량이 배차됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "광역 이동도 확대 중",
+      "body": "시·도 경계를 넘는 광역 이동 지원이 늘고 있다. 거주지 이동지원센터나 지자체 누리집에서 등록 방법과 운영 시간을 확인하자.",
+      "narration": "시도 경계를 넘는 광역 이동 지원이 늘고 있어요. 거주지 이동지원센터나 지자체 누리집에서 등록 방법이랑 운영 시간을 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

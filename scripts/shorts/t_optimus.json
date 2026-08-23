@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 옵티머스 로봇 8월 생산 시작 근데",
+  "tags": ["테슬라", "옵티머스", "휴머노이드로봇", "테슬라로봇", "일론머스크", "TSLA", "미국주식", "로보택시", "사이버캡", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "sleek humanoid robot on a high-tech factory assembly line at night, glowing production floor, advanced robotics mood, cool teal with silver accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["테슬라 로봇 옵티머스","드디어 8월 생산","근데 머스크가 김뺐다?"],"highlightLine":1,"narration":"테슬라 휴머노이드 로봇 옵티머스가 드디어 8월에 생산을 시작해요. 근데 정작 머스크가 김을 뺐다는데, 무슨 일일까요?"},
+    {"kind":"tip","num":"①","head":"8월 초 생산 시작","body":"7월 말~8월 초 생산 개시. 모델S·X 라인을 옵티머스로 전환해 프리몬트 공장에서 만든다. 기가텍사스 2번째 공장은 2027 여름 목표.","narration":"7월 말에서 8월 초 사이 생산이 시작돼요. 모델 S와 X 라인을 옵티머스용으로 바꿔서 프리몬트 공장에서 만들고, 기가텍사스에 두 번째 공장도 짓고 있습니다."},
+    {"kind":"tip","num":"②","head":"근데 매우 느릴 것","body":"머스크가 옵티머스·로보택시 초기 확대 속도를 톤다운. 새 제품에 새 공급망은 늘 완만한 S자 곡선이라며 눈높이를 낮췄다.","narration":"그런데 머스크가 옵티머스랑 로보택시 초반 속도는 매우 느릴 거라고 김을 뺐어요. 완전히 새 제품에 새 공급망은 항상 완만한 S자 곡선이라면서요."},
+    {"kind":"tip","num":"③","head":"저가 전기차는 포기?","body":"저가형 전기차를 만들 거냐는 질문엔 로보택시(사이버캡)가 아니면 안 만든다며 사실상 로봇·자율주행에 올인.","narration":"값싼 전기차 내놓을 거냐는 질문엔, 로보택시인 사이버캡이 아니면 만들 생각 없다고 답했어요. 사실상 로봇이랑 자율주행에 다 걸겠다는 거죠."},
+    {"kind":"cta","narration":"이게 테슬라 주가엔 어떨까요? 궁금하면 프로필 링크 AI 주식 분석에 티커만 넣어보세요. 매수·매도·목표가까지 정리해줍니다."}
+  ]
+}

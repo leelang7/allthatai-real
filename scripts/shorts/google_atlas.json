@@ -1,0 +1,13 @@
+{
+  "topic": "구글 보고서 AI는 회사보다 집에서 더 쓴다",
+  "tags": ["구글", "ATLAS", "AI활용", "AI일상", "생성형AI", "AI경제", "AI뉴스", "생산성", "챗GPT", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cozy Korean home interior at evening with a person's desk and warm lamp, everyday life with AI concept, soft teal and amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 인사이트","titleLines":["AI 어디서 제일 많이 쓸까?","정답은 '회사'가 아니라 '집'","구글 ATLAS 보고서"],"highlightLine":1,"narration":"AI를 어디서 제일 많이 쓸까요? 정답은 회사가 아니라 '집'이었어요. 구글이 낸 ATLAS 보고서 얘기입니다."},
+    {"kind":"tip","num":"①","head":"86%가 일상에서","body":"AI 사용의 86% 이상이 '업무'가 아닌 개인 생활에서 일어난다. 제품 알아보기, 집안일 조언, 서류 처리 같은 데에.","narration":"AI 사용의 86% 이상이 업무가 아니라 개인 생활에서 일어났어요. 뭐 살지 알아보고, 집안일 조언 받고, 서류 처리하고. 이런 데서요."},
+    {"kind":"tip","num":"②","head":"대신 일하는 게 아니다","body":"사람들은 AI를 '대신 일하는 로봇'이 아니라 '같이 생각하는 파트너'로 쓴다. 전략 짜기, 아이디어, 정보 찾기, 문제 해결.","narration":"핵심은요, 사람들이 AI를 대신 일 시키는 로봇이 아니라 같이 생각하는 파트너로 쓴다는 거예요. 전략 짜고, 아이디어 내고, 정보 찾는 데 씁니다."},
+    {"kind":"tip","num":"③","head":"통계가 못 잡는 가치","body":"GDP·생산성 통계는 집에서 생기는 이 가치를 못 잡는다. AI의 진짜 효과는 지표에 찍히는 것보다 훨씬 크다는 뜻.","narration":"문제는 GDP나 생산성 통계가 집에서 생기는 이 가치를 못 잡아요. 그러니까 AI의 진짜 효과는 숫자로 찍히는 것보다 훨씬 크다는 얘기죠."},
+    {"kind":"cta","narration":"이렇게 AI를 일상에서 써먹는 법이랑 도구는 프로필 링크에 모아놨어요. 저장해두고 챙겨 보세요."}
+  ]
+}

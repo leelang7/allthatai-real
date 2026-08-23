@@ -1,0 +1,13 @@
+{
+  "topic": "챗GPT 데스크톱 음성으로 AI에이전트 부린다",
+  "tags": ["챗GPT", "ChatGPT", "OpenAI", "음성모드", "AI에이전트", "GPT보이스", "오픈AI", "코덱스", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "futuristic desktop workspace with glowing voice waveform and AI assistant interface, hands-free productivity mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["말로 컴퓨터 부린다","챗GPT 데스크톱","음성모드 출시"],"highlightLine":1,"narration":"이제 말 한마디로 컴퓨터를 부린다? 챗GPT 데스크톱 앱에 음성모드가 들어왔어요. 뭐가 되는지 볼게요."},
+    {"kind":"tip","num":"①","head":"음성으로 AI 에이전트 지휘","body":"말로 컴퓨터를 제어하고, ChatGPT Work·Codex의 여러 에이전트를 동시에 지휘한다. 말하는 동안 뒤에서 작업이 돌아간다.","narration":"말로 컴퓨터를 제어하고, 여러 AI 에이전트를 동시에 지휘할 수 있어요. 내가 말하는 동안 뒤에서 에이전트들이 알아서 일합니다."},
+    {"kind":"tip","num":"②","head":"폰보다 강력한 데스크톱","body":"스마트폰 버전보다 강력해서, 여러 단계가 얽힌 복잡한 명령도 말로 지시 가능. 필요하면 되묻기도 한다.","narration":"스마트폰보다 데스크톱 버전이 더 강력해요. 여러 단계가 얽힌 복잡한 작업도 말로 시킬 수 있고, 필요하면 다시 물어봅니다."},
+    {"kind":"tip","num":"③","head":"화면까지 본다","body":"맥에선 앱샷 기능으로 화면에 뭐가 있는지까지 파악. Plus·Pro·비즈니스 등 유료 구독자 대상, 맥·윈도우로 배포.","narration":"맥에선 화면에 뭐가 떠 있는지까지 파악해요. 플러스, 프로, 비즈니스 같은 유료 구독자한테 맥이랑 윈도우로 풀립니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 써먹으세요."}
+  ]
+}

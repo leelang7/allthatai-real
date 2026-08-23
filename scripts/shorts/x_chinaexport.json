@@ -1,0 +1,13 @@
+{
+  "topic": "이번엔 중국이 막는다 AI 모델 데이터 수출 통제 검토",
+  "tags": ["중국", "AI수출통제", "모델가중치", "학습데이터", "미중AI", "키미K3", "기술패권", "오픈웨이트", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a gate closing on chinese AI model weights leaving the country, ai export control geopolitics mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["이번엔 중국이 막는다","AI 모델·데이터","수출 통제 검토"],"highlightLine":1,"narration":"미국만 막는 게 아니었다. 이번엔 중국이 자국 AI 모델과 데이터의 해외 유출을 막는 통제를 검토 중이에요."},
+    {"kind":"tip","num":"①","head":"가중치·학습데이터 빗장","body":"중국 상무부가 알리바바·바이트댄스·즈푸와 협의 중. 첨단 AI 모델의 가중치와 학습 데이터, 반도체 설계의 해외 이전을 제한하는 방안이다.","narration":"중국 상무부가 알리바바랑 바이트댄스, 즈푸와 협의 중이에요. 첨단 AI 모델의 가중치랑 학습 데이터, 반도체 설계의 해외 이전을 제한하는 방안입니다."},
+    {"kind":"tip","num":"②","head":"키미 K3 충격이 방아쇠","body":"강력한 오픈 모델 키미 K3가 전 세계로 퍼지자, 중국이 자국 AI 자산이 그냥 빠져나가는 걸 경계하기 시작했다.","narration":"강력한 오픈 모델 키미 K3가 전 세계로 퍼지자, 중국이 자국 AI 자산이 그냥 빠져나가는 걸 경계하기 시작한 거예요."},
+    {"kind":"tip","num":"③","head":"쓰는 건 되고, 받는 건 막고","body":"다만 온라인 서비스로 쓰는 건 허용하되, 가중치·민감 데이터의 '다운로드'는 막는 방향. 아직 확정 전이다.","narration":"다만 온라인 서비스로 쓰는 건 허용하되, 가중치랑 민감 데이터의 다운로드는 막는 방향이에요. 아직 확정 전입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

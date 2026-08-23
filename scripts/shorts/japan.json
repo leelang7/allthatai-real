@@ -1,0 +1,14 @@
+{
+  "topic": "일본 월드컵 32강 한국은",
+  "title": "일본은 갔다! 한일 월드컵 32강 운명",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["일본축구", "한일전", "월드컵", "2026월드컵", "일본월드컵", "32강진출", "한국축구", "북중미월드컵", "F조", "와일드카드", "축구", "국가대표", "shorts", "쇼츠", "월드컵이슈"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, dramatic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "한일전 관심", "titleLines": ["일본은 갔는데", "한국은?", "한일 32강"], "highlightLine": 1, "narration": "일본은 32강에 올랐는데 한국은 어떨까요? 한일 운명을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "일본 32강 진출", "body": "일본은 F조에서 네덜란드와 2대2 무, 튀니지에 4대0 완승하며 32강에 올랐어요.", "narration": "첫째, 일본은 F조에서 네덜란드와 2대 2 무승부, 튀니지에 4대 0 완승하며 32강에 진출했습니다." },
+    { "kind": "tip", "num": "2", "head": "한국 87.8% 유력", "body": "한국은 A조 3위지만, 와일드카드로 32강 진출 확률이 약 87.8%예요.", "narration": "둘째, 한국은 A조 3위지만 와일드카드로 32강 진출 확률이 약 87.8퍼센트로 유력합니다." },
+    { "kind": "tip", "num": "3", "head": "한일 모두 가능", "body": "한일 두 팀 다 토너먼트 무대를 밟을 가능성이 커요.", "narration": "셋째, 한국과 일본 두 팀 모두 토너먼트 무대를 밟을 가능성이 큽니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

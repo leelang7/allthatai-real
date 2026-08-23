@@ -1,0 +1,13 @@
+{
+  "topic": "보조금24 숨은 정부지원금 한번에 찾기",
+  "tags": ["보조금24", "정부24", "정부지원금", "숨은지원금", "정부혜택", "생활꿀팁", "복지", "지원금찾기", "맞춤형서비스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "smartphone and laptop showing a personalized benefits checklist, government support concept, warm teal and soft gold accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["나만 못 받는 정부지원금?","'보조금24'에서","내 맞춤 혜택 한번에"],"highlightLine":1,"narration":"남들 다 받는데 나만 못 받는 정부지원금, 있을까요? 보조금24 하나면 내가 받을 수 있는 걸 한 번에 찾아줍니다."},
+    {"kind":"tip","num":"①","head":"수천 개 중 내 것만","body":"정부24의 '보조금24'는 중앙부처·지자체 수천 개 지원금 중, 내가 받을 수 있는 것만 맞춤으로 모아 보여준다.","narration":"보조금24는 정부24 안에 있는 서비스예요. 중앙부처랑 지자체 지원금 수천 개 중에서, 내 조건에 맞는 것만 딱 골라서 보여줍니다."},
+    {"kind":"tip","num":"②","head":"간편인증 한 번이면 끝","body":"정부24 로그인 → '보조금24' → 간편인증 한 번이면, 나이·소득·지역 조건에 맞는 혜택 목록이 뜨고 신청까지 바로.","narration":"정부24 들어가서 보조금24 누르고, 간편인증 한 번만 하면 돼요. 그러면 내 나이랑 소득, 사는 지역에 맞는 혜택이 쭉 뜨고 바로 신청까지 됩니다."},
+    {"kind":"tip","num":"③","head":"가족 것도 챙기세요","body":"몰라서 못 받는 지원금이 대부분. 가족 구성원별로도 조회되니 부모님·자녀 것도 챙기자. 이용은 무료.","narration":"사실 몰라서 못 받는 게 대부분이에요. 가족 구성원별로도 조회되니까 부모님이나 자녀 것까지 챙겨보세요. 물론 이용은 공짜입니다."},
+    {"kind":"cta","narration":"이런 정부·생활 혜택은 프로필 링크에 싹 정리해놨어요. 저장해두고 하나씩 챙겨 받으세요."}
+  ]
+}

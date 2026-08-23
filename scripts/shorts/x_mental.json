@@ -1,0 +1,13 @@
+{
+  "topic": "AI 멘탈케어 지금 감정 자가케어 처방",
+  "tags": ["멘탈케어", "스트레스", "번아웃", "감정", "자가케어", "마음건강", "직장인", "힐링", "AI도구", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-mental",
+  "bgPrompt": "calm mental wellness mood, soft glowing meditation atmosphere, gentle waves of soothing light, teal and lavender accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"마음 챙김","titleLines":["번아웃 직전","마음이 무겁다면","AI한테 털어놔"],"highlightLine":1,"narration":"요즘 마음이 유난히 무겁고 지치나요? AI한테 지금 감정을 털어놓으면 자가케어를 처방해줘요."},
+    {"kind":"tip","num":"①","head":"지금 내 상태부터 정리","body":"느끼는 감정과 상황을 적으면 지금 마음 상태가 어떤지 차분하게 짚어준다. 진단이 아니라 안내다.","narration":"지금 느끼는 감정이랑 상황을 적으면, 내 마음 상태가 어떤지 차분하게 정리해줘요. 진단이 아니라 안내예요."},
+    {"kind":"tip","num":"②","head":"바로 할 수 있는 자가케어","body":"호흡, 짧은 산책, 가벼운 운동처럼 지금 당장 할 수 있는 자가케어 방법을 구체적으로 알려준다.","narration":"호흡법이나 짧은 산책, 가벼운 운동처럼 지금 당장 할 수 있는 자가케어 방법을 구체적으로 알려줍니다."},
+    {"kind":"tip","num":"③","head":"필요하면 도움받을 곳도","body":"혼자 버티기 어려울 땐 이용할 수 있는 상담·지원 자원까지 안내하고, 마지막엔 응원을 건넨다.","narration":"혼자 버티기 힘들 땐 도움받을 수 있는 상담이나 지원 자원까지 알려주고, 마지막엔 따뜻한 응원도 건네줘요."},
+    {"kind":"cta","narration":"마음이 지칠 때 프로필 링크 AI 멘탈케어에 털어놔 보세요. 판단 없이 지금 필요한 걸 정리해줍니다."}
+  ]
+}

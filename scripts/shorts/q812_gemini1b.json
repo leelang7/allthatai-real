@@ -1,0 +1,54 @@
+{
+  "topic": "제미나이 월 10억명 돌파 구글 역사상 최단",
+  "tags": [
+    "구글",
+    "제미나이",
+    "Gemini",
+    "10억명",
+    "챗GPT",
+    "AI경쟁",
+    "생성형AI",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a glowing AI app icon surrounded by a vast crowd of user dots forming a globe, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "제미나이 월 10억명",
+        "구글 역사상 최단",
+        "챗GPT와 맞불"
+      ],
+      "highlightLine": 1,
+      "narration": "구글 제미나이 앱이 월 사용자 10억 명을 넘었어요. 구글 제품 중 가장 빠른 기록입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "14번째 10억 제품",
+      "body": "구글에서 월 사용자 10억을 넘은 14번째 제품. 지메일이 그 규모까지 14년 걸린 것과 달리, 제미나이는 1년도 안 돼 사용자를 세 배로 늘렸다.",
+      "narration": "구글에서 월 사용자 10억을 넘은 14번째 제품이에요. 지메일이 그 규모까지 14년 걸렸는데, 제미나이는 1년도 안 돼서 사용자를 세 배로 늘렸습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "음성이 63%, 하루 이미지 1.5억",
+      "body": "순다르 피차이에 따르면 이용자의 63%가 음성으로 쓰고, iOS 사용자만 1억 명이 넘으며, 하루 1억 5천만 장 넘는 이미지가 만들어진다.",
+      "narration": "순다르 피차이에 따르면 이용자의 63퍼센트가 음성으로 쓰고, 아이폰 사용자만 1억 명이 넘어요. 하루에 1억 5천만 장 넘는 이미지가 만들어집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "챗GPT는 6월에 10억",
+      "body": "오픈AI 챗GPT도 올해 6월 10억 명을 찍었다. 두 거대 AI 앱이 나란히 10억 시대에 들어서며 경쟁이 본격화됐다.",
+      "narration": "오픈AI 챗GPT도 올해 6월에 10억 명을 찍었어요. 두 거대 AI 앱이 나란히 10억 시대에 들어서면서 경쟁이 본격화됐습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

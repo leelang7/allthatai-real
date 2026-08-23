@@ -1,0 +1,54 @@
+{
+  "topic": "카이스트가 산소 전용 통로로 메모리 난제 풀었다",
+  "tags": [
+    "KAIST",
+    "3D메모리",
+    "AI반도체",
+    "저전력",
+    "산소통로",
+    "국산기술",
+    "반도체",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an oxygen pathway threading through 3d stacked memory layers, isometric 3d render, clean studio lighting, wide establishing shot, subject small in frame, soft gradient background, diffused light, copper and charcoal accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "쌓을수록 망가지던 문제",
+        "산소 전용 통로로",
+        "카이스트가 풀었다"
+      ],
+      "highlightLine": 1,
+      "narration": "3차원으로 쌓는 메모리의 고질적 결함을 카이스트가 산소 통로로 해결했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "산소를 필요한 곳으로만",
+      "body": "질화규소와 이산화규소를 겹친 다층 구조로 산소가 산화물 반도체 쪽으로만 가고 전극으로는 못 가게 막았다. 전극 산화를 억제하면서 결함을 메운다.",
+      "narration": "질화규소와 이산화규소를 겹친 다층 구조로, 산소가 산화물 반도체 쪽으로만 가고 전극으로는 못 가게 막았어요. 전극 산화를 억제하면서 결함을 메웁니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "1000만 번 버텼다",
+      "body": "ITO 수직채널 트랜지스터에 적용해 전류밀도 436마이크로암페어를 냈고, 1000만 번 넘는 스트레스 후에도 문턱전압 변화가 50밀리볼트 미만이었다.",
+      "narration": "ITO 수직채널 트랜지스터에 적용해서 전류밀도 436마이크로암페어를 냈고, 1000만 번 넘는 스트레스 뒤에도 문턱전압 변화가 50밀리볼트 미만이었어요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "연산-메모리 통합으로",
+      "body": "카이스트 권지민 교수팀이 UNIST·연세대 등과 함께 했다. 차세대 연산-메모리 통합 반도체 상용화를 앞당길 기술로 평가된다.",
+      "narration": "카이스트 권지민 교수팀이 유니스트, 연세대 등과 함께 했어요. 차세대 연산과 메모리 통합 반도체 상용화를 앞당길 기술로 평가됩니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

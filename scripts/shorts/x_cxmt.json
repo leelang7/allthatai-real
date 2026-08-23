@@ -1,0 +1,13 @@
+{
+  "topic": "중국 메모리 굴기 CXMT 베이징 2공장 삼성 SK 위협",
+  "tags": ["CXMT", "중국반도체", "D램", "메모리", "삼성전자", "SK하이닉스", "AI메모리", "반도체굴기", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a massive chinese semiconductor fab expanding with rows of DRAM wafers, china memory chip rise mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["중국 메모리 굴기","CXMT 베이징 2공장","삼성·SK 위협"],"highlightLine":1,"narration":"중국 최대 메모리 기업이 공장을 또 짓는대요. AI 메모리 수요를 노린 중국의 반도체 굴기가 삼성·SK하이닉스를 위협하고 있습니다."},
+    {"kind":"tip","num":"①","head":"월 60만장으로 두 배 증설","body":"중국 최대 D램 기업 CXMT가 베이징에 2번째 공장을 검토. 상하이·허페이 증설과 합쳐 월 생산량을 30만장에서 60만장 이상으로 두 배 늘린다.","narration":"중국 최대 D램 기업 CXMT가 베이징에 두 번째 공장을 검토 중이에요. 기존 증설과 합쳐 월 생산량을 30만 장에서 60만 장 이상으로, 두 배로 늘립니다."},
+    {"kind":"tip","num":"②","head":"D램 매출 1년 만에 7배","body":"AI용 메모리 수요가 폭발하며 CXMT의 올 1분기 D램 매출은 1년 전보다 700% 이상 급증. 시장 점유율도 8%까지 올라왔다.","narration":"AI용 메모리 수요가 폭발하면서, CXMT의 올 1분기 D램 매출이 1년 전보다 700퍼센트 넘게 급증했어요. 시장 점유율도 8퍼센트까지 올라왔습니다."},
+    {"kind":"tip","num":"③","head":"한국 메모리 추격당한다","body":"아직 최첨단은 삼성·SK하이닉스가 앞서지만, 중국이 저가 물량으로 빠르게 추격 중. AI 메모리 패권 경쟁이 한층 치열해졌다.","narration":"아직 최첨단은 삼성이랑 SK하이닉스가 앞서지만, 중국이 저가 물량으로 빠르게 추격하고 있어요. AI 메모리 패권 경쟁이 한층 치열해졌습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "초저가 딥시크가 값 올린다 싼 AI 시대 끝나나",
+  "tags": ["딥시크", "AI가격", "가격인상", "중국AI", "저가AI", "AI수익화", "LLM", "AI경제", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a rock-bottom price tag rising sharply upward off a chart, end of cheap era mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["초저가 딥시크가","값을 올린다","싼 AI 시대 끝?"],"highlightLine":1,"narration":"AI 가격 파괴의 주역 딥시크가, 이번엔 값을 대폭 올린다고 예고했어요. 초저가 AI 시대가 끝나가는 신호일까요?"},
+    {"kind":"tip","num":"①","head":"대폭 인상 예고","body":"딥시크가 조만간 API 서비스 가격을 '상당폭' 인상하겠다고 공지. 수요 급증 속에 사용자에게 미리 대비하라고 안내했다.","narration":"딥시크가 조만간 API 서비스 가격을 상당폭 올리겠다고 공지했어요. 수요가 급증하는 가운데, 사용자들에게 미리 대비하라고 안내했습니다."},
+    {"kind":"tip","num":"②","head":"그동안 얼마나 쌌길래","body":"딥시크는 V4 플래시를 100만 토큰당 0.14달러, 경쟁 모델의 35분의 1 수준으로 팔아왔다. 이 초저가가 중국 AI 가격 경쟁을 촉발했다.","narration":"딥시크는 V4 플래시를 100만 토큰당 0.14달러, 경쟁 모델의 35분의 1 수준으로 팔아왔어요. 이 초저가가 중국 AI 가격 전쟁을 촉발했죠."},
+    {"kind":"tip","num":"③","head":"출혈 경쟁의 변곡점","body":"1등 딥시크마저 값을 올리면, 적자로 버티던 초저가 경쟁이 '지속 가능한 사업'으로 방향을 트는 변곡점이 될 수 있다.","narration":"1등 딥시크마저 값을 올리면, 적자로 버티던 초저가 경쟁이 지속 가능한 사업 쪽으로 방향을 트는 변곡점이 될 수 있어요."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "AI가 160년 수학 난제 리만 가설 진도 뺐다",
+  "tags": [
+    "앤트로픽",
+    "클로드",
+    "리만가설",
+    "수학",
+    "AI연구",
+    "밀레니엄문제",
+    "AI과학",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract mathematical zeta function critical line with glowing zeros, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "AI가 하루 반 만에",
+        "160년 수학 난제",
+        "리만 가설 진도 뺐다"
+      ],
+      "highlightLine": 1,
+      "narration": "앤트로픽의 미공개 클로드 모델이 수학 최대 난제인 리만 가설에서 의미 있는 진전을 냈어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "41.6%에서 67.2%로",
+      "body": "리만 제타 함수의 영점이 임계선 위에 있는 비율의 하한을, 오랫동안 41.6%에 머물던 것에서 67.2%로 끌어올렸다. 다만 가설을 증명한 것은 아니다.",
+      "narration": "리만 제타 함수의 영점이 임계선 위에 있는 비율의 하한을, 오랫동안 41.6퍼센트에 머물던 걸 67.2퍼센트로 끌어올렸어요. 다만 가설을 증명한 건 아닙니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "실패 650번, 토큰 3100만",
+      "body": "클로드 코드 안에서 이틀 가까이 자율로 돌며 650개의 실패한 아이디어를 거쳤다. 서브에이전트 60개가 셸 명령 2400개를 돌렸고 출력 토큰만 3100만 개를 썼다.",
+      "narration": "클로드 코드 안에서 이틀 가까이 자율로 돌면서 실패한 아이디어를 650개나 거쳤어요. 서브에이전트 60개가 셸 명령 2400개를 돌렸고, 출력 토큰만 3100만 개를 썼습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "수학자 검증에 Lean 형식화",
+      "body": "지시한 직원은 수학 전공자가 아니었다. 결과는 사내 수학자 2명이 검증하고 증명 보조 도구 Lean으로 형식화까지 마쳤다.",
+      "narration": "지시한 직원은 수학 전공자가 아니었어요. 결과는 사내 수학자 2명이 검증하고, 증명 보조 도구 린으로 형식화까지 마쳤습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

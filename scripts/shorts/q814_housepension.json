@@ -1,0 +1,54 @@
+{
+  "topic": "집 한 채로 평생 연금 받는 주택연금",
+  "tags": [
+    "주택연금",
+    "노후",
+    "연금",
+    "주택금융공사",
+    "역모기지",
+    "은퇴",
+    "부동산",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a house transforming into monthly pension coins, warm gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "집은 그대로 살면서",
+        "평생 매달 연금",
+        "주택연금"
+      ],
+      "highlightLine": 1,
+      "narration": "집에 계속 살면서 그 집을 담보로 평생 매달 연금을 받는 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "살던 집에서 그대로",
+      "body": "한국주택금융공사 주택연금은 집을 담보로 맡기고 그 집에 계속 살면서 매달 연금을 받는 구조다. 이사를 가거나 집을 팔지 않아도 된다.",
+      "narration": "한국주택금융공사 주택연금은 집을 담보로 맡기고 그 집에 계속 살면서 매달 연금을 받는 구조예요. 이사를 가거나 집을 팔지 않아도 됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "나이와 집값으로 결정",
+      "body": "받는 금액은 가입 나이와 주택 가격에 따라 정해진다. 나이가 많을수록 매달 받는 금액이 커진다. 부부 중 한 명 기준 요건을 확인하자.",
+      "narration": "받는 금액은 가입 나이와 주택 가격에 따라 정해져요. 나이가 많을수록 매달 받는 금액이 커집니다. 부부 중 한 명 기준 요건을 확인하세요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "상담부터 받아보기",
+      "body": "가입 요건과 예상 연금액은 주택금융공사 홈페이지에서 조회하고 상담받을 수 있다. 중도 해지 조건과 상속 문제도 함께 확인하는 게 좋다.",
+      "narration": "가입 요건이랑 예상 연금액은 주택금융공사 홈페이지에서 조회하고 상담받을 수 있어요. 중도 해지 조건이랑 상속 문제도 같이 확인하는 게 좋습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "딥시크 V4 정식출시 AI도 피크시간 요금제",
+  "tags": ["딥시크", "DeepSeek", "V4", "중국AI", "오픈소스AI", "AI요금제", "LLM", "AI뉴스", "가성비AI", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "sleek AI model interface with a dynamic pricing clock motif, tech mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["딥시크 V4 정식출시","근데 AI도","피크시간 요금제?"],"highlightLine":1,"narration":"가성비 AI로 유명한 딥시크가 V4를 정식 출시해요. 근데 AI도 붐비는 시간엔 요금을 더 받는다는데요?"},
+    {"kind":"tip","num":"①","head":"V4 오픈웨이트 공개","body":"V4는 프로(1.6조)·플래시(284억) 두 오픈웨이트 모델로, 필요한 부분만 작동하는 방식에 1M 토큰 컨텍스트. MIT 라이선스로 풀렸다.","narration":"V4는 프로랑 플래시 두 가지 오픈 모델이에요. 필요한 부분만 작동하는 방식에 100만 토큰 문맥, MIT 라이선스로 무료 공개됐습니다."},
+    {"kind":"tip","num":"②","head":"AI판 피크 요금제","body":"정식 출시와 함께 처음으로 피크·오프피크 요금을 도입. 오전 9~12시, 오후 2~6시 피크엔 API 요금이 평소의 2배.","narration":"정식 출시와 함께 처음으로 시간대별 요금을 도입해요. 오전 9시부터 12시, 오후 2시부터 6시 붐비는 시간엔 API 요금이 평소의 2배입니다."},
+    {"kind":"tip","num":"③","head":"R2는 아직","body":"기대받던 추론모델 R2는 성능 불만족으로 미출시. 훈련 차질까지 겹쳐 미뤄졌고, 올해 주력은 V4 계열이다.","narration":"기대받던 추론 모델 R2는 성능이 만족스럽지 않아서 아직 안 나왔어요. 훈련 차질까지 겹쳐서 미뤄졌고, 올해 주력은 V4입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

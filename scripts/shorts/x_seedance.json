@@ -1,0 +1,13 @@
+{
+  "topic": "말 한마디로 3분짜리 AI 영상 바이트댄스 시댄스",
+  "tags": ["바이트댄스", "시댄스", "Seedance", "AI영상", "영상생성AI", "틱톡", "AI동영상", "생성AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cinematic AI video generation on a glowing editing timeline, long-form film creation mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["말 한마디로","최대 3분 AI 영상","바이트댄스 시댄스 2.5"],"highlightLine":1,"narration":"말 한마디로 최대 3분짜리 영상을 뚝딱 만든다? 틱톡 모회사 바이트댄스가 시댄스 2.5를 공개했어요."},
+    {"kind":"tip","num":"①","head":"30초 한 컷, 끊김 없이","body":"여러 짧은 클립을 이어붙이지 않고, 30초를 통째로 한 컷에 생성. 워크플로우로 90초, 3분 영상까지 뽑는다.","narration":"여러 짧은 클립을 이어붙이는 게 아니라, 30초를 통째로 한 컷에 만들어요. 이어서 90초, 3분짜리 영상까지 뽑을 수 있습니다."},
+    {"kind":"tip","num":"②","head":"참조 50개로 일관성 유지","body":"인물·배경·색감 참조를 최대 50개까지 넣어 캐릭터와 장면을 일관되게 유지. 4K에 소리까지 함께 생성한다.","narration":"인물이나 배경, 색감 참조를 최대 50개까지 넣어서 캐릭터랑 장면을 일관되게 유지해요. 4K 화질에 소리까지 같이 만듭니다."},
+    {"kind":"tip","num":"③","head":"영상 AI 전쟁 격화","body":"미니맥스 등 경쟁 모델들도 장편·멀티모달을 강화 중. AI 영상 제작이 1인 크리에이터 시대로 빠르게 넘어가고 있다.","narration":"미니맥스 같은 경쟁 모델들도 장편이랑 멀티모달을 강화하고 있어요. AI 영상 제작이 1인 크리에이터 시대로 빠르게 넘어가는 중입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

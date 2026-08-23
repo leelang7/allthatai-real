@@ -1,0 +1,54 @@
+{
+  "topic": "고효율 가전 사면 환급받을 수 있습니다",
+  "tags": [
+    "고효율가전",
+    "환급",
+    "에너지효율",
+    "으뜸효율",
+    "전기요금",
+    "가전제품",
+    "생활꿀팁",
+    "절약",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an energy efficiency label on a home appliance with cashback coins, long exposure light trails, motion energy, diagonal dynamic composition, strong leading lines, cool overcast even lighting, forest green and warm brass accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "에어컨·냉장고 살 때",
+        "고효율 가전 환급",
+        "대상이면 돌려받는다"
+      ],
+      "highlightLine": 1,
+      "narration": "에너지 효율 높은 가전을 사면 구매액 일부를 돌려받을 수 있어요. 대상 확인이 먼저입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "효율 1등급 위주",
+      "body": "정부·한전이 운영하는 고효율 가전 환급 사업은 에너지소비효율이 높은 제품을 대상으로 구매 금액의 일부를 돌려준다.",
+      "narration": "정부와 한전이 운영하는 고효율 가전 환급 사업은, 에너지소비효율이 높은 제품을 대상으로 구매 금액의 일부를 돌려줘요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "대상 가구가 정해져 있다",
+      "body": "장애인, 기초생활수급자, 다자녀, 출산 가구 등 지정된 대상 가구만 신청할 수 있는 경우가 많다. 사업 연도마다 대상과 품목이 달라진다.",
+      "narration": "장애인이나 기초생활수급자, 다자녀, 출산 가구처럼 지정된 대상 가구만 신청할 수 있는 경우가 많아요. 사업 연도마다 대상이랑 품목이 달라집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "영수증을 꼭 보관",
+      "body": "구매 영수증과 제품 정보가 있어야 신청된다. 예산이 소진되면 조기 종료되니 구매 전에 올해 사업 공고부터 확인하자.",
+      "narration": "구매 영수증이랑 제품 정보가 있어야 신청돼요. 예산이 소진되면 조기 종료되니까, 구매 전에 올해 사업 공고부터 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

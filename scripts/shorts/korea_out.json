@@ -1,0 +1,14 @@
+{
+  "topic": "한국 월드컵 32강 탈락 확정",
+  "title": "한국 월드컵 32강 탈락 확정 — 와일드카드 한 끗",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["한국축구", "월드컵", "2026월드컵", "32강탈락", "대한민국축구", "북중미월드컵", "홍명보", "와일드카드", "조별리그탈락", "손흥민", "국가대표", "축구", "shorts", "쇼츠", "월드컵중계"],
+  "bgPrompt": "Cinematic shot of an empty soccer stadium at dusk with a lone soccer ball on the green pitch, quiet melancholic mood, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "8년 만에", "titleLines": ["한국 아쉽게", "32강 탈락", "한 끗 차이"], "highlightLine": 1, "narration": "대한민국의 32강 진출이 한 끗 차이로 무산됐습니다. 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "A조 3위로 와일드카드 대기", "body": "한국은 1승 2패 승점 3으로 A조 3위, 와일드카드 진출을 노렸어요.", "narration": "첫째, 한국은 1승 2패 승점 3으로 A조 3위에 그쳐 와일드카드 진출을 노렸습니다." },
+    { "kind": "tip", "num": "2", "head": "콩고 승리로 탈락 확정", "body": "콩고가 우즈베키스탄을 3대1로 꺾으면서 한국의 탈락이 확정됐어요.", "narration": "둘째, 콩고가 우즈베키스탄을 3대 1로 꺾으면서 한국의 탈락이 확정됐습니다." },
+    { "kind": "tip", "num": "3", "head": "3위팀 중 9위", "body": "한국은 조 3위 팀 중 9위로 밀려, 진출권 8위에 한 끗 차이로 들지 못했어요.", "narration": "셋째, 한국은 조 3위 팀 중 9위로 밀려 진출권 8위에 한 끗 차이로 들지 못했습니다." },
+    { "kind": "cta", "head": "그래도 응원!", "body": "@aidoer", "narration": "아쉽지만 끝까지 응원했어요. 다음을 기약합니다. 구독!" }
+  ]
+}

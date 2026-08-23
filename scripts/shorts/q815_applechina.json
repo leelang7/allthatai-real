@@ -1,0 +1,54 @@
+{
+  "topic": "애플이 중국 전용 AI를 직접 만든다",
+  "tags": [
+    "애플",
+    "알리바바",
+    "중국",
+    "애플인텔리전스",
+    "LLM",
+    "아이폰",
+    "화웨이",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an iPhone with a China-specific AI model chip and regulatory stamp, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "남의 모델 안 쓴다",
+        "애플, 중국 전용 AI",
+        "알리바바가 도왔다"
+      ],
+      "highlightLine": 1,
+      "narration": "애플이 중국 시장 전용 AI 모델을 알리바바 지원을 받아 직접 훈련했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "현지 모델에 기대지 않는다",
+      "body": "그동안 현지 업체 모델에 의존하려던 전략을 바꿔, 애플이 직접 중국용 모델을 훈련했다. 자국 규제 안에서 AI 동작을 스스로 통제하겠다는 뜻이다.",
+      "narration": "그동안 현지 업체 모델에 의존하려던 전략을 바꿔서, 애플이 직접 중국용 모델을 훈련했어요. 자국 규제 안에서 AI 동작을 스스로 통제하겠다는 뜻입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "외국 기업 최초 승인",
+      "body": "중국 당국이 7월 애플의 생성형 AI 서비스를 등록했다. 외국 기업이 자체 AI 모델을 중국에 배포하도록 허가받은 첫 사례로 평가된다.",
+      "narration": "중국 당국이 7월에 애플의 생성형 AI 서비스를 등록했어요. 외국 기업이 자체 AI 모델을 중국에 배포하도록 허가받은 첫 사례로 평가됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "아이폰 신제품과 함께",
+      "body": "애플 인텔리전스의 중국 출시는 iOS 업데이트와 함께 수개월 내로 예상되며, 9월 아이폰 신제품 시점과 겹칠 수 있다. 검색은 바이두와 협력한다.",
+      "narration": "애플 인텔리전스의 중국 출시는 iOS 업데이트와 함께 수개월 안으로 예상되고, 9월 아이폰 신제품 시점과 겹칠 수 있어요. 검색은 바이두와 협력합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

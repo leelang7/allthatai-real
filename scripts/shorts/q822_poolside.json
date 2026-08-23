@@ -1,0 +1,54 @@
+{
+  "topic": "엔비디아가 코딩AI에 7조를 썼다 인수는 아니다",
+  "tags": [
+    "엔비디아",
+    "풀사이드",
+    "코딩AI",
+    "라이선스",
+    "인수",
+    "반독점",
+    "AI투자",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a chip giant licensing an AI model factory instead of buying it, flat vector editorial illustration, bold shapes, diagonal dynamic composition, strong leading lines, dark moody background, rim lighting, dusty rose and antique gold accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "사지 않고 빌린다",
+        "엔비디아, 풀사이드에",
+        "60억 달러 라이선스"
+      ],
+      "highlightLine": 1,
+      "narration": "엔비디아가 코딩 AI 스타트업에 60억 달러를 냈어요. 인수가 아니라 라이선스입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "라이선스 60억 + 투자 10억",
+      "body": "엔비디아는 풀사이드의 모델 팩토리를 60억 달러에 비독점으로 라이선스하고, 별도로 10억 달러를 투자했다. 투자 기준 기업가치는 120억 달러다.",
+      "narration": "엔비디아는 풀사이드의 모델 팩토리를 60억 달러에 비독점으로 라이선스하고, 별도로 10억 달러를 투자했어요. 투자 기준 기업가치는 120억 달러입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "직원 109명은 데려간다",
+      "body": "풀사이드 직원 109명이 엔비디아로 옮긴다. 다만 창업자 3명은 남고 회사도 독립적으로 계속 운영된다. 기술은 다른 곳에도 팔 수 있다.",
+      "narration": "풀사이드 직원 109명이 엔비디아로 옮겨요. 다만 창업자 3명은 남고 회사도 독립적으로 계속 운영됩니다. 기술은 다른 곳에도 팔 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "왜 인수를 안 했나",
+      "body": "앞서 그록 때와 같은 구조다. 인수 대신 라이선스로 묶으면 기업결합 심사를 피할 수 있어, 규제 우회 아니냐는 지적이 나온다.",
+      "narration": "앞서 그록 때와 같은 구조예요. 인수 대신 라이선스로 묶으면 기업결합 심사를 피할 수 있어서, 규제 우회 아니냐는 지적이 나옵니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

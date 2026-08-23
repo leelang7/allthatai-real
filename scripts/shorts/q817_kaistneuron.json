@@ -1,0 +1,54 @@
+{
+  "topic": "카이스트가 잡음으로 인공 뉴런을 만들었다",
+  "tags": [
+    "KAIST",
+    "뉴로모픽",
+    "인공뉴런",
+    "반도체",
+    "저전력",
+    "엣지컴퓨팅",
+    "국산기술",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a brain-inspired semiconductor neuron turning noise into signals, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "버리던 잡음을 썼다",
+        "카이스트 인공 뉴런",
+        "에너지 27.7% 절감"
+      ],
+      "highlightLine": 1,
+      "narration": "반도체에서 버리던 잡음으로 뇌처럼 신호를 처리하는 인공 뉴런을 카이스트가 만들었어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "잡음을 신호로 바꿨다",
+      "body": "카이스트 신소재공학과 김경민 교수팀이 반도체 소자에서 자연히 생기는 잡음을 조절해, 뇌 뉴런과 비슷한 전기 신호를 만들어냈다.",
+      "narration": "카이스트 신소재공학과 김경민 교수팀이 반도체 소자에서 자연히 생기는 잡음을 조절해서, 뇌 뉴런과 비슷한 전기 신호를 만들어냈어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "회로 하나로 여러 신호",
+      "body": "인공 뉴런 회로 하나로 사람의 움직임과 음성처럼 주파수와 변화 속도가 다른 신호를 골라서 처리할 수 있다.",
+      "narration": "인공 뉴런 회로 하나로 사람의 움직임이나 음성처럼 주파수와 변화 속도가 다른 신호를 골라서 처리할 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "에너지 27.7% 절감",
+      "body": "뉴런 자체의 기억 기능을 활용해 기존 신경망보다 27.7% 낮은 에너지로 같은 성능을 냈다. 연구는 어드밴스드 머터리얼즈에 실렸고, 엣지 컴퓨팅·자율주행에 쓰일 수 있다.",
+      "narration": "뉴런 자체의 기억 기능을 활용해서 기존 신경망보다 27.7퍼센트 낮은 에너지로 같은 성능을 냈어요. 연구는 어드밴스드 머터리얼즈에 실렸고, 엣지 컴퓨팅이나 자율주행에 쓰일 수 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

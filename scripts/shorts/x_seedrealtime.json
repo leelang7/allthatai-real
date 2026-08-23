@@ -1,0 +1,13 @@
+{
+  "topic": "보면서 들으면서 동시에 말한다 바이트댄스 시드리얼타임",
+  "tags": ["바이트댄스", "시드리얼타임", "실시간AI", "멀티모달", "전이중", "두바오", "음성AI", "영상AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI perceiving audio and video streams and responding in real time simultaneously, live multimodal interaction mood, cool teal and cyan accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["보면서, 들으면서","동시에 말한다","바이트댄스 시드리얼타임"],"highlightLine":1,"narration":"말하는 도중에 AI가 보고, 듣고, 동시에 대답해요. 바이트댄스가 실시간 멀티모달 AI 시드리얼타임을 냈습니다."},
+    {"kind":"tip","num":"①","head":"끝날 때까지 안 기다린다","body":"음성·영상·텍스트를 한 모델에서 통째로 처리하는 전이중 방식. 말을 끝내기 전에도 실시간으로 인지하고 반응한다.","narration":"음성이랑 영상, 텍스트를 한 모델에서 통째로 처리하는 전이중 방식이에요. 내가 말을 끝내기 전에도 실시간으로 인지하고 반응합니다."},
+    {"kind":"tip","num":"②","head":"화면을 보고 이해한다","body":"장면·화자·침묵·배경 소음을 구분해 언제 답할지 판단. '이거'라는 말을 손짓이나 화면 속 사물과 연결하고, 화면 밖으로 사라진 것도 기억한다.","narration":"장면이랑 화자, 침묵, 배경 소음을 구분해서 언제 답할지 판단해요. 이거라는 말을 손짓이나 화면 속 사물과 연결하고, 화면 밖으로 사라진 것도 기억합니다."},
+    {"kind":"tip","num":"③","head":"두바오에 바로 탑재","body":"월 1억5천만, 하루 2억 명이 쓰는 바이트댄스 AI 앱 두바오에 적용. 대화 유창성이 이전보다 12% 향상됐다.","narration":"월 1억 5천만, 하루 2억 명이 쓰는 바이트댄스 AI 앱 두바오에 바로 적용됐어요. 대화 유창성이 이전보다 12퍼센트 좋아졌습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

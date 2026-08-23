@@ -1,0 +1,11 @@
+{
+  "topic": "전세사기 예방",
+  "bgPrompt": "Cinematic warm modern apartment living room interior with house keys and a paper contract on a wooden table by a window, soft natural daylight, shallow depth of field, slow smooth camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "보증금 지키기", "titleLines": ["전세사기", "안 당하는", "3가지 체크"], "highlightLine": 0, "narration": "전세사기, 계약 전에 이 세 가지만 확인하면 보증금 지킬 수 있어요." },
+    { "kind": "tip", "num": "①", "head": "등기부등본 확인", "body": "계약 전 등기부등본에서 근저당·신탁 잡혀 있는지 꼭 확인하세요.", "narration": "첫째, 계약 전에 등기부등본을 떼서 근저당이나 신탁이 잡혀 있는지 확인하세요." },
+    { "kind": "tip", "num": "②", "head": "시세의 80% 넘으면 위험", "body": "보증금이 매매 시세의 80%를 넘으면 깡통전세 위험 신호예요.", "narration": "둘째, 보증금이 매매 시세의 80%를 넘으면 깡통전세 위험 신호입니다." },
+    { "kind": "tip", "num": "③", "head": "잔금날 당일에", "body": "잔금 치른 날 바로 전입신고와 확정일자를 받아야 보증금이 보호돼요.", "narration": "셋째, 잔금 치른 날 바로 전입신고와 확정일자를 받아야 보증금이 보호됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 계약이 안전한지 궁금하면 올댓에이아이 AI로 확인하세요." }
+  ]
+}

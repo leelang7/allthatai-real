@@ -1,0 +1,54 @@
+{
+  "topic": "구글 젬마 다운로드 10억 돌파",
+  "tags": [
+    "구글",
+    "젬마",
+    "Gemma",
+    "오픈모델",
+    "다운로드",
+    "온디바이스",
+    "딥마인드",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an open model spreading across satellites hospitals and laptops, layered paper cutout diorama, close-up hero shot, subject centered, dark moody background, rim lighting, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "오픈 모델의 저력",
+        "구글 젬마",
+        "다운로드 10억 돌파"
+      ],
+      "highlightLine": 2,
+      "narration": "구글의 오픈 모델 젬마가 누적 다운로드 10억 건을 넘었어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "변형 모델만 10만 개",
+      "body": "개발자들이 언어·용도·하드웨어에 맞춰 만든 파생 모델이 10만 개를 넘는다. 2024년 초 공개 이후 누적 집계를 처음 공개했다.",
+      "narration": "개발자들이 언어와 용도, 하드웨어에 맞춰 만든 파생 모델이 10만 개를 넘어요. 2024년 초 공개 이후 누적 집계를 처음 공개했습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "우주에서 병원까지",
+      "body": "나사 등이 궤도 위 이미지 분석에 쓰고, 인도 국가보건청 의료 앱에도 들어갔다. 예일대와 만든 세포 분석 모델은 암 치료 경로를 찾아냈다.",
+      "narration": "나사 같은 곳이 궤도 위 이미지 분석에 쓰고, 인도 국가보건청 의료 앱에도 들어갔어요. 예일대와 만든 세포 분석 모델은 암 치료 경로를 찾아냈습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "작아야 퍼진다",
+      "body": "거대 모델과 달리 노트북·휴대폰에서도 돌릴 수 있는 크기가 확산의 이유다. 돌고래 소리를 분석하는 모델까지 나왔다.",
+      "narration": "거대 모델과 달리 노트북이나 휴대폰에서도 돌릴 수 있는 크기가 확산의 이유예요. 돌고래 소리를 분석하는 모델까지 나왔습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

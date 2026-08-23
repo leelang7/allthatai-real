@@ -1,0 +1,54 @@
+{
+  "topic": "아이 급식카드 방학에도 쓸 수 있습니다",
+  "tags": [
+    "급식카드",
+    "꿈나무카드",
+    "결식아동",
+    "아동급식",
+    "방학",
+    "지자체",
+    "복지",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a child meal support card at a neighborhood restaurant, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "방학이라 밥이 걱정이면",
+        "아동 급식카드",
+        "편의점·식당에서 사용"
+      ],
+      "highlightLine": 1,
+      "narration": "결식이 우려되는 아동에게 지자체가 급식카드를 지원해요. 방학 중에도 쓸 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "가맹점에서 바로 결제",
+      "body": "지자체가 발급하는 아동급식카드로 지정 가맹 식당과 편의점에서 결제할 수 있다. 카드 이름은 지역마다 다르다.",
+      "narration": "지자체가 발급하는 아동급식카드로 지정 가맹 식당이나 편의점에서 결제할 수 있어요. 카드 이름은 지역마다 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "학기 중과 방학 모두",
+      "body": "학기 중 결식이 우려되는 경우는 물론 방학 기간에도 지원된다. 한 끼 단가와 지원 일수는 지자체 예산에 따라 다르다.",
+      "narration": "학기 중에 결식이 우려되는 경우는 물론 방학 기간에도 지원돼요. 한 끼 단가와 지원 일수는 지자체 예산에 따라 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "주민센터·학교로 신청",
+      "body": "보호자나 학교, 통·반장 등이 주민센터에 신청·추천할 수 있다. 형편이 어려워졌다면 언제든 상담해보는 게 좋다.",
+      "narration": "보호자나 학교, 통반장 같은 분들이 주민센터에 신청하거나 추천할 수 있어요. 형편이 어려워졌다면 언제든 상담해보세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

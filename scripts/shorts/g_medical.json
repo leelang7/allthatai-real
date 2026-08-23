@@ -1,0 +1,13 @@
+{
+  "topic": "재난적의료비 병원비 폭탄 연 최대 5천만원 지원",
+  "tags": ["재난적의료비", "의료비지원", "병원비", "중증질환", "암", "정부지원", "건강보험공단", "본인부담금", "의료비폭탄", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "reassuring hospital care mood with soft healing light, sense of financial relief from medical burden, teal and warm amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["병원비 폭탄","연 최대 5천만원","나라가 지원"],"highlightLine":1,"narration":"큰 병으로 병원비 폭탄 맞았을 때, 나라가 연 최대 5천만원까지 대신 내주는 제도가 있어요. 재난적의료비 지원입니다."},
+    {"kind":"tip","num":"①","head":"연 최대 5천만원","body":"과도한 병원비 본인부담금을 연 최대 5천만원까지 지원. 비급여도 일부 포함된다.","narration":"감당 안 되는 병원비 본인부담금을 연 최대 5천만원까지 지원해줘요. 비급여도 일부 포함됩니다."},
+    {"kind":"tip","num":"②","head":"누가 받나","body":"중위소득 100% 이하 원칙, 200% 이하는 개별심사. 연소득 대비 의료비 부담이 20%를 넘으면 대상이 된다.","narration":"소득은 중위 100퍼센트 이하가 원칙이고, 200퍼센트 이하도 개별심사로 가능해요. 1년 소득의 20퍼센트를 넘는 의료비가 나왔으면 대상입니다."},
+    {"kind":"tip","num":"③","head":"중증질환·180일 이내","body":"암·뇌혈관·심장·희귀·중증난치·중증화상 등 중증질환 대상. 최종 진료일 다음 날부터 180일 안에 건보공단 지사에 신청.","narration":"암이나 뇌혈관, 심장, 희귀질환 같은 중증질환이 대상이에요. 마지막 진료일 다음 날부터 180일 안에 건강보험공단 지사에 신청하면 됩니다."},
+    {"kind":"cta","narration":"이런 정부 지원은 몰라서 못 받는 경우가 많아요. 프로필 링크에 정리해놨으니 저장해두고 필요할 때 꺼내 쓰세요."}
+  ]
+}

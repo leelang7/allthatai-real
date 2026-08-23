@@ -1,0 +1,13 @@
+{
+  "topic": "AI 연봉협상 대본 목표가 자동으로",
+  "tags": ["연봉협상", "이직", "연봉", "협상", "몸값올리기", "직장인", "커리어", "연봉인상", "AI도구", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-negotiation",
+  "bgPrompt": "confident professional negotiation desk mood, subtle handshake silhouette, upward salary growth chart glowing, cool teal with gold accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"커리어 꿀팁","titleLines":["연봉협상 자리","말문 막히면","AI한테 대본 받자"],"highlightLine":1,"narration":"연봉 협상 자리에서 말문 막힌 적 있죠? 이젠 AI가 협상 대본까지 짜줍니다."},
+    {"kind":"tip","num":"①","head":"내 협상력부터 진단","body":"제시받은 금액, 시세, 내 입장만 넣으면 지금 내 협상력이 어느 정도인지 객관적으로 짚어준다.","narration":"제시받은 금액이랑 시세, 내 상황만 넣으면 지금 내 협상력이 어느 정도인지 객관적으로 진단해줘요."},
+    {"kind":"tip","num":"②","head":"목표가 + 실제 대본","body":"무리하지 않는 목표 금액을 잡아주고, 그 자리에서 그대로 말할 수 있는 협상 대본을 문장으로 뽑아준다.","narration":"무리하지 않는 목표 금액을 잡아주고, 그 자리에서 바로 읽을 수 있는 협상 대본까지 문장으로 만들어줍니다."},
+    {"kind":"tip","num":"③","head":"반박 시나리오까지","body":"예산이 없다는 식의 회사 반박에 어떻게 되받아칠지 시나리오별 대응까지 미리 준비해준다.","narration":"예산이 없다는 식으로 나올 때 어떻게 받아칠지, 반박 시나리오까지 미리 준비해줘요. 연습하고 들어가면 훨씬 든든하죠."},
+    {"kind":"cta","narration":"이직이나 연봉 협상 앞두고 있다면 프로필 링크 AI 연봉협상에서 미리 대본 받아보세요. 5초면 됩니다."}
+  ]
+}

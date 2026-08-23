@@ -1,0 +1,54 @@
+{
+  "topic": "앤트로픽이 구글 TPU 창시자를 데려갔다",
+  "tags": [
+    "앤트로픽",
+    "TPU",
+    "AI반도체",
+    "자체칩",
+    "구글",
+    "엔비디아",
+    "아미르살렉",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a chip architect moving between two tech giants with silicon blueprints, layered paper cutout diorama, low angle looking up, dramatic scale, golden hour warm sunlight, teal and coral accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "칩도 직접 만든다",
+        "구글 TPU 창시자",
+        "앤트로픽으로"
+      ],
+      "highlightLine": 1,
+      "narration": "구글 TPU를 처음 만든 엔지니어가 앤트로픽으로 옮겼어요. 자체 칩 개발 신호입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "TPU를 처음부터 만든 사람",
+      "body": "아미르 살렉은 2013년 구글에 합류해 맞춤형 실리콘 조직을 처음부터 세우고 2022년까지 이끌었다. TPU 여러 세대와 엣지 TPU를 총괄했다.",
+      "narration": "아미르 살렉은 2013년 구글에 합류해서 맞춤형 실리콘 조직을 처음부터 세우고 2022년까지 이끌었어요. TPU 여러 세대와 엣지 TPU를 총괄했습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "그 전엔 엔비디아 8년",
+      "body": "구글 이전엔 엔비디아에서 8년간 시스템온칩 설계 조직을 만들고 GPU와 테그라 칩을 다뤘다. 양쪽을 다 아는 인물이다.",
+      "narration": "구글 이전엔 엔비디아에서 8년간 시스템온칩 설계 조직을 만들고, GPU와 테그라 칩을 다뤘어요. 양쪽을 다 아는 인물입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "연봉 6억대 공고 2주 만에",
+      "body": "앤트로픽이 자체 칩 설계팀을 꾸린다며 연 48만 5천 달러까지 주는 채용 공고를 낸 지 2주 만의 영입이다. 다만 칩이 나오려면 수년이 걸린다.",
+      "narration": "앤트로픽이 자체 칩 설계팀을 꾸린다며 연 48만 5천 달러까지 주는 채용 공고를 낸 지 2주 만의 영입이에요. 다만 칩이 실제로 나오려면 수년이 걸립니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

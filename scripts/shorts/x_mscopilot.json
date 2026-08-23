@@ -1,0 +1,13 @@
+{
+  "topic": "MS 코파일럿 보안 구멍 기업 이메일 파일 털린다",
+  "tags": ["마이크로소프트", "코파일럿", "AI보안", "보안취약점", "데이터유출", "프롬프트인젝션", "기업보안", "M365", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cybersecurity breach concept with a cracked shield over corporate data, security vulnerability mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["회사 AI 비서에","보안 구멍","이메일·파일 털린다"],"highlightLine":1,"narration":"회사에서 쓰는 AI 비서 코파일럿에 보안 구멍이 발견됐어요. 기업 내부 파일이랑 이메일이 통째로 털릴 수 있습니다."},
+    {"kind":"tip","num":"①","head":"악성 사이트 한 번에 뚫린다","body":"공격자가 만든 악성 웹사이트에 접속만 해도, 조작된 프롬프트가 코파일럿에 전송돼 코드가 실행되거나 내부 파일이 외부로 유출될 수 있다.","narration":"공격자가 만든 악성 사이트에 접속만 해도, 조작된 명령이 코파일럿에 몰래 전달돼서 코드가 실행되거나 내부 파일이 빠져나갈 수 있어요."},
+    {"kind":"tip","num":"②","head":"새 공격법 프롬프트 인젝션","body":"AI에게 몰래 나쁜 지시를 주입해 조종하는 프롬프트 인젝션. 보안업체가 코파일럿에서 기업 파일 유출로 이어지는 심각한 취약점을 공개했다.","narration":"AI한테 몰래 나쁜 지시를 주입해서 조종하는 걸 프롬프트 인젝션이라고 해요. 보안업체가 코파일럿에서 기업 파일 유출로 이어지는 심각한 허점을 공개했습니다."},
+    {"kind":"tip","num":"③","head":"7월 패치만 570개","body":"MS는 7월 정기 패치에서 무려 570개 취약점을 수정, 역대 최다를 기록. 위협 점수 9.6짜리 치명적 결함도 포함됐다.","narration":"마이크로소프트는 7월 정기 패치에서만 570개 취약점을 고쳤어요. 역대 최다인데, 위험 점수 9.6짜리 치명적 결함도 들어있었습니다."},
+    {"kind":"cta","narration":"이런 AI·보안 최신 소식은 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

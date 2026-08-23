@@ -1,0 +1,54 @@
+{
+  "topic": "메타 스마트글라스 독일서 형사 고발당했다",
+  "tags": [
+    "메타",
+    "스마트글라스",
+    "레이밴",
+    "프라이버시",
+    "몰래촬영",
+    "독일",
+    "개인정보",
+    "IT뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "smart glasses recording secretly with a privacy warning shield, red and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "IT 뉴스",
+      "titleLines": [
+        "몰래 찍히는 거 아냐?",
+        "메타 스마트글라스",
+        "독일서 형사 고발"
+      ],
+      "highlightLine": 1,
+      "narration": "메타 스마트글라스가 독일에서 형사 고발당했어요. 몰래 촬영이 쟁점입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "메타와 판매처까지 고발",
+      "body": "독일 인권단체 헤이트에이드가 메타와 레이밴을 만드는 에실로룩소티카 계열사, 그리고 판매 유통사들까지 함께 고발했다.",
+      "narration": "독일 인권단체 헤이트에이드가 메타와, 레이밴을 만드는 에실로룩소티카 계열사, 그리고 판매 유통사들까지 함께 고발했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "포츠담 수영장 사건이 계기",
+      "body": "포츠담의 한 수영장에서 낯선 남성들이 메타 안경으로 여성들을 몰래 찍었다는 신고가 접수된 사건이 배경이 됐다. 검찰은 예비 검토에 들어갔다.",
+      "narration": "포츠담의 한 수영장에서 낯선 남성들이 메타 안경으로 여성들을 몰래 찍었다는 신고가 들어온 사건이 배경이 됐어요. 검찰은 예비 검토에 들어갔습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "녹화 표시가 쟁점",
+      "body": "단체는 일상 물건으로 위장한 감시 기술이라 주장하고, 독일 규제기관은 녹화 기능이 분명히 보이면 합법이라는 입장이다. 표시등 하나가 쟁점이 됐다.",
+      "narration": "단체는 일상 물건으로 위장한 감시 기술이라고 주장하고, 독일 규제기관은 녹화 기능이 분명히 보이면 합법이라는 입장이에요. 표시등 하나가 쟁점이 됐습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

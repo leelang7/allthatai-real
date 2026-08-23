@@ -1,0 +1,13 @@
+{
+  "topic": "OpenAI 7월 한 달 매출이 2분기 전체 넘었다",
+  "tags": ["OpenAI", "오픈AI", "매출", "ARR", "GPT5", "챗GPT", "코덱스", "AI매출", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "soaring exponential revenue growth chart glowing over an AI company skyline, explosive momentum mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["7월 한 달 매출이","2분기 전체를 넘었다","OpenAI 폭주"],"highlightLine":1,"narration":"OpenAI가 7월 한 달 매출로 2분기 석 달 전체를 넘어섰어요. 성장 속도가 말 그대로 폭주 중입니다."},
+    {"kind":"tip","num":"①","head":"CFO가 직접 밝혔다","body":"CFO 사라 프라이어가 내부 회의에서 7월 연환산 매출이 2분기 전체를 앞질렀다고 발표. 이사회 의장도 함께한 자리였다.","narration":"CFO 사라 프라이어가 내부 회의에서, 7월 연환산 매출이 2분기 전체를 앞질렀다고 밝혔어요. 이사회 의장까지 함께한 자리였습니다."},
+    {"kind":"tip","num":"②","head":"성장 엔진 3가지","body":"신모델 GPT-5.6 시리즈, 기업용 에이전트 챗GPT 워크, 그리고 코딩 도구 코덱스의 채택 확대가 매출을 끌어올렸다.","narration":"신형 모델 GPT-5.6 시리즈, 기업용 AI 에이전트 챗GPT 워크, 그리고 코딩 도구 코덱스 사용 확대가 매출을 끌어올렸어요."},
+    {"kind":"tip","num":"③","head":"근데 경쟁도 거세다","body":"앤트로픽·구글에 중국 저가 오픈모델까지 추격 중. 매출은 폭발하지만 AI 왕좌 경쟁은 더 치열해지고 있다.","narration":"다만 앤트로픽이랑 구글, 거기에 중국 저가 오픈모델까지 바짝 쫓아와요. 매출은 폭발하는데 AI 왕좌 경쟁은 더 치열해지고 있습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

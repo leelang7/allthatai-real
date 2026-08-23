@@ -1,0 +1,13 @@
+{
+  "topic": "K패스 대중교통비 최대 53% 환급",
+  "tags": ["K패스", "대중교통", "교통비환급", "정부지원", "청년혜택", "생활꿀팁", "지하철", "버스", "교통비절약", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "Korean city subway and bus transit scene at dusk, commuter transportation concept, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["버스·지하철 이렇게 타면","최대 53% 돌려받는다","K-패스"],"highlightLine":1,"narration":"버스랑 지하철, 그냥 타면 손해예요. K-패스로 타면 요금을 최대 53%까지 돌려받습니다."},
+    {"kind":"tip","num":"①","head":"월 15회면 환급 시작","body":"한 달에 대중교통 15회 이상 타면, 일반 20%·청년 30%·저소득 53%를 매달 환급해준다.","narration":"한 달에 대중교통을 15번 이상만 타면요, 일반은 20%, 청년은 30%, 저소득층은 53%를 매달 돌려받아요."},
+    {"kind":"tip","num":"②","head":"이 교통수단 다 된다","body":"만 19세 이상, 참여 지자체 주민이면 OK. 시내·마을버스, 지하철, 광역버스, GTX, 신분당선까지 적용(KTX·고속버스는 제외).","narration":"만 19세 이상이고 참여 지자체에 살면 됩니다. 시내버스, 마을버스, 지하철은 물론 광역버스랑 GTX, 신분당선까지 되고요. KTX나 고속버스는 빠져요."},
+    {"kind":"tip","num":"③","head":"카드 발급 + 앱 등록","body":"카드사에서 'K-패스 전용 카드'를 발급받고 K-패스 앱에 등록만 하면 끝. 이후엔 자동으로 환급된다.","narration":"신청은 간단해요. 카드사에서 K-패스 전용 카드 발급받고 앱에 등록만 하면 끝. 그 다음부턴 알아서 환급됩니다."},
+    {"kind":"cta","narration":"이런 교통비·정부 환급 꿀팁은 프로필 링크에 정리해놨어요. 저장해두고 챙겨 받으세요."}
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "댓글 여론조작 의심 계정 2만4천개 AI로 잡았다",
+  "tags": [
+    "KAIST",
+    "여론조작",
+    "댓글",
+    "네이버뉴스",
+    "AI탐지",
+    "가짜뉴스",
+    "보안",
+    "IT뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "network graph of suspicious accounts amplifying conflict in news comments, red and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "20년치 댓글 1억건 분석",
+        "외국 연계 의심 계정",
+        "2만4천개 찾았다"
+      ],
+      "highlightLine": 1,
+      "narration": "카이스트가 뉴스 댓글에서 외국 연계 의심 계정 2만4천 개를 AI로 찾아냈습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "1억1천만 건을 훑었다",
+      "body": "카이스트와 막스플랑크 연구진이 2006년부터 2025년까지 네이버 뉴스 댓글 약 1억1천만 건을 분석해, 이용자 약 400만 명 중 23,998개 의심 계정을 추려냈다.",
+      "narration": "카이스트와 막스플랑크 연구진이 2006년부터 2025년까지 네이버 뉴스 댓글 약 1억1천만 건을 분석해서, 이용자 400만 명 중 2만 3998개 의심 계정을 추려냈어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "한쪽 편들기가 아니라 갈등 키우기",
+      "body": "이 계정들은 특정 진영을 일방적으로 지지하기보다, 한국 사회 내부의 갈등과 대립을 키우는 방향으로 움직였다. 선거 시기엔 활동이 51% 늘었다.",
+      "narration": "이 계정들은 특정 진영을 일방적으로 지지하기보다, 한국 사회 내부의 갈등과 대립을 키우는 쪽으로 움직였어요. 선거 시기엔 활동이 51퍼센트 늘었습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "3단계로 판별하는 AI",
+      "body": "연구진의 AI는 외국 연계 의심 여부, 도덕적 비난·맹목적 찬양 같은 분열 감정, 그 감정이 향하는 대상을 단계별로 분석한다. 결과는 유즈닉스 시큐리티 2026에서 발표됐다.",
+      "narration": "연구진의 AI는 외국 연계 의심 여부, 도덕적 비난이나 맹목적 찬양 같은 분열 감정, 그리고 그 감정이 향하는 대상을 단계별로 분석해요. 결과는 유즈닉스 시큐리티 2026에서 발표됐습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

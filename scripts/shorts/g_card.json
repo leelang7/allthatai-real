@@ -1,0 +1,13 @@
+{
+  "topic": "국민내일배움카드 최대 500만원 훈련비",
+  "tags": ["국민내일배움카드", "내일배움카드", "국비지원", "직업훈련", "자격증", "이직", "재취업", "스펙업", "정부지원", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "online learning desk with laptop showing course and notebook and headphones, skill-up training mood, cool teal and violet accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 꿀팁","titleLines":["배우고 싶은 거","훈련비 최대 500만원","국민내일배움카드"],"highlightLine":1,"narration":"배우고 싶은 거 있으면, 훈련비를 최대 500만원까지 나라가 지원해줘요. 국민내일배움카드입니다."},
+    {"kind":"tip","num":"①","head":"기본 300만·최대 500만","body":"직무 능력 키우는 훈련비를 5년간 기본 300만원, 추가 조건 되면 최대 500만원까지 지원한다.","narration":"직무 능력 키우는 훈련비를 5년 동안 기본 300만원, 조건이 되면 최대 500만원까지 지원해줘요."},
+    {"kind":"tip","num":"②","head":"국민 누구나","body":"재직자든 무직자든 국민 누구나 발급 가능. 기간제·저소득·장애인·한부모 등은 100~200만원 더해져 500만원까지.","narration":"재직 중이든 무직이든 국민 누구나 발급받을 수 있어요. 기간제나 저소득, 장애인, 한부모 가정 같은 경우엔 100에서 200만원이 더 붙어서 최대 500만원이 됩니다."},
+    {"kind":"tip","num":"③","head":"이런 데 쓴다","body":"코딩·디자인·요리·자격증 등 다양한 국비 지원 과정에 사용. 이직·재취업·스펙업에 필수.","narration":"코딩, 디자인, 요리, 자격증 같은 다양한 국비 지원 과정에 쓸 수 있어요. 이직이나 재취업, 스펙업 준비할 때 필수 카드입니다."},
+    {"kind":"cta","narration":"이런 국비 지원·취업 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 배우고 싶을 때 꺼내 쓰세요."}
+  ]
+}

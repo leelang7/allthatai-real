@@ -1,0 +1,14 @@
+{
+  "topic": "오픈AI 상장 추진",
+  "title": "오픈AI 상장 추진! 기업가치 1100조",
+  "link": "https://real.allthatai.kr/tools/ai-stock/",
+  "tags": ["오픈AI", "OpenAI", "상장", "IPO", "챗GPT", "기업가치", "AI주식", "테크주", "샘올트먼", "빅테크", "테크뉴스", "인공지능", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic shot of a modern glass skyscraper from below against a blue sky with reflections, slow upward camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "IPO", "titleLines": ["오픈AI", "상장 추진!", "기업가치 1100조"], "highlightLine": 1, "narration": "챗GPT의 오픈AI가 상장을 추진합니다. 규모가 어마어마해요." },
+    { "kind": "tip", "num": "1", "head": "상장 서류 제출", "body": "오픈AI가 증권당국에 비공개 상장 서류를 제출했어요.", "narration": "첫째, 오픈AI가 미국 증권당국에 비공개 상장 서류를 제출했습니다." },
+    { "kind": "tip", "num": "2", "head": "기업가치 약 1100조", "body": "기업가치는 약 8520억 달러, 우리 돈 1100조원이 넘게 거론돼요.", "narration": "둘째, 기업가치는 약 8520억 달러, 우리 돈으로 1100조 원이 넘는 규모로 거론됩니다." },
+    { "kind": "tip", "num": "3", "head": "아직은 적자", "body": "다만 올해 적자가 140억 달러 전망, 흑자는 2029년 이후로 봐요.", "narration": "셋째, 다만 올해 적자가 140억 달러로 전망되며, 흑자 전환은 2029년 이후로 예상됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "AI 빅테크 흐름, 올댓에이아이 도구로 살펴보세요. 구독!" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "시골 한달살기 무료 숙소 월 30만원 지원",
+  "tags": ["한달살기", "농촌에서살아보기", "귀농귀촌", "무료숙소", "지역살이", "정부지원", "생활꿀팁", "여행꿀팁", "그린대로", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cozy Korean rural countryside village house with vegetable garden at golden hour, peaceful month-long stay mood, warm amber and teal accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["시골에서 한 달 살기","숙소 공짜 + 월 30만원","정부가 지원한다"],"highlightLine":1,"narration":"시골에서 한 달 살아보기, 숙소는 공짜에 월 30만원까지 받으면서요. 정부가 지원해주는 제도가 있습니다."},
+    {"kind":"tip","num":"①","head":"무료 숙소 + 월 30만원","body":"'농촌에서 살아보기'는 최대 6개월 무료 숙소 제공에 월 30만원 연수비까지. 마을 프로그램에 한 달 15일 이상 참여하면 받는다.","narration":"농촌에서 살아보기라는 사업인데요, 최대 6개월까지 숙소를 공짜로 주고 월 30만원 연수비도 줘요. 마을 프로그램에 한 달에 15일 이상만 참여하면 됩니다."},
+    {"kind":"tip","num":"②","head":"무직이어도 신청 OK","body":"귀농귀촌 플랫폼 '그린대로'에서 희망 마을 골라 신청(귀농형·귀촌형)하고 면접. 해당 광역시·도 밖 거주 만 19세 이상이면 가능, 무직이어도 된다.","narration":"신청은 그린대로라는 귀농귀촌 플랫폼에서 원하는 마을 골라서 하고 면접만 보면 돼요. 그 광역시도 밖에 살고 만 19세 이상이면 되고, 직업 없어도 신청 가능합니다."},
+    {"kind":"tip","num":"③","head":"지자체 한달살기도 따로","body":"이 외에도 강원·전남·경북 등 지자체별 한달살기가 따로 있어 숙박·체험비를 실비로 지원(대개 먼저 쓰고 영수증 내면 환급). 지역 공고나 '한달살러' 포털에서 확인.","narration":"이것 말고도 강원, 전남, 경북 같은 지자체마다 따로 한달살기가 있어서 숙박비랑 체험비를 실비로 지원해줘요. 보통 먼저 쓰고 영수증 내면 돌려주는 식이니, 지역 공고나 한달살러 같은 포털에서 확인하세요."},
+    {"kind":"cta","narration":"이런 지역살이·여행 지원 꿀정보는 프로필 링크에 싹 정리해놨어요. 저장해두고 하나씩 챙겨보세요."}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "topic": "근로장려금 신청",
+  "tags": ["근로장려금", "자녀장려금", "EITC", "정부지원금", "근로장려금신청", "홈택스", "국세청", "저소득지원", "현금지원", "반기신청", "재테크", "정부혜택", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of Korean won banknotes and a calculator on a wooden desk, warm office light, shallow depth of field, slow push-in camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "최대 285만원", "titleLines": ["일하면 주는 돈", "근로장려금", "최대 285만원"], "highlightLine": 1, "narration": "일하는데도 받을 수 있는 현금, 근로장려금 최대 285만 원 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "단독 165·홑벌이 285만원", "body": "단독가구 최대 165만원, 홑벌이 가구는 최대 285만원을 현금으로 줘요.", "narration": "첫째, 단독가구는 최대 165만 원, 홑벌이 가구는 최대 285만 원을 현금으로 지급합니다." },
+    { "kind": "tip", "num": "②", "head": "소득·재산 요건", "body": "단독 연 2200만원, 홑벌이 3200만원 미만. 재산은 2억4천만원 미만이면 돼요.", "narration": "둘째, 소득은 단독 2천 2백만 원, 홑벌이 3천 2백만 원 미만, 재산은 2억 4천만 원 미만이면 됩니다." },
+    { "kind": "tip", "num": "③", "head": "반기신청 9월 1일~15일", "body": "정기신청을 놓쳤어도 반기신청이나 기한 후 신청으로 받을 수 있어요.", "narration": "셋째, 정기신청을 놓쳤어도 9월 반기신청이나 기한 후 신청으로 받을 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내가 받을 수 있는지, 올댓에이아이에서 확인해 보세요." }
+  ]
+}

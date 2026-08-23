@@ -1,0 +1,13 @@
+{
+  "topic": "새 시리 강점은 아이폰 이해력 챗GPT 대체는 아니다",
+  "tags": ["애플", "시리", "SiriAI", "iOS27", "애플인텔리전스", "AI비서", "온디바이스", "아이폰", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a smartphone glowing with an assistant aura understanding its own screen contents, personal on-device assistant mood, cool teal and silver accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["새 시리의 진짜 강점","'아이폰 이해력'","챗GPT 대체는 아니다"],"highlightLine":1,"narration":"애플의 새 시리 AI, 베타 테스터들이 꼽은 진짜 강점은 아이폰을 잘 이해한다는 거예요. 단, 챗GPT 대체제는 아닙니다."},
+    {"kind":"tip","num":"①","head":"화면·개인 맥락을 읽는다","body":"새 시리는 지금 화면에 뭐가 있는지, 내 앱·일정·메시지 맥락을 이해해 앱을 넘나들며 작업한다. WWDC26에서 공개돼 iOS 27 베타로 풀렸다.","narration":"새 시리는 지금 화면에 뭐가 있는지, 내 앱이랑 일정, 메시지 맥락을 이해해서 앱을 넘나들며 작업해요. WWDC26에서 공개돼 iOS 27 베타로 풀렸습니다."},
+    {"kind":"tip","num":"②","head":"강점은 '내 폰' 안에서","body":"베타 테스터 평가: 세상 지식을 겨루는 챗봇이 아니라, 내 아이폰 안 정보와 앱을 잘 다루는 개인 비서에 가깝다는 것.","narration":"베타 테스터들 평가는, 세상 지식을 겨루는 챗봇이 아니라, 내 아이폰 안 정보랑 앱을 잘 다루는 개인 비서에 가깝다는 거였어요."},
+    {"kind":"tip","num":"③","head":"프론티어 AI와는 다른 길","body":"클로드·GPT 같은 첨단 모델을 대체하려는 게 아니라, 앱을 발견하고 조작하는 방식을 바꾸는 '애플식 AI'. 올가을 정식 탑재된다.","narration":"클로드나 GPT 같은 첨단 모델을 대체하려는 게 아니라, 앱을 발견하고 다루는 방식을 바꾸는 애플식 AI예요. 올가을 정식으로 탑재됩니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

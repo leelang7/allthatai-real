@@ -1,0 +1,13 @@
+{
+  "topic": "청년 운전면허 지원금 최대 50만원",
+  "tags": ["운전면허지원금", "청년지원", "면허학원", "지자체지원", "청년혜택", "생활꿀팁", "정부지원", "면허따기", "청년정책", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "driving school car and steering wheel on an empty practice course at golden hour, getting a license concept, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"청년 꿀팁","titleLines":["운전면허 딸 때","최대 50만원 지원받는다","청년이면 확인"],"highlightLine":1,"narration":"운전면허 딸 때 최대 50만원까지 지원받는 거 아세요? 청년이면 꼭 확인하세요."},
+    {"kind":"tip","num":"①","head":"5만원부터 50만원","body":"지자체마다 운전면허 취득비를 최소 5만원부터 최대 50만원까지 지원. 응시료·학원비 부담을 덜어준다.","narration":"지자체마다 운전면허 취득 비용을 적게는 5만원, 많게는 50만원까지 지원해줘요. 응시료랑 학원비 부담을 덜어주는 거죠."},
+    {"kind":"tip","num":"②","head":"지역마다 다르다","body":"서울은 자치구별 5~20만원, 경기는 최대 30만원, 성남은 취약계층 실구매의 60%까지. 금액·나이 기준이 지역마다 다르다.","narration":"서울은 자치구별로 5에서 20만원, 경기는 최대 30만원, 성남은 취약계층한테 실구매 비용의 60%까지 줘요. 금액이랑 나이 기준은 지역마다 다릅니다."},
+    {"kind":"tip","num":"③","head":"먼저 내고 환급","body":"본인이 먼저 결제해 면허 따고 서류 내면 환급되는 구조. 예산 선착순이라 공고 뜨면 바로. 거주지 청년포털에서 확인.","narration":"내가 먼저 결제해서 면허를 따고, 서류를 내면 돌려받는 구조예요. 예산이 선착순이라 공고 뜨면 바로 신청해야 하고, 거주지 청년포털에서 확인하세요."},
+    {"kind":"cta","narration":"이런 청년·생활 지원 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 하나씩 챙기세요."}
+  ]
+}

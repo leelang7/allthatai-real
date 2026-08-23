@@ -1,0 +1,13 @@
+{
+  "topic": "구글 AI 수뇌부 동시 이탈 딥마인드 수장도 물러난다",
+  "tags": ["구글", "딥마인드", "허사비스", "제프딘", "AI리더십", "알파벳", "조직개편", "제미나이", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI research empire losing two towering leaders at once in a reshuffle, leadership shakeup mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["구글 AI 수뇌부","동시 이탈","딥마인드 수장도"],"highlightLine":1,"narration":"구글 AI의 두 기둥이 동시에 자리를 옮겨요. 수석과학자 제프 딘은 퇴사, 딥마인드 CEO 허사비스는 경영 일선에서 물러납니다."},
+    {"kind":"tip","num":"①","head":"허사비스, 경영서 물러난다","body":"딥마인드 CEO 데미스 허사비스가 딥마인드 회장 겸 알파벳 수석과학자로. '큰 그림에 집중하기 위해 일상 운영을 넘긴다'고 밝혔다.","narration":"딥마인드 CEO 데미스 허사비스가 딥마인드 회장 겸 알파벳 수석과학자로 자리를 옮겨요. 큰 그림에 집중하려고 일상 운영은 넘긴다고 밝혔습니다."},
+    {"kind":"tip","num":"②","head":"제프 딘은 아예 퇴사","body":"27년 몸담은 수석과학자 제프 딘은 퇴사해 과학 자동화 스타트업 '디스커버리 루프'를 창업. 딥마인드가 CEO와 수석과학자를 동시에 잃었다.","narration":"27년 몸담은 수석과학자 제프 딘은 아예 퇴사해서, 과학 자동화 스타트업 디스커버리 루프를 창업해요. 딥마인드가 CEO랑 수석과학자를 동시에 잃은 겁니다."},
+    {"kind":"tip","num":"③","head":"왜 지금?","body":"딥마인드 CTO였던 코라이 카북추오글루가 SVP로 피차이에 직접 보고. 차세대 제미나이가 아직인 가운데 오픈AI·앤트로픽과의 경쟁 압박이 배경.","narration":"딥마인드 CTO였던 코라이 카북추오글루가 수석부사장으로 피차이에게 직접 보고해요. 차세대 제미나이가 아직인 가운데, 오픈AI랑 앤트로픽과의 경쟁 압박이 배경입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

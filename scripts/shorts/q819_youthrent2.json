@@ -1,0 +1,54 @@
+{
+  "topic": "청년월세 특별지원 월 20만원 받는 법",
+  "tags": [
+    "청년월세",
+    "월세지원",
+    "청년",
+    "복지로",
+    "무주택",
+    "주거비",
+    "생활꿀팁",
+    "정부지원",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a young renter receiving monthly housing support, warm gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "월세 내기 빠듯하다면",
+        "청년월세 특별지원",
+        "최대 월 20만원"
+      ],
+      "highlightLine": 1,
+      "narration": "무주택 청년에게 월세를 지원하는 제도가 있어요. 최대 월 20만원까지 받습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "최대 24개월 지원",
+      "body": "만 19~34세 무주택 청년에게 실제 납부한 임차료를 월 최대 20만원까지, 최대 24개월 나눠 지원한다.",
+      "narration": "만 19세에서 34세 무주택 청년에게 실제 낸 임차료를 월 최대 20만원까지, 최대 24개월 나눠서 지원해요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "보증금·월세 기준 확인",
+      "body": "보증금과 월세 상한, 청년 본인과 원가구의 소득·재산 기준이 있다. 기준은 해마다 조정되니 올해 공고를 봐야 한다.",
+      "narration": "보증금이랑 월세 상한, 청년 본인과 원가구의 소득·재산 기준이 있어요. 기준은 해마다 조정되니까 올해 공고를 봐야 합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "복지로에서 신청",
+      "body": "복지로 누리집이나 앱, 주소지 주민센터에서 신청한다. 임대차계약서와 월세 이체 증빙을 미리 준비하면 빠르다.",
+      "narration": "복지로 누리집이나 앱, 주소지 주민센터에서 신청해요. 임대차계약서랑 월세 이체 증빙을 미리 준비하면 빠릅니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

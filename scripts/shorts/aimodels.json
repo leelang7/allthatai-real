@@ -1,0 +1,13 @@
+{
+  "topic": "2026 최강 AI 모델",
+  "link": "https://real.allthatai.kr/tools/",
+  "tags": ["AI모델", "챗GPT", "클로드", "제미나이", "GPT5", "Claude", "Gemini", "생성형AI", "AI비교", "AI추천", "인공지능", "테크뉴스", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic shot of a futuristic glowing blue neural network hologram floating in a dark room, soft light particles, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "4파전", "titleLines": ["2026", "최강 AI는", "누구?"], "highlightLine": 1, "narration": "2026년 최강 AI 모델은 누구인지, 지금 판도를 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "클로드 종합 1위", "body": "앤스로픽 클로드 오푸스 4.8이 6월 기준 종합 1위, 특히 코딩에서 최강이에요.", "narration": "첫째, 앤스로픽의 클로드 오푸스 4.8이 6월 기준 종합 1위, 특히 코딩에서 최고로 꼽힙니다." },
+    { "kind": "tip", "num": "2", "head": "제미나이·GPT 추격", "body": "구글 제미나이 3.5가 공개됐고, 오픈AI는 GPT-5.6 출시가 임박했어요.", "narration": "둘째, 구글 제미나이 3.5가 공개됐고, 오픈AI는 GPT-5.6 출시가 임박했습니다." },
+    { "kind": "tip", "num": "3", "head": "용도별로 갈아타기", "body": "코딩·글쓰기·검색 등 용도마다 강한 모델이 달라요. 섞어 쓰는 게 정답.", "narration": "셋째, 코딩·글쓰기·검색마다 강한 모델이 다르니 용도별로 갈아타며 쓰는 게 정답입니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "분야별 AI 도구, 올댓에이아이에서 골라 쓰세요. 구독!" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "AI 프로젝트에 180만달러 태웠다 아마존 5개월 몰랐다",
+  "tags": ["아마존", "AI비용", "생성AI", "비용초과", "AI스티커쇼크", "토큰과금", "빅테크", "AI실패", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a burning pile of money over runaway AI compute meters, budget overrun shock mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["AI 프로젝트 하나에","180만 달러 태우고","5개월을 몰랐다"],"highlightLine":1,"narration":"아마존이 AI 프로젝트 하나에 180만 달러, 우리 돈 약 25억원을 태우고도 5개월이나 몰랐대요. 빅테크의 AI 비용 쇼크가 현실이 됐습니다."},
+    {"kind":"tip","num":"①","head":"예산 860% 초과, 결국 폐기","body":"내부 문서에 따르면 한 AI 프로젝트가 예산을 860% 초과한 180만 달러를 쓰고도 출시조차 못 했다. 세 프로젝트 합쳐 250만 달러가 새어나갔다.","narration":"내부 문서를 보면, 한 AI 프로젝트가 예산을 860퍼센트나 초과한 180만 달러를 쓰고도 출시조차 못 했어요. 세 프로젝트 합쳐 250만 달러가 새어나갔습니다."},
+    {"kind":"tip","num":"②","head":"범인은 토큰 과금","body":"정액 구독이 아니라 처리량(토큰)만큼 돈을 매기는 방식이라, 작업이 예상보다 많이 돌면 비용이 순식간에 폭발한다.","narration":"정해진 구독료가 아니라, 처리한 양만큼 돈을 매기는 토큰 과금이 문제였어요. 작업이 예상보다 많이 돌면 비용이 순식간에 폭발하는 구조입니다."},
+    {"kind":"tip","num":"③","head":"AI는 이제 비용 관리가 실력","body":"아마존은 프로젝트가 쓸 수 있는 돈에 자동 상한을 거는 가드레일을 만들고 있다. AI를 잘 쓰는 것만큼 비용을 통제하는 게 실력인 시대.","narration":"아마존은 이제 프로젝트가 쓸 수 있는 돈에 자동 상한을 거는 장치를 만들고 있어요. AI를 잘 쓰는 것만큼, 비용을 통제하는 게 실력인 시대입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "삼성 AI 글래스 나온다 메타 독주 흔들까",
+  "tags": ["삼성", "AI글래스", "스마트글래스", "갤럭시글래스", "메타", "안드로이드XR", "제미나이", "웨어러블", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "sleek futuristic AI smart glasses on a display pedestal with glowing lens HUD, premium wearable tech mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["안경으로 AI 쓴다","삼성 AI 글래스","메타 독주 흔들까"],"highlightLine":1,"narration":"이제 안경 쓰고 AI를 부린다? 삼성이 AI 글래스를 공개하며 메타 독주에 도전장을 냈어요."},
+    {"kind":"tip","num":"①","head":"삼성+구글 안드로이드XR","body":"구글 I/O 2026에서 최초 공개, 올 하반기 출시 예정. 삼성이 하드웨어·갤럭시 연결, 구글이 제미나이 AI와 안드로이드 XR을 맡는다.","narration":"구글 I/O에서 처음 공개됐고 올 하반기 출시 예정이에요. 삼성이 하드웨어랑 갤럭시 연결을, 구글이 제미나이 AI랑 안드로이드 XR을 맡습니다."},
+    {"kind":"tip","num":"②","head":"메타가 시장 70% 독식","body":"지금 스마트글래스 시장은 메타가 약 70%를 쥐고 있다. 삼성은 레이밴 메타(48~52g)보다 가벼운 무게를 내세워 추격.","narration":"지금 스마트글래스 시장은 메타가 약 70퍼센트를 독식하고 있어요. 삼성은 메타 레이밴보다 가벼운 무게를 앞세워 따라잡으려 합니다."},
+    {"kind":"tip","num":"③","head":"젠틀몬스터·워비파커 협업","body":"디자인은 젠틀몬스터, 워비파커 등과 협업해 총 4종 공개. 포스트 스마트폰을 노린 웨어러블 경쟁이 본격화.","narration":"디자인은 젠틀몬스터랑 워비파커 같은 브랜드와 협업해서 4종을 공개했어요. 스마트폰 다음을 노린 웨어러블 경쟁이 본격화된 겁니다."},
+    {"kind":"cta","narration":"이런 AI·테크 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

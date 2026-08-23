@@ -1,0 +1,13 @@
+{
+  "topic": "오픈AI 떠난 무라티의 첫 AI 공개 975B 잉클링",
+  "tags": ["무라티", "싱킹머신즈", "잉클링", "Inkling", "오픈웨이트", "MoE", "AI스타트업", "LLM", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a newly unveiled glowing AI model core from an ambitious young lab, first model reveal mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["오픈AI 떠난 무라티","첫 AI 공개","975B 잉클링"],"highlightLine":1,"narration":"오픈AI를 떠난 미라 무라티 전 CTO가 세운 스타트업이, 드디어 첫 AI 모델을 공개했어요. 이름은 잉클링입니다."},
+    {"kind":"tip","num":"①","head":"누구나 받는 오픈웨이트","body":"싱킹 머신즈 랩이 9750억 파라미터 오픈웨이트 MoE 모델을 공개. 45조 토큰으로 밑바닥부터 학습했고, 누구나 내려받아 쓸 수 있다.","narration":"싱킹 머신즈 랩이 9750억 파라미터 오픈웨이트 모델을 공개했어요. 45조 토큰으로 밑바닥부터 학습했고, 누구나 내려받아 쓸 수 있습니다."},
+    {"kind":"tip","num":"②","head":"추론·코딩은 최상위권","body":"수학 AIME 97점, 코딩 SWE-벤치 77점 등 추론·코딩에서 강력한 성능. 작은 버전 '잉클링-스몰'도 함께 공개됐다.","narration":"수학 벤치에서 97점, 코딩 벤치에서 77점 등 추론이랑 코딩에서 강력한 성능을 보였어요. 더 작은 버전인 잉클링 스몰도 함께 공개됐습니다."},
+    {"kind":"tip","num":"③","head":"약점은 '헛소리'","body":"다만 사실 정확도가 약점으로, 환각률이 63%에 달했다. 미국 랩 중엔 앞서지만 중국 최상위 모델엔 뒤진다는 평가.","narration":"다만 사실 정확도가 약점인데, 환각률이 63퍼센트에 달했어요. 미국 랩 중에선 앞서지만, 중국 최상위 모델엔 뒤진다는 평가입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

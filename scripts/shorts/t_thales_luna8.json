@@ -1,0 +1,13 @@
+{
+  "topic": "탈레스 루나8 양자컴 시대 대비 암호보안 모듈",
+  "tags": ["탈레스", "루나8", "HSM", "양자내성암호", "PQC", "양자컴퓨팅", "보안", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract quantum-resistant cryptography concept, glowing shield and secure key vault over a quantum lattice on a dark premium background, cool blue and cyan accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["지금 훔쳐서","나중에 양자컴으로 푼다","탈레스 루나8 대비"],"highlightLine":1,"narration":"지금 데이터를 훔쳐뒀다가 미래 양자컴퓨터로 푸는 공격, 여기에 대비한 보안 장비가 나왔어요."},
+    {"kind":"tip","num":"①","head":"암호키 지키는 HSM","body":"암호화 키를 보호·관리하는 차세대 하드웨어 보안모듈. 자체 암호 프로세서로 처리 성능을 기존 대비 대폭 끌어올렸다.","narration":"암호화 키를 지키고 관리하는 차세대 하드웨어 보안모듈이에요. 자체 암호 프로세서로 처리 성능을 기존보다 대폭 끌어올렸습니다."},
+    {"kind":"tip","num":"②","head":"양자내성암호(PQC) 지원","body":"지금 훔친 데이터를 미래 양자컴으로 해독하는 공격이 늘어, 양자내성암호를 지원한다. 이미 기업 59%가 PQC 시제품을 만들고 있다.","narration":"지금 훔친 데이터를 나중에 양자컴으로 푸는 공격이 늘고 있어서, 양자내성암호를 지원해요. 이미 기업의 59%가 관련 시제품을 만들고 있습니다."},
+    {"kind":"tip","num":"③","head":"데이터센터·금융으로 확대","body":"전자서명·인증서가 필요한 기업과 하이퍼스케일 데이터센터가 대상. 앞으로 금융 결제 보호로 확대되고, 기존 앱 변경 없이 옮길 수 있다.","narration":"전자서명이나 인증서가 필요한 기업, 대형 데이터센터가 주 대상이에요. 앞으로 금융 결제 보호로 확대되고, 기존 앱을 안 바꾸고도 옮길 수 있습니다."},
+    {"kind":"cta","narration":"보안과 AI 기술 흐름, 프로필 링크에서 최신 소식 확인해보세요."}
+  ]
+}

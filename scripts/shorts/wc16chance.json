@@ -1,0 +1,14 @@
+{
+  "topic": "한국 16강 확률 전망",
+  "title": "한국 32강 넘어 16강 확률은? 데이터 공개",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "한국축구", "16강확률", "32강진출", "16강경우의수", "와일드카드", "대한민국축구", "북중미월드컵", "국가대표", "축구", "월드컵중계", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, hopeful dramatic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "데이터 전망", "titleLines": ["한국 32강 다음", "16강 확률", "공개"], "highlightLine": 1, "narration": "한국이 32강을 넘어 16강에 갈 확률, 데이터 전망을 공개합니다." },
+    { "kind": "tip", "num": "1", "head": "32강 87.8%", "body": "한국의 32강 진출 확률은 약 87.8%로 사실상 유력해요.", "narration": "첫째, 한국의 32강 진출 확률은 약 87.8퍼센트로 사실상 유력합니다." },
+    { "kind": "tip", "num": "2", "head": "16강 35.5%", "body": "그다음 16강까지 갈 확률은 약 35.5%로 전망돼요.", "narration": "둘째, 그다음 16강까지 갈 확률은 약 35.5퍼센트로 전망됩니다." },
+    { "kind": "tip", "num": "3", "head": "8강 12%·4강 3%", "body": "8강은 약 12%, 4강은 약 3%. 한 경기 한 경기가 중요해요.", "narration": "셋째, 8강은 약 12퍼센트, 4강은 약 3퍼센트로, 한 경기 한 경기가 중요합니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "topic": "K패스 모두의카드",
+  "tags": ["K패스", "케이패스", "모두의카드", "교통비", "대중교통", "교통비환급", "지하철", "버스", "교통카드", "환급", "알뜰교통카드", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot inside a bright modern subway station with a train arriving, commuters walking, warm light, gentle motion blur, slow smooth camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "교통비 환급", "titleLines": ["교통비", "무제한 환급", "모두의 카드"], "highlightLine": 1, "narration": "2026년부터 교통비를 무제한 환급받는 모두의 카드, 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "초과분 100% 환급", "body": "기존 K패스는 비율 환급. 모두의 카드는 기준금액 초과분을 전액 돌려줘요.", "narration": "첫째, 기존 K패스는 비율로 돌려줬지만, 모두의 카드는 기준금액을 넘는 교통비를 100퍼센트 환급합니다." },
+    { "kind": "tip", "num": "②", "head": "기준 6.2만~10만원", "body": "일반형은 월 6만2천원, 플러스형은 10만원. 그 초과분이 무제한 환급돼요.", "narration": "둘째, 일반형은 월 6만 2천 원, 플러스형은 10만 원. 그걸 넘는 교통비가 무제한 환급됩니다." },
+    { "kind": "tip", "num": "③", "head": "월 15회 이상", "body": "월 15회 이상 대중교통 이용. 기존 K패스 쓰던 사람은 자동 적용돼요.", "narration": "셋째, 월 15회 이상 타면 되고, 기존 K패스 이용자는 별도 신청 없이 자동 적용됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "놓치기 쉬운 교통비 환급, 올댓에이아이에서 챙기세요." }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "AI는 일자리보다 월급을 흔든다 연구",
+  "tags": ["AI일자리", "AI임금", "직장인", "노동시장", "AI위협", "임금압박", "커리어", "AI시대", "월급", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "office worker at a crossroads between opportunity and pressure, AI-era labor mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"커리어 인사이트","titleLines":["AI가 뺏는 건","일자리가 아니라","당신의 월급?"],"highlightLine":1,"narration":"AI가 내 일자리를 통째로 없앤다? 연구는 더 현실적인 위협을 가리켜요. 바로 월급 압박입니다."},
+    {"kind":"tip","num":"①","head":"AI 다루면 25% 더 받는다","body":"AI 역량을 갖춘 노동자는 그렇지 않은 동료보다 평균 25% 높은 임금을 받는다는 연구. 기술 격차가 곧 임금 격차가 되고 있다.","narration":"AI를 다룰 줄 아는 노동자는 그렇지 않은 사람보다 평균 25퍼센트 더 높은 임금을 받아요. 기술 격차가 곧 임금 격차가 되는 겁니다."},
+    {"kind":"tip","num":"②","head":"위협은 반복 과업에 있다","body":"AI가 위협하는 건 직업 이름이 아니라 반복 업무에 갇힌 노동. 소프트웨어·고객서비스·금융 같은 인지 업무일수록 노출도가 높다.","narration":"AI가 위협하는 건 직업 이름이 아니라, 반복 업무에 갇힌 일이에요. 소프트웨어나 고객서비스, 금융처럼 머리 쓰는 사무 업무일수록 영향이 큽니다."},
+    {"kind":"tip","num":"③","head":"더 빨리 하라는 압박","body":"AI가 일을 줄여주는 대신 AI로 더 많이, 더 빨리 하라는 압박이 생긴다. 결국 AI를 내 편으로 쓰는 사람이 살아남는다.","narration":"AI가 일을 줄여주는 대신, AI로 더 많이 더 빨리 하라는 압박이 생겨요. 결국 AI를 내 무기로 쓰는 사람이 살아남는 거죠."},
+    {"kind":"cta","narration":"AI를 내 편으로 만드는 실전 도구는 프로필 링크에 정리해놨어요. 저장해두고 써먹으세요."}
+  ]
+}

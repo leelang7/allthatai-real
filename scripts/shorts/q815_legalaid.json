@@ -1,0 +1,54 @@
+{
+  "topic": "변호사비 없어도 되는 법률구조공단",
+  "tags": [
+    "법률구조공단",
+    "무료법률상담",
+    "변호사",
+    "소송",
+    "132",
+    "법률지원",
+    "생활법률",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a legal scale with an open door for citizens, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "돈 없어서 못 싸운다?",
+        "법률구조공단",
+        "상담은 무료"
+      ],
+      "highlightLine": 1,
+      "narration": "억울한 일이 있어도 변호사비 때문에 포기하지 마세요. 무료 상담부터 받을 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "전화 132 무료 상담",
+      "body": "대한법률구조공단은 전화 132로 무료 법률상담을 제공한다. 방문 상담과 사이버 상담도 가능하다.",
+      "narration": "대한법률구조공단은 전화 132번으로 무료 법률상담을 제공해요. 방문 상담과 사이버 상담도 가능합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "소송 대리까지 지원",
+      "body": "일정 요건을 충족하면 소송 서류 작성이나 변호사 소송 대리까지 지원받을 수 있다. 대상과 부담 비용은 사건 유형과 소득에 따라 다르다.",
+      "narration": "일정 요건을 충족하면 소송 서류 작성이나 변호사 소송 대리까지 지원받을 수 있어요. 대상과 부담 비용은 사건 유형과 소득에 따라 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "임금체불·임대차에 특히",
+      "body": "임금 체불, 전월세 보증금, 가족 문제 같은 생활 밀착 분쟁에서 많이 활용된다. 혼자 끙끙 앓기 전에 상담부터 받아보자.",
+      "narration": "임금 체불이나 전월세 보증금, 가족 문제 같은 생활 밀착 분쟁에서 많이 활용돼요. 혼자 끙끙 앓기 전에 상담부터 받아보세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

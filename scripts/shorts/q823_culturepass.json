@@ -1,0 +1,54 @@
+{
+  "topic": "서울청년문화패스 이제 24세도 받는다",
+  "tags": [
+    "서울청년문화패스",
+    "청년",
+    "공연",
+    "전시",
+    "문화바우처",
+    "서울시",
+    "생활꿀팁",
+    "혜택",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a young person entering a concert hall with a culture voucher, cinematic photography with shallow depth of field, symmetrical centered composition, calm balance, dark moody background, rim lighting, forest green and warm brass accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "공연·전시 보고 싶은데",
+        "서울청년문화패스",
+        "대상이 넓어졌다"
+      ],
+      "highlightLine": 1,
+      "narration": "서울 청년에게 공연·전시 관람비를 지원하는 문화패스 대상이 넓어졌어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "공연·전시 관람에 사용",
+      "body": "서울에 사는 청년에게 연극, 뮤지컬, 클래식, 전시 같은 문화예술 관람비를 지원한다. 지정된 예매처에서 바우처로 쓴다.",
+      "narration": "서울에 사는 청년에게 연극이나 뮤지컬, 클래식, 전시 같은 문화예술 관람비를 지원해요. 지정된 예매처에서 바우처로 씁니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "연령 범위 확대",
+      "body": "기존보다 대상 연령이 넓어져 24세 이상도 이용할 수 있게 됐다. 해마다 대상과 금액이 조정되니 올해 공고를 확인해야 한다.",
+      "narration": "기존보다 대상 연령이 넓어져서 24세 이상도 이용할 수 있게 됐어요. 해마다 대상이랑 금액이 조정되니까 올해 공고를 확인해야 합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "서울시 누리집에서 신청",
+      "body": "예산 범위에서 선착순 또는 추첨으로 진행된다. 서울시·청년몽땅정보통에서 모집 일정을 확인하고 미리 신청하자.",
+      "narration": "예산 범위에서 선착순이나 추첨으로 진행돼요. 서울시나 청년몽땅정보통에서 모집 일정을 확인하고 미리 신청하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

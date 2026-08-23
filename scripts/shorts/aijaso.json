@@ -1,0 +1,14 @@
+{
+  "topic": "AI 자소서 작성",
+  "title": "AI로 자소서 10분 완성하는 법",
+  "link": "https://real.allthatai.kr/tools/ai-jaso/",
+  "tags": ["자소서", "자기소개서", "AI자소서", "취업준비", "취준생", "자소서첨삭", "자소서작성", "chatGPT자소서", "면접", "취업꿀팁", "이직", "AI활용", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a person typing on a laptop at a clean desk with a notebook and coffee, warm focused light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "10분 완성", "titleLines": ["AI로 자소서", "10분 완성", "하는 법"], "highlightLine": 1, "narration": "막막한 자소서, AI로 10분 만에 초안 잡는 법을 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "내 경험부터 입력", "body": "내 활동·경험·역량을 키워드로 적어주면 AI가 문장으로 엮어줘요.", "narration": "첫째, 내 활동과 경험, 역량을 키워드로 적어주면 AI가 문장으로 엮어줍니다." },
+    { "kind": "tip", "num": "2", "head": "회사·직무 맞춤", "body": "지원 회사와 직무를 알려주면 그에 맞춰 강조점을 바꿔줘요.", "narration": "둘째, 지원 회사와 직무를 알려주면 그에 맞춰 강조할 부분을 바꿔줍니다." },
+    { "kind": "tip", "num": "3", "head": "초안 뒤엔 내 말로", "body": "AI 초안은 뼈대로 쓰고, 마지막은 내 경험·말투로 다듬어야 진짜예요.", "narration": "셋째, AI 초안은 뼈대로 쓰고 마지막은 내 경험과 말투로 다듬어야 진짜가 됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "자소서 초안, 올댓에이아이 AI로 바로 만들어 보세요. 구독!" }
+  ]
+}

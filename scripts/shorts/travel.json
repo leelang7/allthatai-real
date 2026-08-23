@@ -1,0 +1,14 @@
+{
+  "topic": "여름 휴가 여행 꿀팁",
+  "title": "여름 휴가 여행, 돈 아끼는 3가지",
+  "link": "https://real.allthatai.kr/tools/ai-travel/",
+  "tags": ["여름휴가", "휴가여행", "여행꿀팁", "항공권", "숙소예약", "여행경비", "성수기", "해외여행", "국내여행", "여행준비", "여행자보험", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of an open travel suitcase with neatly packed clothes and a sun hat on a bed near a window with bright summer light, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "성수기 주의", "titleLines": ["여름 휴가 여행", "돈 아끼는", "3가지"], "highlightLine": 1, "narration": "여름 휴가 여행, 돈 아끼는 방법 3가지를 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "항공·숙소 미리", "body": "성수기는 미리 예약할수록 싸요. 출발일을 하루만 옮겨도 확 내려가요.", "narration": "첫째, 성수기는 미리 예약할수록 싸고, 출발일을 하루만 옮겨도 가격이 확 내려갑니다." },
+    { "kind": "tip", "num": "2", "head": "비교는 필수", "body": "항공·숙소·렌터카는 여러 곳을 비교하고 쿠폰·적립을 챙겨요.", "narration": "둘째, 항공과 숙소, 렌터카는 여러 곳을 비교하고 쿠폰과 적립을 챙기세요." },
+    { "kind": "tip", "num": "3", "head": "여행자보험 챙기기", "body": "해외라면 여행자보험은 필수. 의료비·휴대품 사고를 대비해요.", "narration": "셋째, 해외라면 여행자보험은 필수로, 의료비와 휴대품 사고를 대비하세요." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "여행 계획, 올댓에이아이 AI 도구로 짜보세요. 구독!" }
+  ]
+}

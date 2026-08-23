@@ -1,0 +1,54 @@
+{
+  "topic": "제미나이 3.7 플래시 가격 반값으로 나왔다",
+  "tags": [
+    "구글",
+    "제미나이",
+    "플래시",
+    "API",
+    "AI비용",
+    "코딩AI",
+    "에이전트",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a fast AI model chip with a price tag cut in half, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "3주 만에 후속 모델",
+        "제미나이 3.7 플래시",
+        "가격은 절반"
+      ],
+      "highlightLine": 2,
+      "narration": "구글이 제미나이 3.7 플래시를 내놨어요. 3주 전 모델보다 성능은 올리고 가격은 절반입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "입력 100만 토큰 0.75달러",
+      "body": "출시가는 입력 100만 토큰당 0.75달러, 출력 3.75달러로 직전 3.6 플래시 출시가의 절반이다. 코딩과 에이전트 작업을 겨냥했다.",
+      "narration": "출시가는 입력 100만 토큰당 0.75달러, 출력은 3.75달러로 직전 3.6 플래시 출시가의 절반이에요. 코딩이랑 에이전트 작업을 겨냥했습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "반값은 연말까지",
+      "body": "이 가격은 2026년 말까지고, 2027년 1월부터는 입력 1.5달러·출력 7.5달러로 두 배가 된다. 사실상 도입 유도용 할인이다.",
+      "narration": "이 가격은 2026년 말까지고, 2027년 1월부터는 입력 1.5달러, 출력 7.5달러로 두 배가 돼요. 사실상 도입 유도용 할인입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "3주 만에 세대교체",
+      "body": "3.6 플래시가 나온 지 3주 만의 후속작. 구글 AI 스튜디오와 제미나이 API, 기업용 플랫폼에서 바로 쓸 수 있다.",
+      "narration": "3.6 플래시가 나온 지 3주 만의 후속작이에요. 구글 AI 스튜디오랑 제미나이 API, 기업용 플랫폼에서 바로 쓸 수 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

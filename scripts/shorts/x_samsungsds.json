@@ -1,0 +1,13 @@
+{
+  "topic": "삼성SDS 2분기 3.7조 대외 클라우드 75% 폭풍",
+  "tags": ["삼성SDS", "실적발표", "클라우드", "GPUaaS", "AI인프라", "국내주식", "물류", "첼로스퀘어", "IT서비스", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "enterprise cloud and logistics data flow network, korean IT company growth mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["삼성SDS 2분기 3.7조","대외 클라우드 75%↑","AI 인프라가 밀었다"],"highlightLine":1,"narration":"삼성SDS가 2분기 매출 3조7천억을 냈어요. 특히 남한테 파는 클라우드가 75퍼센트나 뛰었습니다."},
+    {"kind":"tip","num":"①","head":"매출 3.7조·영업익 2318억","body":"2분기 매출 3조7178억원으로 전년比 5.9% 증가, 영업이익 2318억원. 클라우드와 물류가 쌍끌이했다.","narration":"2분기 매출이 3조7178억원으로 1년 전보다 5.9퍼센트 늘었고, 영업이익은 2318억원이에요. 클라우드랑 물류가 같이 끌었습니다."},
+    {"kind":"tip","num":"②","head":"AI 인프라 수요가 핵심","body":"클라우드가 17% 성장한 7794억, 그중 대외 매출이 75% 급증. 공공·기업의 GPU 임대(GPUaaS)와 삼성 클라우드 수요가 컸다.","narration":"클라우드가 17퍼센트 성장한 7794억인데, 남한테 파는 대외 매출이 75퍼센트나 급증했어요. 공공이랑 기업의 GPU 임대, 이른바 GPUaaS 수요가 컸습니다."},
+    {"kind":"tip","num":"③","head":"물류도 첼로스퀘어로 성장","body":"물류 부문도 6.6% 늘어 1조9553억. 항공 포워딩과 첼로스퀘어 대외 사업이 성장을 받쳤다.","narration":"물류 부문도 6.6퍼센트 늘어 1조9553억이에요. 항공 포워딩이랑 첼로스퀘어 대외 사업이 성장을 받쳤습니다."},
+    {"kind":"cta","narration":"이 종목 지금 어떨까요? 프로필 링크 AI 주식 분석에 종목명 넣으면 매수·매도·목표가까지 정리해줍니다."}
+  ]
+}

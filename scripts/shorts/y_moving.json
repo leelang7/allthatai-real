@@ -1,0 +1,13 @@
+{
+  "topic": "청년 이사비 지원 최대 40만원 서울 경기",
+  "tags": ["청년이사비", "이사비지원", "중개보수", "청년주거", "무주택청년", "서울청년", "경기청년", "정부지원", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "moving day scene with cardboard boxes in an empty bright apartment, youth moving concept, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"청년 꿀팁","titleLines":["이사할 때","이사비·중개비 40만원 지원","청년 무주택이면"],"highlightLine":1,"narration":"청년이 이사할 때 이사비랑 중개비를 지원받을 수 있어요. 무주택 청년이면 챙기세요."},
+    {"kind":"tip","num":"①","head":"서울 40만·경기 50만","body":"서울은 청년에게 이사비·부동산 중개보수를 1인당 최대 40만원까지 지원. 경기는 최대 50만원 실비로 보전한다.","narration":"서울은 청년한테 이사비랑 부동산 중개보수를 1인당 최대 40만원까지 지원해요. 경기도는 최대 50만원까지 실비로 보전해주고요."},
+    {"kind":"tip","num":"②","head":"대상 조건","body":"만 19~39세, 중위소득 150% 이하, 전·월세 무주택 청년. 전세사기 피해·가족돌봄·청소년 부모는 우선 선발.","narration":"만 19세에서 39세, 중위소득 150% 이하, 전월세 무주택 청년이 대상이에요. 전세사기 피해자나 가족돌봄 청년은 우선 뽑아줍니다."},
+    {"kind":"tip","num":"③","head":"청년몽땅정보통에서","body":"서울은 '청년몽땅정보통'에서 온라인으로만 신청. 상·하반기 나눠 모집하니 공고 시기 꼭 확인. 예산 선착순.","narration":"서울은 청년몽땅정보통에서 온라인으로만 신청돼요. 상반기, 하반기 나눠서 모집하니까 공고 시기를 꼭 확인하고, 예산 선착순인 점 기억하세요."},
+    {"kind":"cta","narration":"이런 청년 주거·생활 지원은 프로필 링크에 정리해놨어요. 저장해두고 이사 전에 챙기세요."}
+  ]
+}

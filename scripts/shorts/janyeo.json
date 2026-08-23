@@ -1,0 +1,12 @@
+{
+  "topic": "자녀장려금",
+  "tags": ["자녀장려금", "근로장려금", "양육지원", "정부지원금", "자녀장려금신청", "홈택스", "국세청", "육아지원", "현금지원", "저소득지원", "출산육아", "정부혜택", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic warm shot of a happy family with two young children at home, sunlight through window, a savings jar with coins on the table, slow gentle camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "자녀당 100만원", "titleLines": ["아이 키우면", "자녀장려금", "1명당 100만원"], "highlightLine": 1, "narration": "아이를 키우면 받는 자녀장려금, 자녀 1명당 최대 100만 원 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "자녀 1명당 최대 100만원", "body": "부양 자녀 한 명당 최대 100만원을 현금으로 지급해요.", "narration": "첫째, 부양 자녀 한 명당 최대 100만 원을 현금으로 지급합니다." },
+    { "kind": "tip", "num": "②", "head": "소득 7천만원 미만", "body": "홑벌이·맞벌이 모두 연소득 7천만원 미만이면 받을 수 있어요.", "narration": "둘째, 홑벌이든 맞벌이든 연소득 7천만 원 미만이면 받을 수 있습니다." },
+    { "kind": "tip", "num": "③", "head": "근로장려금과 함께", "body": "근로장려금을 신청할 때 자녀장려금도 같이 신청하면 돼요.", "narration": "셋째, 근로장려금을 신청할 때 자녀장려금도 함께 신청하면 됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "우리 집이 대상인지, 올댓에이아이에서 확인해 보세요." }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "딥시크가 로봇에 투자했다 휴머노이드 두뇌 만든다",
+  "tags": ["딥시크", "유니트리", "휴머노이드", "로봇AI", "피지컬AI", "중국AI", "로봇두뇌", "임베디드AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI brain being installed into a humanoid robot, embodied ai robot brain mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["딥시크가","로봇에 투자했다","휴머노이드 두뇌 만든다"],"highlightLine":1,"narration":"가성비 AI로 유명한 딥시크가 이번엔 로봇에 투자했어요. 휴머노이드의 두뇌를 함께 만들기로 했습니다."},
+    {"kind":"tip","num":"①","head":"유니트리 IPO에 투자","body":"딥시크가 중국 로봇기업 유니트리의 상하이 상장에 약 2천만 달러를 투자해 지분 2.31%를 확보. 두 회사 모두 항저우 소재.","narration":"딥시크가 중국 로봇기업 유니트리의 상하이 상장에 약 2천만 달러를 투자해서 지분 2.31퍼센트를 확보했어요. 두 회사 다 항저우에 있습니다."},
+    {"kind":"tip","num":"②","head":"AI + 기계공학 결합","body":"딥시크의 AI 모델 역량과 유니트리의 모션 제어·체화지능을 합친다. 목표는 '낯선 환경을 이해하고 지시를 실제 동작으로 옮기는 로봇 두뇌'.","narration":"딥시크의 AI 모델 역량과 유니트리의 모션 제어, 체화지능을 합쳐요. 목표는 낯선 환경을 이해하고 지시를 실제 동작으로 옮기는 로봇 두뇌입니다."},
+    {"kind":"tip","num":"③","head":"소프트웨어 AI → 로봇으로","body":"챗봇으로 시작한 중국 AI 강자들이 이제 피지컬 AI(로봇)로 확장 중. 소프트웨어 두뇌와 하드웨어 몸의 결합이 다음 전장이다.","narration":"챗봇으로 시작한 중국 AI 강자들이 이제 로봇, 피지컬 AI로 확장 중이에요. 소프트웨어 두뇌와 하드웨어 몸의 결합이 다음 전장입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

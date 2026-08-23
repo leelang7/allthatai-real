@@ -1,0 +1,13 @@
+{
+  "topic": "2026 섬 방문의 해 섬여행 10만원 지원",
+  "tags": ["섬방문의해", "섬여행", "여행지원금", "숙박비지원", "여름휴가", "전남여행", "여수섬박람회", "정부지원", "여행꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "beautiful Korean island seascape with a small harbor and pension at sunset, summer island travel mood, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"여행 꿀팁","titleLines":["섬에서 하룻밤 자면","최대 10만원 돌려받는다","2026 섬 방문의 해"],"highlightLine":1,"narration":"섬에서 하룻밤만 자도 최대 10만원을 돌려받아요. 정부가 올해를 섬 방문의 해로 정했거든요."},
+    {"kind":"tip","num":"①","head":"섬 1박에 최대 10만원","body":"행정안전부가 2026년을 '섬 방문의 해'로 지정. 섬에서 1박 이상 머무는 여행객에게 숙박비를 최대 10만원까지 지원한다.","narration":"행정안전부가 2026년을 섬 방문의 해로 지정하면서, 섬에서 1박 이상 자는 여행객에게 숙박비를 최대 10만원까지 지원해줍니다."},
+    {"kind":"tip","num":"②","head":"여름·섬박람회가 핵심","body":"여름 휴가철 7~8월과 여수세계섬박람회(9/5~11/4) 기간이 핵심. 전남은 '전남 섬 방문의 해'로 추가 지원까지.","narration":"특히 지금 여름 7~8월이랑, 9월부터 열리는 여수세계섬박람회 기간이 핵심이에요. 전남은 자체적으로 추가 지원까지 얹어줍니다."},
+    {"kind":"tip","num":"③","head":"신청은 전용 누리집","body":"세부 지원 기준과 신청 방법은 전용 누리집 visitisland.kr에서 확인. 예산이 있으니 섬 여행 계획 있으면 미리 챙기자.","narration":"세부 기준이랑 신청 방법은 전용 누리집 visitisland 점 kr에서 확인하면 돼요. 예산 있을 때, 섬 여행 생각 있으면 미리 챙겨두세요."},
+    {"kind":"cta","narration":"이런 지역·여행 지원 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 이번 여름 섬으로 떠나보세요."}
+  ]
+}

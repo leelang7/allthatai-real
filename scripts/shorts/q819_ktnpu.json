@@ -1,0 +1,54 @@
+{
+  "topic": "KT가 국산 반도체에 자체 AI 넣어 팔기 시작했다",
+  "tags": [
+    "KT",
+    "리벨리온",
+    "NPU",
+    "믿음K",
+    "소버린AI",
+    "국산반도체",
+    "공공AI",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an enterprise AI appliance server with domestic NPU chips, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "망 분리된 곳도 쓴다",
+        "국산 NPU + 국산 LLM",
+        "KT 일체형 AI 서버"
+      ],
+      "highlightLine": 1,
+      "narration": "외부 AI를 못 쓰던 공공·금융 현장을 겨냥한 일체형 AI 서버가 나왔어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "리벨리온 칩 + KT 모델",
+      "body": "KT NPU LLM 스테이션은 리벨리온의 국산 NPU 아톰-맥스와 KT 자체 LLM 믿음 K 2.5 프로, 운영 API 플랫폼을 한 서버에 담았다.",
+      "narration": "KT NPU LLM 스테이션은 리벨리온의 국산 NPU 아톰맥스와, KT 자체 LLM 믿음 K 2.5 프로, 운영 API 플랫폼을 한 서버에 담았어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "망분리 규제가 시장",
+      "body": "보안 규제와 망분리로 외부 생성형 AI 도입이 어려웠던 공공·국방·제약·제조·금융이 주 수요처다. 데이터를 밖으로 내보내지 않는 게 핵심 가치다.",
+      "narration": "보안 규제와 망분리로 외부 생성형 AI 도입이 어려웠던 공공, 국방, 제약, 제조, 금융이 주 수요처예요. 데이터를 밖으로 안 내보내는 게 핵심 가치입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "에이전트도 순차 탑재",
+      "body": "아톰-맥스는 공인시험에서 동급 GPU 대비 성능과 전력 효율을 검증받았다. 회의록 작성·코딩 지원 등 자체 AI 에이전트도 순차 탑재된다.",
+      "narration": "아톰맥스는 공인시험에서 동급 GPU 대비 성능과 전력 효율을 검증받았어요. 회의록 작성이나 코딩 지원 같은 자체 AI 에이전트도 순차 탑재됩니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

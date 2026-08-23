@@ -1,0 +1,13 @@
+{
+  "topic": "중국이 빌려 쓴다 미국 엔비디아 칩 원격접속 조사",
+  "tags": ["미국", "중국", "엔비디아", "AI칩", "수출통제", "원격접속", "미중갈등", "반도체", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "chinese firms remotely accessing overseas nvidia AI chips across borders, chip export control loophole mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["중국이 빌려 쓴다","미국, 엔비디아 칩","원격접속 조사"],"highlightLine":1,"narration":"칩을 못 사면 빌려 쓰면 된다? 중국이 해외 엔비디아 칩을 원격으로 빌려 쓰자, 미국이 조사에 들어갔어요."},
+    {"kind":"tip","num":"①","head":"수출통제의 구멍","body":"미 상무부가 중국 AI 기업들이 다른 나라에 있는 엔비디아 칩을 원격으로 빌려 쓰는 경로를 들여다본다. 칩을 직접 수출 안 해도 성능을 쓰는 우회로.","narration":"미국 상무부가 중국 AI 기업들이 다른 나라에 있는 엔비디아 칩을 원격으로 빌려 쓰는 경로를 들여다봐요. 칩을 직접 수출 안 해도 성능만 빌려 쓰는 우회로죠."},
+    {"kind":"tip","num":"②","head":"키미 K3가 드러낸 허점","body":"중국의 강력한 오픈 모델 키미 K3가 이 원격접속 허점을 드러냈다. 말레이시아 등 해외 자회사가 미국 칩을 빌려 썼을 가능성이 지목됐다.","narration":"중국의 강력한 오픈 모델 키미 K3가 이 원격접속 허점을 드러냈어요. 말레이시아 같은 해외 자회사가 미국 칩을 빌려 썼을 가능성이 지목됐습니다."},
+    {"kind":"tip","num":"③","head":"원격접속은 아직 합법","body":"현재 원격으로 빌려 쓰는 건 불법이 아니다. 다만 미국은 중국에 본사를 둔 기업엔 어디에 있든 라이선스를 요구하는 새 지침을 냈다.","narration":"현재 원격으로 빌려 쓰는 건 불법이 아니에요. 다만 미국은 중국에 본사를 둔 기업엔 어디에 있든 라이선스를 요구하는 새 지침을 냈습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

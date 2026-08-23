@@ -1,0 +1,14 @@
+{
+  "topic": "월드컵 충격 탈락 이변",
+  "title": "한국은 사는데... 월드컵 충격 탈락 강팀들",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "월드컵이변", "튀르키예", "조별리그탈락", "충격탈락", "한국축구", "북중미월드컵", "와일드카드", "32강", "축구", "국가대표", "shorts", "쇼츠", "월드컵이슈"],
+  "bgPrompt": "Cinematic shot of an empty soccer stadium at dusk with a lone soccer ball on the green pitch, melancholic mood, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "최대 이변", "titleLines": ["한국은 사는데", "충격 탈락", "강팀들"], "highlightLine": 1, "narration": "한국은 살아남았는데, 충격적으로 탈락한 강팀들을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "튀르키예 무득점 탈락", "body": "다크호스로 꼽힌 튀르키예가 2경기 62번을 쐈는데 한 골도 못 넣고 탈락했어요.", "narration": "첫째, 다크호스로 꼽힌 튀르키예가 2경기에서 62번을 쐈는데도 한 골도 못 넣고 탈락했습니다." },
+    { "kind": "tip", "num": "2", "head": "아이티·파나마·요르단", "body": "아이티는 2패 무득점, 파나마와 요르단도 일찌감치 짐을 쌌어요.", "narration": "둘째, 아이티는 2패 무득점, 파나마와 요르단도 일찌감치 탈락이 확정됐습니다." },
+    { "kind": "tip", "num": "3", "head": "한국은 유력", "body": "반면 한국은 A조 3위 와일드카드로 32강 진출이 유력해요. 확률 87.8%.", "narration": "셋째, 반면 한국은 A조 3위 와일드카드로 32강 진출이 유력합니다. 확률은 약 87.8퍼센트." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 전기차만? 에너지 사업 41% 폭풍성장",
+  "tags": ["테슬라", "메가팩", "에너지저장장치", "ESS", "테슬라에너지", "TSLA", "미국주식", "배터리", "신재생에너지", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "massive grid-scale battery energy storage installation at dusk, glowing megapack units in rows, clean energy infrastructure mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["테슬라 전기차만?","에너지가 41% 폭풍성장","숨은 성장엔진"],"highlightLine":1,"narration":"테슬라는 전기차 회사다? 사실 조용히 41퍼센트 폭풍 성장 중인 사업이 따로 있어요. 에너지 저장 사업입니다."},
+    {"kind":"tip","num":"①","head":"저장장치 배치 41%↑","body":"2분기 에너지저장장치를 13.5GWh 배치. 1년 전 9.6GWh 대비 41% 넘게 늘며 분기 최대급 성장.","narration":"2분기에 에너지 저장장치를 13.5기가와트시나 깔았어요. 1년 전 9.6기가와트시보다 41퍼센트 넘게 늘어난 겁니다."},
+    {"kind":"tip","num":"②","head":"매출·마진도 최고","body":"에너지 발전·저장 매출 31억 달러로 13% 증가. 서비스·기타 부문 마진은 사상 최고치를 찍었다.","narration":"에너지 발전·저장 매출은 31억 달러로 13퍼센트 늘었고, 서비스 부문 마진은 사상 최고치를 찍었어요."},
+    {"kind":"tip","num":"③","head":"성장축이 옮겨간다","body":"차량은 가격인하로 이익이 눌렸지만 최근 1년 매출은 처음 1,000억 달러 돌파. 성장 축이 에너지·AI로 이동 중.","narration":"차량 쪽은 가격 인하로 이익이 눌렸지만, 최근 1년 매출은 처음으로 1천억 달러를 넘었어요. 성장 축이 에너지랑 AI로 옮겨가는 중입니다."},
+    {"kind":"cta","narration":"테슬라 지금 어떨까요? 프로필 링크 AI 주식 분석에 티커만 넣으면 매수·매도·목표가·위험까지 정리해줍니다."}
+  ]
+}

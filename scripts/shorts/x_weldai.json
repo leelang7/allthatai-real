@@ -1,0 +1,13 @@
+{
+  "topic": "조선소 용접로봇 고장을 AI가 미리 잡는다 HD현대",
+  "tags": ["마키나락스", "HD한국조선해양", "피지컬AI", "용접로봇", "이상탐지", "스마트조선소", "제조AI", "국산AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a welding robot arm in a shipyard monitored by glowing AI anomaly sensors, physical ai in heavy manufacturing mood, cool teal and orange accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["조선소 용접로봇","고장 나기 전에","AI가 미리 잡는다"],"highlightLine":1,"narration":"배 만드는 조선소 용접로봇이 고장 나기 전에, AI가 미리 이상 징후를 잡아내요. 마키나락스가 HD한국조선해양에서 현장 시험을 마쳤습니다."},
+    {"kind":"tip","num":"①","head":"용접은 배의 생명","body":"용접은 선박의 구조적 안정성을 좌우하는 핵심 공정. 로봇의 작은 오작동도 대규모 재작업과 손실로 이어져, 미리 감지하는 기술이 중요하다.","narration":"용접은 배의 구조 안정성을 좌우하는 핵심 공정이에요. 로봇이 조금만 오작동해도 대규모 재작업이랑 손실로 이어지니까, 미리 감지하는 기술이 정말 중요합니다."},
+    {"kind":"tip","num":"②","head":"정상 데이터만으로 이상 감지","body":"고장 이력 데이터가 부족한 현장 특성을 고려해, 정상 운전 데이터만 학습해 거기서 벗어나는 패턴을 잡는 방식으로 개발했다.","narration":"고장 난 기록이 부족한 현장 특성을 고려해서, 정상적으로 돌 때의 데이터만 학습하고 거기서 벗어나는 패턴을 잡아내는 방식으로 만들었어요."},
+    {"kind":"tip","num":"③","head":"피지컬 AI 조선소로","body":"지난해 맺은 AI 협력 MOU의 결실로, 조선업 현장에 피지컬 AI 적용 가능성을 확인. AI가 공장·조선소로 내려오는 흐름이 뚜렷하다.","narration":"지난해 맺은 AI 협력의 결실인데, 조선업 현장에 피지컬 AI를 적용할 수 있다는 걸 확인했어요. AI가 공장이랑 조선소로 내려오는 흐름이 뚜렷합니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

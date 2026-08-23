@@ -1,0 +1,14 @@
+{
+  "topic": "MSI 2026 대전 개막 게임",
+  "title": "MSI 2026 오늘 대전 개막! T1 출격",
+  "link": "https://real.allthatai.kr/lol/",
+  "tags": ["MSI", "MSI2026", "롤", "리그오브레전드", "T1", "한화생명", "LCK", "미드시즌인비테이셔널", "페이커", "e스포츠", "롤e스포츠", "대전MSI", "shorts", "쇼츠", "롤판"],
+  "bgPrompt": "Cinematic shot of a dark esports arena with dramatic blue and purple stage lighting, crowd silhouettes and a glowing stage, energetic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "오늘 개막", "titleLines": ["MSI 2026", "오늘 대전 개막", "T1 출격"], "highlightLine": 1, "narration": "롤 MSI 2026이 오늘 한국 대전에서 개막합니다. 핵심만 정리할게요." },
+    { "kind": "tip", "num": "1", "head": "한국 대전서 개최", "body": "6월 28일 오늘 대전에서 개막해 7월 12일 결승까지 3주간 열려요.", "narration": "첫째, 6월 28일 오늘 대전에서 개막해 7월 12일 결승까지 3주간 열립니다." },
+    { "kind": "tip", "num": "2", "head": "LCK 한화·T1", "body": "LCK에서는 1시드 한화생명과 2시드 T1이 출격해요.", "narration": "둘째, LCK에서는 1시드 한화생명과 2시드 T1이 출격합니다." },
+    { "kind": "tip", "num": "3", "head": "우승팀 월즈 직행", "body": "페어리스 드래프트로 치르고, 우승팀은 월드챔피언십에 직행해요.", "narration": "셋째, 페어리스 드래프트로 치르며, 우승팀은 롤드컵에 직행합니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "롤 e스포츠 소식, 올댓에이아이에서 더 보세요. 구독!" }
+  ]
+}

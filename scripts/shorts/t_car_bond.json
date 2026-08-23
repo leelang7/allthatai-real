@@ -1,0 +1,13 @@
+{
+  "topic": "자동차 살 때 낸 채권 환급금 숨은 돈 찾기",
+  "tags": ["지역개발채권", "자동차채권", "미상환채권", "숨은돈", "환급금", "채권환급", "생활꿀팁", "재테크", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract concept of reclaiming hidden money from a government bond certificate next to a car key, warm gold and teal accent glow on a dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["자동차 살 때 낸 채권","환급금 그대로 잠잔다","숨은 돈 찾는 법"],"highlightLine":1,"narration":"자동차 살 때 의무로 산 채권, 만기가 지나면 돌려받는데 대부분 그냥 둬요. 숨은 돈 찾는 법입니다."},
+    {"kind":"tip","num":"①","head":"차 사면 의무로 산 채권","body":"신차·중고차를 등록할 때 지역개발채권(수도권은 도시철도채권)을 의무로 매입한다. 보통 5~7년 뒤 만기가 되면 원금과 이자를 돌려받는데, 잊고 안 찾는 경우가 많다.","narration":"차를 등록할 때 지역개발채권을 의무로 사요. 보통 5년에서 7년 뒤 만기가 되면 원금이랑 이자를 돌려받는데, 잊고 안 찾는 경우가 많습니다."},
+    {"kind":"tip","num":"②","head":"은행앱에서 미상환채권 조회","body":"채권을 산 지자체의 금고은행(농협·신한·지방은행 등) 앱이나 창구에서 '미상환 채권'을 조회하고 상환받을 수 있다. 확인되면 내 계좌로 바로 들어온다.","narration":"채권을 산 지자체의 금고은행, 농협이나 신한, 지방은행 앱에서 미상환 채권을 조회하고 상환받을 수 있어요. 확인되면 계좌로 바로 들어옵니다."},
+    {"kind":"tip","num":"③","head":"소멸시효 지나면 사라진다","body":"만기(상환일)부터 소멸시효가 지나면 받을 권리가 사라진다. 오래된 차나 가족 명의 차가 있다면 지금 한 번 조회해 보는 게 이득이다.","narration":"만기부터 소멸시효가 지나면 받을 권리가 사라져요. 오래된 차나 가족 명의 차가 있으면 지금 한번 조회해 보는 게 이득입니다."},
+    {"kind":"cta","narration":"이런 생활 속 숨은 돈이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

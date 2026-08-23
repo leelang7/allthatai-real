@@ -1,0 +1,13 @@
+{
+  "topic": "전월세 전환율",
+  "link": "https://real.allthatai.kr/tools/jeonse-monthly-conversion/",
+  "tags": ["전월세전환율", "전세월세전환", "전환율", "월세전환", "임대차보호법", "전세", "월세", "보증금", "부동산", "임대차", "전월세계산", "내집마련", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of house keys and a small wooden model house on a clean desk with a few coins, warm soft light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "적정 월세는?", "titleLines": ["전세를 월세로", "전환율", "법정 상한"], "highlightLine": 1, "narration": "전세를 월세로 바꿀 때 적정 월세를 정하는 전환율 상한, 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "기준금리 + 2%", "body": "법정 전환율 상한은 한국은행 기준금리에 2%를 더한 값이에요.", "narration": "첫째, 법정 전환율 상한은 한국은행 기준금리에 2퍼센트를 더한 값입니다." },
+    { "kind": "tip", "num": "2", "head": "전환 공식", "body": "전세보증금에 전환율을 곱하고 12로 나누면 한 달 월세가 나와요.", "narration": "둘째, 전세보증금에 전환율을 곱한 뒤 12로 나누면 한 달 월세가 됩니다." },
+    { "kind": "tip", "num": "3", "head": "상한 넘으면 거부", "body": "상한을 넘는 월세 요구는 임대차보호법으로 거부할 수 있어요.", "narration": "셋째, 상한을 넘는 월세 요구는 임대차보호법에 따라 거부할 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "적정 월세가 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

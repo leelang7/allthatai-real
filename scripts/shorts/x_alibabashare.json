@@ -1,0 +1,13 @@
+{
+  "topic": "공짜 오픈 AI 이제 돈 낸다 알리바바 큐원 수익배분",
+  "tags": ["알리바바", "큐원", "Qwen", "오픈소스AI", "수익배분", "라이선스", "AI수익화", "키미K3", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an open-source AI model now requiring revenue share from big users, ai monetization shift mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["공짜였던 오픈 AI","이제 돈 낸다","알리바바 큐원 수익배분"],"highlightLine":1,"narration":"무료로 풀던 오픈소스 AI가 이제 돈을 요구해요. 알리바바가 큐원 대형 사용자에게 수익 배분을 물리기로 했습니다."},
+    {"kind":"tip","num":"①","head":"큰손은 수익 나눠라","body":"알리바바가 오픈웨이트 큐원 3.8 맥스를 상업적으로 크게 쓰는 기업에 벌어들인 수익 일부를 나누게 할 계획. 가중치 공개는 다음 주.","narration":"알리바바가 오픈웨이트 큐원 3.8 맥스를 상업적으로 크게 쓰는 기업에, 벌어들인 수익 일부를 나누게 할 계획이에요. 가중치 공개는 다음 주입니다."},
+    {"kind":"tip","num":"②","head":"키미 K3 방식 따라간다","body":"앞서 문샷이 키미 K3에 연매출 2천만 달러 넘는 기업은 별도 계약(최대 30% 수익 배분)을 걸었다. 알리바바도 같은 길.","narration":"앞서 문샷이 키미 K3에, 연매출 2천만 달러 넘는 기업은 별도 계약, 최대 30퍼센트 수익 배분을 걸었어요. 알리바바도 같은 길입니다."},
+    {"kind":"tip","num":"③","head":"오픈소스로 어떻게 버나","body":"그동안 개인엔 무료, 클라우드 이용료로만 벌던 구조에서 '큰손 과금'으로 전환. 오픈소스 AI의 수익화 실험이 본격화됐다.","narration":"그동안 개인엔 무료, 클라우드 이용료로만 벌던 구조에서 큰손 과금으로 전환해요. 오픈소스 AI의 수익화 실험이 본격화된 겁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

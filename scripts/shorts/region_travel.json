@@ -1,0 +1,13 @@
+{
+  "topic": "2026 지역사랑 휴가지원 반값 여행",
+  "tags": ["지역사랑휴가지원", "반값여행", "여행지원금", "국내여행", "지역사랑상품권", "인구감소지역", "정부지원", "생활꿀팁", "여행꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "scenic Korean rural travel destination, coastal fishing village and green mountains at golden hour, inviting domestic travel mood, teal and warm gold accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"여행 꿀팁","titleLines":["국내여행 쓴 돈의 절반","지역사랑상품권으로 환급","2026 반값 여행"],"highlightLine":1,"narration":"국내여행 다녀와서 쓴 돈의 절반을 돌려받는 제도, 올해 새로 생겼어요. 2026 지역사랑 휴가지원, 이른바 반값 여행입니다."},
+    {"kind":"tip","num":"①","head":"쓴 돈의 50% 환급","body":"선정된 인구감소지역으로 여행 가서 쓴 돈의 50%를 모바일 지역사랑상품권으로 환급. 숙박·입장권·음식·교통·체험·기념품까지 인정.","narration":"선정된 인구감소 지역으로 여행 가서 쓴 돈의 50%를 모바일 지역사랑상품권으로 돌려줘요. 숙박, 관광지 입장권, 밥값, 교통비, 체험비까지 다 인정됩니다."},
+    {"kind":"tip","num":"②","head":"올해 시범 지역","body":"2026 시범 지자체 상반기 16곳. 강원 평창·영월·횡성, 전남 강진·해남·완도·고흥·영광·영암, 경북 등. 전체 지역은 '대한민국 구석구석'에서 확인.","narration":"올해는 시범이라 상반기 16곳이에요. 강원 평창·영월·횡성, 전남 강진·해남·완도 같은 곳들이고요. 전체 지역은 대한민국 구석구석에서 확인하세요."},
+    {"kind":"tip","num":"③","head":"핵심은 '계획서 먼저'","body":"'대한민국 구석구석' 또는 지자체 홈페이지에 여행계획 제출·승인 → 다녀와서 영수증 제출 → 확인 후 환급. 예산 소진 전에 계획부터.","narration":"핵심은 순서예요. 먼저 대한민국 구석구석이나 지자체 홈페이지에 여행계획을 내서 승인받고, 다녀온 뒤 영수증을 제출하면 확인 후 환급해줍니다. 예산 소진되기 전에 계획부터 올리세요."},
+    {"kind":"cta","narration":"이런 여행·정부 지원 꿀정보는 프로필 링크에 싹 정리해놨어요. 저장해두고 챙겨서 반값에 떠나세요."}
+  ]
+}

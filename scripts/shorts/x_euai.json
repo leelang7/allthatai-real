@@ -1,0 +1,13 @@
+{
+  "topic": "8월부터 AI한테 말하면 무조건 알려줘야 한다 EU 시행",
+  "tags": ["EU", "AI규제", "AI법", "AI라벨링", "딥페이크", "투명성", "AI표기", "EUAIAct", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "EU flag stars merging with a glowing AI transparency label tag, regulation and disclosure mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["8월부터 유럽은","AI가 말하면","반드시 알려야 한다"],"highlightLine":1,"narration":"이번 8월부터 유럽에선 AI가 사람인 척하면 불법이에요. 챗봇도, 딥페이크도 전부 표시해야 하는 규제가 시작됐습니다."},
+    {"kind":"tip","num":"①","head":"챗봇, 사람인 척 금지","body":"8월 2일부터 EU AI법 투명성 의무 발효. AI 챗봇은 상대가 사람이 아니라 AI임을 반드시 알려야 한다.","narration":"8월 2일부터 EU AI법의 투명성 의무가 발효됐어요. AI 챗봇은 지금 대화 상대가 사람이 아니라 AI라는 걸 반드시 알려야 합니다."},
+    {"kind":"tip","num":"②","head":"AI로 만든 건 표시 의무","body":"AI로 만든 이미지·영상·음성, 특히 딥페이크는 '인공적으로 생성·조작됨' 표시를 달아야 한다. 속일 의도가 없어도 마찬가지.","narration":"AI로 만든 이미지나 영상, 음성, 특히 딥페이크는 인공적으로 만들었다는 표시를 꼭 달아야 해요. 속일 의도가 없었어도 예외 없습니다."},
+    {"kind":"tip","num":"③","head":"안 지키면 매출 3% 과징금","body":"감정 인식·생체 분류 AI도 사전 고지 의무. 위반 시 최대 1,500만 유로 또는 전 세계 매출의 3% 과징금. AI 콘텐츠 표기가 글로벌 표준이 되는 신호.","narration":"감정을 읽거나 생체 정보로 분류하는 AI도 미리 알려야 해요. 어기면 최대 1,500만 유로, 또는 전 세계 매출의 3%를 물어야 합니다. AI 표기가 세계 표준이 되는 신호예요."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

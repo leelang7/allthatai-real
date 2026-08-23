@@ -1,0 +1,13 @@
+{
+  "topic": "2026 주거급여 월세 최대 34만원 세입자도",
+  "tags": ["주거급여", "월세지원", "임차급여", "정부지원", "중위소득", "세입자", "복지로", "주거비", "생활비", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cozy small apartment interior with soft warm light, sense of housing stability and relief, teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["월세 사는데","최대 34만원","나라가 보탠다"],"highlightLine":1,"narration":"월세 부담 크죠? 세입자도 매달 주거비를 나라가 보태줘요. 최대 34만원, 주거급여입니다."},
+    {"kind":"tip","num":"①","head":"중위소득 48% 이하면 대상","body":"소득인정액이 기준 중위소득 48% 이하면 신청 가능. 2026년 중위소득이 역대 최대로 올라 대상과 금액이 넓어졌다.","narration":"소득인정액이 기준 중위소득 48퍼센트 이하면 신청할 수 있어요. 올해는 중위소득이 역대 최대로 올라서 대상이랑 금액이 더 넓어졌습니다."},
+    {"kind":"tip","num":"②","head":"지역·가구따라 월 30~34만원","body":"서울 1인 가구 최대 34만원, 수원 1인 최대 30만원. 사는 지역 급지와 가구원 수에 따라 기준임대료가 정해진다.","narration":"서울 1인 가구는 최대 34만원, 수원은 최대 30만원처럼 사는 지역이랑 가구원 수에 따라 달라져요. 실제 월세랑 기준 임대료 중 낮은 금액으로 나옵니다."},
+    {"kind":"tip","num":"③","head":"전세도 월세로 환산해 지원","body":"전세 거주자도 보증금을 전월세 전환율로 월세로 환산해 지원 여부를 판단한다. 집 소유가 아닌 세입자면 챙겨볼 것.","narration":"전세도 보증금을 월세로 환산해서 지원 여부를 따져요. 집 소유가 아니라 세 들어 사는 분이면 꼭 확인해보세요."},
+    {"kind":"cta","narration":"이런 주거·생활 지원금은 프로필 링크에 정리해놨어요. 놓치면 매달 손해니까 저장해두고 챙기세요."}
+  ]
+}

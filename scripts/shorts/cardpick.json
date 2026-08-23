@@ -1,0 +1,13 @@
+{
+  "topic": "카드 고르는 법",
+  "link": "https://real.allthatai.kr/tools/card-pick/",
+  "tags": ["신용카드", "체크카드", "카드추천", "카드혜택", "연회비", "소득공제", "카드고르는법", "카드테크", "소비패턴", "재테크", "카드비교", "혜택카드", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of several plain plastic payment cards fanned out on a clean desk, warm soft light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "나한테 맞는 카드", "titleLines": ["나한테 맞는", "카드", "고르는 법"], "highlightLine": 1, "narration": "나한테 딱 맞는 카드를 고르는 기준 3가지, 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "내 소비에 맞춰", "body": "교통·식비·구독 등 내가 많이 쓰는 곳에 혜택이 몰린 카드를 골라요.", "narration": "첫째, 교통·식비·구독처럼 내가 많이 쓰는 곳에 혜택이 몰린 카드를 고르세요." },
+    { "kind": "tip", "num": "2", "head": "연회비 대비 실혜택", "body": "연회비보다 실제 받는 혜택이 큰지, 실적 조건이 맞는지 따져요.", "narration": "둘째, 연회비보다 실제 받는 혜택이 큰지, 전월 실적 조건이 맞는지 따지세요." },
+    { "kind": "tip", "num": "3", "head": "신용 15% 체크 30%", "body": "소득공제는 신용카드 15%, 체크카드 30%. 섞어 쓰면 유리해요.", "narration": "셋째, 소득공제는 신용카드 15퍼센트, 체크카드 30퍼센트라 섞어 쓰면 유리합니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내게 맞는 카드, 올댓에이아이가 골라드려요." }
+  ]
+}

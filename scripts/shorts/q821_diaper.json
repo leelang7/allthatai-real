@@ -1,0 +1,54 @@
+{
+  "topic": "기저귀 분유 지원 대상이면 꼭 신청하세요",
+  "tags": [
+    "기저귀지원",
+    "조제분유",
+    "영아",
+    "저소득",
+    "보건소",
+    "육아",
+    "생활꿀팁",
+    "복지",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "baby essentials with a support voucher on a nursery shelf, flat vector editorial illustration, bold shapes, top-down flat lay arrangement, soft gradient background, diffused light, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "아기 키우는 비용",
+        "기저귀·분유 지원",
+        "소득 기준 확인"
+      ],
+      "highlightLine": 1,
+      "narration": "저소득 가구 영아에게 기저귀와 조제분유 구입 비용을 지원하는 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "바우처로 지급",
+      "body": "대상으로 선정되면 국민행복카드에 바우처가 충전돼 기저귀와 조제분유를 구입할 수 있다. 지원 기간은 아기 개월 수에 따라 정해진다.",
+      "narration": "대상으로 선정되면 국민행복카드에 바우처가 충전돼서 기저귀랑 조제분유를 구입할 수 있어요. 지원 기간은 아기 개월 수에 따라 정해집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "분유는 조건이 다르다",
+      "body": "기저귀는 소득 기준을 충족하는 영아 가구가 대상이고, 조제분유는 산모의 사망·질병 등 모유수유가 어려운 사정이 확인돼야 지원된다.",
+      "narration": "기저귀는 소득 기준을 충족하는 영아 가구가 대상이고, 조제분유는 산모의 사망이나 질병처럼 모유수유가 어려운 사정이 확인돼야 지원돼요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "보건소·복지로 신청",
+      "body": "주소지 보건소나 복지로에서 신청한다. 출생 신고 후 빨리 신청할수록 지원 기간을 온전히 쓸 수 있다.",
+      "narration": "주소지 보건소나 복지로에서 신청해요. 출생 신고 뒤에 빨리 신청할수록 지원 기간을 온전히 쓸 수 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

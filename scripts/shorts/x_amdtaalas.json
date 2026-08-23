@@ -1,0 +1,13 @@
+{
+  "topic": "AI 모델을 칩에 새긴다 AMD 타알라스 인수 엔비디아 정조준",
+  "tags": ["AMD", "타알라스", "AI반도체", "추론칩", "엔비디아", "인수", "실리콘", "데이터센터", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI model being etched directly into a specialized inference chip, custom silicon breakthrough mood, cool teal and orange accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 모델을","칩에 새긴다","AMD 타알라스 인수"],"highlightLine":1,"narration":"AI 모델을 아예 칩에 새겨버린다? AMD가 스타트업 타알라스를 인수하며 엔비디아를 정조준했어요."},
+    {"kind":"tip","num":"①","head":"모델을 실리콘에 각인","body":"타알라스는 범용 GPU 대신 특정 AI 모델에 맞춰 설계한 추론 전용 칩을 만든다. 모델을 칩에 직접 새겨 병목을 줄이는 방식.","narration":"타알라스는 범용 GPU 대신, 특정 AI 모델에 맞춰 설계한 추론 전용 칩을 만들어요. 모델을 칩에 직접 새겨서 병목을 줄이는 방식입니다."},
+    {"kind":"tip","num":"②","head":"엔비디아보다 48배 빠르다?","body":"타알라스의 HC1 칩은 초당 1만6960토큰으로, 엔비디아 GPU보다 48배 빠른 추론 성능을 냈다고 한다. 폭증하는 추론 시장을 겨냥한 것.","narration":"타알라스의 HC1 칩은 초당 1만 6960토큰으로, 엔비디아 GPU보다 48배 빠른 추론 성능을 냈다고 해요. 폭증하는 추론 시장을 겨냥한 겁니다."},
+    {"kind":"tip","num":"③","head":"AMD의 엔비디아 추격","body":"AMD는 타알라스 기술을 자사 인스팅트 GPU·에픽 CPU 로드맵에 통합할 계획. 4분기 인수 완료 예정으로, 엔비디아 독주에 도전한다.","narration":"AMD는 타알라스 기술을 자사 인스팅트 GPU랑 에픽 CPU 로드맵에 통합할 계획이에요. 4분기 인수 완료 예정으로, 엔비디아 독주에 도전합니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

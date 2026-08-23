@@ -1,0 +1,54 @@
+{
+  "topic": "어르신 노인일자리 신청하고 활동비 받기",
+  "tags": [
+    "노인일자리",
+    "어르신",
+    "시니어",
+    "활동비",
+    "복지",
+    "정부지원",
+    "일자리",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "senior citizens working in community roles with warm sunlight, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "집에만 계시지 말고",
+        "노인일자리 사업",
+        "활동비까지"
+      ],
+      "highlightLine": 1,
+      "narration": "어르신이 지역에서 활동하고 활동비를 받는 노인일자리 사업이 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "공익형부터 시장형까지",
+      "body": "지역 환경 정비나 학교 급식 도우미 같은 공익활동형, 경험을 살리는 사회서비스형, 소규모 창업 같은 시장형 등 유형이 나뉜다.",
+      "narration": "지역 환경 정비나 학교 급식 도우미 같은 공익활동형, 경험을 살리는 사회서비스형, 소규모 창업 같은 시장형 등 유형이 나뉘어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "활동 시간에 따라 활동비",
+      "body": "유형과 활동 시간에 따라 매달 활동비가 지급된다. 금액과 참여 기간은 사업 유형·지자체별로 다르다.",
+      "narration": "유형이랑 활동 시간에 따라 매달 활동비가 지급돼요. 금액과 참여 기간은 사업 유형과 지자체별로 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "모집은 주로 연말·연초",
+      "body": "다음 해 참여자 모집은 보통 연말에서 연초에 이뤄지고 중간 충원도 있다. 주민센터, 시니어클럽, 노인복지관에 문의하면 된다.",
+      "narration": "다음 해 참여자 모집은 보통 연말에서 연초에 이뤄지고 중간 충원도 있어요. 주민센터나 시니어클럽, 노인복지관에 문의하면 됩니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

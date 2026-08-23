@@ -1,0 +1,54 @@
+{
+  "topic": "만 65세 기초연금 신청해야 나옵니다",
+  "tags": [
+    "기초연금",
+    "만65세",
+    "노후",
+    "연금",
+    "복지로",
+    "어르신",
+    "소득인정액",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an elderly hand receiving monthly pension coins, warm gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "가만있으면 안 나온다",
+        "만 65세 기초연금",
+        "직접 신청해야"
+      ],
+      "highlightLine": 1,
+      "narration": "기초연금은 나이가 됐다고 자동으로 나오지 않아요. 직접 신청해야 받습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "만 65세, 소득 하위 70%",
+      "body": "만 65세 이상이면서 소득인정액이 선정기준액 이하인 어르신이 대상이다. 대략 소득 하위 70% 수준을 기준으로 한다.",
+      "narration": "만 65세 이상이면서 소득인정액이 선정기준액 이하인 어르신이 대상이에요. 대략 소득 하위 70퍼센트 수준을 기준으로 합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "생일 한 달 전부터 신청",
+      "body": "만 65세 생일이 있는 달의 한 달 전부터 미리 신청할 수 있다. 늦게 신청하면 그만큼 못 받으니 미리 챙기는 게 이득이다.",
+      "narration": "만 65세 생일이 있는 달의 한 달 전부터 미리 신청할 수 있어요. 늦게 신청하면 그만큼 못 받으니까 미리 챙기는 게 이득입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "주민센터·복지로·연금공단",
+      "body": "읍면동 주민센터, 국민연금공단 지사, 복지로에서 신청할 수 있다. 탈락했어도 소득·재산이 바뀌면 다시 신청해볼 수 있다.",
+      "narration": "읍면동 주민센터나 국민연금공단 지사, 복지로에서 신청할 수 있어요. 탈락했어도 소득이나 재산이 바뀌면 다시 신청해볼 수 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

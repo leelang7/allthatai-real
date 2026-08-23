@@ -1,0 +1,13 @@
+{
+  "topic": "오픈AI 애플 영업비밀 소송에 근거 없다 기각 요청",
+  "tags": ["오픈AI", "애플", "영업비밀", "소송", "AI하드웨어", "인재영입", "법정공방", "빅테크", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "two tech giants facing off in a courtroom over trade secrets, legal battle between ai and hardware maker mood, cool teal and slate accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["오픈AI, 애플 소송에","'근거 없다'","기각 요청"],"highlightLine":1,"narration":"애플이 오픈AI를 영업비밀 도둑으로 고소하자, 오픈AI가 근거 없다며 소송 기각을 요청했어요. 빅테크 법정 공방이 뜨겁습니다."},
+    {"kind":"tip","num":"①","head":"필요도 없다","body":"오픈AI는 '애플의 영업비밀을 쓸 이유도, 필요도, 욕심도 없다. 완전히 새로운 걸 만들고 있다'며 법원에 기각을 신청했다.","narration":"오픈AI는 애플의 영업비밀을 쓸 이유도, 필요도, 욕심도 없다, 완전히 새로운 걸 만들고 있다며 법원에 기각을 신청했어요."},
+    {"kind":"tip","num":"②","head":"역공: 인재 뺏긴 화풀이","body":"오픈AI는 '애플이 인재 경쟁에서 밀리고 AI 통합에 실패한 걸 근거 없는 소송으로 메우려 한다'고 되받았다.","narration":"오픈AI는 애플이 인재 경쟁에서 밀리고, AI 통합에 실패한 걸, 근거 없는 소송으로 메우려 한다고 강하게 되받았습니다."},
+    {"kind":"tip","num":"③","head":"발단은 하드웨어 야심","body":"애플은 7월, 오픈AI가 전 직원·채용을 통해 기밀을 빼내 소비자 하드웨어 진출을 앞당겼다고 고소했다. AI 인재 전쟁의 단면.","narration":"애플은 지난 7월, 오픈AI가 전 직원이랑 채용을 통해 기밀을 빼내서 하드웨어 진출을 앞당겼다고 고소했어요. AI 인재 전쟁의 단면입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

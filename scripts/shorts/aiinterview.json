@@ -1,0 +1,14 @@
+{
+  "topic": "AI 면접 준비",
+  "title": "AI로 면접 예상질문 뽑는 법",
+  "link": "https://real.allthatai.kr/tools/ai-interview/",
+  "tags": ["면접", "면접준비", "AI면접", "예상질문", "취업준비", "취준생", "면접질문", "모의면접", "취업꿀팁", "이직", "면접답변", "AI활용", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a tidy interview room with two empty chairs and a desk, soft window light, calm mood, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "예상질문", "titleLines": ["AI로 면접", "예상질문", "뽑는 법"], "highlightLine": 1, "narration": "면접 전에 AI로 예상질문을 뽑아 준비하는 법을 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "공고·자소서 입력", "body": "채용공고와 내 자소서를 넣으면 거기서 나올 질문을 뽑아줘요.", "narration": "첫째, 채용공고와 내 자소서를 넣으면 거기서 나올 법한 질문을 뽑아줍니다." },
+    { "kind": "tip", "num": "2", "head": "꼬리질문까지", "body": "답을 하면 면접관처럼 꼬리질문을 던져 실전 연습이 돼요.", "narration": "둘째, 답을 하면 면접관처럼 꼬리질문을 던져 실전 연습이 됩니다." },
+    { "kind": "tip", "num": "3", "head": "답변 구조 잡기", "body": "두괄식·경험·결과 순으로 답변 구조를 잡아주면 훨씬 깔끔해요.", "narration": "셋째, 두괄식으로 경험과 결과 순서의 답변 구조를 잡으면 훨씬 깔끔합니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 예상 면접질문, 올댓에이아이 AI로 뽑아 보세요. 구독!" }
+  ]
+}

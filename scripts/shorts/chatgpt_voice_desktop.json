@@ -1,0 +1,13 @@
+{
+  "topic": "챗GPT 음성모드 데스크톱 컴퓨터 조작",
+  "tags": ["챗GPT", "ChatGPT", "음성모드", "오픈AI", "AI에이전트", "코덱스", "생산성", "AI뉴스", "생성형AI", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "modern desk with laptop and microphone, voice controlling a computer concept, glowing sound waves, teal and violet accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 활용","titleLines":["이제 챗GPT한테","말로 컴퓨터 시킨다","데스크톱 음성모드 출시"],"highlightLine":1,"narration":"이제 챗GPT한테 말로 컴퓨터 일을 시킵니다. 데스크톱 앱에 새 음성모드가 들어왔어요."},
+    {"kind":"tip","num":"①","head":"말 한마디로 여러 단계","body":"'새 작업 만들고, 이거 고치고, 버그 원인까지 찾아줘'처럼 복잡한 다단계 작업을 음성 명령 한 번으로 처리한다.","narration":"새 작업 만들고, 이거 수정하고, 버그 원인까지 찾아줘. 이런 여러 단계짜리 일을 말 한마디로 시킬 수 있게 됐어요."},
+    {"kind":"tip","num":"②","head":"화면까지 인식","body":"데스크톱 앱 지원. 맥은 화면 내용까지 인식하고, 챗GPT 워크·코덱스와 연동, 아이폰으로 원격 조작도 된다.","narration":"데스크톱 앱에서 되고, 맥에서는 화면에 뭐가 떠있는지까지 읽어요. 챗GPT 워크나 코덱스랑 연동되고, 아이폰으로 원격 조작도 됩니다."},
+    {"kind":"tip","num":"③","head":"폰과 결정적 차이","body":"폰 음성모드는 대화만 매끄러웠지 실제 작업은 못 했는데, 데스크톱은 진짜 '실행'까지 된다.","narration":"폰 음성모드는 대화만 잘 됐지 실제로 뭘 하진 못했잖아요. 이번 데스크톱 버전은 말로 시키면 진짜 실행까지 해준다는 게 핵심 차이입니다."},
+    {"kind":"cta","narration":"이렇게 바로 써먹는 AI 활용법은 프로필 링크에 모아놨어요. 저장해두고 하나씩 따라 해보세요."}
+  ]
+}

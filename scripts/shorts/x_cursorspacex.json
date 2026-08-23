@@ -1,0 +1,13 @@
+{
+  "topic": "머스크 SpaceX가 AI 코딩 커서 82조에 인수",
+  "tags": ["머스크", "SpaceX", "커서", "Cursor", "xAI", "Grok", "AI코딩", "인수", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a rocket company acquiring an AI coding startup, massive tech takeover mood, cool teal and orange accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["머스크 SpaceX가","AI 코딩 커서를","82조에 샀다"],"highlightLine":1,"narration":"일론 머스크의 SpaceX가 인기 AI 코딩 툴 커서를 무려 82조원에 인수해요. AI 코딩 전쟁의 판이 커졌습니다."},
+    {"kind":"tip","num":"①","head":"600억 달러 전액 주식","body":"SpaceX가 커서 개발사 애니스피어를 600억 달러(약 82조원) 전액 주식으로 인수. 이달 말 마무리 예정.","narration":"SpaceX가 커서 개발사 애니스피어를 600억 달러, 약 82조원에 전액 주식으로 인수해요. 이달 말 마무리될 예정입니다."},
+    {"kind":"tip","num":"②","head":"xAI는 이미 SpaceXAI로","body":"머스크의 xAI는 올해 SpaceX와 합병해 'SpaceXAI'로 리브랜딩(가치 약 2500억 달러). 커서와 함께 만든 첫 모델이 Grok 4.5다.","narration":"머스크의 xAI는 올해 SpaceX와 합병해 SpaceXAI로 리브랜딩했어요. 커서와 함께 만든 첫 모델이 그록 4.5입니다."},
+    {"kind":"tip","num":"③","head":"커서, 그록 브랜드로?","body":"기존 커서 코딩툴은 당장 개명 안 하지만, 앞으로 나올 범용 에이전트 등 신제품은 'Grok' 브랜드를 달 전망. 점진적 통합.","narration":"기존 커서 코딩툴은 당장 이름을 안 바꾸지만, 앞으로 나올 범용 에이전트 같은 신제품은 그록 브랜드를 달 전망이에요. 점진적으로 통합합니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

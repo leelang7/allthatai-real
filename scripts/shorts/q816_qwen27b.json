@@ -1,0 +1,54 @@
+{
+  "topic": "내 그래픽카드로 돌리는 큐원 3.8 27B 공개",
+  "tags": [
+    "알리바바",
+    "큐원",
+    "Qwen",
+    "오픈웨이트",
+    "온디바이스",
+    "RTX",
+    "멀티모달",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a consumer GPU running a multimodal model locally at a desk, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "클라우드 없이 내 PC로",
+        "큐원 3.8 27B",
+        "가중치 공개"
+      ],
+      "highlightLine": 1,
+      "narration": "고성능 멀티모달 모델을 내 그래픽카드에서 돌릴 수 있게 됐어요. 큐원 3.8 27B입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "24GB VRAM을 노린 설계",
+      "body": "27B 덴스 멀티모달 모델로, RTX 4090급 24기가바이트 VRAM에서 돌아가도록 설계됐다. 라이선스는 아파치 2.0이다.",
+      "narration": "27B 덴스 멀티모달 모델로, RTX 4090급 24기가바이트 VRAM에서 돌아가도록 설계됐어요. 라이선스는 아파치 2.0입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "26만 토큰, 영상까지",
+      "body": "기본 26만 2천 토큰 컨텍스트를 다루고 YaRN 방식으로 100만까지 확장된다. 이미지와 문서, 몇 시간짜리 영상까지 처리한다.",
+      "narration": "기본 26만 2천 토큰 컨텍스트를 다루고, YaRN 방식으로 100만까지 확장돼요. 이미지랑 문서, 몇 시간짜리 영상까지 처리합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "체감 속도도 빠르다",
+      "body": "RTX 5090에서 초당 200토큰대가 보고됐고, 알리바바는 코딩·사무 작업에서 자사 상위 모델을 앞선다고 밝혔다. 메타 뮤즈 글리머 30B와 직접 경쟁한다.",
+      "narration": "RTX 5090에서 초당 200토큰대가 보고됐고, 알리바바는 코딩이랑 사무 작업에서 자사 상위 모델을 앞선다고 밝혔어요. 메타 뮤즈 글리머 30B와 직접 경쟁합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

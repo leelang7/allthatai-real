@@ -1,0 +1,54 @@
+{
+  "topic": "무릎 인공관절 수술비 지원 아시나요",
+  "tags": [
+    "인공관절",
+    "무릎",
+    "노인의료",
+    "수술비지원",
+    "노인복지",
+    "의료비",
+    "생활꿀팁",
+    "건강",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an elderly person walking comfortably after knee surgery support, technical blueprint schematic look, close-up hero shot, subject centered, cool overcast even lighting, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "걷기 힘든 어르신",
+        "무릎 인공관절",
+        "수술비 지원사업"
+      ],
+      "highlightLine": 1,
+      "narration": "무릎 관절증으로 고생하는 저소득 어르신에게 인공관절 수술비를 지원하는 사업이 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "검사비·수술비 지원",
+      "body": "노인 의료나눔 사업으로 무릎 인공관절 수술이 필요한 저소득 어르신에게 검사비와 수술비를 지원한다. 한쪽 무릎 기준으로 한도가 정해져 있다.",
+      "narration": "노인 의료나눔 사업으로, 무릎 인공관절 수술이 필요한 저소득 어르신에게 검사비와 수술비를 지원해요. 한쪽 무릎 기준으로 한도가 정해져 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "만 60세 이상 저소득층",
+      "body": "만 60세 이상이면서 기초생활수급자, 차상위, 한부모가족 등 소득 기준을 충족해야 한다. 연령과 소득 요건을 함께 본다.",
+      "narration": "만 60세 이상이면서 기초생활수급자나 차상위, 한부모가족처럼 소득 기준을 충족해야 해요. 연령과 소득 요건을 함께 봅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "보건소·노인의료나눔재단",
+      "body": "주소지 보건소나 노인의료나눔재단에 신청한다. 예산 범위에서 선정하니 필요하면 일찍 문의하는 게 좋다.",
+      "narration": "주소지 보건소나 노인의료나눔재단에 신청해요. 예산 범위에서 선정하니까 필요하면 일찍 문의하는 게 좋습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

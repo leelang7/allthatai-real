@@ -1,0 +1,14 @@
+{
+  "topic": "AI 이력서 경력기술서",
+  "title": "AI로 이력서·경력기술서 쓰는 법",
+  "link": "https://real.allthatai.kr/tools/ai-resume/",
+  "tags": ["이력서", "경력기술서", "AI이력서", "이직", "경력직", "취업준비", "취준생", "이력서작성", "포트폴리오", "취업꿀팁", "커리어", "AI활용", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a laptop and a clean printed document on a desk with a pen, warm office light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "경력직 필수", "titleLines": ["AI로 이력서", "경력기술서", "쓰는 법"], "highlightLine": 1, "narration": "이직할 때 막막한 경력기술서, AI로 쉽게 쓰는 법을 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "성과를 숫자로", "body": "한 일을 적으면 AI가 '매출 20% 상승'처럼 성과를 숫자로 바꿔줘요.", "narration": "첫째, 한 일을 적으면 AI가 매출 20퍼센트 상승처럼 성과를 숫자로 바꿔줍니다." },
+    { "kind": "tip", "num": "2", "head": "직무 키워드 반영", "body": "지원 직무의 핵심 키워드를 자연스럽게 넣어 서류 통과율을 높여요.", "narration": "둘째, 지원 직무의 핵심 키워드를 자연스럽게 넣어 서류 통과율을 높입니다." },
+    { "kind": "tip", "num": "3", "head": "한 장으로 압축", "body": "장황한 내용을 핵심만 남겨 한 장으로 깔끔하게 압축해줘요.", "narration": "셋째, 장황한 내용을 핵심만 남겨 한 장으로 깔끔하게 압축해 줍니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 이력서, 올댓에이아이 AI로 다듬어 보세요. 구독!" }
+  ]
+}

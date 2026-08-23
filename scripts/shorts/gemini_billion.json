@@ -1,0 +1,13 @@
+{
+  "topic": "구글 제미나이 10억 사용자 임박",
+  "tags": ["제미나이", "Gemini", "구글", "챗GPT", "AI경쟁", "생성형AI", "AI뉴스", "빅테크", "월간사용자", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract glowing global network of connected users, rising growth chart, AI competition concept, deep blue and teal light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["챗GPT 아성 흔들린다","구글 제미나이","10억 사용자 코앞"],"highlightLine":1,"narration":"챗GPT 천하가 흔들리고 있습니다. 구글 제미나이가 사용자 10억 명을 코앞에 뒀어요."},
+    {"kind":"tip","num":"①","head":"5개월 만에 2억 명 폭증","body":"제미나이 월간 사용자 9억5천만 명 돌파, 10억 명 코앞. 지난 2월 7억5천만에서 5개월 만에 2억 명이 늘었다.","narration":"제미나이 월간 사용자가 9억 5천만 명을 넘겼어요. 지난 2월에 7억 5천만이었는데, 다섯 달 만에 2억 명이 더 붙은 겁니다."},
+    {"kind":"tip","num":"②","head":"챗GPT 점유율 첫 50% 붕괴","body":"6월 챗GPT가 10억 명을 먼저 찍었지만, 제미나이 점유율이 27.7%로 급상승. 챗GPT는 사상 처음 50% 아래로 내려갔다.","narration":"챗GPT가 6월에 10억을 먼저 찍긴 했는데, 제미나이 점유율이 27.7%까지 올라오면서 챗GPT는 사상 처음으로 점유율 50% 밑으로 떨어졌습니다."},
+    {"kind":"tip","num":"③","head":"성장 비결","body":"'데일리 브리프', 개인 비서 '제미나이 스파크' 같은 신기능과, 안드로이드·아이폰 기본 탑재가 성장 동력.","narration":"비결은 데일리 브리프나 개인 비서 제미나이 스파크 같은 신기능, 그리고 안드로이드랑 아이폰에 기본으로 깔린다는 점이에요."},
+    {"kind":"cta","narration":"이런 AI 판도 소식과 바로 써먹는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙겨 보세요."}
+  ]
+}

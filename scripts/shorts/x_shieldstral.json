@@ -1,0 +1,13 @@
+{
+  "topic": "AI 검열을 내 맘대로 미스트랄 오픈 안전모델 실드스트랄",
+  "tags": ["미스트랄", "실드스트랄", "AI안전", "콘텐츠모더레이션", "오픈웨이트", "가드레일", "멀티모달", "AI가디언", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a customizable AI safety shield filtering text and images by written policy, ai guardrail moderation mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 검열 기준을","내가 글로 정한다","미스트랄 실드스트랄"],"highlightLine":1,"narration":"AI가 뭘 걸러낼지 그 기준을 내가 문장으로 직접 정해요. 미스트랄이 오픈 안전 모델 실드스트랄을 공개했습니다."},
+    {"kind":"tip","num":"①","head":"정책을 프롬프트로","body":"학습 때 고정된 유해 카테고리 대신, 운영자가 평문으로 쓴 정책(예/아니오 질문)을 실행 시점에 넣어 텍스트·이미지를 판정한다.","narration":"학습 때 미리 정한 유해 카테고리 대신, 운영자가 평범한 문장으로 쓴 정책을 실행 시점에 넣어서 텍스트랑 이미지를 판정해요."},
+    {"kind":"tip","num":"②","head":"30억 파라미터로 7배 값","body":"단 30억 파라미터로 최대 7배 큰 안전 모델급 성능. 12개 언어 지원, 16GB GPU 한 장에서 돈다. 아파치 라이선스 오픈웨이트.","narration":"단 30억 파라미터로, 최대 7배 큰 안전 모델급 성능을 내요. 12개 언어를 지원하고 16기가 GPU 한 장에서 돌아갑니다. 오픈웨이트로 공개됐어요."},
+    {"kind":"tip","num":"③","head":"안전, 이제 내 손에","body":"AI 안전·콘텐츠 검열을 외부 API에 안 맡기고 기업이 직접 통제하는 흐름. 자율 AI 사고가 잇따르며 '가드레일'이 핵심이 됐다.","narration":"AI 안전이랑 콘텐츠 검열을 외부에 안 맡기고 기업이 직접 통제하는 흐름이에요. 자율 AI 사고가 잇따르면서 가드레일이 핵심이 됐습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

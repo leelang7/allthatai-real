@@ -1,0 +1,54 @@
+{
+  "topic": "소상공인 전기요금 특별지원 신청하세요",
+  "tags": [
+    "소상공인",
+    "전기요금",
+    "특별지원",
+    "에너지비용",
+    "자영업",
+    "정부지원",
+    "생활꿀팁",
+    "절약",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a small shop owner reviewing a reduced electricity bill, technical blueprint schematic look, top-down flat lay arrangement, high contrast dramatic spotlight, midnight navy and ice blue accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "가게 전기요금 부담",
+        "소상공인 특별지원",
+        "신청해야 받는다"
+      ],
+      "highlightLine": 1,
+      "narration": "소상공인 전기요금을 지원하는 사업이 있어요. 신청해야 받을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "연 매출 기준 지원",
+      "body": "일정 연 매출 이하 소상공인에게 전기요금을 지원한다. 지원 금액과 매출 기준은 사업 연도마다 조정된다.",
+      "narration": "일정 연 매출 이하 소상공인에게 전기요금을 지원해요. 지원 금액이랑 매출 기준은 사업 연도마다 조정됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "고지서 정보가 필요",
+      "body": "사업장 명의 전기요금 고지서나 고객번호가 있어야 신청된다. 임대 건물에서 관리비에 포함돼 내는 경우 별도 서류가 필요할 수 있다.",
+      "narration": "사업장 명의 전기요금 고지서나 고객번호가 있어야 신청돼요. 임대 건물에서 관리비에 포함해 내는 경우엔 별도 서류가 필요할 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "소상공인24에서 신청",
+      "body": "소상공인24 누리집에서 공고와 신청 기간을 확인한다. 예산 소진 시 조기 마감되니 공고가 뜨면 바로 신청하는 게 유리하다.",
+      "narration": "소상공인24 누리집에서 공고랑 신청 기간을 확인해요. 예산이 소진되면 조기 마감되니까, 공고가 뜨면 바로 신청하는 게 유리합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "부가가치세",
+  "link": "https://real.allthatai.kr/tools/vat-calc/",
+  "tags": ["부가가치세", "부가세", "부가세신고", "간이과세", "일반과세", "사업자세금", "자영업", "세금계산서", "매입세액공제", "사장님", "절세", "홈택스", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a small shop counter with a card payment terminal and a calculator, warm cozy light, softly blurred background, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "사장님 필수", "titleLines": ["사장님이라면", "부가가치세", "핵심"], "highlightLine": 1, "narration": "사업자라면 꼭 알아야 할 부가가치세, 핵심 3가지로 정리할게요." },
+    { "kind": "tip", "num": "①", "head": "받은 세금 - 낸 세금", "body": "일반과세는 10%. 손님께 받은 부가세에서 내가 낸 부가세를 빼고 납부해요.", "narration": "첫째, 일반과세는 10퍼센트로, 받은 부가세에서 내가 낸 부가세를 뺀 금액을 납부합니다." },
+    { "kind": "tip", "num": "②", "head": "연매출 1억400만 미만", "body": "연매출 1억400만원 미만이면 간이과세로 부담이 줄어요.", "narration": "둘째, 연매출 1억 4백만 원 미만이면 간이과세로 세 부담이 줄어듭니다." },
+    { "kind": "tip", "num": "③", "head": "매입자료 챙기기", "body": "세금계산서·매입 자료를 잘 챙기면 공제받아 절세돼요.", "narration": "셋째, 세금계산서와 매입 자료를 잘 챙기면 매입세액을 공제받아 절세됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 부가세가 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

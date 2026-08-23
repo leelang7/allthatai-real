@@ -1,0 +1,13 @@
+{
+  "topic": "종합부동산세",
+  "link": "https://real.allthatai.kr/tools/property-tax/",
+  "tags": ["종합부동산세", "종부세", "재산세", "보유세", "공시가격", "1주택공제", "부동산세금", "다주택자", "종부세계산", "부동산", "절세", "6월1일", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic aerial shot of high-rise apartment buildings at dusk with city lights, clear sky, slow smooth camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "비싼 집 보유세", "titleLines": ["집 비싸면", "종합부동산세", "핵심"], "highlightLine": 1, "narration": "공시가 높은 집에 붙는 종합부동산세, 핵심만 정리할게요." },
+    { "kind": "tip", "num": "①", "head": "1주택 12억 공제", "body": "1주택은 공시가격 12억까지, 다주택은 합산 9억까지 공제돼요.", "narration": "첫째, 1주택은 공시가격 12억 원까지, 다주택은 합산 9억 원까지 공제됩니다." },
+    { "kind": "tip", "num": "②", "head": "초과분에만 과세", "body": "공제 기준을 넘는 금액에만 세금이 붙어요. 안 넘으면 0원.", "narration": "둘째, 공제 기준을 넘는 금액에만 과세되고, 넘지 않으면 종부세는 0원입니다." },
+    { "kind": "tip", "num": "③", "head": "6월 1일이 기준", "body": "6월 1일에 집을 가진 사람이 그 해 보유세를 내요. 잔금일을 조심하세요.", "narration": "셋째, 6월 1일에 집을 보유한 사람이 그 해 세금을 내니, 매매 잔금일을 조심하세요." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 보유세가 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

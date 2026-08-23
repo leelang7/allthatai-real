@@ -1,0 +1,13 @@
+{
+  "topic": "슬픈 목소리로 읽어줘 카카오 AI가 감정 사투리 다 된다",
+  "tags": ["카카오", "카나나", "음성AI", "한국AI", "TTS", "감정합성", "옴니AI", "국산AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "sound waves morphing through different emotional color gradients, expressive korean voice ai mood, cool teal and warm yellow accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["슬픈 목소리로 읽어줘","경상도 사투리로","카카오 AI 다 된다"],"highlightLine":1,"narration":"슬픈 목소리로, 경상도 사투리로 읽어줘. 카카오 AI가 이런 주문을 말로 하면 다 알아듣고 해줘요."},
+    {"kind":"tip","num":"①","head":"말 한마디로 톤 조절","body":"카카오가 옴니 AI 카나나-오를 업데이트. '빠르게 읽어줘', '낮은 목소리로', '슬프게' 같은 자연어 지시로 속도·감정·억양을 자유자재로 바꾼다.","narration":"카카오가 옴니 AI 카나나-오를 업데이트했어요. 빠르게, 낮게, 슬프게 같은 말 한마디로 속도랑 감정, 억양을 자유자재로 바꿉니다."},
+    {"kind":"tip","num":"②","head":"한국어 음성 벤치 1위","body":"한국어 음성 지시 벤치마크에서 94.5점으로 오픈AI GPT-4o-미니(91.1점)를 앞섰다. 국산 AI가 한국어 음성에서 강점을 입증.","narration":"한국어 음성 지시 벤치마크에서 94.5점으로, 오픈AI GPT-4o 미니를 앞섰어요. 국산 AI가 한국어 음성에선 확실히 강하다는 걸 보여줬습니다."},
+    {"kind":"tip","num":"③","head":"글·소리·이미지 하나로","body":"카나나-오는 텍스트·음성·이미지를 한 모델에서 처리하는 국내 첫 옴니 AI. 목소리 떨림 같은 비언어 신호까지 읽어 감정에 맞게 응답한다.","narration":"카나나-오는 글이랑 소리, 이미지를 한 모델에서 처리하는 국내 첫 옴니 AI예요. 목소리 떨림 같은 신호까지 읽어서 감정에 맞게 답합니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

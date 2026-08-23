@@ -1,0 +1,54 @@
+{
+  "topic": "스트라이프가 오픈라우터 10조에 샀다",
+  "tags": [
+    "스트라이프",
+    "오픈라우터",
+    "인수",
+    "AI인프라",
+    "LLM라우팅",
+    "스타트업",
+    "밸류에이션",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a payment company acquiring an AI model routing hub, gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "결제 공룡이 AI를 샀다",
+        "스트라이프, 오픈라우터",
+        "70억 달러 인수"
+      ],
+      "highlightLine": 1,
+      "narration": "결제기업 스트라이프가 AI 모델 중개 플랫폼 오픈라우터를 70억 달러 넘게 주고 인수했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "70억 달러 이상에 확정",
+      "body": "블룸버그에 따르면 스트라이프가 오픈라우터 인수를 70억 달러 이상에 확정했다. 앞서 100억 달러 협상설이 돌았지만 최종 규모는 그보다 낮아졌다.",
+      "narration": "블룸버그에 따르면 스트라이프가 오픈라우터 인수를 70억 달러 이상에 확정했어요. 앞서 100억 달러 협상설이 돌았지만, 최종 규모는 그보다 낮아졌습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "몇 달 만에 몸값 5배",
+      "body": "오픈라우터는 얼마 전 13억 달러 가치로 투자를 받았다. 몇 달 만에 5배 넘게 뛴 셈이다. 2023년 설립된 신생 기업이다.",
+      "narration": "오픈라우터는 얼마 전 13억 달러 가치로 투자를 받았어요. 몇 달 만에 5배 넘게 뛴 셈입니다. 2023년에 설립된 신생 기업이에요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "400개 모델을 한 API로",
+      "body": "오픈AI·앤트로픽 등 400개가 넘는 모델을 하나의 API로 쓰고 비교·전환할 수 있게 해주는 중개 플랫폼이다. AI 시대의 결제·정산 길목을 잡겠다는 포석이다.",
+      "narration": "오픈AI나 앤트로픽 등 400개가 넘는 모델을 하나의 API로 쓰고 비교하고 갈아탈 수 있게 해주는 중개 플랫폼이에요. AI 시대의 정산 길목을 잡겠다는 포석입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

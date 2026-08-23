@@ -17,7 +17,18 @@ const fonts = [
 
 const W = 1080;
 const H = 1920;
-const BG = 'linear-gradient(150deg, #1E9E5A 0%, #0A4A2C 100%)'; // pitch green
+let BG = 'linear-gradient(150deg, #1E9E5A 0%, #0A4A2C 100%)'; // pitch green (overridable via JSON "bg")
+
+// Channel branding (override via env when handle changes)
+const CHANNEL_NAME = process.env.CHANNEL_NAME || 'AllThatAI';
+const CHANNEL_HANDLE = process.env.CHANNEL_HANDLE || '@aidoer';
+
+// Auto voice by topic mood: sports/games/tense -> male newscaster, else calm female.
+function pickVoice(topic: string): string {
+  return /축구|월드컵|게임|공성|스포츠|야구|농구|리그|경기|선수|감독|승부|결승|격투|전쟁|사건|범죄|참사|화재|충돌/.test(topic)
+    ? 'ko-KR-InJoonNeural'
+    : 'ko-KR-SunHiNeural';
+}
 const WORK = path.join(ROOT, 'scripts/shorts/_work');
 fs.mkdirSync(WORK, { recursive: true });
 
@@ -88,8 +99,8 @@ async function renderCard(cut: Cut, idx: number, total: number, out: string, bgV
 // it (scaled+cropped to 1080x1920, looped to cut length).
 const BG_VIDEO = process.env.BG_VIDEO && fs.existsSync(process.env.BG_VIDEO) ? process.env.BG_VIDEO : '';
 
-function tts(text: string, out: string) {
-  execFileSync('edge-tts', ['--voice', 'ko-KR-SunHiNeural', '--rate', '+8%', '--text', text, '--write-media', out], { stdio: 'ignore' });
+function tts(text: string, out: string, voice = 'ko-KR-SunHiNeural') {
+  execFileSync('edge-tts', ['--voice', voice, '--rate', '+8%', '--text', text, '--write-media', out], { stdio: 'ignore' });
 }
 
 function durationSec(file: string): number {
@@ -194,11 +205,32 @@ JSON만: {"cuts":[ ...5개 ... ], "bgPrompt":"..."} 또는 {"skip":true}`;
 
 const DEMO_BG = 'Cinematic aerial drone shot flying low over a small tropical island in turquoise Caribbean sea, white sand beach, gentle waves, palm trees, warm golden hour, slow smooth camera, photorealistic, highly detailed';
 
-async function loadScript(): Promise<{ cuts: Cut[]; src: string; bgPrompt?: string }> {
-  if (process.argv[2] === 'demo') return { cuts: SCRIPT, src: 'demo(클로드 직접 작성)', bgPrompt: DEMO_BG };
+function seenTopics(): Set<string> {
+  const seen = new Set<string>();
+  try {
+    const pf = path.join(ROOT, 'scripts/shorts/pending.jsonl');
+    if (fs.existsSync(pf)) {
+      for (const ln of fs.readFileSync(pf, 'utf8').split('\n')) {
+        if (ln.trim()) { try { const o = JSON.parse(ln); if (o.topic) seen.add(String(o.topic)); } catch { /* */ } }
+      }
+    }
+  } catch { /* */ }
+  return seen;
+}
+
+async function loadScript(): Promise<{ cuts: Cut[]; src: string; bgPrompt?: string; topic?: string; tags?: string[]; link?: string }> {
+  if (process.argv[2] === 'demo') return { cuts: SCRIPT, src: 'demo(클로드 직접 작성)', bgPrompt: DEMO_BG, topic: '퀴라소' };
+  // Curated mode: a JSON I (Claude) hand-write — {topic, tags, bgPrompt, cuts:[...]}.
+  // No external LLM picks the topic. This is the quality-first path.
+  if (process.argv[2] && process.argv[2].endsWith('.json')) {
+    const d = JSON.parse(fs.readFileSync(path.resolve(process.argv[2]), 'utf8'));
+    return { cuts: d.cuts, src: d.topic || 'curated', bgPrompt: d.bgPrompt, topic: d.topic, tags: d.tags, link: d.link, bg: d.bg };
+  }
+  const seen = seenTopics(); // skip topics already produced (cross-run dedup)
   const kws = await trends();
-  console.log('급상승:', kws.slice(0, 8).join(', '));
-  for (const kw of kws.slice(0, 8)) {
+  console.log('급상승:', kws.slice(0, 10).join(', '));
+  for (const kw of kws.slice(0, 12)) {
+    if (seen.has(kw)) { console.log(`  dedup skip: ${kw}`); continue; }
     const ns = await news(kw);
     if (!ns.length) continue;
     const text = await llm(SHORTS_NEWS_SYSTEM, `급상승 키워드: ${kw}\n\n관련 뉴스 헤드라인:\n${ns.map((n, i) => `${i + 1}. ${n}`).join('\n')}`);
@@ -208,23 +240,39 @@ async function loadScript(): Promise<{ cuts: Cut[]; src: string; bgPrompt?: stri
     if (!p) continue;
     if (p.skip) { console.log(`  skip(가십/저가치): ${kw}`); continue; }
     if (Array.isArray(p.cuts) && p.cuts.length >= 4 && p.cuts.every((c: any) => c.kind && c.narration)) {
+      // Hard reject politics/news/crime — check keyword + generated text
+      const blob = kw + ' ' + ns.join(' ') + ' ' + p.cuts.map((c: any) => `${c.head || ''}${c.body || ''}${c.narration || ''}`).join(' ');
+      if (BLOCK.test(blob)) { console.log(`  block(정치/언론/사건): ${kw}`); continue; }
       console.log(`  picked: ${kw}`);
-      return { cuts: p.cuts as Cut[], src: `news:${kw}`, bgPrompt: typeof p.bgPrompt === 'string' ? p.bgPrompt : undefined };
+      return { cuts: p.cuts as Cut[], src: `news:${kw}`, bgPrompt: typeof p.bgPrompt === 'string' ? p.bgPrompt : undefined, topic: kw };
     }
   }
-  return { cuts: SCRIPT, src: 'demo', bgPrompt: DEMO_BG };
+  return { cuts: SCRIPT, src: 'demo', bgPrompt: DEMO_BG, topic: '퀴라소' };
 }
 
 async function main() {
-  const { cuts: script, src, bgPrompt } = await loadScript();
+  const { cuts: script, src, bgPrompt, topic, tags, link, bg } = await loadScript() as any;
+  if (bg) BG = bg; // JSON "bg" 그라디언트로 주제별 배경색 override (Wan 안 쓸 때)
   console.log(`script: ${src} (${script.length} cuts)`);
+  const voice = pickVoice(topic || src);
+  console.log(`voice: ${voice}`);
+  // Brand the CTA card with the real channel
+  for (const c of script) {
+    if (c.kind === 'cta') { c.head = `${CHANNEL_NAME} 구독`; c.body = CHANNEL_HANDLE; }
+  }
   // Background: explicit BG_VIDEO env wins; else auto-generate from bgPrompt via Wan.
   let bgVideo = BG_VIDEO;
   if (!bgVideo && bgPrompt) {
     const auto = path.join(ROOT, 'scripts/shorts/_bg_auto.mp4');
-    console.log('Wan 배경 자동생성:', bgPrompt.slice(0, 60), '…');
+    // 한국 앵커 강제: Wan(중국 모델)이 서양인·외국 지폐를 뱉지 않게 모든 배경을 한국화.
+    // 돈이 등장하는 장면은 외화 대신 한국 원화(5만원권)로 못박는다.
+    const kr = ', set in South Korea, Korean East-Asian people, modern Korean setting, clean text-free background, no signage no letters';
+    const money = /\b(money|cash|banknote|coin|bill|won|currency)\b/i.test(bgPrompt)
+      ? ', South Korean won banknotes (50000 won, blue and yellow notes), no foreign currency' : '';
+    const bgKr = bgPrompt.replace(/\.\s*$/, '') + kr + money;
+    console.log('Wan 배경 자동생성(한국화):', bgKr.slice(0, 70), '…');
     try {
-      execFileSync('python', ['scripts/shorts/gen_wan.py', bgPrompt, auto, '480', '832', '81', '25'], { stdio: 'inherit' });
+      execFileSync('python', ['scripts/shorts/gen_wan.py', bgKr, auto, '480', '832', '81', '25'], { stdio: 'inherit' });
       if (fs.existsSync(auto)) bgVideo = auto;
     } catch (e) {
       console.warn('Wan 배경 생성 실패 — 단색 배경으로 폴백:', e instanceof Error ? e.message : e);
@@ -238,14 +286,15 @@ async function main() {
     const mp3 = path.join(WORK, `aud_${i}.mp3`);
     const clip = path.join(WORK, `clip_${i}.mp4`);
     await renderCard(cut, i, total, png, !!bgVideo);
-    tts(cut.narration, mp3);
+    tts(cut.narration, mp3, voice);
     const dur = durationSec(mp3) + 0.6; // small tail
     if (bgVideo) {
-      // AI background clip (looped, scaled+cropped 9:16) + transparent card overlay + narration
+      // AI background clip (16fps) → motion-interpolate to 30fps so it doesn't
+      // stutter, then scale/crop 9:16 + transparent card overlay + narration.
       execFileSync('ffmpeg', [
         '-y', '-stream_loop', '-1', '-i', bgVideo, '-loop', '1', '-i', png, '-i', mp3,
         '-filter_complex',
-        '[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[bg];[bg][1:v]overlay=0:0:format=auto[v]',
+        "[0:v]minterpolate=fps=30:mi_mode=blend,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1[bg];[bg][1:v]overlay=0:0:format=auto[v]",
         '-map', '[v]', '-map', '2:a', '-t', dur.toFixed(2), '-r', '30',
         '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-ar', '44100', '-shortest', clip,
       ], { stdio: 'ignore' });
@@ -273,7 +322,15 @@ async function main() {
   const outMp4 = path.join(outDir, `${safe}_${stamp}.mp4`);
   execFileSync('ffmpeg', ['-y', '-f', 'concat', '-safe', '0', '-i', list, '-c', 'copy', outMp4], { stdio: 'ignore' });
   fs.copyFileSync(outMp4, path.join(ROOT, 'scripts/shorts/_sample.mp4'));
+  // Sidecar tags file — upload_youtube.py reads <video>.tags.json automatically,
+  // so curated tags ride along to YouTube without any manual set_tags step.
+  if (tags && tags.length) fs.writeFileSync(outMp4 + '.tags.json', JSON.stringify(tags, null, 0), 'utf8');
+  // CTA 딥링크 사이드카 — upload_youtube.py가 <video>.link.txt를 읽어 설명 첫 줄에 자동 삽입.
+  if (link) fs.writeFileSync(outMp4 + '.link.txt', link, 'utf8');
   console.log('wrote', outMp4, (fs.statSync(outMp4).size / 1024).toFixed(0), 'KB,', durationSec(outMp4).toFixed(1), 's total');
+  // machine-readable result line for the daily orchestrator
+  const hookTitle = (script.find((c) => c.kind === 'hook')?.titleLines || []).join(' ').trim();
+  console.log('RESULT ' + JSON.stringify({ mp4: outMp4, title: hookTitle || src, topic: topic || src, tags: tags || [] }));
 }
 
 main();

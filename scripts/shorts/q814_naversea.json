@@ -1,0 +1,54 @@
+{
+  "topic": "네이버가 바다 위 AI 데이터센터에 투자했다",
+  "tags": [
+    "네이버",
+    "판탈라사",
+    "데이터센터",
+    "파력발전",
+    "AI전력",
+    "해상",
+    "스타링크",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a floating offshore platform generating wave power for servers at sea, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "전기 부족의 해답을",
+        "바다에서 찾는다",
+        "네이버 해상 데이터센터 투자"
+      ],
+      "highlightLine": 1,
+      "narration": "네이버가 바다에 띄우는 AI 데이터센터 회사에 투자했어요. 전력난 해법을 바다에서 찾습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "파력으로 돌리고 바닷물로 식힌다",
+      "body": "미국 스타트업 판탈라사는 바다에 뜬 플랫폼에서 파도의 힘으로 전기를 만들어 AI 연산을 돌리고, 서버 냉각에는 바닷물을 쓴다. 발전소도 연료도 따로 필요 없다.",
+      "narration": "미국 스타트업 판탈라사는 바다에 뜬 플랫폼에서 파도의 힘으로 전기를 만들어 AI 연산을 돌리고, 서버 냉각에는 바닷물을 써요. 발전소도 연료도 따로 필요 없습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "결과는 위성으로 전송",
+      "body": "송전 인프라 없이 바다 위에서 AI 작업을 처리한 뒤, 계산 결과를 스타링크 같은 저궤도 위성망으로 지상에 보내는 구조다.",
+      "narration": "송전 인프라 없이 바다 위에서 AI 작업을 처리한 뒤, 계산 결과를 스타링크 같은 저궤도 위성망으로 지상에 보내는 구조예요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "2027년 상용화 목표",
+      "body": "판탈라사는 오션-1, 오션-2로 해상 실증을 이어왔고 올해 안에 오션-3를 띄운다. 상용화 목표는 2027년. 네이버는 투자 규모를 공개하지 않았다.",
+      "narration": "판탈라사는 오션 1호, 2호로 해상 실증을 이어왔고 올해 안에 3호를 띄워요. 상용화 목표는 2027년이고, 네이버는 투자 규모를 공개하지 않았습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

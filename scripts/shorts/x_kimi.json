@@ -1,0 +1,13 @@
+{
+  "topic": "역대 최대 무료 AI 2.8조 중국 Kimi K3 나왔다",
+  "tags": ["Kimi", "KimiK3", "문샷AI", "오픈소스AI", "오픈웨이트", "중국AI", "무료AI", "LLM", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "colossal open-source AI neural network unleashed and free, vast glowing data model, tech ascension mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["역대 최대 무료 AI","2.8조 파라미터","중국 Kimi K3"],"highlightLine":1,"narration":"역대 가장 큰 무료 AI 모델이 나왔어요. 중국 문샷의 Kimi K3, 무려 2.8조 파라미터입니다."},
+    {"kind":"tip","num":"①","head":"2.8조 파라미터·무료 공개","body":"지금까지 공개된 오픈웨이트 모델 중 최대인 2.8조 파라미터. 7월 말 허깅페이스에 무료로 풀렸고 1M 토큰 컨텍스트 지원.","narration":"지금까지 무료로 풀린 AI 중 가장 큰 2.8조 파라미터예요. 7월 말 허깅페이스에 공개됐고, 100만 토큰 문맥까지 다룹니다."},
+    {"kind":"tip","num":"②","head":"덩치는 크지만 효율적","body":"896개 전문가 중 16개만 작동하는 방식(MoE)이라 실제 연산은 중형 모델 수준. 다만 통째 받으면 용량이 1.4테라바이트.","narration":"덩치는 2.8조인데, 896명 전문가 중 16명만 일하는 방식이라 실제 연산 부담은 중형 모델 수준이에요. 대신 통째로 받으면 1.4테라바이트나 됩니다."},
+    {"kind":"tip","num":"③","head":"미국 빅테크와 대등","body":"벤치마크에서 앤트로픽·오픈AI 최강 모델과 어깨를 나란히. 품질 지수론 현재 3위권. 중국 AI의 무서운 추격을 보여준다.","narration":"성능 벤치마크에서 앤트로픽이나 오픈AI 최강 모델과 대등해요. 품질 순위론 아직 3위권이지만, 중국 AI의 추격이 정말 무섭습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

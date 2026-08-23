@@ -1,0 +1,54 @@
+{
+  "topic": "교복비 입학준비금 지자체가 줍니다",
+  "tags": [
+    "교복지원",
+    "입학준비금",
+    "중학교",
+    "고등학교",
+    "교육경비",
+    "지자체",
+    "학부모",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a school uniform with a support voucher, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "교복값 부담된다면",
+        "입학준비금·교복 지원",
+        "지자체마다 있다"
+      ],
+      "highlightLine": 1,
+      "narration": "중·고등학교 입학할 때 교복비나 입학준비금을 지원하는 지자체가 많아요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "현물 또는 현금 지원",
+      "body": "지자체와 교육청에 따라 교복을 현물로 주거나, 입학준비금을 지역화폐·바우처로 지급한다. 명칭과 금액은 지역마다 다르다.",
+      "narration": "지자체와 교육청에 따라 교복을 현물로 주거나, 입학준비금을 지역화폐나 바우처로 지급해요. 명칭이랑 금액은 지역마다 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "소득과 무관한 곳도",
+      "body": "소득과 관계없이 해당 학년 전체에 지원하는 지역도 있다. 우리 지역이 어느 방식인지부터 확인하는 게 먼저다.",
+      "narration": "소득과 관계없이 해당 학년 전체에 지원하는 지역도 있어요. 우리 지역이 어느 방식인지부터 확인하는 게 먼저입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "학교 안내를 챙기자",
+      "body": "보통 학교를 통해 신청 안내가 나가고 기한이 짧다. 교육청·지자체 누리집에서 올해 공고를 미리 봐두면 놓치지 않는다.",
+      "narration": "보통 학교를 통해 신청 안내가 나가고 기한이 짧아요. 교육청이나 지자체 누리집에서 올해 공고를 미리 봐두면 놓치지 않습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

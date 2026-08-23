@@ -1,0 +1,13 @@
+{
+  "topic": "종합소득세 신고",
+  "link": "https://real.allthatai.kr/tools/comprehensive-income-tax/",
+  "tags": ["종합소득세", "종소세", "프리랜서세금", "5월종합소득세", "세금신고", "홈택스", "사업소득", "절세", "경비처리", "소득세율", "환급", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of tax documents and a laptop showing a tax form on a wooden desk, warm office light, shallow depth of field, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "5월의 세금", "titleLines": ["프리랜서·사장님", "종합소득세", "핵심정리"], "highlightLine": 1, "narration": "프리랜서와 사장님이 꼭 알아야 할 종합소득세, 3가지로 정리할게요." },
+    { "kind": "tip", "num": "①", "head": "누가 내나", "body": "프리랜서·사업소득, 2천만원 초과 금융·임대소득이 있으면 대상이에요.", "narration": "첫째, 프리랜서나 사업소득, 2천만 원을 넘는 금융·임대소득이 있으면 신고 대상입니다." },
+    { "kind": "tip", "num": "②", "head": "매년 5월 신고", "body": "매년 5월에 신고·납부해요. 놓치면 가산세가 붙어요.", "narration": "둘째, 매년 5월에 신고하고 납부해야 하며, 놓치면 가산세가 붙습니다." },
+    { "kind": "tip", "num": "③", "head": "경비·공제로 절세", "body": "세율은 6~45% 누진. 경비와 공제를 잘 챙기면 환급도 받아요.", "narration": "셋째, 세율은 6에서 45퍼센트 누진이고, 경비와 공제를 잘 챙기면 환급도 받습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 종합소득세, 올댓에이아이 계산기로 미리 확인하세요." }
+  ]
+}

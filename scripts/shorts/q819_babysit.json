@@ -1,0 +1,54 @@
+{
+  "topic": "아이돌봄서비스 정부지원 등급부터 확인",
+  "tags": [
+    "아이돌봄",
+    "돌보미",
+    "맞벌이",
+    "육아지원",
+    "정부지원",
+    "여성가족부",
+    "보육",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a caregiver playing with a child at home, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "갑자기 아이 맡길 곳이",
+        "아이돌봄서비스",
+        "정부가 이용료 지원"
+      ],
+      "highlightLine": 1,
+      "narration": "필요할 때 아이돌보미가 집으로 오고, 이용료도 소득에 따라 정부가 지원해요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "시간제와 종일제",
+      "body": "필요한 시간만 이용하는 시간제와 영아를 종일 돌보는 종일제가 있다. 만 12세 이하 아동 가정이 대상이다.",
+      "narration": "필요한 시간만 이용하는 시간제와, 영아를 종일 돌보는 종일제가 있어요. 만 12세 이하 아동 가정이 대상입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "소득 유형에 따라 지원율",
+      "body": "가구 소득에 따라 유형이 나뉘고 정부 지원 비율이 달라진다. 지원 유형을 먼저 판정받아야 할인된 요금으로 쓸 수 있다.",
+      "narration": "가구 소득에 따라 유형이 나뉘고 정부 지원 비율이 달라져요. 지원 유형을 먼저 판정받아야 할인된 요금으로 쓸 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "대기가 길 수 있다",
+      "body": "인기 시간대는 돌보미 매칭에 시간이 걸린다. 아이돌봄서비스 누리집이나 앱에서 미리 신청·등록해두는 게 좋다.",
+      "narration": "인기 시간대는 돌보미 매칭에 시간이 걸려요. 아이돌봄서비스 누리집이나 앱에서 미리 신청하고 등록해두는 게 좋습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

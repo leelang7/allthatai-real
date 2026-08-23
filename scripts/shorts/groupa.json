@@ -1,0 +1,14 @@
+{
+  "topic": "월드컵 A조 최종 정리",
+  "title": "우리 조 A조 최종 정리, 한국 32강 길은?",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "A조", "한국축구", "조별리그", "멕시코", "남아공", "체코", "32강진출", "와일드카드", "북중미월드컵", "국가대표", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic aerial shot of a soccer stadium from above showing the full green pitch and crowd stands, daytime bright light, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "조별리그 끝", "titleLines": ["우리 조 A조", "최종 정리", "한국은?"], "highlightLine": 2, "narration": "한국이 속한 A조 최종 결과와 32강 길을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "멕시코 전승 1위", "body": "멕시코가 3전 전승 승점 9로 1위, 남아공이 승점 4로 사상 첫 토너먼트 진출이에요.", "narration": "첫째, 멕시코가 3전 전승 승점 9로 1위, 남아공이 승점 4로 사상 첫 토너먼트에 올랐습니다." },
+    { "kind": "tip", "num": "2", "head": "한국 3위 승점 3", "body": "한국은 체코에 2대1 승, 멕시코·남아공에 0대1 패로 승점 3, 3위예요.", "narration": "둘째, 한국은 체코에 2대 1 승리, 멕시코와 남아공에 패해 승점 3으로 3위입니다." },
+    { "kind": "tip", "num": "3", "head": "와일드카드 87.8%", "body": "3위팀 중 상위 8팀이 진출하는데, 한국은 현재 4위로 확률 87.8%예요.", "narration": "셋째, 3위팀 중 상위 8팀이 진출하는데 한국은 현재 4위로 진출 확률이 87.8퍼센트입니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 끝까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

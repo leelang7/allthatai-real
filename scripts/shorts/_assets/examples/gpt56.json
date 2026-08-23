@@ -1,0 +1,12 @@
+{
+  "topic": "GPT-5.6",
+  "tags": ["GPT56", "GPT5", "챗GPT", "ChatGPT", "OpenAI", "오픈AI", "AI뉴스", "인공지능", "코덱스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "cuts": [
+    {"kind":"hook","pill":"AI 속보","titleLines":["GPT-5.6 나왔다","무료로도","쓸 수 있다"],"highlightLine":1,"narration":"GPT-5.6이 나왔습니다. 그런데 무료로도 쓸 수 있어요."},
+    {"kind":"tip","num":"①","head":"Sol·Terra·Luna 3종","body":"7월 9일 정식 공개. 용도별로 세 가지가 나왔어요.","narration":"7월 9일 정식 공개됐어요. 솔, 테라, 루나 세 가지인데, 솔은 코딩과 전문 작업용, 테라는 가성비, 루나는 가장 빠르고 저렴합니다."},
+    {"kind":"tip","num":"②","head":"무료도 Terra 사용","body":"무료·Go 사용자도 ChatGPT Work와 Codex에서 Terra를 써요.","narration":"핵심은 이거예요. 무료와 Go 사용자도 챗GPT 워크와 코덱스에서 테라를 쓸 수 있어요. 유료만의 잔치가 아닙니다."},
+    {"kind":"tip","num":"③","head":"성능은 윗세대 이상","body":"Terra는 이전 GPT-5.5를 더 낮은 비용으로 넘어섰어요.","narration":"테라는 이전 세대인 GPT-5.5를 더 낮은 비용으로 넘어섰고, 루나도 절반 이하 비용으로 비슷한 수준을 냅니다."},
+    {"kind":"cta","narration":"AI 소식은 올댓AI에서. 저장해두세요."}
+  ]
+}

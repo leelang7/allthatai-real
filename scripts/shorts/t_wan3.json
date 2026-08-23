@@ -1,0 +1,13 @@
+{
+  "topic": "알리바바 완3.0 30초 AI영상 문서도 영상으로",
+  "tags": ["알리바바", "완3.0", "Wan", "AI영상", "영상생성", "텍스트투비디오", "Qwen", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract AI video generation concept, cinematic film frames and light streaks morphing on a dark premium background, cool blue and magenta accent glow, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["PPT 넣으면 영상 뚝딱","30초짜리 AI 영상","알리바바 완 3.0"],"highlightLine":1,"narration":"이제 PDF나 PPT를 넣으면 30초짜리 영상을 만들어줍니다. 알리바바 완 3.0이 공개됐어요."},
+    {"kind":"tip","num":"①","head":"15초 → 30초로 2배","body":"기존 완2.7의 15초에서 최대 30초로 두 배. 긴 장면과 복잡한 카메라 워크까지 표현할 수 있다.","narration":"기존 완 2.7의 15초에서 최대 30초로 두 배 늘었어요. 긴 장면이랑 복잡한 카메라 움직임까지 표현됩니다."},
+    {"kind":"tip","num":"②","head":"PDF·PPT도 영상 재료","body":"텍스트·이미지·영상·음성뿐 아니라 PDF, PPT 같은 문서까지 넣어 영상으로. 인물 얼굴·제품 특징·UI를 일관되게 유지.","narration":"텍스트, 이미지, 영상, 음성은 물론 PDF나 PPT 같은 문서까지 넣어서 영상으로 만들어요. 인물 얼굴이랑 제품 특징, UI도 일관되게 유지하고요."},
+    {"kind":"tip","num":"③","head":"공개 베타 중","body":"알리바바 클라우드 모델스튜디오와 큐원 클라우드에서 공개 베타 중. 오픈소스는 아니다. 자율주행·로봇 학습용 시뮬레이션 영상에도 쓴다.","narration":"알리바바 클라우드 모델스튜디오랑 큐원 클라우드에서 공개 베타 중이에요. 오픈소스는 아니고요. 자율주행이나 로봇 학습용 시뮬레이션 영상에도 쓴답니다."},
+    {"kind":"cta","narration":"AI 영상·이미지 도구 더 보고 싶으면 프로필 링크에서 확인해보세요."}
+  ]
+}

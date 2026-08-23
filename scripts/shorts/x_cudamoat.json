@@ -1,0 +1,13 @@
+{
+  "topic": "엔비디아 30년 해자를 AI가 10시간 만에 넘었다",
+  "tags": ["엔비디아", "CUDA", "AI에이전트", "AMD", "GPU", "코딩AI", "반도체", "해자", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a towering wall studded with GPU chips being breached by streams of glowing AI code, breaking the moat mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["엔비디아 30년 해자를","AI가 단 10시간 만에","넘어버렸다"],"highlightLine":1,"narration":"엔비디아를 지켜온 가장 강력한 무기를, AI가 단 10시간 만에 넘어버렸어요. 반도체 판도를 흔들 사건입니다."},
+    {"kind":"tip","num":"①","head":"CUDA가 뭐길래","body":"쿠다는 엔비디아 GPU에서만 AI를 잘 돌게 해주는 소프트웨어. 개발자들이 여기 묶여 있어 엔비디아가 시장을 지배해온 '해자'였다.","narration":"쿠다는 엔비디아 GPU에서만 AI를 잘 돌게 해주는 소프트웨어예요. 개발자들이 여기 묶여 있어서, 엔비디아가 시장을 지배해온 해자, 즉 방어막이었습니다."},
+    {"kind":"tip","num":"②","head":"AI가 대체품을 뚝딱","body":"한 스타트업 창업자가 AI 코딩 에이전트를 시켜, 다른 칩용 쿠다 대체 소프트웨어를 단 10시간 만에 만들어냈다. 사람 엔지니어 없이 AI가 해낸 것.","narration":"한 스타트업 창업자가 AI 코딩 에이전트를 시켜서, 다른 칩용 쿠다 대체 소프트웨어를 단 10시간 만에 만들어냈어요. 사람 엔지니어 없이 AI가 해낸 겁니다."},
+    {"kind":"tip","num":"③","head":"AMD에게 열린 기회","body":"AI가 소프트웨어 벽을 허물면 AMD 같은 경쟁사도 따라잡을 여지가 생긴다. 단, 개발자 습관·최적화 자산이 쌓여 있어 하루아침에 무너지진 않는다.","narration":"AI가 소프트웨어 벽을 허물면, AMD 같은 경쟁사도 따라잡을 여지가 생겨요. 다만 개발자 습관이랑 최적화 자산이 쌓여 있어서, 하루아침에 무너지진 않습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

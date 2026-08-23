@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 자율주행 빅뉴스",
+  "link": "https://real.allthatai.kr/tools/ai-stock/",
+  "tags": ["테슬라", "Tesla", "로보택시", "FSD", "자율주행", "일론머스크", "사이버캡", "전기차", "자율주행규제", "테크뉴스", "AI주식", "모빌리티", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic tracking shot of a sleek modern electric car driving on a city highway at dusk with glowing headlights, smooth motion, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "로보택시", "titleLines": ["테슬라", "자율주행", "빅뉴스"], "highlightLine": 1, "narration": "테슬라 자율주행에 큰 변화가 생겼습니다. 핵심 3가지로 정리할게요." },
+    { "kind": "tip", "num": "1", "head": "UN 통합 규제 채택", "body": "유엔 산하 기구가 세계 첫 자율주행 통합 규제를 채택했어요. 50~60개국 적용.", "narration": "첫째, 유엔 산하 기구가 세계 첫 자율주행 통합 규제를 채택해 50에서 60개국에 적용됩니다." },
+    { "kind": "tip", "num": "2", "head": "FSD 14.3.4 업데이트", "body": "스마트 소환·FSD·로보택시 모델을 하나로 통합한 업데이트를 배포했어요.", "narration": "둘째, 스마트 소환과 FSD, 로보택시 모델을 하나로 통합한 새 업데이트를 배포했습니다." },
+    { "kind": "tip", "num": "3", "head": "로보택시 도시 확대", "body": "댈러스·휴스턴에서 운행 중이고, 7개 도시로 확대를 추진해요.", "narration": "셋째, 댈러스와 휴스턴에서 운행 중이며 7개 도시로 확대를 추진하고 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "테슬라 흐름, 올댓에이아이 AI 도구로 살펴보세요. 구독!" }
+  ]
+}

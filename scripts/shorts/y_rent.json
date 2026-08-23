@@ -1,0 +1,13 @@
+{
+  "topic": "청년월세 지원 월 20만원 최대 480만원",
+  "tags": ["청년월세지원", "월세지원금", "청년주거", "무주택청년", "복지로", "주거비지원", "정부지원", "청년정책", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "small tidy Korean studio apartment with a window and warm evening light, young person's rented room concept, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"청년 꿀팁","titleLines":["월세 사는 청년","월 20만원씩 최대 480만원","놓치면 손해"],"highlightLine":1,"narration":"월세 사는 청년이라면, 월 20만원씩 최대 480만원까지 지원받을 수 있어요. 모르면 손해입니다."},
+    {"kind":"tip","num":"①","head":"최대 480만원","body":"청년월세 특별지원은 월 최대 20만원을 최대 24개월, 생애 1회 지원. 다 합치면 최대 480만원.","narration":"청년월세 특별지원은 월 최대 20만원을, 최대 24개월 동안, 평생 한 번 지원해줘요. 다 합치면 최대 480만원이죠."},
+    {"kind":"tip","num":"②","head":"대상 조건","body":"만 19~34세 부모와 따로 사는 무주택 청년, 원가구 중위소득 100%·청년가구 60% 이하. 실제 내는 월세 범위 안에서 지급.","narration":"만 19세에서 34세, 부모님과 따로 사는 무주택 청년이 대상이에요. 원가구 중위소득 100%, 청년가구 60% 이하면 되고, 실제 내는 월세 안에서 지급됩니다."},
+    {"kind":"tip","num":"③","head":"복지로에서 확인","body":"국가형은 매년 상반기 '복지로'에서, 지자체형은 수시로도 있다. 내 조건·신청 시기는 복지로와 지자체 청년포털에서 확인.","narration":"국가형은 매년 상반기에 복지로에서 신청받고요, 지자체형은 수시로도 있어요. 내 조건이랑 신청 시기는 복지로랑 지자체 청년포털에서 꼭 확인하세요."},
+    {"kind":"cta","narration":"이런 청년 주거 지원은 프로필 링크에 정리해놨어요. 저장해두고 조건 되면 꼭 챙기세요."}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "2026 최저임금",
+  "title": "2026 최저임금 시급·월급, 내 월급 미달 아닌지",
+  "link": "https://real.allthatai.kr/tools/salary-calc/",
+  "tags": ["최저임금", "2026최저임금", "최저시급", "월급계산", "주휴수당", "시급", "알바", "근로기준법", "최저월급", "직장인", "아르바이트", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of a payslip and a few coins on a clean desk, warm soft light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "내 월급은?", "titleLines": ["2026", "최저임금", "시급·월급"], "highlightLine": 1, "narration": "2026년 최저임금, 시급과 월급이 얼마인지 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "시급 10,320원", "body": "2026년 최저 시급은 10,320원이에요.", "narration": "첫째, 2026년 최저 시급은 1만 320원입니다." },
+    { "kind": "tip", "num": "2", "head": "월 약 215만원", "body": "주 40시간, 월 209시간 기준이면 월급은 약 215만원이에요.", "narration": "둘째, 주 40시간, 월 209시간 기준이면 월급은 약 215만 원입니다." },
+    { "kind": "tip", "num": "3", "head": "주휴수당 포함", "body": "이 월급에는 주휴수당이 포함돼요. 이보다 적으면 최저임금 위반.", "narration": "셋째, 이 금액에는 주휴수당이 포함되며, 이보다 적게 받으면 최저임금 위반입니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 월급 실수령액, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

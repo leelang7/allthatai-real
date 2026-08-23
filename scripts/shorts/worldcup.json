@@ -1,0 +1,13 @@
+{
+  "topic": "한국 월드컵 16강 경우의 수",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "한국축구", "16강경우의수", "대한민국축구", "북중미월드컵", "조별리그", "와일드카드", "손흥민", "국가대표", "축구", "월드컵중계", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, dramatic dynamic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "16강 갈까?", "titleLines": ["한국 16강", "경우의 수", "총정리"], "highlightLine": 1, "narration": "대한민국 16강 진출, 살아있는 경우의 수를 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "A조 3위 확정", "body": "체코에 2대1 승, 멕시코·남아공에 0대1 패. 승점 3으로 A조 3위예요.", "narration": "첫째, 한국은 체코에 2대 1 승리, 멕시코와 남아공에 패해 승점 3, A조 3위로 마쳤습니다." },
+    { "kind": "tip", "num": "2", "head": "3위 와일드카드", "body": "이번 대회는 각 조 3위 12팀 중 상위 8팀이 32강에 추가로 올라가요.", "narration": "둘째, 이번 월드컵은 각 조 3위 12팀 가운데 상위 8팀이 32강에 추가로 진출합니다." },
+    { "kind": "tip", "num": "3", "head": "골득실 싸움", "body": "한국은 승점 3에 골득실 마이너스 1. 다른 조 3위 결과를 기다려야 해요.", "narration": "셋째, 한국은 승점 3, 골득실 마이너스 1이라 다른 조 3위 팀들의 결과를 기다려야 합니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "대한민국 마지막까지 응원해요. 올댓에이아이에서 더 보기, 구독!" }
+  ]
+}

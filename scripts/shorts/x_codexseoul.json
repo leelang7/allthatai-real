@@ -1,0 +1,13 @@
+{
+  "topic": "오픈AI 첫 게임 해커톤 서울서 연다 리니지 아버지도 온다",
+  "tags": ["오픈AI", "컴투스", "Codex", "AI게임개발", "바이브코딩", "송재경", "게임해커톤", "국산게임", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a game controller merging with flowing AI code streams, ai game creation event mood, cool teal and magenta accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["오픈AI 첫 게임 행사","서울서 열린다","리니지 아버지도 참여"],"highlightLine":1,"narration":"오픈AI가 게임 개발에 특화된 첫 행사를 서울에서 열어요. 리니지의 아버지 송재경 개발자도 참여합니다."},
+    {"kind":"tip","num":"①","head":"코덱스로 게임 만들기","body":"8월 31일 서울에서 'OpenAI 게임 빌더스'를 개최. AI 코딩 에이전트 코덱스로 게임을 만드는, 오픈AI 최초의 게임 개발 행사다.","narration":"8월 31일 서울에서 오픈AI 게임 빌더스가 열려요. AI 코딩 에이전트 코덱스로 게임을 만드는, 오픈AI 사상 첫 게임 개발 행사입니다."},
+    {"kind":"tip","num":"②","head":"말로 만드는 바이브 코딩","body":"바람의나라·리니지·아키에이지를 만든 송재경이 참여해, 코덱스로 다시 직접 게임 개발에 나선 이야기를 푼다. 컴투스 하이브 플랫폼과도 연동.","narration":"바람의나라, 리니지, 아키에이지를 만든 송재경 개발자가 참여해요. 코덱스로 다시 직접 게임을 만든 이야기를 풀고, 컴투스 하이브 플랫폼과도 연동합니다."},
+    {"kind":"tip","num":"③","head":"상금 5만 달러 규모","body":"직접 개발 발표와 5시간 해커톤 두 트랙으로 진행. 상금은 API 크레딧·챗GPT 프로 등 5만 달러 규모. 8월 26일까지 신청, 40팀 선발.","narration":"미리 만든 게임 발표와 5시간 해커톤, 두 트랙으로 진행돼요. 상금은 API 크레딧이랑 챗GPT 프로 등 5만 달러 규모. 8월 26일까지 신청받아 40팀을 뽑습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "치매안심센터 무료 검진부터 받으세요",
+  "tags": [
+    "치매",
+    "치매안심센터",
+    "무료검진",
+    "인지선별검사",
+    "치매치료관리비",
+    "돌봄",
+    "건강",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a caring hand supporting an elderly memory concept, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "깜빡함이 잦다면",
+        "치매안심센터",
+        "무료 검진부터"
+      ],
+      "highlightLine": 1,
+      "narration": "전국 보건소 치매안심센터에서 무료로 검진받고 지원까지 연결받을 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "인지선별검사 무료",
+      "body": "치매안심센터에서는 만 60세 이상 등을 대상으로 인지선별검사를 무료로 받을 수 있다. 필요하면 진단·감별검사로 이어진다.",
+      "narration": "치매안심센터에서는 만 60세 이상 등을 대상으로 인지선별검사를 무료로 받을 수 있어요. 필요하면 진단이나 감별검사로 이어집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "치료관리비 지원",
+      "body": "치매로 진단받고 약을 복용 중이면 소득 기준에 따라 치매치료관리비를 지원받을 수 있다. 조기 등록이 부담을 줄인다.",
+      "narration": "치매로 진단받고 약을 복용 중이면 소득 기준에 따라 치매치료관리비를 지원받을 수 있어요. 조기 등록이 부담을 줄여줍니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "가족 돌봄도 지원",
+      "body": "실종 예방 배회감지기, 인지 프로그램, 가족 교육과 상담 등 돌보는 가족을 위한 지원도 있다. 가까운 보건소로 문의하자.",
+      "narration": "실종 예방 배회감지기, 인지 프로그램, 가족 교육과 상담처럼 돌보는 가족을 위한 지원도 있어요. 가까운 보건소로 문의하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

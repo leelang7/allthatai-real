@@ -1,0 +1,54 @@
+{
+  "topic": "통신요금 감면 대상인지 확인해보세요",
+  "tags": [
+    "통신요금감면",
+    "요금할인",
+    "기초수급",
+    "차상위",
+    "장애인",
+    "국가유공자",
+    "복지할인",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a phone bill being reduced with a welfare discount stamp, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "매달 나가는 통신비",
+        "복지 대상이면",
+        "요금 감면된다"
+      ],
+      "highlightLine": 1,
+      "narration": "기초수급자나 장애인 등은 통신요금을 감면받을 수 있어요. 신청해야 적용됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "대상은 복지 수급자",
+      "body": "기초생활수급자, 차상위계층, 장애인, 국가유공자, 만 65세 이상 기초연금 수급자 등이 이동통신 요금 감면 대상이 될 수 있다.",
+      "narration": "기초생활수급자나 차상위계층, 장애인, 국가유공자, 만 65세 이상 기초연금 수급자 같은 분들이 이동통신 요금 감면 대상이 될 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "가족 명의는 안 된다",
+      "body": "감면은 본인 명의 회선에 적용된다. 부모님이 대상인데 자녀 명의로 돼 있으면 명의부터 정리해야 감면을 받을 수 있다.",
+      "narration": "감면은 본인 명의 회선에 적용돼요. 부모님이 대상인데 자녀 명의로 돼 있으면, 명의부터 정리해야 감면을 받을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "정부24·통신사에서 신청",
+      "body": "정부24 서비스나 통신사 고객센터·대리점에서 신청할 수 있다. 소급 적용은 제한되니 대상이 되는 즉시 신청하는 게 이득이다.",
+      "narration": "정부24 서비스나 통신사 고객센터, 대리점에서 신청할 수 있어요. 소급 적용은 제한되니까 대상이 되는 즉시 신청하는 게 이득입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

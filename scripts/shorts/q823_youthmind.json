@@ -1,0 +1,54 @@
+{
+  "topic": "청년 마음건강 상담 무료로 받는 법",
+  "tags": [
+    "청년마음건강",
+    "심리상담",
+    "무료상담",
+    "정신건강",
+    "청년",
+    "복지로",
+    "생활꿀팁",
+    "건강",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a young adult in a calm counseling room with supportive atmosphere, flat vector editorial illustration, bold shapes, close-up hero shot, subject centered, golden hour warm sunlight, violet and electric cyan accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "혼자 버티지 마세요",
+        "청년 마음건강 지원",
+        "전문 상담 무료"
+      ],
+      "highlightLine": 1,
+      "narration": "청년에게 전문 심리상담을 지원하는 제도가 있어요. 비용 부담이 거의 없습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "전문가 상담 회차 지원",
+      "body": "청년 마음건강 지원사업은 만 19~34세 청년에게 전문 심리상담을 정해진 회차만큼 지원한다. 소득 기준 없이 신청받는 지자체도 많다.",
+      "narration": "청년 마음건강 지원사업은 만 19세에서 34세 청년에게, 전문 심리상담을 정해진 회차만큼 지원해요. 소득 기준 없이 신청받는 지자체도 많습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "자부담은 소액",
+      "body": "회당 자부담이 소액이거나 무료인 경우가 많다. 온라인·대면 상담 중 선택할 수 있는 곳도 있다.",
+      "narration": "회당 자부담이 소액이거나 무료인 경우가 많아요. 온라인이나 대면 상담 중에 선택할 수 있는 곳도 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "복지로·정신건강복지센터",
+      "body": "복지로나 거주지 정신건강복지센터, 청년정책 누리집에서 모집 공고를 확인할 수 있다. 정원이 차면 마감되니 미리 챙기자.",
+      "narration": "복지로나 거주지 정신건강복지센터, 청년정책 누리집에서 모집 공고를 확인할 수 있어요. 정원이 차면 마감되니까 미리 챙기세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

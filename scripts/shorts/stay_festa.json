@@ -1,0 +1,13 @@
+{
+  "topic": "대한민국 숙박세일 페스타 최대 7만원 할인",
+  "tags": ["숙박세일페스타", "숙박할인", "여름휴가", "국내여행", "할인쿠폰", "비수도권여행", "정부지원", "여행꿀팁", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cozy Korean seaside pension room with ocean view at golden hour, summer vacation accommodation mood, warm amber and teal accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"여행 꿀팁","titleLines":["여름 숙박비 최대 7만원 할인","숙박세일 페스타","7월 31일까지"],"highlightLine":1,"narration":"여름 숙박비 최대 7만원 할인받는 방법. 대한민국 숙박세일 페스타, 7월 31일까지만 합니다. 지금 챙기세요."},
+    {"kind":"tip","num":"①","head":"1박 3만·연박 7만","body":"1박은 7만원 이상 결제 시 3만원(미만 2만원), 2박 이상은 14만원 이상 결제 시 7만원(미만 5만원) 할인쿠폰을 준다.","narration":"1박이면 7만원 이상 결제할 때 3만원, 2박 이상 연박이면 14만원 이상 결제할 때 7만원을 깎아줘요. 숙박비가 확 줄죠."},
+    {"kind":"tip","num":"②","head":"비수도권 85곳","body":"서울·인천·경기를 뺀 비수도권 인구감소지역 85곳 숙소에서 사용. 만 19세 이상이면 누구나, 1인 1매.","narration":"서울, 인천, 경기 빼고 비수도권 인구감소지역 85곳 숙소에서 쓸 수 있어요. 만 19세 이상이면 누구나, 딱 1인 1매입니다."},
+    {"kind":"tip","num":"③","head":"매일 10시 선착순","body":"야놀자·11번가 같은 참여 여행사에서 매일 오전 10시 선착순 발급. 당일 밤~다음날 아침까지만 유효하니 예약 직전에 받자.","narration":"야놀자나 11번가 같은 참여 여행사에서 매일 오전 10시에 선착순으로 풀려요. 받은 날 밤부터 다음날 아침까지만 유효하니까, 예약 바로 직전에 받는 게 핵심입니다."},
+    {"kind":"cta","narration":"이런 여행·숙박 할인 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 7월 넘기기 전에 꼭 챙기세요."}
+  ]
+}

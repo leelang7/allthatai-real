@@ -1,0 +1,54 @@
+{
+  "topic": "출퇴근길 사고도 산재가 됩니다",
+  "tags": [
+    "산재보험",
+    "출퇴근재해",
+    "산업재해",
+    "근로복지공단",
+    "요양급여",
+    "직장인",
+    "보상",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a commuting path with a protective insurance shield, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "회사 밖에서 다쳐도",
+        "출퇴근 사고",
+        "산재로 인정된다"
+      ],
+      "highlightLine": 1,
+      "narration": "회사 안에서 다친 것만 산재가 아니에요. 출퇴근길 사고도 산재로 인정됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "통상적인 출퇴근이면 인정",
+      "body": "대중교통, 자가용, 도보 등 통상적인 경로와 방법으로 출퇴근하다 발생한 사고는 산재로 인정될 수 있다. 일탈이나 중단이 있으면 달라진다.",
+      "narration": "대중교통이나 자가용, 도보처럼 통상적인 경로와 방법으로 출퇴근하다 생긴 사고는 산재로 인정될 수 있어요. 일탈이나 중단이 있으면 달라집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "치료비와 휴업급여",
+      "body": "산재로 인정되면 요양급여로 치료비가 지원되고, 일을 못 한 기간에는 휴업급여가 나온다. 건강보험으로 처리하는 것보다 유리한 경우가 많다.",
+      "narration": "산재로 인정되면 요양급여로 치료비가 지원되고, 일을 못 한 기간에는 휴업급여가 나와요. 건강보험으로 처리하는 것보다 유리한 경우가 많습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "신청은 근로복지공단",
+      "body": "회사가 신청해주지 않아도 본인이 근로복지공단에 직접 청구할 수 있다. 사고 경위와 진료 기록을 남겨두는 게 중요하다.",
+      "narration": "회사가 신청해주지 않아도 본인이 근로복지공단에 직접 청구할 수 있어요. 사고 경위랑 진료 기록을 남겨두는 게 중요합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

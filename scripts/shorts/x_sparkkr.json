@@ -1,0 +1,13 @@
+{
+  "topic": "폰 잠가도 계속 일한다 구글 제미나이 스파크 국내 출시",
+  "tags": ["구글", "제미나이스파크", "AI에이전트", "자동화", "Gemini", "구글워크스페이스", "개인비서", "국내출시", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI agent continuing work autonomously beside a locked smartphone, always-on personal agent mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["폰 잠가도","알아서 계속 일한다","제미나이 스파크 국내 출시"],"highlightLine":1,"narration":"노트북을 닫고 폰을 잠가도 AI가 알아서 계속 일을 처리해요. 구글 제미나이 스파크가 국내에 정식 출시됐습니다."},
+    {"kind":"tip","num":"①","head":"항상 켜진 AI 에이전트","body":"제미나이 스파크는 화면이 꺼져도 작업을 이어가는 상시형 AI 에이전트. 구글 최신 모델 제미나이 3.6으로 구동된다.","narration":"제미나이 스파크는 화면이 꺼져 있어도 작업을 이어가는, 항상 켜진 AI 에이전트예요. 구글 최신 모델 제미나이 3.6으로 구동됩니다."},
+    {"kind":"tip","num":"②","head":"지메일·문서와 한 몸","body":"지메일·구글 문서·스프레드시트와 연동돼, 메일에서 일정·결제 정보를 찾아 문서로 정리하거나 고객 문의 답장을 대신 써준다.","narration":"지메일이랑 구글 문서, 스프레드시트와 연동돼서, 메일에서 일정이나 결제 정보를 찾아 문서로 정리하거나, 고객 문의 답장을 대신 써줘요."},
+    {"kind":"tip","num":"③","head":"국내 구독자부터 순차 제공","body":"구글 AI 프로·울트라 구독자에게 영어에 이어 한국어로 순차 제공. 브라우저를 대신 조작하는 AI 에이전트 경쟁이 국내서도 불붙었다.","narration":"구글 AI 프로랑 울트라 구독자에게 영어에 이어 한국어로 순차 제공돼요. 브라우저를 대신 조작하는 AI 에이전트 경쟁이 국내서도 불붙었습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

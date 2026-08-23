@@ -1,0 +1,54 @@
+{
+  "topic": "엔비디아가 오픈AI 보증을 절반 넘게 줄였다",
+  "tags": [
+    "엔비디아",
+    "오픈AI",
+    "데이터센터",
+    "오하이오",
+    "보증",
+    "AI투자",
+    "리스크",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a giant data center construction site with a shrinking financial guarantee, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "2500억에서 1200억으로",
+        "엔비디아가 줄였다",
+        "오픈AI 데이터센터 보증"
+      ],
+      "highlightLine": 1,
+      "narration": "엔비디아가 오픈AI 데이터센터에 서주던 보증을 절반 넘게 줄였어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "2500억 → 1200억 달러 미만",
+      "body": "월스트리트저널 보도에 따르면 엔비디아는 오하이오 데이터센터 자금 보증을 2500억 달러에서 1200억 달러 미만으로 축소했다.",
+      "narration": "월스트리트저널 보도에 따르면 엔비디아가 오하이오 데이터센터 자금 보증을 2500억 달러에서 1200억 달러 미만으로 줄였어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "10기가와트 중 절반만",
+      "body": "축소된 보증은 계획된 10기가와트 캠퍼스 가운데 첫 5기가와트 정도만 커버한다. 소프트뱅크 계열 SB에너지가 짓는 초대형 프로젝트다.",
+      "narration": "축소된 보증은 계획된 10기가와트 캠퍼스 가운데 첫 5기가와트 정도만 커버해요. 소프트뱅크 계열 SB에너지가 짓는 초대형 프로젝트입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "투자자들이 리스크를 물었다",
+      "body": "거대 금융 약정에 따른 위험 노출을 투자자들이 문제 삼자 물러섰다. 대신 엔비디아는 금융기관 6곳과 5000억 달러 이상 외부 조달을 추진 중이다.",
+      "narration": "거대 금융 약정에 따른 위험 노출을 투자자들이 문제 삼자 물러선 거예요. 대신 엔비디아는 금융기관 6곳과 5000억 달러 이상 외부 조달을 추진 중입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

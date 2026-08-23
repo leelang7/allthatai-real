@@ -1,0 +1,13 @@
+{
+  "topic": "뜨거운 물로 AI 컴퓨터를 식힌다 국내 첫 데이터센터",
+  "tags": ["엘리스그룹", "데이터센터", "AI인프라", "온수냉각", "B300", "엔비디아", "국산AI", "PUE", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "warm water cooling pipes wrapping glowing GPU servers, novel liquid cooling data center mood, cool teal and warm orange accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["뜨거운 물로","AI 컴퓨터를 식힌다","국내 첫 데이터센터"],"highlightLine":1,"narration":"차가운 물도 아니고 40도 넘는 뜨끈한 물로 AI 컴퓨터를 식힌다? 국내 첫 온수 냉각 AI 데이터센터가 등장했어요."},
+    {"kind":"tip","num":"①","head":"40도 온수로 80도 GPU 냉각","body":"엘리스그룹이 국내 최초로 40도 이상 온수를 쓰는 냉각 방식을 적용. 80도 안팎으로 달아오른 GPU를 온수와 외기로 식힌다.","narration":"엘리스그룹이 국내 처음으로 40도 넘는 온수를 쓰는 냉각 방식을 적용했어요. 80도까지 달아오른 GPU를 뜨끈한 물이랑 바깥 공기로 식힙니다."},
+    {"kind":"tip","num":"②","head":"왜 찬물이 아니라 온수?","body":"찬물을 만드는 데 드는 냉각 전력을 확 줄이려는 것. 전력사용효율(PUE) 1.1을 목표로 해, 전기를 거의 다 계산에만 쓰는 셈이다.","narration":"찬물을 만드는 데 드는 냉각 전기를 확 줄이려는 거예요. 전력 효율 지표 PUE 1.1을 목표로 하는데, 전기를 거의 다 계산에만 쓴다는 뜻입니다."},
+    {"kind":"tip","num":"③","head":"엔비디아 B300 2560장","body":"엔비디아 최신 GPU B300을 4개 동에 640장씩, 총 2560장 배치한 모듈형 구조. 비수도권에 연내 완공 목표의 국책사업이다.","narration":"엔비디아 최신 GPU B300을 네 개 동에 640장씩, 총 2560장 넣은 모듈형 구조예요. 비수도권에 연내 완공을 목표로 하는 국책사업입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

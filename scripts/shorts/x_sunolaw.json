@@ -1,0 +1,13 @@
+{
+  "topic": "AI 음악 수노 저작권 유죄 유럽 첫 판결",
+  "tags": ["수노", "Suno", "AI음악", "저작권", "GEMA", "AI저작권", "음악AI", "생성AI판결", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "music notes tangled with legal scales of justice, AI music copyright battle mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 음악 수노","저작권 유죄","유럽 첫 판결"],"highlightLine":1,"narration":"AI로 음악을 만드는 수노가 저작권 침해로 유죄 판결을 받았어요. 유럽 첫 AI 음악 저작권 판결입니다."},
+    {"kind":"tip","num":"①","head":"라이선스 없이 학습 = 위반","body":"독일 뮌헨 법원은 수노가 저작권 단체 GEMA의 음악을 라이선스 없이 학습에 썼다며 저작권 침해로 판결. 200만 곡 이상을 긁어 학습했다.","narration":"독일 뮌헨 법원은 수노가 저작권 단체 GEMA의 음악을 허락 없이 학습에 썼다며 저작권 침해로 판결했어요. 200만 곡 넘게 긁어서 학습했다고 합니다."},
+    {"kind":"tip","num":"②","head":"원곡을 외워서 재현","body":"수노가 특정 6곡의 멜로디·화성·리듬을 그대로 재현한 게 증거로 채택. 단순히 특징만 배운 게 아니라 음악 자체를 통째로 기억했다는 것.","narration":"수노가 특정 6곡의 멜로디랑 화성, 리듬을 그대로 재현한 게 증거로 채택됐어요. 단순히 특징만 배운 게 아니라, 음악 자체를 통째로 외웠다는 거죠."},
+    {"kind":"tip","num":"③","head":"공정 이용 방어도 기각","body":"독일의 데이터 채굴 예외와 미국식 공정 이용 방어 모두 기각. AI 기업들이 학습 데이터에 라이선스를 사야 한다는 압박이 커졌다.","narration":"독일의 데이터 채굴 예외랑 미국식 공정 이용 방어 모두 기각됐어요. 이제 AI 기업들이 학습 데이터에 정당한 라이선스를 사야 한다는 압박이 커진 겁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

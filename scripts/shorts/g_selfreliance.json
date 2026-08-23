@@ -1,0 +1,13 @@
+{
+  "topic": "보호종료 청년 월 50만원 정착금 최대 2천만원",
+  "tags": ["자립준비청년", "보호종료아동", "자립수당", "자립정착금", "정부지원", "청년지원", "복지로", "취약청년", "홀로서기", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "hopeful young adult starting independent life, warm sunrise through a new apartment window, sense of a fresh start, teal and warm amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["보호종료 청년이라면","월 50만원 + 정착금","꼭 챙기세요"],"highlightLine":1,"narration":"보호시설에서 나와 홀로서기 하는 청년이라면, 매달 50만원에 정착금까지 나라가 지원해줘요. 놓치면 큰 손해입니다."},
+    {"kind":"tip","num":"①","head":"자립수당 월 50만원","body":"매달 20일 본인 계좌로 50만원 지급. 보호종료된 달부터 최대 60회차, 즉 5년간 받을 수 있다.","narration":"매달 20일에 본인 계좌로 50만원이 들어와요. 보호가 끝난 달부터 최대 60번, 그러니까 5년 동안 받습니다."},
+    {"kind":"tip","num":"②","head":"자립정착금 1천~2천만원","body":"홀로서기 초기 자금으로 자립정착금을 지원. 거주 지역에 따라 1,000만원에서 2,000만원까지 받는다.","narration":"홀로서기 초기 목돈으로 자립정착금도 줘요. 사는 지역에 따라 1천만원에서 2천만원까지 받을 수 있습니다."},
+    {"kind":"tip","num":"③","head":"만 18세 이후·5년 이내","body":"만 18세 이후 보호가 종료된 자립준비청년으로, 보호종료 5년 이내가 대상. 복지로나 동주민센터에서 신청.","narration":"만 18세 이후 보호가 끝난 자립준비청년 중에, 종료 5년 이내면 대상이에요. 복지로나 동주민센터에서 신청하면 됩니다."},
+    {"kind":"cta","narration":"이런 청년·정부 지원은 몰라서 못 받는 경우가 많아요. 프로필 링크에 정리해놨으니 주변에도 알려주세요."}
+  ]
+}

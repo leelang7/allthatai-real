@@ -1,0 +1,54 @@
+{
+  "topic": "첫만남이용권 200만원 놓치지 마세요",
+  "tags": [
+    "첫만남이용권",
+    "출산",
+    "바우처",
+    "국민행복카드",
+    "정부24",
+    "육아",
+    "생활꿀팁",
+    "복지",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a newborn welcome voucher card with baby essentials, isometric 3d render, clean studio lighting, close-up hero shot, subject centered, bright airy background, soft daylight, mint green and graphite accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "아이 태어나면",
+        "첫만남이용권",
+        "첫째 200만원"
+      ],
+      "highlightLine": 1,
+      "narration": "아이가 태어나면 받는 첫만남이용권, 신청 기한을 놓치면 못 받습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "첫째 200만·둘째부터 300만",
+      "body": "출생아 1인당 첫째는 200만원, 둘째 이상은 300만원을 국민행복카드 바우처로 지급한다. 유흥·사행업 등 일부 업종을 빼면 대부분 사용할 수 있다.",
+      "narration": "출생아 한 명당 첫째는 200만원, 둘째 이상은 300만원을 국민행복카드 바우처로 지급해요. 유흥이나 사행업 같은 일부 업종을 빼면 대부분 쓸 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "사용 기한이 있다",
+      "body": "지급일로부터 정해진 기간 안에 써야 하고, 기한이 지나면 잔액이 소멸된다. 받자마자 사용 계획을 잡는 게 좋다.",
+      "narration": "지급일로부터 정해진 기간 안에 써야 하고, 기한이 지나면 잔액이 소멸돼요. 받자마자 사용 계획을 잡는 게 좋습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "행복출산 원스톱으로",
+      "body": "출생신고할 때 정부24 행복출산 원스톱 서비스로 부모급여·아동수당과 함께 한 번에 신청하면 빠뜨리지 않는다.",
+      "narration": "출생신고할 때 정부24 행복출산 원스톱 서비스로, 부모급여랑 아동수당과 함께 한 번에 신청하면 빠뜨리지 않아요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

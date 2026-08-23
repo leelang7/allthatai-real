@@ -1,0 +1,54 @@
+{
+  "topic": "메모리값 급등에 AI 서버 15% 비싸진다",
+  "tags": [
+    "메모리",
+    "반도체",
+    "AI서버",
+    "가격인상",
+    "엔비디아",
+    "D램",
+    "HBM",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "rising memory chip prices pushing up server rack costs, macro photography, crisp texture detail, diagonal dynamic composition, strong leading lines, bright airy background, soft daylight, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "AI 인프라 비용 상승",
+        "메모리값 급등에",
+        "서버 최대 15% 인상"
+      ],
+      "highlightLine": 1,
+      "narration": "메모리 가격이 뛰면서 AI 서버 가격도 최대 15퍼센트 오릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "반도체 인플레이션",
+      "body": "AI 수요로 메모리 가격이 급등하면서 엔비디아 기반 AI 서버 가격이 최대 15% 오르는 것으로 전해졌다.",
+      "narration": "AI 수요로 메모리 가격이 급등하면서, 엔비디아 기반 AI 서버 가격이 최대 15퍼센트 오르는 것으로 전해졌어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "AI 붐이 부메랑",
+      "body": "AI가 메모리 수요를 끌어올렸는데, 그 메모리값 상승이 다시 AI 인프라 원가를 밀어올리는 구조다.",
+      "narration": "AI가 메모리 수요를 끌어올렸는데, 그 메모리값 상승이 다시 AI 인프라 원가를 밀어올리는 구조예요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "국내 기업엔 양날",
+      "body": "삼성전자·SK하이닉스 같은 메모리 기업엔 호재지만, AI 서비스를 돌리는 기업엔 비용 부담이 커진다.",
+      "narration": "삼성전자나 SK하이닉스 같은 메모리 기업엔 호재지만, AI 서비스를 돌리는 기업엔 비용 부담이 커집니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

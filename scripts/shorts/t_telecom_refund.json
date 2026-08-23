@@ -1,0 +1,13 @@
+{
+  "topic": "더 낸 통신비 안 돌려받은 돈 미환급액 찾기",
+  "tags": ["통신비", "미환급액", "스마트초이스", "숨은돈", "환급금", "통신사", "생활꿀팁", "재테크", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract concept of returning telecom money, a smartphone with coins flowing back, teal and gold accent glow on a dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["통신비 더 냈는데","안 돌려받은 돈","미환급액 찾는 법"],"highlightLine":1,"narration":"해지하거나 이중으로 낸 통신비, 안 찾아가면 그대로 남아있어요. 통신 미환급액 찾는 법입니다."},
+    {"kind":"tip","num":"①","head":"왜 미환급이 생기나","body":"번호이동·해지, 요금 이중납부, 보증금 등으로 더 낸 통신요금이 '환급 대상'으로 남는 경우가 있다. 본인도 모르는 사이 쌓인다.","narration":"번호이동이나 해지, 요금 이중납부, 보증금 같은 걸로 더 낸 통신요금이 환급 대상으로 남는 경우가 있어요. 본인도 모르는 사이 쌓입니다."},
+    {"kind":"tip","num":"②","head":"스마트초이스에서 조회","body":"한국통신사업자연합회가 운영하는 '스마트초이스(smartchoice.or.kr)'에서 이동전화·유선 미환급액을 통합 조회하고 환급 신청할 수 있다. 이용은 무료.","narration":"한국통신사업자연합회가 운영하는 스마트초이스에서 이동전화랑 유선 미환급액을 통합 조회하고 환급 신청할 수 있어요. 이용은 무료입니다."},
+    {"kind":"tip","num":"③","head":"본인인증만 하면 끝","body":"본인 명의로 인증하면 통신사별 미환급액이 뜨고, 계좌로 환급 신청하면 된다. 가족 명의 회선도 각각 확인해 보면 좋다.","narration":"본인 명의로 인증하면 통신사별 미환급액이 뜨고, 계좌로 환급 신청하면 돼요. 가족 명의 회선도 각각 확인해 보면 좋습니다."},
+    {"kind":"cta","narration":"이런 생활 속 숨은 돈이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

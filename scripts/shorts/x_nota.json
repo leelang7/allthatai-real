@@ -1,0 +1,13 @@
+{
+  "topic": "GPU 8장을 4장으로 국내기업이 중국 초거대AI 다이어트",
+  "tags": ["노타", "키미K3", "AI경량화", "GPU절감", "프루닝", "국산AI", "MoE", "AI인프라", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a giant AI model being compressed to run on far fewer GPUs, model lightweighting efficiency mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["GPU 8장을 4장으로","국내기업이","중국 초거대AI 다이어트"],"highlightLine":1,"narration":"초거대 AI 하나 돌리는 데 GPU 8장이 필요했는데, 국내기업이 4장으로 줄였어요. 노타가 중국 키미 K3를 경량화했습니다."},
+    {"kind":"tip","num":"①","head":"GPU 최대 절반 절감","body":"노타가 문샷AI의 2.8조 파라미터 모델 키미 K3를 경량화. 구동에 필요한 B300 GPU를 8장에서 6장·4장으로 줄인 모델 2종을 공개했다.","narration":"노타가 문샷AI의 2조 8천억 파라미터 모델 키미 K3를 경량화했어요. 구동에 필요한 B300 GPU를 8장에서 6장, 4장으로 줄인 모델 두 종을 공개했습니다."},
+    {"kind":"tip","num":"②","head":"비결은 골라 자르기","body":"모든 층을 똑같이 줄이는 대신, 층별 중요도를 분석해 핵심 전문가는 남기고 기여 낮은 모듈만 선별 제거하는 '비균일 프루닝' 기술을 썼다.","narration":"모든 층을 똑같이 줄이는 대신, 층별 중요도를 분석해서 핵심 전문가는 남기고 기여가 낮은 모듈만 골라 제거하는, 비균일 프루닝 기술을 썼어요."},
+    {"kind":"tip","num":"③","head":"성능은 지키고 비용은 뚝","body":"50% 경량화 모델이 기존 방식보다 과학추론·지시수행 벤치마크에서 성능 보존이 더 우수. AI 도입 비용을 크게 낮추는 국산 기술.","narration":"50퍼센트 경량화 모델이 기존 방식보다 과학 추론이랑 지시 수행 벤치마크에서 성능 보존이 더 우수했어요. AI 도입 비용을 크게 낮추는 국산 기술입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

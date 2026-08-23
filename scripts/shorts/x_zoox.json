@@ -1,0 +1,13 @@
+{
+  "topic": "핸들 없는 로보택시 유료 첫 승인 아마존 죽스",
+  "tags": ["아마존", "Zoox", "죽스", "로보택시", "자율주행", "무인택시", "라스베이거스", "NHTSA", "사이버캡", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "driverless carriage-style robotaxi with facing seats on a Las Vegas night street, autonomous mobility milestone mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["핸들도 없는 무인택시","유료 운행 첫 승인","아마존 죽스"],"highlightLine":1,"narration":"핸들도 페달도 없는 무인택시가 미국에서 처음으로 돈 받고 손님을 태우게 됐어요. 아마존의 죽스입니다."},
+    {"kind":"tip","num":"①","head":"연방 첫 유료 승인","body":"미 도로교통안전국이 죽스에 핸들·페달·백미러 없는 목적형 자율차의 유료 운행을 처음으로 허가. 다음 달 라스베이거스에서 시작한다.","narration":"미국 도로교통안전국이, 핸들이나 페달 없는 전용 자율주행차의 유료 운행을 죽스에 처음으로 허가했어요. 다음 달 라스베이거스에서 시작합니다."},
+    {"kind":"tip","num":"②","head":"마주보는 2열 좌석","body":"죽스 차량은 전기차에 마주 보는 2열 좌석, 최고 시속 120km. 2년간 연 2,500대까지 배치할 수 있다.","narration":"죽스 차량은 전기차에 서로 마주 보는 2열 좌석이 있고 최고 시속 120킬로미터예요. 앞으로 2년간 연 2,500대까지 굴릴 수 있습니다."},
+    {"kind":"tip","num":"③","head":"테슬라와 로보택시 경쟁","body":"SF·오스틴·마이애미·LA·애틀랜타로 확대 예정. 테슬라 사이버캡과 함께 무인택시 상용화 경쟁이 본격화됐다.","narration":"샌프란시스코, 오스틴, 마이애미로도 확대할 예정이에요. 테슬라 사이버캡이랑 함께, 무인택시 상용화 경쟁이 본격적으로 불붙었습니다."},
+    {"kind":"cta","narration":"이 종목 지금 어떨까요? 프로필 링크 AI 주식 분석에 종목명 넣으면 매수·매도·목표가까지 정리해줍니다."}
+  ]
+}

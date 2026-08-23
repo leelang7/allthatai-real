@@ -1,0 +1,13 @@
+{
+  "topic": "UNIST GMoE 전문가 공유로 AI 모델 절반 크기",
+  "tags": ["UNIST", "GMoE", "MoE", "전문가혼합", "AI모델", "경량화", "AI연구", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract neural network mixture-of-experts concept, interconnected glowing nodes sharing a central hub on a dark premium background, teal and violet accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["덩치 63% 줄이고","성능은 그대로","UNIST 새 구조 GMoE"],"highlightLine":0,"narration":"AI 모델 덩치를 63%나 줄이고도 성능은 그대로. 국내 UNIST 연구팀이 새 구조를 내놨어요."},
+    {"kind":"tip","num":"①","head":"전문가를 층끼리 공유","body":"기존 MoE는 층마다 전문가를 따로 뒀는데, GMoE는 여러 층이 함께 쓰는 공용 전문가를 둬서 필요한 전문가 수를 확 줄인다.","narration":"기존 방식은 신경망 층마다 전문가를 따로 뒀는데요. GMoE는 여러 층이 함께 쓰는 공용 전문가를 둬서 전문가 수를 확 줄입니다."},
+    {"kind":"tip","num":"②","head":"5.49억→2.04억, 성능 유지","body":"중형 모델 매개변수를 5억4900만에서 2억400만으로 약 63% 줄였는데, 평균 정답률은 39.51%로 기존 39.55%와 사실상 같다.","narration":"중형 모델 파라미터를 5억4900만에서 2억400만으로 약 63% 줄였어요. 그런데 정답률은 39.51%로 기존이랑 거의 똑같습니다."},
+    {"kind":"tip","num":"③","head":"경로 다양성 3배·코드 공개","body":"전문가 선택 경로를 3배 이상 늘리고 쏠림은 45.55%에서 11.15%로 낮췄다. ACL 2026에서 발표됐고 코드도 깃허브에 공개.","narration":"전문가 선택 경로 다양성을 3배 넘게 늘리고 쏠림은 45%에서 11%로 낮췄어요. ACL 2026에서 발표됐고 코드도 깃허브에 공개됐습니다."},
+    {"kind":"cta","narration":"가볍고 똑똑해지는 AI 흐름, 최신 소식은 프로필 링크에서 더 확인해보세요."}
+  ]
+}

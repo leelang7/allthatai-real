@@ -1,0 +1,13 @@
+{
+  "topic": "구글이 AI 인프라에 34조 채권 주문은 156조 몰렸다",
+  "tags": ["구글", "알파벳", "채권", "AI인프라", "데이터센터", "자본조달", "capex", "빅테크", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a tech giant raising massive capital for AI data centers through bonds, ai infrastructure financing mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["구글이 AI 인프라에","34조 채권 발행","주문은 156조 몰렸다"],"highlightLine":1,"narration":"구글이 AI 인프라를 지으려 약 34조원 채권을 발행했는데, 주문이 156조원 넘게 몰렸어요. AI 투자 열기가 그만큼 뜨겁습니다."},
+    {"kind":"tip","num":"①","head":"최대 250억 달러 채권","body":"알파벳이 2년~40년 만기로 최대 250억 달러(약 34조원) 규모 채권을 발행. 올해 최대 2050억 달러에 달하는 AI 투자 재원을 마련하려는 것.","narration":"알파벳이 2년에서 40년 만기로, 최대 250억 달러 규모 채권을 발행해요. 올해 최대 2050억 달러에 달하는 AI 투자 재원을 마련하려는 겁니다."},
+    {"kind":"tip","num":"②","head":"돈이 몰린다","body":"이 채권에 약 1150억 달러(156조원 이상)의 매수 주문이 몰렸다. 데이터센터·서버·반도체에 쓰여 제미나이와 구글 클라우드를 돌린다.","narration":"이 채권에 약 1150억 달러, 156조원 넘는 매수 주문이 몰렸어요. 데이터센터랑 서버, 반도체에 쓰여서 제미나이와 구글 클라우드를 돌립니다."},
+    {"kind":"tip","num":"③","head":"빚내서 짓는 AI 시대","body":"알파벳은 올 상반기에만 500억 달러 넘는 빚을 냈다. 빅테크가 앞다퉈 빚내서 AI 인프라를 짓는 '자본 전쟁'이 벌어지고 있다.","narration":"알파벳은 올 상반기에만 500억 달러 넘는 빚을 냈어요. 빅테크가 앞다퉈 빚을 내서 AI 인프라를 짓는, 자본 전쟁이 벌어지고 있습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

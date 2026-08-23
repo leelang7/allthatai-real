@@ -1,0 +1,54 @@
+{
+  "topic": "장애인연금과 수당 따로 챙기세요",
+  "tags": [
+    "장애인연금",
+    "장애수당",
+    "복지",
+    "중증장애",
+    "소득지원",
+    "복지로",
+    "장애인",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "supportive hands around an accessibility symbol, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "연금과 수당은 다르다",
+        "장애인연금",
+        "따로 신청해야"
+      ],
+      "highlightLine": 1,
+      "narration": "장애인연금과 장애수당은 별개예요. 각각 조건이 달라서 따로 확인해야 합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "중증은 장애인연금",
+      "body": "장애인연금은 중증장애인 중 소득인정액이 기준 이하인 사람에게 지급된다. 기초급여와 부가급여로 나뉜다.",
+      "narration": "장애인연금은 중증장애인 중에 소득인정액이 기준 이하인 사람에게 지급돼요. 기초급여와 부가급여로 나뉩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "경증은 장애수당",
+      "body": "경증장애인은 장애인연금 대신 장애수당 대상이 될 수 있다. 만 18세 미만은 장애아동수당으로 따로 지원된다.",
+      "narration": "경증장애인은 장애인연금 대신 장애수당 대상이 될 수 있어요. 만 18세 미만은 장애아동수당으로 따로 지원됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "주민센터에서 한 번에",
+      "body": "신청은 주소지 읍면동 주민센터에서 하고, 복지로에서 모의계산으로 대상 여부를 미리 볼 수 있다. 장애 정도 재심사 시기도 함께 챙기자.",
+      "narration": "신청은 주소지 읍면동 주민센터에서 하고, 복지로에서 모의계산으로 대상 여부를 미리 볼 수 있어요. 장애 정도 재심사 시기도 같이 챙기세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

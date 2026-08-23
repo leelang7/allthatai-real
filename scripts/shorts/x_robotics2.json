@@ -1,0 +1,13 @@
+{
+  "topic": "구글 로봇 AI 손끝부터 다리까지 전신 제어한다",
+  "tags": ["구글", "딥마인드", "제미나이로보틱스", "휴머노이드", "로봇AI", "피지컬AI", "보스턴다이내믹스", "AI뉴스", "로봇", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "advanced humanoid robot with full-body control in a research lab, physical AI mood, cool teal and silver accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["로봇이 스스로 판단","전신을 제어한다","구글 제미나이 로보틱스2"],"highlightLine":1,"narration":"로봇이 주변을 이해하고 스스로 판단해서, 손끝부터 다리까지 전신을 움직인다? 구글이 제미나이 로보틱스 2를 공개했어요."},
+    {"kind":"tip","num":"①","head":"로봇을 위한 하나의 뇌","body":"환경을 이해하고 스스로 작업 계획을 세워 손끝부터 다리까지 전신을 제어. 구글이 말하는 피지컬 AGI로 가는 로봇 AI다.","narration":"주변 환경을 이해하고 스스로 작업 계획을 세워서, 손끝부터 다리까지 전신을 제어해요. 구글이 말하는 피지컬 AGI, 로봇을 위한 하나의 뇌입니다."},
+    {"kind":"tip","num":"②","head":"3종 모델로 구성","body":"정밀 조작하는 로보틱스 2, 소통·다단계 계획·다중 로봇 협업하는 ER 2, 통신망 없이 로봇 자체에서 도는 온디바이스 2까지.","narration":"정밀하게 조작하는 로보틱스 2, 사람과 소통하고 여러 로봇이 협업하는 ER 2, 인터넷 없이도 로봇 안에서 도는 온디바이스 2까지 세 종류예요."},
+    {"kind":"tip","num":"③","head":"다른 로봇끼리 협업까지","body":"형태가 다른 로봇들이 공통된 이해 체계로 협력. 시연에선 보스턴 다이내믹스 스팟과 휴머노이드 아폴로2가 손발을 맞췄다.","narration":"형태가 다른 로봇들이 공통된 이해 체계로 협력해요. 시연에선 보스턴 다이내믹스의 스팟이랑 휴머노이드 아폴로2가 손발을 맞추는 모습까지 공개됐습니다."},
+    {"kind":"cta","narration":"이런 AI·로봇 최신 소식은 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

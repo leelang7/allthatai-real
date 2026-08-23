@@ -1,0 +1,14 @@
+{
+  "topic": "계약갱신청구권",
+  "title": "전세 2년 더! 계약갱신청구권 핵심",
+  "link": "https://real.allthatai.kr/jeonse/",
+  "tags": ["계약갱신청구권", "전세", "임대차보호법", "전월세상한제", "전세계약", "임대료5%", "세입자권리", "보증금", "부동산", "임대차", "전세연장", "내집마련", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of a house key and a folded document on a clean desk, warm soft light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "5% 상한", "titleLines": ["전세 2년 더", "계약갱신", "청구권"], "highlightLine": 1, "narration": "전세를 2년 더 사는 계약갱신청구권, 핵심만 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "2+2년 거주", "body": "세입자는 갱신을 1번 요구할 수 있어요. 기본 2년에 2년 더, 총 4년.", "narration": "첫째, 세입자는 갱신을 한 번 요구할 수 있어 기본 2년에 2년을 더해 총 4년 살 수 있습니다." },
+    { "kind": "tip", "num": "2", "head": "임대료 5% 이내", "body": "갱신할 때 보증금·월세 인상은 5% 이내로 제한돼요.", "narration": "둘째, 갱신할 때 보증금이나 월세 인상은 5퍼센트 이내로 제한됩니다." },
+    { "kind": "tip", "num": "3", "head": "집주인 실거주 예외", "body": "집주인이나 직계가족이 실제 들어와 살면 갱신을 거부할 수 있어요.", "narration": "셋째, 집주인이나 직계가족이 실제로 들어와 살 경우에는 갱신을 거부할 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "전세 관련 체크, 올댓에이아이에서 확인하세요. 구독!" }
+  ]
+}

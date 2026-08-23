@@ -1,0 +1,13 @@
+{
+  "topic": "말하면 발표자료 뚝딱 오픈AI가 PPT 스타트업 인수",
+  "tags": ["오픈AI", "ChatGPT", "NextSlide", "프레젠테이션", "PPT", "AI인수", "문서생성", "생산성AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a prompt turning into a polished slide deck automatically, ai presentation generation mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["말하면 발표자료 뚝딱","오픈AI가","PPT 스타트업 인수"],"highlightLine":1,"narration":"몇 마디만 하면 발표자료가 뚝딱? 오픈AI가 프레젠테이션 AI 스타트업을 인수해 챗GPT에 붙여요."},
+    {"kind":"tip","num":"①","head":"프롬프트에서 슬라이드로","body":"오픈AI가 넥스트슬라이드를 인수. 프롬프트·메모·문서·리서치를 편집 가능한 슬라이드 덱으로 바꿔주는 AI 도구다.","narration":"오픈AI가 넥스트슬라이드를 인수했어요. 프롬프트나 메모, 문서, 리서치를 편집 가능한 슬라이드 덱으로 바꿔주는 AI 도구입니다."},
+    {"kind":"tip","num":"②","head":"챗GPT의 시각화 강화","body":"넥스트슬라이드 팀은 오픈AI 안에서 챗GPT의 문서·시각 자료 생성 기능을 강화한다. 창업자는 캐퍼AI를 인스타카트에 3.5억 달러에 판 인물.","narration":"넥스트슬라이드 팀은 오픈AI 안에서 챗GPT의 문서랑 시각 자료 생성 기능을 강화해요. 창업자는 캐퍼AI를 인스타카트에 3억 5천만 달러에 판 인물입니다."},
+    {"kind":"tip","num":"③","head":"쓸어담는 오픈AI","body":"오픈AI는 최근 3년간 17건을 인수, 올해 1분기에만 6건. 챗GPT를 만능 업무 도구로 키우려는 공격적 확장이다.","narration":"오픈AI는 최근 3년간 17건을 인수했고, 올해 1분기에만 6건이었어요. 챗GPT를 만능 업무 도구로 키우려는 공격적 확장입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

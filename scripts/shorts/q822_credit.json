@@ -1,0 +1,54 @@
+{
+  "topic": "실업크레딧 실업 중에도 연금 쌓는 법",
+  "tags": [
+    "실업크레딧",
+    "국민연금",
+    "구직급여",
+    "가입기간",
+    "노후",
+    "실업",
+    "생활꿀팁",
+    "연금",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a pension timeline continuing through an employment gap, layered paper cutout diorama, top-down flat lay arrangement, soft gradient background, diffused light, midnight navy and ice blue accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "쉬는 동안 비는 기간",
+        "실업크레딧으로",
+        "연금 가입기간 채운다"
+      ],
+      "highlightLine": 1,
+      "narration": "실업급여를 받는 동안 국민연금 가입기간을 채워주는 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "보험료의 75%를 지원",
+      "body": "구직급여 수급자가 신청하면 국가가 연금보험료의 4분의 3을 지원한다. 본인은 나머지 4분의 1만 낸다.",
+      "narration": "구직급여 수급자가 신청하면 국가가 연금보험료의 4분의 3을 지원해요. 본인은 나머지 4분의 1만 냅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "최대 12개월",
+      "body": "생애 통틀어 최대 12개월까지 인정된다. 가입기간이 늘어나는 만큼 나중에 받는 연금액도 올라간다.",
+      "narration": "생애를 통틀어 최대 12개월까지 인정돼요. 가입기간이 늘어나는 만큼 나중에 받는 연금액도 올라갑니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "고용센터에서 함께 신청",
+      "body": "구직급여를 신청할 때 고용센터나 국민연금공단에서 같이 신청하면 된다. 실업급여가 끝나기 전에 신청해야 한다.",
+      "narration": "구직급여를 신청할 때 고용센터나 국민연금공단에서 같이 신청하면 돼요. 실업급여가 끝나기 전에 신청해야 합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

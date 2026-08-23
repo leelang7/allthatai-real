@@ -1,0 +1,13 @@
+{
+  "topic": "엔비디아 신기록 Rubin",
+  "link": "https://real.allthatai.kr/tools/ai-stock/",
+  "tags": ["엔비디아", "NVIDIA", "블랙웰", "루빈", "AI반도체", "젠슨황", "GPU", "AI칩", "엔비디아실적", "반도체", "AI주식", "테크뉴스", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic close-up of a glowing green and blue computer chip on a circuit board with light reflections, dark high-tech background, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "AI 칩 황제", "titleLines": ["엔비디아", "또 신기록", "무슨 일?"], "highlightLine": 1, "narration": "AI 반도체 황제 엔비디아가 또 신기록을 세웠습니다. 무슨 일인지 정리할게요." },
+    { "kind": "tip", "num": "1", "head": "분기 681억 달러", "body": "한 분기 매출 681억 달러, 1년 새 73% 급증하며 신기록을 썼어요.", "narration": "첫째, 한 분기 매출이 681억 달러로 1년 새 73퍼센트 급증하며 신기록을 세웠습니다." },
+    { "kind": "tip", "num": "2", "head": "블랙웰 품절", "body": "최신 블랙웰 GPU는 품절 수준. 오픈AI와도 대규모 공급 계약을 맺었어요.", "narration": "둘째, 최신 블랙웰 GPU는 품절 수준이고, 오픈AI와 대규모 공급 파트너십까지 맺었습니다." },
+    { "kind": "tip", "num": "3", "head": "차세대 '루빈'", "body": "다음 세대 칩 '루빈'을 공개하며 AI 슈퍼컴 시대를 예고했어요.", "narration": "셋째, 차세대 칩 루빈을 공개하며 다음 AI 슈퍼컴퓨터 시대를 예고했습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "엔비디아 흐름, 올댓에이아이 AI 도구로 살펴보세요. 구독!" }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "평생교육이용권으로 배우고 싶은 거 배우기",
+  "tags": [
+    "평생교육이용권",
+    "평생학습",
+    "국비교육",
+    "자기계발",
+    "성인학습",
+    "국가평생교육진흥원",
+    "교육비",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an adult learner opening a voucher to classes, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "배우고 싶은데 돈이",
+        "평생교육이용권",
+        "수강료 지원"
+      ],
+      "highlightLine": 1,
+      "narration": "성인이 배우고 싶은 걸 배울 수 있게 수강료를 지원하는 이용권이 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "성인 대상 수강료 지원",
+      "body": "국가평생교육진흥원의 평생교육이용권은 성인에게 평생교육 강좌 수강료를 지원한다. 저소득층 등 우선 지원 대상이 정해져 있다.",
+      "narration": "국가평생교육진흥원의 평생교육이용권은 성인에게 평생교육 강좌 수강료를 지원해요. 저소득층 같은 우선 지원 대상이 정해져 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "온·오프라인 강좌 사용",
+      "body": "지정된 평생교육기관의 온라인·오프라인 강좌에서 쓸 수 있다. 어학, 자격증, 취미, 디지털 교육 등 선택지가 넓다.",
+      "narration": "지정된 평생교육기관의 온라인, 오프라인 강좌에서 쓸 수 있어요. 어학이나 자격증, 취미, 디지털 교육처럼 선택지가 넓습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "모집 기간을 놓치지 말자",
+      "body": "예산 범위에서 정해진 기간에만 모집한다. 평생배움세상 누리집에서 올해 공고와 지원 금액, 사용처를 먼저 확인하자.",
+      "narration": "예산 범위에서 정해진 기간에만 모집해요. 평생배움세상 누리집에서 올해 공고랑 지원 금액, 사용처를 먼저 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

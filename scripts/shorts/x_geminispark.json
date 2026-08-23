@@ -1,0 +1,13 @@
+{
+  "topic": "폰 꺼도 일하는 구글 24시간 AI 제미나이 스파크",
+  "tags": ["구글", "제미나이", "제미나이스파크", "AI에이전트", "구글AI", "업무자동화", "워크스페이스", "AI비서", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "personal AI agent working autonomously in a glowing cloud while a phone sleeps, 24-hour automation mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["폰 꺼도","알아서 일한다","구글 제미나이 스파크"],"highlightLine":1,"narration":"내가 폰을 꺼놔도 알아서 일을 해주는 AI? 구글이 24시간 개인 AI 에이전트 제미나이 스파크를 국내에 출시했어요."},
+    {"kind":"tip","num":"①","head":"24시간 능동 에이전트","body":"질문에 답만 하는 수동 비서가 아니라, 지시하면 백그라운드에서 실제 업무를 대신 처리하는 능동형. 노트북 닫아도 클라우드에서 계속 일한다.","narration":"질문에 답만 하는 수동 비서가 아니라, 시키면 백그라운드에서 실제 일을 대신 해주는 능동형이에요. 노트북 닫아도 클라우드에서 계속 일합니다."},
+    {"kind":"tip","num":"②","head":"지메일·캘린더·시트 연동","body":"지메일, 드라이브, 캘린더, 독스, 스프레드시트와 연동. 예를 들어 항공·호텔 예약 메일을 자동으로 여행 일정표에 정리해준다.","narration":"지메일이랑 드라이브, 캘린더, 시트와 연동돼요. 예를 들면 항공권이나 호텔 예약 메일을 알아서 여행 일정표에 정리해줍니다."},
+    {"kind":"tip","num":"③","head":"제미나이 3.6 기반·국내출시","body":"최신 제미나이 3.6 기반. 구글 AI 프로·울트라 이용자에게 순차 제공되고, 한국어·영어를 지원한다.","narration":"최신 제미나이 3.6 기반이고, 구글 AI 프로랑 울트라 이용자한테 순차적으로 풀려요. 한국어랑 영어를 지원합니다."},
+    {"kind":"cta","narration":"이런 바로 쓰는 AI 도구랑 최신 소식은 프로필 링크에 정리해놨어요. 저장해두고 써먹으세요."}
+  ]
+}

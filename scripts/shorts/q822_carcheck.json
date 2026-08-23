@@ -1,0 +1,54 @@
+{
+  "topic": "자동차 정기검사 미루면 과태료 커집니다",
+  "tags": [
+    "자동차검사",
+    "정기검사",
+    "과태료",
+    "한국교통안전공단",
+    "자동차",
+    "행정처분",
+    "생활꿀팁",
+    "절약",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a vehicle inspection notice with an escalating penalty timeline, layered paper cutout diorama, wide establishing shot, subject small in frame, dark moody background, rim lighting, deep indigo and hot magenta accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "귀찮다고 미루면",
+        "자동차 정기검사",
+        "과태료가 불어난다"
+      ],
+      "highlightLine": 1,
+      "narration": "자동차 정기검사를 안 받으면 과태료가 시간이 갈수록 늘어납니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "기간이 정해져 있다",
+      "body": "차종과 연식에 따라 검사 주기가 다르고, 지정된 기간 안에 받아야 한다. 기간 전후 며칠씩 여유가 있다.",
+      "narration": "차종이랑 연식에 따라 검사 주기가 다르고, 지정된 기간 안에 받아야 해요. 기간 전후로 며칠씩 여유가 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "미루면 계속 늘어난다",
+      "body": "기한을 넘기면 과태료가 부과되고, 지연 일수가 길어질수록 금액이 커진다. 방치하면 운행정지 등 불이익도 있다.",
+      "narration": "기한을 넘기면 과태료가 부과되고, 지연 일수가 길어질수록 금액이 커져요. 방치하면 운행정지 같은 불이익도 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "검사 예약은 온라인으로",
+      "body": "한국교통안전공단 사이버검사소나 민간 지정 정비소에서 예약할 수 있다. 검사 대상 시기는 문자로 안내되니 놓치지 말자.",
+      "narration": "한국교통안전공단 사이버검사소나 민간 지정 정비소에서 예약할 수 있어요. 검사 대상 시기는 문자로 안내되니까 놓치지 마세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "학생 안경 할인쿠폰 새 학기에 챙기세요",
+  "tags": [
+    "안경할인",
+    "학생",
+    "서울시",
+    "시력",
+    "새학기",
+    "쿠폰",
+    "생활꿀팁",
+    "교육",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a student getting new glasses with a discount coupon at an optical shop, technical blueprint schematic look, low angle looking up, dramatic scale, bright airy background, soft daylight, forest green and warm brass accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "새 학기 시력 관리",
+        "학생 안경 할인쿠폰",
+        "20% 지원"
+      ],
+      "highlightLine": 1,
+      "narration": "새 학기를 앞두고 학생 안경 구입비를 할인해주는 쿠폰이 나왔어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "안경 구입비 20% 할인",
+      "body": "서울시가 새 학기를 맞아 학생 대상 안경 20% 할인 쿠폰을 제공한다. 참여 안경원에서 사용할 수 있다.",
+      "narration": "서울시가 새 학기를 맞아서 학생 대상 안경 20퍼센트 할인 쿠폰을 제공해요. 참여 안경원에서 사용할 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "성장기 시력은 관리가 중요",
+      "body": "성장기에는 시력이 빠르게 변해 도수가 안 맞는 안경을 오래 쓰면 눈이 더 나빠질 수 있다. 새 학기마다 시력 검사를 권한다.",
+      "narration": "성장기에는 시력이 빠르게 변해서, 도수가 안 맞는 안경을 오래 쓰면 눈이 더 나빠질 수 있어요. 새 학기마다 시력 검사를 권합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "참여처·기간 확인",
+      "body": "쿠폰 사용처와 기간이 정해져 있다. 서울시 누리집이나 자치구 안내에서 참여 안경원과 발급 방법을 확인하자.",
+      "narration": "쿠폰 사용처랑 기간이 정해져 있어요. 서울시 누리집이나 자치구 안내에서 참여 안경원과 발급 방법을 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

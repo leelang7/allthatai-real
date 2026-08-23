@@ -1,0 +1,13 @@
+{
+  "topic": "2026 자녀 지원금 총정리 부모급여 계산",
+  "tags": ["부모급여", "자녀지원금", "아동수당", "첫만남이용권", "양육수당", "출산지원", "육아", "정부지원", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr/tools/childcare-money",
+  "bgPrompt": "cozy Korean nursery room with baby crib and soft toys, warm parenting mood, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["우리 아이로 받는 지원금","다 합치면 얼마?","출생부터 만 8세까지"],"highlightLine":1,"narration":"우리 아이 한 명으로 정부에서 받는 지원금, 다 합치면 얼마일까요? 출생부터 만 8세까지 한 번에 계산됩니다."},
+    {"kind":"tip","num":"①","head":"부모급여 월 100만원","body":"2026 부모급여는 0세 월 100만원, 1세 월 50만원. 여기에 아동수당과 첫만남이용권 200만원까지 더해진다.","narration":"2026년 부모급여는 0세 때 월 100만원, 1세 때 월 50만원이에요. 여기에 아동수당이랑 첫만남이용권 200만원까지 붙습니다."},
+    {"kind":"tip","num":"②","head":"놓치는 것 없이 한 번에","body":"출생부터 만 8세까지 받을 수 있는 정부 지원금을 자동으로 다 합산. 뭘 받는지 놓치지 않게.","narration":"출생부터 만 8세까지 받을 수 있는 지원금을 자동으로 다 합쳐서 보여줘요. 뭐가 있는지 몰라서 놓치는 일이 없게요."},
+    {"kind":"tip","num":"③","head":"신청 안 하면 못 받는다","body":"출산 예정이거나 아이 키우는 집이면 우리 아이 기준으로 총액 확인. 대부분 신청해야 받는다.","narration":"출산 예정이거나 아이 키우는 집이면, 우리 아이 기준으로 총액부터 확인하세요. 이런 건 대부분 신청해야 받을 수 있습니다."},
+    {"kind":"cta","narration":"우리 아이 지원금 총액은 프로필 링크의 '자녀 지원금 총정리'에서 바로 계산하세요. 무료예요."}
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "산모신생아 건강관리사 정부가 지원합니다",
+  "tags": [
+    "산모신생아",
+    "산후도우미",
+    "출산",
+    "바우처",
+    "보건소",
+    "육아",
+    "산후조리",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a newborn care helper supporting a new mother at home, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "산후조리 비용 부담된다면",
+        "산모신생아 건강관리",
+        "정부 바우처 지원"
+      ],
+      "highlightLine": 1,
+      "narration": "출산 후 집으로 전문 관리사가 오는 비용을 정부가 지원해요. 신청 기한이 정해져 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "집으로 관리사가 온다",
+      "body": "교육받은 건강관리사가 집에 방문해 산모 건강관리와 신생아 돌봄, 가사를 돕는다. 이용 기간은 출산 유형과 서비스 종류에 따라 다르다.",
+      "narration": "교육받은 건강관리사가 집에 방문해서 산모 건강관리랑 신생아 돌봄, 가사를 도와줘요. 이용 기간은 출산 유형과 서비스 종류에 따라 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "소득 기준 완화 추세",
+      "body": "기준중위소득 이하가 기본이지만, 지자체별로 소득 기준 없이 지원하거나 본인부담금을 추가로 보조하는 곳이 늘고 있다.",
+      "narration": "기준중위소득 이하가 기본이지만, 지자체별로 소득 기준 없이 지원하거나 본인부담금을 추가로 보조하는 곳이 늘고 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "신청 기한을 지키자",
+      "body": "보통 출산 예정일 40일 전부터 출산 후 30일 이내에 신청해야 한다. 보건소나 복지로에서 신청하고, 기한을 넘기면 지원을 못 받는다.",
+      "narration": "보통 출산 예정일 40일 전부터 출산 후 30일 이내에 신청해야 해요. 보건소나 복지로에서 신청하고, 기한을 넘기면 지원을 못 받습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

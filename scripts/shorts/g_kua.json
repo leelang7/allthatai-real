@@ -1,0 +1,13 @@
+{
+  "topic": "국민취업지원제도 구직촉진수당 월 60만원",
+  "tags": ["국민취업지원제도", "구직촉진수당", "취업지원", "실업", "구직활동", "청년취업", "고용노동부", "정부지원", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "job search desk with laptop and notebook and coffee near a bright window, career support mood, cool teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"청년 꿀팁","titleLines":["일자리 찾는 동안","월 최대 60만원 6개월 지원","국민취업지원제도"],"highlightLine":1,"narration":"일자리 찾는 동안 매달 지원금 받을 수 있어요. 국민취업지원제도, 월 최대 60만원을 6개월까지 줍니다."},
+    {"kind":"tip","num":"①","head":"2026년 인상","body":"구직 활동 기간에 구직촉진수당 지급. 2026년 월 50만원에서 최대 60만원대로 인상, 최대 6개월. 부양가족 있으면 더.","narration":"구직 활동하는 동안 구직촉진수당을 줘요. 2026년엔 월 50만원에서 최대 60만원대로 올랐고, 최대 6개월이에요. 부양가족 있으면 더 받습니다."},
+    {"kind":"tip","num":"②","head":"취업 경험 없어도","body":"취업 경험 없어도 중위소득 120% 이하·재산 5억 이하 청년이면 받을 수 있다. 저소득 구직자를 폭넓게 지원.","narration":"취업 경험이 없어도 돼요. 중위소득 120% 이하, 재산 5억 이하 청년이면 받을 수 있어서 대상이 꽤 넓습니다."},
+    {"kind":"tip","num":"③","head":"취업 지원까지","body":"수당만 주는 게 아니라 직업훈련·일자리 연계 같은 취업 지원 서비스도 함께. 온라인이나 고용센터에서 신청.","narration":"돈만 주는 게 아니라 직업훈련이나 일자리 연계 같은 취업 지원도 같이 해줘요. 신청은 온라인이나 가까운 고용센터에서 하면 됩니다."},
+    {"kind":"cta","narration":"이런 취업·청년 지원 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 조건 되면 꼭 챙기세요."}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "월드컵 32강 토너먼트 개막",
+  "title": "월드컵 32강 토너먼트 개막! 단판 승부",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "32강", "토너먼트", "녹아웃", "한국축구", "북중미월드컵", "32강일정", "단판승부", "와일드카드", "국가대표", "축구", "shorts", "쇼츠", "월드컵중계"],
+  "bgPrompt": "Cinematic aerial shot of a soccer stadium from above showing the full green pitch and crowd stands at dusk, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "단판 승부", "titleLines": ["32강 토너먼트", "개막!", "이제 단판"], "highlightLine": 1, "narration": "조별리그가 끝나고 32강 토너먼트가 개막합니다. 달라지는 점을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "이제 단판 승부", "body": "조별리그와 달리 32강부터는 한 경기로 끝. 비기면 연장과 승부차기예요.", "narration": "첫째, 32강부터는 한 경기로 끝나는 단판 승부라, 비기면 연장과 승부차기로 갑니다." },
+    { "kind": "tip", "num": "2", "head": "48개국 첫 32강", "body": "48개국 체제 첫 대회라 16강이 아니라 32강부터 토너먼트가 시작돼요.", "narration": "둘째, 48개국 체제 첫 대회라 16강이 아니라 32강부터 토너먼트가 시작됩니다." },
+    { "kind": "tip", "num": "3", "head": "한국 진출 시 7월 초", "body": "한국이 진출을 확정하면 7월 초에 첫 토너먼트 경기를 치를 전망이에요.", "narration": "셋째, 한국이 진출을 확정하면 7월 초에 첫 토너먼트 경기를 치를 전망입니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "상대 확정되면 바로 알려드릴게요. 대한민국 응원, 구독!" }
+  ]
+}

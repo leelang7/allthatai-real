@@ -1,0 +1,13 @@
+{
+  "topic": "백악관이 AI 출시 전 정부 검증 넣는다 내용은 비밀",
+  "tags": ["백악관", "AI규제", "AI안전", "프론티어모델", "AI정책", "사이버보안", "오픈AI", "앤트로픽", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a government seal inspecting a sealed glowing AI model box, secret ai oversight mood, cool teal and slate blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["백악관, AI 출시 전","정부가 먼저 검증","근데 내용은 비밀"],"highlightLine":1,"narration":"백악관이 첨단 AI를 출시하기 전에 정부가 먼저 검증하는 틀을 완성했어요. 그런데 정작 그 내용은 비밀입니다."},
+    {"kind":"tip","num":"①","head":"출시 전 30일 정부에 제출","body":"AI 연구소가 새 모델을 파트너·대중에 공개하기 전, 정부가 최대 30일간 먼저 살펴볼 수 있게 하는 자발적 절차. 사이버보안 능력을 검증한다.","narration":"AI 연구소가 새 모델을 공개하기 전에, 정부가 최대 30일간 먼저 살펴볼 수 있게 하는 자발적 절차예요. 주로 사이버보안 능력을 검증합니다."},
+    {"kind":"tip","num":"②","head":"빅4가 백악관에 모였다","body":"오픈AI·앤트로픽·구글·메타가 백악관 회의에 참석해 이 틀을 검토. 대통령 행정명령 60일 만인 8월 1일 시한에 맞춰 완성됐다.","narration":"오픈AI, 앤트로픽, 구글, 메타가 백악관 회의에 참석해 이 틀을 검토했어요. 대통령 행정명령 60일 만인 8월 1일 시한에 맞춰 완성됐습니다."},
+    {"kind":"tip","num":"③","head":"기준은 기밀 처리","body":"다만 벤치마크와 위험 기준값은 기밀로 분류돼 공개되지 않았다. 누가 검토했는지, 언제부터 쓸지도 밝히지 않아 투명성 논란이 인다.","narration":"다만 벤치마크랑 위험 기준값은 기밀로 분류돼 공개 안 됐어요. 누가 검토했는지, 언제부터 쓸지도 안 밝혀서 투명성 논란이 일고 있습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "한국 32강 상대 독일 가능성",
+  "title": "한국 32강 상대, 독일이냐? 오늘 결정",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "한국독일", "한국축구", "32강대진", "32강상대", "카잔의기적", "와일드카드", "대한민국축구", "북중미월드컵", "국가대표", "축구", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, tense dramatic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "카잔의 기억", "titleLines": ["한국 32강 상대", "독일?!", "오늘 결정"], "highlightLine": 1, "narration": "한국 32강 상대로 독일이 거론됩니다. 오늘 결정되는 대진을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "한국 진출 유력", "body": "한국은 A조 3위로 와일드카드 상위 8팀 안에 들어 32강 진출이 유력해요.", "narration": "첫째, 한국은 A조 3위로 와일드카드 상위 8팀 안에 들어 32강 진출이 유력합니다." },
+    { "kind": "tip", "num": "2", "head": "상대 후보 독일·G조1위", "body": "상대 후보는 E조 1위 독일, 또는 G조 1위로 좁혀졌어요.", "narration": "둘째, 상대 후보는 E조 1위 독일, 또는 G조 1위로 좁혀졌습니다." },
+    { "kind": "tip", "num": "3", "head": "오늘 윤곽", "body": "G조 1위가 오늘 경기로 정해지면 한국 상대가 확정돼요. 독일이면 카잔 리벤지!", "narration": "셋째, G조 1위가 오늘 정해지면 한국 상대가 확정됩니다. 독일이라면 2018년 리벤지 매치가 됩니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "상대 확정되면 바로 알려드릴게요. 대한민국 응원, 구독!" }
+  ]
+}

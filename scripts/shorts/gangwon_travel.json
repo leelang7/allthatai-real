@@ -1,0 +1,13 @@
+{
+  "topic": "혜택 받GO 강원 여행 상품권 환급",
+  "tags": ["강원여행", "강원방문의해", "여행지원금", "강원상품권", "국내여행", "숙박할인", "정부지원", "여행꿀팁", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "scenic Gangwon province landscape, green mountains and clear lake with pension, summer travel mood, teal and warm gold accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"여행 꿀팁","titleLines":["강원도 여행 가면","쓴 돈 일부 돌려준다","혜택 받GO 강원여행"],"highlightLine":1,"narration":"강원도로 여행 가면 쓴 돈 일부를 돌려받아요. 강원 방문의 해, 혜택 받고 강원여행 사업입니다."},
+    {"kind":"tip","num":"①","head":"숙박 3만·관광 1만","body":"강원에서 숙박 6만원 이상 쓰면 3만원, 관광·체험 5만원 이상 쓰면 1만원을 모바일 강원상품권으로 돌려준다.","narration":"강원에서 숙박에 6만원 이상 쓰면 3만원, 관광지나 체험에 5만원 이상 쓰면 1만원을 모바일 강원상품권으로 돌려줘요."},
+    {"kind":"tip","num":"②","head":"9월 30일까지 선착순","body":"'강원 방문의 해' 사업으로 9월 30일까지, 매월 예산 선착순. 소진되면 조기 종료. 유흥업 등은 제외.","narration":"이 사업은 9월 30일까지 하는데, 매달 예산이 선착순이라 소진되면 일찍 끝나요. 그러니까 계획 있으면 서두르는 게 좋아요."},
+    {"kind":"tip","num":"③","head":"앱으로 간단 신청","body":"전용 앱 설치 → 회원가입 → 선물함에 쿠폰 등록 → PIN 입력하면 상품권 수령. 신청자 명의 휴대폰으로만 가능.","narration":"신청은 전용 앱 깔고 회원가입한 다음, 선물함에 쿠폰 등록하고 핀 번호 넣으면 상품권이 들어와요. 본인 명의 휴대폰으로만 되는 점 기억하세요."},
+    {"kind":"cta","narration":"이런 지역별 여행 지원 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 떠나기 전에 꼭 챙기세요."}
+  ]
+}

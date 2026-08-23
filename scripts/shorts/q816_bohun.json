@@ -1,0 +1,54 @@
+{
+  "topic": "국가유공자 보훈 혜택 어디까지 되나",
+  "tags": [
+    "보훈",
+    "국가유공자",
+    "보훈청",
+    "의료지원",
+    "교육지원",
+    "감면",
+    "복지",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a memorial ribbon with support service icons, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "등록부터 해야 열린다",
+        "국가유공자 보훈 혜택",
+        "본인과 유족까지"
+      ],
+      "highlightLine": 1,
+      "narration": "국가유공자와 유족은 등록을 해야 의료·교육·감면 혜택이 열립니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "의료 지원이 핵심",
+      "body": "보훈병원과 위탁병원에서 진료비 감면 등 의료 지원을 받을 수 있다. 대상과 감면 폭은 유공자 유형과 상이 등급에 따라 다르다.",
+      "narration": "보훈병원이랑 위탁병원에서 진료비 감면 같은 의료 지원을 받을 수 있어요. 대상과 감면 폭은 유공자 유형이랑 상이 등급에 따라 다릅니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "교육·취업·대부까지",
+      "body": "본인과 자녀 교육 지원, 취업 지원, 주택 대부 등 생활 전반의 지원 제도가 마련돼 있다. 유족도 요건에 따라 대상이 된다.",
+      "narration": "본인과 자녀 교육 지원, 취업 지원, 주택 대부처럼 생활 전반의 지원 제도가 마련돼 있어요. 유족도 요건에 따라 대상이 됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "신청은 보훈지청",
+      "body": "등록 신청은 관할 보훈지청에서 하고, 국가보훈부 누리집에서 대상 요건과 필요한 서류를 확인할 수 있다.",
+      "narration": "등록 신청은 관할 보훈지청에서 하고, 국가보훈부 누리집에서 대상 요건이랑 필요한 서류를 확인할 수 있어요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

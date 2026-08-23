@@ -1,0 +1,54 @@
+{
+  "topic": "태풍·호우 피해 대비 풍수해보험",
+  "tags": [
+    "풍수해보험",
+    "태풍",
+    "호우",
+    "침수",
+    "재해보험",
+    "정부지원",
+    "보험료",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a home protected from storm and flood with an insurance shield, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "태풍철 오기 전에",
+        "풍수해보험",
+        "보험료를 정부가 지원"
+      ],
+      "highlightLine": 1,
+      "narration": "태풍이나 호우로 집이 잠기면 보상받을 수 있는 보험이 있어요. 보험료도 정부가 상당 부분 지원합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "정부가 보험료를 지원",
+      "body": "풍수해·지진재해보험은 행정안전부가 관장하고 보험료의 상당 부분을 국가와 지자체가 지원한다. 개인이 부담하는 금액이 크지 않다.",
+      "narration": "풍수해·지진재해보험은 행정안전부가 관장하고, 보험료의 상당 부분을 국가와 지자체가 지원해요. 개인이 부담하는 금액이 크지 않습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "주택·소상공인 상가까지",
+      "body": "주택과 온실뿐 아니라 소상공인 상가·공장도 가입 대상이다. 태풍, 호우, 홍수, 대설, 지진 등으로 인한 피해를 보상한다.",
+      "narration": "주택이랑 온실뿐 아니라 소상공인 상가나 공장도 가입 대상이에요. 태풍, 호우, 홍수, 대설, 지진 같은 피해를 보상합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "가입은 미리 해둬야",
+      "body": "피해가 난 뒤에는 가입할 수 없다. 민영보험사 창구나 주민센터에서 가입할 수 있으니, 장마·태풍철 전에 미리 확인하자.",
+      "narration": "피해가 난 뒤에는 가입할 수 없어요. 민영보험사 창구나 주민센터에서 가입할 수 있으니까, 장마나 태풍철 전에 미리 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "엔비디아가 네이버 3대 주주 됐다 한국 AI 판 커진다",
+  "tags": ["엔비디아", "네이버", "NVIDIA", "AI데이터센터", "AI팩토리", "미국주식", "반도체", "GPU", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "massive AI data center with glowing GPU server racks, korean tech investment mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["엔비디아가","네이버 3대 주주로","한국 AI 판 커진다"],"highlightLine":1,"narration":"AI 반도체 최강 엔비디아가 네이버 3대 주주에 올랐어요. 한국 AI 데이터센터 판이 확 커지고 있습니다."},
+    {"kind":"tip","num":"①","head":"네이버에 1.46조 투자","body":"엔비디아가 네이버에 약 10억 달러, 1조4600억원 규모로 전략 투자하며 3대 주주로 올라섰다. GPU 공급·기술협력 확대.","narration":"엔비디아가 네이버에 약 10억 달러, 우리 돈 1조4600억원을 전략 투자하면서 3대 주주가 됐어요. GPU 공급이랑 기술 협력을 크게 늘립니다."},
+    {"kind":"tip","num":"②","head":"AI팩토리 200MW→1GW","body":"엔비디아·브룩필드와 함께 네이버 AI팩토리를 2028년까지 200MW로 3배 이상 키우고, 추후 1GW까지 확대. 블랙웰·베라루빈 투입.","narration":"엔비디아, 브룩필드랑 같이 네이버 AI팩토리를 2028년까지 200메가와트로 3배 넘게 키우고, 나중엔 1기가와트까지 늘려요. 최신 블랙웰이랑 베라 루빈 칩이 들어갑니다."},
+    {"kind":"tip","num":"③","head":"SKT·통신사도 가세","body":"SK텔레콤도 엔비디아·앤트로픽과 기가와트급 AI 데이터센터를 추진. 국내 AI 인프라 경쟁이 본격화됐다.","narration":"SK텔레콤도 엔비디아, 앤트로픽이랑 기가와트급 AI 데이터센터를 추진해요. 한국 AI 인프라 경쟁이 본격적으로 불붙은 겁니다."},
+    {"kind":"cta","narration":"이런 AI·투자 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

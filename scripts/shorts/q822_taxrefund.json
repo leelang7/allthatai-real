@@ -1,0 +1,54 @@
+{
+  "topic": "안 찾아간 국세 환급금 조회해보세요",
+  "tags": [
+    "국세환급금",
+    "홈택스",
+    "미수령",
+    "환급",
+    "세금",
+    "숨은돈",
+    "생활꿀팁",
+    "재테크",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "unclaimed tax refund envelopes waiting to be collected, macro photography, crisp texture detail, diagonal dynamic composition, strong leading lines, high contrast dramatic spotlight, violet and electric cyan accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "나라가 돌려줄 돈",
+        "미수령 국세 환급금",
+        "조회는 1분"
+      ],
+      "highlightLine": 1,
+      "narration": "돌려받아야 하는데 안 찾아간 세금 환급금이 있는지 1분이면 확인할 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "왜 안 찾아가나",
+      "body": "계좌 정보가 없거나 주소가 바뀌어 안내를 못 받으면 환급금이 그대로 남는다. 본인도 모르는 경우가 대부분이다.",
+      "narration": "계좌 정보가 없거나 주소가 바뀌어서 안내를 못 받으면 환급금이 그대로 남아요. 본인도 모르는 경우가 대부분입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "홈택스·손택스에서 조회",
+      "body": "국세는 홈택스나 손택스에서 환급금 조회 메뉴로 확인하고 계좌를 넣으면 지급된다. 정부24에서도 미수령 환급금을 확인할 수 있다.",
+      "narration": "국세는 홈택스나 손택스에서 환급금 조회 메뉴로 확인하고 계좌를 넣으면 지급돼요. 정부24에서도 미수령 환급금을 확인할 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "지방세도 따로 있다",
+      "body": "지방세 환급금은 위택스에서 별도로 조회해야 한다. 국세만 보고 끝내면 지방세 몫을 놓칠 수 있다.",
+      "narration": "지방세 환급금은 위택스에서 따로 조회해야 해요. 국세만 보고 끝내면 지방세 몫을 놓칠 수 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

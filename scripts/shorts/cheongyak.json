@@ -1,0 +1,12 @@
+{
+  "topic": "주택청약 가점",
+  "tags": ["주택청약", "청약", "청약가점", "가점계산", "무주택기간", "부양가족", "청약통장", "내집마련", "아파트청약", "부동산", "청약1순위", "청약꿀팁", "재테크", "shorts", "쇼츠"],
+  "bgPrompt": "Cinematic aerial shot of modern apartment complex buildings at golden sunset, warm light, residential city skyline, soft clouds, slow smooth upward camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "내 점수는?", "titleLines": ["청약 가점", "84점 만점", "계산법"], "highlightLine": 1, "narration": "주택청약 가점, 84점 만점이 어떻게 구성되는지 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "무주택 기간 32점", "body": "무주택 기간이 길수록 점수. 15년 이상이면 최대 32점이에요.", "narration": "첫째, 무주택 기간입니다. 길수록 유리하고, 15년 이상이면 최대 32점." },
+    { "kind": "tip", "num": "②", "head": "부양가족 35점", "body": "부양가족이 많을수록 점수. 6명이면 최대 35점으로 가장 커요.", "narration": "둘째, 부양가족 수입니다. 많을수록 점수가 크고, 6명이면 최대 35점." },
+    { "kind": "tip", "num": "③", "head": "통장 기간 17점", "body": "청약통장 가입 기간이 길수록 점수. 15년 이상이면 최대 17점이에요.", "narration": "셋째, 청약통장 가입 기간. 15년 이상이면 최대 17점입니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 청약 가점이 궁금하면 올댓에이아이 AI로 계산해 보세요." }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 FSD 14 라이트 한국 출시 내 차도 되나",
+  "tags": ["테슬라", "FSD", "자율주행", "HW3", "모델3", "모델Y", "FSD라이트", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a compressed neural network running on older car hardware while driving city streets, isometric 3d render, clean studio lighting, diagonal dynamic composition, strong leading lines, high contrast dramatic spotlight, midnight navy and ice blue accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["구형 하드웨어도 버리지 않았다","테슬라 FSD 14 라이트","한국 출시"],"highlightLine":1,"narration":"테슬라가 구형 하드웨어용 FSD 14 라이트를 한국에도 풀었어요. 내 차가 대상인지 확인해보세요."},
+    {"kind":"tip","num":"①","head":"전 세계 두 번째가 한국","body":"FSD v14 라이트는 북미에 이어 한국에 출시됐다. 미국 생산 모델3·모델Y 중 FSD 컴퓨터가 탑재되고 감독형 FSD가 활성화된 차량에 순차 배포된다.","narration":"FSD 14 라이트는 북미에 이어 한국에 출시됐어요. 미국 생산 모델3와 모델Y 중에, FSD 컴퓨터가 탑재되고 감독형 FSD가 활성화된 차량에 순차 배포됩니다."},
+    {"kind":"tip","num":"②","head":"신경망을 압축해 구형에 넣었다","body":"최신 하드웨어 HW4용 FSD 14의 신경망을 압축해, 이전 세대 HW3에서도 돌아가게 최적화한 버전이다. 차선 변경과 교차로 진입, 곡선 주행이 더 자연스러워졌다.","narration":"최신 하드웨어 HW4용 FSD 14의 신경망을 압축해서, 이전 세대 HW3에서도 돌아가게 최적화한 버전이에요. 차선 변경이랑 교차로 진입, 곡선 주행이 더 자연스러워졌습니다."},
+    {"kind":"tip","num":"③","head":"중국산 모델Y는 제외","body":"중국에서 생산된 차량은 한미 FTA 적용 대상이 아니라 국내 안전기준 절차를 따로 거쳐야 해 이번 배포에서 빠졌다. 감독형 FSD 가격은 904만 3천원이다.","narration":"중국에서 생산된 차량은 한미 FTA 적용 대상이 아니라서, 국내 안전기준 절차를 따로 거쳐야 해 이번 배포에서 빠졌어요. 감독형 FSD 가격은 904만 3천원입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

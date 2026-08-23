@@ -1,0 +1,14 @@
+{
+  "topic": "실손보험 청구",
+  "title": "실손보험 청구, 놓치면 손해 3가지",
+  "link": "https://real.allthatai.kr/tools/insurance-medical/",
+  "tags": ["실손보험", "실비보험", "보험청구", "실손청구", "의료비", "병원비", "보험금", "자기부담금", "건강보험", "보험꿀팁", "재테크", "절약", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of a stethoscope and a smartphone on a clean desk, soft clinical light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "놓치면 손해", "titleLines": ["실손보험 청구", "놓치면 손해", "3가지"], "highlightLine": 1, "narration": "안 챙기면 손해 보는 실손보험 청구, 핵심 3가지를 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "소액도 청구", "body": "병원비 몇만원도 청구 대상이에요. 자기부담금만 빼고 돌려받아요.", "narration": "첫째, 병원비 몇만 원도 청구 대상이고, 자기부담금만 빼고 돌려받습니다." },
+    { "kind": "tip", "num": "2", "head": "영수증·세부내역서", "body": "진료비 영수증과 세부내역서만 있으면 돼요. 약값 영수증도 챙겨요.", "narration": "둘째, 진료비 영수증과 세부내역서만 있으면 되고, 약값 영수증도 챙기세요." },
+    { "kind": "tip", "num": "3", "head": "앱으로 간편청구", "body": "이제 보험사 앱으로 사진만 찍어 올리면 청구가 끝나요.", "narration": "셋째, 이제 보험사 앱으로 사진만 찍어 올리면 청구가 끝납니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 의료비 환급, 올댓에이아이에서 확인하세요. 구독!" }
+  ]
+}

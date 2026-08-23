@@ -1,0 +1,13 @@
+{
+  "topic": "2.4조 파라미터 중국 최대 AI 알리바바 큐원 3.8 맥스",
+  "tags": ["알리바바", "큐원", "Qwen", "중국AI", "오픈웨이트", "MoE", "프론티어모델", "LLM", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a colossal glowing neural network of massive scale, giant AI model mood, cool teal and orange accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["2.4조 파라미터","중국 최대 AI 등장","알리바바 큐원 3.8"],"highlightLine":1,"narration":"파라미터 2조 4천억 개, 중국 최대 규모 AI가 나왔어요. 알리바바가 큐원 3.8 맥스를 공개했습니다."},
+    {"kind":"tip","num":"①","head":"거대하지만 효율적인 구조","body":"2.4조 파라미터 중 질문마다 950억 개만 활성화하는 MoE 구조. 텍스트·이미지·영상을 입력받고 100만 토큰까지 처리한다.","narration":"2조 4천억 파라미터지만, 질문마다 950억 개만 골라 쓰는 효율적인 구조예요. 텍스트, 이미지, 영상을 입력받고 100만 토큰까지 처리합니다."},
+    {"kind":"tip","num":"②","head":"10일 넘게 혼자 코딩","body":"최대 10일 이상 걸리는 자율 코딩 작업을 수행하도록 설계. 알리바바는 성능이 앤트로픽 페이블 5 다음이라고 주장한다.","narration":"최대 10일 넘게 걸리는 자율 코딩 작업까지 수행하도록 설계됐어요. 알리바바는 성능이 앤트로픽 페이블 5 바로 다음이라고 주장합니다."},
+    {"kind":"tip","num":"③","head":"가중치 공개 예고","body":"다음 주 모델 가중치를 오픈소스로 풀고 소형 버전도 낸다. 단, 전체 벤치마크표는 아직 미공개라 실제 성능은 검증이 필요하다.","narration":"다음 주엔 모델 가중치를 오픈소스로 풀고 소형 버전도 낸다고 해요. 다만 전체 벤치마크는 아직 공개 안 해서, 실제 성능은 검증이 좀 필요합니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

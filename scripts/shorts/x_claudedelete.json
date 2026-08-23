@@ -1,0 +1,13 @@
+{
+  "topic": "백업하랬더니 컴퓨터를 다 지웠다 AI 코딩의 경고",
+  "tags": ["AI코딩", "코딩에이전트", "AI에이전트", "rm", "백업", "AI사고", "AI안전", "개발자", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI coding agent accidentally wiping a developer's entire drive, ai agent safety cautionary mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["백업하랬더니","컴퓨터를 다 지웠다","AI 코딩의 경고"],"highlightLine":1,"narration":"백업 좀 해달라고 했더니 AI가 컴퓨터를 통째로 지워버렸어요. AI 코딩 도구의 아찔한 경고 사례입니다."},
+    {"kind":"tip","num":"①","head":"'미안, 오타' 한마디","body":"한 개발자가 AI 코딩 도구에 백업을 맡겼는데, AI가 엉뚱한 폴더에 백업하고 드라이브를 삭제 명령으로 싹 지운 뒤 '미안, 오타'라고 답했다.","narration":"한 개발자가 AI 코딩 도구에 백업을 맡겼는데, AI가 엉뚱한 폴더에 백업하고는 드라이브를 삭제 명령으로 싹 지운 뒤, 미안 오타라고 답했어요."},
+    {"kind":"tip","num":"②","head":"물결표 하나의 참사","body":"삭제 명령 끝에 붙은 '~/'가 사용자 홈 디렉토리 전체를 뜻해, 수년치 작업이 순식간에 사라졌다. 여러 AI 코딩 도구에서 비슷한 사고가 반복됐다.","narration":"삭제 명령 끝에 붙은 물결표 슬래시가 홈 디렉토리 전체를 뜻해서, 수년치 작업이 순식간에 사라졌어요. 여러 AI 코딩 도구에서 비슷한 사고가 반복됐습니다."},
+    {"kind":"tip","num":"③","head":"권한·백업이 생명줄","body":"'권한 확인 건너뛰기' 옵션을 켜면 안전장치 없이 명령이 실행된다. AI에 시스템 권한을 줄 땐 샌드박스와 별도 백업이 필수다.","narration":"권한 확인 건너뛰기 옵션을 켜면 안전장치 없이 명령이 실행돼요. AI한테 시스템 권한을 줄 땐 샌드박스랑 별도 백업이 필수입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "연봉 실수령액",
+  "link": "https://real.allthatai.kr/tools/salary-calc/",
+  "tags": ["연봉실수령액", "실수령액", "월급계산기", "4대보험", "연봉계산기", "세후월급", "국민연금", "건강보험", "소득세", "직장인", "급여명세서", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of a payslip document and a calculator on a tidy office desk, warm soft light, shallow depth of field, slow push-in camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "연봉 5천, 실수령은?", "titleLines": ["연봉은 같은데", "실수령액", "왜 다를까"], "highlightLine": 1, "narration": "같은 연봉인데 실수령액이 다른 이유, 공제 구조를 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "4대보험 약 9.4%", "body": "국민연금 4.75%, 건강보험 3.595%, 고용보험 0.9% 등 월급의 약 9.4%가 빠져요.", "narration": "첫째, 4대보험으로 국민연금 4.75퍼센트, 건강보험 3.6퍼센트 등 월급의 약 9.4퍼센트가 공제됩니다." },
+    { "kind": "tip", "num": "②", "head": "소득세는 사람마다", "body": "소득세·지방소득세는 부양가족 수에 따라 간이세액표로 달라져요.", "narration": "둘째, 소득세와 지방소득세는 부양가족 수에 따라 사람마다 다르게 떼입니다." },
+    { "kind": "tip", "num": "③", "head": "비과세는 안 떼요", "body": "식대 월 20만원 같은 비과세는 보험·세금 대상이 아니라 실수령이 늘어요.", "narration": "셋째, 식대 월 20만 원 같은 비과세 항목은 공제 대상이 아니라 실수령액을 늘려줍니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 연봉 실수령액, 올댓에이아이 계산기로 바로 확인하세요." }
+  ]
+}

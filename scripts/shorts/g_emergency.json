@@ -1,0 +1,13 @@
+{
+  "topic": "실직 폐업 위기 심사 전에 먼저 준다 긴급복지",
+  "tags": ["긴급복지", "긴급복지지원", "생계지원", "위기가구", "실직", "폐업", "정부지원", "129", "복지로", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "warm supportive mood of relief in hard times, a hand reaching out toward soft light, hope amid difficulty, teal and warm amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부혜택","titleLines":["갑자기 실직·폐업","심사 전에 먼저 준다","긴급복지"],"highlightLine":1,"narration":"갑자기 실직하거나 폐업해서 당장 생계가 막막할 때, 나라가 심사도 전에 먼저 도와주는 제도가 있어요. 긴급복지지원입니다."},
+    {"kind":"tip","num":"①","head":"위기사유 있으면 대상","body":"실직·폐업·중한 질병·가정폭력·화재 등 갑작스러운 위기로 생계가 어려운 가구. 중위소득 75% 이하가 기준.","narration":"실직이나 폐업, 중한 질병, 가정폭력, 화재처럼 갑작스러운 위기로 생계가 막힌 가구가 대상이에요. 소득은 중위 75퍼센트 이하 기준입니다."},
+    {"kind":"tip","num":"②","head":"선지원 후심사","body":"먼저 지원하고 나중에 확인하는 방식. 생계비는 가구원 수에 따라 매달, 최대 6개월. 의료비는 300만원 이내로 지원.","narration":"먼저 지원하고 나중에 확인하는 선지원 방식이에요. 생계비는 가구원 수에 따라 매달, 최대 6개월까지, 의료비는 300만원 이내로 지원됩니다."},
+    {"kind":"tip","num":"③","head":"129 전화 한 통","body":"주민센터 방문 또는 보건복지상담센터 129 전화로 신청. 담당 공무원이 위기 상황을 확인하면 즉시 현금 지급.","narration":"주민센터에 가거나 보건복지상담센터 129번으로 전화 한 통이면 신청돼요. 위기 상황이 확인되면 즉시 현금으로 지급됩니다."},
+    {"kind":"cta","narration":"이런 정부 지원은 몰라서 못 받는 경우가 많아요. 프로필 링크에 정리해놨으니 저장해두고 힘들 때 꺼내 쓰세요."}
+  ]
+}

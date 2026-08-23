@@ -1,0 +1,13 @@
+{
+  "topic": "퇴직금 계산법",
+  "link": "https://real.allthatai.kr/tools/severance/",
+  "tags": ["퇴직금", "퇴직금계산", "평균임금", "근속연수", "퇴직금계산법", "퇴사", "직장인", "노동법", "퇴직연금", "근로기준법", "퇴직정산", "재테크", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a tidy modern office desk with a small cardboard box of personal belongings, soft window light, quiet mood, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "내 퇴직금은?", "titleLines": ["퇴사 전에", "퇴직금", "계산법"], "highlightLine": 1, "narration": "퇴사하기 전에 꼭 알아야 할 퇴직금 계산법, 3가지로 정리할게요." },
+    { "kind": "tip", "num": "①", "head": "1년 이상부터", "body": "같은 회사에서 1년 이상 일해야 퇴직금이 생겨요. 1년 미만은 없어요.", "narration": "첫째, 같은 회사에서 1년 이상 일해야 퇴직금이 발생합니다. 1년 미만은 없습니다." },
+    { "kind": "tip", "num": "②", "head": "30일분 × 근속연수", "body": "1일 평균임금에 30일을 곱하고, 다시 근속연수를 곱한 금액이에요.", "narration": "둘째, 1일 평균임금에 30일을 곱하고 거기에 근속연수를 곱하면 퇴직금입니다." },
+    { "kind": "tip", "num": "③", "head": "평균임금에 수당 포함", "body": "평균임금은 퇴직 전 3개월 임금. 상여·수당도 포함돼 생각보다 많아요.", "narration": "셋째, 평균임금은 퇴직 전 3개월 임금으로 계산하고 상여와 수당도 포함됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 퇴직금이 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

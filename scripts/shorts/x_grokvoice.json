@@ -1,0 +1,13 @@
+{
+  "topic": "그록 보이스 2.0 0.7초 만에 대답 진짜 사람처럼",
+  "tags": ["xAI", "그록", "GrokVoice", "음성AI", "실시간음성", "머스크", "AI에이전트", "음성모델", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "real-time AI voice waveform responding instantly, natural conversation mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["묻자마자 0.7초","진짜 사람처럼 대답","xAI 그록 보이스 2.0"],"highlightLine":1,"narration":"물어보자마자 0.7초 만에 진짜 사람처럼 대답하는 AI 음성? 머스크의 xAI가 그록 보이스 2.0을 내놨어요."},
+    {"kind":"tip","num":"①","head":"응답 0.7초로 빨라졌다","body":"첫 대답까지 걸리는 시간이 1.0버전 1.25초에서 2.0에선 0.70초로 뚝. 대화가 사람과 하는 것처럼 자연스러워졌다.","narration":"첫 대답까지 걸리는 시간이 1.25초에서 0.70초로 확 줄었어요. 그만큼 대화가 사람이랑 하는 것처럼 자연스러워졌습니다."},
+    {"kind":"tip","num":"②","head":"성능·언어도 업그레이드","body":"음성 대 음성 벤치마크가 75.7%에서 82.9%로 상승. 추론 계산은 60% 아끼면서 24개 언어를 지원한다.","narration":"음성 대 음성 성능 점수가 75.7점에서 82.9점으로 올랐어요. 게다가 계산은 60퍼센트 아끼면서 24개 언어를 지원합니다."},
+    {"kind":"tip","num":"③","head":"코딩 없이 음성봇 만든다","body":"함께 나온 보이스 에이전트 빌더로, 통화 흐름을 말로 설명만 하면 2분 만에 전화 응대 봇이 뚝딱. 분당 5센트.","narration":"같이 나온 보이스 에이전트 빌더로는, 통화 흐름을 말로 설명만 하면 2분 만에 전화 응대 봇이 만들어져요. 분당 5센트입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

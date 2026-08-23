@@ -1,0 +1,13 @@
+{
+  "topic": "AI 반려동물 케어 맞춤 식단 건강 예산",
+  "tags": ["반려동물", "강아지", "고양이", "반려동물건강", "펫케어", "반려동물식단", "초보집사", "AI도구", "반려인", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-pet-care",
+  "bgPrompt": "cozy home corner with pet bed bowls and toys by a sunny window, warm pet care mood, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, no animals, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"반려 꿀팁","titleLines":["우리 강아지·고양이","뭘 어떻게 챙기지?","AI가 맞춤 가이드"],"highlightLine":1,"narration":"우리 강아지, 고양이 뭘 어떻게 챙겨야 할지 막막할 때. AI가 우리 아이 맞춤으로 정리해줍니다."},
+    {"kind":"tip","num":"①","head":"식단·운동·백신까지","body":"반려동물 정보만 넣으면 AI가 맞춤 식단, 하루 운동량, 백신·건강검진 일정까지 정리해준다.","narration":"우리 아이 정보만 넣으면 AI가 맞춤 식단이랑 하루 운동량, 백신이랑 건강검진 일정까지 쫙 정리해줘요."},
+    {"kind":"tip","num":"②","head":"월 예산도 잡아줌","body":"월 예산까지 잡아줘서 사료·병원비가 대략 얼마 드는지 미리 계획. 초보 집사한테 특히 유용.","narration":"거기에 월 예산까지 잡아줘서, 사료비나 병원비가 대략 얼마 드는지 미리 계획할 수 있어요. 초보 집사분들한테 특히 좋아요."},
+    {"kind":"tip","num":"③","head":"1분이면 기준이 잡힌다","body":"새로 입양했거나 건강·식단이 헷갈릴 때 1분이면 기준이 잡힌다. 무료.","narration":"새로 입양했거나 건강, 식단이 헷갈릴 때 1분이면 기준이 딱 잡혀요. 무료입니다."},
+    {"kind":"cta","narration":"우리 아이 맞춤 케어는 프로필 링크의 'AI 반려동물 케어'에서 바로 받아보세요. 무료예요."}
+  ]
+}

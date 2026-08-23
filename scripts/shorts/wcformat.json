@@ -1,0 +1,13 @@
+{
+  "topic": "월드컵 48개국 새 포맷",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "48개국", "북중미월드컵", "32강", "와일드카드", "조별리그", "월드컵방식", "FIFA", "축구", "월드컵일정", "16강경우의수", "shorts", "쇼츠", "월드컵정보"],
+  "bgPrompt": "Cinematic aerial shot of a soccer stadium from above showing the full green pitch and crowd stands, daytime bright light, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "3위도 16강?", "titleLines": ["월드컵", "48개국", "달라진 점"], "highlightLine": 1, "narration": "48개국으로 커진 이번 월드컵, 진출 방식이 어떻게 달라졌는지 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "12개조 1·2위 직행", "body": "48개국이 12개 조로 나뉘고, 각 조 1·2위 24팀이 곧바로 32강에 가요.", "narration": "첫째, 48개국이 12개 조로 나뉘고 각 조 1위와 2위, 24팀이 곧바로 32강에 진출합니다." },
+    { "kind": "tip", "num": "2", "head": "3위 와일드카드 8팀", "body": "조 3위 12팀 중 성적 상위 8팀이 추가로 올라가요. 4위만 피하면 가능성!", "narration": "둘째, 조 3위 12팀 중 상위 8팀이 추가 진출합니다. 꼴찌만 피하면 기회가 생겨요." },
+    { "kind": "tip", "num": "3", "head": "승점 3이면 안정권", "body": "3위라도 승점 3에 골득실 0 이상이면 진출 확률 96%예요.", "narration": "셋째, 3위라도 승점 3에 골득실 0 이상이면 진출 확률이 96퍼센트에 이릅니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "우리 팀 경우의 수, 올댓에이아이에서 더 보기. 구독!" }
+  ]
+}

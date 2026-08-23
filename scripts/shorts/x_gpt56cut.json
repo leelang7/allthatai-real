@@ -1,0 +1,13 @@
+{
+  "topic": "GPT-5.6 값 80% 폭락 AI 가격전쟁 터졌다",
+  "tags": ["OpenAI", "GPT56", "챗GPT", "AI가격", "가격인하", "AI경쟁", "오픈AI", "API", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "dramatic price drop chart with AI model competition, price war mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["GPT-5.6 값이","하루아침에 80% 폭락","AI 가격전쟁"],"highlightLine":1,"narration":"OpenAI가 신형 GPT-5.6 값을 하루아침에 80퍼센트나 내렸어요. AI 가격전쟁이 본격적으로 터진 겁니다."},
+    {"kind":"tip","num":"①","head":"루나 80%·테라 20% 인하","body":"가장 저렴한 GPT-5.6 루나가 80%, 테라가 20% 인하. 루나는 100만 토큰당 1달러/6달러에서 0.2달러/1.2달러로 뚝 떨어졌다.","narration":"가장 싼 모델 루나가 80퍼센트, 테라가 20퍼센트 내렸어요. 루나는 백만 토큰당 값이 1달러, 6달러에서 0.2달러, 1.2달러로 확 떨어졌습니다."},
+    {"kind":"tip","num":"②","head":"출시 3주 만의 가격전쟁","body":"GPT-5.6이 나온 지 겨우 3주 만의 공격적 인하. 최고급 솔 모델만 값을 유지했다. 기업들이 AI 비용에 민감해진 신호.","narration":"GPT-5.6이 나온 지 겨우 3주 만의 인하예요. 최고급 솔 모델만 값을 유지했고, 기업들이 AI 비용에 민감해진 신호입니다."},
+    {"kind":"tip","num":"③","head":"중국 모델이 가격 눌렀다","body":"중국 저가 AI가 미국 기업 토큰 사용량의 46%를 차지할 만큼 치고 올라오면서, 최강 랩들도 값을 내릴 수밖에 없는 상황.","narration":"중국 저가 AI가 미국 기업 토큰 사용량의 46퍼센트를 차지할 만큼 치고 올라왔어요. 그러니 최강 랩들도 값을 내릴 수밖에요. 소비자한텐 좋은 일입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "topic": "구글 IO 2026 AI",
+  "title": "구글 I/O 2026, 월 100달러 AI 울트라",
+  "link": "https://real.allthatai.kr/tools/",
+  "tags": ["구글", "구글IO", "제미나이", "Gemini", "AIUltra", "구글AI", "에이전트AI", "AI구독", "빅테크", "테크뉴스", "인공지능", "AI검색", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic shot of a glowing futuristic AI interface hologram with blue light particles in a dark room, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "에이전틱", "titleLines": ["구글 I/O 2026", "AI 울트라", "월 100달러"], "highlightLine": 1, "narration": "구글이 I/O 2026에서 새 AI를 공개했습니다. 핵심만 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "AI 울트라 구독", "body": "월 100달러짜리 'AI 울트라' 최상위 구독을 공개했어요.", "narration": "첫째, 구글이 월 100달러짜리 AI 울트라 최상위 구독을 공개했습니다." },
+    { "kind": "tip", "num": "2", "head": "에이전트 검색", "body": "질문 한 번이면 AI가 알아서 일을 처리하는 에이전트 검색이 들어가요.", "narration": "둘째, 질문 한 번이면 AI가 알아서 일을 처리하는 에이전트 검색이 도입됩니다." },
+    { "kind": "tip", "num": "3", "head": "에이전틱 제미나이", "body": "스스로 단계를 밟아 일하는 에이전틱 제미나이 시대를 선언했어요.", "narration": "셋째, 스스로 단계를 밟아 일하는 에이전틱 제미나이 시대를 선언했습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "분야별 AI 도구, 올댓에이아이에서 골라 쓰세요. 구독!" }
+  ]
+}

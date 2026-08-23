@@ -1,0 +1,54 @@
+{
+  "topic": "GPT 반값 할인에 점유율 착시 논란",
+  "tags": [
+    "오픈AI",
+    "GPT56",
+    "오픈라우터",
+    "할인",
+    "시장점유율",
+    "앤트로픽",
+    "AI경쟁",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a discounted token price tag distorting a market share chart, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "반값으로 풀었더니",
+        "점유율 통계가 흔들린다",
+        "GPT 할인 논란"
+      ],
+      "highlightLine": 1,
+      "narration": "오픈AI가 주요 중개 플랫폼에서 최신 모델을 반값에 풀었어요. 점유율 착시 논란이 붙었습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "9월 18일까지 50% 할인",
+      "body": "GPT-5.6 솔을 오픈라우터와 버셀 AI 게이트웨이에서 8월 17일부터 9월 18일까지 반값에 제공한다. 배치·플렉스·우선 처리 등급까지 모두 적용된다.",
+      "narration": "GPT-5.6 솔을 오픈라우터랑 버셀 AI 게이트웨이에서 8월 17일부터 9월 18일까지 반값에 제공해요. 배치, 플렉스, 우선 처리 등급까지 모두 적용됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "문제는 이 두 곳이 지표라는 것",
+      "body": "두 플랫폼은 오픈AI 전체 사용량에서 차지하는 비중은 작지만, 업계가 모델 점유율을 추정할 때 쓰는 대표적인 공개 데이터원이다.",
+      "narration": "이 두 플랫폼은 오픈AI 전체 사용량에서 차지하는 비중은 작지만, 업계가 모델 점유율을 추정할 때 쓰는 대표적인 공개 데이터원이에요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "싸게 풀면 이긴 것처럼 보인다",
+      "body": "세미애널리시스는 반값 할인으로 이곳 거래량이 두 배가 되면 투자자들이 오픈AI가 앤트로픽을 크게 이긴 것으로 오해할 수 있다고 지적했다.",
+      "narration": "세미애널리시스는 반값 할인으로 이곳 거래량이 두 배가 되면, 투자자들이 오픈AI가 앤트로픽을 크게 이긴 걸로 오해할 수 있다고 지적했어요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

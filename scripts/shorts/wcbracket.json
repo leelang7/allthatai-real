@@ -1,0 +1,14 @@
+{
+  "topic": "월드컵 32강 대진 윤곽 한국 대기",
+  "title": "일본은 브라질! 한국은 아직 대기 (32강 대진)",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "32강대진", "한일축구", "일본브라질", "한국축구", "북중미월드컵", "와일드카드", "32강진출", "대한민국축구", "국가대표", "축구", "shorts", "쇼츠", "월드컵중계"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, dramatic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "대진 윤곽", "titleLines": ["일본은 브라질", "한국은 대기", "32강 대진"], "highlightLine": 1, "narration": "월드컵 32강 대진 윤곽이 나왔습니다. 일본과 한국 상황을 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "일본, 브라질과", "body": "일본은 32강에서 우승후보 브라질과 6월 29일 격돌이 확정됐어요.", "narration": "첫째, 일본은 32강에서 우승후보 브라질과 6월 29일 맞붙는 것이 확정됐습니다." },
+    { "kind": "tip", "num": "2", "head": "남아공-캐나다, 독일-파라과이", "body": "한국을 꺾은 남아공은 캐나다와, 독일은 파라과이와 32강을 치러요.", "narration": "둘째, 한국을 꺾은 남아공은 캐나다와, 독일은 파라과이와 32강을 치릅니다." },
+    { "kind": "tip", "num": "3", "head": "한국은 초조한 대기", "body": "한국은 조 3위 와일드카드 마지막 한 자리를 놓고 초조하게 기다리는 중이에요.", "narration": "셋째, 한국은 조 3위 와일드카드 마지막 한 자리를 놓고 초조하게 결과를 기다리고 있습니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "한국 운명, 확정되면 바로 알려드릴게요. 대한민국 응원, 구독!" }
+  ]
+}

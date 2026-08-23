@@ -1,0 +1,13 @@
+{
+  "topic": "SK하이닉스 54조 국내 투자 중국공장은 판다",
+  "tags": ["SK하이닉스", "반도체투자", "AI메모리", "HBM", "용인", "청주", "충칭", "국산반도체", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a massive korean semiconductor fab expansion for AI memory, mega chip investment mood, cool teal and gold accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["SK하이닉스 54조","국내에 쏟는다","중국 공장은 판다"],"highlightLine":1,"narration":"SK하이닉스가 국내에 54조원을 쏟아붓고, 중국 공장은 파는 승부수를 뒀어요. AI 메모리 수요 폭발에 대비하는 겁니다."},
+    {"kind":"tip","num":"①","head":"용인·청주에 54조","body":"SK하이닉스가 용인 Y2 팹에 35.2조, 청주 M17 팹에 19.1조, 총 54조원(약 380억 달러) 투자를 확정. AI 메모리 생산기반을 국내에 다진다.","narration":"SK하이닉스가 용인 Y2 팹에 35조, 청주 M17 팹에 19조, 총 54조원 투자를 확정했어요. AI 메모리 생산기반을 국내에 단단히 다지는 겁니다."},
+    {"kind":"tip","num":"②","head":"중국 충칭은 지분 매각","body":"반면 중국 충칭의 후공정(패키징) 공장은 지분 매각을 검토. 약 30억 달러 가치로, 핵심 앞공정은 국내에 두고 후공정만 정리하는 전략.","narration":"반면 중국 충칭의 후공정 공장은 지분 매각을 검토해요. 약 30억 달러 가치인데, 핵심 앞공정은 국내에 두고 후공정만 정리하는 전략입니다."},
+    {"kind":"tip","num":"③","head":"AI가 메모리를 굶주리게 한다","body":"AI 수요로 메모리 값이 뛰자 삼성·SK가 앞다퉈 증설. 국내 회귀와 미중 리스크 관리를 동시에 노린 포석이다.","narration":"AI 수요로 메모리 값이 뛰자 삼성이랑 SK가 앞다퉈 증설 중이에요. 국내 회귀와 미중 리스크 관리를 동시에 노린 포석입니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

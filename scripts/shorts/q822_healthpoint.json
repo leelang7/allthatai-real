@@ -1,0 +1,54 @@
+{
+  "topic": "건강생활실천지원금 걷기만 해도 포인트",
+  "tags": [
+    "건강생활실천지원금",
+    "건강보험",
+    "포인트",
+    "걷기",
+    "건강관리",
+    "인센티브",
+    "생활꿀팁",
+    "건강",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a walking figure earning health reward points on a phone, technical blueprint schematic look, wide establishing shot, subject small in frame, high contrast dramatic spotlight, violet and electric cyan accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "생활 꿀팁",
+      "titleLines": [
+        "걷고 검진받으면",
+        "건강생활실천지원금",
+        "포인트로 돌려준다"
+      ],
+      "highlightLine": 1,
+      "narration": "건강관리를 하면 포인트를 주는 건강보험 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "걷기·검진·예방에 포인트",
+      "body": "건강보험공단의 건강생활실천지원금제는 걷기 목표 달성, 건강검진 수검, 건강관리 프로그램 참여 등에 포인트를 준다.",
+      "narration": "건강보험공단의 건강생활실천지원금제는, 걷기 목표 달성이나 건강검진 수검, 건강관리 프로그램 참여 같은 것에 포인트를 줘요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "포인트는 현금처럼",
+      "body": "쌓인 포인트는 병원 진료비나 약국 조제비 결제 등에 쓸 수 있다. 참여 유형에 따라 적립 한도가 정해져 있다.",
+      "narration": "쌓인 포인트는 병원 진료비나 약국 조제비 결제 같은 데 쓸 수 있어요. 참여 유형에 따라 적립 한도가 정해져 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "건강iN 앱에서 참여",
+      "body": "대상 지역과 조건이 정해져 있으니 건강보험공단 건강iN 앱이나 누리집에서 참여 가능 여부를 먼저 확인하자.",
+      "narration": "대상 지역과 조건이 정해져 있으니까, 건강보험공단 건강iN 앱이나 누리집에서 참여 가능 여부를 먼저 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

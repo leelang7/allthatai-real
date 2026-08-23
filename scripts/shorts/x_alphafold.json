@@ -1,0 +1,13 @@
+{
+  "topic": "노벨상 받은 알파폴드팀 해체됐다 구글 딥마인드",
+  "tags": ["구글", "딥마인드", "알파폴드", "노벨상", "제미나이", "AI연구", "허사비스", "단백질AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "protein structure visualization dissolving into a larger AI model, scientific AI transition mood, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["노벨상 받은 AI팀이","해체됐다?","구글 딥마인드 알파폴드"],"highlightLine":1,"narration":"노벨상까지 받은 AI 연구팀이 해체됐어요. 단백질 구조를 푼 구글 딥마인드의 알파폴드팀입니다."},
+    {"kind":"tip","num":"①","head":"노벨화학상의 주인공","body":"알파폴드는 단백질 구조 예측을 풀어낸 AI. 개발을 이끈 허사비스와 점퍼가 2024년 노벨 화학상을 공동 수상했다.","narration":"알파폴드는 수십 년 난제였던 단백질 구조 예측을 풀어낸 AI예요. 이걸 이끈 허사비스랑 점퍼가 2024년 노벨 화학상을 받았습니다."},
+    {"kind":"tip","num":"②","head":"전담팀 해체·인력 재배치","body":"그 전담팀이 해체되고 주요 인력이 제미나이 기반 프로젝트 등으로 옮겨갔다. 원저자 대부분이 지난 1년 새 다른 업무로 이동.","narration":"그런데 그 전담팀이 해체되고, 핵심 인력이 제미나이 기반 프로젝트 같은 데로 재배치됐어요. 논문 원저자 대부분이 지난 1년 새 다른 일로 옮겨갔습니다."},
+    {"kind":"tip","num":"③","head":"모든 게 제미나이로 모인다","body":"일부는 효소 설계·핵융합·유전체학으로. 구글이 전문 AI들을 접고 제미나이 하나로 힘을 모으는 흐름을 보여준다.","narration":"일부는 효소 설계나 핵융합, 유전체학 연구로 갔어요. 구글이 잘게 나뉜 전문 AI들을 접고, 제미나이 하나로 힘을 몰아주는 흐름을 보여줍니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

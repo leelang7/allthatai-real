@@ -1,0 +1,13 @@
+{
+  "topic": "국가대표 AI 4파전 SKT LG 업스테이지 모티프 최종 격돌",
+  "tags": ["독파모", "국가대표AI", "SKT", "LG", "업스테이지", "모티프", "국산AI", "엑사원", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "four korean AI contenders facing off in a national competition arena, national ai selection mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["국가대표 AI 4파전","SKT·LG·업스테이지·모티프","최종 격돌"],"highlightLine":1,"narration":"대한민국 국가대표 AI를 뽑는 2차 평가가 시작됐어요. SKT, LG, 업스테이지, 모티프 네 팀이 최종 모델로 격돌합니다."},
+    {"kind":"tip","num":"①","head":"이번엔 에이전트 실력","body":"독자 AI 파운데이션 모델, 독파모 2차 평가 시작. 1차의 기술 완성도 대신, 실제 업무를 처리하는 에이전트 역량과 산업 적용성을 본다.","narration":"독자 AI 파운데이션 모델, 독파모 2차 평가가 시작됐어요. 1차의 기술 완성도 대신, 이번엔 실제 업무를 처리하는 에이전트 역량과 산업 적용성을 봅니다."},
+    {"kind":"tip","num":"②","head":"네 팀 네 전략","body":"SKT는 6880억 초거대 A.X K2, LG는 K-엑사원 2.0, 업스테이지는 효율형 솔라 오픈2, 모티프는 100% 독자설계 314B 모델을 제출했다.","narration":"SKT는 6880억 파라미터 초거대 모델, LG는 K-엑사원 2.0, 업스테이지는 효율형 솔라 오픈2, 모티프는 100퍼센트 독자설계 314B 모델을 제출했어요."},
+    {"kind":"tip","num":"③","head":"8일부터 국민평가","body":"8일부터 11일까지 국민 평가를 거쳐, 네 팀 중 세 팀이 살아남는다. 국산 AI 자립을 건 진짜 승부가 시작됐다.","narration":"8일부터 11일까지 국민 평가를 거쳐서, 네 팀 중 세 팀이 살아남아요. 국산 AI 자립을 건 진짜 승부가 시작된 겁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

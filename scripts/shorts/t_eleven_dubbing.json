@@ -1,0 +1,13 @@
+{
+  "topic": "일레븐랩스 더빙 v2 원본 감정 그대로 92개 언어",
+  "tags": ["일레븐랩스", "ElevenLabs", "AI더빙", "더빙v2", "음성AI", "TTS", "AI성우", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract audio waveform and multilingual sound waves flowing on a dark premium background, warm amber and teal accent glow, studio microphone silhouette bokeh, cinematic, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["목소리 감정까지 그대로","90여 개 언어로 더빙","일레븐랩스 더빙 v2"],"highlightLine":0,"narration":"원본 목소리의 감정까지 살려서 90개가 넘는 언어로 더빙합니다. 일레븐랩스 더빙 v2가 나왔어요."},
+    {"kind":"tip","num":"①","head":"감정·연기까지 보존","body":"말을 글로 바꿨다 되돌리는 방식이 아니라, 원본 소리에서 바로 새 언어 음성을 만들어 감정과 연기 톤을 살린다.","narration":"기존처럼 말을 글로 바꿨다가 되돌리는 게 아니라, 원본 소리에서 바로 새 언어 음성을 만들어요. 그래서 감정과 연기 톤이 살아있습니다."},
+    {"kind":"tip","num":"②","head":"한국어 포함 90여 개 언어","body":"한국어와 일본어를 포함한 90여 개 언어 지원. 8월 6일 API로 공개돼 서비스에 바로 붙일 수 있다. K콘텐츠 수출에 유리.","narration":"한국어랑 일본어 포함해서 90개가 넘는 언어를 지원해요. 8월 6일 API로 공개돼서 서비스에 바로 붙일 수 있고, K콘텐츠 수출에도 유리하죠."},
+    {"kind":"tip","num":"③","head":"립싱크는 아직","body":"타이밍 싱크는 정교하지만 입모양 자체를 바꾸는 립싱크는 이번 릴리스엔 없다. 그래도 전문 성우 대비 비용은 크게 절감.","narration":"타이밍 싱크는 정교한데, 입모양 자체를 바꾸는 립싱크는 이번 버전엔 아직 없어요. 그래도 전문 성우 대비 비용은 확 줄어듭니다."},
+    {"kind":"cta","narration":"AI로 콘텐츠 만들기 더 궁금하면 프로필 링크에서 무료 AI 도구 확인해보세요."}
+  ]
+}

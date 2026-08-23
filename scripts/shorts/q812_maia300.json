@@ -1,0 +1,54 @@
+{
+  "topic": "MS 자체 AI칩 마이아 300 9월 공개 추진",
+  "tags": [
+    "마이크로소프트",
+    "마이아300",
+    "Maia",
+    "AI반도체",
+    "TSMC",
+    "엔비디아",
+    "자체칩",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a custom AI accelerator chip on a wafer with data center racks behind, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "엔비디아 의존 줄인다",
+        "MS 자체 AI칩",
+        "마이아 300 9월 공개"
+      ],
+      "highlightLine": 1,
+      "narration": "마이크로소프트가 자체 AI 칩 마이아 300을 9월에 공개할 계획이라고 해요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "9월 공개 목표",
+      "body": "디인포메이션 보도에 따르면 MS는 차세대 AI 가속기 마이아 300을 이르면 9월에 공개하는 것을 목표로 하고 있다.",
+      "narration": "디인포메이션 보도에 따르면 마이크로소프트가 차세대 AI 가속기 마이아 300을 이르면 9월에 공개하는 걸 목표로 하고 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "TSMC와 30만 개 협상 중",
+      "body": "2027년 기준 약 30만 개 생산 능력을 TSMC와 협의 중이고, 장기적으로는 100만 개 이상을 바라본다. 아직 확정 계약은 아니다.",
+      "narration": "2027년 기준 약 30만 개 생산 능력을 TSMC와 협의 중이고, 장기적으로는 100만 개 이상을 바라봅니다. 아직 확정된 계약은 아니에요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "아마존·구글 추격",
+      "body": "1월 마이아 200을 내놓은 MS는 자체 칩으로 이미 수익을 내는 아마존·구글을 뒤쫓는 처지. 앤트로픽 같은 큰 고객 유치도 노린다.",
+      "narration": "1월에 마이아 200을 내놓은 MS는, 자체 칩으로 이미 돈을 벌고 있는 아마존과 구글을 뒤쫓는 처지예요. 앤트로픽 같은 큰 고객 유치도 노립니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

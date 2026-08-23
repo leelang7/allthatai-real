@@ -1,0 +1,54 @@
+{
+  "topic": "GPT 14배 빨라지는 울트라패스트 모드",
+  "tags": [
+    "오픈AI",
+    "울트라패스트",
+    "GPT",
+    "추론속도",
+    "세레브라스",
+    "API",
+    "실시간AI",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a speed burst of tokens streaming from an inference chip, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "답을 기다릴 필요 없다",
+        "GPT 14배 속도",
+        "울트라패스트 모드"
+      ],
+      "highlightLine": 1,
+      "narration": "오픈AI가 모델을 최대 14배 빠르게 돌리는 울트라패스트 모드를 공개했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "초당 750토큰",
+      "body": "GPT-5.6 솔을 표준 대비 최대 14배 속도로 돌리는 새 서비스 등급이다. 출력은 초당 750토큰까지 나온다.",
+      "narration": "GPT-5.6 솔을 표준 대비 최대 14배 속도로 돌리는 새 서비스 등급이에요. 출력은 초당 750토큰까지 나옵니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "세레브라스와 손잡았다",
+      "body": "속도의 비결은 반도체 기업 세레브라스와의 협력이다. 먼저 API에서 일부 고객에게 프리뷰로 열고, 용량이 늘면 확대한다.",
+      "narration": "속도의 비결은 반도체 기업 세레브라스와의 협력이에요. 먼저 API에서 일부 고객에게 프리뷰로 열고, 용량이 늘면 확대합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "음성·상담·거래에 직결",
+      "body": "음성 응대, 고객 지원, 커머스, 개발 에이전트, 보안 대응처럼 몇 초 안에 답이 필요한 곳을 겨냥했다. 속도 자체가 상품이 되는 국면이다.",
+      "narration": "음성 응대나 고객 지원, 커머스, 개발 에이전트, 보안 대응처럼 몇 초 안에 답이 필요한 곳을 겨냥했어요. 속도 자체가 상품이 되는 국면입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

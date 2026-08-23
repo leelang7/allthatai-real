@@ -1,0 +1,13 @@
+{
+  "topic": "AI 값 80퍼센트 내렸다 오픈AI 10억 사용자의 가격 전쟁",
+  "tags": ["오픈AI", "ChatGPT", "AI가격", "가격인하", "GPT5", "토큰비용", "AI경쟁", "10억사용자", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a price tag dropping sharply while AI tokens flow, price war and massive scale mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 값을","한 번에 80% 내렸다","오픈AI의 승부수"],"highlightLine":1,"narration":"오픈AI가 주력 AI 값을 한 번에 80퍼센트나 내렸어요. 사용자 10억 명을 넘긴 자신감이자, 살벌한 가격 전쟁의 신호탄입니다."},
+    {"kind":"tip","num":"①","head":"사용자 10억 명 돌파","body":"ChatGPT 출시 4년도 안 돼 오픈AI 전체 서비스 활성 사용자가 10억 명을 넘었다. 코덱스, 챗GPT 워크 등 포함.","narration":"챗GPT 출시 4년도 안 돼서, 오픈AI 전체 서비스 활성 사용자가 10억 명을 넘었어요. 코딩용 코덱스, 업무용 챗GPT 워크까지 다 합친 숫자입니다."},
+    {"kind":"tip","num":"②","head":"주력 모델 80% 인하","body":"GPT-5.6 루나 가격을 80% 낮춰 입력 100만 토큰당 0.2달러로. 테라도 20% 인하. 자체 효율 개선으로 서빙 비용을 20% 줄인 덕이다.","narration":"GPT-5.6 루나 가격을 80퍼센트나 낮춰서, 입력 100만 토큰당 0.2달러가 됐어요. 자체 효율 개선으로 서빙 비용을 20퍼센트 줄인 덕분입니다."},
+    {"kind":"tip","num":"③","head":"AI 바닥 경쟁 시작","body":"앤트로픽·딥시크가 저가로 치고 나오자 오픈AI도 응수. AI가 전기·수도처럼 싸지는 '바닥으로의 경쟁'이 본격화됐다.","narration":"앤트로픽이랑 딥시크가 저가로 치고 나오자 오픈AI도 응수했어요. AI가 전기나 수도처럼 싸지는, 바닥으로의 경쟁이 본격화된 겁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

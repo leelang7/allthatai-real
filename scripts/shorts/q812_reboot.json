@@ -1,0 +1,54 @@
+{
+  "topic": "폐업해도 다시 시작 소상공인 재기 지원",
+  "tags": [
+    "소상공인",
+    "폐업",
+    "희망리턴패키지",
+    "재창업",
+    "취업지원",
+    "자영업",
+    "정부지원",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a shuttered shop turning into a fresh new path forward, warm amber and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "폐업이 끝이 아니다",
+        "소상공인 재기 지원",
+        "희망리턴패키지"
+      ],
+      "highlightLine": 1,
+      "narration": "가게를 접어도 다시 시작할 수 있게 돕는 정부 지원이 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "폐업 절차부터 돕는다",
+      "body": "소상공인시장진흥공단 희망리턴패키지는 사업정리 컨설팅과 점포 원상복구(철거) 비용 등 폐업 과정을 지원한다.",
+      "narration": "소상공인시장진흥공단 희망리턴패키지는 사업정리 컨설팅이랑 점포 원상복구, 철거 비용 같은 폐업 과정을 지원해요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "재창업·재취업 교육",
+      "body": "업종을 바꿔 다시 창업하려는 사람에겐 재창업 교육과 컨설팅을, 취업으로 방향을 트는 사람에겐 취업 교육과 연계를 지원한다.",
+      "narration": "업종을 바꿔서 다시 창업하려는 분에겐 재창업 교육과 컨설팅을, 취업으로 방향을 트는 분에겐 취업 교육과 연계를 지원합니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "신청은 소상공인 누리집",
+      "body": "지원 내용과 금액은 연도·유형별로 달라지니, 소상공인시장진흥공단 누리집에서 올해 공고와 자격 요건을 먼저 확인하자.",
+      "narration": "지원 내용이랑 금액은 연도랑 유형별로 달라지니까, 소상공인시장진흥공단 누리집에서 올해 공고와 자격을 먼저 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 숨은 돈이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

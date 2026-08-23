@@ -1,0 +1,13 @@
+{
+  "topic": "2026 문화누리카드 연 15만원 문화비",
+  "tags": ["문화누리카드", "통합문화이용권", "문화비지원", "영화예매", "공연전시", "저소득층", "기초생활수급", "정부지원", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cinema and theater tickets with popcorn and books on a table, cultural life mood, teal and warm amber accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["공연·영화·책값","연 15만원 지원","문화누리카드"],"highlightLine":1,"narration":"공연 보고 영화 보고 책 사는 데 쓰라고, 연 15만원을 지원해줘요. 문화누리카드입니다."},
+    {"kind":"tip","num":"①","head":"1인당 연 15만원","body":"2026년 문화누리카드는 1인당 연 15만원. 청소년(13~18세)과 준고령(60~64세)은 1만원을 더 준다.","narration":"2026년 문화누리카드는 1인당 연 15만원이에요. 청소년이랑 60에서 64세 준고령층은 1만원을 더 받습니다."},
+    {"kind":"tip","num":"②","head":"저소득층 대상","body":"기초생활수급자·차상위·한부모 같은 저소득층, 만 6세 이상이면 대상. 가족 각자 발급받을 수 있다.","narration":"기초생활수급자나 차상위, 한부모 가정 같은 저소득층이 대상이고 만 6세 이상이면 돼요. 가족이 각자 발급받을 수 있습니다."},
+    {"kind":"tip","num":"③","head":"이런 데 쓴다","body":"공연·전시·영화 예매, 도서 구매, 스포츠 관람, 문화예술 교육까지. 등록된 문화시설·제휴처에서 사용.","narration":"공연이나 전시, 영화 예매, 책 구매, 스포츠 관람, 문화예술 교육까지 쓸 수 있어요. 등록된 문화시설이랑 제휴처에서 쓰면 됩니다."},
+    {"kind":"cta","narration":"이런 문화·생활 지원 꿀정보는 프로필 링크에 정리해놨어요. 저장해두고 챙겨 받으세요."}
+  ]
+}

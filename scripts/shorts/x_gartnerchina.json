@@ -1,0 +1,13 @@
+{
+  "topic": "2027년 기업 AI 절반이 중국산 가트너 경고",
+  "tags": ["가트너", "중국AI", "오픈소스AI", "키미K3", "AI의존", "공급망", "AI전략", "미중AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a world map with half of enterprise AI shifting to chinese models, ai geopolitics dependency mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["2027년 기업 AI","절반이 중국산?","가트너 경고"],"highlightLine":1,"narration":"2027년이면 전 세계 기업 AI의 절반이 중국산이 될 수 있대요. 가트너가 특정국 의존 위험을 경고했습니다."},
+    {"kind":"tip","num":"①","head":"값싼 오픈모델이 밀어올린다","body":"가트너는 키미 K3 같은 중국산 오픈웨이트 모델이 저렴하고 성능도 좋아, 2027년 글로벌 기업의 중국 AI 채택률이 50%에 이를 것으로 전망.","narration":"가트너는 키미 K3 같은 중국산 오픈웨이트 모델이 저렴하고 성능도 좋아서, 2027년 글로벌 기업의 중국 AI 채택률이 50퍼센트에 이를 거라고 전망했어요."},
+    {"kind":"tip","num":"②","head":"한 나라 의존은 위험","body":"미중 기술 통제가 격화되며 한 국가 AI에 쏠리는 게 공급망 리스크가 됐다. 이미 미국 기업 AI의 46%가 중국 모델로 돈다는 분석도.","narration":"미중 기술 통제가 격화되면서, 한 나라 AI에 쏠리는 게 공급망 리스크가 됐어요. 이미 미국 기업 AI의 46퍼센트가 중국 모델로 돈다는 분석도 있습니다."},
+    {"kind":"tip","num":"③","head":"대책은 다층 멀티모델","body":"가트너는 민감한 작업은 물리적으로 격리하고, 표준 API로 여러 모델을 갈아끼우는 '다층 멀티모델' 전략을 권한다.","narration":"가트너는 민감한 작업은 물리적으로 격리하고, 표준 API로 여러 모델을 갈아끼우는 다층 멀티모델 전략을 권해요."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

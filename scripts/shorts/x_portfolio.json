@@ -1,0 +1,13 @@
+{
+  "topic": "AI 자산배분 주식 채권 예금 비율 추천",
+  "tags": ["자산배분", "포트폴리오", "재테크", "ETF", "투자", "주식", "채권", "노후준비", "분산투자", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-portfolio",
+  "bgPrompt": "balanced investment portfolio mood, glowing pie chart of asset allocation, stacked coins with steady growth line, cool teal and violet accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 꿀팁","titleLines":["내 돈 어디에","얼마씩 넣지?","AI가 배분해준다"],"highlightLine":1,"narration":"모아둔 돈, 주식에 얼마 채권에 얼마 넣어야 할지 막막하죠? AI가 비율까지 짜줍니다."},
+    {"kind":"tip","num":"①","head":"자산·목표·기간·위험 입력","body":"가진 자산, 목표 금액, 투자 기간, 감당 가능한 위험만 넣으면 나에게 맞는 배분을 계산한다.","narration":"가진 자산이랑 목표 금액, 투자 기간, 그리고 내가 감당할 수 있는 위험 정도만 넣으면 돼요."},
+    {"kind":"tip","num":"②","head":"주식·채권·예금 비율","body":"공격이냐 안정이냐 성향에 맞춰 주식·채권·예금을 몇 대 몇으로 나눌지 구체 비율로 제시한다.","narration":"공격적으로 갈지 안정적으로 갈지 성향에 맞춰서, 주식 채권 예금을 몇 대 몇으로 나눌지 구체적인 비율로 알려줍니다."},
+    {"kind":"tip","num":"③","head":"한국 ETF·펀드까지 콕","body":"비율만 주고 끝이 아니라 실제로 담을 만한 한국 ETF나 펀드 상품까지 구체적으로 추천한다.","narration":"비율만 주고 끝이 아니라, 실제로 담을 만한 한국 ETF나 펀드 상품까지 콕 집어서 추천해줘요."},
+    {"kind":"cta","narration":"재테크 막막하면 프로필 링크 AI 자산배분에 넣어보세요. 내 맞춤 포트폴리오가 5초 만에 나옵니다."}
+  ]
+}

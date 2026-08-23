@@ -1,0 +1,54 @@
+{
+  "topic": "자동차보험 마일리지 환급 신청하셨나요",
+  "tags": [
+    "자동차보험",
+    "마일리지특약",
+    "환급",
+    "주행거리",
+    "보험료",
+    "절약",
+    "생활꿀팁",
+    "자동차",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a car odometer with returning insurance premium coins, flat vector editorial illustration, bold shapes, low angle looking up, dramatic scale, bright airy background, soft daylight, teal and coral accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "적게 탔으면 돌려받는다",
+        "자동차보험 마일리지",
+        "직접 신청해야"
+      ],
+      "highlightLine": 1,
+      "narration": "1년에 적게 탔다면 자동차보험료 일부를 돌려받을 수 있어요. 신청해야 나옵니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "주행거리만큼 할인",
+      "body": "마일리지 특약에 가입돼 있으면 연간 주행거리가 기준보다 적을 때 보험료 일부를 환급받는다. 적게 탈수록 환급률이 올라간다.",
+      "narration": "마일리지 특약에 가입돼 있으면, 연간 주행거리가 기준보다 적을 때 보험료 일부를 환급받아요. 적게 탈수록 환급률이 올라갑니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "계기판 사진이 증빙",
+      "body": "가입 때와 만기 때 계기판 사진을 등록해 주행거리를 확인시켜야 한다. 사진을 안 올리면 환급 대상이어도 못 받는다.",
+      "narration": "가입할 때와 만기 때 계기판 사진을 등록해서 주행거리를 확인시켜야 해요. 사진을 안 올리면 환급 대상이어도 못 받습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "만기 후에도 청구 가능",
+      "body": "만기가 지나도 일정 기간 안에는 청구할 수 있는 경우가 많다. 보험사 앱이나 고객센터에서 특약 가입 여부부터 확인하자.",
+      "narration": "만기가 지나도 일정 기간 안에는 청구할 수 있는 경우가 많아요. 보험사 앱이나 고객센터에서 특약 가입 여부부터 확인하세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

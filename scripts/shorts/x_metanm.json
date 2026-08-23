@@ -1,0 +1,13 @@
+{
+  "topic": "메타 청소년 정신건강 해쳤다 7900억 배상 명령",
+  "tags": ["메타", "SNS", "청소년", "정신건강", "뉴멕시코", "배상판결", "무한스크롤", "빅테크규제", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a social media platform held accountable for youth mental harm in a courtroom, big tech accountability mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["메타가 청소년","정신건강 해쳤다","7900억 배상 명령"],"highlightLine":1,"narration":"메타가 청소년 정신건강을 해쳤다며 약 7900억원 배상 명령을 받았어요. 무한 스크롤 같은 중독 설계가 문제가 됐습니다."},
+    {"kind":"tip","num":"①","head":"5억6700만 달러 배상","body":"미국 뉴멕시코 법원이 메타에 청소년 정신건강 기금으로 5억6700만 달러(약 7900억원) 지급을 명령. 치료·예방·선별 프로그램에 쓰인다.","narration":"미국 뉴멕시코 법원이 메타에, 청소년 정신건강 기금으로 5억 6700만 달러 지급을 명령했어요. 치료랑 예방, 선별 프로그램에 쓰입니다."},
+    {"kind":"tip","num":"②","head":"중독 설계가 문제","body":"법원은 메타가 무한 스크롤·자동재생·알림·추천으로 청소년을 오래 붙잡아, 우울·불안·자해·섭식장애 위험을 키웠다고 봤다.","narration":"법원은 메타가 무한 스크롤이랑 자동재생, 알림, 추천으로 청소년을 오래 붙잡아서, 우울이랑 불안, 자해, 섭식장애 위험을 키웠다고 봤어요."},
+    {"kind":"tip","num":"③","head":"총 부담 1.3조원","body":"앞서 배심원단이 부정거래법 7만5천 건 위반으로 최대 벌금 3억7500만 달러를 매겨, 뉴멕시코에서만 총 9억4200만 달러(약 1.3조원)를 물게 됐다.","narration":"앞서 배심원단이 부정거래법 7만 5천 건 위반으로 최대 벌금 3억 7500만 달러를 매겨서, 뉴멕시코에서만 총 9억 4200만 달러, 약 1조 3천억원을 물게 됐습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

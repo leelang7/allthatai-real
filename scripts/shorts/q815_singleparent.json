@@ -1,0 +1,54 @@
+{
+  "topic": "한부모가족 증명서 하나로 열리는 혜택",
+  "tags": [
+    "한부모가족",
+    "양육비",
+    "복지급여",
+    "증명서",
+    "저소득",
+    "아동",
+    "복지로",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a parent and child with support benefit icons, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "증명서부터 받으세요",
+        "한부모가족 혜택",
+        "몰라서 못 받는다"
+      ],
+      "highlightLine": 1,
+      "narration": "한부모가족 증명서를 받으면 여러 지원이 한 번에 열려요. 몰라서 못 받는 경우가 많습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "아동양육비 지원",
+      "body": "소득 기준을 충족하는 저소득 한부모가족은 자녀 1인당 아동양육비를 지원받을 수 있다. 자녀 나이와 가구 상황에 따라 추가 지원도 있다.",
+      "narration": "소득 기준을 충족하는 저소득 한부모가족은 자녀 한 명당 아동양육비를 지원받을 수 있어요. 자녀 나이와 가구 상황에 따라 추가 지원도 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "증명서가 열쇠",
+      "body": "한부모가족 증명서가 있으면 교육비, 각종 감면, 주거 지원 신청 등에서 활용된다. 정부24나 주민센터에서 발급받을 수 있다.",
+      "narration": "한부모가족 증명서가 있으면 교육비나 각종 감면, 주거 지원 신청 등에 활용돼요. 정부24나 주민센터에서 발급받을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "복지로에서 모의계산",
+      "body": "내가 대상인지 헷갈리면 복지로 모의계산으로 먼저 확인해보자. 신청은 주소지 주민센터에서 한다.",
+      "narration": "내가 대상인지 헷갈리면 복지로 모의계산으로 먼저 확인해보세요. 신청은 주소지 주민센터에서 합니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

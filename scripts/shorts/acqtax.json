@@ -1,0 +1,13 @@
+{
+  "topic": "주택 취득세",
+  "link": "https://real.allthatai.kr/tools/acquisition-tax/",
+  "tags": ["취득세", "주택취득세", "취득세율", "취득세계산", "부동산세금", "내집마련", "집살때세금", "다주택중과", "조정대상지역", "부동산", "취득세표", "주택구입", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of a house key and a real estate contract document on a wooden desk, warm soft light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "집 살 때 세금", "titleLines": ["집 살 때", "취득세", "얼마?"], "highlightLine": 1, "narration": "집 살 때 꼭 내는 취득세, 얼마인지 구간별로 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "6억 1%·9억 초과 3%", "body": "6억 이하는 1%, 9억 초과는 3%. 그 사이는 가격 따라 올라가요.", "narration": "첫째, 6억 이하는 1퍼센트, 9억 초과는 3퍼센트, 그 사이는 가격에 비례해 올라갑니다." },
+    { "kind": "tip", "num": "②", "head": "다주택 중과 8~12%", "body": "조정대상지역에서 다주택이면 8에서 12%까지 중과돼요.", "narration": "둘째, 조정대상지역에서 다주택이면 8에서 12퍼센트까지 중과됩니다." },
+    { "kind": "tip", "num": "③", "head": "세대 기준", "body": "세대 기준이라 부부 공동명의 한 채는 1주택으로 봐요.", "narration": "셋째, 세대 기준이라 부부 공동명의로 한 채를 가져도 1세대 1주택입니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 취득세가 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

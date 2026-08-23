@@ -1,0 +1,13 @@
+{
+  "topic": "가리키면 그 부분만 바꾼다 그록 이매진 이미지 2.0",
+  "tags": ["xAI", "그록", "이매진", "GrokImagine", "AI이미지", "이미지편집", "생성AI", "SpaceXAI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI image editor changing only a pointed region of a picture, precise ai image editing mood, cool teal and magenta accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["가리키면","그 부분만 바꾼다","그록 이매진 이미지 2.0"],"highlightLine":1,"narration":"이미지에서 원하는 부분만 콕 집어 바꿔요. xAI가 그록 이매진 이미지 2.0을 공개했습니다."},
+    {"kind":"tip","num":"①","head":"영역 편집이 핵심","body":"매직 완드로 가리킨 부분만 수정, 세그먼트로 정밀 선택, 배경 제거로 투명 추출. 편집을 부가기능이 아니라 핵심으로 설계했다.","narration":"매직 완드로 가리킨 부분만 수정하고, 세그먼트로 정밀하게 선택하고, 배경을 제거해 투명 추출도 해요. 편집을 부가기능이 아니라 핵심으로 설계했습니다."},
+    {"kind":"tip","num":"②","head":"참조 5장·일관성 유지","body":"한 번에 참조 이미지 5장까지 넣어 합성. 여러 생성·편집에도 같은 인물·스타일을 유지해 일관된 캐릭터를 만든다.","narration":"한 번에 참조 이미지를 5장까지 넣어 합성해요. 여러 번 생성하고 편집해도 같은 인물이랑 스타일을 유지해서 일관된 캐릭터를 만듭니다."},
+    {"kind":"tip","num":"③","head":"아레나 세계 2위","body":"xAI는 이미지 생성·편집 아레나 리더보드에서 세계 2위라고 밝혔다. 글자·레이아웃도 디자이너처럼 설계해 작은 텍스트도 선명.","narration":"xAI는 이미지 생성이랑 편집 아레나에서 세계 2위라고 밝혔어요. 글자랑 레이아웃도 디자이너처럼 설계해서 작은 텍스트도 선명합니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

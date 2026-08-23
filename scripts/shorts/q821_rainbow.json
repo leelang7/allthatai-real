@@ -1,0 +1,54 @@
+{
+  "topic": "레인보우로보틱스 양팔로봇 북미로 간다",
+  "tags": [
+    "레인보우로보틱스",
+    "빅웨이브",
+    "양팔로봇",
+    "협동로봇",
+    "북미진출",
+    "K로봇",
+    "RBY1",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a mobile dual-arm robot working on a factory line, flat vector editorial illustration, bold shapes, symmetrical centered composition, calm balance, high contrast dramatic spotlight, emerald green and lime highlights, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "국산 로봇의 미국행",
+        "레인보우로보틱스",
+        "이동형 양팔로봇 RB-Y1"
+      ],
+      "highlightLine": 1,
+      "narration": "국산 이동형 양팔로봇이 북미 시장을 노립니다. 레인보우로보틱스가 손을 잡았어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "하드웨어 + 관제 소프트웨어",
+      "body": "레인보우로보틱스가 빅웨이브로보틱스와 북미 진출 업무협약을 맺었다. 레인보우의 로봇 하드웨어에 빅웨이브의 관제·제어·데이터 소프트웨어를 얹는다.",
+      "narration": "레인보우로보틱스가 빅웨이브로보틱스와 북미 진출 업무협약을 맺었어요. 레인보우의 로봇 하드웨어에 빅웨이브의 관제와 제어, 데이터 소프트웨어를 얹습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "풀스택 라인업",
+      "body": "이동형 양팔로봇 RB-Y1을 비롯해 협동로봇, 자율주행 로봇, 사족보행 로봇까지 자체 제조·개발한 제품군을 앞세운다.",
+      "narration": "이동형 양팔로봇 RB-Y1을 비롯해서 협동로봇, 자율주행 로봇, 사족보행 로봇까지 자체 제조하고 개발한 제품군을 앞세워요."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "현지 실적이 근거",
+      "body": "빅웨이브는 미국 진출 6개월 만에 45만 달러 규모 공급 계약을 따냈다. 양사는 RB-Y1의 북미 공급 확대에 집중할 계획이다.",
+      "narration": "빅웨이브는 미국 진출 6개월 만에 45만 달러 규모 공급 계약을 따냈어요. 두 회사는 RB-Y1의 북미 공급 확대에 집중할 계획입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

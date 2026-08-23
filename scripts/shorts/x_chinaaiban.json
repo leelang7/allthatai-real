@@ -1,0 +1,13 @@
+{
+  "topic": "중국 AI 막으면 미국 기업이 연 16조 더 낸다",
+  "tags": ["중국AI", "오픈소스AI", "미중AI", "AI규제", "딥시크", "큐원", "가성비AI", "AI정책", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a wall dividing chinese and us tech towers with a rising cost meter, ai geopolitics cost mood, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["중국 AI를 막으면","미국 기업이 되레","연 16조 더 낸다"],"highlightLine":1,"narration":"미국이 중국 AI를 금지하면, 정작 미국 기업들이 매년 최대 16조 원을 더 물게 된다는 분석이 나왔어요."},
+    {"kind":"tip","num":"①","head":"너무 싸고 쓸 만해서","body":"미국 기업들이 딥시크·큐원 같은 중국산 오픈소스 AI를 쓴다. 값싸고 성능도 자국 모델에 못지않아서다. 막으면 비싼 대체재로 갈아타야 한다.","narration":"미국 기업들이 딥시크나 큐원 같은 중국산 오픈소스 AI를 많이 써요. 싸고 성능도 자국 모델에 못지않거든요. 금지하면 비싼 대체재로 갈아타야 합니다."},
+    {"kind":"tip","num":"②","head":"연 4조~16조원 추정","body":"중국 오픈웨이트 모델 금지 시 미국 경제에 연 30억~120억 달러(약 4조~16조원) 비용이 발생한다는 추정. 특정 플랫폼 사용자만 2조원 추가 부담.","narration":"중국 오픈웨이트 모델을 금지하면 미국 경제에 연 30억에서 120억 달러, 우리 돈 4조에서 16조 원 비용이 든다는 추정이에요. 정확한 값이 아니라 대략의 규모입니다."},
+    {"kind":"tip","num":"③","head":"막고 싶어도 못 막는다","body":"트럼프 행정부가 보안을 이유로 금지를 재추진 중이나, 가중치가 공개된 오픈모델은 이미 퍼져 사실상 차단이 불가능하다는 지적.","narration":"트럼프 행정부가 보안을 이유로 금지를 다시 추진 중인데, 가중치가 이미 공개돼 퍼진 오픈 모델이라 사실상 막기가 불가능하다는 지적이 나옵니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

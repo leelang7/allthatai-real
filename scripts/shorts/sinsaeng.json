@@ -1,0 +1,12 @@
+{
+  "topic": "신생아 특례대출",
+  "tags": ["신생아특례대출", "디딤돌대출", "신생아대출", "내집마련", "주택담보대출", "출산혜택", "저금리대출", "주택도시기금", "부동산", "신혼부부", "주택구입", "정부지원", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic warm shot of a cozy modern apartment living room with soft baby items and sunlight through a large window, slow gentle camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "금리 1.8%부터", "titleLines": ["출산하면", "1%대 금리로", "내집마련"], "highlightLine": 1, "narration": "아이를 낳으면 1퍼센트대 금리로 집을 살 수 있는 신생아 특례대출, 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "금리 연 1.8%부터", "body": "2년 내 출산 가구라면 연 1.8퍼센트부터 최대 4.5퍼센트 고정금리예요.", "narration": "첫째, 2년 내 출산한 가구는 연 1.8퍼센트부터 시작하는 고정금리로 받을 수 있습니다." },
+    { "kind": "tip", "num": "②", "head": "최대 4억원", "body": "주택가격 한도 안에서 최대 4억원까지 빌릴 수 있어요.", "narration": "둘째, 대출 한도는 최대 4억 원, 생애최초라면 더 높은 비율로 받을 수 있습니다." },
+    { "kind": "tip", "num": "③", "head": "소득 1.3억까지", "body": "부부합산 1억3천만원, 맞벌이는 2억원 이하면 신청 가능해요.", "narration": "셋째, 부부합산 소득 1억 3천만 원, 맞벌이는 2억 원 이하면 신청할 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "우리 집 조건이 되는지, 올댓에이아이에서 확인해 보세요." }
+  ]
+}

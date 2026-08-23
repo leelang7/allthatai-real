@@ -1,0 +1,13 @@
+{
+  "topic": "부동산 중개수수료",
+  "link": "https://real.allthatai.kr/tools/realtor-fee/",
+  "tags": ["중개수수료", "복비", "부동산복비", "중개보수", "중개수수료요율", "부동산수수료", "복비계산", "전세복비", "매매수수료", "공인중개사", "부동산", "내집마련", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a small wooden model house, house keys and a calculator on a clean desk, warm soft light, shallow depth of field, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "호구 안 잡히기", "titleLines": ["부동산 복비", "상한 요율", "총정리"], "highlightLine": 1, "narration": "부동산 복비, 호구 안 잡히게 상한 요율을 정리해드릴게요." },
+    { "kind": "tip", "num": "①", "head": "매매 구간별 0.4~0.7%", "body": "2억~9억은 0.4%, 9억~12억 0.5%, 15억 이상은 0.7%가 상한이에요.", "narration": "첫째, 매매는 2억에서 9억 0.4퍼센트, 9억에서 12억 0.5퍼센트, 15억 이상은 0.7퍼센트가 상한입니다." },
+    { "kind": "tip", "num": "②", "head": "'상한'이라 협의 가능", "body": "요율표는 상한일 뿐이에요. 그 안에서 깎아달라고 협의할 수 있어요.", "narration": "둘째, 요율표는 상한일 뿐이라 그 안에서 낮춰달라고 협의할 수 있습니다." },
+    { "kind": "tip", "num": "③", "head": "월세는 환산", "body": "월세 거래금액은 보증금에 월세 곱하기 100을 더해 계산해요.", "narration": "셋째, 월세는 보증금에 월세 곱하기 100을 더한 금액으로 거래금액을 계산합니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 복비 상한이 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

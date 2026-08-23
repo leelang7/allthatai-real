@@ -25,7 +25,7 @@ pipe.enable_model_cpu_offload()
 print(f"generating {W}x{H} {FRAMES}f: {PROMPT[:60]}…")
 frames = pipe(
     prompt=PROMPT,
-    negative_prompt="worst quality, blurry, distorted, deformed, low resolution, jpeg artifacts, text, watermark, static, still",
+    negative_prompt="worst quality, blurry, distorted, deformed, low resolution, jpeg artifacts, static, still, US dollar, dollar bills, euro, foreign currency, western caucasian people, white people, text, letters, words, captions, subtitles, signboard, signage, billboard, poster, logo, label, gibberish text, garbled letters, fake characters, scribbles, random symbols, writing on wall",
     width=W, height=H, num_frames=FRAMES,
     guidance_scale=5.0, num_inference_steps=STEPS,
 ).frames[0]

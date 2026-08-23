@@ -1,0 +1,13 @@
+{
+  "topic": "AI로 AI 해킹 막는다 MS 프로젝트 퍼셉션",
+  "tags": ["마이크로소프트", "MS", "AI보안", "사이버보안", "프로젝트퍼셉션", "AI에이전트", "해킹방어", "보안AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "futuristic cybersecurity command center with glowing shield and AI defense network, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["AI 해킹은","AI로 막는다","MS 프로젝트 퍼셉션"],"highlightLine":1,"narration":"AI로 하는 해킹, 이젠 AI로 막는다? 마이크로소프트가 보안 AI 프로젝트 퍼셉션을 공개했어요."},
+    {"kind":"tip","num":"①","head":"레드·블루·그린 3팀 협력","body":"공격 경로를 미리 찾는 레드팀, 문맥으로 위험을 판단하는 블루팀, 수정·방어하는 그린팀. AI 에이전트 3개 팀이 협력해 방어한다.","narration":"공격 경로를 미리 찾는 레드팀, 위험을 판단하는 블루팀, 고쳐서 방어하는 그린팀. AI 에이전트 세 팀이 협력해서 막아요."},
+    {"kind":"tip","num":"②","head":"작업마다 다른 모델","body":"정확도·신뢰성은 물론 응답 속도와 비용까지 따져, 작업별로 프런티어 모델과 보안 특화 모델을 골라 쓰는 멀티모델 방식.","narration":"정확도랑 속도, 비용까지 따져서 작업마다 최적의 모델을 골라 쓰는 멀티모델 방식이에요. 최강 모델이랑 보안 특화 모델을 상황따라 조합합니다."},
+    {"kind":"tip","num":"③","head":"8월 3일 프리뷰","body":"AI가 공격하고 AI가 방어하는 시대에 맞춘 체계. 공개 프리뷰는 8월 3일부터 제공된다.","narration":"AI가 공격하고 AI가 방어하는 시대에 맞춘 보안 체계예요. 공개 프리뷰는 8월 3일부터 풀립니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

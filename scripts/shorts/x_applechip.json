@@ -1,0 +1,13 @@
+{
+  "topic": "미 의회 애플에 경고 중국 메모리칩 사지마라",
+  "tags": ["애플", "반도체", "메모리반도체", "미중갈등", "삼성전자", "SK하이닉스", "아이폰", "CXMT", "국가안보", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "geopolitical tech tension mood, a memory chip on a divided US-China backdrop, semiconductor supply chain conflict, cool teal and red accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["애플한테","중국칩 사지마라","미 의회가 경고"],"highlightLine":1,"narration":"미국 의회가 애플한테 중국산 메모리 반도체 사지 말라고 경고했어요. 이게 삼성·하이닉스엔 기회가 될 수 있습니다."},
+    {"kind":"tip","num":"①","head":"양당 상원의원이 압박","body":"공화·민주 양당 상원의원들이 애플에 중국 CXMT·YMTC 메모리 구매를 포기하라고 촉구. 두 회사 다 미 국방부의 중국 군부 지원 기업 목록에 올라있다.","narration":"공화당, 민주당 양쪽 상원의원들이 애플한테 중국 CXMT랑 YMTC 메모리를 사지 말라고 압박했어요. 두 회사 다 미 국방부가 중국 군부 지원 기업으로 찍은 곳입니다."},
+    {"kind":"tip","num":"②","head":"8월 21일까지 약속하라","body":"애플이 메모리 부족을 중국산으로 메우려 하자, 의원들은 8월 21일까지 안 쓰겠다고 약속하라 요구. 안보·경제 이유를 들었다.","narration":"애플이 메모리 부족을 중국산으로 메우려 하자, 의원들은 8월 21일까지 안 쓰겠다고 약속하라고 요구했어요. 국가안보랑 경제를 이유로 들었습니다."},
+    {"kind":"tip","num":"③","head":"삼성·하이닉스엔 반사이익","body":"애플이 중국산을 못 쓰면 결국 메모리 최강자인 삼성전자·SK하이닉스에 물량이 갈 가능성. 미중 반도체 갈등이 한국에 기회가 되는 구도.","narration":"애플이 중국산을 못 쓰면 결국 메모리 최강인 삼성전자랑 SK하이닉스로 물량이 갈 수 있어요. 미중 반도체 갈등이 한국엔 기회가 되는 그림입니다."},
+    {"kind":"cta","narration":"이 종목 지금 어떨까요? 프로필 링크 AI 주식 분석에 종목명 넣으면 매수·매도·목표가·위험까지 정리해줍니다."}
+  ]
+}

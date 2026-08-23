@@ -1,0 +1,13 @@
+{
+  "topic": "BYD가 테슬라 다시 제쳤다 2분기 전기차 1위",
+  "tags": ["테슬라", "BYD", "비야디", "전기차", "미국주식", "중국전기차", "판매량", "TSLA", "인도량", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "two rival electric cars in a global competition mood, dynamic dark premium background with teal and red accent light, sense of a market race, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["테슬라가 또 밀렸다","BYD에 16만대 차이","2분기 전기차 왕좌"],"highlightLine":1,"narration":"테슬라가 중국 BYD한테 다시 1위 자리를 내줬어요. 2분기 전기차 판매, 얼마나 벌어졌을까요?"},
+    {"kind":"tip","num":"①","head":"BYD 55.7만대 1위 탈환","body":"BYD가 2분기 순수전기차 55만7천대를 인도하며 글로벌 배터리 전기차 판매 1위를 다시 가져갔다.","narration":"BYD가 2분기에 순수 전기차 55만 7천대를 인도하면서, 글로벌 전기차 판매 1위를 다시 가져갔어요."},
+    {"kind":"tip","num":"②","head":"테슬라는 16만대 뒤처짐","body":"테슬라는 같은 분기 약 39만6천대 인도로 추정. BYD에 16만대 넘게 뒤졌다.","narration":"테슬라는 같은 기간 약 39만 6천대로 추정돼요. BYD에 16만대 넘게 뒤진 셈입니다."},
+    {"kind":"tip","num":"③","head":"1분기엔 테슬라가 앞섰는데","body":"1분기엔 테슬라가 근소하게 1위였다가 2분기에 역전당했다. BYD의 중국 내수 판매 회복이 결정적이었다.","narration":"사실 1분기엔 테슬라가 근소하게 앞섰다가 2분기에 뒤집혔어요. BYD의 중국 내수 판매 회복이 결정적이었습니다."},
+    {"kind":"cta","narration":"테슬라 지금 어떨까요? 궁금하면 프로필 링크 AI 주식 분석에 티커만 넣어보세요. 매수·매도·목표가·위험까지 정리해줍니다."}
+  ]
+}

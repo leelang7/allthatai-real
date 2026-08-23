@@ -1,0 +1,54 @@
+{
+  "topic": "복지멤버십 한 번 가입하면 알아서 알려준다",
+  "tags": [
+    "복지멤버십",
+    "맞춤형급여안내",
+    "복지로",
+    "정부지원",
+    "누락방지",
+    "복지",
+    "생활꿀팁",
+    "혜택",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a mailbox receiving personalized welfare notifications, cinematic photography with shallow depth of field, close-up hero shot, subject centered, golden hour warm sunlight, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "몰라서 못 받는 걸 막는다",
+        "복지멤버십",
+        "맞춤형 급여 안내"
+      ],
+      "highlightLine": 1,
+      "narration": "내가 받을 수 있는 복지를 알아서 찾아 알려주는 제도가 있어요. 한 번만 가입하면 됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "소득·재산으로 자동 대조",
+      "body": "가입하면 소득·재산·가구 상황을 바탕으로 받을 수 있는 복지제도를 정부가 주기적으로 대조해 알려준다.",
+      "narration": "가입하면 소득이랑 재산, 가구 상황을 바탕으로 받을 수 있는 복지제도를 정부가 주기적으로 대조해서 알려줘요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "문자로 안내가 온다",
+      "body": "새로 대상이 되거나 신청 시기가 오면 문자 등으로 안내가 온다. 몰라서 놓치는 지원금을 줄이는 게 목적이다.",
+      "narration": "새로 대상이 되거나 신청 시기가 오면 문자 같은 걸로 안내가 와요. 몰라서 놓치는 지원금을 줄이는 게 목적입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "복지로·주민센터에서 가입",
+      "body": "복지로 누리집이나 앱, 주민센터에서 가입할 수 있다. 안내를 받아도 실제 신청은 따로 해야 하니 알림이 오면 바로 챙기자.",
+      "narration": "복지로 누리집이나 앱, 주민센터에서 가입할 수 있어요. 안내를 받아도 실제 신청은 따로 해야 하니까, 알림이 오면 바로 챙기세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

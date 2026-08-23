@@ -1,0 +1,13 @@
+{
+  "topic": "온누리상품권 디지털로 사면 할인 이득",
+  "tags": ["온누리상품권", "전통시장", "디지털상품권", "할인", "생활비절약", "명절", "제로페이", "정부지원", "재래시장", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "vibrant korean traditional market mood, warm stall lights and fresh produce, everyday saving atmosphere, teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["장 볼 때 그냥 쓰면","손해","온누리상품권 할인"],"highlightLine":1,"narration":"전통시장에서 장 볼 거면 온누리상품권 먼저 사세요. 그냥 현금 쓰면 할인만큼 손해예요."},
+    {"kind":"tip","num":"①","head":"디지털이 할인 크다","body":"지류는 5%, 디지털은 평시 7% 할인. 명절엔 디지털이 최대 15%까지 올라간다. 앱으로 QR·카드결제 다 된다.","narration":"종이형은 5퍼센트, 디지털형은 평소 7퍼센트 할인이에요. 명절 땐 디지털이 최대 15퍼센트까지 올라가고, 앱 하나로 QR이랑 카드결제 다 됩니다."},
+    {"kind":"tip","num":"②","head":"월 구매한도","body":"지류는 월 50만원, 디지털은 평시 100만원까지(명절엔 200만원). 할인받아 사서 시장·가맹점에서 쓰면 그만큼 이득.","narration":"구매한도는 종이형 월 50만원, 디지털은 평소 100만원까지, 명절엔 200만원까지예요. 할인받아 사서 쓰는 만큼 다 이득이죠."},
+    {"kind":"tip","num":"③","head":"어디서 쓰나","body":"전통시장은 물론, 온누리상품권 가맹점 스티커가 붙은 상점이면 어디든 사용 가능. 생활비 나가는 곳에 그대로 쓰면 된다.","narration":"전통시장은 물론이고, 온누리상품권 가맹점 스티커 붙은 가게면 어디든 쓸 수 있어요. 어차피 나갈 생활비에 그대로 쓰면 됩니다."},
+    {"kind":"cta","narration":"이런 생활비 절약이랑 정부 혜택은 프로필 링크에 정리해놨어요. 저장해두고 장 보기 전에 꺼내 쓰세요."}
+  ]
+}

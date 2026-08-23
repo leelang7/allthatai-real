@@ -1,0 +1,13 @@
+{
+  "topic": "무대서 앞으로 꽈당 쓰러진 휴머노이드 로봇 화제",
+  "tags": ["휴머노이드", "로봇", "퀄컴", "컴퓨텍스", "AI로봇", "로봇공학", "AI현실", "피지컬AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a humanoid robot pitching forward on a bright keynote stage under spotlights, live demo mishap mood, cool teal and amber accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["무대 위에서","앞으로 꽈당","쓰러진 휴머노이드"],"highlightLine":1,"narration":"화려한 무대 위를 걷던 휴머노이드 로봇이 갑자기 앞으로 꽈당 쓰러졌어요. 이 영상이 전 세계적으로 화제가 됐습니다."},
+    {"kind":"tip","num":"①","head":"컴퓨텍스 생중계 사고","body":"대만 컴퓨텍스 2026 기조연설 도중, 퀄컴 기반 휴머노이드가 통신 오류로 앞으로 넘어져 얼굴부터 바닥에 부딪혔다. 주먹을 들며 '살아있음'을 알렸지만 못 일어났다.","narration":"대만 컴퓨텍스 2026 기조연설 도중, 퀄컴 기반 휴머노이드가 통신 오류로 앞으로 넘어져 얼굴부터 바닥에 부딪혔어요. 주먹을 들어 살아있다는 신호는 보냈지만, 혼자 못 일어났습니다."},
+    {"kind":"tip","num":"②","head":"실은 '안전 동작'이었다","body":"퀄컴은 로봇이 넘어질 때 무릎을 굽혀 주변을 보호하는 '안전 붕괴' 동작을 실행한 것이라 설명. 사람과 주변을 지키기 위한 설계라는 것.","narration":"퀄컴은 로봇이 넘어질 때 무릎을 굽혀 주변을 보호하는, 안전 붕괴 동작을 실행한 거라고 설명했어요. 사람이랑 주변을 지키려는 설계라는 거죠."},
+    {"kind":"tip","num":"③","head":"AI와 현실의 간극","body":"화면 속 완벽한 로봇과 실제 무대의 간극을 보여준 장면. 라이브 시연은 늘 위험을 안고, 이 실패도 소프트웨어 개선의 값진 데이터가 된다.","narration":"화면 속 완벽한 로봇과 실제 무대의 간극을 보여준 장면이에요. 라이브 시연은 늘 위험을 안고, 이런 실패도 소프트웨어를 개선하는 값진 데이터가 됩니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

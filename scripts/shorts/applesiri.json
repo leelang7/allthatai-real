@@ -1,0 +1,14 @@
+{
+  "topic": "애플 시리 제미나이 탑재",
+  "title": "애플 시리, 구글 제미나이로 바뀐다",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["애플", "시리", "구글제미나이", "Gemini", "애플인텔리전스", "아이폰", "AI비서", "챗GPT", "클로드", "빅테크", "테크뉴스", "인공지능", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic close-up of a smartphone on a clean desk showing a glowing blue voice-assistant waveform, dark modern background, soft reflections, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "빅테크 빅딜", "titleLines": ["애플 시리", "구글 제미나이로", "바뀐다"], "highlightLine": 1, "narration": "애플 시리가 구글 제미나이로 바뀝니다. 무슨 일인지 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "제미나이로 재구축", "body": "애플이 시리를 구글 제미나이 기반으로 다시 만들어요. 1.2조 파라미터급이에요.", "narration": "첫째, 애플이 시리를 구글 제미나이 기반으로 재구축합니다. 1.2조 파라미터급 모델이에요." },
+    { "kind": "tip", "num": "2", "head": "연 10억 달러 동맹", "body": "애플이 구글에 연 약 10억 달러를 내는 빅테크 동맹이에요.", "narration": "둘째, 애플이 구글에 연 약 10억 달러를 지불하는 빅테크 동맹입니다." },
+    { "kind": "tip", "num": "3", "head": "AI 골라 쓰기", "body": "챗GPT·제미나이·클로드 중에서 골라 쓰는 기능도 도입돼요.", "narration": "셋째, 챗GPT와 제미나이, 클로드 중에서 원하는 AI를 골라 쓰는 기능도 도입됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "AI 흐름, 올댓에이아이에서 더 보세요. 구독!" }
+  ]
+}

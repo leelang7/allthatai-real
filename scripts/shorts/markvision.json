@@ -1,0 +1,13 @@
+{
+  "topic": "마크비전 마크레이더 무료 브랜드 위협 진단",
+  "tags": ["마크비전", "마크레이더", "브랜드보호", "위조상품", "AI보안", "무료AI툴", "자영업", "이커머스", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "digital shield scanning a brand network for threats, cyber protection concept, cool teal and red alert accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 도구","titleLines":["내 브랜드 도용당하는 중?","90초 무료 진단","마크레이더"],"highlightLine":1,"narration":"내 브랜드가 지금 도용당하고 있는지, 90초 만에 무료로 확인해보세요. 마크비전이 마크레이더를 내놨어요."},
+    {"kind":"tip","num":"①","head":"주소만 넣으면 진단","body":"브랜드 웹사이트 주소만 넣으면 사칭 도메인·가짜 쇼핑몰·사칭 SNS·도용 콘텐츠까지 5개 채널의 온라인 위협을 한 번에 진단.","narration":"내 브랜드 웹사이트 주소만 넣으면 돼요. 사칭 도메인, 가짜 쇼핑몰, 사칭 SNS, 콘텐츠 도용까지 다섯 개 채널의 위협을 한 번에 잡아줍니다."},
+    {"kind":"tip","num":"②","head":"AI가 90초 만에","body":"AI가 자동 분석해 90초 만에 위험도와 심각성을 점수로 보여준다. 복잡한 절차 없이 바로 결과 확인.","narration":"AI가 알아서 분석해서 90초 만에 위험도랑 심각성을 점수로 보여줘요. 복잡한 거 없이 바로 결과가 나옵니다."},
+    {"kind":"tip","num":"③","head":"자영업·브랜드 필수","body":"위조상품·사칭계정·콘텐츠 도용이 걱정되는 브랜드·자영업자·기업에 유용. 무료라 부담 없이 내 브랜드 상태 체크.","narration":"위조상품이나 사칭계정 때문에 골치 아픈 자영업자나 브랜드라면 딱이에요. 무료니까 부담 없이 내 브랜드 상태부터 체크해보세요."},
+    {"kind":"cta","narration":"이런 무료 AI 도구와 활용법은 프로필 링크에 모아놨어요. 저장해두고 챙겨 보세요."}
+  ]
+}

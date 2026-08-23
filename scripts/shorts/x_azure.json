@@ -1,0 +1,13 @@
+{
+  "topic": "MS 애저 연매출 1000억달러 첫 돌파 AI가 123%",
+  "tags": ["마이크로소프트", "MS", "애저", "Azure", "클라우드", "AI매출", "실적발표", "미국주식", "코파일럿", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-stock",
+  "bgPrompt": "vast glowing cloud data center network with soaring revenue, enterprise AI cloud mood, cool teal and blue accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"머니 브리핑","titleLines":["애저 연매출","1000억 달러 첫 돌파","MS AI 매출 123%↑"],"highlightLine":1,"narration":"마이크로소프트 클라우드 애저가 연매출 1000억 달러를 처음 넘었어요. AI가 실적을 통째로 끌어올리는 중입니다."},
+    {"kind":"tip","num":"①","head":"애저 첫 1000억 달러","body":"이번 분기 매출 900억 달러로 시장 예상을 넘겼고, 애저 연매출이 사상 처음 1000억 달러를 돌파. 애저 성장률은 40%대.","narration":"이번 분기 매출이 900억 달러로 예상을 넘겼고, 애저 연매출이 사상 처음 1000억 달러를 돌파했어요. 성장률도 40퍼센트대입니다."},
+    {"kind":"tip","num":"②","head":"AI 매출 1년새 123%↑","body":"AI 사업만 연환산 370억 달러로 1년 전보다 123% 급증. 코파일럿 유료 좌석은 3천만 개를 넘었다.","narration":"AI 사업만 연환산 370억 달러로 1년 새 123퍼센트나 뛰었어요. 코파일럿 유료 사용 좌석은 3천만 개를 넘었습니다."},
+    {"kind":"tip","num":"③","head":"백로그 6780억에 OpenAI가 절반","body":"미래 계약 잔량(백로그)이 6780억 달러인데 그 45%가 OpenAI 물량. AI 인프라 투자로 마진은 눌렸다.","narration":"앞으로 받을 계약 잔량이 6780억 달러인데, 그중 45퍼센트가 OpenAI 물량이에요. AI 인프라에 쏟느라 마진은 좀 눌렸습니다."},
+    {"kind":"cta","narration":"이 종목 지금 어떨까요? 프로필 링크 AI 주식 분석에 티커 넣으면 매수·매도·목표가·위험까지 정리해줍니다."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "topic": "무료 AI 툴 추천",
+  "link": "https://real.allthatai.kr/tools/",
+  "tags": ["AI툴", "무료AI", "AI도구", "AI추천", "생성형AI", "AI활용", "챗GPT활용", "업무자동화", "AI사이트", "생산성", "인공지능", "꿀팁", "shorts", "쇼츠", "AI"],
+  "bgPrompt": "Cinematic shot of a person using a laptop with a softly glowing screen in a modern bright workspace, warm light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "48종 무료", "titleLines": ["지금 무료로", "쓰는 AI 툴", "추천"], "highlightLine": 1, "narration": "지금 무료로 쓸 수 있는 AI 툴, 어디서 찾는지 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "글쓰기·이미지·요약", "body": "자소서·계약서 검토·영양 분석까지 무료 AI 툴이 쏟아지고 있어요.", "narration": "첫째, 자기소개서, 계약서 검토, 영양 분석까지 무료 AI 툴이 쏟아지고 있습니다." },
+    { "kind": "tip", "num": "2", "head": "올댓에이아이 48종", "body": "올댓에이아이에 분야별 AI 도구 48종을 한곳에 모아놨어요.", "narration": "둘째, 올댓에이아이에 분야별 AI 도구 48종을 한곳에 모아놨습니다." },
+    { "kind": "tip", "num": "3", "head": "실생활 도구도 무료", "body": "취업·부동산·건강·세금 계산까지 실생활 도구도 무료로 써요.", "narration": "셋째, 취업·부동산·건강·세금 계산까지 실생활 도구도 무료로 쓸 수 있습니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "필요한 AI 툴, 올댓에이아이에서 바로 찾아 쓰세요. 구독!" }
+  ]
+}

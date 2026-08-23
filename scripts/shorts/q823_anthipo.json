@@ -1,0 +1,54 @@
+{
+  "topic": "앤트로픽 IPO 스페이스X 기록 깬다",
+  "tags": [
+    "앤트로픽",
+    "IPO",
+    "상장",
+    "스페이스X",
+    "기업가치",
+    "클로드",
+    "투자",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a record-breaking public offering bell ringing on a trading floor, flat vector editorial illustration, bold shapes, top-down flat lay arrangement, soft gradient background, diffused light, midnight navy and ice blue accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "사상 최대 상장",
+        "앤트로픽 1000억 달러",
+        "기업가치 2조 달러"
+      ],
+      "highlightLine": 1,
+      "narration": "앤트로픽이 상장으로 1000억 달러 넘게 조달하는 걸 검토 중이에요. 사상 최대 규모입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "스페이스X 857억을 넘본다",
+      "body": "조달 목표는 1000억 달러 이상, 기업가치는 최대 2조 달러다. 현재 최대 기록인 스페이스X의 857억 달러를 넘을 수 있다.",
+      "narration": "조달 목표는 1000억 달러 이상, 기업가치는 최대 2조 달러예요. 현재 최대 기록인 스페이스X의 857억 달러를 넘을 수 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "비공개 9000억 → 2조",
+      "body": "직전 비공개 투자 때 9000억 달러였던 기업가치가 상장 논의에서 최대 2조 달러로 뛰었다. 연환산 매출은 650억 달러 수준이다.",
+      "narration": "직전 비공개 투자 때 9000억 달러였던 기업가치가, 상장 논의에서 최대 2조 달러로 뛰었어요. 연환산 매출은 650억 달러 수준입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "공개 제출은 이달 말",
+      "body": "6월 1일 비공개로 서류를 냈고, 이르면 8월 말 공개 제출이 가능하다. 2분기 매출 116억 달러로 오픈AI를 처음 앞질렀다.",
+      "narration": "6월 1일에 비공개로 서류를 냈고, 이르면 8월 말 공개 제출이 가능해요. 2분기 매출 116억 달러로 오픈AI를 처음 앞질렀습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

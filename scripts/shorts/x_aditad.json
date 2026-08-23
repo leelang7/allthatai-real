@@ -1,0 +1,13 @@
+{
+  "topic": "팔로워 수 안 본다 AI가 인스타 광고 매칭하는 스타트업",
+  "tags": ["애딧앤아크", "AI광고", "인스타그램", "마케팅AI", "스타트업", "시드투자", "크리에이터", "광고효율", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "an AI matching a brand with the right instagram creators through data analysis, ai advertising matchmaking mood, cool teal and magenta accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["팔로워 수는 안 본다","AI가 인스타 광고를","알아서 매칭한다"],"highlightLine":1,"narration":"이제 팔로워 수 많은 계정에 광고 맡기는 시대는 끝? AI가 브랜드에 딱 맞는 인스타 채널을 찾아주는 스타트업이 투자를 받았어요."},
+    {"kind":"tip","num":"①","head":"AI로 '적합도'를 분석","body":"애딧앤아크의 광고 서비스 '애딧'은 팔로워나 과거 조회수 대신, AI가 콘텐츠 주제·이용자 반응·브랜드 적합도를 분석해 광고 매체를 고른다.","narration":"애딧앤아크의 광고 서비스 애딧은, 팔로워나 과거 조회수 대신 AI가 콘텐츠 주제랑 이용자 반응, 브랜드 적합도를 분석해서 광고 낼 곳을 골라요."},
+    {"kind":"tip","num":"②","head":"70개+ 인스타 매거진 연결","body":"70개 넘는 인스타그램 디지털 매거진 네트워크를 기반으로, 패션·뷰티·식음료 브랜드 캠페인을 피드·숏폼·스토리로 제작한다.","narration":"70개가 넘는 인스타그램 디지털 매거진 네트워크를 기반으로, 패션이랑 뷰티, 식음료 브랜드 캠페인을 피드랑 숏폼, 스토리로 제작합니다."},
+    {"kind":"tip","num":"③","head":"카카오벤처스도 베팅","body":"토스 최연소 PO 출신이 창업했고, 매쉬업벤처스·카카오벤처스 등에서 시드 투자를 유치. AI가 광고 매칭을 바꾸는 흐름에 돈이 몰린다.","narration":"토스 최연소 PO 출신이 창업했고, 매쉬업벤처스랑 카카오벤처스 등에서 시드 투자를 유치했어요. AI가 광고 매칭을 바꾸는 흐름에 돈이 몰리고 있습니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

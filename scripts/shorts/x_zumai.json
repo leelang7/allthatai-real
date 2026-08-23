@@ -1,0 +1,13 @@
+{
+  "topic": "국내 포털 최초 AI 1초 요약 줌에 국가대표 AI 심었다",
+  "tags": ["이스트에이드", "줌", "ZUM", "AI검색", "AI요약", "K엑사원", "버티컬에이전트", "국산AI", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a search portal instantly condensing news into a clean summary card, ai search summary mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["검색하면 1초 만에","AI가 요약해준다","포털 줌의 승부수"],"highlightLine":1,"narration":"검색하면 AI가 1초 만에 핵심을 요약해줘요. 포털 줌이 국가대표 AI를 심어 국내 포털 최초로 이 기능을 선보였습니다."},
+    {"kind":"tip","num":"①","head":"국가대표 AI 'K-엑사원' 적용","body":"이스트에이드가 포털 줌의 'AI 1초 요약'과 'AI 이슈 트렌드' 핵심 모델을 LG의 국가대표 AI K-엑사원으로 교체했다.","narration":"이스트에이드가 포털 줌의 AI 1초 요약이랑 AI 이슈 트렌드 핵심 모델을, LG의 국가대표 AI K-엑사원으로 교체했어요."},
+    {"kind":"tip","num":"②","head":"실시간 정보를 요약","body":"자체 검색엔진으로 뉴스·블로그·커뮤니티에서 실시간 수집한 최신 정보를 AI가 골라 요약. 검색 결과를 일일이 안 눌러봐도 된다.","narration":"자체 검색엔진으로 뉴스랑 블로그, 커뮤니티에서 실시간 수집한 최신 정보를 AI가 골라 요약해줘요. 검색 결과를 일일이 눌러보지 않아도 됩니다."},
+    {"kind":"tip","num":"③","head":"쇼핑·금융·여행으로 확장","body":"앞으로 줌 AI 검색을 쇼핑·금융·여행 등 분야별 '버티컬 AI 에이전트'로 진화시킬 계획. 검색이 대신 고민해주는 시대로 간다.","narration":"앞으로 줌 AI 검색을 쇼핑이랑 금융, 여행 등 분야별 버티컬 AI 에이전트로 진화시킬 계획이에요. 검색이 대신 고민해주는 시대로 가는 겁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

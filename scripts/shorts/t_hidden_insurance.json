@@ -1,0 +1,13 @@
+{
+  "topic": "숨은 보험금 내보험찾아줌으로 공짜로 찾기",
+  "tags": ["숨은보험금", "내보험찾아줌", "보험금찾기", "미청구보험금", "생활꿀팁", "보험", "금융꿀팁", "절약", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract concept of finding hidden money, a glowing magnifying glass over stacked documents and coins on a dark premium background, warm gold and teal accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["안 찾아간 내 보험금","공짜로 한 번에 조회","내보험찾아줌"],"highlightLine":0,"narration":"가입해놓고 안 찾아간 보험금, 공짜로 한 번에 조회할 수 있어요."},
+    {"kind":"tip","num":"①","head":"협회 공식 통합조회","body":"생명보험협회와 손해보험협회가 함께 운영하는 '내보험찾아줌'. 흩어진 내 보험 계약과 안 받아간 보험금을 한 번에 보여준다.","narration":"생명보험협회랑 손해보험협회가 함께 운영하는 '내보험찾아줌'인데요. 흩어진 내 보험 계약이랑 안 받아간 보험금을 한 번에 보여줍니다."},
+    {"kind":"tip","num":"②","head":"만기·휴면 보험금 수두룩","body":"만기가 됐거나 중도 환급, 연락이 끊겨 못 받은 보험금이 생각보다 많다. 본인 확인만 하면 청구할 수 있다.","narration":"만기가 됐거나 중도 환급, 연락이 끊겨서 못 받은 보험금이 생각보다 많아요. 본인 확인만 하면 청구할 수 있습니다."},
+    {"kind":"tip","num":"③","head":"본인인증 후 청구","body":"'내보험찾아줌'에서 본인인증하면 계약과 숨은 보험금이 뜬다. 해당 보험사에 청구하면 끝. 조회는 완전 무료.","narration":"'내보험찾아줌'에서 본인인증만 하면 계약이랑 숨은 보험금이 떠요. 해당 보험사에 청구하면 끝이고, 조회는 완전 무료입니다."},
+    {"kind":"cta","narration":"숨은 돈 찾는 꿀팁 더 있어요. 프로필 링크에서 확인해보세요."}
+  ]
+}

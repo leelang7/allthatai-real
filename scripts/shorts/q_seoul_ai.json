@@ -1,0 +1,13 @@
+{
+  "topic": "서울시가 챗GPT 클로드 이용권을 공짜로 준다",
+  "tags": ["서울시", "챗GPT", "클로드", "제미나이", "서울런AI", "청년", "AI지원", "생활꿀팁", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a city hall handing out AI subscription passes to students and young citizens, flat vector editorial illustration, bold shapes, symmetrical centered composition, calm balance, bright airy background, soft daylight, emerald green and lime highlights, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"정부 지원","titleLines":["월 2만원짜리 AI를","서울시가 대신 내준다","챗GPT·클로드 9종"],"highlightLine":1,"narration":"유료 AI를 서울시가 대신 결제해주는 사업이 있어요. 챗GPT랑 클로드까지 포함입니다."},
+    {"kind":"tip","num":"①","head":"서울런 AI — 유료 AI 9종","body":"고등학생 이상 서울런 회원 1000명에게 챗GPT·클로드·제미나이 등 유료 생성형 AI 9종을 교차로 쓸 수 있게 지원한다. 6월부터 운영 중이다.","narration":"고등학생 이상 서울런 회원 1000명에게, 챗GPT랑 클로드, 제미나이 같은 유료 생성형 AI 9종을 교차로 쓸 수 있게 지원해요. 6월부터 운영 중입니다."},
+    {"kind":"tip","num":"②","head":"월 2만원 상당, 최대 9개월","body":"선정되면 월 2만원 상당인 1만 크레딧을 최대 9개월간 받는다. 크레딧은 작업 종류에 따라 차등 소모되는 방식이다.","narration":"선정되면 월 2만원 상당인 1만 크레딧을 최대 9개월간 받아요. 크레딧은 작업 종류에 따라 차등 소모되는 방식입니다."},
+    {"kind":"tip","num":"③","head":"청년으로도 넓힌다","body":"서울시는 서울에 살거나 서울로 출퇴근하는 만 19~39세 청년에게 생성형 AI 이용권을 무료 지원하는 정책도 추진 중이다. 서울런·서울시 누리집에서 공고를 확인하자.","narration":"서울시는 서울에 살거나 서울로 출퇴근하는 만 19세에서 39세 청년에게도, 생성형 AI 이용권을 무료 지원하는 정책을 추진 중이에요. 서울런이나 서울시 누리집에서 공고를 확인하세요."},
+    {"kind":"cta","narration":"이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

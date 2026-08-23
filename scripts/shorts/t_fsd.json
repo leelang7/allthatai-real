@@ -1,0 +1,13 @@
+{
+  "topic": "테슬라 FSD 904만원 사라진다 월 15만원 구독제 전환",
+  "tags": ["테슬라", "FSD", "완전자율주행", "테슬라FSD", "구독제", "월구독", "모델Y", "모델3", "전기차", "올댓AI"],
+  "link": "real.allthatai.kr/tools/ai-car",
+  "bgPrompt": "futuristic self-driving electric car interior at night, glowing dashboard and illuminated road ahead, subscription and pricing shift mood, cool teal and blue accent light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"테크 뉴스","titleLines":["테슬라 FSD","904만원 사라진다","월 15만원 구독제로"],"highlightLine":1,"narration":"테슬라 완전자율주행 FSD, 이제 904만원 안 내도 돼요. 8월 10일부터 월 구독제로 확 바뀝니다."},
+    {"kind":"tip","num":"①","head":"8월 10일부터 구독제 전환","body":"기존 904만3천원 일시불이 사라지고, 8월 10일부터는 월 15만원(부가세 포함) 구독으로 바뀐다.","narration":"기존엔 904만3천원을 한 번에 내야 했는데, 8월 10일부터는 그게 없어지고 월 15만원 구독으로 바뀌어요."},
+    {"kind":"tip","num":"②","head":"목돈 부담↓ 근데 오래 타면?","body":"초기 목돈 없이 월 15만원으로 시작 가능. 다만 약 5년(60개월) 넘게 쓸 거면 일시불이 더 이득. EAP 구매자는 월 7만5천원.","narration":"큰 돈 한 번에 안 내도 되니 부담은 줄죠. 대신 5년 넘게 오래 탈 거면 일시불이 더 쌌어요. 향상된 오토파일럿 산 분은 월 7만5천원입니다."},
+    {"kind":"tip","num":"③","head":"이미 산 사람은? 이름값은?","body":"이미 904만원 일시불로 산 고객은 그대로 유지된다. 참고로 완전자율주행이란 이름과 달리 운전자 감독이 필요한 레벨2다.","narration":"이미 904만원 주고 산 분들은 그대로 유지돼요. 그리고 완전자율주행이라는 이름과 달리, 운전자가 계속 지켜봐야 하는 레벨2라는 점은 알아두세요."},
+    {"kind":"cta","narration":"차 살까 말까, 유지비랑 연비까지 비교하고 싶으면 프로필 링크 AI 자동차에 예산만 넣어보세요. 신차·중고차 다섯 개 골라줍니다."}
+  ]
+}

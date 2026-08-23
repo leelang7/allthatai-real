@@ -1,0 +1,54 @@
+{
+  "topic": "메타가 노트북에서 도는 30B 모델 풀었다",
+  "tags": [
+    "메타",
+    "뮤즈글리머",
+    "오픈소스",
+    "30B",
+    "노트북AI",
+    "온디바이스",
+    "아파치2.0",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a laptop running a large local AI agent without cloud, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "클라우드 없이 노트북에서",
+        "메타 뮤즈 글리머 30B",
+        "가중치 전면 공개"
+      ],
+      "highlightLine": 1,
+      "narration": "메타가 노트북에서 돌아가는 300억 파라미터 모델을 아파치 2.0으로 공개했어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "55GB를 20GB 아래로",
+      "body": "원래 약 55기가바이트 램이 필요하던 모델을 최적화로 20기가바이트 아래까지 줄였다. 4비트 양자화판은 24~32기가 VRAM에 맞췄다.",
+      "narration": "원래 약 55기가바이트 램이 필요하던 모델을 최적화로 20기가바이트 아래까지 줄였어요. 4비트 양자화판은 24에서 32기가 VRAM에 맞췄습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "맥북 프로에서도 시연",
+      "body": "통합 메모리 64기가 맥북 프로에서 구동을 시연했다. 허깅페이스에 BF16 가중치와 GGUF, 엑서큐토치 빌드까지 함께 올라왔다.",
+      "narration": "통합 메모리 64기가 맥북 프로에서 구동을 시연했어요. 허깅페이스에 BF16 가중치랑 GGUF, 엑서큐토치 빌드까지 함께 올라왔습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "초안 뒤 검증하는 방식",
+      "body": "가벼운 초안 모델이 먼저 답을 내고 본 모델이 검증·수정하는 추측 디코딩으로 속도를 높였다. 상시 구동 로컬 에이전트를 겨냥한 설계다.",
+      "narration": "가벼운 초안 모델이 먼저 답을 내고 본 모델이 검증하고 고치는 추측 디코딩으로 속도를 높였어요. 상시 구동 로컬 에이전트를 겨냥한 설계입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

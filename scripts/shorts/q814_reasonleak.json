@@ -1,0 +1,54 @@
+{
+  "topic": "AI 3사 숨은 추론 31만건 뚫렸다",
+  "tags": [
+    "보안",
+    "취약점",
+    "오픈AI",
+    "앤트로픽",
+    "구글",
+    "추론",
+    "API키유출",
+    "AI보안",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "encrypted reasoning blocks being decoded into plain text, red and teal warning glow, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "보안 경보",
+      "titleLines": [
+        "암호화했는데 뚫렸다",
+        "AI 3사 숨은 추론",
+        "31만 건 해독"
+      ],
+      "highlightLine": 1,
+      "narration": "오픈AI·앤트로픽·구글의 암호화된 내부 추론이 API 설계 결함으로 뚫렸습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "약한 모델에 물어보면 나온다",
+      "body": "강한 모델이 내놓은 암호화된 추론 덩어리를 같은 회사의 더 가벼운 모델에 넣고 그대로 옮겨 적으라고 시키면, 안전장치가 약한 쪽이 평문으로 뱉어냈다.",
+      "narration": "강한 모델이 내놓은 암호화된 추론 덩어리를, 같은 회사의 더 가벼운 모델에 넣고 그대로 옮겨 적으라고 시키면, 안전장치가 약한 쪽이 평문으로 뱉어냈어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "31만 건 해독, 자격증명까지",
+      "body": "엘리스 연구소와 막스플랑크 연구진이 단일 암호화 키 결함을 이용해 숨은 추론 블록 31만 5320건을 해독했고, 공개 로그에서 API 키·비밀번호 등 실제 자격증명 182건까지 확보했다.",
+      "narration": "엘리스 연구소와 막스플랑크 연구진이 단일 암호화 키 결함을 이용해서 숨은 추론 블록 31만 5320건을 해독했어요. 공개 로그에서 API 키나 비밀번호 같은 실제 자격증명 182건까지 확보했습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "3사 모두 조치 완료",
+      "body": "오픈AI·앤트로픽·구글은 시연된 공격 경로를 모두 막았다. 다만 로그에 키를 남기지 않는 기본 위생이 얼마나 중요한지 보여준 사례다.",
+      "narration": "오픈AI와 앤트로픽, 구글은 시연된 공격 경로를 모두 막았어요. 다만 로그에 키를 남기지 않는 기본 위생이 얼마나 중요한지 보여준 사례입니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

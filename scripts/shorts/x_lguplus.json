@@ -1,0 +1,13 @@
+{
+  "topic": "인터넷 끊기기 전에 AI가 고친다 LG유플러스 공유기",
+  "tags": ["LG유플러스", "AI홈네트워크", "엣지AI", "와이파이8", "자가복구", "브로드컴", "공유기", "온디바이스", "AI뉴스", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a home wifi router with edge AI self-healing the network, on-device network ai mood, cool teal and green accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["인터넷 끊기기 전에","AI가 알아서 고친다","LG유플러스 공유기"],"highlightLine":1,"narration":"인터넷이 끊기기 전에 AI가 미리 알아채고 스스로 고쳐요. LG유플러스가 자가복구 홈네트워크를 실증했습니다."},
+    {"kind":"tip","num":"①","head":"공유기 안에서 AI가 돈다","body":"LG유플러스가 브로드컴과 와이파이 8 기반 자가복구 기술을 실증. 클라우드가 아니라 가정용 공유기 안에서 AI가 도는 '엣지 AI' 방식이다.","narration":"LG유플러스가 브로드컴과 와이파이 8 기반 자가복구 기술을 실증했어요. 클라우드가 아니라 가정용 공유기 안에서 AI가 도는 엣지 AI 방식입니다."},
+    {"kind":"tip","num":"②","head":"장애를 미리 감지·복구","body":"공유기가 네트워크 품질을 실시간 분석해 장애 징후를 미리 잡고, 저하가 예상되면 설정을 최적화해 스스로 복구한다.","narration":"공유기가 네트워크 품질을 실시간 분석해서 장애 징후를 미리 잡고, 저하가 예상되면 설정을 최적화해서 스스로 복구해요."},
+    {"kind":"tip","num":"③","head":"공유기가 AI 플랫폼으로","body":"클라우드 AI 모델을 공유기에서 돌 수 있게 경량화한 게 핵심. 단순 인터넷 장비였던 공유기를 AI 품질관리 플랫폼으로 키운다.","narration":"클라우드 AI 모델을 공유기에서 돌 수 있게 경량화한 게 핵심이에요. 단순 인터넷 장비였던 공유기를 AI 품질관리 플랫폼으로 키웁니다."},
+    {"kind":"cta","narration":"이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."}
+  ]
+}

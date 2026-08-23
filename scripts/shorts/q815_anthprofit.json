@@ -1,0 +1,54 @@
+{
+  "topic": "앤트로픽 첫 분기 흑자 상장 앞두고 반전",
+  "tags": [
+    "앤트로픽",
+    "클로드",
+    "흑자",
+    "IPO",
+    "상장",
+    "AI기업",
+    "실적",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a rising profit chart in front of a stock exchange bell, gold and teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "머니 브리핑",
+      "titleLines": [
+        "돈 먹는 하마였는데",
+        "앤트로픽 첫 분기 흑자",
+        "상장은 10월 목표"
+      ],
+      "highlightLine": 1,
+      "narration": "적자만 쌓던 프런티어 AI 기업이 처음으로 분기 흑자를 냈어요. 앤트로픽입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "2분기 영업이익 5.6억 달러",
+      "body": "앤트로픽은 2분기 매출 109억 달러에 영업이익 5억 5900만 달러를 투자자에게 제시했다. 1분기 매출 48억 달러에서 130% 늘어난 수치다.",
+      "narration": "앤트로픽은 2분기 매출 109억 달러에 영업이익 5억 5900만 달러를 투자자에게 제시했어요. 1분기 매출 48억 달러에서 130퍼센트 늘어난 수치입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "1년 만에 매출 14배",
+      "body": "최근 잠정치는 115억 달러를 넘어, 1년 전 같은 기간의 14배 수준이다. 프런티어 AI 기업이 분기 영업흑자를 낸 건 처음으로 알려졌다.",
+      "narration": "최근 잠정치는 115억 달러를 넘어서, 1년 전 같은 기간의 14배 수준이에요. 프런티어 AI 기업이 분기 영업흑자를 낸 건 처음으로 알려졌습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "숫자는 감사 전이라는 점",
+      "body": "6월 비공개 상장 서류를 내고 10월 나스닥 상장을 노린다. 다만 이 수치는 투자 유치 과정의 자료라, 주식보상 등이 빠졌을 수 있다는 지적도 있다.",
+      "narration": "6월에 비공개 상장 서류를 내고 10월 나스닥 상장을 노려요. 다만 이 수치는 투자 유치 과정의 자료라, 주식보상 같은 게 빠졌을 수 있다는 지적도 있습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI·머니 소식이랑 바로 쓰는 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

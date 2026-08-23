@@ -1,0 +1,12 @@
+{
+  "topic": "실업급여 조건",
+  "tags": ["실업급여", "구직급여", "고용보험", "실업급여조건", "실업급여신청", "퇴사", "이직", "실업급여계산", "고용센터", "실업인정", "워크넷", "정부지원", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of a person walking out of a glass office building into a bright city street in the morning, hopeful warm light, slow motion, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "하루 최대 6.8만원", "titleLines": ["퇴사하면", "실업급여", "하루 6만8천원"], "highlightLine": 1, "narration": "퇴사 후 받는 실업급여, 하루 최대 6만 8천 원 받는 조건 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "고용보험 180일", "body": "퇴사 전 18개월 중 고용보험 가입 180일 이상이면 신청할 수 있어요.", "narration": "첫째, 퇴사 전 18개월 동안 고용보험 가입 기간이 180일 이상이어야 합니다." },
+    { "kind": "tip", "num": "②", "head": "하루 6만6천~6만8천원", "body": "2026년 하한액은 하루 6만6천48원, 상한액은 6만8천100원이에요.", "narration": "둘째, 2026년 기준 하루 하한액은 6만 6천 원, 상한액은 6만 8천 원입니다." },
+    { "kind": "tip", "num": "③", "head": "120일~270일 지급", "body": "나이와 가입기간에 따라 120일에서 270일까지 받을 수 있어요.", "narration": "셋째, 나이와 가입 기간에 따라 120일에서 270일까지 지급됩니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 실업급여 예상액, 올댓에이아이에서 계산해 보세요." }
+  ]
+}

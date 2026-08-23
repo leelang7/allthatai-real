@@ -1,0 +1,14 @@
+{
+  "topic": "월드컵 32강 절반 확정",
+  "title": "월드컵 32강 절반 확정! 한국은 대기",
+  "link": "https://real.allthatai.kr/trending/",
+  "tags": ["월드컵", "2026월드컵", "32강", "한국축구", "조별리그", "와일드카드", "북중미월드컵", "32강진출", "대한민국축구", "국가대표", "축구", "월드컵중계", "shorts", "쇼츠", "월드컵경우의수"],
+  "bgPrompt": "Cinematic shot of a large soccer stadium at night under bright floodlights with a soccer ball on the green pitch, dramatic atmosphere, slow camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "절반 확정", "titleLines": ["월드컵 32강", "절반 확정", "한국은?"], "highlightLine": 1, "narration": "월드컵 32강 진출팀이 절반 확정됐습니다. 한국 상황까지 정리해드릴게요." },
+    { "kind": "tip", "num": "1", "head": "16팀 먼저 확정", "body": "각 조 1위 12팀과 일부 2위 팀, 16팀이 먼저 32강을 확정했어요.", "narration": "첫째, 각 조 1위 12팀과 일부 2위 팀까지 16팀이 먼저 32강을 확정했습니다." },
+    { "kind": "tip", "num": "2", "head": "한국은 3위 대기", "body": "한국은 A조 3위로 와일드카드 상위 8팀 경쟁 중. 진출 확률은 약 87.8%.", "narration": "둘째, 한국은 A조 3위로 와일드카드 상위 8팀 경쟁 중이며, 진출 확률은 약 87.8퍼센트입니다." },
+    { "kind": "tip", "num": "3", "head": "오늘 최종 결정", "body": "남은 조 경기가 끝나면 3위 8팀과 한국 상대가 확정돼요.", "narration": "셋째, 남은 조 경기가 끝나면 3위 8팀과 한국의 상대가 확정됩니다." },
+    { "kind": "cta", "head": "끝까지 응원!", "body": "@aidoer", "narration": "확정되면 바로 알려드릴게요. 대한민국 응원, 구독!" }
+  ]
+}

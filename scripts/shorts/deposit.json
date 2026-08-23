@@ -1,0 +1,13 @@
+{
+  "topic": "예금자보호 1억",
+  "link": "https://real.allthatai.kr/tools/savings/",
+  "tags": ["예금자보호", "예금자보호한도", "예금보호1억", "예금보험", "저축은행", "적금", "예금", "원금보장", "재테크", "금융상식", "예금보호공사", "안전한예금", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic close-up of a ceramic piggy bank with a few coins on a clean desk, warm soft light, shallow depth of field, slow camera, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "5천만 → 1억", "titleLines": ["내 예금", "1억까지", "보호된다"], "highlightLine": 1, "narration": "내 예금을 1억 원까지 지켜주는 예금자보호 한도 상향, 알려드릴게요." },
+    { "kind": "tip", "num": "1", "head": "24년 만에 1억으로", "body": "2025년 9월부터 보호 한도가 5천만원에서 1억원으로 올랐어요.", "narration": "첫째, 2025년 9월부터 예금자보호 한도가 5천만 원에서 1억 원으로 올랐습니다." },
+    { "kind": "tip", "num": "2", "head": "금융사마다 1억", "body": "은행·저축은행·상호금융 각각 1억까지. 별도 신청 없이 자동 적용돼요.", "narration": "둘째, 은행·저축은행·상호금융별로 각각 1억 원까지, 신청 없이 자동 적용됩니다." },
+    { "kind": "tip", "num": "3", "head": "펀드는 제외", "body": "예적금만 보호돼요. 펀드 등 투자상품은 제외. 1억 넘으면 분산하세요.", "narration": "셋째, 예적금만 보호되고 펀드는 제외이니, 1억이 넘으면 여러 금융사로 분산하세요." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 예적금 이자까지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

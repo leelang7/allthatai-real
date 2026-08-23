@@ -1,0 +1,13 @@
+{
+  "topic": "1주택 양도세 비과세",
+  "link": "https://real.allthatai.kr/tools/real-estate-capital-gains/",
+  "tags": ["양도소득세", "양도세", "1세대1주택", "양도세비과세", "비과세요건", "장기보유특별공제", "부동산세금", "집팔때", "절세", "부동산", "내집마련", "양도세계산", "shorts", "쇼츠", "꿀팁"],
+  "bgPrompt": "Cinematic shot of modern apartment buildings under a clear blue sky with a sold property sign, slow upward camera movement, photorealistic, highly detailed",
+  "cuts": [
+    { "kind": "hook", "pill": "집 팔 때 세금 0원", "titleLines": ["1주택 양도세", "비과세", "조건"], "highlightLine": 1, "narration": "집 팔 때 양도세를 0원으로 만드는 1주택 비과세 조건, 알려드릴게요." },
+    { "kind": "tip", "num": "①", "head": "2년 보유", "body": "1세대 1주택은 2년 이상 보유해야 해요. 조정지역은 2년 거주까지 필요해요.", "narration": "첫째, 1세대 1주택은 2년 이상 보유, 조정대상지역은 2년 실거주까지 충족해야 합니다." },
+    { "kind": "tip", "num": "②", "head": "12억까지 비과세", "body": "양도가액 12억원까지는 비과세예요. 넘으면 초과분에만 세금이 붙어요.", "narration": "둘째, 양도가액 12억 원까지는 비과세이고, 넘어도 초과분에만 세금이 붙습니다." },
+    { "kind": "tip", "num": "③", "head": "장특공제 최대 80%", "body": "오래 보유·거주하면 장기보유특별공제로 최대 80%까지 깎여요.", "narration": "셋째, 오래 보유하고 거주하면 장기보유특별공제로 최대 80퍼센트까지 줄어듭니다." },
+    { "kind": "cta", "head": "구독하고 더 보기", "body": "@aidoer", "narration": "내 양도세가 얼마인지, 올댓에이아이 계산기로 확인하세요." }
+  ]
+}

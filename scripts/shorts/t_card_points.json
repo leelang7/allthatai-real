@@ -1,0 +1,13 @@
+{
+  "topic": "잠자는 카드포인트 현금으로 계좌입금 받기",
+  "tags": ["카드포인트", "포인트현금화", "어카운트인포", "카드포인트통합조회", "숨은돈", "절약", "생활꿀팁", "금융", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract loyalty points converting to cash concept, glowing coins flowing from a card into a bank account on a dark premium background, cool blue and gold accent glow, cinematic, subtle bokeh, negative space at top, no text, no logos, no human faces, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["카드포인트도 현금이다","계좌로 바로 입금","1분이면 끝"],"highlightLine":0,"narration":"안 쓰고 쌓아둔 카드포인트, 현금으로 계좌에 바로 넣을 수 있어요. 1분이면 됩니다."},
+    {"kind":"tip","num":"①","head":"카드포인트 통합조회","body":"여신금융협회 '카드포인트 통합조회·계좌입금'이나 '어카운트인포'에서 여러 카드사 포인트를 한 번에 조회할 수 있다.","narration":"여신금융협회의 '카드포인트 통합조회·계좌입금'이나 '어카운트인포'에서요. 여러 카드사 포인트를 한 번에 조회할 수 있습니다."},
+    {"kind":"tip","num":"②","head":"1P = 1원 계좌입금","body":"1포인트가 1원. 카드사별로 골라서 내 계좌로 바로 입금된다. 포인트는 보통 5년 지나면 소멸되니 미리 챙기자.","narration":"1포인트가 1원이에요. 카드사별로 골라서 내 계좌로 바로 입금됩니다. 포인트는 보통 5년 지나면 사라지니까 미리 챙기세요."},
+    {"kind":"tip","num":"③","head":"소멸예정부터 확인","body":"소멸 예정 포인트부터 확인하는 게 이득. 카드사 앱, 통합조회 사이트 어디서든 신청할 수 있다.","narration":"소멸 예정인 포인트부터 확인하는 게 이득이에요. 카드사 앱이든 통합조회 사이트든 어디서나 신청할 수 있습니다."},
+    {"kind":"cta","narration":"잠자는 내 돈 찾는 법 더 궁금하면 프로필 링크에서 확인해보세요."}
+  ]
+}

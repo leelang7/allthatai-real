@@ -1,0 +1,54 @@
+{
+  "topic": "오픈AI 코덱스 3주 만에 500만명 늘었다",
+  "tags": [
+    "오픈AI",
+    "코덱스",
+    "코딩AI",
+    "개발자",
+    "AI에이전트",
+    "생산성",
+    "프로그래밍",
+    "AI뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a coding agent workspace with a rapidly rising user counter, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "개발자들이 몰린다",
+        "코덱스 1500만명",
+        "3주 만에 500만 증가"
+      ],
+      "highlightLine": 1,
+      "narration": "오픈AI 코딩 에이전트 코덱스가 활성 사용자 1500만 명을 넘었어요. 3주 만에 500만 명이 늘었습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "활성 사용자 1500만",
+      "body": "오픈AI 관계자가 코덱스 활성 사용자 1500만 명 돌파를 확인했다. 3주 전 1000만 명에서 500만 명이 더 붙은 속도다.",
+      "narration": "오픈AI 관계자가 코덱스 활성 사용자 1500만 명 돌파를 확인했어요. 3주 전 1000만 명에서 500만 명이 더 붙은 속도입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "코딩이 AI의 첫 대량 시장",
+      "body": "챗봇 다음으로 실제 돈과 시간이 걸린 영역이 코딩이다. 코드 작성부터 테스트·수정까지 맡기는 에이전트 사용이 빠르게 늘고 있다.",
+      "narration": "챗봇 다음으로 실제 돈과 시간이 걸린 영역이 코딩이에요. 코드 작성부터 테스트, 수정까지 맡기는 에이전트 사용이 빠르게 늘고 있습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "경쟁도 격화",
+      "body": "앤트로픽 클로드 코드, 구글, 커서 등이 같은 시장에서 맞붙는다. 사용량 한도와 요금제가 경쟁의 핵심 변수로 떠올랐다.",
+      "narration": "앤트로픽 클로드 코드랑 구글, 커서 같은 곳이 같은 시장에서 맞붙어요. 사용량 한도와 요금제가 경쟁의 핵심 변수로 떠올랐습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

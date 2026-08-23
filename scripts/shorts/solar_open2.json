@@ -1,0 +1,13 @@
+{
+  "topic": "업스테이지 솔라 오픈2 무료 공개",
+  "tags": ["업스테이지", "솔라오픈2", "국산AI", "오픈소스AI", "AI에이전트", "허깅페이스", "AI뉴스", "생성형AI", "개발자", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "abstract glowing neural network nodes and flowing data streams, open-source AI concept, deep teal and electric blue light on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {"kind":"hook","pill":"AI 뉴스","titleLines":["국산 AI가 또 일냈다","업스테이지 솔라 오픈2","가중치까지 전면 무료 공개"],"highlightLine":1,"narration":"국산 AI가 또 일 냈습니다. 업스테이지가 솔라 오픈2를, 그것도 모델 가중치까지 전면 무료로 공개했어요."},
+    {"kind":"tip","num":"①","head":"단순 챗봇이 아니다","body":"수십 번의 추론과 도구 호출을 반복하며 업무를 끝까지 처리하는 '에이전트' 특화 모델.","narration":"단순히 답만 하는 챗봇이 아니에요. 수십 번씩 스스로 생각하고 도구를 불러가며, 일을 끝까지 처리하는 에이전트에 특화됐습니다."},
+    {"kind":"tip","num":"②","head":"상업적 이용도 무료","body":"가중치를 허깅페이스에 전면 공개. 아파치 2.0 라이선스라 상업적 활용·파생모델 개발이 자유롭다.","narration":"가중치를 허깅페이스에 전부 풀었고, 아파치 2.0 라이선스라 회사에서 돈 버는 데 써도 되고, 내 모델로 바꿔 만들어도 됩니다."},
+    {"kind":"tip","num":"③","head":"싸고 효율적","body":"250억 중 150억만 활성화하는 MoE 구조로 비용 절감. 100만 토큰 긴 문맥, H200 2장으로 구동 가능.","narration":"250억 파라미터 중 필요한 150억만 켜는 구조라 비용이 싸고, 100만 토큰의 긴 문맥까지 처리해요. GPU 두 장이면 기업에서 바로 돌릴 수 있습니다."},
+    {"kind":"cta","narration":"이런 AI 소식과 바로 써먹는 도구는 프로필 링크에 다 모아놨어요. 저장해두고 챙겨 보세요."}
+  ]
+}

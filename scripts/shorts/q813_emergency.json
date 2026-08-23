@@ -1,0 +1,54 @@
+{
+  "topic": "갑자기 소득 끊겼을 때 긴급복지지원",
+  "tags": [
+    "긴급복지지원",
+    "생계지원",
+    "위기가구",
+    "복지로",
+    "129",
+    "실직",
+    "정부지원",
+    "생활꿀팁",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a safety net catching a falling household icon, warm teal accent, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "정부 지원",
+      "titleLines": [
+        "실직·질병으로 막혔을 때",
+        "긴급복지지원",
+        "먼저 지원하고 나중에 조사"
+      ],
+      "highlightLine": 1,
+      "narration": "갑자기 소득이 끊겨 생계가 막혔다면, 먼저 지원하고 나중에 조사하는 제도가 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "위기 상황이면 신청 가능",
+      "body": "실직, 휴·폐업, 중한 질병이나 부상, 가구 구성원의 사망 등으로 생계가 곤란해진 위기 상황이면 신청할 수 있다.",
+      "narration": "실직이나 휴폐업, 중한 질병이나 부상, 가구원의 사망 같은 이유로 생계가 곤란해진 위기 상황이면 신청할 수 있어요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "생계·의료·주거를 나눠 지원",
+      "body": "생계비뿐 아니라 의료비, 주거, 연료비 등 항목별로 지원한다. 지원 금액과 기간은 가구원 수와 상황에 따라 결정된다.",
+      "narration": "생계비뿐 아니라 의료비, 주거, 연료비 같은 항목별로 지원해요. 지원 금액이랑 기간은 가구원 수와 상황에 따라 결정됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "전화 129 또는 주민센터",
+      "body": "보건복지상담센터 129나 읍면동 주민센터에 신청하면 된다. 선지원 후조사 원칙이라 급할수록 먼저 연락하는 게 맞다.",
+      "narration": "보건복지상담센터 129번이나 읍면동 주민센터에 신청하면 돼요. 먼저 지원하고 나중에 조사하는 원칙이라, 급할수록 먼저 연락하는 게 맞습니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 생활 속 혜택이랑 바로 쓰는 도구, 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

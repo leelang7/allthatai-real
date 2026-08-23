@@ -1,0 +1,54 @@
+{
+  "topic": "구글 앱 국내 이용자 네이버 첫 추월",
+  "tags": [
+    "구글",
+    "네이버",
+    "제미나이",
+    "MAU",
+    "포털",
+    "검색",
+    "AI검색",
+    "IT뉴스",
+    "올댓AI"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "two competing app icons on a rising and falling user chart in Korea, cool teal accent on dark premium background, cinematic, subtle bokeh, negative space at top, no text, no logos, no people, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "AI 뉴스",
+      "titleLines": [
+        "집계 이래 처음",
+        "구글 앱 이용자가",
+        "네이버를 넘었다"
+      ],
+      "highlightLine": 2,
+      "narration": "국내에서 구글 앱 월 이용자가 네이버를 처음으로 앞질렀어요. 제미나이 효과라는 분석입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "18만 명 차이로 역전",
+      "body": "7월 구글 앱 월간 활성 이용자는 4702만여 명으로 네이버 4684만여 명을 약 18만 명 앞섰다. 2021년 3월 집계 시작 이래 처음이다.",
+      "narration": "7월 구글 앱 월간 이용자가 4702만여 명으로, 네이버 4684만여 명을 약 18만 명 앞섰어요. 2021년 3월 집계 시작 이래 처음입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "한 달 만에 순위 뒤집혔다",
+      "body": "6월에 격차를 24만여 명까지 좁힌 뒤 한 달 만에 순위가 뒤바뀌었다. 검색창을 넘어 AI 답변 창구로 쓰임새가 넓어진 영향이 크다.",
+      "narration": "6월에 격차를 24만여 명까지 좁힌 뒤, 한 달 만에 순위가 뒤바뀌었어요. 검색창을 넘어서 AI 답변 창구로 쓰임새가 넓어진 영향이 큽니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "생성형 AI가 포털 판을 흔든다",
+      "body": "구글 앱이 제미나이·AI 검색과 결합되며 질문에 답을 얻고 이미지·문서를 처리하는 창구로 확장됐다. 국내 포털 시장 지각변동 신호로 읽힌다.",
+      "narration": "구글 앱이 제미나이랑 AI 검색과 결합되면서, 질문에 답을 얻고 이미지나 문서를 처리하는 창구로 확장됐어요. 국내 포털 시장 지각변동 신호로 읽힙니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "이런 AI 최신 소식이랑 바로 쓰는 AI 도구는 프로필 링크에 정리해놨어요. 저장해두고 챙기세요."
+    }
+  ]
+}

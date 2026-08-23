@@ -1,0 +1,13 @@
+{
+  "topic": "한전 에너지캐시백 전기요금 환급",
+  "tags": ["에너지캐시백", "한전", "전기요금", "전기요금환급", "여름전기세", "정부지원", "생활꿀팁", "절약", "복지", "올댓AI"],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "cozy Korean apartment living room with electric fan and air conditioner, warm summer evening light, electricity saving concept, teal and soft amber accent on dark premium background, no text, no logos, no people, cinematic, negative space at top",
+  "cuts": [
+    {"kind":"hook","pill":"생활 꿀팁","titleLines":["여름 전기요금 폭탄?","한전이 돌려주는 돈","에너지캐시백 챙기세요"],"highlightLine":1,"narration":"여름 전기요금 폭탄 맞으셨나요? 한전이 전기 아낀 만큼 돈을 돌려주는 제도가 있어요. 에너지캐시백입니다."},
+    {"kind":"tip","num":"①","head":"아끼면 현금으로 차감","body":"직전 2개년 평균보다 전기를 아끼면, 아낀 만큼 kWh 단위 캐시백을 다음 달 전기요금에서 깎아준다. 주택용이면 누구나.","narration":"직전 2년 평균보다 전기를 아끼면, 아낀 양만큼 캐시백을 다음 달 전기요금에서 바로 깎아줘요. 주택용 전기 쓰는 집이면 누구나 대상입니다."},
+    {"kind":"tip","num":"②","head":"절감률 높을수록 더","body":"kWh당 캐시백은 대개 수십 원부터, 절감률이 클수록 차등으로 더 붙는다. 정확한 단가와 2026 확대 혜택은 공식 사이트에서 확인.","narration":"단가는 kWh당 수십 원부터 시작해서, 많이 아낄수록 더 붙어요. 정확한 금액이랑 2026년 확대 혜택은 공식 사이트에서 내 조건으로 꼭 확인하세요."},
+    {"kind":"tip","num":"③","head":"신청은 딱 한 번","body":"한전 '에너지캐시백' 홈페이지에서 휴대폰 인증 후 우리집 주소만 연결하면 끝. 한 번 신청하면 계속 자동 적용. 세입자도 요금 명의·주소 맞으면 가능.","narration":"신청은 한전 에너지캐시백 홈페이지에서 휴대폰 인증하고 우리집 주소만 연결하면 끝이에요. 한 번만 하면 계속 자동으로 적용되고, 세입자도 전기요금 명의랑 주소만 맞으면 됩니다."},
+    {"kind":"cta","narration":"이런 정부·생활 환급 정보는 프로필 링크에 싹 정리해놨어요. 저장해두고 하나씩 챙겨 받으세요."}
+  ]
+}
