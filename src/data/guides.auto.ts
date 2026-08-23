@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-08-20-스팀-zombie-army-4-dead-war-95-할인-53000-2650",
     "title": "스팀 Zombie Army 4: Dead War 95% 할인 — ₩53,000 → ₩2,650",
@@ -261,7 +261,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-11T20:03:42.181Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-23T02:51:50.342Z"
   },
   {
     "slug": "deal-2026-06-11-ea-sports-fc-26-스팀-베스트셀러-80-할인",
@@ -270,7 +271,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-11T20:03:46.429Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-23T02:51:50.343Z"
   },
   {
     "slug": "deal-2026-06-09-스팀-p의-거짓-lies-of-p-50-할인-64800-32400",
@@ -279,7 +281,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-09T19:50:44.884Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-23T02:51:50.342Z"
   },
   {
     "slug": "deal-2026-06-09-스팀-returnal-67-할인-62800-20720",
@@ -288,7 +291,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-09T01:45:47.578Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-23T02:51:50.341Z"
   },
   {
     "slug": "deal-2026-06-07-core-keeper-스팀-베스트셀러-40-할인",
@@ -297,7 +301,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-07T13:11:38.249Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-23T02:51:50.341Z"
   },
   {
     "slug": "deal-2026-06-06-backrooms-escape-together-스팀-베스트셀러-30-할인",
@@ -1117,7 +1122,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-15T01:46:36.723Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.023Z"
+    "lastRefreshedAt": "2026-08-23T02:51:50.340Z"
   },
   {
     "slug": "deal-2026-05-15-넷플릭스-가족-추가-멤버-분담-5000",
@@ -1157,7 +1162,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:01.551Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.020Z"
+    "lastRefreshedAt": "2026-08-23T02:51:50.337Z"
   },
   {
     "slug": "deal-2026-05-14-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
@@ -1167,7 +1172,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:07.974Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.021Z"
+    "lastRefreshedAt": "2026-08-23T02:51:50.338Z"
   },
   {
     "slug": "deal-2026-05-14-카카오뱅크-신규가입-캐시백-토스뱅크-비교",
@@ -1177,7 +1182,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:14.102Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.022Z"
+    "lastRefreshedAt": "2026-08-23T02:51:50.339Z"
   },
   {
     "slug": "deal-2026-05-14-쿠팡-와우-7890으로-ott-무료-로켓배송-경제성",
@@ -1187,7 +1192,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:22.699Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-07T06:10:02.022Z"
+    "lastRefreshedAt": "2026-08-23T02:51:50.340Z"
   },
   {
     "slug": "deal-2026-05-13-chatgpt-plus-vs-claude-pro-vs-gemini-advanced-가격-차이",
