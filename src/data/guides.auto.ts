@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-08-23-스팀-페르소나3-리로드-65-할인-69800-24430",
+    "title": "스팀 페르소나3 리로드 65% 할인! ₩24,430에 즐기세요",
+    "excerpt": "스팀에서 '페르소나3 리로드'를 정가 대비 65% 할인된 ₩24,430에 구매할 수 있는 기회입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-23T12:13:23.085Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-08-20-스팀-zombie-army-4-dead-war-95-할인-53000-2650",
     "title": "스팀 Zombie Army 4: Dead War 95% 할인 — ₩53,000 → ₩2,650",
