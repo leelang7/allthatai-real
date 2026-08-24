@@ -175,12 +175,63 @@ function draw(courses) {
 
 const pick = d => (d && Array.isArray(d.courses) && d.courses.length) ? d.courses : null;
 
-app.innerHTML = '<p class="empty">자료를 불러오는 중…</p>';
-fetch("/api/class-data/", { cache: "no-store" })
-  .then(r => r.ok ? r.json() : null).then(d => pick(d) || Promise.reject())
-  .catch(() => fetch("data.json", { cache: "no-store" }).then(r => r.json()).then(d => pick(d)))
-  .then(c => draw(c || FALLBACK))
-  .catch(() => draw(FALLBACK));
+const CODE_KEY = "classCode";
+const $ = s => document.querySelector(s);
+const savedCode = () => { try { return localStorage.getItem(CODE_KEY) || ""; } catch (_) { return ""; } };
+
+/* 코드가 있으면 서버가 그 과정까지 포함해 내려준다. 없으면 공개 과정만.
+   (필터링은 서버에서 한다 — 다른 반 자료가 브라우저에 아예 안 내려오게) */
+function load(code) {
+  const q = code ? `?code=${encodeURIComponent(code)}` : "";
+  app.innerHTML = '<p class="empty">자료를 불러오는 중…</p>';
+  return fetch(`/api/class-data/${q}`, { cache: "no-store" })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => { const c = pick(d); if (!c) throw new Error("empty"); draw(c); return c.length; })
+    .catch(() => fetch("data.json", { cache: "no-store" }).then(r => r.json())
+      .then(d => {
+        // API가 안 될 때의 폴백 — 이때는 공개 과정만 보여준다.
+        const all = pick(d) || FALLBACK;
+        const open = all.filter(c => (c.access || "public") === "public");
+        draw(open.length ? open : FALLBACK);
+        return open.length;
+      })
+      .catch(() => { draw(FALLBACK); return FALLBACK.length; }));
+}
+
+function refreshClearBtn() {
+  const has = !!savedCode();
+  $("#clear").style.display = has ? "" : "none";
+  $("#code").value = savedCode();
+}
+
+$("#apply").onclick = async () => {
+  const code = $("#code").value.trim();
+  const msg = $("#codeMsg");
+  if (!code) { msg.className = "bad"; msg.textContent = "코드를 입력해 주세요."; return; }
+  const before = await fetch("/api/class-data/", { cache: "no-store" })
+    .then(r => r.json()).then(d => (d.courses || []).length).catch(() => 0);
+  const after = await load(code);
+  if (after > before) {
+    try { localStorage.setItem(CODE_KEY, code); } catch (_) {}
+    msg.className = "ok"; msg.textContent = "코드 확인 완료 — 해당 과정이 열렸어요.";
+  } else {
+    msg.className = "bad"; msg.textContent = "맞는 코드가 없어요. 강사에게 확인해 주세요.";
+  }
+  refreshClearBtn();
+};
+
+$("#clear").onclick = () => {
+  try { localStorage.removeItem(CODE_KEY); } catch (_) {}
+  $("#code").value = "";
+  $("#codeMsg").className = ""; $("#codeMsg").textContent = "";
+  refreshClearBtn();
+  load("");
+};
+
+$("#code").addEventListener("keydown", e => { if (e.key === "Enter") $("#apply").click(); });
+
+refreshClearBtn();
+load(savedCode());
 </script>
 </body>
 </html>

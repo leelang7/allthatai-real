@@ -135,6 +135,8 @@ function cleanData() {
     icon: (c.icon || "📁").trim(),
     desc: (c.desc || "").trim(),
     open: !!c.open,
+    access: c.access || "public",
+    ...((c.access === "code" && (c.code || "").trim()) ? { code: c.code.trim() } : {}),
     items: (c.items || [])
       .filter(i => (i.title || "").trim() && (i.url || "").trim())
       .map(i => ({
@@ -160,7 +162,7 @@ async function login() {
   KEY = k;
   $("#gateMsg").textContent = "확인 중…";
   // 키 검증: 빈 저장을 시도하지 않고, 현재 데이터를 불러온 뒤 그대로 되저장해 권한만 확인
-  const r = await fetch(API);
+  const r = await fetch(`${API}?key=${encodeURIComponent(KEY)}`);
   const d = await r.json();
   data = d.courses || [];
   const probe = await fetch(`${API}?key=${encodeURIComponent(KEY)}`, {
@@ -204,6 +206,13 @@ function render() {
         <label style="margin:0;display:flex;align-items:center;gap:5px;font-size:.78rem">
           <input type="checkbox" style="width:auto" ${c.open ? "checked" : ""} data-c="${ci}" data-f="open"> 펼침
         </label>
+        <select style="width:auto;padding:7px 9px;font-size:.82rem" data-c="${ci}" data-f="access" title="누가 볼 수 있는지">
+          <option value="public"${(c.access||"public")==="public"?" selected":""}>🌐 전체 공개</option>
+          <option value="code"${c.access==="code"?" selected":""}>🔑 코드 입력</option>
+          <option value="hidden"${c.access==="hidden"?" selected":""}>🚫 숨김</option>
+        </select>
+        <input style="width:120px;padding:7px 9px;font-size:.82rem${c.access==='code'?'':';display:none'}"
+          value="${esc(c.code || '')}" data-c="${ci}" data-f="code" placeholder="수업 코드" title="이 과정 수강생에게만 알려줄 코드">
         <button class="tiny" data-move="${ci}" data-dir="-1" title="위로">▲</button>
         <button class="tiny" data-move="${ci}" data-dir="1" title="아래로">▼</button>
         <button class="tiny danger" data-delc="${ci}">과정 삭제</button>
@@ -237,6 +246,7 @@ $("#courses").addEventListener("input", e => {
   if (ii === undefined) data[ci][f] = val;
   else data[ci].items[ii][f] = val;
   saveDraft();
+  if (f === "access") render();   // 코드 입력칸 보이기/숨기기
 });
 
 /* ── 버튼 처리 ── */
@@ -348,7 +358,7 @@ $("#import").onchange = e => {
 };
 
 $("#reload").onclick = async () => {
-  const r = await fetch(API);
+  const r = await fetch(`${API}?key=${encodeURIComponent(KEY)}`);
   const d = await r.json();
   data = d.courses || [];
   render();

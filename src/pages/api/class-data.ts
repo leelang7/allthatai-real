@@ -1,15 +1,16 @@
 /**
- * /api/class-data — 강의 자료실(/class) 데이터 저장소.
+ * /api/class-data — 강의 자료실(/class) 데이터.
  *
- *   GET                  → 공개 조회 (학생용 /class 페이지가 읽음)
- *   POST ?key=ADMIN_KEY  → 저장 (관리 페이지 /class/admin 에서만)
+ *   GET                    → 학생용. 공개 과정만.
+ *   GET ?code=수업코드      → 그 코드에 해당하는 과정까지 함께.
+ *   GET ?key=ADMIN_KEY     → 관리자용 원본(접근 설정·코드 포함).
+ *   POST ?key=ADMIN_KEY    → 저장.
  *
- * 저장 방식은 두 가지를 순서대로 시도한다.
- *   1) Upstash Redis  (UPSTASH_REDIS_REST_URL/TOKEN 이 있으면 — 즉시 반영)
- *   2) GitHub 커밋    (GITHUB_TOKEN/GITHUB_REPO — public/class/data.json 을 갱신)
- *      → 커밋되면 Vercel이 자동 재배포하며 반영된다(1~2분).
+ * 저장은 Upstash Redis(있으면 즉시) → GitHub 커밋(public/class/data.json) 순으로 시도한다.
+ * GitHub 경로는 커밋 후 Vercel 자동 재배포로 1~2분 뒤 반영된다.
  *
- * 둘 다 없으면 저장은 실패하지만 조회는 계속 동작한다(정적 data.json → 기본값).
+ * 접근 제어는 **서버에서** 건다. 다른 반 자료가 브라우저로 아예 내려가지 않아야
+ * 반별 독립성이 성립한다(클라이언트 필터링은 소스만 열어도 뚫린다).
  */
 import type { APIRoute } from 'astro';
 
@@ -24,6 +25,7 @@ const DEFAULT = [
     icon: '📚',
     desc: '모든 과정 공통 자료',
     open: true,
+    access: 'public',
     items: [
       {
         icon: '📁',
@@ -65,8 +67,27 @@ const GH_HEADERS = (token: string) => ({
   'Content-Type': 'application/json',
 });
 
-export const GET: APIRoute = async () => {
-  // 1) Redis 우선 (있으면 가장 최신)
+/**
+ * 학생에게 내보낼 목록으로 다듬는다.
+ *   access: 'public'(기본) 누구나 / 'code' 코드 일치자만 / 'hidden' 아무에게도 안 보임
+ * 응답에는 코드 값을 절대 포함하지 않는다.
+ */
+function visibleFor(courses: any[], code: string | null) {
+  const given = (code || '').trim().toLowerCase();
+  return (courses || [])
+    .filter((c) => {
+      const access = c?.access || 'public';
+      if (access === 'hidden') return false;
+      if (access === 'code') {
+        const want = String(c?.code || '').trim().toLowerCase();
+        return !!want && given === want;
+      }
+      return true;
+    })
+    .map(({ code: _omit, ...rest }: any) => rest);
+}
+
+async function readStored(): Promise<{ source: string; courses: any[] }> {
   const r = redis();
   if (r) {
     try {
@@ -74,11 +95,10 @@ export const GET: APIRoute = async () => {
         headers: { Authorization: `Bearer ${r.token}` },
       });
       const d = await res.json();
-      if (d?.result) return json({ ok: true, source: 'redis', courses: JSON.parse(d.result) });
-    } catch {/* 다음 수단으로 */}
+      if (d?.result) return { source: 'redis', courses: JSON.parse(d.result) };
+    } catch {/* 다음 수단 */}
   }
 
-  // 2) GitHub 저장본 (관리 페이지에서 커밋한 최신본)
   const g = github();
   if (g) {
     try {
@@ -88,17 +108,27 @@ export const GET: APIRoute = async () => {
       );
       if (res.ok) {
         const d = await res.json();
-        const text = Buffer.from(d.content, 'base64').toString('utf-8');
-        const parsed = JSON.parse(text);
+        const parsed = JSON.parse(Buffer.from(d.content, 'base64').toString('utf-8'));
         const courses = Array.isArray(parsed) ? parsed : parsed.courses;
-        if (Array.isArray(courses) && courses.length) {
-          return json({ ok: true, source: 'github', courses });
-        }
+        if (Array.isArray(courses) && courses.length) return { source: 'github', courses };
       }
-    } catch {/* 기본값으로 */}
+    } catch {/* 기본값 */}
   }
 
-  return json({ ok: true, source: 'default', courses: DEFAULT });
+  return { source: 'default', courses: DEFAULT };
+}
+
+export const GET: APIRoute = async ({ url }) => {
+  const code = url.searchParams.get('code');
+  const ADMIN_KEY = env('ADMIN_KEY');
+  const isAdmin = !!ADMIN_KEY && url.searchParams.get('key') === ADMIN_KEY;
+
+  const { source, courses } = await readStored();
+  return json({
+    ok: true,
+    source,
+    courses: isAdmin ? courses : visibleFor(courses, code),
+  });
 };
 
 export const POST: APIRoute = async ({ request, url }) => {
@@ -121,7 +151,16 @@ export const POST: APIRoute = async ({ request, url }) => {
     if (!c || typeof c.course !== 'string' || !c.course.trim()) {
       return json({ ok: false, error: '과정명이 비어 있는 항목이 있음' }, 400);
     }
-    if (!Array.isArray(c.items)) return json({ ok: false, error: `"${c.course}"의 items가 배열이 아님` }, 400);
+    if (!Array.isArray(c.items)) {
+      return json({ ok: false, error: `"${c.course}"의 items가 배열이 아님` }, 400);
+    }
+    const access = c.access || 'public';
+    if (!['public', 'code', 'hidden'].includes(access)) {
+      return json({ ok: false, error: `"${c.course}"의 접근 설정이 잘못됨` }, 400);
+    }
+    if (access === 'code' && !String(c.code || '').trim()) {
+      return json({ ok: false, error: `"${c.course}"는 코드 공개인데 코드가 비어 있음` }, 400);
+    }
     for (const i of c.items) {
       if (!i || typeof i.title !== 'string' || !i.title.trim()) {
         return json({ ok: false, error: `"${c.course}"에 제목 없는 자료가 있음` }, 400);
@@ -137,7 +176,6 @@ export const POST: APIRoute = async ({ request, url }) => {
     items: courses.reduce((n: number, c: any) => n + c.items.length, 0),
   };
 
-  // 1) Redis 가 있으면 즉시 저장(가장 빠름)
   const r = redis();
   if (r) {
     try {
@@ -147,10 +185,9 @@ export const POST: APIRoute = async ({ request, url }) => {
         body: JSON.stringify(courses),
       });
       if (res.ok) return json({ ok: true, via: 'redis', saved: counts });
-    } catch {/* GitHub 로 폴백 */}
+    } catch {/* GitHub 폴백 */}
   }
 
-  // 2) GitHub 에 data.json 커밋 → Vercel 자동 재배포로 반영
   const g = github();
   if (!g) {
     return json({
@@ -160,7 +197,6 @@ export const POST: APIRoute = async ({ request, url }) => {
   }
 
   try {
-    // 기존 파일의 sha 를 얻어야 덮어쓸 수 있다(없으면 새로 생성).
     let sha: string | undefined;
     const cur = await fetch(
       `https://api.github.com/repos/${g.repo}/contents/${FILE}?ref=main`,
@@ -168,10 +204,7 @@ export const POST: APIRoute = async ({ request, url }) => {
     );
     if (cur.ok) sha = (await cur.json()).sha;
 
-    const payload = {
-      updated: new Date().toISOString().slice(0, 10),
-      courses,
-    };
+    const payload = { updated: new Date().toISOString().slice(0, 10), courses };
     const body = {
       message: `chore(class): 자료실 갱신 (과정 ${counts.courses} · 자료 ${counts.items})`,
       content: Buffer.from(JSON.stringify(payload, null, 2), 'utf-8').toString('base64'),
