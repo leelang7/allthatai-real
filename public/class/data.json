@@ -20,7 +20,7 @@
       "course": "한기대 비전검사",
       "icon": "📁",
       "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
-      "open": false,
+      "open": true,
       "items": []
     }
   ]
