@@ -9,12 +9,19 @@
       "items": [
         {
           "icon": "📁",
-          "title": "강의 자료 폴더",
+          "title": "한기대 제조AX기초",
           "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
           "url": "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
           "badge": "NEW"
         }
       ]
+    },
+    {
+      "course": "한기대 비전검사",
+      "icon": "📁",
+      "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
+      "open": false,
+      "items": []
     }
   ]
 }
