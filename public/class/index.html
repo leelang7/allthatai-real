@@ -262,6 +262,7 @@ $("#clear").onclick = () => {
 $("#code").addEventListener("keydown", e => { if (e.key === "Enter") $("#apply").click(); });
 
 refreshClearBtn();
+}   // 코드 입력 UI 가드 끝 — 아래 로드는 UI 유무와 무관하게 항상 실행
 load(savedCode());
 </script>
 </body>
