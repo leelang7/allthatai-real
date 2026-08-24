@@ -98,6 +98,22 @@
   footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
     color:var(--sub);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   footer a{color:var(--accent);text-decoration:none}
+  .codebox{margin-top:18px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 16px}
+  .cb-head{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+  .cb-head span{font-weight:700;font-size:.94rem}
+  .cb-head small{color:var(--sub);font-size:.8rem}
+  .cb-row{display:flex;gap:8px;flex-wrap:wrap}
+  .cb-row input{flex:1;min-width:150px;font:inherit;font-size:.9rem;color:var(--ink);
+    background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+  .cb-row input:focus{outline:none;border-color:var(--accent)}
+  .cb-row button{font:inherit;font-size:.88rem;font-weight:600;cursor:pointer;border-radius:9px;
+    border:1px solid var(--accent);background:var(--accent);color:#06222a;padding:9px 16px}
+  .cb-row button.ghost{background:transparent;color:var(--sub);border-color:var(--line)}
+  .cb-row button:hover{filter:brightness(1.08)}
+  #codeMsg{margin-top:8px;font-size:.83rem;color:var(--sub);min-height:1em}
+  #codeMsg.ok{color:#3fb950}
+  #codeMsg.bad{color:#f85149}
   .empty{color:var(--sub);font-size:.9rem;padding:14px 2px}
   @media (max-width:520px){ .avatar{width:64px;height:64px} }
 </style>
@@ -120,6 +136,19 @@
   </header>
 
   <main id="app"></main>
+
+  <div class="codebox">
+    <div class="cb-head">
+      <span>🔑 수업 코드가 있나요?</span>
+      <small>코드를 넣으면 해당 과정 자료가 열립니다</small>
+    </div>
+    <div class="cb-row">
+      <input id="code" type="text" placeholder="예: kdt2026" autocomplete="off" spellcheck="false">
+      <button id="apply">열기</button>
+      <button id="clear" class="ghost" style="display:none">코드 지우기</button>
+    </div>
+    <p id="codeMsg"></p>
+  </div>
 
   <div class="note">
     <b>안내</b> · 과정 제목을 누르면 자료가 펼쳐집니다. 자료는 수업 진행에 따라 계속 추가·수정되니
@@ -204,6 +233,8 @@ function refreshClearBtn() {
   $("#code").value = savedCode();
 }
 
+// 코드 입력 UI가 없더라도 자료 렌더는 반드시 동작해야 한다(요소 참조로 스크립트가 죽지 않게).
+if ($("#apply") && $("#code") && $("#clear")) {
 $("#apply").onclick = async () => {
   const code = $("#code").value.trim();
   const msg = $("#codeMsg");
