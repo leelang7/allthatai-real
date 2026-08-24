@@ -299,7 +299,9 @@ $("#save").onclick = async () => {
   if (d.ok) {
     data = clean; render(); saveDraft();
     msg.className = "msg ok";
-    msg.textContent = `저장됨 · 과정 ${d.saved.courses}개 / 자료 ${d.saved.items}개 (학생 페이지에 즉시 반영)`;
+    msg.textContent = d.via === "github"
+      ? `저장됨 · 과정 ${d.saved.courses}개 / 자료 ${d.saved.items}개 — 1~2분 뒤 학생 페이지에 반영됩니다`
+      : `저장됨 · 과정 ${d.saved.courses}개 / 자료 ${d.saved.items}개 (학생 페이지에 즉시 반영)`;
   } else {
     data = clean; render(); saveDraft();
     msg.className = "msg bad";
