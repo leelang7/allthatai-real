@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>강의 코드 공유 — 이석창 강사</title>
+<meta name="robots" content="noindex" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0d1117; --card:#161b22; --card2:#1c232c; --line:#2a323d;
+    --ink:#e6edf3; --sub:#9aa7b4; --accent:#4fc0d0; --accent2:#7c9cff;
+    --radius:16px;
+  }
+  body {
+    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:860px; margin:0 auto; padding:0 20px 80px; }
+  header { padding:44px 0 22px; border-bottom:1px solid var(--line); margin-bottom:22px; }
+  .kicker {
+    display:inline-block; font-size:.74rem; letter-spacing:.14em; color:var(--accent);
+    border:1px solid rgba(79,192,208,.35); background:rgba(79,192,208,.08);
+    border-radius:99px; padding:4px 12px; margin-bottom:14px;
+  }
+  h1 { font-size:1.7rem; font-weight:800; letter-spacing:-.01em; }
+  h1 span { color:var(--accent); }
+  .who { margin-top:6px; color:var(--sub); font-size:.94rem; }
+  .nav { margin-top:16px; display:flex; gap:8px; flex-wrap:wrap; }
+  .chip {
+    display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:var(--ink);
+    background:var(--card); border:1px solid var(--line); border-radius:99px;
+    padding:7px 14px; font-size:.86rem; cursor:pointer;
+  }
+  .chip:hover { border-color:var(--accent); color:var(--accent); background:var(--card2); }
+  .chip.on { border-color:var(--accent); color:var(--accent); background:rgba(79,192,208,.1); }
+  .tools { display:flex; gap:10px; margin:18px 0 8px; flex-wrap:wrap; align-items:center; }
+  #q {
+    flex:1; min-width:180px; background:var(--card); border:1px solid var(--line); color:var(--ink);
+    border-radius:12px; padding:10px 14px; font-size:.92rem; outline:none;
+  }
+  #q:focus { border-color:var(--accent); }
+  #filters { display:flex; gap:8px; flex-wrap:wrap; }
+  .snip {
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    margin-top:16px; overflow:hidden;
+  }
+  .snip-head { display:flex; align-items:center; gap:10px; padding:14px 16px 8px; flex-wrap:wrap; }
+  .snip-title { font-weight:700; font-size:1rem; flex:1; min-width:140px; }
+  .tag {
+    font-size:.72rem; color:var(--accent2); background:rgba(124,156,255,.14);
+    border:1px solid rgba(124,156,255,.3); border-radius:99px; padding:2px 9px;
+  }
+  .lang {
+    font-size:.72rem; color:var(--accent); background:rgba(79,192,208,.1);
+    border:1px solid rgba(79,192,208,.28); border-radius:6px; padding:2px 8px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .snip-desc { color:var(--sub); font-size:.86rem; padding:0 16px 10px; }
+  .codebox { position:relative; }
+  pre {
+    margin:0; padding:16px; background:#0a0e14; border-top:1px solid var(--line);
+    overflow-x:auto; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"D2Coding",monospace;
+    font-size:.86rem; line-height:1.55; color:#dbe4ee;
+  }
+  pre code { white-space:pre; }
+  .copy {
+    position:absolute; top:10px; right:10px; background:var(--card2); color:var(--sub);
+    border:1px solid var(--line); border-radius:8px; padding:5px 11px; font-size:.78rem;
+    cursor:pointer; transition:.15s;
+  }
+  .copy:hover { border-color:var(--accent); color:var(--accent); }
+  .copy.done { color:#3fb950; border-color:#3fb950; }
+  .empty, .loading { color:var(--sub); text-align:center; padding:60px 0; }
+  footer { margin-top:40px; color:var(--sub); font-size:.8rem; text-align:center; }
+  footer a { color:var(--accent2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">CODE SHARE</span>
+    <h1>강의 <span>코드 공유</span></h1>
+    <div class="who">이석창 강사 · 수업 코드를 클릭 한 번에 복사</div>
+    <div class="nav">
+      <a class="chip" href="/class/">← 강의 자료실</a>
+      <a class="chip" href="/class/code/admin/">✏️ 관리자</a>
+    </div>
+  </header>
+
+  <div class="tools">
+    <input id="q" type="search" placeholder="제목·코드 검색…" autocomplete="off" />
+  </div>
+  <div id="filters"></div>
+
+  <div id="list"><div class="loading">불러오는 중…</div></div>
+
+  <footer>real.allthatai.kr · 코드는 발행 시점 기준입니다</footer>
+</div>
+
+<script>
+  var ALL = [];
+  var course = "전체";
+  var kw = "";
+
+  function esc(t){ var d=document.createElement("div"); d.textContent=t==null?"":String(t); return d.innerHTML; }
+
+  function render(){
+    var list = document.getElementById("list");
+    var rows = ALL.filter(function(s){
+      if (course !== "전체" && (s.course||"공통") !== course) return false;
+      if (kw){
+        var hay = ((s.title||"")+" "+(s.desc||"")+" "+(s.code||"")+" "+(s.lang||"")).toLowerCase();
+        if (hay.indexOf(kw) === -1) return false;
+      }
+      return true;
+    });
+    if (!rows.length){ list.innerHTML = '<div class="empty">표시할 코드가 없어요.</div>'; return; }
+    list.innerHTML = rows.map(function(s, i){
+      return '<div class="snip">'
+        + '<div class="snip-head">'
+        +   '<span class="snip-title">'+esc(s.title)+'</span>'
+        +   (s.course ? '<span class="tag">'+esc(s.course)+'</span>' : '')
+        +   (s.lang ? '<span class="lang">'+esc(s.lang)+'</span>' : '')
+        + '</div>'
+        + (s.desc ? '<div class="snip-desc">'+esc(s.desc)+'</div>' : '')
+        + '<div class="codebox">'
+        +   '<button class="copy" data-i="'+i+'">복사</button>'
+        +   '<pre><code>'+esc(s.code)+'</code></pre>'
+        + '</div>'
+        + '</div>';
+    }).join("");
+    // rows index → code 매핑을 위해 저장
+    list._rows = rows;
+  }
+
+  function renderFilters(){
+    var set = {}; ALL.forEach(function(s){ set[s.course||"공통"]=1; });
+    var courses = ["전체"].concat(Object.keys(set));
+    var box = document.getElementById("filters");
+    box.innerHTML = courses.map(function(c){
+      return '<span class="chip'+(c===course?' on':'')+'" data-c="'+esc(c)+'">'+esc(c)+'</span>';
+    }).join("");
+    Array.prototype.forEach.call(box.querySelectorAll(".chip"), function(el){
+      el.onclick = function(){ course = el.getAttribute("data-c"); renderFilters(); render(); };
+    });
+  }
+
+  document.getElementById("list").addEventListener("click", function(e){
+    var btn = e.target.closest(".copy"); if (!btn) return;
+    var rows = document.getElementById("list")._rows || [];
+    var s = rows[+btn.getAttribute("data-i")]; if (!s) return;
+    var done = function(){ btn.textContent="복사됨 ✓"; btn.classList.add("done");
+      setTimeout(function(){ btn.textContent="복사"; btn.classList.remove("done"); }, 1400); };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(s.code).then(done, function(){ fallback(s.code); done(); });
+    } else { fallback(s.code); done(); }
+  });
+  function fallback(text){
+    var ta=document.createElement("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.top="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(_){}
+    document.body.removeChild(ta);
+  }
+
+  document.getElementById("q").addEventListener("input", function(e){
+    kw = e.target.value.trim().toLowerCase(); render();
+  });
+
+  fetch("/api/class-code")
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      ALL = (d && d.snippets) || [];
+      renderFilters(); render();
+    })
+    .catch(function(){
+      // API 미배포 시 정적 code.json 폴백
+      fetch("/class/code.json").then(function(r){return r.json();}).then(function(d){
+        ALL=(d&&d.snippets)||[]; renderFilters(); render();
+      }).catch(function(){
+        document.getElementById("list").innerHTML='<div class="empty">불러오지 못했어요.</div>';
+      });
+    });
+</script>
+</body>
+</html>

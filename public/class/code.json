@@ -1,0 +1,13 @@
+{
+  "updated": "2026-08-25",
+  "snippets": [
+    {
+      "id": "sample",
+      "title": "예시 · Hello, class",
+      "course": "공통",
+      "lang": "python",
+      "desc": "관리자 화면(/class/code/admin)에서 이 스니펫을 지우고 수업 코드를 올리세요.",
+      "code": "print(\"안녕하세요, 수업에 오신 걸 환영합니다!\")"
+    }
+  ]
+}
