@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-24",
+  "updated": "2026-08-25",
   "courses": [
     {
       "course": "공통 자료",
@@ -17,14 +17,14 @@
       ]
     },
     {
-      "course": "한기대 비전검사",
+      "course": "한기대 비전 검사 모델 구현 실습",
       "icon": "📁",
       "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
       "open": true,
       "items": [
         {
           "icon": "🔗",
-          "title": "한기대 비전검사",
+          "title": "한기대 비전 검사 모델 구현 실습",
           "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
           "url": "https://drive.google.com/drive/folders/1M3DPmscV_UOJFv7BLkiYBtuuqmg9syeh?usp=sharing"
         }
