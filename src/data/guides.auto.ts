@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-08-23-낚시-방법-스팀-베스트셀러-38-할인",
     "title": "스팀 베스트셀러 '피싱 플래닛' 38% 할인, 놓치지 마세요!",
@@ -243,7 +243,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-12T09:49:18.048Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-30T07:33:16.526Z"
   },
   {
     "slug": "deal-2026-06-12-스팀-final-fantasy-vii-rebirth-60-할인-62800-25120",
@@ -252,7 +253,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-12T02:03:12.538Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-30T07:33:16.518Z"
   },
   {
     "slug": "deal-2026-06-12-스팀-final-fantasy-vii-remake-intergrade-65-할인-49800-17430",
@@ -261,7 +263,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-12T02:03:17.336Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-30T07:33:16.520Z"
   },
   {
     "slug": "deal-2026-06-12-스팀-데이브-더-다이버-50-할인-24000-12000",
@@ -270,7 +273,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-12T02:03:21.269Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-08-30T07:33:16.525Z"
   },
   {
     "slug": "deal-2026-06-11-스팀-dying-light-2-reloaded-edition-80-할인-66000-13200",
@@ -1100,7 +1104,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-15T19:10:02.578Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.213Z"
+    "lastRefreshedAt": "2026-08-30T07:33:16.532Z"
   },
   {
     "slug": "deal-2026-05-15-cloudflare-무료-한도-vs-가비아-vs-vercel-비교",
@@ -1110,7 +1114,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 6,
     "generatedAt": "2026-05-15T19:10:10.032Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.213Z"
+    "lastRefreshedAt": "2026-08-30T07:33:16.543Z"
   },
   {
     "slug": "deal-2026-05-15-한국에서-결제-가능한-ai-챗봇-카드-거부율-비교",
@@ -1120,7 +1124,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-15T19:10:15.422Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.214Z"
+    "lastRefreshedAt": "2026-08-30T07:33:16.544Z"
   },
   {
     "slug": "deal-2026-05-15-주택청약종합저축-가입-시점월-납입금당첨-가점-계산",
@@ -1150,7 +1154,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-15T01:47:18.305Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.210Z"
+    "lastRefreshedAt": "2026-08-30T07:33:16.530Z"
   },
   {
     "slug": "deal-2026-05-15-steam-deck-vs-rog-ally-vs-lenovo-legion-go-가격-비교",
@@ -1160,7 +1164,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 6,
     "generatedAt": "2026-05-15T01:47:26.214Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.211Z"
+    "lastRefreshedAt": "2026-08-30T07:33:16.531Z"
   },
   {
     "slug": "deal-2026-05-15-에어비앤비-vs-호텔-가격-비교-한국에서-출국-시",
@@ -1170,7 +1174,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-15T01:47:32.114Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.212Z"
+    "lastRefreshedAt": "2026-08-30T07:33:16.531Z"
   },
   {
     "slug": "deal-2026-05-14-플레이스테이션-psn-세일-잘-사는-시기",
