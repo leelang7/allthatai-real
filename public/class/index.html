@@ -116,6 +116,9 @@
   #codeMsg.bad{color:#f85149}
   .empty{color:var(--sub);font-size:.9rem;padding:14px 2px}
   @media (max-width:520px){ .avatar{width:64px;height:64px} }
+  .course.locked{opacity:.72}
+  .lockrow{display:flex;align-items:center;gap:10px;padding:14px 16px}
+  .lockhint{margin:0;padding:0 16px 14px;font-size:.8rem;color:var(--sub)}
 </style>
 </head>
 <body>
@@ -181,9 +184,21 @@ const esc = s => (s ?? "").toString()
 const safeUrl = u => /^https?:\/\//i.test(u ?? "") ? u : "#";
 
 function draw(courses) {
-  const live = (courses || []).filter(c => (c.items || []).length);
+  // 잠긴 과정은 자료가 비어 있어도 목록에 남긴다.
+  // 예전엔 items 가 없으면 걸러냈는데, 그러면 '코드 입력' 과정이 통째로 사라져
+  // '숨김'과 구분이 없어지고, 코드를 가진 학생도 넣을 곳을 못 찾는다.
+  const live = (courses || []).filter(c => c.locked || (c.items || []).length);
   if (!live.length) { app.innerHTML = '<p class="empty">등록된 자료가 아직 없습니다.</p>'; return; }
-  app.innerHTML = live.map(c => `
+
+  app.innerHTML = live.map(c => c.locked ? `
+    <div class="course locked">
+      <div class="lockrow">
+        <span class="folder">🔒</span>
+        <span class="c-txt"><b>${esc(c.course)}</b>${c.desc ? `<small>${esc(c.desc)}</small>` : ""}</span>
+        <span class="count">코드 필요</span>
+      </div>
+      <p class="lockhint">이 과정 수강생이라면 아래에 수업 코드를 넣어 주세요.</p>
+    </div>` : `
     <details class="course"${c.open ? " open" : ""}>
       <summary>
         <span class="folder">${esc(c.icon) || "📁"}</span>
@@ -240,10 +255,19 @@ $("#apply").onclick = async () => {
   const code = $("#code").value.trim();
   const msg = $("#codeMsg");
   if (!code) { msg.className = "bad"; msg.textContent = "코드를 입력해 주세요."; return; }
-  const before = await fetch("/api/class-data/", { cache: "no-store" })
-    .then(r => r.json()).then(d => (d.courses || []).length).catch(() => 0);
-  const after = await load(code);
-  if (after > before) {
+  // 잠긴 과정이 하나라도 풀렸는지로 판정한다. 건수만 비교하면 잠금 자리표시가
+  // 목록에 남게 된 뒤로는 개수가 안 변해서 늘 "맞는 코드가 없다"가 된다.
+  const lockedBefore = await fetch("/api/class-data/", { cache: "no-store" })
+    .then(r => r.json())
+    .then(d => (d.courses || []).filter(c => c.locked).length)
+    .catch(() => 0);
+  await load(code);
+  const lockedAfter = await fetch(`/api/class-data/?code=${encodeURIComponent(code)}`,
+    { cache: "no-store" })
+    .then(r => r.json())
+    .then(d => (d.courses || []).filter(c => c.locked).length)
+    .catch(() => lockedBefore);
+  if (lockedAfter < lockedBefore) {
     try { localStorage.setItem(CODE_KEY, code); } catch (_) {}
     msg.className = "ok"; msg.textContent = "코드 확인 완료 — 해당 과정이 열렸어요.";
   } else {

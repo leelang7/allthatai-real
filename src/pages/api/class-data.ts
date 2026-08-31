@@ -84,17 +84,42 @@ const GH_HEADERS = (token: string) => ({
  */
 function visibleFor(courses: any[], code: string | null) {
   const given = (code || '').trim().toLowerCase();
-  return (courses || [])
-    .filter((c) => {
-      const access = c?.access || 'public';
-      if (access === 'hidden') return false;
-      if (access === 'code') {
-        const want = String(c?.code || '').trim().toLowerCase();
-        return !!want && given === want;
+  const out: any[] = [];
+
+  for (const c of courses || []) {
+    const access = c?.access || 'public';
+
+    // 숨김 — 있다는 사실도 알리지 않는다.
+    if (access === 'hidden') continue;
+
+    if (access === 'code') {
+      const want = String(c?.code || '').trim().toLowerCase();
+      const unlocked = !!want && given === want;
+      if (unlocked) {
+        const { code: _omit, ...rest } = c;
+        out.push(rest);
+      } else {
+        // **이름만 남기고 잠근다.** 자료(items)도 코드도 내려보내지 않는다.
+        //
+        // 예전엔 코드 불일치면 과정을 통째로 지웠는데, 그러면 '숨김'과 구분이
+        // 없어진다. 더 나쁜 건 **코드를 가진 학생조차 자기 과정이 있는 줄 몰라서**
+        // 코드를 넣을 이유를 못 느낀다는 것이다. 자물쇠는 보이되 안은 안 보이게 한다.
+        out.push({
+          course: c.course,
+          icon: c.icon,
+          desc: c.desc,
+          locked: true,
+          open: false,
+          items: [],
+        });
       }
-      return true;
-    })
-    .map(({ code: _omit, ...rest }: any) => rest);
+      continue;
+    }
+
+    const { code: _omit, ...rest } = c;
+    out.push(rest);
+  }
+  return out;
 }
 
 async function readStored(): Promise<{ source: string; courses: any[] }> {
