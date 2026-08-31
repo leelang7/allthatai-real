@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-08-31-스팀-호그와트-레거시-90-할인-79800-7980",
+    "title": "스팀 호그와트 레거시 90% 할인: ₩7,980에 마법 세계로!",
+    "excerpt": "스팀 '호그와트 레거시'가 정가 ₩79,800에서 90% 할인된 ₩7,980에 판매 중입니다. 구매 전 확인사항.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-08-31T11:54:34.519Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-08-23-낚시-방법-스팀-베스트셀러-38-할인",
     "title": "스팀 베스트셀러 '피싱 플래닛' 38% 할인, 놓치지 마세요!",
