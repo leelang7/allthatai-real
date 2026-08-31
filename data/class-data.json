@@ -23,7 +23,8 @@
       "icon": "📁",
       "desc": "",
       "open": true,
-      "access": "public",
+      "access": "code",
+      "code": "allthatai",
       "items": [
         {
           "icon": "🔗",
