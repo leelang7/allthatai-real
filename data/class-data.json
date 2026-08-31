@@ -5,7 +5,7 @@
       "course": "공통 자료",
       "icon": "📚",
       "desc": "모든 과정 공통 자료",
-      "open": false,
+      "open": true,
       "access": "code",
       "code": "allthatai",
       "items": [
@@ -22,7 +22,7 @@
       "course": "한기대 비전 검사 모델 구현 실습",
       "icon": "📁",
       "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
-      "open": false,
+      "open": true,
       "access": "code",
       "code": "allthatai",
       "items": [
@@ -38,7 +38,7 @@
       "course": "한기대 중부발전 AI기반 시각화",
       "icon": "📁",
       "desc": "",
-      "open": false,
+      "open": true,
       "access": "public",
       "items": [
         {
