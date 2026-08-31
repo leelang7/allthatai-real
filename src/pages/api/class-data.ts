@@ -17,7 +17,17 @@ import type { APIRoute } from 'astro';
 export const prerender = false;
 
 const KEY = 'class:data';
-const FILE = 'public/class/data.json';
+
+/// 원본(접근 설정·수업 코드 포함). **공개 폴더 밖**이라 URL 로 열 수 없다.
+///
+/// 예전엔 원본을 public/class/data.json 에 그대로 썼다. 그 파일은 정적으로 서빙되기
+/// 때문에 누구나 주소만 알면 숨김 과정도, 수업 코드도 통째로 볼 수 있었다.
+/// 서버에서 아무리 걸러도 옆문이 열려 있으면 접근 제어가 성립하지 않는다.
+const FILE = 'data/class-data.json';
+
+/// 학생 페이지가 API 를 못 부를 때 쓰는 공개 폴백. **공개 과정만** 담는다.
+/// 코드 필요·숨김 과정은 애초에 여기 들어가지 않는다.
+const PUBLIC_FILE = 'public/class/data.json';
 
 const DEFAULT = [
   {
@@ -112,6 +122,20 @@ async function readStored(): Promise<{ source: string; courses: any[] }> {
         const courses = Array.isArray(parsed) ? parsed : parsed.courses;
         if (Array.isArray(courses) && courses.length) return { source: 'github', courses };
       }
+      // 원본이 아직 없으면(경로를 옮기기 전 데이터) 옛 공개 파일에서 한 번 읽어온다.
+      // 다음 저장 때 원본 경로로 옮겨 붙는다.
+      const legacy = await fetch(
+        `https://api.github.com/repos/${g.repo}/contents/${PUBLIC_FILE}?ref=main`,
+        { headers: GH_HEADERS(g.token) },
+      );
+      if (legacy.ok) {
+        const d = await legacy.json();
+        const parsed = JSON.parse(Buffer.from(d.content, 'base64').toString('utf-8'));
+        const courses = Array.isArray(parsed) ? parsed : parsed.courses;
+        if (Array.isArray(courses) && courses.length) {
+          return { source: 'github-legacy', courses };
+        }
+      }
     } catch {/* 기본값 */}
   }
 
@@ -196,32 +220,41 @@ export const POST: APIRoute = async ({ request, url }) => {
     }, 503);
   }
 
-  try {
+  /// 파일 하나를 커밋한다. 실패하면 오류 문구를 돌려준다.
+  const commit = async (path: string, payload: unknown) => {
     let sha: string | undefined;
     const cur = await fetch(
-      `https://api.github.com/repos/${g.repo}/contents/${FILE}?ref=main`,
+      `https://api.github.com/repos/${g.repo}/contents/${path}?ref=main`,
       { headers: GH_HEADERS(g.token) },
     );
     if (cur.ok) sha = (await cur.json()).sha;
 
-    const payload = { updated: new Date().toISOString().slice(0, 10), courses };
-    const body = {
-      message: `chore(class): 자료실 갱신 (과정 ${counts.courses} · 자료 ${counts.items})`,
-      content: Buffer.from(JSON.stringify(payload, null, 2), 'utf-8').toString('base64'),
-      branch: 'main',
-      ...(sha ? { sha } : {}),
-    };
-
-    const put = await fetch(`https://api.github.com/repos/${g.repo}/contents/${FILE}`, {
+    const put = await fetch(`https://api.github.com/repos/${g.repo}/contents/${path}`, {
       method: 'PUT',
       headers: GH_HEADERS(g.token),
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        message: `chore(class): 자료실 갱신 (과정 ${counts.courses} · 자료 ${counts.items})`,
+        content: Buffer.from(JSON.stringify(payload, null, 2), 'utf-8').toString('base64'),
+        branch: 'main',
+        ...(sha ? { sha } : {}),
+      }),
     });
+    if (!put.ok) return `${put.status} ${(await put.text()).slice(0, 120)}`;
+    return null;
+  };
 
-    if (!put.ok) {
-      const t = await put.text();
-      return json({ ok: false, error: `GitHub 저장 실패(${put.status}) ${t.slice(0, 120)}` }, 502);
-    }
+  try {
+    const updated = new Date().toISOString().slice(0, 10);
+
+    // ① 원본 — 접근 설정과 수업 코드가 들어 있다. 공개 폴더 밖에 둔다.
+    const err = await commit(FILE, { updated, courses });
+    if (err) return json({ ok: false, error: `GitHub 저장 실패(${err})` }, 502);
+
+    // ② 공개 폴백 — **공개 과정만.** 코드는 visibleFor 가 떼어낸다.
+    //    API 가 죽어도 학생 페이지가 이걸 읽는데, 여기에 다른 반 자료가 있으면
+    //    서버 필터링이 아무 의미가 없어진다.
+    await commit(PUBLIC_FILE, { updated, courses: visibleFor(courses, null) });
+
     return json({ ok: true, via: 'github', saved: counts, note: '1~2분 뒤 반영됩니다' });
   } catch (e: any) {
     return json({ ok: false, error: `저장 오류: ${e?.message || e}` }, 502);

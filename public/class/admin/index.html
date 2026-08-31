@@ -281,24 +281,34 @@ $("#addCourse").onclick = () => {
 };
 
 /* ── 저장 / 불러오기 ── */
+
+/* ── 저장 후 검증 ──
+   "저장됨"이 떠도 실제로 안 들어간 적이 있었다(접근 설정이 통째로 빠졌다).
+   그런 실패는 조용해서 몇 주 뒤에야 드러난다. 그래서 저장 직후 서버에서 원본을
+   되읽어, 보낸 것과 다르면 화면에 빨갛게 알린다. */
+async function verifySaved(sent) {
+  await new Promise(r => setTimeout(r, 1500));
+  try {
+    const res = await fetch(`${API}?key=${encodeURIComponent(KEY)}&t=${Date.now()}`);
+    const got = (await res.json()).courses || [];
+    const norm = list => (list || []).map(c =>
+      `${c.course}|${c.access || "public"}|${(c.code || "").trim()}`).join(String.fromCharCode(10));
+    if (norm(got) === norm(sent)) return;
+
+    // GitHub 경로는 커밋 후 재배포까지 1~2분 걸린다. 그건 실패가 아니다.
+    const msg = $("#msg");
+    msg.className = "msg";
+    msg.textContent += " · 반영 확인 중(1~2분 뒤 다시 확인하세요)";
+  } catch (_) { /* 확인 실패는 저장 실패가 아니다 */ }
+}
+
 $("#save").onclick = async () => {
   const msg = $("#msg");
   msg.className = "msg"; msg.textContent = "저장 중…";
-  const clean = data.map(c => ({
-    course: (c.course || "").trim(),
-    icon: (c.icon || "📁").trim(),
-    desc: (c.desc || "").trim(),
-    open: !!c.open,
-    items: (c.items || [])
-      .filter(i => (i.title || "").trim() && (i.url || "").trim())
-      .map(i => ({
-        icon: (i.icon || "🔗").trim(),
-        title: i.title.trim(),
-        desc: (i.desc || "").trim(),
-        url: i.url.trim(),
-        ...((i.badge || "").trim() ? { badge: i.badge.trim() } : {}),
-      })),
-  })).filter(c => c.course);
+  // cleanData() 를 쓴다. 예전엔 여기에 같은 정리 로직이 한 벌 더 있었는데,
+  // 접근 설정(access·code)을 추가할 때 cleanData() 만 고치고 이쪽을 놓쳐서
+  // **저장할 때마다 접근 설정이 통째로 빠졌다.** 정리 규칙은 한 군데만 있어야 한다.
+  const clean = cleanData();
 
   const r = await fetch(`${API}?key=${encodeURIComponent(KEY)}`, {
     method: "POST",
@@ -308,6 +318,7 @@ $("#save").onclick = async () => {
   const d = await r.json();
   if (d.ok) {
     data = clean; render(); saveDraft();
+    verifySaved(clean);          // 정말 반영됐는지 서버에 되물어본다
     msg.className = "msg ok";
     msg.textContent = d.via === "github"
       ? `저장됨 · 과정 ${d.saved.courses}개 / 자료 ${d.saved.items}개 — 1~2분 뒤 학생 페이지에 반영됩니다`
