@@ -5,7 +5,7 @@
       "course": "공통 자료",
       "icon": "📚",
       "desc": "모든 과정 공통 자료",
-      "open": true,
+      "open": false,
       "items": [
         {
           "icon": "📁",
@@ -20,7 +20,7 @@
       "course": "한기대 비전 검사 모델 구현 실습",
       "icon": "📁",
       "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
-      "open": true,
+      "open": false,
       "items": [
         {
           "icon": "🔗",
@@ -35,7 +35,14 @@
       "icon": "📁",
       "desc": "",
       "open": false,
-      "items": []
+      "items": [
+        {
+          "icon": "🔗",
+          "title": "한기대 AI기반 시각화",
+          "desc": "",
+          "url": "https://drive.google.com/drive/folders/1Vcu9Thid11-Edvjtsx5JPDesNMZEG9RT?usp=sharing"
+        }
+      ]
     }
   ]
 }
