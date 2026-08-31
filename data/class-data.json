@@ -23,8 +23,7 @@
       "icon": "📁",
       "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
       "open": true,
-      "access": "code",
-      "code": "TEST1234",
+      "access": "public",
       "items": [
         {
           "icon": "🔗",
