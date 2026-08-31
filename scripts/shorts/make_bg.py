@@ -6,7 +6,7 @@ bg_pool 클립(테마당 1개)을 반복해서 배경이 다 똑같아지던 문
 사용: python make_bg.py <topic> <out.mp4> [W] [H] [seconds]
 Chrome으로 메시 PNG 렌더 → ffmpeg 느린 줌으로 은은한 모션.
 """
-import sys, os, subprocess
+import sys, os, subprocess, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from make_cardnews import palette, mesh, CHROME
 
@@ -19,7 +19,14 @@ def render_png(topic, w, h, outpng):
     tmp = outpng.replace(".png", ".html")
     open(tmp, "w", encoding="utf-8").write(htmlstr)
     url = "file:///" + tmp.replace("\\", "/")
+    # **전용 프로필을 반드시 준다.**
+    # --user-data-dir 없이 띄우면 사용자가 쓰던 기본 프로필을 잡고, 이 헤드리스
+    # 작업이 끝날 때 열려 있던 크롬 창까지 같이 내려간다. 쿼터가 하루 12번 도는
+    # 동안 크롬이 계속 꺼지던 원인이었다. (make_cardnews.py 는 원래 이렇게 한다)
+    udd = os.path.join(tempfile.gettempdir(), "shorts_bg_chrome")
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars",
+                    "--no-first-run", "--no-default-browser-check",
+                    f"--user-data-dir={udd}",
                     "--force-device-scale-factor=1", f"--window-size={w},{h}",
                     "--allow-file-access-from-files", f"--screenshot={outpng}", url],
                    capture_output=True, timeout=90)
