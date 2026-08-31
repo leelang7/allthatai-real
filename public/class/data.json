@@ -13,9 +13,16 @@
       "course": "한기대 비전 검사 모델 구현 실습",
       "icon": "📁",
       "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
-      "locked": true,
-      "open": false,
-      "items": []
+      "open": true,
+      "access": "public",
+      "items": [
+        {
+          "icon": "🔗",
+          "title": "한기대 비전 검사 모델 구현 실습",
+          "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
+          "url": "https://drive.google.com/drive/folders/1M3DPmscV_UOJFv7BLkiYBtuuqmg9syeh?usp=sharing"
+        }
+      ]
     },
     {
       "course": "한기대 중부발전 AI기반 시각화",
