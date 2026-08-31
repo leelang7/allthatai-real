@@ -14,7 +14,8 @@
           "url": "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
           "badge": "NEW"
         }
-      ]
+      ],
+      "access": "public"
     },
     {
       "course": "한기대 비전 검사 모델 구현 실습",
@@ -28,7 +29,8 @@
           "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
           "url": "https://drive.google.com/drive/folders/1M3DPmscV_UOJFv7BLkiYBtuuqmg9syeh?usp=sharing"
         }
-      ]
+      ],
+      "access": "public"
     },
     {
       "course": "한기대 중부발전 AI기반 시각화",
@@ -42,7 +44,8 @@
           "desc": "",
           "url": "https://drive.google.com/drive/folders/1Vcu9Thid11-Edvjtsx5JPDesNMZEG9RT?usp=sharing"
         }
-      ]
+      ],
+      "access": "public"
     }
   ]
 }
