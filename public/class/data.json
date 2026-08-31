@@ -29,6 +29,13 @@
           "url": "https://drive.google.com/drive/folders/1M3DPmscV_UOJFv7BLkiYBtuuqmg9syeh?usp=sharing"
         }
       ]
+    },
+    {
+      "course": "한기대 AI기반 시각화",
+      "icon": "📁",
+      "desc": "",
+      "open": false,
+      "items": []
     }
   ]
 }
