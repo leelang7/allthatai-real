@@ -65,6 +65,35 @@ def latest_mp4(topic):
                 key=os.path.getmtime)
     return fs[-1] if fs else None
 
+
+def _image_ok(path):
+    """생성된 배경이 발행해도 되는 그림인지 본다.
+
+    2026-09-02, SDXL 이 "복부초음파" 배경으로 전신 나체를 그렸고 아무도 보지 않은 채
+    공개돼 유튜브에서 삭제됐다. 프롬프트만 거르는 걸로는 못 막는다 — 모델은 프롬프트와
+    다른 걸 그린다. 그래서 픽셀을 판별 모델에 넣어 본다.
+
+    검사를 **못 했을 때는 통과**시킨다(모델 로딩 실패 등). 검사 실패로 그날 발행이
+    통째로 멈추면 안 되고, 그 경우는 로그에 남는다.
+    """
+    try:
+        from image_guard import check
+        ok, level, msg, _ = check(path)
+    except Exception as e:
+        print("  [guard] 검사 못 함(통과 처리):", str(e)[:100])
+        return True
+    tag = {"ok": "OK", "warn": "확인필요", "block": "차단", "skip": "건너뜀"}.get(level, level)
+    print(f"  [guard] {tag} — {msg}")
+    if not ok:
+        # 다음 실행에서 재사용되지 않게 치운다.
+        try:
+            os.replace(path, path + ".blocked")
+            print("  [guard] 문제 이미지를 .blocked 로 옮김:", os.path.basename(path))
+        except OSError:
+            pass
+    return ok
+
+
 def ensure_still(j):
     """콘텐츠별 배경 스틸을 1회 생성(카드+쇼츠 공용). j['bgPrompt'] 필요. 실패 시 None→메시 폴백."""
     prompt = j.get("bgPrompt", "").strip()
@@ -72,7 +101,8 @@ def ensure_still(j):
         return None
     still = os.path.join(OUT, "_still_" + safe_name(j.get("topic", "x")) + ".png")
     if os.path.exists(still) and os.path.getsize(still) > 10000:
-        return still   # 같은 주제 재실행 시 재사용
+        # 재사용본도 검사한다. 사고 이미지는 이미 디스크에 있던 것이었다.
+        return still if _image_ok(still) else None
     os.makedirs(OUT, exist_ok=True)
     cenv = dict(os.environ, PYTHONIOENCODING="utf-8")
     # GPU가 다른 서비스와 버스트 경합할 수 있어 최대 3회 재시도(공존모드+재시도로 신뢰성 확보).
@@ -85,7 +115,9 @@ def ensure_still(j):
                                encoding="utf-8", errors="replace", timeout=600)
             if os.path.exists(still) and os.path.getsize(still) > 10000:
                 print(f"  [still] 콘텐츠 배경 생성됨 (시도 {attempt})")
-                return still
+                # **검사를 통과해야 쓴다.** 통과 못 하면 배경 없이(메시 폴백) 간다 —
+                # 나체가 공개되는 것보다 배경이 밋밋한 게 훨씬 낫다.
+                return still if _image_ok(still) else None
             print(f"  [still] 시도 {attempt} 실패:", (r.stderr or "")[-120:])
         except Exception as e:
             print(f"  [still] 시도 {attempt} 예외:", str(e)[:120])
