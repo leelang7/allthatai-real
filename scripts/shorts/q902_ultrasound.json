@@ -1,0 +1,55 @@
+{
+  "topic": "9월부터 복부초음파 21만원이 4만원대로 건강보험 확대",
+  "tags": [
+    "건강보험",
+    "초음파",
+    "복부초음파",
+    "의료비",
+    "급여확대",
+    "보건복지부",
+    "중증질환",
+    "건강검진",
+    "병원비",
+    "생활정보"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "medical equipment and a clipboard on a clinic desk, clean and orderly, textured oil painting, visible brush strokes, diagonal dynamic composition, strong leading lines, bright airy background, soft daylight, copper and charcoal accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "건강보험",
+      "titleLines": [
+        "복부초음파 검사",
+        "21만원이",
+        "4만원대로"
+      ],
+      "highlightLine": 2,
+      "narration": "9월부터 복부초음파 검사비가 최대 21만 원에서 4만 원대로 확 낮아집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "무엇이 바뀌나",
+      "body": "9월 1일부터 암·심장·뇌혈관·희귀난치질환이 의심되는 단계에서 받는 초음파 검사에도 건강보험이 1회 적용된다. 그동안은 확진된 뒤에만 보험이 됐다.",
+      "narration": "확진 전, 의심 단계에서 받는 초음파에도 9월부터 건강보험이 적용돼요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "얼마나 싸지나",
+      "body": "복부초음파를 기준으로 환자 본인부담이 최대 21만 원에서 1만4천 원에서 4만4천 원 수준으로 크게 낮아진다.",
+      "narration": "복부초음파 기준으로 21만 원까지 내던 게 4만 원대로 뚝 떨어집니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "누가 받나",
+      "body": "4대 중증질환이 의심돼 의사가 검사가 필요하다고 판단한 환자가 대상이다. 자세한 적용 여부는 진료를 볼 때 의료진에게 확인하면 된다.",
+      "narration": "의사가 필요하다고 판단한 경우가 대상이니, 진료 때 확인해 보세요."
+    },
+    {
+      "kind": "cta",
+      "narration": "놓치면 손해인 생활 꿀팁, 더 많은 정보는 프로필 링크에서 확인하세요."
+    }
+  ]
+}

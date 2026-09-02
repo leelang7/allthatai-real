@@ -69,12 +69,49 @@ def _idx(topic: str, salt: str, n: int) -> int:
     return int(h[:8], 16) % n
 
 
+
+# ── 신체 묘사 차단 ────────────────────────────────────────────────────────────
+#
+# 2026-09-02, "복부초음파" 편이 유튜브에서 **과도한 노출**로 경고를 받았다.
+# subject 가 "an ultrasound probe scanning over an abdomen" 이었고, SDXL 이
+# 맨 배를 그렸다. 의료·건강 주제는 이런 묘사로 흐르기 쉽다.
+#
+# 사람 몸을 그릴 이유가 없다. 검사·진료 주제는 **장비·서류·공간**으로 충분히
+# 전달된다. 그래서 위험한 낱말이 들어오면 그 자리를 안전한 소재로 바꾼다.
+# (막기만 하면 subject 가 비어 배경이 망가지므로, 반드시 대체물을 준다)
+
+_BODY_WORDS = (
+    "abdomen", "belly", "stomach", "torso", "chest", "breast", "bare skin",
+    "naked", "nude", "undress", "underwear", "swimsuit", "bikini", "lingerie",
+    "thigh", "buttock", "waist", "bare shoulder", "bare back", "shirtless",
+    "massage", "bath", "shower", "sauna", "patient lying", "body scan",
+)
+
+# 주제 결이 비슷하면서 사람 몸이 안 나오는 대체 소재.
+_SAFE_SUBJECT = (
+    "medical equipment and a clipboard on a clinic desk, clean and orderly"
+)
+
+
+def sanitize_subject(subject: str) -> str:
+    """사람 몸이 드러날 수 있는 묘사를 안전한 소재로 바꾼다.
+
+    반환값이 입력과 다르면 걸러진 것이다(호출부가 로그로 남길 수 있게)."""
+    low = (subject or "").lower()
+    if any(w in low for w in _BODY_WORDS):
+        return _SAFE_SUBJECT
+    return subject
+
+
 def bg_for(topic: str, subject: str) -> str:
     """주제별로 팔레트·화풍·구도·조명이 갈리는 배경 프롬프트를 만든다.
 
     topic   : 영상 주제(해시 시드). 같은 주제 → 같은 배경.
     subject : 그림에 담을 대상 묘사(영문). 예: "a home router sending signals"
     """
+    # 사람 몸이 드러날 소재는 여기서 걸러낸다. 유튜브 노출 정책 경고를 한 번 받았다.
+    subject = sanitize_subject(subject)
+
     p = PALETTES[_idx(topic, "pal", len(PALETTES))]
     s = STYLES[_idx(topic, "sty", len(STYLES))]
     c = COMPOSITIONS[_idx(topic, "cmp", len(COMPOSITIONS))]
