@@ -35,3 +35,6 @@ scripts/shorts/yt_token.json
 .env*.local
 .env.local
 .env*.local
+
+# Vercel에서 내려받은 프로덕션 비밀 — 절대 커밋하지 않는다
+.env.vercel.*
