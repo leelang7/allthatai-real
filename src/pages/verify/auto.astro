@@ -53,6 +53,10 @@ const SAMPLES = {
     </div>
 
     <div id="out" class="hidden mt-6 space-y-6">
+      <div id="degraded" class="hidden rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm">
+        <b class="text-amber-300">축소 모드</b> — 모델 서버에 연결되지 않아 <b>사실 대조·기관 사칭 반증·집단 관측만</b> 수행했습니다.
+        문체 점수·각본 단계·정부 경보 대조는 이번 결과에 없습니다. <span id="degradedWhy" class="text-zinc-400"></span>
+      </div>
       <div id="verdict" class="rounded-2xl border-l-4 p-5 bg-zinc-900/60">
         <div class="flex items-center gap-3">
           <span id="badge" class="text-xs font-black px-2.5 py-1 rounded-full text-white"></span>
@@ -161,6 +165,9 @@ const SAMPLES = {
 
   function render(d, messages) {
     $('out').classList.remove('hidden');
+    $('degraded').classList.toggle('hidden', !d.degraded);
+    $('degradedWhy').textContent = d.degraded ? `(${d.degraded_reason || ''})` : '';
+    $('stageBox').classList.toggle('hidden', !!d.degraded);
     const tier = d.tier || 'none';
     const ov = d.overall || '';
     const v = $('verdict');

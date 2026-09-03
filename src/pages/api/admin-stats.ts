@@ -25,6 +25,18 @@ const TRACKED_EVENTS = [
   'hidden_money_diagnose', 'lifecycle_sim',
 ];
 
+async function redisGetStr(key: string): Promise<string | null> {
+  const e = (import.meta.env as any);
+  const url = e.UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || e.KV_REST_API_URL || process.env.KV_REST_API_URL;
+  const token = e.UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || e.KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+  try {
+    const r = await fetch(`${url}/get/${encodeURIComponent(key)}`, { headers: { Authorization: `Bearer ${token}` } });
+    const j = await r.json();
+    return j?.result ?? null;
+  } catch { return null; }
+}
+
 async function redisGet(key: string): Promise<number> {
   const url = ((import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || (import.meta.env as any).KV_REST_API_URL || process.env.KV_REST_API_URL);
   const token = ((import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || (import.meta.env as any).KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN);
@@ -77,7 +89,16 @@ export const GET: APIRoute = async ({ url }) => {
   // 집단 관측 — 사기 확인·관측 상위 (가려진 라벨만, 인증 뒤에만)
   let crowd: any = null;
   try { crowd = await topReported(10); } catch { crowd = null; }
-  return new Response(JSON.stringify({ crowd,
+  // 모델 서버(홈 PC) 생사 — verify-auto 가 성공/실패 시각을 남긴다. 실패가 성공보다 최근이면 축소 모드로 돌고 있다는 뜻
+  let model_server: any = null;
+  try {
+    const [lastOk, lastFail, degradedTotal] = await Promise.all([
+      redisGetStr('stat:model_server:last_ok'), redisGetStr('stat:model_server:last_fail'), redisGet('stat:verify_auto_degraded:total'),
+    ]);
+    model_server = { last_ok: lastOk, last_fail: lastFail, degraded_total: degradedTotal,
+      healthy: !!lastOk && (!lastFail || new Date(lastOk) > new Date(lastFail)) };
+  } catch { model_server = null; }
+  return new Response(JSON.stringify({ crowd, model_server,
     ok: true,
     configured: true,
     today,
