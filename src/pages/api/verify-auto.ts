@@ -13,6 +13,9 @@ import { incrEvent } from '../../lib/stat-counter';
 import { modelHeaders } from '../../lib/access-gate';
 import { gateOrQuota, consumeQuota, FREE_LIMIT } from '../../lib/quota-gate';
 
+// output:'static' 프로젝트라 선언이 없으면 정적 파일로 프리렌더되어 POST가 405가 된다(다른 API 라우트와 동일)
+export const prerender = false;
+
 const MAX_MESSAGES = 200;
 const MAX_CHARS = 30000;
 
