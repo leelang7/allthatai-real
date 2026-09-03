@@ -9,6 +9,7 @@
  *   stat:{event}:{YYYY-MM-DD}
  */
 import type { APIRoute } from 'astro';
+import { topReported } from '../../lib/crowd';
 
 export const prerender = false;
 
@@ -73,7 +74,10 @@ export const GET: APIRoute = async ({ url }) => {
   TRACKED_EVENTS.forEach((e) => { stats[e] = { total: 0, today: 0, yesterday: 0 }; });
   results.forEach(([e, kind, n]) => { (stats[e] as any)[kind] = n; });
 
-  return new Response(JSON.stringify({
+  // 집단 관측 — 사기 확인·관측 상위 (가려진 라벨만, 인증 뒤에만)
+  let crowd: any = null;
+  try { crowd = await topReported(10); } catch { crowd = null; }
+  return new Response(JSON.stringify({ crowd,
     ok: true,
     configured: true,
     today,

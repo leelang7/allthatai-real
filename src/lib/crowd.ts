@@ -81,7 +81,11 @@ export async function observeAndLookup(claims: Record<string, string[]>): Promis
 
   const hashes = await Promise.all(items.map((i) => hashClaim(i.kind, i.value)));
   const readCmds: (string | number)[][] = [['MGET', ...hashes.flatMap((h) => [`crowd:seen:${h}`, `crowd:scam:${h}`, `crowd:safe:${h}`])]];
-  const writeCmds: (string | number)[][] = hashes.flatMap((h) => [['INCR', `crowd:seen:${h}`], ['EXPIRE', `crowd:seen:${h}`, SEEN_TTL]]);
+  // 관리자 화면용 상위 집계 — 키를 SCAN 하지 않도록 정렬셋에 같이 쌓는다. 라벨은 가려진 표기만 저장한다.
+  const writeCmds: (string | number)[][] = hashes.flatMap((h, i) => [
+    ['INCR', `crowd:seen:${h}`], ['EXPIRE', `crowd:seen:${h}`, SEEN_TTL],
+    ['ZINCRBY', 'crowd:top:seen', 1, h], ['HSET', 'crowd:label', h, `${items[i].kind}:${mask(items[i].kind, items[i].value)}`],
+  ]);
   const [read] = await pipeline(readCmds);
   pipeline(writeCmds); // fire-and-forget
 
@@ -97,6 +101,18 @@ export async function observeAndLookup(claims: Record<string, string[]>): Promis
 }
 
 /** 사용자 확인 — 티맵의 '사고났나요?' 클릭. 같은 IP·같은 해시는 하루 한 번만 센다. */
+/** 관리자용 — 사기 확인·관측 상위 N. 라벨은 가려진 표기(원문 없음). */
+export async function topReported(n = 10): Promise<{ scam: any[]; seen: any[] }> {
+  const [scam, seen] = await pipeline([['ZREVRANGE', 'crowd:top:scam', 0, n - 1, 'WITHSCORES'], ['ZREVRANGE', 'crowd:top:seen', 0, n - 1, 'WITHSCORES']]);
+  const pairs = (arr: any[]) => { const out: [string, number][] = []; for (let i = 0; i + 1 < (arr || []).length; i += 2) out.push([String(arr[i]), Number(arr[i + 1])]); return out; };
+  const sp = pairs(scam), se = pairs(seen);
+  const hashes = [...new Set([...sp, ...se].map(([h]) => h))];
+  const [labels] = hashes.length ? await pipeline([['HMGET', 'crowd:label', ...hashes]]) : [[]];
+  const label = new Map(hashes.map((h, i) => [h, (labels || [])[i] || '?']));
+  const rows = (ps: [string, number][]) => ps.map(([h, c]) => ({ hash: h, label: label.get(h), count: c }));
+  return { scam: rows(sp), seen: rows(se) };
+}
+
 export async function feedback(hashes: string[], verdict: 'scam' | 'safe', ip: string): Promise<{ counted: number }> {
   const clean = hashes.filter((h) => /^[0-9a-f]{32}$/.test(h)).slice(0, 10);
   if (!clean.length) return { counted: 0 };
@@ -106,6 +122,6 @@ export async function feedback(hashes: string[], verdict: 'scam' | 'safe', ip: s
   const fresh = clean.filter((_, i) => dedupe[i] === 'OK');
   if (!fresh.length) return { counted: 0 };
 
-  await pipeline(fresh.flatMap((h) => [['INCR', `crowd:${verdict}:${h}`], ['EXPIRE', `crowd:${verdict}:${h}`, FEEDBACK_TTL]]));
+  await pipeline(fresh.flatMap((h) => [['INCR', `crowd:${verdict}:${h}`], ['EXPIRE', `crowd:${verdict}:${h}`, FEEDBACK_TTL], ['ZINCRBY', `crowd:top:${verdict}`, 1, h]]));
   return { counted: fresh.length };
 }
