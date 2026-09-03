@@ -9,8 +9,10 @@
  */
 
 export function incrEvent(event: string): void {
-  const url = (import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = (import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const e = (import.meta.env as any);
+  // Vercel KV(Upstash 기반)는 KV_REST_API_* 로 들어온다 — 프로덕션엔 UPSTASH_* 가 없어 카운터가 no-op 였다(2026-09-03 실측)
+  const url = e.UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || e.KV_REST_API_URL || process.env.KV_REST_API_URL;
+  const token = e.UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || e.KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
   if (!url || !token) return;
 
   const today = new Date().toISOString().slice(0, 10);

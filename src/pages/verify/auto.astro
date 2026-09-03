@@ -79,6 +79,20 @@ const SAMPLES = {
         <div id="evidence" class="mt-2 text-sm text-zinc-400"></div>
       </div>
 
+      <div id="crowdBox">
+        <h2 class="text-xs font-bold tracking-wider text-zinc-500 uppercase">다른 사람들에게도 왔나</h2>
+        <div id="crowd" class="mt-2 rounded-xl border border-zinc-800 overflow-hidden"></div>
+        <div id="fb" class="mt-3 rounded-xl border border-cyan-500/30 bg-cyan-500/5 p-4">
+          <div class="text-sm font-bold">이 메시지, 사기였나요?</div>
+          <div class="text-xs text-zinc-400 mt-0.5">누르면 위 계좌·번호의 확인 카운트가 올라가 다음 사람에게 보입니다. 메시지 원문은 저장되지 않습니다.</div>
+          <div class="mt-3 flex gap-2">
+            <button id="fbScam" class="rounded-lg bg-rose-500 hover:bg-rose-400 text-white px-4 py-2 text-sm font-black">사기였어요</button>
+            <button id="fbSafe" class="rounded-lg border border-zinc-700 hover:bg-zinc-900 px-4 py-2 text-sm font-bold">아니었어요</button>
+            <span id="fbStatus" class="ml-auto self-center text-xs text-zinc-500"></span>
+          </div>
+        </div>
+      </div>
+
       <div>
         <h2 class="text-xs font-bold tracking-wider text-zinc-500 uppercase">정부 경보 대조</h2>
         <div id="adv" class="mt-2 space-y-2"></div>
@@ -132,6 +146,19 @@ const SAMPLES = {
     } finally { $('run').disabled = false; }
   });
 
+  async function sendFeedback(verdict) {
+    const hashes = window.__crowdHashes || [];
+    if (!hashes.length) { $('fbStatus').textContent = '확인할 계좌·번호가 없습니다'; return; }
+    $('fbScam').disabled = true; $('fbSafe').disabled = true;
+    try {
+      const r = await fetch('/api/verify-feedback/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hashes, verdict }) });
+      const d = await r.json();
+      $('fbStatus').textContent = d.ok ? (d.counted ? `반영됐습니다 (${d.counted}건) — 다음 사람에게 보입니다` : '오늘 이미 반영됐습니다') : '⚠ 실패';
+    } catch { $('fbStatus').textContent = '⚠ 네트워크 오류'; }
+  }
+  $('fbScam').addEventListener('click', () => sendFeedback('scam'));
+  $('fbSafe').addEventListener('click', () => sendFeedback('safe'));
+
   function render(d, messages) {
     $('out').classList.remove('hidden');
     const tier = d.tier || 'none';
@@ -177,6 +204,23 @@ const SAMPLES = {
     $('evidence').innerHTML = ev.length
       ? ev.map((e) => `<div>${e.stage}단계 <span class="text-zinc-200">${esc(e.signal)}</span> · #${e.message_index + 1} “${esc(e.matched)}”</div>`).join('')
       : '';
+
+    const crowd = d.crowd || [];
+    window.__crowdHashes = crowd.map((c) => c.hash);
+    const KIND = { account: '계좌', phone: '전화', url: 'URL', brno: '사업자' };
+    $('crowdBox').classList.toggle('hidden', !crowd.length);
+    $('crowd').innerHTML = crowd.map((c) => {
+      const others = c.seen;  // 나를 뺀 값(서버가 INCR 전에 읽는다)
+      const line = others > 0
+        ? `최근 30일 <b class="text-zinc-100">다른 ${others}명</b>에게도 왔습니다` + (c.scam ? ` · <b class="text-rose-300">${c.scam}명이 사기로 확인</b>` : '') + (c.safe ? ` · ${c.safe}명이 정상으로 확인` : '')
+        : '처음 관측된 값입니다 — 아직 아무도 신고하지 않았다는 뜻이지, 안전하다는 뜻이 아닙니다';
+      const tone = c.scam >= 3 ? 'bg-rose-500' : c.scam >= 1 ? 'bg-amber-500' : others >= 5 ? 'bg-amber-500' : 'bg-zinc-600';
+      return `<div class="flex gap-3 items-start px-4 py-3 border-b border-zinc-800 last:border-0">
+        <span class="shrink-0 text-xs font-black text-white px-2 py-0.5 rounded ${tone}">${esc(KIND[c.kind] || c.kind)}</span>
+        <div class="min-w-0"><div class="text-sm font-mono">${esc(c.label)}</div><div class="text-xs text-zinc-400">${line}</div></div></div>`;
+    }).join('');
+    $('fbStatus').textContent = '';
+    $('fbScam').disabled = false; $('fbSafe').disabled = false;
 
     const adv = d.advisories || [];
     $('adv').innerHTML = adv.length

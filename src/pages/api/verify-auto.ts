@@ -12,6 +12,7 @@ import type { APIRoute } from 'astro';
 import { incrEvent } from '../../lib/stat-counter';
 import { modelHeaders } from '../../lib/access-gate';
 import { gateOrQuota, consumeQuota, FREE_LIMIT } from '../../lib/quota-gate';
+import { observeAndLookup } from '../../lib/crowd';
 
 // output:'static' 프로젝트라 선언이 없으면 정적 파일로 프리렌더되어 POST가 405가 된다(다른 API 라우트와 동일)
 export const prerender = false;
@@ -63,11 +64,16 @@ export const POST: APIRoute = async ({ request }) => {
   }
   const data = await res.json();
 
+  // 집단 관측 — 이번 검사에서 나온 계좌·전화·URL·사업자번호를 해시로 세고, 다른 사람들에게도 왔는지 본다.
+  // 실패해도 판정은 그대로 나간다(관측은 보강이지 조건이 아니다).
+  let crowd: any[] = [];
+  try { crowd = await observeAndLookup(data?.claims || {}); } catch { crowd = []; }
+
   let freeTier: any = undefined;
   if (g.useFree) {
     const used = await consumeQuota(request);
     freeTier = { used, limit: FREE_LIMIT, remaining: Math.max(0, FREE_LIMIT - used) };
   }
 
-  return json({ ok: true, source: 'self-model:auto', ...data, privacy: 'no_input_storage', freeTier });
+  return json({ ok: true, source: 'self-model:auto', ...data, crowd, privacy: 'no_input_storage', freeTier });
 };
