@@ -7,7 +7,7 @@
  */
 import type { Check } from './claims';
 
-const TIMEOUT = 8000;
+const TIMEOUT = 4000;   // 축소 모드는 빨라야 한다 — 8초면 한 API가 느릴 때 응답 전체가 8초가 됐다(실측 8002ms)
 const key = () => (import.meta.env as any).DATA_GO_KR_KEY || process.env.DATA_GO_KR_KEY || '';
 const brnoOf = (s: string) => String(s).replace(/\D/g, '').slice(0, 10);
 
