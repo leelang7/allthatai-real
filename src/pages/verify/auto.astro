@@ -1,0 +1,189 @@
+---
+/**
+ * 자동 사기 대조 — 받은 메시지를 붙여넣기만 하면 된다.
+ *
+ * 서버가 사업자번호·계좌·전화·URL·기관명·금액을 스스로 뽑아 국세청·공정위·금융위 기록에 동시에 대조하고,
+ * 로맨스 스캠 각본 단계와 정부 경보까지 한 번에 낸다. 사용자가 입력할 필드는 하나뿐이다.
+ * 게이트·쿼터는 다른 /verify 페이지와 같다(무료 3회, 액세스 코드로 무제한).
+ */
+import Layout from '../../layouts/Layout.astro';
+
+const title = '자동 사기 대조 — 붙여넣기만 하세요';
+const description =
+  '받은 메시지를 그대로 붙여넣으면 사업자번호·계좌·기관명을 스스로 찾아 국세청·공정위 기록에 동시에 대조하고, 로맨스 스캠 각본 단계와 금감원 경보까지 한 번에 냅니다. 입력은 저장하지 않습니다.';
+const apiEndpoint = '/api/verify-auto';
+const SAMPLES = {
+  phish: [
+    '금융감독원 김민수 수사관입니다. 고객님 계좌가 범죄에 연루되었습니다.',
+    '확인을 위해 안전계좌 110-234-567890 으로 이체하셔야 합니다.',
+    '협력업체 올댓에이아이(사업자 392-18-02668)에서 보증금 300만원 안내드립니다.',
+  ],
+  scam3: [
+    '안녕하세요, 실수로 메시지를 보냈는데 프로필이 인상적이네요. 저는 주한미군 장교입니다.',
+    '매일 당신 생각이 납니다. 당신을 만난 건 신의 뜻인 것 같아요.',
+    '우리 얘긴 비밀로 해줘요. 가족한테는 아직 말하지 마세요.',
+    '영상통화는 부대 규정상 어렵습니다. 텔레그램으로 옮겨서 연락해요.',
+  ],
+  real: [
+    '저 지금 독일에서 유학 중이에요. 시차 때문에 답장이 늦을 수 있어요',
+    '매일 당신 생각이 나요. 사랑해요',
+    '부모님께는 아직 비밀로 해줄래요? 놀라실 것 같아서',
+  ],
+};
+---
+
+<Layout title={title} description={description}>
+  <section class="max-w-3xl mx-auto px-4 pt-10 pb-6">
+    <a href="/verify/" class="text-xs text-zinc-500 hover:text-zinc-300">← 사기 검증</a>
+    <h1 class="mt-3 text-2xl md:text-3xl font-black">자동 사기 대조</h1>
+    <p class="mt-2 text-zinc-400 leading-relaxed">
+      받은 메시지를 <b class="text-zinc-200">그대로</b> 붙여넣으세요. 사업자번호·계좌·전화·기관명을 기계가 스스로 찾아
+      국세청·공정위 기록에 <b class="text-zinc-200">동시에</b> 대조하고, 각본 단계와 정부 경보까지 한 번에 냅니다.
+      입력할 것은 없습니다. 입력은 저장하지 않습니다.
+    </p>
+
+    <textarea id="msgs" rows="8" placeholder="상대방이 보낸 메시지를 한 줄에 하나씩…"
+      class="mt-5 w-full rounded-xl bg-zinc-900 border border-zinc-800 focus:border-rose-500/60 outline-none p-4 text-sm leading-relaxed"></textarea>
+    <div class="mt-3 flex flex-wrap items-center gap-2">
+      <button id="run" class="rounded-xl bg-rose-500 hover:bg-rose-400 text-white px-5 py-2.5 font-black transition shadow-lg shadow-rose-500/20">분석</button>
+      <button data-sample="phish" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-3 py-2 text-sm">예시 · 기관 사칭</button>
+      <button data-sample="scam3" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-3 py-2 text-sm">예시 · 로맨스 스캠</button>
+      <button data-sample="real" class="rounded-xl border border-zinc-700 hover:bg-zinc-900 px-3 py-2 text-sm">예시 · 정상 연애</button>
+      <span id="status" class="ml-auto text-xs text-zinc-500"></span>
+    </div>
+
+    <div id="out" class="hidden mt-6 space-y-6">
+      <div id="verdict" class="rounded-2xl border-l-4 p-5 bg-zinc-900/60">
+        <div class="flex items-center gap-3">
+          <span id="badge" class="text-xs font-black px-2.5 py-1 rounded-full text-white"></span>
+          <span id="lat" class="text-xs text-zinc-500"></span>
+        </div>
+        <p id="headline" class="mt-2 text-lg font-black"></p>
+        <p id="why" class="text-sm text-zinc-400"></p>
+      </div>
+
+      <div>
+        <h2 class="text-xs font-bold tracking-wider text-zinc-500 uppercase">자동 추출된 주장</h2>
+        <div id="claims" class="mt-2 flex flex-wrap gap-2"></div>
+      </div>
+
+      <div>
+        <h2 class="text-xs font-bold tracking-wider text-zinc-500 uppercase">동시 대조 결과</h2>
+        <div id="checks" class="mt-2 rounded-xl border border-zinc-800 overflow-hidden"></div>
+      </div>
+
+      <div id="stageBox">
+        <h2 class="text-xs font-bold tracking-wider text-zinc-500 uppercase">로맨스 스캠 각본</h2>
+        <div id="steps" class="mt-2 grid grid-cols-5 gap-1.5"></div>
+        <p id="next" class="mt-3 text-sm rounded-xl border border-dashed border-zinc-700 bg-zinc-900/40 p-3"></p>
+        <div id="evidence" class="mt-2 text-sm text-zinc-400"></div>
+      </div>
+
+      <div>
+        <h2 class="text-xs font-bold tracking-wider text-zinc-500 uppercase">정부 경보 대조</h2>
+        <div id="adv" class="mt-2 space-y-2"></div>
+      </div>
+    </div>
+
+    <p class="mt-10 text-xs text-zinc-600 leading-relaxed">
+      판정은 네 축의 결합입니다. 공적 레지스트리 대조(국세청·공정위·금융위), 공공기관 사칭 규칙, 로맨스 스캠 각본 단계, 자체 학습 문체 분류기(KLUE-BERT).
+      반증이 하나라도 있으면 문체 점수와 무관하게 경보이고, 확인 가능한 주장이 전부 기록과 일치하면 경보하지 않습니다.
+      각본 1~4단계는 규칙 기반이며 확정 판단이 아닙니다. 발신번호 변작 여부는 실시간으로 확인할 수 없습니다.
+    </p>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ apiEndpoint, SAMPLES }}>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const STAGES = ['접근', '신뢰', '고립', '소액 테스트', '대액 요구'];
+  const TAG = { '반증': 'bg-rose-500', '부합': 'bg-emerald-600', '미확인': 'bg-zinc-600' };
+
+  document.querySelectorAll('[data-sample]').forEach((b) =>
+    b.addEventListener('click', () => { $('msgs').value = SAMPLES[b.dataset.sample].join('\n'); }));
+
+  $('run').addEventListener('click', async () => {
+    const messages = $('msgs').value.split('\n').map((s) => s.trim()).filter(Boolean);
+    if (!messages.length) { $('status').textContent = '⚠ 입력 필요'; return; }
+    $('run').disabled = true;
+    $('status').textContent = '🤖 추출·대조 중…';
+    const accessCode = localStorage.getItem('access_code') || '';
+    try {
+      const res = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Access-Code': accessCode },
+        body: JSON.stringify({ messages, accessCode }),
+      });
+      const d = await res.json();
+      if (!d.ok) {
+        if (res.status === 402 || d.reason === 'free_quota_exhausted') {
+          const code = (prompt('무료 ' + (d.limit || 3) + '회를 모두 사용했어요.\n계속 쓰려면 액세스 코드를 입력하세요. (없으면 취소)') || '').trim();
+          if (code) { localStorage.setItem('access_code', code); $('status').textContent = '🔄 코드 저장됨 — 다시 [분석]'; }
+          else $('status').innerHTML = '🔒 무료 횟수 소진. <a href="/services/play-launch" class="underline text-cyan-300">이용권 문의</a>';
+        } else {
+          $('status').textContent = '⚠ ' + (d.error || '오류');
+        }
+        return;
+      }
+      render(d, messages);
+      $('status').textContent = d.freeTier ? `무료 ${d.freeTier.remaining}/${d.freeTier.limit}회 남음` : '';
+    } catch (e) {
+      $('status').textContent = '⚠ 네트워크 오류';
+    } finally { $('run').disabled = false; }
+  });
+
+  function render(d, messages) {
+    $('out').classList.remove('hidden');
+    const tier = d.tier || 'none';
+    const ov = d.overall || '';
+    const v = $('verdict');
+    v.className = 'rounded-2xl border-l-4 p-5 bg-zinc-900/60 ' +
+      (tier === 'alarm' ? 'border-rose-500' : tier === 'watch' ? 'border-amber-500' : 'border-emerald-600');
+    const badge = $('badge');
+    badge.textContent = tier === 'alarm' ? '경보' : tier === 'watch' ? '주의' : '이상 없음';
+    badge.className = 'text-xs font-black px-2.5 py-1 rounded-full text-white ' +
+      (tier === 'alarm' ? 'bg-rose-500' : tier === 'watch' ? 'bg-amber-500' : 'bg-emerald-600');
+    const T = d.timing_ms || {};
+    $('lat').textContent = T.total != null ? `${T.total}ms · 병렬조회 ${T.network_checks_parallel ?? 0}ms` : '';
+    $('headline').textContent =
+      ov === '반증' ? '주장이 공적 기록과 어긋납니다'
+      : ov === '부합' ? '확인 가능한 주장은 기록과 일치합니다'
+      : d.stage ? `로맨스 스캠 각본 ${d.stage}단계 · ${d.stage_name}`
+      : '검증 가능한 주장도, 각본 징후도 없습니다';
+    $('why').textContent = d.why || '';
+
+    const cl = d.claims || {};
+    const found = [['사업자번호', cl.brno], ['계좌', cl.account], ['전화', cl.phone], ['URL', cl.url], ['금융회사', cl.financial_company], ['공공기관', cl.public_institution]]
+      .filter(([, a]) => a && a.length)
+      .map(([k, a]) => `<span class="text-xs rounded-lg bg-zinc-800 px-2.5 py-1"><span class="text-zinc-500">${esc(k)}</span> ${a.map(esc).join(', ')}</span>`).join('');
+    $('claims').innerHTML = found || '<span class="text-sm text-zinc-500">검증 가능한 주장이 없습니다</span>';
+
+    const chk = d.checks || [];
+    $('checks').innerHTML = chk.length
+      ? chk.map((c) => `<div class="flex gap-3 items-start px-4 py-3 border-b border-zinc-800 last:border-0">
+          <span class="shrink-0 text-xs font-black text-white px-2 py-0.5 rounded ${TAG[c.status] || 'bg-zinc-600'}">${esc(c.status)}</span>
+          <div class="min-w-0"><div class="text-sm font-bold">${esc(c.check)} <span class="text-xs text-zinc-500 font-normal">${c.latency_ms != null ? c.latency_ms + 'ms' : '즉시'}</span></div>
+          <div class="text-xs text-zinc-400 leading-relaxed">${esc(c.reason)}</div></div></div>`).join('')
+      : '<div class="px-4 py-3 text-sm text-zinc-500">대조할 주장이 없어 각본·문체 판정만 수행했습니다.</div>';
+
+    $('steps').innerHTML = STAGES.map((n, i) => {
+      const k = i + 1, on = k <= (d.stage || 0), hot = on && k >= 4;
+      return `<div class="rounded-lg py-2 text-center text-xs ${on ? (hot ? 'bg-rose-500 text-white font-bold' : 'bg-amber-500 text-white font-bold') : 'bg-zinc-800 text-zinc-500'}">${k} ${n}</div>`;
+    }).join('');
+    $('next').innerHTML = d.stage
+      ? `<b class="text-cyan-300">다음에 올 것</b> — ${esc(d.next_warning)}`
+      : '각본 진입 신호가 없습니다. 실제 관계에서도 나타나는 표현만 관측됐거나 각본 신호가 없습니다.';
+    const ev = d.evidence || [];
+    $('evidence').innerHTML = ev.length
+      ? ev.map((e) => `<div>${e.stage}단계 <span class="text-zinc-200">${esc(e.signal)}</span> · #${e.message_index + 1} “${esc(e.matched)}”</div>`).join('')
+      : '';
+
+    const adv = d.advisories || [];
+    $('adv').innerHTML = adv.length
+      ? adv.map((a) => `<div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+          <div class="text-xs text-zinc-500">${esc(a.source)} · ${esc(a.date)} · ${esc(a.confidence)}</div>
+          <a href="${esc(a.url)}" target="_blank" rel="noopener" class="font-bold text-cyan-300 hover:underline">${esc(String(a.title).replace(/^\d{6}_\(보도자료\)\s*/, ''))}</a>
+          <div class="mt-1 text-xs text-zinc-400">공통 키워드: ${(a.shared_keywords || []).map(esc).join(', ')}</div></div>`).join('')
+      : `<div class="text-sm text-zinc-500">${tier === 'none' ? '경보 대조는 징후가 관측된 대화에만 수행됩니다.' : '일치하는 정부 경보가 없습니다.'}</div>`;
+  }
+</script>
