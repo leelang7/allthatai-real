@@ -11,6 +11,7 @@
     bg = bg_for("모두의 AI 6파전", subject="six consortiums competing for a national AI project")
 """
 import hashlib
+import re
 
 # 12 팔레트 — 색이 겹치지 않도록 계열을 흩어놓는다.
 PALETTES = [
@@ -87,18 +88,23 @@ _BODY_WORDS = (
     "massage", "bath", "shower", "sauna", "patient lying", "body scan",
 )
 
-# 주제 결이 비슷하면서 사람 몸이 안 나오는 대체 소재.
+# 사람 몸이 안 나오면서 어느 주제에나 어울리는 중립 소재.
+# (예전엔 '의료 장비'로 바꿨는데, 추석 할인 편이 그걸 받아 병원 책상 배경이 됐다.)
 _SAFE_SUBJECT = (
-    "medical equipment and a clipboard on a clinic desk, clean and orderly"
+    "a tidy wooden desk with a notebook, a pen and a warm cup of coffee, soft window light"
 )
+
+# 낱말 단위로만 잡는다. 부분 문자열로 잡으면 chestnut(밤)의 chest, breastplate 의
+# breast 처럼 엉뚱한 게 걸린다 — 실제로 추석 성수품 편이 그렇게 오탐됐다.
+_BODY_RE = re.compile(r"(?:" + "|".join(re.escape(w) for w in _BODY_WORDS) + r")")
 
 
 def sanitize_subject(subject: str) -> str:
-    """사람 몸이 드러날 수 있는 묘사를 안전한 소재로 바꾼다.
+    """사람 몸이 드러날 수 있는 묘사를 중립 소재로 바꾼다.
 
     반환값이 입력과 다르면 걸러진 것이다(호출부가 로그로 남길 수 있게)."""
     low = (subject or "").lower()
-    if any(w in low for w in _BODY_WORDS):
+    if _BODY_RE.search(low):
         return _SAFE_SUBJECT
     return subject
 

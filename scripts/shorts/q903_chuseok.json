@@ -1,0 +1,55 @@
+{
+  "topic": "추석 성수품 최대 50% 할인 고속도로 통행료 나흘 면제",
+  "tags": [
+    "추석",
+    "민생안정대책",
+    "성수품할인",
+    "고속도로통행료면제",
+    "온누리상품권",
+    "전통시장",
+    "농축산물할인",
+    "수산물할인",
+    "추석연휴",
+    "생활정보"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a chuseok gift box of fruit and dried fish on a table beside a car key and a highway toll ticket, layered paper cutout diorama, close-up hero shot, subject centered, bright airy background, soft daylight, midnight navy and ice blue accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "추석",
+      "titleLines": [
+        "추석 장보기",
+        "최대 50% 할인",
+        "통행료도 나흘 면제"
+      ],
+      "highlightLine": 1,
+      "narration": "이번 추석엔 사과, 배, 소고기가 최대 40%, 고등어와 명태는 최대 50% 싸지고, 연휴 나흘간 고속도로 통행료도 면제됩니다."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "얼마나 싸지나",
+      "body": "정부는 9월 1일 국무회의에서 추석 민생안정대책을 발표했다. 성수품을 평소의 1.6배인 역대 최대 18만3천 톤 공급하고, 역대 최대인 1,030억 원을 들여 할인을 지원한다. 9월 3일부터 온·오프라인 유통업체에서 사과·배·소고기 등 농축산물을 최대 40%, 9일부터는 명태·고등어·김 등 수산물을 최대 50% 할인한다.",
+      "narration": "3일부터 농축산물 최대 40%, 9일부터 수산물 최대 50% 할인이 시작돼요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "전통시장 가면",
+      "body": "9월 16일부터 20일까지 농축산물·수산물 각 300개 전통시장에서 구매액의 약 30%를 온누리상품권으로 최대 2만 원까지 현장에서 환급해 준다. 같은 기간 디지털온누리상품권은 할인율이 7%에서 10%로 오르고 구매 한도 20만 원이 추가된다.",
+      "narration": "16일부터 20일까지 전통시장에서 사면 30%를 온누리상품권으로 최대 2만 원까지 바로 돌려받습니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "연휴 혜택",
+      "body": "추석 연휴인 9월 24일부터 27일까지 나흘간 전국 고속도로 통행료가 면제되고 KTX 요금은 10% 내린다. 4대궁·종묘·조선왕릉과 국립현대미술관, 국립자연휴양림 입장료도 면제된다. 재난적 의료비 지원도 1,504억 원에서 2,334억 원으로 늘린다.",
+      "narration": "24일부터 27일까지 고속도로가 공짜고 KTX는 10% 할인, 궁궐과 휴양림도 무료로 들어갑니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "놓치면 손해인 생활 꿀팁, 더 많은 정보는 프로필 링크에서 확인하세요."
+    }
+  ]
+}
