@@ -17,6 +17,44 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = Astro.url.pathname;
 const isHome = path === '/';
+
+// 사이트 전역 구조화 데이터 — WebSite + Organization은 페이지가 아니라 "사이트"의 정체성이라
+// 개별 페이지가 아닌 공통 레이아웃에서 한 번만 선언한다(전 페이지 자동 적용).
+// 페이지 고유 스키마(Article · BreadcrumbList · FAQPage · Product)는 각 페이지가 slot으로 추가.
+// @id로 서로를 참조해 구글이 하나의 엔티티 그래프로 인식하게 한다.
+const SITE = 'https://real.allthatai.kr';
+const siteLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: 'AllThatAI Real',
+      alternateName: '올댓에이아이 리얼',
+      description:
+        '한국에서 모르고 돈 내고 있는 절차의 무료 우회 경로. AI · 세금 · 직구 · Play Store 가이드와 전세사기 방지 도구를 공식 출처 기반으로 정리합니다.',
+      inLanguage: 'ko-KR',
+      publisher: { '@id': `${SITE}/#organization` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${SITE}/#organization`,
+      name: 'AllThatAI Real',
+      url: `${SITE}/`,
+      logo: {
+        '@type': 'ImageObject',
+        '@id': `${SITE}/#logo`,
+        url: `${SITE}/logo.png`,
+        contentUrl: `${SITE}/logo.png`,
+        caption: 'AllThatAI Real',
+      },
+      image: { '@id': `${SITE}/#logo` },
+      description:
+        '한국에서 알아야 돈 안 잃는 정보. AI · 세금 · 직구 · 인디 개발 가이드와 시간을 사는 옵션을 한 곳에.',
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang="ko" class="scroll-smooth">
@@ -52,6 +90,8 @@ const isHome = path === '/';
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(siteLd)}></script>
 
     {import.meta.env.PUBLIC_ADSENSE_CLIENT && (
       <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${import.meta.env.PUBLIC_ADSENSE_CLIENT}`} crossorigin="anonymous"></script>
@@ -255,9 +295,19 @@ const isHome = path === '/';
             </ul>
           </div>
         </div>
-        <div class="pt-6 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-600">
-          <div>© {new Date().getFullYear()} AllThatAI Real. 공식 출처 기반 Real 포털.</div>
-          <div>대행 안 거치는 진짜 무료 경로</div>
+        <div class="pt-6 border-t border-zinc-900 text-xs text-zinc-600">
+          <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mb-4">
+            <span class="text-zinc-500">올댓에이아이 서비스</span>
+            <a href="https://toon.allthatai.kr/" class="hover:text-white">올댓툰</a><span>·</span>
+            <a href="https://link.allthatai.kr/" class="hover:text-white">올댓링크</a><span>·</span>
+            <a href="https://ditto.allthatai.kr/" class="hover:text-white">Ditto</a><span>·</span>
+            <a href="https://lexpulse.allthatai.kr/" class="hover:text-white">렉스펄스</a><span>·</span>
+            <a href="https://bestho.allthatai.kr/" class="hover:text-white">거북수상스포츠</a>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>© {new Date().getFullYear()} AllThatAI Real. 공식 출처 기반 Real 포털.</div>
+            <div>대행 안 거치는 진짜 무료 경로</div>
+          </div>
         </div>
       </div>
     </footer>

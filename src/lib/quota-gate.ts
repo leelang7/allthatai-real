@@ -21,8 +21,8 @@ export const FREE_LIMIT = 3;
 const TTL_SECONDS = 60 * 60 * 24 * 30; // 30일 롤링
 
 function redisEnv() {
-  const url = (import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = (import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = ((import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || (import.meta.env as any).KV_REST_API_URL || process.env.KV_REST_API_URL);
+  const token = ((import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || (import.meta.env as any).KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN);
   return url && token ? { url, token } : null;
 }
 

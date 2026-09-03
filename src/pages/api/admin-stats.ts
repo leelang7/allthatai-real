@@ -25,8 +25,8 @@ const TRACKED_EVENTS = [
 ];
 
 async function redisGet(key: string): Promise<number> {
-  const url = (import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = (import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = ((import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || (import.meta.env as any).KV_REST_API_URL || process.env.KV_REST_API_URL);
+  const token = ((import.meta.env as any).UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || (import.meta.env as any).KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN);
   if (!url || !token) return 0;
   try {
     const r = await fetch(`${url}/get/${encodeURIComponent(key)}`, {
@@ -48,7 +48,7 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response(JSON.stringify({ ok: false, error: '인증 실패' }), { status: 401 });
   }
 
-  const upstashUrl = (import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const upstashUrl = ((import.meta.env as any).UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || (import.meta.env as any).KV_REST_API_URL || process.env.KV_REST_API_URL);
   if (!upstashUrl) {
     return new Response(JSON.stringify({
       ok: true,
