@@ -38,3 +38,15 @@ scripts/shorts/yt_token.json
 
 # Vercel에서 내려받은 프로덕션 비밀 — 절대 커밋하지 않는다
 .env.vercel.*
+
+# 자격증명 — 어떤 변형도 추적하지 않는다 (2026-09-04)
+# client_secret.json·yt_token.json 만 막아 두었더니 계정을 하나 더 붙이며 만든
+# client_secret2.json·yt_token2.json·music_token*.json·ig_token.txt 가 그대로 공개
+# 저장소에 올라갔다(2026-08-23 f991302). refresh_token 은 만료가 없다.
+scripts/shorts/client_secret*.json
+scripts/shorts/*token*.json
+scripts/shorts/*token*.txt
+
+# 파이썬 빌드 산출물
+__pycache__/
+*.py[cod]
