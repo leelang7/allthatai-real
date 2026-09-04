@@ -15,6 +15,7 @@ import { gateOrQuota, consumeQuota, FREE_LIMIT } from '../../lib/quota-gate';
 import { observeAndLookup } from '../../lib/crowd';
 import { extract, publicInstitutionCheck, unsourcedChecks } from '../../lib/claims';
 import { runRegistryChecks } from '../../lib/registry';
+import { analyzeStage } from '../../lib/scenario';
 
 /** 모델 서버 생사 기록 — 관리자 통계가 "홈 PC가 죽었는지"를 볼 수 있게. 값은 ISO 시각. */
 function markModelServer(ok: boolean): void {
@@ -35,23 +36,32 @@ async function degraded(messages: string[], reason: string) {
   const t0 = Date.now();
   const joined = messages.join(' ');
   const claims = extract(joined);
+
+  // 각본 단계·금전요구 게이트는 순수 규칙이라 모델 없이 돈다 — 축소 모드에서도 그대로 수행한다.
+  const tStage = Date.now();
+  const st = analyzeStage(messages);
+  const stageMs = Date.now() - tStage;
+
   const tNet = Date.now();
   const checks = [...publicInstitutionCheck(claims), ...(await runRegistryChecks(claims)), ...unsourcedChecks(claims)];
   const netMs = Date.now() - tNet;
+
   const statuses = checks.map((c) => c.status);
   const refuted = statuses.includes('반증');
+  const tier = refuted || st.stage >= 4 ? 'alarm' : st.stage >= 2 ? 'watch' : 'none';
   let overall: string, why: string;
   if (refuted) { overall = '반증'; why = '주장과 공적 기록이 어긋난다'; }
-  else if (checks.length && statuses.every((x) => x === '부합')) { overall = '부합'; why = '확인 가능한 주장은 전부 기록과 일치한다'; }
+  else if (checks.length && statuses.every((x) => x === '부합') && st.stage < 4) { overall = '부합'; why = '확인 가능한 주장은 전부 기록과 일치한다'; }
+  else if (st.stage >= 4) { overall = '각본'; why = `로맨스 스캠 각본 ${st.stage}단계`; }
   else { overall = '미확인'; why = '대조할 주장이 없거나 조회 불가'; }
+
   return {
-    overall, why, tier: refuted ? 'alarm' : 'none',
+    overall, why, tier,
     claims, checks,
-    stage: 0, stage_name: '판정 생략', description: '모델 서버 미연결 — 각본 단계·문체 점수·정부 경보 대조는 이번에 수행되지 않았습니다',
-    next_warning: '', evidence: [], amounts_krw: claims.amount_krw, messages_seen: messages.length,
+    ...st,
     messages: messages.map((_, i) => ({ index: i, risk_score: null, verdict: null })),
     advisories: [],
-    timing_ms: { total: Date.now() - t0, network_checks_parallel: netMs, stage_rules: 0, classifier: 0, advisory_rag: 0 },
+    timing_ms: { total: Date.now() - t0, network_checks_parallel: netMs, stage_rules: stageMs, classifier: 0, advisory_rag: 0 },
     degraded: true, degraded_reason: reason,
   };
 }
