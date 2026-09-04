@@ -53,8 +53,11 @@ function env(name: string): string | undefined {
 }
 
 function redis() {
-  const url = env('UPSTASH_REDIS_REST_URL');
-  const token = env('UPSTASH_REDIS_REST_TOKEN');
+  // 프로덕션에는 Vercel KV 가 `KV_REST_API_*` 로 들어와 있고 `UPSTASH_*` 는 없다.
+  // UPSTASH 만 보면 redis() 가 null 이라 저장이 GitHub 커밋 경로로 떨어지고,
+  // 반영이 재배포까지 1~2분 걸린다. crowd.ts·quota-gate.ts 와 같은 폴백을 둔다.
+  const url = env('UPSTASH_REDIS_REST_URL') || env('KV_REST_API_URL');
+  const token = env('UPSTASH_REDIS_REST_TOKEN') || env('KV_REST_API_TOKEN');
   return url && token ? { url, token } : null;
 }
 
