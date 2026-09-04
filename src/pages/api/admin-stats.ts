@@ -15,6 +15,7 @@ export const prerender = false;
 
 const TRACKED_EVENTS = [
   'service_inquiry', 'scam_report',
+  'verify_auto', 'verify_auto_degraded', 'verify_auto_retry', 'verify_feedback:scam', 'verify_feedback:safe',
   'verify_text:phishing-text', 'verify_text:romance-scam',
   'verify_text:health-gym-terms', 'verify_text:insurance-terms',
   'verify_text:telecom-terms', 'verify_text:subscription-terms',

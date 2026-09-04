@@ -10,6 +10,11 @@ const authed = ADMIN_KEY && providedKey === ADMIN_KEY;
 const CRITICAL_EVENTS = [
   { name: 'service_inquiry', label: '유료 서비스 신청', revenue: '₩19K~199K/건 직접', priority: 1 },
   { name: 'scam_report', label: '사기 사례 제보', revenue: '₩5K 보상', priority: 1 },
+  { name: 'verify_auto', label: '자동 사기 대조 (붙여넣기)', revenue: '페이월 · GovTech 데모', priority: 1 },
+  { name: 'verify_auto_degraded', label: '  └ 축소 모드로 처리(홈 PC 미응답)', revenue: '안정성 지표', priority: 1 },
+  { name: 'verify_auto_retry', label: '  └ 모델 서버 재시도 발생', revenue: '안정성 지표', priority: 3 },
+  { name: 'verify_feedback:scam', label: '"사기였어요" 확인', revenue: '집단 관측 자산', priority: 1 },
+  { name: 'verify_feedback:safe', label: '"아니었어요" 확인', revenue: '집단 관측 자산', priority: 2 },
   { name: 'verify_text:phishing-text', label: '피싱 SMS 검증', revenue: '페이월 잠재', priority: 2 },
   { name: 'verify_text:romance-scam', label: '로맨스 스캠', revenue: '페이월', priority: 2 },
   { name: 'verify_text:health-gym-terms', label: '헬스장 약관', revenue: '페이월', priority: 2 },
@@ -70,9 +75,24 @@ const CRITICAL_EVENTS = [
         <ol class="mt-2 text-sm text-zinc-300 list-decimal list-inside">
           <li><a href="https://console.upstash.com" target="_blank" class="text-cyan-300 underline">console.upstash.com</a> 가입 (무료, 카드 X)</li>
           <li>Create Redis Database (Tokyo 리전) → REST URL + Token 복사</li>
-          <li>Vercel env 등록: <code class="bg-zinc-900 px-2 py-0.5 rounded">UPSTASH_REDIS_REST_URL</code>, <code class="bg-zinc-900 px-2 py-0.5 rounded">UPSTASH_REDIS_REST_TOKEN</code></li>
+          <li>Vercel env 등록: <code class="bg-zinc-900 px-2 py-0.5 rounded">UPSTASH_REDIS_REST_URL</code>/<code class="bg-zinc-900 px-2 py-0.5 rounded">_TOKEN</code> 또는 Vercel KV 의 <code class="bg-zinc-900 px-2 py-0.5 rounded">KV_REST_API_URL</code>/<code class="bg-zinc-900 px-2 py-0.5 rounded">_TOKEN</code>(둘 다 인식)</li>
           <li>재배포 → 자동 작동</li>
         </ol>
+      </div>
+
+      <div class="mt-6 grid md:grid-cols-2 gap-4">
+        <div id="ms-card" class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <p class="text-xs font-bold tracking-wider text-zinc-500 uppercase">사기검증 모델 서버 (홈 PC)</p>
+          <p id="ms-state" class="mt-2 text-2xl font-black">—</p>
+          <p id="ms-detail" class="mt-1 text-xs text-zinc-400 leading-relaxed">verify-auto 가 남긴 마지막 성공/실패 시각</p>
+        </div>
+        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+          <p class="text-xs font-bold tracking-wider text-zinc-500 uppercase">집단 관측 — 사기 확인 상위</p>
+          <div id="crowd-scam" class="mt-2 text-sm text-zinc-400">—</div>
+          <p class="mt-3 text-xs font-bold tracking-wider text-zinc-500 uppercase">관측 상위</p>
+          <div id="crowd-seen" class="mt-1 text-sm text-zinc-400">—</div>
+          <p class="mt-2 text-[10px] text-zinc-600">가려진 표기만 저장·표시. 원문은 어디에도 없다.</p>
+        </div>
       </div>
 
       <div class="mt-6 overflow-x-auto">
@@ -128,8 +148,27 @@ const CRITICAL_EVENTS = [
             tr.querySelector('[data-total]').textContent = (s.total || 0).toLocaleString('ko-KR');
           });
         }
+        renderModelServer(data.model_server);
+        renderCrowd(data.crowd);
         document.querySelector('#updated').textContent = '· 갱신 ' + new Date().toLocaleTimeString('ko-KR');
       } catch (e) { console.error(e); }
+    }
+    const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const ago = (iso) => { if (!iso) return '기록 없음'; const m = Math.round((Date.now() - new Date(iso).getTime()) / 60000); return m < 1 ? '방금' : m < 60 ? m + '분 전' : m < 1440 ? Math.round(m / 60) + '시간 전' : Math.round(m / 1440) + '일 전'; };
+    function renderModelServer(ms) {
+      const state = document.querySelector('#ms-state'), detail = document.querySelector('#ms-detail'), card = document.querySelector('#ms-card');
+      if (!ms || (!ms.last_ok && !ms.last_fail)) { state.textContent = '기록 없음'; state.className = 'mt-2 text-2xl font-black text-zinc-500'; detail.textContent = 'verify-auto 호출이 아직 없다'; return; }
+      const ok = !!ms.healthy;
+      state.textContent = ok ? '정상' : '축소 모드 (홈 PC 미응답)';
+      state.className = 'mt-2 text-2xl font-black ' + (ok ? 'text-emerald-300' : 'text-amber-300');
+      card.className = 'rounded-2xl border p-5 ' + (ok ? 'border-zinc-800 bg-zinc-900/40' : 'border-amber-500/40 bg-amber-500/10');
+      detail.textContent = `마지막 성공 ${ago(ms.last_ok)} · 마지막 실패 ${ago(ms.last_fail)} · 축소 모드 누적 ${ms.degraded_total || 0}회`;
+    }
+    function renderCrowd(c) {
+      const row = (r) => `<div class="flex justify-between gap-3 py-1 border-b border-zinc-800/60"><span class="font-mono text-zinc-200">${esc(r.label)}</span><span class="tabular-nums font-black text-white">${esc(r.count)}</span></div>`;
+      const scam = (c && c.scam) || [], seen = (c && c.seen) || [];
+      document.querySelector('#crowd-scam').innerHTML = scam.length ? scam.map(row).join('') : '<span class="text-zinc-600">아직 없음</span>';
+      document.querySelector('#crowd-seen').innerHTML = seen.length ? seen.map(row).join('') : '<span class="text-zinc-600">아직 없음</span>';
     }
     document.querySelector('#refresh').addEventListener('click', loadStats);
     loadStats();

@@ -105,15 +105,22 @@ export const POST: APIRoute = async ({ request }) => {
     data = await degraded(messages, 'SCAM_MODEL_API 미설정');
     source = 'site-fallback';
   } else {
-    try {
-      const res = await fetch(`${modelApi}/verify/auto`, {
-        method: 'POST', headers: modelHeaders(), body: JSON.stringify({ messages }), signal: AbortSignal.timeout(12000),
-      });
-      if (res.ok) { data = await res.json(); markModelServer(true); }
-      else { markModelServer(false); data = await degraded(messages, `모델 서버 ${res.status}`); source = 'site-fallback'; incrEvent('verify_auto_degraded'); }
-    } catch (e: any) {
+    // 짧게 두 번 — 터널 재연결 직후 첫 요청이 12초 타임아웃으로 축소 모드에 빠진 적이 있다(2026-09-04 실측).
+    // 12초 한 번보다 6초 두 번이 그 창을 넘기고, 최악의 대기 시간은 같다.
+    const callModel = () => fetch(`${modelApi}/verify/auto`, {
+      method: 'POST', headers: modelHeaders(), body: JSON.stringify({ messages }), signal: AbortSignal.timeout(6000),
+    });
+    let res: Response | null = null;
+    let lastErr: any = null;
+    for (let attempt = 0; attempt < 2 && !res; attempt++) {
+      try { res = await callModel(); }
+      catch (e: any) { lastErr = e; if (attempt === 0) incrEvent('verify_auto_retry'); }
+    }
+    if (res && res.ok) { data = await res.json(); markModelServer(true); }
+    else {
       markModelServer(false);
-      data = await degraded(messages, `모델 서버 응답 없음 (${String(e?.name || e).slice(0, 40)})`);
+      const reason = res ? `모델 서버 ${res.status}` : `모델 서버 응답 없음 (${String(lastErr?.name || lastErr).slice(0, 40)}, 2회 시도)`;
+      data = await degraded(messages, reason);
       source = 'site-fallback';
       incrEvent('verify_auto_degraded');
     }
