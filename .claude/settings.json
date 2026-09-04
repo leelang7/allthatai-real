@@ -10,13 +10,12 @@
     "--dangerously-skip-permissions 로 전부 열지 않는 이유: 그러면 이 계정으로",
     "무엇이든 할 수 있게 된다. 쿼터에 필요한 건 정해져 있으니 그것만 연다.",
     "",
-    "여기 없는 것(파일 삭제, git push, 임의 도메인 접근)은 여전히 막힌다."
+    "여기 없는 것(파일 삭제, git push, 임의 도메인 접근)은 여전히 막힌다.",
+    "schtasks 는 조회(/query)만 연다 — 무인 실행이 자기 스케줄 상태를 못 봐서 '등록됐는지 확인 불가'로 끝난 적이 있다(2026-09-04). 생성·삭제·변경은 계속 막는다."
   ],
-
   "permissions": {
     "allow": [
       "WebSearch",
-
       "WebFetch(domain:www.aitimes.com)",
       "WebFetch(domain:aitimes.com)",
       "WebFetch(domain:mediahub.seoul.go.kr)",
@@ -31,7 +30,6 @@
       "WebFetch(domain:www.gov.kr)",
       "WebFetch(domain:www.moel.go.kr)",
       "WebFetch(domain:www.mohw.go.kr)",
-
       "Bash(E:/venvs/sd/Scripts/python.exe:*)",
       "Bash(E:\\venvs\\sd\\Scripts\\python.exe:*)",
       "Bash(python:*)",
@@ -54,16 +52,18 @@
       "Bash(mv:*)",
       "Bash(for:*)",
       "Bash(export:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(schtasks /query:*)"
     ],
-
     "deny": [
       "Bash(rm:*)",
       "Bash(git push:*)",
       "Bash(git reset:*)",
       "Bash(curl:*)",
-      "Bash(schtasks:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(schtasks /create:*)",
+      "Bash(schtasks /delete:*)",
+      "Bash(schtasks /change:*)"
     ]
   }
 }

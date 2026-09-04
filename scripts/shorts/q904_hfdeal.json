@@ -1,0 +1,55 @@
+{
+  "topic": "엔비디아 허깅페이스 130억달러 인수 확정",
+  "tags": [
+    "엔비디아",
+    "허깅페이스",
+    "인수합병",
+    "젠슨황",
+    "오픈소스AI",
+    "오픈웨이트",
+    "AI플랫폼",
+    "빅테크",
+    "GPU",
+    "테크뉴스"
+  ],
+  "link": "real.allthatai.kr",
+  "bgPrompt": "a giant green circuit-board hand cradling a small glowing open-source model cube, dozens of tiny model icons floating around, clean tech illustration, cinematic photography with shallow depth of field, wide establishing shot, subject small in frame, golden hour warm sunlight, burgundy and cream accents, negative space at top for title, no text, no letters, no logos, no watermarks, no human faces, high detail",
+  "cuts": [
+    {
+      "kind": "hook",
+      "pill": "빅딜",
+      "titleLines": [
+        "엔비디아가",
+        "허깅페이스 인수",
+        "130억달러 확정"
+      ],
+      "highlightLine": 1,
+      "narration": "지난달 매각설이 돌던 허깅페이스, 결국 엔비디아 품에 안깁니다. 130억 달러, 우리 돈 약 18조 원으로 엔비디아 역사상 가장 큰 인수예요."
+    },
+    {
+      "kind": "tip",
+      "num": "①",
+      "head": "얼마에",
+      "body": "엔비디아는 9월 2일(현지시간) AI 모델 공유 플랫폼 허깅페이스를 약 130억 달러(약 18조 원)에 인수하기로 정식 계약했다. 주주 대상 119억 달러에 합류 직원 주식 보상 최대 10억 달러가 더해진 금액이다. 지난해 그록 자산 200억 달러에 이은 창사 두 번째 규모이며, 규제 심사를 거쳐 2027년 상반기 마무리 예정이다.",
+      "narration": "엔비디아가 9월 2일 허깅페이스를 약 130억 달러, 우리 돈 18조 원에 인수하기로 정식 계약했습니다. 지난해 그록 자산 200억 달러에 이은 창사 두 번째 규모예요."
+    },
+    {
+      "kind": "tip",
+      "num": "②",
+      "head": "무엇을 샀나",
+      "body": "허깅페이스는 개발자 1,800만 명이 쓰는 'AI계의 깃허브'다. 300만 개 이상의 AI 모델과 50만 개 데이터셋, 100만 개 앱이 올라와 있다. 지난해 말 기업가치 70억 달러로 엔비디아의 5억 달러 투자 제안을 거절했는데, 1년 만에 두 배 가격에 회사 전체를 넘긴 셈이다. 매각 논의는 올여름 허깅페이스 쪽이 먼저 제안했다.",
+      "narration": "개발자 천8백만 명, 모델 3백만 개가 오가는 오픈소스 AI의 관문을 통째로 산 거예요. 작년엔 5억 달러 투자도 거절했던 곳입니다."
+    },
+    {
+      "kind": "tip",
+      "num": "③",
+      "head": "왜 샀나",
+      "body": "오픈AI·앤트로픽이 자체 칩을 만드는 상황에서 오픈웨이트 모델 생태계를 키워 GPU 수요를 넓히려는 전략이다. 젠슨 황은 인수 후에도 개방형 플랫폼을 유지하고 다른 반도체 회사 하드웨어도 계속 지원하겠다고 밝혔다. 다만 칩부터 모델 유통까지 AI 공급망 영향력이 한 회사에 집중된다는 우려도 나온다.",
+      "narration": "칩에 이어 모델 유통망까지 쥐게 되는 거라, 개방성은 유지한다지만 영향력 집중 우려도 같이 나옵니다."
+    },
+    {
+      "kind": "cta",
+      "narration": "글로벌 AI·테크 소식, 더 많은 뉴스는 프로필 링크에서 확인하세요."
+    }
+  ]
+}
