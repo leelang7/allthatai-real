@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-04-스팀-warhammer-40000-space-marine-2-75-할인-69800-17450",
+    "title": "스팀 워해머 40K: 스페이스 마린 2, 75% 할인으로 ₩17,450",
+    "excerpt": "워해머 40K: 스페이스 마린 2가 스팀에서 75% 할인, ₩17,450에 판매 중입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-04T10:02:18.338Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-08-31-스팀-호그와트-레거시-90-할인-79800-7980",
     "title": "스팀 호그와트 레거시 90% 할인: ₩7,980에 마법 세계로!",
     "excerpt": "스팀 '호그와트 레거시'가 정가 ₩79,800에서 90% 할인된 ₩7,980에 판매 중입니다. 구매 전 확인사항.",
