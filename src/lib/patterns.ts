@@ -39,7 +39,7 @@ const IDENTITY_EVASION =
 
 /** 송금·결제 요구. */
 const SEND_MONEY =
-  /(송금|이체|입금|보내\s?줄|보내\s?줘|보내주|부쳐|결제[^.!?]{0,10}(해|부탁|좀)|대신[^.!?]{0,6}(내|결제|처리)|계좌[^.!?]{0,10}(알려|보내|적어)|돈[^.!?]{0,6}(좀|필요|부탁))/;
+  /(송금|이체|입금|보내\s?줄|보내\s?줘|보내주|보내세요|보내 주세요|부치세요|넣어주|부쳐|결제[^.!?]{0,10}(해|부탁|좀)|대신[^.!?]{0,6}(내|결제|처리)|계좌[^.!?]{0,10}(알려|보내|적어)|돈[^.!?]{0,6}(좀|필요|부탁))/;
 
 const LOAN_CONTEXT = /(대출|한도|저신용|신용\s?등급|대환|승인|자금\s?융통|햇살론|정책\s?자금)/;
 
@@ -59,6 +59,36 @@ const CUSTOMS_FEE =
 
 /** 진짜 특송사의 관세 안내(수만원·공식 결제창)와 사기(수백만원·개인 계좌)를 가르는 신호. */
 const BIG_KRW = 1_000_000;
+
+// ── 레드팀 2차(2026-09-07)에서 전부 미탐이던 5종 — crosscheck/patterns.py 와 같은 규칙 ──
+// 안전 안내문에는 사기 어휘가 그대로 들어간다("은행 직원은 비밀번호를 묻지 않습니다").
+// 이 가드를 빼면 진짜 은행 공지가 사칭으로 뒤집힌다.
+const NEGATED = /(묻지\s?않|요구하지\s?않|알려주지\s?마|절대[^.!?]{0,12}않|주의하세요|사칭[^.!?]{0,10}(주의|조심)|피해\s?예방)/;
+
+const INVEST_CONTEXT = /(리딩|추천\s?주|종목|수익률|투자|코인|선물|매매|VIP\s?방|리서치|시드|차트|전문가[^.!?]{0,8}(추천|신호|방)|정회원|수익금|급등|단타|스캘핑)/;
+const UNREAL_RETURN = /(원금[^.!?]{0,8}(보장|보전)|손실[^.!?]{0,10}(보전|보장|100\s?%)|적중률|하루[^.!?]{0,6}\d+\s?%|일일[^.!?]{0,6}\d+\s?%|상한가|급등주|무조건[^.!?]{0,6}수익)/;
+const INVEST_DEMAND = /((가입비|등록비|회원비|입장료|정회원|이용료)[^.!?]{0,12}(입금|송금|만원|원|결제)|(아이디|계정)[^.!?]{0,10}비밀번호|비밀번호[^.!?]{0,10}(알려|보내|입력)|대신[^.!?]{0,6}매매|출금[^.!?]{0,8}수수료)/;
+
+const SUSPICIOUS_URL = /(bit\.ly|is\.gd|han\.gl|me2\.do|url\.kr|tinyurl|goo\.gl|buly\.kr|https?:\/\/[^\s]{0,40}\.(top|shop|xyz|cc|link|site|click|icu|online|store|life)(\/|\b))/i;
+const IMPERSONATION_CTX = /(택배|배송|송장|통관|건강보험|공단|국세청|법원|경찰|검찰|카드사|은행|부고|별세|[부모조]친?상|장례|빈소|발인|청첩|초대장|당첨|환급|미납|과태료)/;
+const CLICK_INSTALL = /(클릭|눌러|접속|재확인|확인[^.!?]{0,6}(하세요|바랍|해주|부탁)|확인[^.!?]{0,24}https?:\/\/|설치[^.!?]{0,6}(하|해|후|바랍)|앱[^.!?]{0,8}설치|다운[^.!?]{0,6}(로드|받)|열어|조회[^.!?]{0,6}(하|바랍))/;
+
+const LEND_OBJECT = /(통장|체크\s?카드|현금\s?카드|보안\s?카드|OTP|계좌[^.!?]{0,8}(명의|대여|양도))/;
+const LEND_ACT = /(대여|양도|빌려|삽니다|매입|사드립|퀵|택배[^.!?]{0,8}(보내|전달)|보내주|전달해|넘기|맡기)/;
+const LEND_LURE = /(일당|수당|건당|개당[^.!?]{0,8}만원|즉시[^.!?]{0,6}입금|당일\s?지급|고수익|단순\s?업무|비밀번호)/;
+
+// 출금 선입금 — "수익금이 있는데 먼저 수수료·세금을 내라". 정상 금융기관은 출금액에서 차감한다.
+const PAYOUT_HELD = /(수익금|출금|정산금|당첨금|환급금|보상금)[^.!?]{0,16}(대기|보류|정지|묶|막혀|안\s?되|불가)|출금[^.!?]{0,10}(하려면|위해|조건)/;
+const PAYOUT_FEE = /(수수료|세금|보증금|예치금|인증비|해지비|전환비)[^.!?]{0,14}(먼저|선|미리|입금|송금|납부)|먼저[^.!?]{0,10}(입금|송금|납부)/;
+
+// 조건을 걸어 압박하는 표현. 이게 있어야 협박이다 — 없으면 그냥 대화다.
+const COERCION = /(안\s?보내면|보내지\s?않으면|않으면|싫으면|아니면|시간\s?안에|분\s?안에|마지막\s?기회|경고)/;
+
+const SEXTORT_MEDIA = /(영상|동영상|사진|녹화|화면|캡처)/;
+const SEXTORT_THREAT = /(뿌리|유포|퍼트|퍼뜨|공개하|알리겠|보냅니다|보낼\s?겁|연락처[^.!?]{0,12}(확보|목록|다\s?있)|지인[^.!?]{0,10}(한테|에게|들)|가족[^.!?]{0,10}(한테|에게|부터))/;
+
+const FIN_INST_CTX = /([가-힣A-Za-z]{1,10}(은행|저축은행|카드|캐피탈|증권|보험)|금융회사|고객센터|보안팀)/;
+const REMOTE_REQ = /(원격[^.!?]{0,10}(지원|제어|프로그램|앱)?|팀뷰어|애니데스크|화면[^.!?]{0,4}공유|안전\s?앱|보안\s?앱|전용\s?앱[^.!?]{0,8}설치|(비밀번호|보안\s?카드|OTP|인증번호)[^.!?]{0,12}(알려|입력|보내|불러|말씀))/;
 
 function hit(re: RegExp, text: string): string {
   const m = re.exec(text);
@@ -124,6 +154,58 @@ export function detectPatterns(
         '관세는 세관이 개인 계좌로 받지 않는다. 정상 특송사는 공식 결제창으로 안내하며 금액도 수만원대다',
       data: { 통관맥락: ctx, 비용명목: cfee },
     });
+  }
+
+  // ── 레드팀 2차에서 드러난 5종 ─────────────────────────────────────────
+  const safeNotice = NEGATED.test(joined);
+
+  const invCtx = hit(INVEST_CONTEXT, joined), invRet = hit(UNREAL_RETURN, joined), invDem = hit(INVEST_DEMAND, joined);
+  if (invCtx && invRet && invDem && !safeNotice) {
+    out.push({ check: '투자리딩 원금보장 형태', status: '수법',
+      reason: `투자 맥락('${invCtx}') + 비현실적 수익 약속('${invRet}') + 선입금·계정 요구('${invDem}')가 함께 있다. 제도권 금융회사는 원금·수익을 보장할 수 없다(자본시장법 위반)`,
+      data: { 맥락: invCtx, 약속: invRet, 요구: invDem } });
+  }
+
+  const urlHit = hit(SUSPICIOUS_URL, joined), impCtx = hit(IMPERSONATION_CTX, joined), click = hit(CLICK_INSTALL, joined);
+  if (urlHit && impCtx && click && !safeNotice) {
+    out.push({ check: '스미싱 링크 형태', status: '수법',
+      reason: `단축·비표준 도메인 링크('${urlHit.slice(0, 40)}') + 기관·배송·경조사 문맥('${impCtx}') + 클릭·설치 유도('${click}'). 링크를 열지 말고 해당 기관 대표번호로 직접 확인할 것`,
+      data: { 링크: urlHit.slice(0, 60), 문맥: impCtx } });
+  }
+
+  const lendO = hit(LEND_OBJECT, joined), lendA = hit(LEND_ACT, joined), lendL = hit(LEND_LURE, joined);
+  if (lendO && lendA && lendL && !safeNotice) {
+    out.push({ check: '통장·카드 양도 요구', status: '수법',
+      reason: `계좌·카드('${lendO}') + 전달·대여('${lendA}') + 대가·비밀번호('${lendL}'). 통장을 넘기면 전자금융거래법 위반으로 피해자가 아니라 공범이 된다`,
+      data: { 대상: lendO, 행위: lendA } });
+  }
+
+  const held = hit(PAYOUT_HELD, joined), pfee = hit(PAYOUT_FEE, joined);
+  if (held && pfee && !safeNotice) {
+    out.push({ check: '출금 선입금 요구', status: '수법',
+      reason: `출금 보류 주장('${held}') + 선입금 명목('${pfee}'). 정상 금융기관은 수수료·세금을 출금액에서 차감하지 먼저 받지 않는다. 보낼수록 명목이 늘어난다`,
+      data: { 보류주장: held, 명목: pfee } });
+  }
+
+  const sxMedia = hit(SEXTORT_MEDIA, joined), sxThreat = hit(SEXTORT_THREAT, joined);
+  const coercion = hit(COERCION, joined);
+  const bigAmt = (cl.amount_krw || []).some((a) => a >= 100_000);
+  // 2차 협박에는 매체 언급이 없다(홀드아웃 H6). 조건부 강요를 빼면 평범한 대화가 걸린다.
+  if (sxThreat && coercion && bigAmt) {
+    out.push({ check: '유출 협박', status: '수법',
+      reason: `유포 위협('${sxThreat}') + 조건부 강요('${coercion}') + 금액 요구. 보내도 멈추지 않는다. 112 또는 디지털성범죄피해자지원센터(02-735-8994)`,
+      data: { 위협: sxThreat, 강요: coercion } });
+  } else if (sxMedia && sxThreat && demanded) {
+    out.push({ check: '영상·사진 유출 협박', status: '수법',
+      reason: `영상·사진('${sxMedia}') + 유포 위협('${sxThreat}') + 금전 요구. 보내도 멈추지 않는다. 112 또는 디지털성범죄피해자지원센터(02-735-8994)`,
+      data: { 매체: sxMedia, 위협: sxThreat } });
+  }
+
+  const finCtx = hit(FIN_INST_CTX, joined), remote = hit(REMOTE_REQ, joined);
+  if (finCtx && remote && !safeNotice) {
+    out.push({ check: '금융기관 사칭 원격제어', status: '수법',
+      reason: `금융기관 사칭('${finCtx}') + 원격제어·인증정보 요구('${remote}'). 은행·카드사는 어떤 경우에도 원격앱 설치나 비밀번호·보안카드를 요구하지 않는다`,
+      data: { 사칭: finCtx, 요구: remote } });
   }
 
   return out;
