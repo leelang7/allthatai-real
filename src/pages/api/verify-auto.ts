@@ -15,7 +15,8 @@ import { gateOrQuota, consumeQuota, FREE_LIMIT } from '../../lib/quota-gate';
 import { observeAndLookup } from '../../lib/crowd';
 import { extract, publicInstitutionCheck, unsourcedChecks } from '../../lib/claims';
 import { runRegistryChecks } from '../../lib/registry';
-import { analyzeStage } from '../../lib/scenario';
+import { analyzeStage, moneyDemand } from '../../lib/scenario';
+import { detectPatterns } from '../../lib/patterns';
 
 /** 모델 서버 생사 기록 — 관리자 통계가 "홈 PC가 죽었는지"를 볼 수 있게. 값은 ISO 시각. */
 function markModelServer(ok: boolean): void {
@@ -42,15 +43,21 @@ async function degraded(messages: string[], reason: string) {
   const st = analyzeStage(messages);
   const stageMs = Date.now() - tStage;
 
+  // 알려진 수법(가족사칭·대출빙자) — 조회 0. 모델 서버 경로와 같은 규칙을 쓴다.
+  const patternHits = detectPatterns(messages, moneyDemand(joined).demanded, claims);
+
   const tNet = Date.now();
-  const checks = [...publicInstitutionCheck(claims), ...(await runRegistryChecks(claims)), ...unsourcedChecks(claims)];
+  const checks = [...publicInstitutionCheck(claims), ...patternHits,
+                  ...(await runRegistryChecks(claims)), ...unsourcedChecks(claims)];
   const netMs = Date.now() - tNet;
 
   const statuses = checks.map((c) => c.status);
   const refuted = statuses.includes('반증');
-  const tier = refuted || st.stage >= 4 ? 'alarm' : st.stage >= 2 ? 'watch' : 'none';
+  const knownPattern = statuses.includes('수법');
+  const tier = refuted || knownPattern || st.stage >= 4 ? 'alarm' : st.stage >= 2 ? 'watch' : 'none';
   let overall: string, why: string;
   if (refuted) { overall = '반증'; why = '주장과 공적 기록이 어긋난다'; }
+  else if (knownPattern) { overall = '수법'; why = `알려진 사기 수법의 형태와 맞는다 — ${patternHits.map((c) => c.check).join('·')}`; }
   else if (checks.length && statuses.every((x) => x === '부합') && st.stage < 4) { overall = '부합'; why = '확인 가능한 주장은 전부 기록과 일치한다'; }
   else if (st.stage >= 4) { overall = '각본'; why = `로맨스 스캠 각본 ${st.stage}단계`; }
   else { overall = '미확인'; why = '대조할 주장이 없거나 조회 불가'; }
