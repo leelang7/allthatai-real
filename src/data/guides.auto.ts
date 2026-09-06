@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-09-04-스팀-warhammer-40000-space-marine-2-75-할인-69800-17450",
     "title": "스팀 워해머 40K: 스페이스 마린 2, 75% 할인으로 ₩17,450",
@@ -207,7 +207,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-18T20:02:27.635Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-06T06:32:58.925Z"
   },
   {
     "slug": "deal-2026-06-18-dave-the-diver---in-the-jungle-bundle-스팀-베스트셀러-33-할인",
@@ -216,7 +217,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-18T10:00:03.843Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-06T06:32:58.925Z"
   },
   {
     "slug": "deal-2026-06-16-스팀-dead-by-daylight-60-할인-21500-8600",
@@ -225,7 +227,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-16T20:33:18.830Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-06T06:32:58.924Z"
   },
   {
     "slug": "deal-2026-06-16-split-fiction-스팀-베스트셀러-35-할인",
@@ -234,7 +237,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-16T02:14:29.009Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-06T06:32:58.923Z"
   },
   {
     "slug": "deal-2026-06-15-dave-the-diver---in-the-jungle-bundle-스팀-베스트셀러-37-할인",
@@ -243,7 +247,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-15T02:09:52.887Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-06T06:32:58.923Z"
   },
   {
     "slug": "deal-2026-06-14-데이브-더-다이버-스팀-베스트셀러-50-할인",
@@ -252,7 +257,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-14T08:56:59.417Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-06T06:32:58.922Z"
   },
   {
     "slug": "deal-2026-06-12-스팀-dont-starve-together-90-할인-15500-1550",
@@ -1072,7 +1078,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:03.742Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.215Z"
+    "lastRefreshedAt": "2026-09-06T06:32:58.919Z"
   },
   {
     "slug": "deal-2026-05-16-11번가쿠팡g마켓-직구-가격차-같은-상품-어디가-싼가",
@@ -1082,7 +1088,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:11.755Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.216Z"
+    "lastRefreshedAt": "2026-09-06T06:32:58.921Z"
   },
   {
     "slug": "deal-2026-05-16-블랙프라이데이-vs-1111-vs-박싱데이-같은-제품-어디가-더-쌌나",
@@ -1092,7 +1098,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:20.212Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.217Z"
+    "lastRefreshedAt": "2026-09-06T06:32:58.922Z"
   },
   {
     "slug": "deal-2026-05-16-한국에서-gpu-살-때-다나와-vs-컴파인-vs-컴퓨존-가격차",
@@ -1152,7 +1158,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-15T19:10:27.679Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-14T06:22:59.215Z"
+    "lastRefreshedAt": "2026-09-06T06:32:58.921Z"
   },
   {
     "slug": "deal-2026-05-15-디즈니플러스-연간-vs-월간-결제-차이-프로모션-코드",
