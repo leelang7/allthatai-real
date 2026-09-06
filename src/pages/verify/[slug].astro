@@ -103,9 +103,10 @@ const modelUsed = isPersonTheft ? '자체 모델 (ArcFace 얼굴 + DINOv2 인물
       )}
       {isAudio && (
         <div class="rounded-lg border border-amber-500/40 bg-amber-500/5 p-5 text-center">
-          <p class="text-amber-300 font-bold">🚧 자체 한국어 음성 모델 학습 중</p>
-          <p class="mt-2 text-sm text-zinc-300">Phase 2 (2~4주 내 출시). 베타 신청은 정밀 의뢰로.</p>
-          <p class="mt-3 text-xs text-zinc-500">현재는 Pindrop·Resemble로 영어 음성만 정확도 95%+. 한국어는 60% 미만이라 출시 보류.</p>
+          <p class="text-amber-300 font-bold">🚧 딥보이스 탐지는 아직 제공하지 않습니다</p>
+          <p class="mt-2 text-sm text-zinc-300">한국어 음성 위조 탐지 모델을 아직 학습하지 못했습니다. 출시일은 정해지지 않았습니다.</p>
+          <p class="mt-3 text-xs text-zinc-500">상용 솔루션(Pindrop·Resemble)은 영어 95%+이지만 한국어 정확도가 낮아 그대로 쓰지 않습니다. 없는 기능을 있는 것처럼 팔지 않기 위해 비워 둡니다.</p>
+          <p class="mt-3 text-xs text-zinc-400">지금 의심되는 통화가 있다면 <b class="text-zinc-200">금융감독원 1332</b> 또는 <b class="text-zinc-200">112</b>. 통화 중 받은 문자·계좌·기관명은 <a href="/verify/auto/" class="text-cyan-300 underline">자동 사기 대조</a>로 지금 확인할 수 있습니다.</p>
         </div>
       )}
       {isBizNo && (
