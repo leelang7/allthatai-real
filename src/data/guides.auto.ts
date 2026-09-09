@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-09-09-bombanana-스팀-베스트셀러-38-할인",
+    "title": "BOMBANANA! 스팀 베스트셀러 38% 할인, 지금이 기회!",
+    "excerpt": "스팀 베스트셀러 BOMBANANA!를 38% 할인된 가격으로 만나보세요. 이번 주 핫딜 정보입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-09T15:21:52.843Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-09-04-스팀-warhammer-40000-space-marine-2-75-할인-69800-17450",
     "title": "스팀 워해머 40K: 스페이스 마린 2, 75% 할인으로 ₩17,450",
