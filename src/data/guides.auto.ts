@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-09-09-bombanana-스팀-베스트셀러-38-할인",
     "title": "BOMBANANA! 스팀 베스트셀러 38% 할인, 지금이 기회!",
@@ -153,7 +153,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-20T01:57:02.299Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:39.034Z"
   },
   {
     "slug": "deal-2026-06-19-스팀-it-takes-two-70-할인-44000-13200",
@@ -162,7 +163,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-19T10:06:17.534Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:39.034Z"
   },
   {
     "slug": "deal-2026-06-19-스팀-dead-space-90-할인-66000-6600",
@@ -171,7 +173,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-19T02:35:20.656Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:38.995Z"
   },
   {
     "slug": "deal-2026-06-19-스팀-dead-space-90-할인-66000-6600",
@@ -180,7 +183,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-06-19T02:35:24.067Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:39.032Z"
   },
   {
     "slug": "deal-2026-06-19-사이버펑크-2077-얼티밋-에디션-스팀-베스트셀러-60-할인",
@@ -189,7 +193,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-19T02:35:29.687Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:39.033Z"
   },
   {
     "slug": "deal-2026-06-19-cyberpunk-2077-스팀-베스트셀러-70-할인",
@@ -198,7 +203,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-19T02:35:35.169Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:39.033Z"
   },
   {
     "slug": "deal-2026-06-19-사이버펑크-2077-팬텀-리버티-스팀-베스트셀러-40-할인",
@@ -207,7 +213,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 5,
     "generatedAt": "2026-06-19T02:35:40.233Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-13T06:49:39.033Z"
   },
   {
     "slug": "deal-2026-06-18-스팀-cyberpunk-2077-70-할인-66000-19800",
@@ -1037,7 +1044,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:11.290Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.651Z"
+    "lastRefreshedAt": "2026-09-13T06:49:39.036Z"
   },
   {
     "slug": "deal-2026-05-16-adobe-creative-cloud-한국-vs-외국-가격-차이",
@@ -1117,7 +1124,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:27.602Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.648Z"
+    "lastRefreshedAt": "2026-09-13T06:49:39.035Z"
   },
   {
     "slug": "deal-2026-05-16-nordvpn-1년-vs-2년-결제-어느-시점이-가장-싼가",
@@ -1127,7 +1134,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T01:27:34.495Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.650Z"
+    "lastRefreshedAt": "2026-09-13T06:49:39.036Z"
   },
   {
     "slug": "deal-2026-05-15-aws-무료-12개월-가입-시-주의할-청구",
