@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-09-14-baldurs-gate-3-스팀-베스트셀러-30-할인",
+    "title": "발더스 게이트 3, 스팀 30% 할인! 지금이 구매 적기?",
+    "excerpt": "GOTY 수상작 '발더스 게이트 3'가 스팀에서 30% 할인 중입니다. 구매 전 확인하세요.",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-09-14T21:05:13.395Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-09-09-bombanana-스팀-베스트셀러-38-할인",
     "title": "BOMBANANA! 스팀 베스트셀러 38% 할인, 지금이 기회!",
