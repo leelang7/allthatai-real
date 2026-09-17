@@ -2,117 +2,126 @@
 import Layout from '../../layouts/Layout.astro';
 
 const tools = [
-  { href: '/tools/salary-calc/', title: '연봉 실수령액', desc: '2026 4대보험 + 소득세 자동 차감', emoji: '💰', tag: '재무' },
-  { href: '/tools/currency/', title: '환율 계산기', desc: '16개 통화 실시간 + Wise 송금 절약', emoji: '💱', tag: '재무' },
-  { href: '/tools/card-pick/', title: '신용카드 추천', desc: '월 소비 패턴 → 최고 캐시백 카드', emoji: '💳', tag: '재무' },
-  { href: '/tools/agent-fee-calc/', title: '대행 절감 계산', desc: 'NICE·통신판매업·사업자 직접 vs 대행', emoji: '⚠', tag: '재무' },
-  { href: '/tools/loan-compare/', title: '대출 월 상환액', desc: '원리금/원금/만기일시 3가지 방식 동시 비교', emoji: '🏦', tag: '재무' },
-  { href: '/tools/tax-refund/', title: '세금 환급 예상', desc: '연말정산 환급 vs 추징 즉시 계산 (2026)', emoji: '💸', tag: '재무' },
-  { href: '/tools/auto-insurance/', title: '자동차 보험 비교', desc: '9개 다이렉트 + 6가지 절약 팁', emoji: '🚗', tag: '재무' },
-  { href: '/jeonse/risk-calc/', title: '전세 위험 점수', desc: '계약 전 0–100 자가 진단', emoji: '🏠', tag: '재무' },
-  { href: '/jeonse/etungi-analyzer/', title: '등기부등본 분석', desc: '텍스트 복붙 → 위험 자동 추출', emoji: '🔍', tag: '재무' },
-  { href: '/jeonse/contract-checklist/', title: '전세 계약 체크리스트', desc: '계약 현장 48개 항목 (인쇄 가능)', emoji: '📋', tag: '재무' },
-  { href: '/jeonse/landlord-verify/', title: '임대인 검증', desc: '사업자번호 체크섬 + 공식 진위 확인', emoji: '👤', tag: '재무' },
-  { href: '/jeonse/hug-simulator/', title: 'HUG 안심전세 시뮬', desc: '가입 가능 여부 + 보증료 자동', emoji: '🛡️', tag: '재무' },
-  { href: '/tools/holiday-2026/', title: '2026 공휴일·황금연휴', desc: '20개 공휴일 + 5개 황금연휴 + 디데이', emoji: '🎌', tag: '생활' },
-  { href: '/tools/savings/', title: '적금·예금 만기 계산', desc: '단리/복리 + 세후 수령액 (이자세 15.4%)', emoji: '🏦', tag: '재무' },
-  { href: '/tools/severance/', title: '퇴직금 계산기', desc: '근속·평균임금 + 퇴직소득세 자동', emoji: '💼', tag: '재무' },
-  { href: '/tools/vat-calc/', title: '부가세 계산기', desc: '공급가액 ↔ 부가세 ↔ 합계 자동 분리', emoji: '🧾', tag: '재무' },
-  { href: '/tools/parental-leave/', title: '육아휴직 급여', desc: '2026 + 6+6 부모육아휴직 12개월 자동', emoji: '👶', tag: '재무' },
-  { href: '/tools/acquisition-tax/', title: '취득세 계산기', desc: '주택 매수 — 다주택·생애최초·신혼 자동', emoji: '🏘️', tag: '재무' },
-  { href: '/tools/realtor-fee/', title: '중개수수료 계산', desc: '매매·전세·월세 법정 한도 + VAT', emoji: '🤝', tag: '재무' },
-  { href: '/tools/childcare-money/', title: '자녀 지원금 총정리', desc: '부모급여·양육수당·첫만남·아동수당', emoji: '🍼', tag: '재무' },
-  { href: '/tools/insurance-medical/', title: '실손·암·종신 보험', desc: '5종 보험 + 8개 보험사 + 절약 팁', emoji: '🏥', tag: '재무' },
-  { href: '/tools/gift-tax/', title: '증여세 계산기', desc: '부모·자녀·배우자 공제 자동 적용', emoji: '🎁', tag: '재무' },
-  { href: '/tools/capital-gains/', title: '주식 양도세', desc: '국내 대주주·해외주식 22% 자동', emoji: '📈', tag: '재무' },
-  { href: '/tools/national-pension/', title: '국민연금 수령액', desc: '평균소득 + 가입기간 → 노령연금 추정', emoji: '👴', tag: '재무' },
-  { href: '/tools/unemployment-benefit/', title: '실업급여 계산기', desc: '평균임금 + 연령 + 가입 → 일액·총액·기간', emoji: '🆘', tag: '재무' },
-  { href: '/tools/comprehensive-income-tax/', title: '종합소득세 (5월)', desc: '프리랜서·사업·기타 → 누진세 자동 (D-14)', emoji: '📊', tag: '재무' },
-  { href: '/tools/housing-subscription/', title: '청약 가점 계산', desc: '무주택+부양가족+통장 → 84점 만점', emoji: '🏢', tag: '재무' },
-  { href: '/tools/loan-limit/', title: 'DSR·LTV 한도', desc: '연소득 + 주택가 → 받을 수 있는 한도', emoji: '💰', tag: '재무' },
-  { href: '/tools/real-estate-capital-gains/', title: '부동산 양도세', desc: '1주택 12억 비과세·다주택 중과 자동', emoji: '🏘', tag: '재무' },
-  { href: '/tools/property-tax/', title: '종합부동산세', desc: '공시가격·다주택·장기보유공제 자동', emoji: '🏛', tag: '재무' },
-  { href: '/tools/health-insurance/', title: '건강보험료', desc: '직장·지역가입자 + 장기요양 12.95%', emoji: '🩺', tag: '재무' },
-  { href: '/tools/ai-price-predict/', title: '🤖 AI 부동산 시세 예측', desc: 'Gemini + 국토부 실거래가 자연어 분석', emoji: '🔮', tag: 'AI' },
-  { href: '/jeonse/ai-etungi/', title: '🤖 AI 등기부 분석', desc: 'Gemini LLM이 위험요소 자동 추출', emoji: '🛡', tag: 'AI' },
-  { href: '/jeonse/ai-contract-check/', title: '🤖 AI 계약서 함정 탐지', desc: '불공정 조항·누락 조항·수정안 LLM', emoji: '📜', tag: 'AI' },
-  { href: '/tools/ai-tenant-letter/', title: '🤖 AI 임차인 공문 작성', desc: '내용증명 + 주임법 인용 자동', emoji: '✉️', tag: 'AI' },
-  { href: '/tools/ai-interview/', title: '🤖 AI 면접 질문 예상', desc: '직무·회사별 질문 10+ + 답변 가이드', emoji: '🎤', tag: 'AI' },
-  { href: '/tools/ai-jaso/', title: '🤖 AI 자소서 첨삭', desc: '5개 항목 점수 + 구체 개선안', emoji: '✍', tag: 'AI' },
-  { href: '/tools/ai-tax-strategy/', title: '🤖 AI 절세 전략', desc: '소득·지출 → 절세 전략 + 예상 절세액', emoji: '💸', tag: 'AI' },
-  { href: '/jeonse/ai-listing-fraud/', title: '🤖 AI 매물 사기 탐지', desc: '깡통전세·급매·신탁 패턴 LLM 분류', emoji: '🚨', tag: 'AI' },
-  { href: '/tools/ai-subscription/', title: '🤖 AI 청약 진단', desc: '가점 + 자격 + 전략 + 우선 단지', emoji: '🏢', tag: 'AI' },
-  { href: '/tools/ai-negotiation/', title: '🤖 AI 부동산 협상', desc: '협상 대본 + 반박 시나리오 자동', emoji: '🤝', tag: 'AI' },
-  { href: '/tools/ai-insurance/', title: '🤖 AI 보험 추천', desc: '종신 함정 피하고 실속 포트폴리오', emoji: '🛡', tag: 'AI' },
-  { href: '/tools/ai-dispute/', title: '🤖 AI 분쟁 해결', desc: '단계·증거·비용·시간 자동', emoji: '⚖', tag: 'AI' },
-  { href: '/tools/ai-retirement/', title: '🤖 AI 노후 자금', desc: '충분성 + 절감 전략 + 포트폴리오', emoji: '🧓', tag: 'AI' },
-  { href: '/tools/ai-card-pick/', title: '🤖 AI 카드 추천', desc: '지출 패턴 → 최적 카드 5개 + 연 혜택', emoji: '💳', tag: 'AI' },
-  { href: '/tools/ai-stock/', title: '🤖 AI 주식 분석', desc: '의견·목표가·긍정/부정·재무지표', emoji: '📈', tag: 'AI' },
-  { href: '/tools/ai-market-trend/', title: '🤖 AI 시장 트렌드', desc: '지역+기간 → 추세·동인·6~12개월 전망', emoji: '📊', tag: 'AI' },
-  { href: '/tools/ai-region-match/', title: '🤖 AI 지역 매칭', desc: '예산+라이프 → 적합 지역 5곳', emoji: '🗺', tag: 'AI' },
-  { href: '/tools/ai-company/', title: '🤖 AI 회사 분석', desc: '평판·연봉·문화·전망 자동', emoji: '🏢', tag: 'AI' },
-  { href: '/tools/ai-medical-triage/', title: '🤖 AI 진료과 추천', desc: '증상 → 적합 과 + 응급도', emoji: '🩺', tag: 'AI' },
-  { href: '/tools/ai-coin/', title: '🤖 AI 코인 분석', desc: '펀더멘털 + 리스크 + 러그 신호', emoji: '🪙', tag: 'AI' },
-  { href: '/tools/ai-listing-write/', title: '🤖 AI 매물 광고 작성', desc: '직거래·중개 SEO 광고문 자동', emoji: '📝', tag: 'AI' },
-  { href: '/tools/ai-pet-care/', title: '🤖 AI 반려동물 케어', desc: '식단·운동·백신·예산 자동', emoji: '🐾', tag: 'AI' },
-  { href: '/tools/ai-study-plan/', title: '🤖 AI 학습 플래너', desc: '시험·자격증 주차별 플랜 자동', emoji: '📚', tag: 'AI' },
-  { href: '/tools/ai-travel/', title: '🤖 AI 여행 플래너', desc: '목적지·예산 → 일자별 일정', emoji: '✈️', tag: 'AI' },
-  { href: '/tools/ai-fortune/', title: '🤖 AI 사주·운세', desc: '오행 + 직업·재물·애정·올해', emoji: '🔮', tag: 'AI' },
-  { href: '/tools/ai-workout/', title: '🤖 AI 운동·식단', desc: '주간 루틴 + 매크로 + 식단', emoji: '🏋️', tag: 'AI' },
-  { href: '/tools/ai-portfolio/', title: '🤖 AI 자산 포트폴리오', desc: '배분 + 한국 ETF 구체 추천', emoji: '📈', tag: 'AI' },
-  { href: '/tools/ai-writing/', title: '🤖 AI 글쓰기 첨삭', desc: '이메일·블로그·SNS 한국어 첨삭', emoji: '✒️', tag: 'AI' },
-  { href: '/tools/ai-wedding/', title: '🤖 AI 결혼 플래너', desc: '항목별 + 타임라인 + 절감', emoji: '💒', tag: 'AI' },
-  { href: '/tools/ai-parenting/', title: '🤖 AI 자녀 양육', desc: '발달·학습·식단·행동 가이드', emoji: '👶', tag: 'AI' },
-  { href: '/tools/ai-interior/', title: '🤖 AI 인테리어', desc: '평수·예산 → 가구·동선·DIY', emoji: '🛋', tag: 'AI' },
-  { href: '/tools/ai-date/', title: '🤖 AI 데이트 코스', desc: '지역·예산 → 시간순 코스', emoji: '💕', tag: 'AI' },
-  { href: '/tools/ai-recipe/', title: '🤖 AI 레시피 추천', desc: '냉장고 재료 → 요리 3개', emoji: '🍳', tag: 'AI' },
-  { href: '/tools/ai-car/', title: '🤖 AI 차량 추천', desc: '예산·용도 → 5개 + 유지비', emoji: '🚗', tag: 'AI' },
-  { href: '/tools/ai-meeting/', title: '🤖 AI 회의록 정리', desc: '메모/녹취 → 구조화 자동', emoji: '📋', tag: 'AI' },
-  { href: '/tools/ai-nutrition/', title: '🤖 AI 영양 분석', desc: '음식 → 칼로리·매크로·점수', emoji: '🥗', tag: 'AI' },
-  { href: '/tools/ai-english/', title: '🤖 AI 영어 번역·첨삭', desc: '번역 + 영작 + 회화 표현', emoji: '🌐', tag: 'AI' },
-  { href: '/tools/ai-resume/', title: '🤖 AI 이력서 작성', desc: 'ATS 통과 + 직무 맞춤', emoji: '📄', tag: 'AI' },
-  { href: '/tools/ai-career/', title: '🤖 AI 진로 상담', desc: '직업 5 + 자격증 + 경로', emoji: '🧭', tag: 'AI' },
-  { href: '/tools/ai-outfit/', title: '🤖 AI 코디 추천', desc: '체형·상황 → 코디 3', emoji: '👔', tag: 'AI' },
-  { href: '/tools/ai-music/', title: '🤖 AI 플레이리스트', desc: '기분·상황 → 15곡', emoji: '🎵', tag: 'AI' },
-  { href: '/tools/ai-mindmap/', title: '🤖 AI 마인드맵', desc: '주제 → 가지·노드·실행단계', emoji: '🧠', tag: 'AI' },
-  { href: '/tools/ai-marketing/', title: '🤖 AI 마케팅 카피', desc: '제품 → 광고·SNS·랜딩', emoji: '📣', tag: 'AI' },
-  { href: '/tools/ai-mental/', title: '🤖 AI 마음 셀프체크', desc: '감정·자원·운동·응원', emoji: '💚', tag: 'AI' },
-  { href: '/tools/ai-slides/', title: '🤖 AI 발표 슬라이드', desc: '구조 + 노트 + Q&A', emoji: '📊', tag: 'AI' },
-  { href: '/tools/ai-plant/', title: '🤖 AI 식물 케어', desc: '물·빛·해충·월별 일정', emoji: '🌱', tag: 'AI' },
-  { href: '/tools/ai-diary/', title: '🤖 AI 일기 분석', desc: '감정·테마·인사이트·확언', emoji: '📔', tag: 'AI' },
-  { href: '/tools/real-estate-lifecycle/', title: '⚡ 부동산 라이프사이클', desc: '매수→보유→매도 5개 세금 통합 시뮬', emoji: '🔄', tag: '재무' },
-  { href: '/tools/rental-yield/', title: '임대 수익률 분석', desc: '표면·실·자기자본 ROI 3단 + 레버리지', emoji: '📊', tag: '재무' },
-  { href: '/tools/jeonse-monthly-conversion/', title: '전월세 전환율', desc: '전세 ↔ 월세 환산 + 법정 상한 5.5%', emoji: '🔁', tag: '재무' },
-  { href: '/tools/wedding-cost/', title: '결혼 비용 계산', desc: '8개 항목 평균 + 본인 시뮬', emoji: '💒', tag: '생활' },
-  { href: '/tools/solo-budget/', title: '자취 월 예산', desc: '1인가구 8개 항목 + 평균 비교', emoji: '🏠', tag: '생활' },
-  { href: '/jeonse/full-check/', title: '⚡ 전세 통합 검증', desc: '임대인+건축물+시세 4개 API 동시', emoji: '🛡️', tag: '재무' },
-  { href: '/jeonse/building-check/', title: '건축물대장 위반 조회', desc: '국토부 실시간 — 불법 증축 자동', emoji: '🏗️', tag: '재무' },
-  { href: '/tools/car-price/', title: '중고차 시세 비교', desc: 'KB차차차·엔카·헤이딜러 + 사고이력', emoji: '🚙', tag: '재무' },
-  { href: '/tools/jaso-guide/', title: 'AI 자소서 가이드', desc: 'Claude/GPT 복붙 프롬프트 3개', emoji: '✍️', tag: 'AI' },
-  { href: '/tools/age-korean/', title: '만 나이 계산기', desc: '한국 만나이 통일법 기준', emoji: '🎂', tag: '생활' },
-  { href: '/tools/dday/', title: '디데이 계산기', desc: '시험·기념일 + 100일·1000일 자동', emoji: '📅', tag: '생활' },
-  { href: '/tools/leave-days/', title: '연차 계산기', desc: '입사일 → 발생 연차일 (근로기준법)', emoji: '🏝️', tag: '생활' },
-  { href: '/tools/bmi/', title: 'BMI + 칼로리', desc: '한국 기준 비만도 + 일일 권장 kcal', emoji: '⚖️', tag: '건강' },
-  { href: '/lotto/', title: '로또 번호 추천', desc: 'Hot/Cold 통계 + AI 가중치 추천', emoji: '🎰', tag: '취미' },
-  { href: '/tools/ai-pricing/', title: 'AI 비용 계산', desc: '사용 패턴 → 최적 AI 도구 조합', emoji: '🤖', tag: 'AI' },
-  { href: '/tools/team-plan-match/', title: '팀 플랜 분담', desc: 'Claude Team·Notion 5인 공동구매', emoji: '👥', tag: 'AI' },
-  { href: '/lol/spell-timer/', title: '롤 스펠 타이머', desc: '점멸·텔포·점화 쿨다운 카운트', emoji: '⚔️', tag: 'LoL' },
-  { href: '/tools/mbti/', title: 'MBTI 무료 검사', desc: '12문항 간이 → 16유형 즉시', emoji: '🧠', tag: '취미' },
-  { href: '/box-office/', title: '박스오피스', desc: '한국 일별 영화 관객 순위 (KOFIC)', emoji: '🎬', tag: '취미' },
-  { href: '/symbols/', title: '특수문자 복사', desc: '체크박스 ☑ 별 ★ 한 번 클릭 복사', emoji: '☑', tag: '생활' },
-  { href: '/snippets/', title: '복붙 스니펫', desc: '정규식·Git·Linux·SQL·한국 특화', emoji: '📋', tag: '개발' },
+  { href: '/tools/youtube-download/', title: '유튜브 다운로드', desc: '링크 붙이면 화질 골라 저장 (파일은 서버 안 거침)', emoji: '⬇', tag: '문서·작성', badge: 'NEW' },
+  { href: '/tools/hwp-form/', title: '한글 양식 자동 작성', desc: '공고 양식 HWPX 빈칸 채워 제출본 생성 (파일 서버 전송 없음)', emoji: '📄', tag: '문서·작성' },
+  { href: '/tools/salary-calc/', title: '연봉 실수령액', desc: '2026 4대보험 + 소득세 자동 차감', emoji: '💰', tag: '급여·4대보험' },
+  { href: '/tools/currency/', title: '환율 계산기', desc: '16개 통화 실시간 + Wise 송금 절약', emoji: '💱', tag: '금융·투자' },
+  { href: '/tools/card-pick/', title: '신용카드 추천', desc: '월 소비 패턴 → 최고 캐시백 카드', emoji: '💳', tag: '금융·투자' },
+  { href: '/tools/agent-fee-calc/', title: '대행 절감 계산', desc: 'NICE·통신판매업·사업자 직접 vs 대행', emoji: '⚠', tag: '생활·가계' },
+  { href: '/tools/loan-compare/', title: '대출 월 상환액', desc: '원리금/원금/만기일시 3가지 방식 동시 비교', emoji: '🏦', tag: '금융·투자' },
+  { href: '/tools/tax-refund/', title: '세금 환급 예상', desc: '연말정산 환급 vs 추징 즉시 계산 (2026)', emoji: '💸', tag: '세금·환급' },
+  { href: '/tools/auto-insurance/', title: '자동차 보험 비교', desc: '9개 다이렉트 + 6가지 절약 팁', emoji: '🚗', tag: '금융·투자' },
+  { href: '/jeonse/risk-calc/', title: '전세 위험 점수', desc: '계약 전 0–100 자가 진단', emoji: '🏠', tag: '부동산·전세' },
+  { href: '/jeonse/etungi-analyzer/', title: '등기부등본 분석', desc: '텍스트 복붙 → 위험 자동 추출', emoji: '🔍', tag: '부동산·전세' },
+  { href: '/jeonse/contract-checklist/', title: '전세 계약 체크리스트', desc: '계약 현장 48개 항목 (인쇄 가능)', emoji: '📋', tag: '부동산·전세' },
+  { href: '/jeonse/landlord-verify/', title: '임대인 검증', desc: '사업자번호 체크섬 + 공식 진위 확인', emoji: '👤', tag: '부동산·전세' },
+  { href: '/jeonse/hug-simulator/', title: 'HUG 안심전세 시뮬', desc: '가입 가능 여부 + 보증료 자동', emoji: '🛡️', tag: '부동산·전세' },
+  { href: '/tools/holiday-2026/', title: '2026 공휴일·황금연휴', desc: '20개 공휴일 + 5개 황금연휴 + 디데이', emoji: '🎌', tag: '생활·가계' },
+  { href: '/tools/savings/', title: '적금·예금 만기 계산', desc: '단리/복리 + 세후 수령액 (이자세 15.4%)', emoji: '🏦', tag: '금융·투자' },
+  { href: '/tools/severance/', title: '퇴직금 계산기', desc: '근속·평균임금 + 퇴직소득세 자동', emoji: '💼', tag: '급여·4대보험' },
+  { href: '/tools/vat-calc/', title: '부가세 계산기', desc: '공급가액 ↔ 부가세 ↔ 합계 자동 분리', emoji: '🧾', tag: '세금·환급' },
+  { href: '/tools/parental-leave/', title: '육아휴직 급여', desc: '2026 + 6+6 부모육아휴직 12개월 자동', emoji: '👶', tag: '급여·4대보험' },
+  { href: '/tools/acquisition-tax/', title: '취득세 계산기', desc: '주택 매수 — 다주택·생애최초·신혼 자동', emoji: '🏘️', tag: '부동산·전세' },
+  { href: '/tools/realtor-fee/', title: '중개수수료 계산', desc: '매매·전세·월세 법정 한도 + VAT', emoji: '🤝', tag: '부동산·전세' },
+  { href: '/tools/childcare-money/', title: '자녀 지원금 총정리', desc: '부모급여·양육수당·첫만남·아동수당', emoji: '🍼', tag: '생활·가계' },
+  { href: '/tools/insurance-medical/', title: '실손·암·종신 보험', desc: '5종 보험 + 8개 보험사 + 절약 팁', emoji: '🏥', tag: '금융·투자' },
+  { href: '/tools/gift-tax/', title: '증여세 계산기', desc: '부모·자녀·배우자 공제 자동 적용', emoji: '🎁', tag: '세금·환급' },
+  { href: '/tools/capital-gains/', title: '주식 양도세', desc: '국내 대주주·해외주식 22% 자동', emoji: '📈', tag: '세금·환급' },
+  { href: '/tools/national-pension/', title: '국민연금 수령액', desc: '평균소득 + 가입기간 → 노령연금 추정', emoji: '👴', tag: '급여·4대보험' },
+  { href: '/tools/unemployment-benefit/', title: '실업급여 계산기', desc: '평균임금 + 연령 + 가입 → 일액·총액·기간', emoji: '🆘', tag: '급여·4대보험' },
+  { href: '/tools/comprehensive-income-tax/', title: '종합소득세 (5월)', desc: '프리랜서·사업·기타 → 누진세 자동 (D-14)', emoji: '📊', tag: '세금·환급' },
+  { href: '/tools/housing-subscription/', title: '청약 가점 계산', desc: '무주택+부양가족+통장 → 84점 만점', emoji: '🏢', tag: '부동산·전세' },
+  { href: '/tools/loan-limit/', title: 'DSR·LTV 한도', desc: '연소득 + 주택가 → 받을 수 있는 한도', emoji: '💰', tag: '금융·투자' },
+  { href: '/tools/real-estate-capital-gains/', title: '부동산 양도세', desc: '1주택 12억 비과세·다주택 중과 자동', emoji: '🏘', tag: '부동산·전세' },
+  { href: '/tools/property-tax/', title: '종합부동산세', desc: '공시가격·다주택·장기보유공제 자동', emoji: '🏛', tag: '부동산·전세' },
+  { href: '/tools/health-insurance/', title: '건강보험료', desc: '직장·지역가입자 + 장기요양 12.95%', emoji: '🩺', tag: '급여·4대보험' },
+  { href: '/tools/ai-price-predict/', title: '🤖 AI 부동산 시세 예측', desc: 'Gemini + 국토부 실거래가 자연어 분석', emoji: '🔮', tag: '부동산·전세' },
+  { href: '/jeonse/ai-etungi/', title: '🤖 AI 등기부 분석', desc: 'Gemini LLM이 위험요소 자동 추출', emoji: '🛡', tag: '부동산·전세' },
+  { href: '/jeonse/ai-contract-check/', title: '🤖 AI 계약서 함정 탐지', desc: '불공정 조항·누락 조항·수정안 LLM', emoji: '📜', tag: '부동산·전세' },
+  { href: '/tools/ai-tenant-letter/', title: '🤖 AI 임차인 공문 작성', desc: '내용증명 + 주임법 인용 자동', emoji: '✉️', tag: '부동산·전세' },
+  { href: '/tools/ai-interview/', title: '🤖 AI 면접 질문 예상', desc: '직무·회사별 질문 10+ + 답변 가이드', emoji: '🎤', tag: '취업·자소서' },
+  { href: '/tools/ai-jaso/', title: '🤖 AI 자소서 첨삭', desc: '5개 항목 점수 + 구체 개선안', emoji: '✍', tag: '취업·자소서' },
+  { href: '/tools/ai-tax-strategy/', title: '🤖 AI 절세 전략', desc: '소득·지출 → 절세 전략 + 예상 절세액', emoji: '💸', tag: '세금·환급' },
+  { href: '/jeonse/ai-listing-fraud/', title: '🤖 AI 매물 사기 탐지', desc: '깡통전세·급매·신탁 패턴 LLM 분류', emoji: '🚨', tag: '부동산·전세' },
+  { href: '/tools/ai-subscription/', title: '🤖 AI 청약 진단', desc: '가점 + 자격 + 전략 + 우선 단지', emoji: '🏢', tag: '부동산·전세' },
+  { href: '/tools/ai-negotiation/', title: '🤖 AI 부동산 협상', desc: '협상 대본 + 반박 시나리오 자동', emoji: '🤝', tag: '부동산·전세' },
+  { href: '/tools/ai-insurance/', title: '🤖 AI 보험 추천', desc: '종신 함정 피하고 실속 포트폴리오', emoji: '🛡', tag: '금융·투자' },
+  { href: '/tools/ai-dispute/', title: '🤖 AI 분쟁 해결', desc: '단계·증거·비용·시간 자동', emoji: '⚖', tag: '문서·작성' },
+  { href: '/tools/ai-retirement/', title: '🤖 AI 노후 자금', desc: '충분성 + 절감 전략 + 포트폴리오', emoji: '🧓', tag: '금융·투자' },
+  { href: '/tools/ai-card-pick/', title: '🤖 AI 카드 추천', desc: '지출 패턴 → 최적 카드 5개 + 연 혜택', emoji: '💳', tag: '금융·투자' },
+  { href: '/tools/ai-stock/', title: '🤖 AI 주식 분석', desc: '의견·목표가·긍정/부정·재무지표', emoji: '📈', tag: '금융·투자' },
+  { href: '/tools/ai-market-trend/', title: '🤖 AI 시장 트렌드', desc: '지역+기간 → 추세·동인·6~12개월 전망', emoji: '📊', tag: '부동산·전세' },
+  { href: '/tools/ai-region-match/', title: '🤖 AI 지역 매칭', desc: '예산+라이프 → 적합 지역 5곳', emoji: '🗺', tag: '부동산·전세' },
+  { href: '/tools/ai-company/', title: '🤖 AI 회사 분석', desc: '평판·연봉·문화·전망 자동', emoji: '🏢', tag: '취업·자소서' },
+  { href: '/tools/ai-medical-triage/', title: '🤖 AI 진료과 추천', desc: '증상 → 적합 과 + 응급도', emoji: '🩺', tag: '건강·의료' },
+  { href: '/tools/ai-coin/', title: '🤖 AI 코인 분석', desc: '펀더멘털 + 리스크 + 러그 신호', emoji: '🪙', tag: '금융·투자' },
+  { href: '/tools/ai-listing-write/', title: '🤖 AI 매물 광고 작성', desc: '직거래·중개 SEO 광고문 자동', emoji: '📝', tag: '부동산·전세' },
+  { href: '/tools/ai-pet-care/', title: '🤖 AI 반려동물 케어', desc: '식단·운동·백신·예산 자동', emoji: '🐾', tag: '생활·가계' },
+  { href: '/tools/ai-study-plan/', title: '🤖 AI 학습 플래너', desc: '시험·자격증 주차별 플랜 자동', emoji: '📚', tag: '생활·가계' },
+  { href: '/tools/ai-travel/', title: '🤖 AI 여행 플래너', desc: '목적지·예산 → 일자별 일정', emoji: '✈️', tag: '여가·취미' },
+  { href: '/tools/ai-fortune/', title: '🤖 AI 사주·운세', desc: '오행 + 직업·재물·애정·올해', emoji: '🔮', tag: '여가·취미' },
+  { href: '/tools/ai-workout/', title: '🤖 AI 운동·식단', desc: '주간 루틴 + 매크로 + 식단', emoji: '🏋️', tag: '건강·의료' },
+  { href: '/tools/ai-portfolio/', title: '🤖 AI 자산 포트폴리오', desc: '배분 + 한국 ETF 구체 추천', emoji: '📈', tag: '금융·투자' },
+  { href: '/tools/ai-writing/', title: '🤖 AI 글쓰기 첨삭', desc: '이메일·블로그·SNS 한국어 첨삭', emoji: '✒️', tag: '문서·작성' },
+  { href: '/tools/ai-wedding/', title: '🤖 AI 결혼 플래너', desc: '항목별 + 타임라인 + 절감', emoji: '💒', tag: '생활·가계' },
+  { href: '/tools/ai-parenting/', title: '🤖 AI 자녀 양육', desc: '발달·학습·식단·행동 가이드', emoji: '👶', tag: '생활·가계' },
+  { href: '/tools/ai-interior/', title: '🤖 AI 인테리어', desc: '평수·예산 → 가구·동선·DIY', emoji: '🛋', tag: '생활·가계' },
+  { href: '/tools/ai-date/', title: '🤖 AI 데이트 코스', desc: '지역·예산 → 시간순 코스', emoji: '💕', tag: '여가·취미' },
+  { href: '/tools/ai-recipe/', title: '🤖 AI 레시피 추천', desc: '냉장고 재료 → 요리 3개', emoji: '🍳', tag: '생활·가계' },
+  { href: '/tools/ai-car/', title: '🤖 AI 차량 추천', desc: '예산·용도 → 5개 + 유지비', emoji: '🚗', tag: '생활·가계' },
+  { href: '/tools/ai-meeting/', title: '🤖 AI 회의록 정리', desc: '메모/녹취 → 구조화 자동', emoji: '📋', tag: '문서·작성' },
+  { href: '/tools/ai-nutrition/', title: '🤖 AI 영양 분석', desc: '음식 → 칼로리·매크로·점수', emoji: '🥗', tag: '건강·의료' },
+  { href: '/tools/ai-english/', title: '🤖 AI 영어 번역·첨삭', desc: '번역 + 영작 + 회화 표현', emoji: '🌐', tag: '여가·취미' },
+  { href: '/tools/ai-resume/', title: '🤖 AI 이력서 작성', desc: 'ATS 통과 + 직무 맞춤', emoji: '📄', tag: '취업·자소서' },
+  { href: '/tools/ai-career/', title: '🤖 AI 진로 상담', desc: '직업 5 + 자격증 + 경로', emoji: '🧭', tag: '취업·자소서' },
+  { href: '/tools/ai-outfit/', title: '🤖 AI 코디 추천', desc: '체형·상황 → 코디 3', emoji: '👔', tag: '여가·취미' },
+  { href: '/tools/ai-music/', title: '🤖 AI 플레이리스트', desc: '기분·상황 → 15곡', emoji: '🎵', tag: '여가·취미' },
+  { href: '/tools/ai-mindmap/', title: '🤖 AI 마인드맵', desc: '주제 → 가지·노드·실행단계', emoji: '🧠', tag: '문서·작성' },
+  { href: '/tools/ai-marketing/', title: '🤖 AI 마케팅 카피', desc: '제품 → 광고·SNS·랜딩', emoji: '📣', tag: '문서·작성' },
+  { href: '/tools/ai-mental/', title: '🤖 AI 마음 셀프체크', desc: '감정·자원·운동·응원', emoji: '💚', tag: '건강·의료' },
+  { href: '/tools/ai-slides/', title: '🤖 AI 발표 슬라이드', desc: '구조 + 노트 + Q&A', emoji: '📊', tag: '문서·작성' },
+  { href: '/tools/ai-plant/', title: '🤖 AI 식물 케어', desc: '물·빛·해충·월별 일정', emoji: '🌱', tag: '생활·가계' },
+  { href: '/tools/ai-diary/', title: '🤖 AI 일기 분석', desc: '감정·테마·인사이트·확언', emoji: '📔', tag: '여가·취미' },
+  { href: '/tools/real-estate-lifecycle/', title: '⚡ 부동산 라이프사이클', desc: '매수→보유→매도 5개 세금 통합 시뮬', emoji: '🔄', tag: '부동산·전세' },
+  { href: '/tools/rental-yield/', title: '임대 수익률 분석', desc: '표면·실·자기자본 ROI 3단 + 레버리지', emoji: '📊', tag: '부동산·전세' },
+  { href: '/tools/jeonse-monthly-conversion/', title: '전월세 전환율', desc: '전세 ↔ 월세 환산 + 법정 상한 5.5%', emoji: '🔁', tag: '부동산·전세' },
+  { href: '/tools/wedding-cost/', title: '결혼 비용 계산', desc: '8개 항목 평균 + 본인 시뮬', emoji: '💒', tag: '생활·가계' },
+  { href: '/tools/solo-budget/', title: '자취 월 예산', desc: '1인가구 8개 항목 + 평균 비교', emoji: '🏠', tag: '생활·가계' },
+  { href: '/jeonse/full-check/', title: '⚡ 전세 통합 검증', desc: '임대인+건축물+시세 4개 API 동시', emoji: '🛡️', tag: '부동산·전세' },
+  { href: '/jeonse/building-check/', title: '건축물대장 위반 조회', desc: '국토부 실시간 — 불법 증축 자동', emoji: '🏗️', tag: '부동산·전세' },
+  { href: '/tools/car-price/', title: '중고차 시세 비교', desc: 'KB차차차·엔카·헤이딜러 + 사고이력', emoji: '🚙', tag: '생활·가계' },
+  { href: '/tools/jaso-guide/', title: 'AI 자소서 가이드', desc: 'Claude/GPT 복붙 프롬프트 3개', emoji: '✍️', tag: '취업·자소서' },
+  { href: '/tools/age-korean/', title: '만 나이 계산기', desc: '한국 만나이 통일법 기준', emoji: '🎂', tag: '생활·가계' },
+  { href: '/tools/dday/', title: '디데이 계산기', desc: '시험·기념일 + 100일·1000일 자동', emoji: '📅', tag: '생활·가계' },
+  { href: '/tools/leave-days/', title: '연차 계산기', desc: '입사일 → 발생 연차일 (근로기준법)', emoji: '🏝️', tag: '급여·4대보험' },
+  { href: '/tools/bmi/', title: 'BMI + 칼로리', desc: '한국 기준 비만도 + 일일 권장 kcal', emoji: '⚖️', tag: '건강·의료' },
+  { href: '/lotto/', title: '로또 번호 추천', desc: 'Hot/Cold 통계 + AI 가중치 추천', emoji: '🎰', tag: '여가·취미' },
+  { href: '/tools/ai-pricing/', title: 'AI 비용 계산', desc: '사용 패턴 → 최적 AI 도구 조합', emoji: '🤖', tag: '생활·가계' },
+  { href: '/tools/team-plan-match/', title: '팀 플랜 분담', desc: 'Claude Team·Notion 5인 공동구매', emoji: '👥', tag: '생활·가계' },
+  { href: '/lol/spell-timer/', title: '롤 스펠 타이머', desc: '점멸·텔포·점화 쿨다운 카운트', emoji: '⚔️', tag: '여가·취미' },
+  { href: '/tools/mbti/', title: 'MBTI 무료 검사', desc: '12문항 간이 → 16유형 즉시', emoji: '🧠', tag: '여가·취미' },
+  { href: '/box-office/', title: '박스오피스', desc: '한국 일별 영화 관객 순위 (KOFIC)', emoji: '🎬', tag: '여가·취미' },
+  { href: '/symbols/', title: '특수문자 복사', desc: '체크박스 ☑ 별 ★ 한 번 클릭 복사', emoji: '☑', tag: '문서·작성' },
+  { href: '/snippets/', title: '복붙 스니펫', desc: '정규식·Git·Linux·SQL·한국 특화', emoji: '📋', tag: '문서·작성' },
 ];
+
+// 새로 나온 도구. 카테고리로 묶어 그리면 '문서·작성'은 여섯 번째라 한참 내려가야
+// 보인다. 새로 만든 것이 가장 안 보이는 자리에 앉는 셈이라, 맨 위에 따로 세운다.
+const fresh = tools.filter((t) => (t as any).badge);
 
 const grouped: Record<string, typeof tools> = {};
 tools.forEach((t) => {
   if (!grouped[t.tag]) grouped[t.tag] = [];
   grouped[t.tag].push(t);
 });
-const ordered = ['재무', '생활', '건강', '취미', 'AI', 'LoL', '개발'];
+const ordered = ['부동산·전세', '세금·환급', '급여·4대보험', '금융·투자', '취업·자소서', '문서·작성', '건강·의료', '생활·가계', '여가·취미'];
+
+// 그룹 이름을 앵커 id로 — 한글 id는 URL에서 깨지므로 자리 순번으로 만든다.
+const slugify = (cat: string) => 'g' + (ordered.indexOf(cat) + 1);
 ---
 <Layout
-  title="무료 계산기 / 도구 모음 — 연봉·환율·만나이·디데이·BMI·로또"
-  description="한국에서 자주 쓰는 무료 계산기 모음. 연봉 실수령액, 환율, 만 나이, 디데이, 연차, BMI, 로또, AI 비용 등."
+  title="무료 계산기·AI 도구 100개 — 연봉·전세·세금·자소서·문서 작성"
+  description="한국에서 자주 쓰는 무료 도구 100개. 연봉·세금 계산기부터 전세 위험 검증, AI 상담, 자소서 첨삭, 한글 양식 작성까지 주제별로 정리."
 >
   <section class="mx-auto max-w-5xl px-4 pt-16 pb-8">
     <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 px-3 py-1 text-xs text-cyan-300">
@@ -120,24 +129,59 @@ const ordered = ['재무', '생활', '건강', '취미', 'AI', 'LoL', '개발'];
       무료 도구 모음
     </div>
     <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
-      <span class="text-gradient">{tools.length}개 무료</span> 계산기 / 도구
+      <span class="text-gradient">{tools.length}개 무료</span> 도구
     </h1>
     <p class="mt-4 text-lg text-zinc-400 leading-relaxed">
-      재무·생활·건강·AI — 한국 사용자가 자주 검색하는 도구 모음. 광고 없이 즉시 사용.
+      계산기 · 전세 검증 · AI 상담 · 문서 작성 — 주제별로 묶었습니다. 가입 없이 즉시 사용.
     </p>
   </section>
 
+  {fresh.length > 0 && (
+    <section class="mx-auto max-w-5xl px-4 pb-6">
+      <h2 class="text-sm font-black text-cyan-300 mb-3 uppercase tracking-widest">새로 나온 도구</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {fresh.map((t) => (
+          <a href={t.href} class="card-lift block rounded-2xl border border-cyan-500/40 hover:border-cyan-400 bg-cyan-500/5 p-5 transition">
+            <div class="flex items-start gap-3">
+              <span class="text-3xl">{t.emoji}</span>
+              <div class="flex-1 min-w-0">
+                <p class="font-black text-white">
+                  {t.title}
+                  <span class="ml-2 align-middle rounded-full bg-cyan-500/20 px-2 py-0.5 text-[10px] font-black text-cyan-300">{(t as any).badge}</span>
+                </p>
+                <p class="mt-1 text-xs text-zinc-400 leading-relaxed">{t.desc}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <nav class="mx-auto max-w-5xl px-4 pb-2 flex flex-wrap gap-2">
+    {ordered.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
+      <a href={`#${slugify(cat)}`} class="rounded-full border border-zinc-700 hover:border-cyan-500/50 hover:text-cyan-300 bg-zinc-900/60 px-3 py-1.5 text-xs font-bold text-zinc-300 transition">
+        {cat} <span class="text-zinc-500">{grouped[cat].length}</span>
+      </a>
+    ))}
+  </nav>
+
   <section class="mx-auto max-w-5xl px-4 pb-24 space-y-10">
     {ordered.filter((cat) => grouped[cat]?.length > 0).map((cat) => (
-      <div>
-        <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">{cat}</h2>
+      <div id={slugify(cat)} class="scroll-mt-24">
+        <h2 class="text-sm font-black text-zinc-400 mb-3 uppercase tracking-widest">{cat} <span class="text-zinc-600">{grouped[cat].length}</span></h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {grouped[cat].map((t) => (
             <a href={t.href} class="card-lift block rounded-2xl border border-zinc-800 hover:border-cyan-500/40 bg-zinc-900/40 p-5 transition">
               <div class="flex items-start gap-3">
                 <span class="text-3xl">{t.emoji}</span>
                 <div class="flex-1 min-w-0">
-                  <p class="font-black text-white">{t.title}</p>
+                  <p class="font-black text-white">
+                    {t.title}
+                    {(t as any).badge && (
+                      <span class="ml-2 align-middle rounded-full bg-cyan-500/20 px-2 py-0.5 text-[10px] font-black text-cyan-300">{(t as any).badge}</span>
+                    )}
+                  </p>
                   <p class="mt-1 text-xs text-zinc-400 leading-relaxed">{t.desc}</p>
                 </div>
               </div>
