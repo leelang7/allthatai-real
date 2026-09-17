@@ -16,7 +16,7 @@
  * 둘 중 하나라도 없으면 503 으로 "아직 안 켜졌다"고 알린다 — 조용히 실패하지 않는다.
  */
 import type { APIRoute } from 'astro';
-import { checkAccess, forbidden } from '../../lib/access-gate';
+import { extractCode, forbidden } from '../../lib/access-gate';
 import { incrEvent } from '../../lib/stat-counter';
 
 export const prerender = false;
@@ -38,9 +38,26 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ ok: false, error: '요청을 읽지 못했습니다.' }, 400);
   }
 
-  // 홈 PC 회선과 디스크를 쓰는 기능이라 코드 게이트 뒤에 둔다(모델 서버와 같은 규칙).
-  const gate = checkAccess(request, body);
-  if (!gate.ok) return forbidden(gate.reason!);
+  // 이 도구는 **주인만** 쓴다.
+  //
+  // 공용 ACCESS_CODES 는 지정인에게도 발급돼 있어서 그걸 쓰면 남도 들어온다.
+  // 홈 회선과 홈 PC 디스크를 쓰는 기능이고, 유튜브 약관도 걸려 있어 공개로 둘 수 없다.
+  // 그래서 이 라우트만 보는 별도 목록(YT_CODES)을 쓴다.
+  //
+  // **목록이 비어 있으면 아무도 못 쓴다.** 공용 게이트로 흘려보내지 않는다 —
+  // 설정을 빠뜨린 순간 조용히 열리는 쪽이 훨씬 위험하다.
+  const ytCodes = ((import.meta.env as any).YT_CODES || process.env.YT_CODES || '')
+    .split(',').map((c: string) => c.trim()).filter(Boolean);
+  const given = extractCode(request, body);
+  if (ytCodes.length === 0) {
+    return json({
+      ok: false,
+      error: '이 도구는 현재 잠겨 있습니다.',
+      reason: 'locked',
+    }, 403);
+  }
+  if (!given) return forbidden('access_code_required');
+  if (!ytCodes.includes(given)) return forbidden('invalid_access_code');
 
   const url = String(body.url || '').trim();
   if (!YT_ID.test(url)) {
