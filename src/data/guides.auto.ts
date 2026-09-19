@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-19-스팀-dying-light-the-beast-50-할인-65800-32900",
+    "title": "스팀 다잉 라이트: 더 비스트 50% 할인 – 지금이 기회!",
+    "excerpt": "스팀 '다잉 라이트: 더 비스트' 50% 할인, ₩65,800 → ₩32,900으로 저렴하게 구매하세요.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-19T19:37:41.492Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-09-19-스팀-final-fantasy-vii-rebirth-70-할인-62800-18840",
     "title": "스팀 파이널 판타지 VII 리버스 70% 할인 – ₩18,840에 구매하세요!",
     "excerpt": "FINAL FANTASY VII REBIRTH가 스팀에서 정가 ₩62,800에서 70% 할인된 ₩18,840에 판매 중입니다.",
