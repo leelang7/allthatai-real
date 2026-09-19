@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-19-스팀-final-fantasy-vii-rebirth-70-할인-62800-18840",
+    "title": "스팀 파이널 판타지 VII 리버스 70% 할인 – ₩18,840에 구매하세요!",
+    "excerpt": "FINAL FANTASY VII REBIRTH가 스팀에서 정가 ₩62,800에서 70% 할인된 ₩18,840에 판매 중입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-19T01:43:13.717Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-09-14-baldurs-gate-3-스팀-베스트셀러-30-할인",
     "title": "발더스 게이트 3, 스팀 30% 할인! 지금이 구매 적기?",
     "excerpt": "GOTY 수상작 '발더스 게이트 3'가 스팀에서 30% 할인 중입니다. 구매 전 확인하세요.",
