@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-09-19-스팀-dying-light-the-beast-50-할인-65800-32900",
     "title": "스팀 다잉 라이트: 더 비스트 50% 할인 – 지금이 기회!",
@@ -162,7 +162,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "Steam",
     "minutes": 5,
     "generatedAt": "2026-06-26T08:44:17.129Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-20T07:08:07.489Z"
   },
   {
     "slug": "deal-2026-06-23-스팀-호라이즌-포비든-웨스트-컴플리트-에디션-50-할인-62800-31400",
@@ -171,7 +172,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-06-23T01:52:10.648Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-09-20T07:08:07.488Z"
   },
   {
     "slug": "deal-2026-06-20-스팀-더-위쳐-3-와일드-헌트---컴플리트-에디션-80-할인-54800-10960",
@@ -1031,7 +1033,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-17T01:43:36.212Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.655Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.487Z"
   },
   {
     "slug": "deal-2026-05-17-청년-주택드림-대출-분양가-80-최저-22-금리-조건",
@@ -1041,7 +1043,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-17T01:43:44.401Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.656Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.488Z"
   },
   {
     "slug": "deal-2026-05-17-lhsh-행복주택-vs-매입임대-vs-전세임대-자격-차이",
@@ -1051,7 +1053,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-17T01:43:50.353Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-28T06:03:55.955Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.490Z"
   },
   {
     "slug": "deal-2026-05-16-디딤돌-대출-금리한도자격과-보금자리론과-비교",
@@ -1061,7 +1063,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 6,
     "generatedAt": "2026-05-16T18:42:51.766Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.654Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.486Z"
   },
   {
     "slug": "deal-2026-05-16-microsoft-365-한국-vs-학생-라이선스-가격",
@@ -1081,7 +1083,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:20.454Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.651Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.483Z"
   },
   {
     "slug": "deal-2026-05-16-notion-학생-무료-자격신청법",
@@ -1091,7 +1093,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:27.732Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.652Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.484Z"
   },
   {
     "slug": "deal-2026-05-16-figma-학생-무료-vs-pro-차이",
@@ -1101,7 +1103,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:35.574Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.653Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.485Z"
   },
   {
     "slug": "deal-2026-05-16-github-pro-학생-무료-패키지에-뭐-들어있나",
@@ -1111,7 +1113,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-16T07:43:42.301Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-06-21T06:39:41.653Z"
+    "lastRefreshedAt": "2026-09-20T07:08:07.486Z"
   },
   {
     "slug": "deal-2026-05-16-저가항공-진에어제주항공티웨이-프로모션-잡는-법",
