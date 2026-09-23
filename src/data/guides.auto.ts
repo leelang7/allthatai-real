@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-09-23-the-grave-deal-스팀-베스트셀러-36-할인",
+    "title": "[The Grave Deal] 스팀 36% 할인! 베스트셀러 지금 잡을까?",
+    "excerpt": "스팀 베스트셀러 'The Grave Deal'이 36% 할인에 들어갔습니다. 지금이 구매 적기일까요?",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-23T01:52:48.780Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-09-19-스팀-dying-light-the-beast-50-할인-65800-32900",
     "title": "스팀 다잉 라이트: 더 비스트 50% 할인 – 지금이 기회!",
