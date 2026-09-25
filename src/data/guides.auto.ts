@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-25-스팀-dark-souls-remastered-50-할인-43800-21900",
+    "title": "스팀 다크 소울 리마스터 50% 할인 – 21,900원에 명작 구매 기회",
+    "excerpt": "스팀에서 DARK SOULS™: REMASTERED를 50% 할인된 ₩21,900에 만날 수 있는 기회를 놓치지 마세요.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-25T01:59:05.747Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-09-23-the-grave-deal-스팀-베스트셀러-36-할인",
     "title": "[The Grave Deal] 스팀 36% 할인! 베스트셀러 지금 잡을까?",
     "excerpt": "스팀 베스트셀러 'The Grave Deal'이 36% 할인에 들어갔습니다. 지금이 구매 적기일까요?",
