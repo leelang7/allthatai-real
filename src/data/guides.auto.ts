@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-25-스팀-페르소나-5-더-로열-70-할인-69800-20940",
+    "title": "스팀 페르소나 5 더 로열 70% 할인: ₩20,940 구매 기회",
+    "excerpt": "스팀에서 페르소나 5 더 로열을 70% 할인된 ₩20,940에 만나보세요. JRPG 팬이라면 놓칠 수 없는 기회입니다.",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-09-25T15:58:43.904Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-09-25-스팀-dark-souls-remastered-50-할인-43800-21900",
     "title": "스팀 다크 소울 리마스터 50% 할인 – 21,900원에 명작 구매 기회",
     "excerpt": "스팀에서 DARK SOULS™: REMASTERED를 50% 할인된 ₩21,900에 만날 수 있는 기회를 놓치지 마세요.",
