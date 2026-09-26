@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-26-스팀-페르소나3-리로드-70-할인-69800-20940",
+    "title": "스팀 페르소나 3 리로드 70% 할인: ₩69,800 → ₩20,940",
+    "excerpt": "스팀에서 '페르소나 3 리로드'를 70% 할인된 가격 ₩20,940에 만나보세요. JRPG 팬이라면 주목할 만한 딜입니다.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-26T02:04:51.399Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-09-25-스팀-ori-and-the-will-of-the-wisps-90-할인-29900-2990",
     "title": "오리 앤 더 윌 오브 더 위스프 스팀 90% 할인: 2,990원에 명작 득템!",
     "excerpt": "아름다운 비주얼과 감동적인 스토리의 'Ori and the Will of the Wisps'를 스팀에서 90% 할인된 가격에 만나보세요.",
