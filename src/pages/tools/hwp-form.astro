@@ -12,8 +12,8 @@ import Layout from '../../layouts/Layout.astro';
     <div id="drop" class="rounded-2xl border-2 border-dashed border-zinc-700 hover:border-violet-500 bg-zinc-900/40 p-10 text-center cursor-pointer transition">
       <p class="text-5xl">📄</p>
       <p class="mt-3 font-black text-white">양식 파일을 끌어다 놓거나 눌러서 고르세요</p>
-      <p class="mt-1 text-xs text-zinc-500">.hwpx 파일 · 한글에서 "다른 이름으로 저장 → HWPX"</p>
-      <input id="file" type="file" accept=".hwpx" class="hidden" />
+      <p class="mt-1 text-xs text-zinc-500">.hwp · .hwpx 파일 · 결과는 한글에서 그대로 열리는 .hwpx로 받습니다</p>
+      <input id="file" type="file" accept=".hwp,.hwpx" class="hidden" />
     </div>
     <p id="status" class="mt-3 text-xs text-zinc-400 text-center"></p>
   </section>
@@ -56,7 +56,10 @@ import Layout from '../../layouts/Layout.astro';
   const PYODIDE = 'https://cdn.jsdelivr.net/pyodide/v314.0.6/full/';
   const ENGINE = ['profile_ref.py', 'form_tool.py', 'audit.py'];
   const WHEEL = '/hwpx/python_hwpx-6.4.0-py3-none-any.whl';
-  const PERSONAL = /성명|이름|생년|휴대|전화|이메일|메일|소속|주소|연락|서명|직위|직급|학교|학년|나이|주민/;
+  const PERSONAL_RE = /성명|이름|성함|생년|휴대|전화|이메일|메일|소속|주소|연락|서명|직위|직급|학교|학년|나이|주민|사용자명|신청인|신청자명|대표자명|담당자/;
+  // ★ 양식은 정렬하려고 '연 락 처'처럼 글자 사이를 띄운다. 띄어쓰기를 지우고 봐야 한다
+  //   (거북섬마리나 신청서에서 '연 락 처'가 개인정보로 안 잡혀 채워진 것을 렌더로 발견).
+  const isPersonal = (label) => PERSONAL_RE.test(String(label || '').replace(/\s+/g, ''));
 
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -113,14 +116,29 @@ import Layout from '../../layouts/Layout.astro';
     $('make').disabled = false;
   }
 
+  // 한국 양식은 아직 대부분 옛 .hwp다(내 PC 기준 hwp 83 : hwpx 31, 양식류 hwp 33개).
+  // rhwp(MIT, Rust→WASM)로 브라우저 안에서 HWPX로 바꾼 뒤 같은 엔진에 넣는다.
+  // 실측: 양식 33개 전부 변환·열기 성공, 대부분 수십 ms. WASM 3.5MB(gzip)는 .hwp를 올린 사람만 받는다.
+  let rhwp = null;
+  async function toHwpx(bytes) {
+    if (!rhwp) {
+      const m = await import('/hwpx/rhwp/rhwp.js');
+      await m.default({ module_or_path: '/hwpx/rhwp/rhwp_bg.wasm' });
+      rhwp = m;
+    }
+    const doc = new rhwp.HwpDocument(bytes);
+    try { return doc.exportHwpx(); }
+    finally { try { doc.free(); } catch (e) {} }
+  }
+
   async function onFile(f) {
     if (!f) return;
     if (busy) { say('⏳ 앞 파일을 처리하는 중입니다. 잠시만요.', 'text-amber-300'); return; }
     reset();
-    if (!f.name.toLowerCase().endsWith('.hwpx')) {
-      say(f.name.toLowerCase().endsWith('.hwp')
-        ? '⚠ 옛 .hwp 형식은 아직 안 됩니다. 한글에서 "다른 이름으로 저장 → HWPX"로 바꿔 올려주세요.'
-        : '⚠ .hwpx 파일만 됩니다.', 'text-rose-300');
+    const lower = f.name.toLowerCase();
+    const isHwp = lower.endsWith('.hwp');
+    if (!isHwp && !lower.endsWith('.hwpx')) {
+      say('⚠ 한글 파일(.hwp, .hwpx)만 됩니다.', 'text-rose-300');
       return;
     }
     if (f.size > 30 * 1024 * 1024) {
@@ -129,10 +147,13 @@ import Layout from '../../layouts/Layout.astro';
     }
     busy = true;
     srcName = f.name;
-    const bytes = new Uint8Array(await f.arrayBuffer());
+    let bytes = new Uint8Array(await f.arrayBuffer());
     try {
       if (!py) startTick('⚙ 한글 문서 엔진을 준비하고 있습니다 —');
-      await boot();
+      else if (isHwp) say('🔄 옛 한글(.hwp)을 HWPX로 바꾸는 중…', 'text-violet-300 animate-pulse');
+      // 파이썬 엔진 준비와 .hwp 변환을 동시에 — 느린 폰에서 두 대기를 겹친다
+      const [, converted] = await Promise.all([boot(), isHwp ? toHwpx(bytes) : null]);
+      if (isHwp) bytes = converted;
       clearInterval(tick);
       say('🔎 빈칸을 찾는 중…', 'text-violet-300 animate-pulse');
       py.FS.writeFile('/engine/form.hwpx', bytes);
@@ -151,7 +172,8 @@ import Layout from '../../layouts/Layout.astro';
     } catch (e) {
       clearInterval(tick);
       const raw = String(e);
-      const why = /BadZipFile|not a zip|End of central/i.test(raw) ? '한글 파일이 아니거나 파일이 손상됐습니다.'
+      const why = /password|암호|encrypt/i.test(raw) ? '암호가 걸린 한글 파일입니다. 한글에서 암호를 풀고 다시 저장해 올려주세요.'
+        : /BadZipFile|not a zip|End of central|CFB|OLE|HwpDocument|parse/i.test(raw) ? '한글 파일이 아니거나 파일이 손상됐습니다.'
         : /KeyError|section0|header\.xml/i.test(raw) ? 'HWPX 구조가 아닙니다. 한글에서 다시 저장해 보세요.'
         : /Memory|Out of/i.test(raw) ? '파일이 너무 커서 이 기기에서 처리하지 못했습니다.'
         : (raw.split('\n').filter(Boolean).pop() || '').slice(0, 90)
@@ -200,7 +222,7 @@ import Layout from '../../layouts/Layout.astro';
     $('cons').textContent = rules.length ? '이 양식의 규칙: ' + rules.join(' · ') + ' — 자동으로 맞춥니다' : '';
 
     $('slots').innerHTML = items.map((it) => {
-      const badge = PERSONAL.test(it.key)
+      const badge = isPersonal(it.key)
         ? '<span class="ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold bg-rose-500/20 text-rose-300">개인정보 · 비워두면 원본 유지</span>'
         : (it.limit ? '<span class="ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300">' + it.limit + '자 이내</span>' : '');
       const attrs = ' data-k="' + esc(it.key) + '"' + (it.limit ? ' maxlength="' + it.limit + '"' : '')
@@ -320,7 +342,7 @@ import Layout from '../../layouts/Layout.astro';
     if (!outBytes) return;
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([outBytes], { type: 'application/octet-stream' }));
-    a.download = (srcName || '제출본').replace(/\.hwpx$/i, '') + '_작성본.hwpx';
+    a.download = (srcName || '제출본').replace(/\.hwpx?$/i, '') + '_작성본.hwpx';
     a.click();
     URL.revokeObjectURL(a.href);
   });

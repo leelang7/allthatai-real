@@ -25,6 +25,23 @@ PLACEHOLDER_RE = re.compile(r"내용을?\s*입력|입력하세요|예\s*시|^예
                             r"^\d+\s*자\s*이내$|^[0-9]{4}\.[0-9]{2}\s*~|^YYYY|^0000|"
                             r"^[○◯●o]{2,}$|^[-–—_]{3,}$|^[XxＸ]{2,}$")     # ○○○ 같은 자리표시
 GUIDE_RE = re.compile(r"^[※◼▪▶►◈☞◆]")           # 안내 기호로 시작하면 라벨이 아니라 안내문이다
+# 안내문이 괄호 속에 예를 들어 보여 주는 것 — "(예시: 창업경진대회_심평팀_홍길동)"
+EXAMPLE_PAREN_RE = re.compile(r"[(（]\s*(?:예시|예)\s*[:：)][^)）]*[)）]?")
+
+
+def is_placeholder(txt):
+    """칸의 글이 '지우고 새로 쓰라는 예시'인지.
+
+    ★ 긴 안내문이 괄호로 예를 드는 것은 예시 칸이 아니다. 유의사항 표의
+      "모든 서류는 PDF로 … 파일명 (예시: 창업경진대회_심평팀_홍길동)" 에서 '예시'·'홍길동'
+      이 걸려 안내문을 지우고 본문을 채운 사고가 있었다. 괄호 속 예시를 걷어 낸 뒤에도
+      예시 표지가 남아 있을 때만 예시 칸으로 본다. 짧은 칸('홍길동')은 그대로 예시다.
+    """
+    if not txt:
+        return False
+    if len(txt) > 40:
+        txt = EXAMPLE_PAREN_RE.sub(" ", txt)
+    return bool(PLACEHOLDER_RE.search(txt))
 HINT_RE = re.compile(r"제한\s*없음|첨부\s*가능|자유롭게|기술하|작성하|입력")
 RULE_FONT_RE = re.compile(r"(\d{1,2}(?:\.\d)?)\s*(?:pt|포인트|호)")
 RULE_LS_RE = re.compile(r"줄\s*간격\s*(\d{2,3})\s*%")
@@ -140,7 +157,7 @@ def scan(path):
         for (r, cidx), (cell, txt) in sorted(grid.items()):
             color = cell_color(doc, cps, fonts, cell)
             blue = is_blue(color)
-            ph = bool(txt) and bool(PLACEHOLDER_RE.search(txt))
+            ph = is_placeholder(txt)
             guide = bool(txt) and bool(GUIDE_RE.match(txt))
             if guide:
                 guides.append({"table": ti, "row": r, "col": cidx, "text": re.sub(r"\s+", " ", txt)[:300]})
