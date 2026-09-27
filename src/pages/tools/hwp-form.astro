@@ -1,0 +1,325 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="한글 양식 자동 작성 — 공고 서식 그대로 HWPX" description="지원사업 공고 양식(HWPX)을 올리면 빈칸을 찾아 채우고 글자 크기·줄간격·표 넓이까지 맞춘 제출본을 만듭니다. 파일은 서버로 보내지 않고 브라우저 안에서 처리합니다.">
+  <section class="mx-auto max-w-3xl px-4 pt-16 pb-6">
+    <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">한글 양식 자동 작성</span></h1>
+    <p class="mt-4 text-lg text-zinc-400">공고 양식을 올리면 빈칸을 찾아 채운 제출본(HWPX)을 만듭니다.</p>
+    <p class="mt-2 text-xs text-emerald-300">🔒 파일이 서버로 가지 않습니다. 전부 이 브라우저 안에서 처리합니다.</p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 py-2">
+    <div id="drop" class="rounded-2xl border-2 border-dashed border-zinc-700 hover:border-violet-500 bg-zinc-900/40 p-10 text-center cursor-pointer transition">
+      <p class="text-5xl">📄</p>
+      <p class="mt-3 font-black text-white">양식 파일을 끌어다 놓거나 눌러서 고르세요</p>
+      <p class="mt-1 text-xs text-zinc-500">.hwpx 파일 · 한글에서 "다른 이름으로 저장 → HWPX"</p>
+      <input id="file" type="file" accept=".hwpx" class="hidden" />
+    </div>
+    <p id="status" class="mt-3 text-xs text-zinc-400 text-center"></p>
+  </section>
+
+  <section id="empty" class="hidden mx-auto max-w-3xl px-4 py-4">
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-6">
+      <p class="text-4xl">🔍</p>
+      <p class="mt-3 font-black text-white">채울 빈칸을 찾지 못했습니다</p>
+      <p id="emptyWhy" class="mt-2 text-sm text-zinc-300 leading-relaxed"></p>
+      <p class="mt-3 text-xs text-zinc-400">제출용 양식 파일(신청서·계획서)을 올리면 빈칸을 찾아 채웁니다. 공고문 본문은 채울 대상이 아닙니다.</p>
+    </div>
+  </section>
+
+  <section id="fields" class="hidden mx-auto max-w-3xl px-4 py-4 space-y-3">
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest">양식 분석</h4>
+      <p id="meta" class="mt-2 text-sm text-zinc-300"></p>
+      <p id="cons" class="mt-1 text-xs text-amber-300"></p>
+    </div>
+    <div id="slots" class="space-y-3"></div>
+    <button id="make" type="button" class="w-full rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-black py-3 disabled:opacity-50">제출본 만들기</button>
+  </section>
+
+  <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
+    <div id="verdict" class="rounded-3xl border-2 p-8 text-center"></div>
+    <button id="dl" type="button" class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-black py-3">한글 파일(HWPX) 내려받기</button>
+    <div id="findings" class="space-y-2"></div>
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-2">한글 프로그램 없이 열어보려면</h4>
+      <ul class="space-y-1 text-sm text-zinc-300 list-disc list-inside">
+        <li><a href="https://chromewebstore.google.com/detail/pgakpjflombjmehnebnbpnalhegaanag" target="_blank" rel="noopener" class="text-violet-300 hover:underline">rhwp 크롬 확장</a> — 가입 없이 바로 열고 편집</li>
+        <li><a href="https://www.hancomdocs.com/" target="_blank" rel="noopener" class="text-violet-300 hover:underline">한컴독스 웹</a> — 무료 2GB, 편집은 웹·모바일에서</li>
+        <li><a href="https://mybox.naver.com/" target="_blank" rel="noopener" class="text-violet-300 hover:underline">네이버 MYBOX</a> — 네이버 아이디로 한컴오피스 웹</li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const PYODIDE = 'https://cdn.jsdelivr.net/pyodide/v314.0.6/full/';
+  const ENGINE = ['profile_ref.py', 'form_tool.py', 'audit.py'];
+  const WHEEL = '/hwpx/python_hwpx-6.4.0-py3-none-any.whl';
+  const PERSONAL = /성명|이름|생년|휴대|전화|이메일|메일|소속|주소|연락|서명|직위|직급|학교|학년|나이|주민/;
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const say = (msg, cls) => { $('status').textContent = msg; $('status').className = 'mt-3 text-xs text-center ' + (cls || 'text-zinc-400'); };
+
+  let py = null, info = null, outBytes = null, busy = false;
+  const cellLabel = {};   // "표0(3,2)" → 라벨. 검사 결과가 알려주는 칸 위치를 사람 말로 되돌린다.
+
+  // 엔진은 13MB다. 느린 폰에서 45초가 걸리므로 (1) 파일을 고르려는 낌새가 보이면 미리 받기 시작하고
+  // (2) 받는 동안 경과 초를 보여 준다 — 멈춘 화면으로 오해해 떠나는 것을 막는다.
+  let booting = null, tick = null;
+  function startTick(label) {
+    const t0 = Date.now();
+    clearInterval(tick);
+    tick = setInterval(() => {
+      const s = Math.round((Date.now() - t0) / 1000);
+      say(`${label} ${s}초 · 처음 한 번만 받습니다 (약 13MB). 다음부터는 바로 시작됩니다.`, 'text-violet-300');
+    }, 1000);
+  }
+  function boot() {
+    if (py) return Promise.resolve(py);
+    if (booting) return booting;
+    booting = (async () => {
+      const mod = await import(PYODIDE + 'pyodide.mjs');
+      const _py = await mod.loadPyodide({ indexURL: PYODIDE });
+      await _py.loadPackage('micropip');
+      await _py.pyimport('micropip').install(location.origin + WHEEL);
+      _py.FS.mkdir('/engine');
+      for (const f of ENGINE) {
+        const t = await (await fetch('/hwpx/' + f)).text();
+        _py.FS.writeFile('/engine/' + f, t);
+      }
+      await _py.runPythonAsync('import sys, os\nsys.path.insert(0, "/engine")\nos.chdir("/engine")');
+      py = _py;
+      return py;
+    })();
+    return booting;
+  }
+
+  // 앞 파일의 화면·결과를 모두 지운다. 이게 없으면 새 양식을 올려도 이전 빈칸과
+  // 이전 제출본이 남아 있어, 엉뚱한 양식으로 채운 파일을 내려받게 된다.
+  function reset() {
+    info = null; outBytes = null;
+    for (const k of Object.keys(cellLabel)) delete cellLabel[k];
+    $('fields').classList.add('hidden');
+    $('empty').classList.add('hidden');
+    $('result').classList.add('hidden');
+    $('slots').innerHTML = '';
+    $('findings').innerHTML = '';
+    $('meta').textContent = '';
+    $('cons').textContent = '';
+    $('status').textContent = '';    // 앞 파일의 성공·실패 문구가 남아 새 결과처럼 보이지 않게
+    $('make').disabled = false;
+  }
+
+  async function onFile(f) {
+    if (!f) return;
+    if (busy) { say('⏳ 앞 파일을 처리하는 중입니다. 잠시만요.', 'text-amber-300'); return; }
+    reset();
+    if (!f.name.toLowerCase().endsWith('.hwpx')) {
+      say(f.name.toLowerCase().endsWith('.hwp')
+        ? '⚠ 옛 .hwp 형식은 아직 안 됩니다. 한글에서 "다른 이름으로 저장 → HWPX"로 바꿔 올려주세요.'
+        : '⚠ .hwpx 파일만 됩니다.', 'text-rose-300');
+      return;
+    }
+    if (f.size > 30 * 1024 * 1024) {
+      say('⚠ 30MB가 넘는 파일은 브라우저에서 처리하기 어렵습니다.', 'text-rose-300');
+      return;
+    }
+    busy = true;
+    const bytes = new Uint8Array(await f.arrayBuffer());
+    try {
+      if (!py) startTick('⚙ 한글 문서 엔진을 준비하고 있습니다 —');
+      await boot();
+      clearInterval(tick);
+      say('🔎 빈칸을 찾는 중…', 'text-violet-300 animate-pulse');
+      py.FS.writeFile('/engine/form.hwpx', bytes);
+      const raw = await py.runPythonAsync([
+        'import io, json, sys',
+        'import form_tool as FT',
+        '_o = sys.stdout; sys.stdout = io.StringIO()',
+        'try:',
+        '    _r = FT.scan("form.hwpx")',
+        'finally:',
+        '    sys.stdout = _o',
+        'json.dumps(_r, ensure_ascii=False)'
+      ].join('\n'));
+      info = JSON.parse(raw);
+      render();
+    } catch (e) {
+      clearInterval(tick);
+      const raw = String(e);
+      const why = /BadZipFile|not a zip|End of central/i.test(raw) ? '한글 파일이 아니거나 파일이 손상됐습니다.'
+        : /KeyError|section0|header\.xml/i.test(raw) ? 'HWPX 구조가 아닙니다. 한글에서 다시 저장해 보세요.'
+        : /Memory|Out of/i.test(raw) ? '파일이 너무 커서 이 기기에서 처리하지 못했습니다.'
+        : (raw.split('\n').filter(Boolean).pop() || '').slice(0, 90)
+          || '이 파일은 읽을 수 없습니다. 한글에서 HWPX로 다시 저장해 보세요.';
+      say('❌ ' + why, 'text-rose-300');
+    } finally {
+      busy = false;
+    }
+  }
+
+  // 라벨이 표 밖에 있어 못 찾은 칸은 '칸 7'로만 보인다. 그럴 땐 그 칸의 안내문
+  // ("* 분석/시각화 결과 내용 (도표, 이미지…") 앞머리를 항목 이름으로 삼는다.
+  function nameFromHint(hint) {
+    let s = String(hint || '').replace(/^[\s*※•\-–—]+/, '').trim();
+    s = s.split(/[(（:：]/)[0].trim();
+    s = s.replace(/\s*(예시|작성|제시|기술|설명|내용)\s*$/, '').trim();
+    return s.length >= 2 && s.length <= 24 ? s : '';
+  }
+
+  function render() {
+    const items = [];
+    (info.slots || []).forEach((s, i) => items.push({
+      key: s.label || nameFromHint(s.current) || ('칸 ' + (i + 1)),
+      limit: s.limit, hint: s.current, big: !!s.big_box, at: s,
+    }));
+    (info.narrative || []).forEach((n, i) => items.push({
+      key: n.label || nameFromHint(n.guide) || ('서술 ' + (i + 1)),
+      limit: n.limit, hint: n.guide, big: true, at: n,
+    }));
+
+    const seen = {};
+    for (const it of items) {
+      seen[it.key] = (seen[it.key] || 0) + 1;
+      if (seen[it.key] > 1) it.key += ' (' + seen[it.key] + ')';
+      if (it.at) cellLabel['표' + it.at.table + '(' + it.at.row + ',' + it.at.col + ')'] = it.key;
+    }
+
+    const c = info.constraints || {};
+    const rules = [];
+    if (c.font_pt) rules.push('글자 크기 ' + c.font_pt + 'pt');
+    if (c.line_spacing) rules.push('줄간격 ' + c.line_spacing + '%');
+    if (c.page_limit) rules.push(c.page_limit + '쪽 이내');
+    if (c.font_family) rules.push('글꼴 ' + c.font_family);
+
+    $('meta').textContent = info.source + ' · 표 ' + info.tables + '개 · 채울 칸 ' + items.length + '개';
+    $('cons').textContent = rules.length ? '이 양식의 규칙: ' + rules.join(' · ') + ' — 자동으로 맞춥니다' : '';
+
+    $('slots').innerHTML = items.map((it) => {
+      const badge = PERSONAL.test(it.key)
+        ? '<span class="ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold bg-rose-500/20 text-rose-300">개인정보 · 비워두면 원본 유지</span>'
+        : (it.limit ? '<span class="ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300">' + it.limit + '자 이내</span>' : '');
+      const attrs = ' data-k="' + esc(it.key) + '"' + (it.limit ? ' maxlength="' + it.limit + '"' : '')
+        + ' class="mt-2 w-full rounded-lg bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-3 py-2 text-sm text-zinc-200"';
+      const input = it.big ? '<textarea rows="4"' + attrs + '></textarea>' : '<input type="text"' + attrs + ' />';
+      const hint = it.hint ? '<p class="mt-1 text-[11px] text-zinc-500">양식 안내: ' + esc(String(it.hint).slice(0, 160)) + '</p>' : '';
+      return '<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4">'
+        + '<label class="text-sm font-bold text-zinc-200">' + esc(it.key) + badge + '</label>' + input + hint + '</div>';
+    }).join('');
+
+    // 채울 칸이 없는 파일이 흔하다 — 공고문, 동의서, 이미 작성된 문서. 빈 화면을 주지 말고 왜인지 말한다.
+    if (!items.length) {
+      $('fields').classList.add('hidden');
+      $('empty').classList.remove('hidden');
+      $('emptyWhy').textContent = info.tables
+        ? `표 ${info.tables}개를 읽었지만 채울 빈칸을 찾지 못했습니다. 공고문이거나 이미 작성이 끝난 문서, 또는 체크·서명만 하는 서식일 수 있습니다.`
+        : '이 파일에는 표가 없습니다. 빈칸을 채우는 양식이 아니라 줄글 문서로 보입니다.';
+      say('빈칸을 찾지 못했습니다', 'text-amber-300');
+      return;
+    }
+    $('empty').classList.add('hidden');
+    $('fields').classList.remove('hidden');
+    say('✓ 빈칸 ' + items.length + '개를 찾았습니다. 채운 뒤 아래 버튼을 누르세요.', 'text-emerald-300');
+  }
+
+  async function make() {
+    const answers = {};
+    document.querySelectorAll('#slots [data-k]').forEach((el) => {
+      const v = el.value.trim();
+      if (v) answers[el.dataset.k] = v;
+    });
+    if (!info) { say('⚠ 양식 파일을 먼저 올려주세요.', 'text-rose-300'); return; }
+    if (!Object.keys(answers).length) { say('⚠ 한 칸 이상 채워주세요.', 'text-rose-300'); return; }
+    busy = true;
+    $('make').disabled = true;
+    say('✍ 제출본을 만드는 중…', 'text-violet-300 animate-pulse');
+    try {
+      py.FS.writeFile('/engine/ans.json', JSON.stringify(answers));
+      const raw = await py.runPythonAsync([
+        'import io, json, sys',
+        'import form_tool as FT, audit',
+        '_a = json.load(open("ans.json", encoding="utf-8"))',
+        '_a = {k: v for k, v in _a.items() if not k.startswith("_")}',
+        '_o = sys.stdout; sys.stdout = io.StringIO()',
+        'try:',
+        '    FT.fill("form.hwpx", _a, "out.hwpx")',
+        '    _f = audit.audit("out.hwpx", base="form.hwpx")',
+        'finally:',
+        '    sys.stdout = _o',
+        'json.dumps([x.as_dict() for x in _f], ensure_ascii=False)'
+      ].join('\n'));
+      outBytes = py.FS.readFile('/engine/out.hwpx');
+      showResult(JSON.parse(raw));
+    } catch (e) {
+      say('❌ 만들지 못했습니다: ' + String(e).split('\n').pop().slice(0, 160), 'text-rose-300');
+    } finally {
+      busy = false;
+      $('make').disabled = false;
+    }
+  }
+
+  function showResult(found) {
+    // 판정 기준은 로컬 엔진(hforge check)과 같아야 한다 — level 값은 한글이다.
+    const isTodo = (f) => f.code === 'TODO' || f.level === 'TODO';
+    const errs = found.filter((f) => f.level === '오류');
+    const warns = found.filter((f) => f.level === '경고');
+    const todo = found.filter(isTodo);
+    const ok = errs.length === 0;
+    $('verdict').className = 'rounded-3xl border-2 p-8 text-center ' + (ok ? 'border-emerald-500/40 bg-emerald-500/10' : 'border-rose-500/40 bg-rose-500/10');
+    $('verdict').innerHTML = '<p class="text-6xl">' + (ok ? '✅' : '⚠️') + '</p>'
+      + '<p class="mt-3 text-2xl font-black text-white">' + (ok ? '제출 가능' : '수정 필요 ' + errs.length + '건') + '</p>'
+      + (ok && warns.length ? '<p class="mt-2 text-sm text-amber-200">경고 ' + warns.length + '건은 눈으로 확인해 주세요</p>' : '')
+      + (todo.length ? '<p class="mt-2 text-sm text-zinc-300">직접 입력할 칸 ' + todo.length + '개 — 개인정보는 일부러 비웠습니다</p>' : '');
+    const TONE = { '오류': 'border-rose-500/40 text-rose-200', '경고': 'border-amber-500/40 text-amber-200', '정보': 'border-zinc-700 text-zinc-400' };
+    $('findings').innerHTML = found.slice(0, 40).map((f) => {
+      const t = isTodo(f) ? 'border-zinc-700 text-zinc-300' : (TONE[f.level] || 'border-zinc-700 text-zinc-400');
+      // 검사는 칸을 "표0(3,2)"로 가리킨다 — 사람이 알아볼 라벨로 바꿔 준다.
+      let msg = String(f.message || '').replace(/표(\d+)\((\d+),(\d+)\)/g, (m) => cellLabel[m] ? cellLabel[m] : m);
+      let hint = f.hint || '';
+      if (isTodo(f)) {
+        msg = '<b class="text-zinc-200">' + esc(msg.split(' ')[0]) + '</b> ' + esc(msg.split(' ').slice(1).join(' '));
+        hint = '양식의 원래 예시가 그대로 있습니다 — 한글에서 직접 입력하세요';
+      } else {
+        msg = esc(msg);
+      }
+      // 쪽수는 렌더러가 있어야 세므로 브라우저에서는 "?쪽"이 된다. 물음표 대신 사실대로 적는다.
+      if (msg.indexOf('?쪽') >= 0) {
+        msg = msg.replace(/\(문서 전체 \?쪽\)/, '').trim();
+        hint = '쪽수는 이 브라우저에서 셀 수 없습니다. 내려받아 한글이나 rhwp로 열어 확인하세요';
+      }
+      const where = isTodo(f) ? '' : esc(f.where || '') + ' — ';
+      return '<div class="rounded-xl border ' + t + ' bg-zinc-900/40 px-4 py-2 text-xs"><b>' + esc(f.code) + '</b> '
+        + where + msg + (hint ? ' <span class="text-zinc-500">→ ' + esc(hint) + '</span>' : '') + '</div>';
+    }).join('');
+    $('result').classList.remove('hidden');
+    say('✓ 완료', 'text-emerald-300');
+    $('result').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // 파일을 고르려는 낌새가 보이면 그때부터 엔진을 받는다. 파일 선택창을 띄우고 고르는
+  // 몇 초~수십 초가 그대로 다운로드 시간으로 쓰여, 느린 폰에서 체감 대기가 크게 준다.
+  const preload = () => { boot().catch(() => {}); };
+  $('drop').addEventListener('pointerenter', preload, { once: true });
+  $('drop').addEventListener('touchstart', preload, { once: true, passive: true });
+
+  $('drop').addEventListener('click', () => { preload(); $('file').click(); });
+  $('file').addEventListener('change', (e) => onFile(e.target.files[0]));
+  $('drop').addEventListener('dragover', (e) => { e.preventDefault(); $('drop').classList.add('border-violet-500'); });
+  $('drop').addEventListener('dragleave', () => $('drop').classList.remove('border-violet-500'));
+  $('drop').addEventListener('drop', (e) => {
+    e.preventDefault();
+    $('drop').classList.remove('border-violet-500');
+    onFile(e.dataTransfer.files[0]);
+  });
+  $('make').addEventListener('click', make);
+  $('dl').addEventListener('click', () => {
+    if (!outBytes) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([outBytes], { type: 'application/octet-stream' }));
+    a.download = (info.source || '제출본').replace(/\.hwpx$/i, '') + '_작성본.hwpx';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+</script>
