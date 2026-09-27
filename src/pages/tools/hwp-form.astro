@@ -63,6 +63,7 @@ import Layout from '../../layouts/Layout.astro';
   const say = (msg, cls) => { $('status').textContent = msg; $('status').className = 'mt-3 text-xs text-center ' + (cls || 'text-zinc-400'); };
 
   let py = null, info = null, outBytes = null, busy = false;
+  let srcName = '';   // 엔진은 늘 'form.hwpx'로 읽으므로, 사용자가 올린 원래 이름은 따로 들고 있는다
   const cellLabel = {};   // "표0(3,2)" → 라벨. 검사 결과가 알려주는 칸 위치를 사람 말로 되돌린다.
 
   // 엔진은 13MB다. 느린 폰에서 45초가 걸리므로 (1) 파일을 고르려는 낌새가 보이면 미리 받기 시작하고
@@ -127,6 +128,7 @@ import Layout from '../../layouts/Layout.astro';
       return;
     }
     busy = true;
+    srcName = f.name;
     const bytes = new Uint8Array(await f.arrayBuffer());
     try {
       if (!py) startTick('⚙ 한글 문서 엔진을 준비하고 있습니다 —');
@@ -194,7 +196,7 @@ import Layout from '../../layouts/Layout.astro';
     if (c.page_limit) rules.push(c.page_limit + '쪽 이내');
     if (c.font_family) rules.push('글꼴 ' + c.font_family);
 
-    $('meta').textContent = info.source + ' · 표 ' + info.tables + '개 · 채울 칸 ' + items.length + '개';
+    $('meta').textContent = srcName + ' · 표 ' + info.tables + '개 · 채울 칸 ' + items.length + '개';
     $('cons').textContent = rules.length ? '이 양식의 규칙: ' + rules.join(' · ') + ' — 자동으로 맞춥니다' : '';
 
     $('slots').innerHTML = items.map((it) => {
@@ -318,7 +320,7 @@ import Layout from '../../layouts/Layout.astro';
     if (!outBytes) return;
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([outBytes], { type: 'application/octet-stream' }));
-    a.download = (info.source || '제출본').replace(/\.hwpx$/i, '') + '_작성본.hwpx';
+    a.download = (srcName || '제출본').replace(/\.hwpx$/i, '') + '_작성본.hwpx';
     a.click();
     URL.revokeObjectURL(a.href);
   });
