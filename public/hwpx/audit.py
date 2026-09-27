@@ -53,6 +53,10 @@ def is_hint_color(color):
     if is_blue(color):
         return True
     r, g, b = int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
+    # ★ 종이 위에서 흐려 안 보이는 색도 안내용이다. 공모전 제안서의 작성 요령이 연베이지(#E3DCC1)
+    #   였는데 회색만 보던 규칙이 놓쳐, 채운 본문이 그 색을 물려받아 거의 안 보였다(검사도 통과).
+    if (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.62:
+        return True
     return abs(r - g) < 24 and abs(g - b) < 24 and r >= 0x60
 
 

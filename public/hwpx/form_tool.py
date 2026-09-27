@@ -23,7 +23,7 @@ BLUE_RE = re.compile(r"^#(0{2}[0-9A-Fa-f]{2}[89A-Fa-f][0-9A-Fa-f]|[0-9A-Fa-f]{2}
 PLACEHOLDER_RE = re.compile(r"내용을?\s*입력|입력하세요|예\s*시|^예\s*[)\]]|홍길동|example@|@nst\.re\.kr|010-0{3,}|"
                             r"^0{2}\s*[명일월]|^\d{2}\.\s*\d{2}\.\s*\d{2}\.$|^NAIS$|^팀명$|^0+$|"
                             r"^\d+\s*자\s*이내$|^[0-9]{4}\.[0-9]{2}\s*~|^YYYY|^0000|"
-                            r"^[○◯●o]{2,}$|^[-–—_]{3,}$|^[XxＸ]{2,}$")     # ○○○ 같은 자리표시
+                            r"^[○◯●o]{2,}$|^[-–—_]{3,}$|^[XxＸ]{2,}$|^(?:[·•‧ㆍ]\s*){3,}")     # ○○○, · · · 같은 자리표시
 GUIDE_RE = re.compile(r"^[※◼▪▶►◈☞◆]")           # 안내 기호로 시작하면 라벨이 아니라 안내문이다
 # 안내문이 괄호 속에 예를 들어 보여 주는 것 — "(예시: 창업경진대회_심평팀_홍길동)"
 EXAMPLE_PAREN_RE = re.compile(r"[(（]\s*(?:예시|예)\s*[:：)][^)）]*[)）]?")
@@ -43,6 +43,14 @@ def is_placeholder(txt):
         txt = EXAMPLE_PAREN_RE.sub(" ", txt)
     return bool(PLACEHOLDER_RE.search(txt))
 HINT_RE = re.compile(r"제한\s*없음|첨부\s*가능|자유롭게|기술하|작성하|입력")
+# 답 칸 안의 작성 요령은 글머리 기호로 시작한다('❍ 아이디어의 창안 동기…'). 체크박스(□☐)는 뺀다.
+ANSWER_GUIDE_RE = re.compile(r"^[❍○◦●•·\-–\*※▶►◼▪☞◆◈]")
+# 작성 요령에는 지시 동사가 있다. 기호만 보고 판단하면 공고 본문('· 민간 클라우드 제공')과
+# 심사 기준('• 공공데이터가 유의미하게 사용되었는가?')까지 답 칸으로 잡는다.
+INSTRUCT_RE = re.compile(r"작성|기재|기술|서술|제시|설명|입력|기입|명시|적어|적을|포함하여|첨부")
+GENERIC_LABEL_RE = re.compile(r"^[◈※▶■□\s]*(작성\s*내용|세부\s*내용|내\s*용|작성\s*란|기재\s*내용)\s*$")
+# 칸 안에 그림·도형·안쪽 표가 있으면 덮어쓰면 안 된다(작성본의 시연 화면 캡처, 안내문 1×1 표를 품은 칸)
+OBJECT_TAGS = {"tbl", "pic", "container", "ole", "rect", "ellipse", "line", "arc", "polygon", "curve", "equation", "textart"}
 RULE_FONT_RE = re.compile(r"(\d{1,2}(?:\.\d)?)\s*(?:pt|포인트|호)")
 RULE_LS_RE = re.compile(r"줄\s*간격\s*(\d{2,3})\s*%")
 RULE_PAGE_RE = re.compile(r"(\d{1,3})\s*(?:쪽|페이지|장|page|p(?!t))\s*(?:이내|이하|내외)", re.I)   # '최대 5page 이내' 도
@@ -245,17 +253,65 @@ def scan(path):
             s["row"], s["col"] = below.address
             s["current"] = btxt[:60]
             s["big_box"] = True
+    # ── 제목행/답칸 구조 ──────────────────────────────────────────────────────
+    # 공모전 기획서·사업계획서의 가장 흔한 꼴:
+    #     [음영] 1) 아이디어 구상 및 제안 배경
+    #     [    ] ❍ 아이디어의 창안 동기, 목적 … (작성 요령)
+    # 답 칸에 파란 예시도 '홍길동' 같은 자리표시도 없어서 위 규칙들이 전부 놓친다
+    # (고용노동 공모전 제안서·사업계획서가 '빈칸 0개'로 나오던 원인).
+    # 음영 제목 바로 아래의, 표 폭 대부분을 차지하는 높은 칸을 답 칸으로 본다.
+    # ★ 명단 표(성명|생년월일|… 머리글 아래 줄)를 잡지 않도록 폭 60%·높이 10mm 이상만.
+    taken = {(s["table"], s["row"], s["col"]) for s in slots}
+    for ti, t in enumerate(tables):
+        grid = {}
+        for row in t.rows:
+            for c in row.cells:
+                grid[c.address] = (c, " ".join((p.text or "").strip() for p in c.paragraphs).strip())
+        tw = sum((c.width or 0) for (r, _), (c, _) in grid.items() if r == 0) or 1
+        for (r, ci), (cell, txt) in sorted(grid.items()):
+            if r == 0 or (ti, r, ci) in taken:
+                continue
+            up = grid.get((r - 1, ci))
+            if not up:
+                continue
+            ucell, ut = up
+            if not (ut and len(ut) <= 40 and cell_shaded(root, ucell) and not cell_shaded(root, cell)):
+                continue
+            if (cell.width or 0) < 0.6 * tw or (cell.height or 0) < 10 * 283.46:
+                continue
+            if txt and not (ANSWER_GUIDE_RE.match(txt) and INSTRUCT_RE.search(txt)):
+                continue                                   # 이미 쓰인 본문·공고 내용은 건드리지 않는다
+            sub = cell.element.find('{%s}subList' % HP)
+            if sub is not None and any(e.tag.rsplit('}', 1)[-1] in OBJECT_TAGS for e in sub.iter()):
+                continue
+            lab = re.sub(r"\s+", " ", ut)[:40]
+            if GENERIC_LABEL_RE.match(lab):
+                # '◈ 작성내용' 은 '무엇을 쓰라' 는 안내의 제목이다. 그 아래 칸은 작성 요령 상자이고
+                # 답은 다음 표(· · · 칸)에 쓴다(보건의료 창업경진대회 사업계획서).
+                continue
+            slots.append({"table": ti, "row": r, "col": ci,
+                          "label": lab,
+                          "current": re.sub(r"\s+", " ", txt)[:60],
+                          "limit": find_limit(txt, ut),
+                          "blue": False, "placeholder": False, "big_box": True})
+            taken.add((ti, r, ci))
+
     # 항목 제목이 표 밖(또는 앞 표)에 있는 양식은 칸 안에서 라벨을 못 찾는다.
     # 그런 칸은 '칸 7' 같은 번호로만 보여 무엇을 쓰는 자리인지 알 수 없으므로,
     # 앞선 표의 소제목을 끌어와 붙인다. 한 표에 칸이 하나일 때만 — 여러 칸이면 같은
     # 라벨이 겹쳐 채우기가 첫 칸에만 들어간다.
     from collections import Counter
     per_table = Counter(s["table"] for s in slots)
-    for s in slots:
-        if not s.get("label") and per_table[s["table"]] == 1:
-            g = guess_label(tables, s)
-            if g:
-                s["label"] = g[:40]
+    heads = headings_before_tables(doc)
+    todo = [s for s in slots if not s.get("label") and per_table[s["table"]] == 1]
+    head_of = {id(s): (heads[s["table"]] if s["table"] < len(heads) else "") for s in todo}
+    head_use = Counter(h for h in head_of.values() if h)
+    for s in todo:
+        h = head_of[id(s)]
+        # 절 제목이 이 칸 하나만 가리킬 때만 쓴다 — 여러 칸이 같은 이름이면 채울 때 같은 글이 들어간다
+        g = h if (h and head_use[h] == 1) else guess_label(tables, s)
+        if g:
+            s["label"] = g[:40]
 
     return {"source": os.path.basename(path), "tables": len(tables),
             "slots": slots, "narrative": narrative, "guides": guides,
@@ -269,6 +325,31 @@ def _is_solo_guide(tables, g):
     except Exception:
         return False
     return t.row_count == 1 and t.column_count == 1
+
+
+def headings_before_tables(doc):
+    """본문 문단 순서대로 훑어, 각 표(iter_tables 순서) 바로 앞의 문단 제목을 돌려준다.
+
+    절 제목('1. 창업 아이템 개요')이 표 밖 문단에 있는 양식이 많다. 표 안만 보는
+    guess_label 은 이걸 못 보고, 답 칸이 모두 '◈ 작성내용' 이나 '칸 7' 로 뭉개진다.
+    """
+    out, last = [], ""
+    def walk(paras, top):
+        nonlocal last
+        for p in paras:
+            if top:
+                t = re.sub(r"\s+", " ", (p.text or "")).strip()
+                # 번호 달린 절 제목만. '[서식3-1]'·'[양식2] 사업계획서' 같은 서식 번호는 문서 단위라
+                # 그 아래 모든 칸이 같은 이름이 된다(결과서 17칸이 전부 '[서식3-1]').
+                if 2 <= len(t) <= 40 and re.match(r"^(\d{1,2}[.)]\s|[가-하][.)]\s|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.)]?\s)", t):
+                    last = re.sub(r"^[□■◆◇▣]\s*", "", t)
+            for tb in p.tables:
+                out.append(last)
+                for row in tb.rows:
+                    for c in row.cells:
+                        walk(c.paragraphs, False)
+    walk(doc.paragraphs, True)
+    return out
 
 
 def guess_label(tables, g):
@@ -303,6 +384,10 @@ def is_hint_color(color):
         return False
     r, g, b = int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16)
     if is_blue(c):
+        return True
+    # ★ 종이 위에서 흐려 안 보이는 색도 안내용이다. 공모전 제안서의 작성 요령이 연베이지(#E3DCC1)
+    #   였는데 회색만 보던 규칙이 놓쳐, 채운 본문이 그 색을 물려받아 거의 안 보였다(검사도 통과).
+    if (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.62:
         return True
     return abs(r - g) < 24 and abs(g - b) < 24 and r >= 0x60          # 회색 계열
 
@@ -655,6 +740,18 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
         cell = t.cell(target["row"], target["col"])
         was_guide = bool(GUIDE_RE.match((target.get("current") or "").strip())) or bool(target.get("big_box")) \
             or "guide" in target
+        # ★ 칸 첫머리가 빈 여백 문단이고 작성 요령은 그 아래 있는 양식이 있다. set_text 는 첫 문단
+        #   서식을 쓰므로 여백용의 작은 글자·좁은 줄간격으로 본문이 들어가 잘리거나 안 보였다.
+        #   글이 있는 첫 문단 앞의 빈 문단을 떼어, 요령 문단의 서식을 기준으로 쓴다.
+        paras = list(cell.paragraphs)
+        first = next((q for q in paras if (q.text or "").strip()), None)
+        if first is not None and first is not paras[0]:
+            for q in paras:
+                if q is first:
+                    break
+                par = q.element.getparent()
+                if par is not None:
+                    par.remove(q.element)
         cell.set_text(str(val), preserve_format=True)
         blacken(doc, cps, fonts, cell, cache)
         long_text = len(str(val)) > 60
@@ -663,7 +760,9 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
         # 가운데 정렬·줄간격 100%)이 남으면 본문이 이상해진다. 1×1 상자만 보던 조건으로는
         # 표 안 서술형 칸(금융 AI Challenge 기획서)을 놓쳤다.
         strip_auto_bullet(root, cell, pcache)      # 길이와 무관하게 자동 글머리는 뗀다
-        if narrative_box or target.get("big_box") or long_text or was_guide:
+        # '· · ·' 자리표시 칸은 내어쓰기가 걸린 글머리 문단이라, 짧은 글이어도 둘째 줄이 안으로 밀린다
+        dot_box = bool(re.match(r"^(?:[·•‧ㆍ]\s*){3,}", (target.get("current") or "").strip()))
+        if narrative_box or target.get("big_box") or long_text or was_guide or dot_box:
             # 안내문 서식(내어쓰기·빈 문단·점선)은 본문에 맞지 않는다. 점선→실선은 1×1 상자만.
             normalize_cell(doc, root, cell, pcache, solid_bf if narrative_box else None)
             if narrative_box and body_w:
