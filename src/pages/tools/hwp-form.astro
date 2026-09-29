@@ -40,6 +40,12 @@ import Layout from '../../layouts/Layout.astro';
   <section id="result" class="hidden mx-auto max-w-3xl px-4 py-2 space-y-3">
     <div id="verdict" class="rounded-3xl border-2 p-8 text-center"></div>
     <button id="dl" type="button" class="w-full rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-black py-3">한글 파일(HWPX) 내려받기</button>
+    <div id="previewBox" class="hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4 space-y-3">
+      <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest">미리보기 — 내려받을 파일 그대로</h4>
+      <p id="previewNote" class="text-xs text-zinc-500"></p>
+      <div id="preview" class="space-y-3"></div>
+      <div id="previewMore"></div>
+    </div>
     <div id="findings" class="space-y-2"></div>
     <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5">
       <h4 class="text-xs font-black text-zinc-300 uppercase tracking-widest mb-2">한글 프로그램 없이 열어보려면</h4>
@@ -110,6 +116,7 @@ import Layout from '../../layouts/Layout.astro';
     $('result').classList.add('hidden');
     $('slots').innerHTML = '';
     $('findings').innerHTML = '';
+    clearPreview();
     $('meta').textContent = '';
     $('cons').textContent = '';
     $('status').textContent = '';    // 앞 파일의 성공·실패 문구가 남아 새 결과처럼 보이지 않게
@@ -120,15 +127,82 @@ import Layout from '../../layouts/Layout.astro';
   // rhwp(MIT, Rust→WASM)로 브라우저 안에서 HWPX로 바꾼 뒤 같은 엔진에 넣는다.
   // 실측: 양식 33개 전부 변환·열기 성공, 대부분 수십 ms. WASM 3.5MB(gzip)는 .hwp를 올린 사람만 받는다.
   let rhwp = null;
-  async function toHwpx(bytes) {
+  async function loadRhwp() {
     if (!rhwp) {
       const m = await import('/hwpx/rhwp/rhwp.js');
       await m.default({ module_or_path: '/hwpx/rhwp/rhwp_bg.wasm' });
       rhwp = m;
     }
+    return rhwp;
+  }
+  async function toHwpx(bytes) {
+    await loadRhwp();
     const doc = new rhwp.HwpDocument(bytes);
     try { return doc.exportHwpx(); }
     finally { try { doc.free(); } catch (e) {} }
+  }
+
+  // 만든 제출본을 그 자리에서 쪽별로 보여 준다. 한컴오피스가 없는 사람은 내려받아도 열어 볼
+  // 곳이 없어 '예쁜 서식으로 나왔는지' 확인할 길이 없었다. rhwp의 SVG 렌더(쪽당 수십 ms)를 쓴다.
+  // ★ SVG는 <img>로만 띄운다 — 문서에서 나온 마크업을 innerHTML로 넣지 않는다(스크립트 차단).
+  const PREVIEW_FIRST = 3;
+  let previewUrls = [], previewGen = 0;
+  function clearPreview() {
+    previewGen++;          // 그리는 도중 새 파일이 오면 옛 미리보기가 뒤늦게 붙지 않게
+    previewUrls.forEach((u) => URL.revokeObjectURL(u));
+    previewUrls = [];
+    $('preview').innerHTML = '';
+    $('previewMore').innerHTML = '';
+    $('previewBox').classList.add('hidden');
+  }
+  async function renderPreview(bytes) {
+    clearPreview();
+    const gen = previewGen;
+    $('previewBox').classList.remove('hidden');
+    $('previewNote').textContent = '미리보기를 그리는 중…';
+    try {
+      await loadRhwp();
+      if (gen !== previewGen) return;
+      const doc = new rhwp.HwpDocument(bytes);
+      try {
+        const n = doc.pageCount();
+        const draw = (from, to) => {
+          for (let i = from; i < to; i++) {
+            const url = URL.createObjectURL(new Blob([doc.renderPageSvg(i)], { type: 'image/svg+xml' }));
+            previewUrls.push(url);
+            const img = document.createElement('img');
+            img.src = url; img.alt = (i + 1) + '쪽'; img.loading = 'lazy';
+            img.className = 'w-full rounded-lg bg-white shadow-lg';
+            $('preview').appendChild(img);
+          }
+        };
+        draw(0, Math.min(n, PREVIEW_FIRST));
+        $('previewNote').textContent = `전체 ${n}쪽 · 글꼴은 기기에 설치된 것으로 대신 그려 한글과 조금 다를 수 있습니다.`;
+        if (n > PREVIEW_FIRST) {
+          const more = document.createElement('button');
+          more.type = 'button';
+          more.className = 'w-full rounded-lg border border-zinc-700 hover:border-violet-500 py-2 text-sm text-zinc-300';
+          more.textContent = `나머지 ${n - PREVIEW_FIRST}쪽 더 보기`;
+          more.onclick = () => {
+            more.remove();
+            const doc2 = new rhwp.HwpDocument(bytes);
+            try {
+              for (let i = PREVIEW_FIRST; i < n; i++) {
+                const url = URL.createObjectURL(new Blob([doc2.renderPageSvg(i)], { type: 'image/svg+xml' }));
+                previewUrls.push(url);
+                const img = document.createElement('img');
+                img.src = url; img.alt = (i + 1) + '쪽'; img.loading = 'lazy';
+                img.className = 'w-full rounded-lg bg-white shadow-lg';
+                $('preview').appendChild(img);
+              }
+            } finally { try { doc2.free(); } catch (e) {} }
+          };
+          $('previewMore').appendChild(more);
+        }
+      } finally { try { doc.free(); } catch (e) {} }
+    } catch (e) {
+      $('previewNote').textContent = '미리보기를 그리지 못했습니다. 내려받은 파일은 그대로 쓸 수 있습니다.';
+    }
   }
 
   async function onFile(f) {
@@ -320,6 +394,7 @@ import Layout from '../../layouts/Layout.astro';
     $('result').classList.remove('hidden');
     say('✓ 완료', 'text-emerald-300');
     $('result').scrollIntoView({ behavior: 'smooth' });
+    renderPreview(outBytes);
   }
 
   // 파일을 고르려는 낌새가 보이면 그때부터 엔진을 받는다. 파일 선택창을 띄우고 고르는
