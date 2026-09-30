@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-09-30-스팀-dark-souls-iii-deluxe-edition-50-할인-71000-35500",
+    "title": "스팀 다크 소울 3 디럭스 에디션 50% 할인 – 지금이 기회!",
+    "excerpt": "역대급 난이도와 몰입감으로 유명한 다크 소울 3 디럭스 에디션을 스팀에서 반값에 만나보세요.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-09-30T17:04:03.290Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-09-28-스팀-더-위쳐-3-와일드-헌트---컴플리트-에디션-50-할인-54900-27450",
     "title": "스팀 더 위쳐 3 컴플리트 에디션 50% 할인 받는 법 (₩27,450)",
     "excerpt": "스팀에서 명작 RPG '더 위쳐 3: 와일드 헌트 - 컴플리트 에디션'을 반값에 구매할 기회입니다. 지금 바로 확인하세요!",
