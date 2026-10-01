@@ -86,25 +86,43 @@ import Layout from '../../layouts/Layout.astro';
       say(`${label} ${s}초 · 처음 한 번만 받습니다 (약 13MB). 다음부터는 바로 시작됩니다.`, 'text-violet-300');
     }, 1000);
   }
+  // 중급폰 실측(4G·CPU÷4) 47초의 내역: 파이썬 본체 24s · micropip+설치 14s · 엔진 import 8s.
+  // 설치는 '본체 다 받고 → micropip 받고 → wheel 받고 → lxml 받고'로 줄을 서서 생긴 대기였다.
+  //  · lxml 은 loadPyodide 의 packages 로 본체와 동시에, 엔진 wheel·.py 는 그사이 미리 받아 둔다
+  //  · micropip 없이 wheel 을 그대로 푼다(의존성은 lxml 하나뿐이다)
+  //  · 엔진 import 까지 여기서 끝내 둔다 — 사용자가 파일을 고르는 동안 지나간다
   function boot() {
     if (py) return Promise.resolve(py);
     if (booting) return booting;
     booting = (async () => {
+      const wheelP = fetch(WHEEL).then((r) => r.arrayBuffer());
+      const srcP = Promise.all(ENGINE.map((f) => fetch('/hwpx/' + f).then((r) => r.text())));
       const mod = await import(PYODIDE + 'pyodide.mjs');
-      const _py = await mod.loadPyodide({ indexURL: PYODIDE });
-      await _py.loadPackage('micropip');
-      await _py.pyimport('micropip').install(location.origin + WHEEL);
+      const _py = await mod.loadPyodide({ indexURL: PYODIDE, packages: ['lxml'] });
+      // 기본값은 작업 폴더라 import 가 안 된다 — site-packages 로 푼다
+      const site = _py.runPython('import sysconfig; sysconfig.get_paths()["purelib"]');
+      _py.unpackArchive(await wheelP, 'wheel', { extractDir: site });
+      const srcs = await srcP;
       _py.FS.mkdir('/engine');
-      for (const f of ENGINE) {
-        const t = await (await fetch('/hwpx/' + f)).text();
-        _py.FS.writeFile('/engine/' + f, t);
-      }
-      await _py.runPythonAsync('import sys, os\nsys.path.insert(0, "/engine")\nos.chdir("/engine")');
+      ENGINE.forEach((f, i) => _py.FS.writeFile('/engine/' + f, srcs[i]));
+      await _py.runPythonAsync('import sys, os\nsys.path.insert(0, "/engine")\nos.chdir("/engine")\nimport form_tool, audit');
       py = _py;
       return py;
     })();
+    // 실패(네트워크 끊김 등)한 준비를 붙잡고 있으면 다시 시도할 길이 없다
+    booting.catch(() => { booting = null; });
     return booting;
   }
+
+  // 이 페이지에 온 사람은 쓰려고 온 사람이다 — 열리자마자 받기 시작해, 파일을 찾는 시간에 대기를 숨긴다.
+  // 데이터 절약 모드나 3G 이하에서는 13MB를 함부로 받지 않고, 파일을 고를 때 받는다(아래 preload).
+  (function eagerBoot() {
+    const c = navigator.connection || {};
+    if (c.saveData || /(^|-)2g|3g/.test(c.effectiveType || '')) return;
+    const go = () => boot().catch(() => {});
+    if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2500 });
+    else setTimeout(go, 1200);
+  })();
 
   // 앞 파일의 화면·결과를 모두 지운다. 이게 없으면 새 양식을 올려도 이전 빈칸과
   // 이전 제출본이 남아 있어, 엉뚱한 양식으로 채운 파일을 내려받게 된다.
