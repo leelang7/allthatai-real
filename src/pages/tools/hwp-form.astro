@@ -1,10 +1,62 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const SITE = 'https://real.allthatai.kr';
+const URL_ = `${SITE}/tools/hwp-form/`;
+
+// 화면의 FAQ 와 FAQPage 스키마를 같은 데이터로 만든다(검색엔진은 보이는 질문과 다르면 무시한다).
+// ★ 여기 적는 말은 전부 실측한 사실만 — 2026-09~10 운영 서버에서 양식 30여 종으로 확인했다.
+const faqs = [
+  { q: '한컴오피스(한글 프로그램)가 없어도 되나요?',
+    a: '네. 브라우저만 있으면 됩니다. 만든 파일은 rhwp 크롬 확장, 한컴독스 웹(무료), 네이버 MYBOX에서 열어 보고 고칠 수 있고, 이 페이지에서도 내려받기 전에 쪽별로 미리 볼 수 있습니다.' },
+  { q: '옛 한글 파일(.hwp)도 되나요?',
+    a: '됩니다. .hwp를 올리면 브라우저 안에서 .hwpx로 바꾼 뒤 채웁니다. 결과는 한글에서 그대로 열리는 .hwpx 파일로 받습니다.' },
+  { q: '올린 파일이 서버에 저장되나요?',
+    a: '아니요. 파일 읽기, 빈칸 찾기, 채우기, 검사, 미리보기가 전부 이 브라우저 안에서 일어나고 파일은 어디로도 전송되지 않습니다.' },
+  { q: '어떤 양식에 쓸 수 있나요?',
+    a: '공모전·지원사업의 참가신청서, 사업계획서, 아이디어 제안서, 기획서처럼 표 안에 빈칸이 있는 양식입니다. 파란 예시 글씨, "내용을 입력하세요" 같은 자리표시, 음영 제목 아래의 작성 요령 칸을 찾아 채웁니다. 공고문 본문이나 체크·서명만 하는 동의서는 채울 대상이 아닙니다.' },
+  { q: '이름·연락처 같은 개인정보도 채워 주나요?',
+    a: '개인정보 칸에는 표시를 달아 따로 알려 드립니다. 비워 두면 양식의 원래 예시가 그대로 남으니, 한글에서 직접 입력하세요.' },
+  { q: '글자 크기나 분량 규정은 맞춰 주나요?',
+    a: '양식 안에 "글자 크기 11pt, 줄간격 160%, 3쪽 이내"처럼 적힌 규정을 읽어 맞추고, 칸별 "○○자 이내" 제한도 입력란에 걸어 둡니다. 채운 뒤에는 글자 넘침, 흐린 예시 색 잔존 같은 결함을 검사해 결과를 보여 줍니다.' },
+  { q: '휴대폰에서도 되나요?',
+    a: '됩니다. 다만 처음 한 번은 문서 엔진(약 8MB)을 받느라 중급 휴대폰·4G에서 30초 안팎 걸립니다. 이 페이지를 여는 순간 받기 시작하고, 다음부터는 바로 시작됩니다.' },
+];
+
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: '한글 양식 자동 작성',
+    url: URL_,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: '웹 브라우저',
+    inLanguage: 'ko-KR',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+    description: '한글(.hwp/.hwpx) 신청서·사업계획서 양식의 빈칸을 찾아 채운 제출본을 만드는 무료 웹 도구. 파일은 서버로 전송되지 않는다.',
+    publisher: { '@id': `${SITE}/#organization` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '홈', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: '도구', item: `${SITE}/tools/` },
+      { '@type': 'ListItem', position: 3, name: '한글 양식 자동 작성', item: URL_ },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
 ---
-<Layout title="한글 양식 자동 작성 — 공고 서식 그대로 HWPX" description="지원사업 공고 양식(HWPX)을 올리면 빈칸을 찾아 채우고 글자 크기·줄간격·표 넓이까지 맞춘 제출본을 만듭니다. 파일은 서버로 보내지 않고 브라우저 안에서 처리합니다.">
+<Layout title="한글(HWP) 신청서·사업계획서 무료 자동 작성 — 한컴오피스 없이" description="한글 .hwp·.hwpx 양식을 올리면 빈칸을 찾아 채우고 글자 크기·줄간격·칸 높이까지 맞춘 제출본을 만듭니다. 한컴오피스 설치·회원가입 없이 브라우저에서, 파일은 서버로 보내지 않습니다.">
+  {ld.map((x) => <script type="application/ld+json" set:html={JSON.stringify(x)}></script>)}
   <section class="mx-auto max-w-3xl px-4 pt-16 pb-6">
     <h1 class="text-4xl sm:text-5xl font-black"><span class="text-gradient">한글 양식 자동 작성</span></h1>
-    <p class="mt-4 text-lg text-zinc-400">공고 양식을 올리면 빈칸을 찾아 채운 제출본(HWPX)을 만듭니다.</p>
+    <p class="mt-4 text-lg text-zinc-400">신청서·사업계획서 양식(.hwp · .hwpx)을 올리면 빈칸을 찾아 채운 제출본을 만듭니다. 한컴오피스가 없어도 됩니다.</p>
     <p class="mt-2 text-xs text-emerald-300">🔒 파일이 서버로 가지 않습니다. 전부 이 브라우저 안에서 처리합니다.</p>
   </section>
 
@@ -54,6 +106,27 @@ import Layout from '../../layouts/Layout.astro';
         <li><a href="https://www.hancomdocs.com/" target="_blank" rel="noopener" class="text-violet-300 hover:underline">한컴독스 웹</a> — 무료 2GB, 편집은 웹·모바일에서</li>
         <li><a href="https://mybox.naver.com/" target="_blank" rel="noopener" class="text-violet-300 hover:underline">네이버 MYBOX</a> — 네이버 아이디로 한컴오피스 웹</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pt-12 pb-6">
+    <h2 class="text-xl font-black text-white">이렇게 씁니다</h2>
+    <ol class="mt-4 space-y-3 text-sm text-zinc-300 leading-relaxed">
+      <li><b class="text-violet-300">1. 양식 올리기</b> — 공고에 붙은 참가신청서·사업계획서·아이디어 제안서 파일(.hwp 또는 .hwpx)을 끌어다 놓습니다.</li>
+      <li><b class="text-violet-300">2. 빈칸 채우기</b> — 찾아낸 칸이 항목 이름과 함께 입력란으로 뜹니다. 양식의 작성 요령과 글자 수 제한도 함께 보여 줍니다.</li>
+      <li><b class="text-violet-300">3. 미리 보고 내려받기</b> — 서식(글꼴·줄간격·칸 높이)을 맞춘 제출본을 쪽별로 미리 본 뒤 .hwpx로 받습니다.</li>
+    </ol>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pt-6 pb-24">
+    <h2 class="text-xl font-black text-white">자주 묻는 질문</h2>
+    <div class="mt-4 space-y-2">
+      {faqs.map((f) => (
+        <details class="rounded-xl border border-zinc-800 bg-zinc-900/40 px-4 py-3">
+          <summary class="cursor-pointer text-sm font-bold text-zinc-200">{f.q}</summary>
+          <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{f.a}</p>
+        </details>
+      ))}
     </div>
   </section>
 </Layout>
