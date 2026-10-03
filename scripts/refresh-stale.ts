@@ -68,7 +68,7 @@ async function bumpUpdatedInFile(slug: string, today: string) {
 async function pingIndexNow(urls: string[]) {
   if (urls.length === 0) return;
   const KEY = '390aa9c078c4d60d88fd24f8f90ae5b4';
-  const HOST = 'allthatai-real.vercel.app';
+  const HOST = 'real.allthatai.kr';   // canonical 도메인
   const body = {
     host: HOST,
     key: KEY,
@@ -139,7 +139,7 @@ async function main() {
 
   // Submit refreshed URLs to IndexNow so search engines re-crawl quickly.
   const urls = refreshedSlugs.map(
-    (s) => `https://allthatai-real.vercel.app/issues/${s}/`
+    (s) => `https://real.allthatai.kr/issues/${s}/`
   );
   await pingIndexNow(urls);
 }

@@ -16,7 +16,7 @@
  */
 
 const KEY = '390aa9c078c4d60d88fd24f8f90ae5b4';
-const HOST = 'allthatai-real.vercel.app';
+const HOST = 'real.allthatai.kr';   // canonical 도메인. vercel.app 은 같은 페이지의 중복 주소다
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 
 async function pingIndexNow(urls: string[]) {

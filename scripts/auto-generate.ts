@@ -1168,7 +1168,7 @@ async function main() {
     // Emit fresh URL list for IndexNow (Bing/Yandex/Seznam auto-discover).
     // Picked up by the workflow's next step and POSTed without user action.
     const urls = generated.map(
-      (m) => `https://allthatai-real.vercel.app/issues/${m.slug}/`
+      (m) => `https://real.allthatai.kr/issues/${m.slug}/`
     );
     await fs.writeFile(
       path.join(ROOT, 'fresh-urls.txt'),

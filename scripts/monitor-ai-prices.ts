@@ -132,7 +132,7 @@ async function main() {
     await saveSnapshot(t.id, current);
 
     if (changed.includes(t.name)) {
-      refreshUrls.push(`https://allthatai-real.vercel.app/guides/${t.relatedSlug}/`);
+      refreshUrls.push(`https://real.allthatai.kr/guides/${t.relatedSlug}/`);
     }
   }
 

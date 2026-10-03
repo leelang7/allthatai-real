@@ -19,7 +19,7 @@ import { trackers } from '../src/data/trackers';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const LIVE_FILE = path.join(ROOT, 'src/data/trackers.live.ts');
 const FRESH_URLS = path.join(ROOT, 'fresh-urls.txt');
-const SITE = 'https://allthatai-real.vercel.app';
+const SITE = 'https://real.allthatai.kr';   // IndexNow 로 보낼 canonical 주소
 const UA = 'Mozilla/5.0 (compatible; AllThatAIRealBot/1.0; +https://allthatai-real.vercel.app)';
 const MAX_ITEMS = 50;
 
