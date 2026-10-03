@@ -202,6 +202,13 @@ def audit(path, notice=None, base=None):
                 is_guide = bool(GUIDE_RE.match(text))
                 is_options = (text.count("□") + text.count("■")) >= 2      # "□ 인공지능 □ 빅데이터" 선택지 줄
                 long_body = len(text) > 60 and not is_guide and not is_options
+                # 틀 문장의 빈칸 몇 글자만 바꾼 칸('성적평점:  4.12 / 4.5')은 양식 본래 배치를 그대로 쓴다.
+                # 원본 글의 공백 말고는 같으면 '본문을 채운 칸'이 아니므로 배치 규칙(A12 등)을 걸지 않는다.
+                if changed and base_texts is not None and base_texts.get(key):
+                    squeeze = lambda x: re.sub(r"\s+", "", x)
+                    b0 = squeeze(base_texts[key])
+                    if b0 and len(squeeze(text)) - len(b0) <= 20 and all(w in squeeze(text) for w in re.findall(r"[가-힣]{2,}", base_texts[key])):
+                        long_body = False
 
                 # A1 칸 넘침 — 셀 여백을 포함해 비교하고, 줄 추정이 보수적이므로 15% 여유를 준다
                 mg = cell.element.find('{%s}cellMargin' % HP)

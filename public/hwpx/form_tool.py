@@ -48,7 +48,19 @@ ANSWER_GUIDE_RE = re.compile(r"^[❍○◦●•·\-–\*※▶►◼▪☞◆�
 # 작성 요령에는 지시 동사가 있다. 기호만 보고 판단하면 공고 본문('· 민간 클라우드 제공')과
 # 심사 기준('• 공공데이터가 유의미하게 사용되었는가?')까지 답 칸으로 잡는다.
 INSTRUCT_RE = re.compile(r"작성|기재|기술|서술|제시|설명|입력|기입|명시|적어|적을|포함하여|첨부")
-GENERIC_LABEL_RE = re.compile(r"^[◈※▶■□\s]*(작성\s*내용|세부\s*내용|내\s*용|작성\s*란|기재\s*내용)\s*$")
+# 문장 속 빈칸: 글자 사이 공백 3칸 이상, 또는 ':' 뒤가 비었거나 공백 2칸 이상('전화번호:     -')
+# 빈칸을 '명시적으로' 표시한 꼴만 — 공백 3칸 기준은 이미 쓴 본문의 우연한 공백까지 잡았다.
+#   ':' 뒤가 빈 것  /  괄호 안이 빈 것 '(    )종'  /  단위 앞이 빈 것 '20   학년도', '년    월    일'
+TEMPLATE_BLANK_RE = re.compile(
+    r"[:：](?: {2,}|\s*$)"
+    r"|[(（][^)）\w]{0,2} {3,}[)）]"
+    r"|(?:^|\S) {2,}(?:년|월|일|학년도|학기|학년|학점|종|부|명|원|세|호|시|분)(?=\s|$|[ ,.)(])"
+)
+# 빈칸 바로 뒤에 오는 단서 — 단위나 닫는 기호
+BLANK_AFTER_RE = re.compile(r"^(?:년|월|일|학년도|학기|학년|학점|종|부|명|원|세|호|시|분|개|회|건|점|[)）\-~～/])")
+TEMPLATE_SKIP_RE =re.compile(r"^\s*(?:[•ㆍ·∙\-–❍○◦※▶►◆◈☞]|[①-⑳]|\d{1,2}[.)]\s)")   # 안내문·번호 목록
+CHECKBOX_RE = re.compile(r"[□■☐☑☒▢✓✔]")
+GENERIC_LABEL_RE =re.compile(r"^[◈※▶■□\s]*(작성\s*내용|세부\s*내용|내\s*용|작성\s*란|기재\s*내용)\s*$")
 # 칸 안에 그림·도형·안쪽 표가 있으면 덮어쓰면 안 된다(작성본의 시연 화면 캡처, 안내문 1×1 표를 품은 칸)
 OBJECT_TAGS = {"tbl", "pic", "container", "ole", "rect", "ellipse", "line", "arc", "polygon", "curve", "equation", "textart"}
 RULE_FONT_RE = re.compile(r"(\d{1,2}(?:\.\d)?)\s*(?:pt|포인트|호)")
@@ -294,6 +306,42 @@ def scan(path):
                           "current": re.sub(r"\s+", " ", txt)[:60],
                           "limit": find_limit(txt, ut),
                           "blue": False, "placeholder": False, "big_box": True})
+            taken.add((ti, r, ci))
+
+    # ── 글 속 빈칸(틀 문장) ─────────────────────────────────────────────────────
+    # 대학·행정 서식에 흔한 꼴:  [신청학기] 20   학년도    제   학기
+    #                            [연 락 처] 전화번호:          -
+    # 칸이 비어 있지도 예시가 있지도 않고, 문장 안의 공백이 빈칸이다(장학금 신청서가 0칸이던 원인).
+    # 틀 문장 통째를 'template' 로 넘겨, 화면이 입력란에 미리 넣고 사용자가 공백 자리에 써넣는다.
+    # ★ 라벨 칸이 왼쪽에 있을 때만 — 공고문 본문의 들여쓰기 공백을 잡지 않게.
+    for ti, t in enumerate(tables):
+        grid = {}
+        for row in t.rows:
+            for c in row.cells:
+                grid[c.address] = (c, " ".join((p.text or "") for p in c.paragraphs))
+        for (r, ci), (cell, raw) in sorted(grid.items()):
+            if ci == 0 or (ti, r, ci) in taken:
+                continue
+            txt = raw.strip()
+            if not txt or len(txt) > 120 or not TEMPLATE_BLANK_RE.search(raw) or GUIDE_RE.match(txt):
+                continue
+            if TEMPLATE_SKIP_RE.match(txt) or CHECKBOX_RE.search(txt):
+                continue                                   # 안내문·번호 목록·체크박스(고르기는 따로 다룬다)
+            if all(len(w) <= 1 for w in txt.split()):      # '성    명' 처럼 자간만 벌린 제목
+                continue
+            if cell_shaded(root, cell):
+                continue
+            lcell, lt = grid.get((r, ci - 1), (None, ""))
+            lt = re.sub(r"\s+", " ", (lt or "")).strip()
+            if not (1 <= len(lt) <= 20 and not TEMPLATE_BLANK_RE.search(lt) and not PLACEHOLDER_RE.search(lt)):
+                continue
+            blanks = template_blanks(cell)
+            if not blanks:
+                continue
+            slots.append({"table": ti, "row": r, "col": ci, "label": lt[:40],
+                          "current": re.sub(r"\s+", " ", txt)[:60], "template": raw.rstrip("\n"),
+                          "blanks": blanks,
+                          "limit": None, "blue": False, "placeholder": False})
             taken.add((ti, r, ci))
 
     # 항목 제목이 표 밖(또는 앞 표)에 있는 양식은 칸 안에서 라벨을 못 찾는다.
@@ -704,6 +752,19 @@ def fill(path, answers, out):
             for t in tables:
                 mark(t)
             continue
+        # '@표:행:열' — 화면이 칸 위치로 보낸 값. 라벨로 찾으면 같은 이름의 칸(사업계획서의 '구분' 네 개)
+        # 이 첫 값으로 모두 덮이고 나머지 입력은 버려졌다. 위치로 받으면 칸마다 제 값이 들어간다.
+        m_pos = re.match(r"^@(\d+):(\d+):(\d+)$", key)
+        if m_pos:
+            pos = tuple(int(x) for x in m_pos.groups())
+            hit = [s for s in info["slots"] + info["narrative"]
+                   if (s.get("table"), s.get("row"), s.get("col")) == pos]
+            if not hit:
+                missed.append(key)
+                continue
+            _fill_one(doc, root, tables, hit[0], hit[0].get("label") or key, val, cons, cps, fonts, pps,
+                      cache, pcache, solid_bf, body_w, reindex, done)
+            continue
         # 같은 라벨이 여러 번 나오면(팀명이 신청서·동의서·서약서에 각각) 정확히 일치하는 칸은 전부 채운다.
         # 단 3개를 넘으면 데이터 표의 열 이름일 가능성이 크므로 첫 칸만 — 표를 같은 값으로 덮는 사고 방지.
         targets = []
@@ -734,10 +795,102 @@ def fill(path, answers, out):
     return done, missed
 
 
+def _cell_texts(cell):
+    """칸 안의 글자 조각(<hp:t>)을 문단 번호와 함께. 자식 요소가 든 조각(탭 등)은 건드리지 않는다."""
+    out = []
+    for pi, p in enumerate(cell.paragraphs):
+        for t in p.element.iter('{%s}t' % HP):
+            if len(t) == 0:
+                out.append((pi, t))
+    return out
+
+
+def template_blanks(cell):
+    """틀 문장 속 빈칸(공백 2칸 이상)의 위치와 앞뒤 문맥.
+
+    ★ 칸 전체를 새 글로 갈아 끼우면 여러 문단이 한 문단으로 합쳐지고, 빈칸에 걸린 밑줄
+      (양식의 '______' 는 밑줄 친 공백이다)이 사라진다(장학금 신청서 렌더로 확인).
+      그래서 빈칸 자리의 글자만 바꾼다 — 문단·글자 서식은 그대로 남는다.
+    """
+    pieces = _cell_texts(cell)
+    raw = []
+    for k, (pi, t) in enumerate(pieces):
+        txt = t.text or ""
+        for m in re.finditer(r" {2,}", txt):
+            raw.append((k, pi, m.start(), m.end(), len(txt)))
+    # 한 빈칸이 조각 둘로 나뉜 경우(밑줄 친 공백 + 그냥 공백)를 하나로 — 아니면 같은 칸이 두 번 뜬다
+    merged = []
+    for k, pi, s0, e0, ln in raw:
+        if merged:
+            pk, ppi, ps, pe, pln, extra = merged[-1]
+            last_k = extra[-1][0] if extra else pk
+            last_end = extra[-1][2] if extra else pe
+            last_len = len(pieces[last_k][1].text or "")
+            if ppi == pi and k == last_k + 1 and last_end == last_len and s0 == 0:
+                extra.append((k, s0, e0))
+                continue
+        merged.append([k, pi, s0, e0, ln, []])
+    blanks = []
+    for k, pi, s0, e0, _, extra in merged:
+        lk, le = (extra[-1][0], extra[-1][2]) if extra else (k, e0)
+        before = "".join((q.text or "") for (pj, q) in pieces[:k] if pj == pi) + (pieces[k][1].text or "")[:s0]
+        after = (pieces[lk][1].text or "")[le:] + "".join((q.text or "") for (pj, q) in pieces[lk + 1:] if pj == pi)
+        b, a = before.strip(), after.strip()
+        if not b:                                      # 문단 첫머리 들여쓰기는 빈칸이 아니다
+            continue
+        # ★ 빈칸에는 앞뒤 단서가 있다. 없으면 단어 사이를 넓게 띄운 것뿐이다('20 학년도 ▢ 제 학기' 의 가운데).
+        if not (BLANK_AFTER_RE.match(a) or b[-1] in ":：-~～(（/" or b[-1].isdigit() or not a):
+            continue
+        if not a and b[-1] not in ":：-~～(（":         # 문단 끝 공백은 ':' '-' '(' 뒤일 때만 빈칸
+            continue
+        blanks.append({"piece": k, "start": s0, "end": e0,
+                       "extra": [[xk, xs, xe] for xk, xs, xe in extra],
+                       "before": re.sub(r"\s+", " ", b)[-14:], "after": re.sub(r"\s+", " ", a)[:10]})
+    return blanks
+
+
+def fill_blanks(cell, blanks, values):
+    """빈칸 자리의 공백만 값으로 바꾼다. 값이 짧으면 공백으로 채워 뒤 글자 자리를 지킨다."""
+    pieces = _cell_texts(cell)
+    by_piece = {}
+    for b, v in zip(blanks, values):
+        v = (v or "").strip()
+        if not v:
+            continue
+        # 조각 둘로 나뉜 빈칸이면 더 긴 쪽(대개 밑줄 친 공백)에 쓴다 — 짧은 쪽에 쓰면 값이 선 앞에 뜬다
+        k, s0, e0 = b["piece"], b["start"], b["end"]
+        for xk, xs, xe in b.get("extra") or []:
+            if xe - xs > e0 - s0:
+                k, s0, e0 = xk, xs, xe
+        glue = b.get("before", "")[-1:].isdigit()       # '20▢학년도' 의 연도처럼 앞 숫자에 붙여 쓴다
+        by_piece.setdefault(k, []).append(({"start": s0, "end": e0, "glue": glue}, v))
+    n = 0
+    for k, items in by_piece.items():
+        if k >= len(pieces):
+            continue
+        t = pieces[k][1]
+        txt = t.text or ""
+        for b, v in sorted(items, key=lambda x: -x[0]["start"]):   # 뒤에서부터 — 앞 위치가 안 밀린다
+            width = b["end"] - b["start"]
+            core = (v if b.get("glue") else " " + v) + " "
+            rep = core.ljust(width) if len(core) <= width else core
+            txt = txt[:b["start"]] + rep + txt[b["end"]:]
+            n += 1
+        t.text = txt
+    return n
+
+
 def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache, pcache, solid_bf, body_w, reindex, done):
     if True:
         t = tables[target["table"]]
         cell = t.cell(target["row"], target["col"])
+        if target.get("blanks"):
+            # 틀 문장 칸 — 빈칸 자리만 바꾸고 끝낸다(문단·밑줄·칸 높이를 건드리지 않는다)
+            vals = val if isinstance(val, list) else [val]
+            n = fill_blanks(cell, target["blanks"], vals)
+            mark(t)
+            done.append("%s → 표%d(%d,%d) 빈칸 %d곳" % (key, target["table"], target["row"], target["col"], n))
+            return
         was_guide = bool(GUIDE_RE.match((target.get("current") or "").strip())) or bool(target.get("big_box")) \
             or "guide" in target
         # ★ 칸 첫머리가 빈 여백 문단이고 작성 요령은 그 아래 있는 양식이 있다. set_text 는 첫 문단
