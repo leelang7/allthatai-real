@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-10-04-스팀-the-outlast-trials-90-할인-42000-4200",
+    "title": "스팀 The Outlast Trials 90% 할인: ₩4,200에 공포 체험!",
+    "excerpt": "스팀 The Outlast Trials, 정가 ₩42,000에서 90% 할인된 ₩4,200에 구매 가능!",
+    "tag": "게임할인",
+    "minutes": 5,
+    "generatedAt": "2026-10-04T11:22:29.246Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-09-30-스팀-the-witcher-3-wild-hunt-remastered-50-할인-54900-27450",
     "title": "스팀 '더 위쳐 3: 와일드 헌트 리마스터' 50% 할인 – 지금이 기회!",
