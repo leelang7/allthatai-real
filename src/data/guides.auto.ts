@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-09-30-스팀-the-witcher-3-wild-hunt-remastered-50-할인-54900-27450",
     "title": "스팀 '더 위쳐 3: 와일드 헌트 리마스터' 50% 할인 – 지금이 기회!",
@@ -225,7 +225,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-07-10T13:47:45.594Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-10-04T07:29:07.041Z"
   },
   {
     "slug": "deal-2026-06-26-deluxe-edition---djmax-respect-v-스팀-베스트셀러-67-할인",
@@ -905,7 +906,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-18T19:18:59.817Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.832Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.039Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-stardew-valley-50-할인-16000-8000",
@@ -915,7 +916,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-18T19:19:07.178Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.832Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.040Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-v-rising-55-할인-34500-15520",
@@ -925,7 +926,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-18T19:19:12.907Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.833Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.040Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-red-dead-redemption-2-75-할인-73000-18250",
@@ -935,7 +936,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-18T19:19:18.487Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.834Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.041Z"
   },
   {
     "slug": "deal-2026-05-18-stardew-valley-스팀-베스트셀러-50-할인",
@@ -955,7 +956,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-18T14:48:13.187Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.829Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.033Z"
   },
   {
     "slug": "deal-2026-05-18-종합부동산세-1주택자-공제합산-배제",
@@ -965,7 +966,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-18T14:48:30.340Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.829Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.035Z"
   },
   {
     "slug": "deal-2026-05-18-법인-설립-대행-3080만-vs-직접-함정과-차이",
@@ -975,7 +976,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-18T14:48:52.436Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.830Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.036Z"
   },
   {
     "slug": "deal-2026-05-18-apple-developer-등록-대행-vs-직접-99년-그대로",
@@ -985,7 +986,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-18T14:49:01.004Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.831Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.037Z"
   },
   {
     "slug": "deal-2026-05-18-스팀-서브노티카-75-할인-33700-8420",
@@ -995,7 +996,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-18T14:49:11.455Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-05T05:49:52.831Z"
+    "lastRefreshedAt": "2026-10-04T07:29:07.038Z"
   },
   {
     "slug": "deal-2026-05-18-주택임대차계약-신고제-위반-과태료-면제-조건",
