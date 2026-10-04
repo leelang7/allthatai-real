@@ -386,7 +386,7 @@ const ld = [
     $('meta').textContent = srcName + ' · 표 ' + info.tables + '개 · 채울 칸 ' + items.length + '개';
     $('cons').textContent = rules.length ? '이 양식의 규칙: ' + rules.join(' · ') + ' — 자동으로 맞춥니다' : '';
 
-    $('slots').innerHTML = items.map((it) => {
+    const card = (it) => {
       const badge = isPersonal(it.key)
         ? '<span class="ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold bg-rose-500/20 text-rose-300">개인정보 · 비워두면 원본 유지</span>'
         : (it.limit ? '<span class="ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300">' + it.limit + '자 이내</span>' : '');
@@ -409,7 +409,64 @@ const ld = [
       const hint = (it.hint && !(it.blanks && it.blanks.length)) ? '<p class="mt-1 text-[11px] text-zinc-500">양식 안내: ' + esc(String(it.hint).slice(0, 160)) + '</p>' : '';
       return '<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4">'
         + '<label class="text-sm font-bold text-zinc-200">' + esc(it.key) + badge + '</label>' + input + hint + '</div>';
-    }).join('');
+    };
+
+    // 표 모양 칸(팀 구성·추진 일정·사업비)은 표 그대로 보여 준다. 예비창업패키지 사업계획서는 이런 칸이
+    // 121개라 낱개 입력란으로 늘어놓으면 화면이 끝없이 길어졌다. 칸은 절 제목 아래로 묶는다.
+    const grid = (group) => {
+      const rows = [...new Set(group.map((it) => it.at.row))].sort((a, b) => a - b);
+      const cols = [...new Set(group.map((it) => it.at.col))].sort((a, b) => a - b);
+      const at = {};
+      group.forEach((it) => { at[it.at.row + ':' + it.at.col] = it; });
+      const head = cols.map((c) => {
+        const names = group.filter((it) => it.at.col === c).map((it) => it.key.replace(/ \(\d+\)$/, ''));
+        const name = names.sort((a, b) => names.filter((x) => x === b).length - names.filter((x) => x === a).length)[0] || '';
+        return '<th class="px-2 py-1.5 text-left text-[11px] font-bold text-zinc-300 whitespace-nowrap">' + esc(name)
+          + (isPersonal(name) ? ' <span class="text-rose-300">·개인정보</span>' : '') + '</th>';
+      }).join('');
+      const body = rows.map((r) => '<tr>' + cols.map((c) => {
+        const it = at[r + ':' + c];
+        if (!it) return '<td></td>';
+        const pos = '@' + it.at.table + ':' + it.at.row + ':' + it.at.col;
+        return '<td class="p-1"><input type="text" data-k="' + esc(it.key) + '" data-pos="' + pos + '"'
+          + (it.limit ? ' maxlength="' + it.limit + '"' : '') + ' placeholder="' + esc(String(it.hint || '').slice(0, 30)) + '"'
+          + ' class="w-full min-w-[7rem] rounded-md bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-2 py-1.5 text-xs text-zinc-200 placeholder:text-zinc-600" /></td>';
+      }).join('') + '</tr>').join('');
+      return '<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-3 overflow-x-auto">'
+        + '<p class="mb-2 text-[11px] text-zinc-500">표 ' + rows.length + '줄 · 회색 글씨는 양식의 예시입니다</p>'
+        + '<table class="w-full border-separate border-spacing-0"><thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div>';
+    };
+
+    const byTable = new Map();
+    items.forEach((it) => {
+      const t = it.at ? it.at.table : -1;
+      if (!byTable.has(t)) byTable.set(t, []);
+      byTable.get(t).push(it);
+    });
+    const sections = info.sections || [];
+    let html = '', lastSec = null;
+    for (const [t, group] of byTable) {
+      const title = t >= 0 ? (sections[t] || '') : '';
+      if (title && title !== lastSec) {
+        html += '<h3 class="pt-4 pb-1 text-sm font-black text-violet-300">' + esc(title) + '</h3>';
+        lastSec = title;
+      }
+      // 데이터 표 = 같은 열의 칸들이 같은 이름(열 머리글)을 가진다. '라벨|값' 이 섞인 신청서 표는
+      // 같은 열에 주제명·팀 정보 같은 다른 이름이 오므로 표 모양으로 그리지 않는다.
+      const base = (it) => it.key.replace(/ \(\d+\)$/, '');
+      // 열마다 다른 이름은 하나까지 — 사업비 표의 마지막 '합 계' 줄처럼
+      const colsSame = [...new Set(group.map((it) => it.at && it.at.col))].every((c) => {
+        const names = group.filter((it) => it.at.col === c).map(base);
+        const top = Math.max(...[...new Set(names)].map((n) => names.filter((x) => x === n).length));
+        return top >= names.length - 1;
+      });
+      const tabular = group.every((it) => it.at && !it.big && !(it.blanks && it.blanks.length))
+        && group.length >= 4 && colsSame
+        && new Set(group.map((it) => it.at.row)).size >= 2
+        && new Set(group.map((it) => it.at.col)).size >= 2;
+      html += tabular ? grid(group) : group.map(card).join('');
+    }
+    $('slots').innerHTML = html;
 
     // 채울 칸이 없는 파일이 흔하다 — 공고문, 동의서, 이미 작성된 문서. 빈 화면을 주지 말고 왜인지 말한다.
     if (!items.length) {

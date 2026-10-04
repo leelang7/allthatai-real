@@ -248,7 +248,8 @@ def scan(path):
     for i, g in enumerate(solo):
         narrative.append({"table": g["table"], "row": g["row"], "col": g["col"], "guide": g["text"],
                           "limit": find_limit(g["text"]),
-                          "label": outline[i] if i < len(outline) else guess_label(tables, g)})
+                          "label": outline[i] if i < len(outline) else guess_label(tables, g),
+                          "label_src": "outline" if i < len(outline) else "guess"})
     # 다단 표의 '▶ 안내행' 바로 아래에 큰 빈칸(≥25mm)이 있으면 그 큰 칸이 진짜 답 자리다.
     # (내일로 해커톤 기획서 구조: 제목행 / ▶안내행 / 45mm 빈칸행)  안내행은 파란 예시이므로 비운다.
     for s in slots:
@@ -361,8 +362,31 @@ def scan(path):
         if g:
             s["label"] = g[:40]
 
+    # ★ 같은 칸이 '빈칸'과 '서술형' 양쪽에 잡히면 화면에 입력란이 둘 뜨고 나중 값이 앞 값을 덮는다.
+    #   (서술형 30칸 중 22칸이 겹쳤다 — 예비창업패키지 18, NAIS 4). 서술형 쪽을 남긴다:
+    #   안내문 상자 전용 처리(점선→실선·폭 맞춤)가 서술형 경로에 있다.
+    narr_pos = {(n["table"], n["row"], n["col"]) for n in narrative}
+    slots = [s for s in slots if (s["table"], s["row"], s["col"]) not in narr_pos]
+    # 목차에서 이름을 못 얻은 서술형 칸은 표 앞 절 제목('1. 문제 인식(Problem)')으로
+    # 목차에서 얻은 이름(NAIS '1) 연구 문제…')은 정확하므로 두고, 추정 이름은 더 나은 근거로 바꾼다:
+    # 바깥 표 칸 안에 든 상자면 그 행 이름, 아니면 앞 절 제목. 추정은 앞 표 글을 줍기 쉬워
+    # 사업비 표 아래 상자가 '지급수수료' 가 되는 식으로 틀렸다.
+    hp = headings_before_tables(doc, with_parent=True)
+    def better(n):
+        if n.get("label_src") == "outline" or n["table"] >= len(hp):
+            return None
+        h, parent = hp[n["table"]]
+        return parent or h or None
+    cand = {id(n): better(n) for n in narrative}
+    use = Counter(v for v in cand.values() if v)
+    for n in narrative:
+        v = cand[id(n)]
+        if v and use[v] == 1:                  # 한 칸만 가리킬 때만 — 같은 이름이면 같은 글이 들어간다
+            n["label"] = v[:40]
+
     return {"source": os.path.basename(path), "tables": len(tables),
             "slots": slots, "narrative": narrative, "guides": guides,
+            "sections": [h for h, _ in hp],          # 표마다 앞 절 제목 — 화면이 칸을 절 단위로 묶는 데 쓴다
             "constraints": find_constraints(doc, tables)}
 
 
@@ -375,29 +399,48 @@ def _is_solo_guide(tables, g):
     return t.row_count == 1 and t.column_count == 1
 
 
-def headings_before_tables(doc):
-    """본문 문단 순서대로 훑어, 각 표(iter_tables 순서) 바로 앞의 문단 제목을 돌려준다.
+HEADING_RE = re.compile(r"^(\d{1,2}[.)]\s|[가-하][.)]\s|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.)]?\s|[□■◆◇▣]\s?\S|[<〈《]\s*\S.*[>〉》]$)")   # '< 1단계 사업비 집행계획 >' 같은 표 소제목도
 
-    절 제목('1. 창업 아이템 개요')이 표 밖 문단에 있는 양식이 많다. 표 안만 보는
-    guess_label 은 이걸 못 보고, 답 칸이 모두 '◈ 작성내용' 이나 '칸 7' 로 뭉개진다.
+
+def headings_before_tables(doc, with_parent=False):
+    """문서 순서대로 훑어, 각 표(iter_tables 순서) 앞의 절 제목을 돌려준다.
+
+    절 제목('1. 창업 아이템 개요')은 표 밖 문단에도, '□ 일반현황' 같은 □ 문단에도,
+    제목만 든 1×1 표('1. 문제 인식(Problem)_창업 아이템의 필요성')에도 있다(예비창업패키지).
+    with_parent=True 면 (제목, 바깥 칸의 행 이름) 쌍 — 다른 표의 칸 안에 든 안내 상자는
+    바깥 행 이름('문제 인식')이 곧 항목 이름이다.
+    ★ '[서식3-1]' 같은 서식 번호는 문서 단위라 제외(결과서 17칸이 전부 '[서식3-1]' 이 됐었다).
     """
-    out, last = [], ""
-    def walk(paras, top):
-        nonlocal last
+    out, last = [], [""]
+    def label_of(t):
+        t = re.sub(r"\s+", " ", t or "").strip()
+        if 2 <= len(t) <= 50 and HEADING_RE.match(t):
+            core = re.sub(r"^[□■◆◇▣<〈《\s]+|[>〉》\s]+$", "", t)
+            if re.match(r"^\[?\s*(서식|양식|별첨|붙임|첨부)\s*[\d-]*\s*\]?$", core):
+                return ""                             # '<서식3>' 같은 서식 번호는 문서 단위 — 칸 이름이 아니다
+            return re.sub(r"^[□■◆◇▣<〈《]\s*|\s*[>〉》]$", "", t)
+        return ""
+    def walk(paras, top, parent):
         for p in paras:
             if top:
-                t = re.sub(r"\s+", " ", (p.text or "")).strip()
-                # 번호 달린 절 제목만. '[서식3-1]'·'[양식2] 사업계획서' 같은 서식 번호는 문서 단위라
-                # 그 아래 모든 칸이 같은 이름이 된다(결과서 17칸이 전부 '[서식3-1]').
-                if 2 <= len(t) <= 40 and re.match(r"^(\d{1,2}[.)]\s|[가-하][.)]\s|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.)]?\s)", t):
-                    last = re.sub(r"^[□■◆◇▣]\s*", "", t)
+                h = label_of(p.text)
+                if h:
+                    last[0] = h
             for tb in p.tables:
-                out.append(last)
-                for row in tb.rows:
-                    for c in row.cells:
-                        walk(c.paragraphs, False)
-    walk(doc.paragraphs, True)
-    return out
+                out.append((last[0], parent))
+                cells = [c for row in tb.rows for c in row.cells]
+                if top and len(cells) <= 2:              # 제목 전용 표 — 뒤따르는 표들의 절 제목
+                    h = label_of(" ".join((q.text or "") for q in cells[0].paragraphs))
+                    if h:
+                        last[0] = h
+                grid = {c.address: c for c in cells}
+                for c in cells:
+                    r, ci = c.address
+                    left = grid.get((r, ci - 1)) if ci > 0 else None
+                    row_name = re.sub(r"\s+", " ", " ".join((q.text or "") for q in left.paragraphs)).strip() if left is not None else ""
+                    walk(c.paragraphs, False, row_name[:40] if 1 <= len(row_name) <= 40 else parent)
+    walk(doc.paragraphs, True, "")
+    return out if with_parent else [h for h, _ in out]
 
 
 def guess_label(tables, g):
