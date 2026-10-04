@@ -39,6 +39,14 @@ class Finding:
         return {"code": self.code, "level": self.level, "where": self.where, "message": self.msg, "hint": self.hint}
 
 
+def box_only_change(base, cur):
+    """원본과 고르기 상자 글자(□↔■)·공백만 다른가 — 그런 칸은 '우리가 채운 칸' 이 아니다."""
+    if not base or not cur:
+        return False
+    norm = lambda x: re.sub(r"\s+", "", re.sub("[■☑☒✓✔▢☐]", "□", x))
+    return norm(base) == norm(cur)
+
+
 def is_blue(color):
     if not color or not re.match(r"^#[0-9A-Fa-f]{6}$", color or ""):
         return False
@@ -194,6 +202,9 @@ def audit(path, notice=None, base=None):
                 where = "표%d(%d,%d)" % key
                 # 원본을 주면 '우리가 바꾼 칸'만 본다. 원본에 원래 있던 안내문·유의사항까지 잡으면 오탐이다.
                 changed = True if base_texts is None else (base_texts.get(key) != text and text not in base_all)
+                # 고르기 상자(□→■)만 바뀐 칸은 배치가 원본 그대로다 — 원본부터 빠듯한 5mm 칸이 '넘침' 으로 잡혔다
+                if changed and base_texts is not None and box_only_change(base_texts.get(key), text):
+                    changed = False
                 p0 = paras[0]
                 cid = PR.first_run_char(p0.element)
                 ci = PR.char_info(cps, fonts, cid) or {}
@@ -419,7 +430,7 @@ def audit(path, notice=None, base=None):
                 if base_texts is not None:
                     k = (ti, cell.address[0], cell.address[1])
                     cur = " ".join((p.text or "") for p in cell.paragraphs).strip()
-                    if base_texts.get(k) == cur:
+                    if base_texts.get(k) == cur or box_only_change(base_texts.get(k), cur):
                         continue
                 for p in cell.paragraphs:
                     if not (p.text or "").strip():
@@ -456,7 +467,7 @@ def audit(path, notice=None, base=None):
                 for cell in row.cells:
                     txt = " ".join((p.text or "") for p in cell.paragraphs).strip()
                     key = (ti, cell.address[0], cell.address[1])
-                    if len(txt) >= 4 and base_texts.get(key) != txt:
+                    if len(txt) >= 4 and base_texts.get(key) != txt and not box_only_change(base_texts.get(key), txt):
                         vals[txt] += 1
         for v, n in vals.most_common(3):
             if n >= 4:

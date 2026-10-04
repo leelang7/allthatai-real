@@ -345,6 +345,37 @@ def scan(path):
                           "limit": None, "blue": False, "placeholder": False})
             taken.add((ti, r, ci))
 
+    # ── 고르기(글자 체크박스) ────────────────────────────────────────────────────
+    # '□ 사용 □ 미사용', '동의하십니까? □ 동의함 □ 동의하지 않음' — 거의 모든 신청서에 있는데 건너뛰고 있었다.
+    # ★ '□' 는 제목 글머리로도 쓰인다('□ 현황 및 문제점 o 공정거래위원회 의결서는…'). 선택지는 짧고
+    #   글머리 뒤는 길다 — □ 뒤 글이 모두 30자 이내일 때만 고르기로 본다. 그림이 든 칸은 뺀다.
+    for ti, t in enumerate(tables):
+        grid = {}
+        for row in t.rows:
+            for c in row.cells:
+                grid[c.address] = c
+        for (r, ci), cell in sorted(grid.items()):
+            if (ti, r, ci) in taken:
+                continue
+            boxes = choice_boxes(cell)
+            if len(boxes) < 2 or any(len(b["text"]) > 30 or not b["text"] for b in boxes):
+                continue
+            sub = cell.element.find('{%s}subList' % HP)
+            if sub is not None and any(e.tag.rsplit('}', 1)[-1] in OBJECT_TAGS - {"tbl"} for e in sub.iter()):
+                continue
+            lcell = grid.get((r, ci - 1))
+            lt = re.sub(r"\s+", " ", " ".join((p.text or "") for p in lcell.paragraphs)).strip() if lcell is not None else ""
+            prefix = boxes[0]["glabel"]
+            label = (lt if 1 <= len(lt) <= 40 else "") or prefix[-40:] or "선택"
+            multi = bool(re.search(r"중복|복수", lt + " " + prefix + " " + " ".join(b["text"] for b in boxes)))
+            slots.append({"table": ti, "row": r, "col": ci, "label": label[:40],
+                          "current": " / ".join(b["text"] for b in boxes)[:60],
+                          "choice": [{"text": b["text"], "checked": b["checked"], "group": b["group"],
+                                      "glabel": b["glabel"]} for b in boxes],
+                          "boxes": [[b["piece"], b["idx"]] for b in boxes], "multi": multi,
+                          "limit": None, "blue": False, "placeholder": False})
+            taken.add((ti, r, ci))
+
     # 항목 제목이 표 밖(또는 앞 표)에 있는 양식은 칸 안에서 라벨을 못 찾는다.
     # 그런 칸은 '칸 7' 같은 번호로만 보여 무엇을 쓰는 자리인지 알 수 없으므로,
     # 앞선 표의 소제목을 끌어와 붙인다. 한 표에 칸이 하나일 때만 — 여러 칸이면 같은
@@ -841,9 +872,19 @@ def fill(path, answers, out):
 def _cell_texts(cell):
     """칸 안의 글자 조각(<hp:t>)을 문단 번호와 함께. 자식 요소가 든 조각(탭 등)은 건드리지 않는다."""
     out = []
+    TBL = '{%s}tbl' % HP
     for pi, p in enumerate(cell.paragraphs):
         for t in p.element.iter('{%s}t' % HP):
-            if len(t) == 0:
+            if len(t):
+                continue
+            # 칸 안에 든 안쪽 표의 글은 그 표의 칸 몫이다 — 바깥 칸이 같은 상자를 또 잡으면 질문이 두 번 뜬다
+            a, nested = t.getparent(), False
+            while a is not None and a is not p.element:
+                if a.tag == TBL:
+                    nested = True
+                    break
+                a = a.getparent()
+            if not nested:
                 out.append((pi, t))
     return out
 
@@ -892,6 +933,92 @@ def template_blanks(cell):
     return blanks
 
 
+BOX_ON = {"□": "■", "☐": "☑", "▢": "■"}             # 빈 상자 → 고른 상자
+BOX_OFF = {"■": "□", "☑": "☐", "☒": "☐", "✓": "□", "✔": "□"}
+
+
+def choice_boxes(cell):
+    """칸 안의 고르기 묶음. 한 문단에 상자가 둘 이상 나란히 있어야 고르기다.
+
+    ★ '□' 는 제목 글머리로도 쓰인다. 글머리는 한 줄에 하나씩이고, 고르기는 '□ 사용 □ 미사용'
+      처럼 한 줄에 나란하다 — 상자 2개 이상인 문단만 묶음으로 본다(작성된 문서의 □ 절 제목,
+      동의서의 ■ 항목 제목이 '고르기' 로 잡히던 것).
+    ★ '동의 □, 미동의 □)' 처럼 상자가 글 뒤에 오는 꼴도 있다 — 상자 뒤 글이 문장부호뿐이면 앞 글.
+    반환: [{"piece","idx","text","checked","group","glabel"}]
+    """
+    pieces = _cell_texts(cell)
+    paras = {}
+    for k, (pi, t) in enumerate(pieces):
+        paras.setdefault(pi, []).append(k)
+    out, group = [], 0
+    prev_text = ""
+    for pi in sorted(paras):
+        ks = paras[pi]
+        flat, pos = "", []                                # 문단 글을 이어 붙이고 각 글자의 (조각, 위치)
+        for k in ks:
+            s = pieces[k][1].text or ""
+            for i in range(len(s)):
+                pos.append((k, i))
+            flat += s
+        hits = [m.start() for m in re.finditer("[□☐▢■☑☒✓✔]", flat)]
+        if len(hits) < 2:
+            if flat.strip():
+                prev_text = re.sub(r"\s+", " ", flat).strip()
+            continue
+        def clean(x):
+            x = re.sub(r"\s+", " ", x).strip()
+            x = re.sub(r"^[\s,，·/(（]+", "", x)
+            x = re.sub(r"[\s,，·/]+$", "", x)
+            if x.endswith((")", "）")) and x.count("(") + x.count("（") < x.count(")") + x.count("）"):
+                x = x[:-1].rstrip()                       # 짝 없는 닫는 괄호만 뗀다 — '신입생(1학년)' 은 그대로
+            return x
+        has_word = lambda x: bool(re.search(r"[0-9A-Za-z가-힣]", x))
+        # 상자가 글 뒤에 오는 줄('동의 □, 미동의 □)') — 마지막 상자 뒤가 비어 있으면 각 상자 앞 단어가 선택지
+        label_first = not has_word(flat[hits[-1] + 1:])
+        segs = []
+        for n, h in enumerate(hits):
+            before = flat[(hits[n - 1] + 1 if n else 0):h]
+            after = flat[h + 1:(hits[n + 1] if n + 1 < len(hits) else len(flat))]
+            if label_first:
+                txt = clean(re.split(r"[(（,，:：]", before)[-1])
+            else:
+                txt = clean(after) if has_word(after) else clean(before)
+            segs.append(txt)
+        prefix = re.sub(r"\s+", " ", flat[:hits[0]]).strip()
+        if label_first:                                   # 앞 글은 첫 선택지 몫 — 질문은 그 앞까지
+            prefix = re.sub(r"\s+", " ", re.split(r"[(（]", flat[:hits[0]])[0]).strip()
+        has_q = bool(re.search(r"[가-힣A-Za-z]", prefix))
+        # 질문 없이 바로 다음 줄에서 이어지면 같은 목록이다('대표 AI기술' 선택지가 두 줄)
+        if not has_q and out and out[-1].get("_pi") == pi - 1:
+            g, glabel = out[-1]["group"], out[-1]["glabel"]
+        else:
+            g, glabel = group, (prefix if has_q else prev_text)[-40:]
+            group += 1
+        for n, h in enumerate(hits):
+            k, i = pos[h]
+            out.append({"piece": k, "idx": i, "text": segs[n][:40], "checked": flat[h] not in BOX_ON,
+                        "group": g, "glabel": glabel, "_pi": pi})
+        prev_text = ""
+    return out
+
+
+def fill_choice(cell, boxes, picked):
+    """고른 선택지의 상자만 채운 상자로, 나머지는 빈 상자로."""
+    pieces = _cell_texts(cell)
+    picked = set(int(i) for i in picked)
+    for i, (k, idx) in enumerate(boxes):
+        if k >= len(pieces):
+            continue
+        t = pieces[k][1]
+        s = t.text or ""
+        if idx >= len(s):
+            continue
+        ch = s[idx]
+        new = (BOX_ON.get(ch, ch) if i in picked else BOX_OFF.get(ch, ch))
+        t.text = s[:idx] + new + s[idx + 1:]
+    return len(picked)
+
+
 def fill_blanks(cell, blanks, values):
     """빈칸 자리의 공백만 값으로 바꾼다. 값이 짧으면 공백으로 채워 뒤 글자 자리를 지킨다."""
     pieces = _cell_texts(cell)
@@ -927,6 +1054,13 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
     if True:
         t = tables[target["table"]]
         cell = t.cell(target["row"], target["col"])
+        if target.get("choice"):
+            # 고르기 칸 — 값은 {"checked": [선택지 번호…]} 또는 번호 목록
+            picked = val.get("checked", []) if isinstance(val, dict) else (val if isinstance(val, list) else [])
+            n = fill_choice(cell, target["boxes"], picked)
+            mark(t)
+            done.append("%s → 표%d(%d,%d) %d개 고름" % (key, target["table"], target["row"], target["col"], n))
+            return
         if target.get("blanks"):
             # 틀 문장 칸 — 빈칸 자리만 바꾸고 끝낸다(문단·밑줄·칸 높이를 건드리지 않는다)
             vals = val if isinstance(val, list) else [val]
