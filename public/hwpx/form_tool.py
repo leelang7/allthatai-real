@@ -188,7 +188,10 @@ def scan(path):
             # 폭이 12mm 미만인 칸은 글을 쓰는 자리가 아니다(구분선·좁은 열).
             # ★ 폭 7mm 칸에 339자를 넣어 칸 높이가 1446mm(쪽의 6배)가 된 사고를 막는다.
             narrow = (cell.width or 0) < 12 * 283.46
-            if not txt and cidx > 0 and not narrow:
+            # 체크박스 컨트롤이 든 칸은 글자가 없어 '라벨 옆 빈칸' 처럼 보인다 — 글 입력란을 띄우면
+            # 체크박스 칸에 글이 들어간다(NAIS '참가분야'). 컨트롤은 아래 고르기 규칙이 맡는다.
+            has_ctl = bool(own_elements(cell, ('{%s}checkBtn' % HP, '{%s}radioBtn' % HP)))
+            if not txt and cidx > 0 and not narrow and not has_ctl:
                 lcell, lt = grid.get((r, cidx - 1), (None, ""))
                 if lt and 1 <= len(lt) <= 14 and not GUIDE_RE.match(lt) and not PLACEHOLDER_RE.search(lt):
                     if FIELD_LABEL.match(lt.strip()) or (lcell is not None and cell_shaded(root, lcell)):
@@ -376,6 +379,69 @@ def scan(path):
                           "limit": None, "blue": False, "placeholder": False})
             taken.add((ti, r, ci))
 
+    # ── 고르기(한글 체크박스 컨트롤) ─────────────────────────────────────────────
+    # NAIS 신청서의 '참가분야' 는 글자 □ 가 아니라 컨트롤이라 위 규칙이 못 본다 — 대표 양식인데 고를 수 없었다.
+    # 컨트롤 번호는 문서 순서(doc.fields.check_boxes 와 같은 순서)다. 칸마다 하나씩 흩어진 경우가 많아
+    # (NAIS: 2×2 칸에 하나씩) 같은 행 이름으로 묶어 한 질문으로 만든다.
+    CTL = ('{%s}checkBtn' % HP, '{%s}radioBtn' % HP)
+    order = [e for sec in doc.sections for e in sec.element.iter() if e.tag in CTL]
+    if order:
+        cidx = {id(e): i for i, e in enumerate(order)}
+        for ti, t in enumerate(tables):
+            grid = {}
+            for row in t.rows:
+                for c in row.cells:
+                    grid[c.address] = c
+            groups = {}
+            for (r, ci), cell in sorted(grid.items()):
+                es = own_elements(cell, CTL)
+                if not es:
+                    continue
+                label, row_has_left = "", False
+                for rr in range(r, -1, -1):                 # 같은 행 왼쪽, 병합으로 칸이 없을 때만 윗행
+                    for cc in range(ci - 1, -1, -1):
+                        lc = grid.get((rr, cc))
+                        if lc is None or own_elements(lc, CTL):
+                            continue
+                        lt = re.sub(r"\s+", " ", " ".join((p.text or "") for p in lc.paragraphs)).strip()
+                        if lt:
+                            label = lt[:40]                 # 길어도 그 줄의 이름 — 위로 올라가면 엉뚱한 값('1986.04.25')을 줍는다
+                            break
+                    if label or (rr == r and any(grid.get((r, cc)) is not None and not own_elements(grid[(r, cc)], CTL)
+                                                 for cc in range(ci))):
+                        break
+                # 명단 표(성명|소속|…|동의여부)처럼 같은 열에 컨트롤 칸이 줄마다 있으면 이름은 열 머리글이다
+                # — 왼쪽은 이름·생년월일 같은 값이라 '1986.04.25' 가 질문 이름이 됐다
+                col_ctl = [rr for (rr, cc), c2 in grid.items() if cc == ci and own_elements(c2, CTL)]
+                if len(col_ctl) >= 2:
+                    for rr in range(min(col_ctl) - 1, -1, -1):
+                        hc = grid.get((rr, ci))
+                        ht = re.sub(r"\s+", " ", " ".join((p.text or "") for p in hc.paragraphs)).strip() if hc is not None else ""
+                        if ht and len(ht) <= 20:
+                            label = ht
+                            break
+                # 한 칸에 컨트롤이 둘 이상이면 그 칸이 한 질문(동의/거부), 하나씩이면 같은 이름끼리 묶는다(NAIS 2×2)
+                key = ("cell", r, ci) if len(es) >= 2 else ("label", label or "@%d:%d" % (r, ci))
+                g = groups.setdefault(key, {"cells": [], "ctl": [], "label": label})
+                g["cells"].append((r, ci))
+                g["ctl"] += es
+            for key, g in groups.items():
+                label = g["label"]
+                if not g["ctl"] or any(c in taken for c in [(ti,) + x for x in g["cells"]]):
+                    continue
+                r, ci = g["cells"][0]
+                opts = [{"text": re.sub(r"\s+", " ", e.get("caption") or "").strip() or "선택 %d" % (k + 1),
+                         "checked": (e.get("value") or "").upper() in ("CHECKED", "1", "TRUE"),
+                         "group": 0, "glabel": ""} for k, e in enumerate(g["ctl"])]
+                lab = label or "선택"
+                slots.append({"table": ti, "row": r, "col": ci, "label": lab[:40],
+                              "current": " / ".join(o["text"] for o in opts)[:60],
+                              "choice": opts, "controls": [cidx[id(e)] for e in g["ctl"]],
+                              "multi": bool(re.search(r"중복|복수", lab)),
+                              "limit": None, "blue": False, "placeholder": False})
+                for x in g["cells"]:
+                    taken.add((ti,) + x)
+
     # 항목 제목이 표 밖(또는 앞 표)에 있는 양식은 칸 안에서 라벨을 못 찾는다.
     # 그런 칸은 '칸 7' 같은 번호로만 보여 무엇을 쓰는 자리인지 알 수 없으므로,
     # 앞선 표의 소제목을 끌어와 붙인다. 한 표에 칸이 하나일 때만 — 여러 칸이면 같은
@@ -398,6 +464,18 @@ def scan(path):
     #   안내문 상자 전용 처리(점선→실선·폭 맞춤)가 서술형 경로에 있다.
     narr_pos = {(n["table"], n["row"], n["col"]) for n in narrative}
     slots = [s for s in slots if (s["table"], s["row"], s["col"]) not in narr_pos]
+    # ★ 안쪽에 표·그림·컨트롤을 품은 칸에 글을 넣으면 칸 내용을 통째로 바꾸며 그것들이 지워진다.
+    #   서명란 칸에 글을 넣자 안의 동의 체크박스 표가 사라졌다(06 크래시). 글 칸에서는 뺀다 —
+    #   안쪽 안내 상자는 서술형으로, 안쪽 표의 칸은 그 표의 슬롯으로 따로 잡힌다.
+    def holds_objects(s):
+        if s.get("choice") or s.get("blanks"):
+            return False
+        try:
+            c = tables[s["table"]].cell(s["row"], s["col"])
+        except Exception:
+            return False
+        return cell_has_objects(c)
+    slots = [s for s in slots if not holds_objects(s)]
     # 목차에서 이름을 못 얻은 서술형 칸은 표 앞 절 제목('1. 문제 인식(Problem)')으로
     # 목차에서 얻은 이름(NAIS '1) 연구 문제…')은 정확하므로 두고, 추정 이름은 더 나은 근거로 바꾼다:
     # 바깥 표 칸 안에 든 상자면 그 행 이름, 아니면 앞 절 제목. 추정은 앞 표 글을 줍기 쉬워
@@ -933,6 +1011,33 @@ def template_blanks(cell):
     return blanks
 
 
+def own_elements(cell, tags):
+    """칸 자신의 요소만 — 칸 안에 든 안쪽 표의 것은 그 표 칸 몫이다."""
+    TBL = '{%s}tbl' % HP
+    out = []
+    for e in cell.element.iter():
+        if e.tag not in tags:
+            continue
+        a, nested = e.getparent(), False
+        while a is not None and a is not cell.element:
+            if a.tag == TBL:
+                nested = True
+                break
+            a = a.getparent()
+        if not nested:
+            out.append(e)
+    return out
+
+
+CELL_OBJECTS = {"tbl", "pic", "container", "ole", "equation", "checkBtn", "radioBtn", "comboBox", "edit", "listBox"}
+
+
+def cell_has_objects(cell):
+    """칸 안에 표·그림·컨트롤 같은 객체가 있나 — 있으면 칸 글을 통째로 바꾸면 안 된다."""
+    sub = cell.element.find('{%s}subList' % HP)
+    return sub is not None and any(e.tag.rsplit('}', 1)[-1] in CELL_OBJECTS for e in sub.iter())
+
+
 BOX_ON = {"□": "■", "☐": "☑", "▢": "■"}             # 빈 상자 → 고른 상자
 BOX_OFF = {"■": "□", "☑": "☐", "☒": "☐", "✓": "□", "✔": "□"}
 
@@ -1054,6 +1159,15 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
     if True:
         t = tables[target["table"]]
         cell = t.cell(target["row"], target["col"])
+        if target.get("controls"):
+            # 한글 체크박스 컨트롤 — 고른 것만 켜고 나머지는 끈다
+            picked = val.get("checked", []) if isinstance(val, dict) else (val if isinstance(val, list) else [])
+            picked = set(int(i) for i in picked)
+            for k, idx in enumerate(target["controls"]):
+                doc.set_check_box(k in picked, index=idx)
+            mark(t)
+            done.append("%s → 표%d(%d,%d) 컨트롤 %d개 고름" % (key, target["table"], target["row"], target["col"], len(picked)))
+            return
         if target.get("choice"):
             # 고르기 칸 — 값은 {"checked": [선택지 번호…]} 또는 번호 목록
             picked = val.get("checked", []) if isinstance(val, dict) else (val if isinstance(val, list) else [])
@@ -1067,6 +1181,9 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
             n = fill_blanks(cell, target["blanks"], vals)
             mark(t)
             done.append("%s → 표%d(%d,%d) 빈칸 %d곳" % (key, target["table"], target["row"], target["col"], n))
+            return
+        if cell_has_objects(cell):
+            done.append("!! '%s' 칸 안에 표·그림·컨트롤이 있어 글을 넣지 않았다(지워질 수 있다)" % str(key)[:20])
             return
         was_guide = bool(GUIDE_RE.match((target.get("current") or "").strip())) or bool(target.get("big_box")) \
             or "guide" in target
