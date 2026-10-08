@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-10-08-project-zomboid-스팀-베스트셀러-33-할인",
+    "title": "Project Zomboid 스팀 33% 할인: 언제까지 싸게 살 수 있나?",
+    "excerpt": "스팀 베스트셀러 Project Zomboid, 33% 할인! 지금 구매할까, 다음 세일을 기다릴까?",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-10-08T12:18:46.971Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-10-04-스팀-the-outlast-trials-90-할인-42000-4200",
     "title": "스팀 The Outlast Trials 90% 할인: ₩4,200에 공포 체험!",
     "excerpt": "스팀 The Outlast Trials, 정가 ₩42,000에서 90% 할인된 ₩4,200에 구매 가능!",
