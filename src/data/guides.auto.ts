@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-10-09-스팀-arc-raiders-50-할인-60900-30450",
+    "title": "스팀 ARC Raiders 50% 할인 – ₩30,450에 구매할 기회",
+    "excerpt": "ARC Raiders가 스팀에서 50% 할인 중입니다. 정가 ₩60,900에서 ₩30,450에 만나볼 수 있는 기회를 놓치지 마세요.",
+    "tag": "Steam",
+    "minutes": 4,
+    "generatedAt": "2026-10-09T03:11:08.709Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-10-08-project-zomboid-스팀-베스트셀러-33-할인",
     "title": "Project Zomboid 스팀 33% 할인: 언제까지 싸게 살 수 있나?",
     "excerpt": "스팀 베스트셀러 Project Zomboid, 33% 할인! 지금 구매할까, 다음 세일을 기다릴까?",
