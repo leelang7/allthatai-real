@@ -475,7 +475,22 @@ def scan(path):
         except Exception:
             return False
         return cell_has_objects(c)
-    slots = [s for s in slots if not holds_objects(s)]
+    # 다만 그런 칸에도 답 자리가 따로 있는 경우가 많다(보건의료 '6. 신청자(팀) 역량': '·' 세 줄 아래
+    # 수상이력 표). 객체 없는 문단 중 답 구역이 있으면 그 문단들만 채우는 칸으로 남긴다.
+    kept = []
+    for s in slots:
+        if not holds_objects(s):
+            kept.append(s)
+            continue
+        zone = answer_zone(tables[s["table"]].cell(s["row"], s["col"]))
+        if zone:
+            s["zone"] = zone
+            kept.append(s)
+    slots = kept
+    # 기호 글꼴의 사용자 정의 영역 글자('\U000f02b4')는 화면에 깨진 네모로 뜬다 — 라벨에서 뺀다
+    for s in slots + narrative:
+        if s.get("label"):
+            s["label"] = re.sub(r"[-\U000f0000-\U0010ffff]", "", s["label"]).strip()
     # 목차에서 이름을 못 얻은 서술형 칸은 표 앞 절 제목('1. 문제 인식(Problem)')으로
     # 목차에서 얻은 이름(NAIS '1) 연구 문제…')은 정확하므로 두고, 추정 이름은 더 나은 근거로 바꾼다:
     # 바깥 표 칸 안에 든 상자면 그 행 이름, 아니면 앞 절 제목. 추정은 앞 표 글을 줍기 쉬워
@@ -1038,6 +1053,49 @@ def cell_has_objects(cell):
     return sub is not None and any(e.tag.rsplit('}', 1)[-1] in CELL_OBJECTS for e in sub.iter())
 
 
+ZONE_GUIDE_RE = re.compile(r"^[☞※❍○◦•·\-–\*▶►]")
+# 답 구역의 작성 요령은 '무엇을 쓰라' 는 동사가 있다. '첨부'·'제출' 은 서류 내는 방법이라 빼야
+# '※ 스캔본을 첨부하지 않고 별도 파일로 제출 시…' 같은 제출 안내를 답 칸으로 잡지 않는다.
+ZONE_INSTRUCT_RE = re.compile(r"작성|기재|기술|서술|제시|설명|입력|기입|적어|적을")
+
+
+def answer_zone(cell):
+    """객체를 품은 칸 안의 답 구역 — 객체 없는 문단 중 자리표시('· · ·')나 작성 요령('☞ …제시')으로
+    시작해 빈 줄·소제목·객체 문단 앞까지. 없으면 None(이미 작성된 문서·서명 안내 칸)."""
+    zone = []
+    for i, p in enumerate(cell.paragraphs):
+        has_obj = any(e.tag.rsplit('}', 1)[-1] in CELL_OBJECTS for e in p.element.iter())
+        txt = re.sub(r"\s+", " ", p.text or "").strip()
+        dots = bool(re.match(r"^(?:[·•‧ㆍ]\s*)+$", txt))
+        if not zone:
+            if not has_obj and (dots or (ZONE_GUIDE_RE.match(txt) and ZONE_INSTRUCT_RE.search(txt))):
+                zone.append(i)
+            continue
+        if has_obj or not txt or HEADING_RE.match(txt):
+            break
+        zone.append(i)                                   # 요령이 여러 줄로 이어진다('이에 따른 소요비용 제시')
+    return zone or None
+
+
+def fill_zone(cell, zone, value):
+    """답 구역의 첫 문단에 값을 쓰고, 구역의 나머지 문단(자리표시·작성 요령)은 지운다."""
+    paras = list(cell.paragraphs)
+    first = paras[zone[0]]
+    ts = [t for t in first.element.iter('{%s}t' % HP) if len(t) == 0]
+    if ts:
+        ts[0].text = value
+        for t in ts[1:]:
+            t.text = ""
+    # 줄 위치 캐시는 원래 글('·' 한 글자) 기준이라 남겨 두면 렌더러가 긴 글을 한 줄에 욱여넣는다 — 지워 다시 계산하게
+    for ls in list(first.element.findall('{%s}linesegarray' % HP)):
+        first.element.remove(ls)
+    for i in zone[1:]:
+        el = paras[i].element
+        if el.getparent() is not None:
+            el.getparent().remove(el)
+    return len(zone)
+
+
 BOX_ON = {"□": "■", "☐": "☑", "▢": "■"}             # 빈 상자 → 고른 상자
 BOX_OFF = {"■": "□", "☑": "☐", "☒": "☐", "✓": "□", "✔": "□"}
 
@@ -1152,6 +1210,13 @@ def fill_blanks(cell, blanks, values):
             txt = txt[:b["start"]] + rep + txt[b["end"]:]
             n += 1
         t.text = txt
+        # 값이 빈칸보다 길면 줄이 늘 수 있다 — 원래 글 기준 줄 위치 캐시를 지워 다시 계산하게
+        para = t.getparent()
+        while para is not None and para.tag != '{%s}p' % HP:
+            para = para.getparent()
+        if para is not None:
+            for ls in list(para.findall('{%s}linesegarray' % HP)):
+                para.remove(ls)
     return n
 
 
@@ -1181,6 +1246,19 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
             n = fill_blanks(cell, target["blanks"], vals)
             mark(t)
             done.append("%s → 표%d(%d,%d) 빈칸 %d곳" % (key, target["table"], target["row"], target["col"], n))
+            return
+        if target.get("zone"):
+            # 답 구역 문단만 바꾼다 — 같은 칸의 안쪽 표·그림·소제목은 그대로
+            n = fill_zone(cell, target["zone"], str(val))
+            # 자리표시 문단의 내어쓰기·좁은 줄간격을 물려받지 않게(둘째 줄이 밀린다) — 그 문단만 정리
+            p0 = list(cell.paragraphs)[target["zone"][0]]
+            p0.element.set("paraPrIDRef", flat_para(root, p0.para_pr_id_ref, pcache, width=cell.width))
+            sub = cell.element.find('{%s}subList' % HP)
+            if sub is not None and sub.get("vertAlign") not in (None, "TOP"):
+                sub.set("vertAlign", "TOP")
+            blacken(doc, cps, fonts, cell, cache)
+            mark(t)
+            done.append("%s → 표%d(%d,%d) 답 구역 %d문단" % (key, target["table"], target["row"], target["col"], n))
             return
         if cell_has_objects(cell):
             done.append("!! '%s' 칸 안에 표·그림·컨트롤이 있어 글을 넣지 않았다(지워질 수 있다)" % str(key)[:20])
