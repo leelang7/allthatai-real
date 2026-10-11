@@ -14,7 +14,7 @@ const faqs = [
   { q: '올린 파일이 서버에 저장되나요?',
     a: '아니요. 파일 읽기, 빈칸 찾기, 채우기, 검사, 미리보기가 전부 이 브라우저 안에서 일어나고 파일은 어디로도 전송되지 않습니다.' },
   { q: '어떤 양식에 쓸 수 있나요?',
-    a: '공모전·지원사업의 참가신청서, 사업계획서, 아이디어 제안서, 기획서처럼 표 안에 빈칸이 있는 양식입니다. 파란 예시 글씨, "내용을 입력하세요" 같은 자리표시, 음영 제목 아래의 작성 요령 칸, 장학금 신청서의 "20   학년도  제   학기" 같은 문장 속 빈칸을 찾아 채웁니다. 문장 속 빈칸은 그 자리 글자만 바꿔 밑줄과 줄 배치가 그대로 남습니다. "□ 예 □ 아니요" 같은 고르기 칸은 누르면 고른 상자만 ■로 바뀝니다. 공고문 본문이나 체크·서명만 하는 동의서는 채울 대상이 아닙니다.' },
+    a: '공모전·지원사업의 참가신청서, 사업계획서, 아이디어 제안서, 기획서처럼 표 안에 빈칸이 있는 양식입니다. 파란 예시 글씨, "내용을 입력하세요" 같은 자리표시, 음영 제목 아래의 작성 요령 칸, 장학금 신청서의 "20   학년도  제   학기" 같은 문장 속 빈칸을 찾아 채웁니다. 주민센터·복지 신청서 같은 법정 서식처럼 칸 안에 "주소", "(전화번호 :    )"가 적힌 양식도 칸마다 묻습니다. 문장 속 빈칸은 그 자리 글자만 바꿔 밑줄과 줄 배치가 그대로 남습니다. "□ 예 □ 아니요", "[ ] 해당" 같은 고르기 칸은 누르면 고른 상자에만 표시가 들어갑니다. 공고문 본문이나 체크·서명만 하는 동의서는 채울 대상이 아닙니다.' },
   { q: '이름·연락처 같은 개인정보도 채워 주나요?',
     a: '개인정보 칸에는 표시를 달아 따로 알려 드립니다. 비워 두면 양식의 원래 예시가 그대로 남으니, 한글에서 직접 입력하세요.' },
   { q: '글자 크기나 분량 규정은 맞춰 주나요?',
@@ -409,8 +409,31 @@ const ld = [
             + (it.multi ? ' data-multi="1"' : '') + (c.checked ? ' checked data-init="1"' : ' data-init="0"') + ' />'
             + esc(c.text) + '</label>').join('') + '</div>').join('')
           + (it.multi ? '<p class="text-[11px] text-zinc-500">여러 개 고를 수 있습니다</p>' : '') + '</div>';
+      } else if (it.blanks && it.blanks.length && it.at.lines && it.at.lines.length) {
+        // 틀 문장 속 빈칸 — 문장을 그대로 놓고 빈칸 자리에 입력란을 끼운다. 빈칸마다 앞뒤 문맥을 떼어 보여 주면
+        // '    .   월부터    .   월까지' 가 '. 월부터 . 월까' 처럼 조각나 어느 칸이 연도인지 몰랐다
+        const nb = it.blanks.length;
+        // 칸 너비는 뒤따르는 단위로 정한다 — 양식의 공백 길이는 라벨 사이 여백까지 품어 연도 칸이 28칸이었다
+        const unitCh = (next) => {
+          const t = typeof next === 'string' ? next.trim() : '';
+          if (/^(개월|월|일|시|분|명|개|학기|학년도|학점|종|구간|세|회|호)/.test(t)) return 4;
+          if (/^[.년]/.test(t)) return 6;
+          return 0;
+        };
+        // keep-all: 한글 낱말이 '월부/터' 처럼 줄 끝에서 쪼개지지 않게
+        input = '<div class="mt-2 space-y-1 text-sm leading-9 text-zinc-300" style="word-break:keep-all">' + it.at.lines.map((line) =>
+          // '주소 ____' 처럼 줄 끝에 이어 쓰는 칸은 남은 너비를 다 쓴다
+          // 빈칸 없는 줄(괄호 안 안내)은 작게
+          (line.some((x) => typeof x !== 'string' && x.append) ? '<p class="flex items-center">'
+            : line.every((x) => typeof x === 'string') ? '<p class="text-[11px] leading-snug">' : '<p>') + line.map((x, xi) => {
+            if (typeof x === 'string') return '<span class="text-zinc-400">' + esc(x) + '</span>';
+            const ch = unitCh(line[xi + 1]) || Math.max(6, Math.min(14, x.w || 0));
+            return '<input type="text" maxlength="' + (x.append ? 100 : 24) + '" data-k="' + esc(it.key) + '" data-pos="' + pos + '" data-bi="' + x.b + '" data-nb="' + nb + '"'
+              + ' aria-label="' + esc(it.key) + ' 빈칸 ' + (x.b + 1) + '"'
+              + (x.append ? '' : ' style="width:calc(' + ch + 'ch + 1.25rem);max-width:100%"')
+              + ' class="' + (x.append ? 'flex-1 min-w-0 ' : '') + 'mx-1 align-middle rounded-md bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-2 py-1 text-sm leading-normal text-zinc-200" />';
+          }).join('') + '</p>').join('') + '</div>';
       } else if (it.blanks && it.blanks.length) {
-        // 틀 문장 속 빈칸 — 빈칸마다 앞뒤 문맥과 함께 작은 입력란. 빈칸 자리만 바뀌고 밑줄·문단은 그대로 남는다
         input = '<div class="mt-2 space-y-1.5">' + it.blanks.map((b, bi) =>
           '<div class="flex items-center gap-2 text-sm text-zinc-300">'
           + '<span class="shrink-0 text-zinc-400">' + esc(b.before) + '</span>'

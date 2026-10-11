@@ -213,6 +213,7 @@ def audit(path, notice=None, base=None):
                 is_guide = bool(GUIDE_RE.match(text))
                 is_options = (text.count("□") + text.count("■")) >= 2      # "□ 인공지능 □ 빅데이터" 선택지 줄
                 long_body = len(text) > 60 and not is_guide and not is_options
+                in_place = False            # 틀 문장의 빈칸 몇 글자만 바꾼 칸 — 배치가 원본 그대로
                 # 틀 문장의 빈칸 몇 글자만 바꾼 칸('성적평점:  4.12 / 4.5')은 양식 본래 배치를 그대로 쓴다.
                 # 원본 글의 공백 말고는 같으면 '본문을 채운 칸'이 아니므로 배치 규칙(A12 등)을 걸지 않는다.
                 if changed and base_texts is not None and base_texts.get(key):
@@ -220,6 +221,7 @@ def audit(path, notice=None, base=None):
                     b0 = squeeze(base_texts[key])
                     if b0 and len(squeeze(text)) - len(b0) <= 20 and all(w in squeeze(text) for w in re.findall(r"[가-힣]{2,}", base_texts[key])):
                         long_body = False
+                        in_place = True
 
                 # A1 칸 넘침 — 셀 여백을 포함해 비교하고, 줄 추정이 보수적이므로 15% 여유를 준다
                 mg = cell.element.find('{%s}cellMargin' % HP)
@@ -228,10 +230,13 @@ def audit(path, notice=None, base=None):
                 mt = int(mg.get("top", 141)) if mg is not None else 141
                 mb = int(mg.get("bottom", 141)) if mg is not None else 141
                 avail = max(1000, (cell.width or 30000) - ml - mr)
-                lines = sum(max(1, estimate_lines(c, avail, font_pt)) for c in text.split("\n"))
+                # 문단마다 따로 센다 — 칸의 문단들을 한 줄로 이어 붙여 세면 '주소 / (전화번호 …)' 두 문단 칸이
+                # 4줄로 과장돼 넘침 오탐이 났다
+                lines = sum(max(1, estimate_lines((p.text or ""), avail, font_pt)) for p in paras) if paras else 1
                 need = lines * font_pt * PT * ((pi.get("line_spacing") or 160) / 100.0) + mt + mb
                 # 양식 채우기(원본 비교 있음)면 모든 칸, 생성 문서면 긴 본문 칸만 — 짧은 데이터 셀은 한/글이 행을 자동으로 늘린다
-                if changed and cell.height and need > cell.height * 1.15 and (base_texts is not None or long_body):
+                # 빈칸 몇 글자만 바꾼 칸은 원본 배치 그대로라 넘침 어림(공백까지 글자로 센다)이 과장된다
+                if changed and not in_place and cell.height and need > cell.height * 1.15 and (base_texts is not None or long_body):
                     F.append(Finding("A1", ERROR, where,
                                      "칸 넘침: 글 %d자에 %d줄 필요(%.0fmm)인데 칸 높이 %.0fmm"
                                      % (len(text), lines, need / MM, cell.height / MM),

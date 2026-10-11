@@ -55,11 +55,12 @@ TEMPLATE_BLANK_RE = re.compile(
     r"[:：](?: {2,}|\s*$)"
     r"|[(（][^)）\w]{0,2} {3,}[)）]"
     r"|(?:^|\S) {2,}(?:년|월|일|학년도|학기|학년|학점|종|부|명|원|세|호|시|분)(?=\s|$|[ ,.)(])"
+    r"|\S {2,}\.\s"                                     # 법정 서식 날짜 '대리수령기간      .    월부터'
 )
 # 빈칸 바로 뒤에 오는 단서 — 단위나 닫는 기호
-BLANK_AFTER_RE = re.compile(r"^(?:년|월|일|학년도|학기|학년|학점|종|부|명|원|세|호|시|분|개|회|건|점|[)）\-~～/])")
+BLANK_AFTER_RE = re.compile(r"^(?:년|월|일|학년도|학기|학년|학점|종|부|명|원|세|호|시|분|개|회|건|점|[)）\-~～/.(（,])")
 TEMPLATE_SKIP_RE =re.compile(r"^\s*(?:[•ㆍ·∙\-–❍○◦※▶►◆◈☞]|[①-⑳]|\d{1,2}[.)]\s)")   # 안내문·번호 목록
-CHECKBOX_RE = re.compile(r"[□■☐☑☒▢✓✔]")
+CHECKBOX_RE = re.compile(r"[□■☐☑☒▢✓✔]|\[[ √✓vV■●]\]")   # 법정 서식의 '[ ]' 도 고르기다
 GENERIC_LABEL_RE =re.compile(r"^[◈※▶■□\s]*(작성\s*내용|세부\s*내용|내\s*용|작성\s*란|기재\s*내용)\s*$")
 # 칸 안에 그림·도형·안쪽 표가 있으면 덮어쓰면 안 된다(작성본의 시연 화면 캡처, 안내문 1×1 표를 품은 칸)
 OBJECT_TAGS = {"tbl", "pic", "container", "ole", "rect", "ellipse", "line", "arc", "polygon", "curve", "equation", "textart"}
@@ -338,13 +339,18 @@ def scan(path):
             lcell, lt = grid.get((r, ci - 1), (None, ""))
             lt = re.sub(r"\s+", " ", (lt or "")).strip()
             if not (1 <= len(lt) <= 20 and not TEMPLATE_BLANK_RE.search(lt) and not PLACEHOLDER_RE.search(lt)):
-                continue
+                # 법정 서식은 라벨이 칸 안 첫머리에 있다('주소 (전화번호 :    , 휴대전화 :    )', '대리수령기간    .  월부터')
+                head = re.split(r"\s{2,}|[(（:：\[]", txt)[0].strip()
+                if not (2 <= len(head) <= 12 and re.search(r"[가-힣]", head)):
+                    continue
+                cgrid = {k: v[0] for k, v in grid.items()}
+                lt = section_label(cgrid, r, ci, head)
             blanks = template_blanks(cell)
             if not blanks:
                 continue
             slots.append({"table": ti, "row": r, "col": ci, "label": lt[:40],
                           "current": re.sub(r"\s+", " ", txt)[:60], "template": raw.rstrip("\n"),
-                          "blanks": blanks,
+                          "blanks": blanks, "lines": blank_lines(cell, blanks),
                           "limit": None, "blue": False, "placeholder": False})
             taken.add((ti, r, ci))
 
@@ -361,7 +367,8 @@ def scan(path):
             if (ti, r, ci) in taken:
                 continue
             boxes = choice_boxes(cell)
-            if len(boxes) < 2 or any(len(b["text"]) > 30 or not b["text"] for b in boxes):
+            # 선택지 글 길이: □ 는 30자(넘으면 제목 글머리), 법정 서식 '[ ]' 는 60자('…심판이 확정된 경우')
+            if len(boxes) < 2 or any(len(b["text"]) > (60 if b.get("bracket") else 30) or not b["text"] for b in boxes):
                 continue
             sub = cell.element.find('{%s}subList' % HP)
             if sub is not None and any(e.tag.rsplit('}', 1)[-1] in OBJECT_TAGS - {"tbl"} for e in sub.iter()):
@@ -441,6 +448,57 @@ def scan(path):
                               "limit": None, "blue": False, "placeholder": False})
                 for x in g["cells"]:
                     taken.add((ti,) + x)
+
+    # ── 칸 안 라벨(법정 서식) ───────────────────────────────────────────────────
+    # 법령 별지 서식은 '[성명                 ]' 처럼 넓은 칸 왼쪽 위에 라벨만 있고 답을 같은 칸에 쓴다.
+    # 주민센터·복지 신청서가 거의 다 이 꼴인데, 빈칸도 예시도 옆 값 칸도 없어 0칸으로 나왔다
+    # (기초연금 대리수령 신청서는 공무원 기재란 '접수일' 하나만 잡혔다).
+    for ti, t in enumerate(tables):
+        grid = {}
+        for row in t.rows:
+            for c in row.cells:
+                grid[c.address] = c
+        # 개인정보 수집 동의 표('구분|항목|수집목적|보유기간')의 '계좌번호'·'주민등록번호' 는 수집 항목 목록이지
+        # 채울 칸이 아니다(장학금 신청서에서 오탐)
+        texts = [re.sub(r"\s+", "", " ".join((p.text or "") for p in c.paragraphs)) for c in grid.values()]
+        if any(re.search(r"수집목적|보유기간|이용목적|수집항목|수집하는항목", x) for x in texts)                 or ("항목" in texts and any(x in ("목적", "이용목적", "수집목적") for x in texts)):
+            continue
+        for (r, ci), cell in sorted(grid.items()):
+            if (ti, r, ci) in taken or cell_shaded(root, cell) or cell_has_objects(cell):
+                continue
+            txt = re.sub(r"\s+", " ", " ".join((p.text or "") for p in cell.paragraphs)).strip()
+            if not (2 <= len(txt) <= 20 and INCELL_LABEL_RE.match(txt)) or (cell.width or 0) < 35 * 283.46:
+                continue
+            # 오른쪽·아래 칸은 번호 +1 이 아니라 실제로 붙은 칸 — 병합 때문에 열 번호가 건너뛴다(4 → 11)
+            rights = [(cc, c2) for (rr, cc), c2 in grid.items() if rr == r and cc > ci]
+            right = min(rights, key=lambda x: x[0])[1] if rights else None
+            if right is not None and not re.sub(r"\s+", "", " ".join((p.text or "") for p in right.paragraphs)):
+                continue                                    # 오른쪽 빈 칸 = 보통의 '라벨|값' — 위 규칙 몫
+            try:
+                rs = max(1, cell.span[0])
+            except Exception:
+                rs = 1
+            belows = [c2 for (rr, cc), c2 in grid.items() if rr == r + rs and cc <= ci < cc + max(1, c2.span[1])]
+            below = belows[0] if belows else None
+            if below is not None and not re.sub(r"\s+", "", " ".join((p.text or "") for p in below.paragraphs))                     and below.address[1] == ci and abs((below.width or 0) - (cell.width or 0)) <= 0.2 * (cell.width or 1):
+                continue                                    # 아래가 같은 열·같은 폭의 빈칸 = 명단 표의 열 머리글
+                                                            # (표를 가로지르는 빈 여백 줄은 머리글 근거가 아니다)
+            slots.append({"table": ti, "row": r, "col": ci,
+                          "label": section_label(grid, r, ci, txt),
+                          "current": "", "inlabel": True,
+                          "limit": None, "blue": False, "placeholder": False})
+            taken.add((ti, r, ci))
+
+    # 공무원이 쓰는 칸(접수번호·접수일·처리기간·결재)은 신청인이 채울 칸이 아니다
+    slots = [s for s in slots if not OFFICE_RE.match(re.sub(r"\s+", "", s.get("label") or ""))]
+    # 법정 서식의 '자르는 선' 아래는 접수증·승인서 — 기관이 써서 떼어 준다
+    cut = {}
+    for ti, t in enumerate(tables):
+        for row in t.rows:
+            if any(re.search(r"자\s*르\s*는\s*선|절\s*취\s*선", " ".join((p.text or "") for p in c.paragraphs)) for c in row.cells):
+                cut[ti] = row.cells[0].address[0]
+                break
+    slots = [s for s in slots if not (s["table"] in cut and s["row"] > cut[s["table"]])]
 
     # 항목 제목이 표 밖(또는 앞 표)에 있는 양식은 칸 안에서 라벨을 못 찾는다.
     # 그런 칸은 '칸 7' 같은 번호로만 보여 무엇을 쓰는 자리인지 알 수 없으므로,
@@ -828,9 +886,10 @@ def refit_cell(doc, cps, fonts, pps, table, cell, text):
     mt = int(mg.get("top", 141)) if mg is not None else 141
     mb = int(mg.get("bottom", 141)) if mg is not None else 141
     avail = max(1000, (cell.width or 30000) - ml - mr)
-    lines = 0
-    for chunk in str(text).split("\n"):
-        lines += max(1, estimate_lines(chunk, avail, font_pt))
+    # 채운 뒤 칸의 문단을 하나씩 센다 — 빈 문단도 한 줄을 차지한다. 넣은 글만 세면 칸에 남은 빈 문단만큼
+    # 칸이 모자랐다(예비창업패키지 팀 구성 칸: 3줄로 잡아 16mm, 실제 4줄)
+    paras_now = [p.text or "" for p in cell.paragraphs] or [str(text)]
+    lines = sum(max(1, estimate_lines(chunk, avail, font_pt)) for chunk in paras_now)
     line_h = font_pt * PT * (ls / 100.0)
     need = int(lines * line_h + mt + mb + line_h * 0.25)
     # 본문 높이를 넘도록 늘리면 표가 쪽을 넘어 깨진다 → 거기서 멈추고 검사(A1/A15)가 알리게 둔다
@@ -1013,8 +1072,8 @@ def template_blanks(cell):
         before = "".join((q.text or "") for (pj, q) in pieces[:k] if pj == pi) + (pieces[k][1].text or "")[:s0]
         after = (pieces[lk][1].text or "")[le:] + "".join((q.text or "") for (pj, q) in pieces[lk + 1:] if pj == pi)
         b, a = before.strip(), after.strip()
-        if not b:                                      # 문단 첫머리 들여쓰기는 빈칸이 아니다
-            continue
+        if not b and not a.startswith("."):           # 문단 첫머리 들여쓰기는 빈칸이 아니다
+            continue                                   # — 단 '      .   월부터' 의 연도 자리는 빈칸이다
         # ★ 빈칸에는 앞뒤 단서가 있다. 없으면 단어 사이를 넓게 띄운 것뿐이다('20 학년도 ▢ 제 학기' 의 가운데).
         if not (BLANK_AFTER_RE.match(a) or b[-1] in ":：-~～(（/" or b[-1].isdigit() or not a):
             continue
@@ -1023,7 +1082,71 @@ def template_blanks(cell):
         blanks.append({"piece": k, "start": s0, "end": e0,
                        "extra": [[xk, xs, xe] for xk, xs, xe in extra],
                        "before": re.sub(r"\s+", " ", b)[-14:], "after": re.sub(r"\s+", " ", a)[:10]})
+    # 법정 서식: 한 줄이 칸 안 라벨 하나뿐('주소')이면 그 뒤에 이어 쓰는 빈칸을 만든다 — 없으면
+    # '주소 / (전화번호 :  , 휴대전화 :  )' 칸에서 정작 주소를 쓸 자리가 빠진다(대리수령 신청서 렌더로 확인)
+    by_para = {}
+    for k, (pi, t) in enumerate(pieces):
+        by_para.setdefault(pi, []).append(k)
+    for pi, ks in by_para.items():
+        line = re.sub(r"\s+", " ", "".join((pieces[k][1].text or "") for k in ks)).strip()
+        if line and INCELL_LABEL_RE.match(line) and not any(b["piece"] in ks for b in blanks):
+            k = ks[-1]
+            n = len(pieces[k][1].text or "")
+            blanks.insert(0, {"piece": k, "start": n, "end": n, "extra": [], "append": True,
+                              "before": line[-14:], "after": ""})
     return blanks
+
+
+def blank_lines(cell, blanks):
+    """빈칸을 품은 문장을 문단별로 — 글 조각과 빈칸 번호를 차례대로 [["대리수령기간 ", {"b": 0, "w": 28}, ". ", …], …].
+
+    ★ 빈칸마다 앞뒤 문맥 14자/10자만 떼어 보여 주면 '    .   월부터    .   월까지(   월간)' 가
+      '. 월부터 . 월까' / '월부터 . 월까지(' 처럼 조각나 어느 칸이 연도인지 알 수 없었다(대리수령 신청서 화면).
+      화면은 문장 하나를 그대로 놓고 빈칸 자리에 입력란을 끼운다.
+    """
+    pieces = _cell_texts(cell)
+    cover = {}                                          # 조각 번호 → [(시작, 끝, 빈칸 번호, 첫 조각인가)]
+    for i, b in enumerate(blanks):
+        cover.setdefault(b["piece"], []).append((b["start"], b["end"], i, True))
+        for xk, xs, xe in b.get("extra", []):
+            cover.setdefault(xk, []).append((xs, xe, i, False))
+    lines, cur, cur_pi = [], [], None
+    for k, (pi, t) in enumerate(pieces):
+        if pi != cur_pi:
+            if cur:
+                lines.append(cur)
+            cur, cur_pi = [], pi
+        txt, pos = t.text or "", 0
+        for s, e, i, first in sorted(cover.get(k, []), key=lambda x: (x[0], x[1])):
+            cur.append(txt[pos:s])
+            if first:
+                b = blanks[i]
+                w = (b["end"] - b["start"]) + sum(xe - xs for _, xs, xe in b.get("extra", []))
+                cur.append({"b": i, "w": w, **({"append": True} if b.get("append") else {})})
+            pos = e
+        cur.append(txt[pos:])
+    if cur:
+        lines.append(cur)
+    out = []
+    for line in lines:
+        segs = []
+        for x in line:
+            if isinstance(x, str):
+                if segs and isinstance(segs[-1], str):
+                    segs[-1] += x
+                else:
+                    segs.append(x)
+            else:
+                segs.append(x)
+        segs = [re.sub(r"\s+", " ", x) if isinstance(x, str) else x for x in segs]
+        if segs and isinstance(segs[0], str):
+            segs[0] = segs[0].lstrip()
+        if segs and isinstance(segs[-1], str):
+            segs[-1] = segs[-1].rstrip()
+        segs = [x for x in segs if x != ""]
+        if segs:
+            out.append(segs)
+    return out
 
 
 def own_elements(cell, tags):
@@ -1096,6 +1219,55 @@ def fill_zone(cell, zone, value):
     return len(zone)
 
 
+# 칸 안 라벨로 쓰이는 필드 이름(법정 서식). 괄호 꼬리('(성별)', '(자택)')는 허용
+INCELL_LABEL_RE = re.compile(
+    r"^(성\s*명|이\s*름|생년월일|주민등록번호|외국인등록번호|주\s*소|전화번호|휴대전화(번호)?|연\s*락\s*처|"
+    r"전자우편|이메일|E-?mail|관\s*계|지급대상자와의\s*관계|신청인과의\s*관계|금융기관(명)?|은행명|계좌번호|예금주|"
+    r"상\s*호|법인명|사업자등록번호|법인등록번호|소재지|대표자|직\s*업|국\s*적|등록기준지|소\s*속|직\s*위|직\s*급|"
+    r"세대주|가구원\s*수|성\s*별|나\s*이)\s*(\([^)]{1,10}\))?$", re.I)
+OFFICE_RE = re.compile(r"^(접수번호|접수일(자)?|처리기간|처리기한|접수자|담당자|결재|확인자|처리부서|발급번호)")
+
+
+def section_label(grid, r, ci, field):
+    """칸 안 라벨에 구역 이름을 붙인다 — '성명' 이 지급대상자·법정대리인·대리수령인에 세 번 나온다.
+
+    구역 이름은 이 행을 세로로 덮는(병합된) 왼쪽 칸이다. 위쪽에서 처음 보이는 칸을 쓰면 사망자의
+    전화번호가 '미지급 기초연금 내역 · 전화번호' 가 됐다 — 병합 범위(rowSpan)로 정확히 찾는다.
+    """
+    best = None
+    for (rr, cc), c in grid.items():
+        if cc >= ci:
+            continue
+        try:
+            rs, cs = c.span
+        except Exception:
+            rs, cs = 1, 1
+        if not (rr <= r < rr + max(1, rs)) or cc + max(1, cs) > ci:
+            continue
+        t = re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()
+        if not t or len(t) > 24 or INCELL_LABEL_RE.match(t):
+            continue
+        if best is None or cc < best[0]:
+            best = (cc, t)
+    if best:
+        t = best[1]
+        sec = re.sub(r"\s+", "", t) if len(t.replace(" ", "")) <= 10 else t
+        return ("%s · %s" % (sec, re.sub(r"\s+", " ", field)))[:40]
+    return re.sub(r"\s+", " ", field)[:40]
+
+
+def fill_inlabel(cell, value):
+    """칸 안 라벨 뒤에 값을 이어 쓴다('성명  홍길동'). 라벨 글자 서식은 그대로."""
+    p0 = cell.paragraphs[0]
+    ts = [t for t in p0.element.iter('{%s}t' % HP) if len(t) == 0]
+    if not ts:
+        return 0
+    ts[-1].text = (ts[-1].text or "").rstrip() + "  " + value
+    for ls in list(p0.element.findall('{%s}linesegarray' % HP)):
+        p0.element.remove(ls)
+    return 1
+
+
 BOX_ON = {"□": "■", "☐": "☑", "▢": "■"}             # 빈 상자 → 고른 상자
 BOX_OFF = {"■": "□", "☑": "☐", "☒": "☐", "✓": "□", "✔": "□"}
 
@@ -1123,17 +1295,23 @@ def choice_boxes(cell):
             for i in range(len(s)):
                 pos.append((k, i))
             flat += s
-        hits = [m.start() for m in re.finditer("[□☐▢■☑☒✓✔]", flat)]
-        if len(hits) < 2:
+        # 법정 서식은 '[ ] 성년후견개시, [ ] 한정후견개시' 처럼 대괄호를 상자로 쓴다 — 가운데 칸이 상자 자리
+        hits = [(m.start(1) if m.group(1) is not None else m.start())
+                for m in re.finditer(r"[□☐▢■☑☒✓✔]|\[([ √✓vV■●])\]", flat)]
+        # 대괄호 상자는 제목 글머리로 쓰이지 않는다 — 법정 서식처럼 한 줄에 하나씩 세로로 늘어놓아도 고르기
+        is_br = lambda h: 0 < h < len(flat) - 1 and flat[h - 1] == "[" and flat[h + 1] == "]"
+        if len(hits) < 2 and not (len(hits) == 1 and is_br(hits[0])):
             if flat.strip():
                 prev_text = re.sub(r"\s+", " ", flat).strip()
             continue
         def clean(x):
             x = re.sub(r"\s+", " ", x).strip()
-            x = re.sub(r"^[\s,，·/(（]+", "", x)
-            x = re.sub(r"[\s,，·/]+$", "", x)
+            x = re.sub(r"^[\s,，·/(（\]]+", "", x)
+            x = re.sub(r"[\s,，·/\[]+$", "", x)
             if x.endswith((")", "）")) and x.count("(") + x.count("（") < x.count(")") + x.count("）"):
                 x = x[:-1].rstrip()                       # 짝 없는 닫는 괄호만 뗀다 — '신입생(1학년)' 은 그대로
+            if x.endswith("]") and x.count("[") < x.count("]"):
+                x = x[:-1].rstrip()                       # '[ [ ]신규 [ ]변경 ]' 의 바깥 대괄호
             return x
         has_word = lambda x: bool(re.search(r"[0-9A-Za-z가-힣]", x))
         # 상자가 글 뒤에 오는 줄('동의 □, 미동의 □)') — 마지막 상자 뒤가 비어 있으면 각 상자 앞 단어가 선택지
@@ -1147,7 +1325,7 @@ def choice_boxes(cell):
             else:
                 txt = clean(after) if has_word(after) else clean(before)
             segs.append(txt)
-        prefix = re.sub(r"\s+", " ", flat[:hits[0]]).strip()
+        prefix = re.sub(r"[\s\[]+$", "", re.sub(r"\s+", " ", flat[:hits[0]]).strip())
         if label_first:                                   # 앞 글은 첫 선택지 몫 — 질문은 그 앞까지
             prefix = re.sub(r"\s+", " ", re.split(r"[(（]", flat[:hits[0]])[0]).strip()
         has_q = bool(re.search(r"[가-힣A-Za-z]", prefix))
@@ -1159,7 +1337,9 @@ def choice_boxes(cell):
             group += 1
         for n, h in enumerate(hits):
             k, i = pos[h]
-            out.append({"piece": k, "idx": i, "text": segs[n][:40], "checked": flat[h] not in BOX_ON,
+            bracket = 0 < h < len(flat) - 1 and flat[h - 1] == "[" and flat[h + 1] == "]"
+            checked = (flat[h] in "√✓vV■●") if bracket else (flat[h] not in BOX_ON)
+            out.append({"piece": k, "idx": i, "text": segs[n][:60], "checked": checked, "bracket": bracket,
                         "group": g, "glabel": glabel, "_pi": pi})
         prev_text = ""
     return out
@@ -1177,7 +1357,10 @@ def fill_choice(cell, boxes, picked):
         if idx >= len(s):
             continue
         ch = s[idx]
-        new = (BOX_ON.get(ch, ch) if i in picked else BOX_OFF.get(ch, ch))
+        if 0 < idx < len(s) - 1 and s[idx - 1] == "[" and s[idx + 1] == "]":
+            new = "√" if i in picked else " "               # 법정 서식 '[ ]' → '[√]'
+        else:
+            new = (BOX_ON.get(ch, ch) if i in picked else BOX_OFF.get(ch, ch))
         t.text = s[:idx] + new + s[idx + 1:]
     return len(picked)
 
@@ -1196,7 +1379,9 @@ def fill_blanks(cell, blanks, values):
             if xe - xs > e0 - s0:
                 k, s0, e0 = xk, xs, xe
         glue = b.get("before", "")[-1:].isdigit()       # '20▢학년도' 의 연도처럼 앞 숫자에 붙여 쓴다
-        by_piece.setdefault(k, []).append(({"start": s0, "end": e0, "glue": glue}, v))
+        # 점 앞 빈칸('______ . 3 월부터' 의 연도)은 값을 오른쪽에 붙여 점 바로 앞에 오게 한다
+        rj = (b.get("after") or "").startswith(".")
+        by_piece.setdefault(k, []).append(({"start": s0, "end": e0, "glue": glue, "append": b.get("append"), "rj": rj}, v))
     n = 0
     for k, items in by_piece.items():
         if k >= len(pieces):
@@ -1205,8 +1390,15 @@ def fill_blanks(cell, blanks, values):
         txt = t.text or ""
         for b, v in sorted(items, key=lambda x: -x[0]["start"]):   # 뒤에서부터 — 앞 위치가 안 밀린다
             width = b["end"] - b["start"]
+            if b.get("append"):
+                txt = txt.rstrip() + "  " + v                 # 칸 안 라벨 뒤에 이어 쓴다
+                n += 1
+                continue
             core = (v if b.get("glue") else " " + v) + " "
-            rep = core.ljust(width) if len(core) <= width else core
+            if b.get("rj"):
+                rep = (v + " ").rjust(width) if len(v) + 1 <= width else " " + v + " "
+            else:
+                rep = core.ljust(width) if len(core) <= width else core
             txt = txt[:b["start"]] + rep + txt[b["end"]:]
             n += 1
         t.text = txt
@@ -1246,6 +1438,12 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
             n = fill_blanks(cell, target["blanks"], vals)
             mark(t)
             done.append("%s → 표%d(%d,%d) 빈칸 %d곳" % (key, target["table"], target["row"], target["col"], n))
+            return
+        if target.get("inlabel"):
+            fill_inlabel(cell, str(val))
+            blacken(doc, cps, fonts, cell, cache)
+            mark(t)
+            done.append("%s → 표%d(%d,%d) 칸 안 라벨 뒤" % (key, target["table"], target["row"], target["col"]))
             return
         if target.get("zone"):
             # 답 구역 문단만 바꾼다 — 같은 칸의 안쪽 표·그림·소제목은 그대로
