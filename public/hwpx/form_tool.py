@@ -632,6 +632,54 @@ def scan(path):
         if v and use[v] == 1:                  # 한 칸만 가리킬 때만 — 같은 이름이면 같은 글이 들어간다
             n["label"] = v[:40]
 
+    # ── 서명란(작성일·서명 줄) — 다른 슬롯이 잡지 않은 칸과 표 밖 문단에서 ───────────────────
+    held = {(s["table"], s["row"], s["col"]) for s in slots + narrative}
+    for ti, t in enumerate(tables):
+        for row in t.rows:
+            for c in row.cells:
+                r0, c0 = c.address
+                if (ti, r0, c0) in held or (ti in cut and r0 > cut[ti]):
+                    continue
+                sb = sign_block(c)
+                if not sb:
+                    continue
+                sb.update({"table": ti, "row": r0, "col": c0})
+                if sb["label"] == "작성일" and c0 > 0:
+                    # 날짜만 든 칸에 왼쪽 라벨이 있으면 그 날짜 칸이다('처분이 있음을 안 연월일 | 년 월 일',
+                    # '발행일자 | 년 월 일') — 이름은 라벨로, 오늘 날짜는 작성·신청·제출일일 때만 넣어 둔다
+                    left = ""
+                    for back in range(c0 - 1, -1, -1):
+                        lt = re.sub(r"\s+", " ", " ".join((p.text or "") for p in t.cell(r0, back).paragraphs)
+                                    if (r0, back) in {x.address for x in row.cells} else "").strip()
+                        if lt and not DATE_FULL_RE.match(re.sub(r"\s+", "", lt)):   # 옆 열의 '년 월 일' 칸은 건너뛴다
+                            left = lt
+                            break
+                    if left and len(left) <= 30:
+                        sb["label"] = _squash_spaced(left)[:40]
+                        if not TODAY_LABEL_RE.search(re.sub(r"\s+", "", left)):
+                            sb.pop("sign", None)
+                slots.append(sb)
+    # 표 밖 문단은 table=-1, row..col = 문단 번호 범위(작성일 줄 ~ 서명 줄). 사이 빈 문단은 3개까지
+    tops = list(doc.paragraphs)
+    hits = []
+    for i, p in enumerate(tops):
+        if p.element.find('.//{%s}tbl' % HP) is not None:
+            continue
+        flat = re.sub(r"\s+", "", p.text or "")
+        if flat and len(flat) <= 60 and (_is_date_line(flat, p.text or "") or SIGN_MARK_RE.search(p.text or "")):
+            hits.append(i)
+    groups = []
+    for i in hits:
+        if groups and i - groups[-1][1] <= 4:
+            groups[-1][1] = i
+        else:
+            groups.append([i, i])
+    for i, j in groups:
+        sb = sign_block(_ParaBlock(tops[i:j + 1]))
+        if sb:
+            sb.update({"table": -1, "row": i, "col": j})
+            slots.append(sb)
+
     return {"source": os.path.basename(path), "tables": len(tables),
             "slots": slots, "narrative": narrative, "guides": guides,
             "sections": [h for h, _ in hp],          # 표마다 앞 절 제목 — 화면이 칸을 절 단위로 묶는 데 쓴다
@@ -1046,7 +1094,7 @@ def fill(path, answers, out):
             continue
         # '@표:행:열' — 화면이 칸 위치로 보낸 값. 라벨로 찾으면 같은 이름의 칸(사업계획서의 '구분' 네 개)
         # 이 첫 값으로 모두 덮이고 나머지 입력은 버려졌다. 위치로 받으면 칸마다 제 값이 들어간다.
-        m_pos = re.match(r"^@(\d+):(\d+):(\d+)$", key)
+        m_pos = re.match(r"^@(-?\d+):(\d+):(\d+)$", key)      # 표 -1 = 표 밖 문단(서명란)
         if m_pos:
             pos = tuple(int(x) for x in m_pos.groups())
             hit = [s for s in info["slots"] + info["narrative"]
@@ -1138,8 +1186,8 @@ def template_blanks(cell):
         before = "".join((q.text or "") for (pj, q) in pieces[:k] if pj == pi) + (pieces[k][1].text or "")[:s0]
         after = (pieces[lk][1].text or "")[le:] + "".join((q.text or "") for (pj, q) in pieces[lk + 1:] if pj == pi)
         b, a = before.strip(), after.strip()
-        if not b and not a.startswith("."):           # 문단 첫머리 들여쓰기는 빈칸이 아니다
-            continue                                   # — 단 '      .   월부터' 의 연도 자리는 빈칸이다
+        if not b and not a.startswith(".") and not re.match(r"년\s*월", a):   # 문단 첫머리 들여쓰기는 빈칸이 아니다
+            continue                                   # — 단 '      .   월부터', '      년   월   일' 의 연도 자리는 빈칸이다
         # ★ 빈칸에는 앞뒤 단서가 있다. 없으면 단어 사이를 넓게 띄운 것뿐이다('20 학년도 ▢ 제 학기' 의 가운데).
         if not (BLANK_AFTER_RE.match(a) or b[-1] in ":：-~～(（/" or b[-1].isdigit() or not a):
             continue
@@ -1161,6 +1209,154 @@ def template_blanks(cell):
             blanks.insert(0, {"piece": k, "start": n, "end": n, "extra": [], "append": True,
                               "before": line[-14:], "after": ""})
     return blanks
+
+
+# ── 서명란: 작성일 줄과 서명 줄 ────────────────────────────────────────────────
+# 말뭉치 73개 중 36개에 '      년   월   일' / '신청인 성명 :        (서명 또는 인)' 이 있는데 거의 전부
+# 놓쳤다 — 선언문('위와 같이 신청합니다')과 한 칸에 들어 있어 왼쪽 라벨이 없고, 표 밖 문단에도 있다.
+# 작성일 줄은 날짜뿐이다 — '년 월 일까지'(납부기한)·'년 월 일장' 은 아니다. 서명이 같은 줄이면 뒤에 와도 된다
+DATE_FULL_RE = re.compile(r"^(?:20\d{0,2}|2\d{3})?년월일$|^(?:20\d{0,2}|2\d{3})\.\.\.?$")
+DATE_PREFIX_RE = re.compile(r"^(?:20\d{0,2}|2\d{3})?년월일")
+# 기관이 쓰는 서명 — '○○○ 읍･면･동 주민센터장 (인)', '○○지사장'
+SIGN_AGENCY_RE = re.compile(r"○|(?<!팀)장$|장\s*또는|기관|공단|위원회")
+# 왼쪽 라벨이 이것이면 오늘 날짜를 넣어 둔다 — '발행일자', '처분이 있음을 안 연월일' 은 아니다
+TODAY_LABEL_RE = re.compile(r"(작성|신청|제출|신고|청구|동의|서약|확인|서명)\s*(일|일자|연월일|날짜)$")
+
+
+def _is_date_line(flat, raw):
+    if DATE_FULL_RE.match(flat):
+        return True
+    return bool(DATE_PREFIX_RE.match(flat) and SIGN_MARK_RE.search(raw))
+SIGN_MARK_RE = re.compile(r"[(（]\s*(?:서\s*명|인|날\s*인|sign)[^)）]{0,12}[)）]|서명\s*또는\s*[(（]?\s*인|서명\s*또는\s*날인")
+SIGN_SENTENCE_RE = re.compile(r"합니다|바랍니다|하여|하고|하며|있습니다|됩니다|하십시오|함\.|않")
+SIGN_OFFICE_RE = re.compile(r"접수|처리|발급|결재|담당|확인자|교부")
+# 서명 줄의 이름 자리 바로 뒤 — '(서명 또는 인)', '(인)', '서명 또는 (인)'
+SIGN_AFTER_RE = re.compile(r"[(（]\s*(?:서\s*명|인|날\s*인|sign)|서\s*명\s*또는")
+# 서명 줄 '(인)' 앞 낱말이 역할이 아니라 사람 이름이면 이미 쓴 서명란이다('성명 : 조유정   (인)')
+SIGN_ROLES = {"성명", "본인", "신청인", "신청자", "청구인", "신고인", "신고자", "동의인", "동의자", "대리인", "보호자",
+              "학생", "배우자", "참가자", "연구자", "출품자", "위임인", "수임인", "작성자", "제출인", "대표자",
+              "추천교수", "지도교수", "법정대리인", "후견인", "수급자", "수급희망자", "세대주", "확인자", "팀장"}
+
+
+def _squash_spaced(s):
+    """'작 성 자 성명' → '작성자 성명' — 양식은 칸에 맞추려 글자를 띄운다."""
+    out, run = [], []
+    for w in s.split():
+        if len(w) == 1 and re.match(r"[가-힣]", w):
+            run.append(w)
+            continue
+        if run:
+            out.append("".join(run))
+            run = []
+        out.append(w)
+    if run:
+        out.append("".join(run))
+    return " ".join(out)
+
+
+class _ParaBlock:
+    """표 밖 문단 묶음을 칸처럼 다룬다 — _cell_texts·template_blanks·fill_blanks 가 그대로 돈다."""
+    def __init__(self, paras):
+        self.paragraphs = list(paras)
+        self.element = None
+
+
+def sign_block(cell):
+    """칸(또는 문단 묶음) 안의 작성일·서명 줄만 빈칸 슬롯으로. 없으면 None.
+
+    작성일 빈칸에는 unit(y·yy·m·d)을, 서명 줄 빈칸에는 unit='name' 을 단다 — 화면이 오늘 날짜를 넣어 둔다.
+    서명·도장 자체는 출력 후 손으로 — 이름만 쓴다.
+    """
+    pieces = _cell_texts(cell)
+    paras = {}
+    for k, (pi, t) in enumerate(pieces):
+        paras.setdefault(pi, []).append(k)
+    kinds, roles = {}, []
+    for pi, ks in paras.items():
+        raw = "".join(pieces[k][1].text or "" for k in ks)
+        flat = re.sub(r"\s+", "", raw)
+        if not flat or len(flat) > 60 or GUIDE_RE.match(flat) or SIGN_OFFICE_RE.search(flat):
+            continue
+        if SIGN_SENTENCE_RE.search(flat):              # 선언문·안내문 속 '서명' 은 서명 줄이 아니다
+            continue
+        date = _is_date_line(flat, raw)
+        sign = bool(SIGN_MARK_RE.search(raw))
+        if not (date or sign):
+            continue
+        if re.search(r"\d\s*월\s*\d", raw):               # '2026년 5월 17일' — 이미 날짜를 쓴 서명란
+            continue
+        if sign:
+            m = re.search(r"(?:^|[:：]|\s)\s*([가-힣]{2,4})\s*[(（]\s*(?:인|서\s*명|날\s*인)", raw)
+            if m and m.group(1) not in SIGN_ROLES and not m.group(1).endswith(("자", "인")):
+                continue                                   # 이미 이름을 쓴 서명란
+        kinds[pi] = (date, sign)
+        if sign:
+            body = re.sub(r"\s+", " ", raw).strip()
+            if date:
+                body = re.sub(r"^.*?일\s*", "", body)
+            body = re.sub(r"^[(（][^)）]*[)）]\s*", "", body)  # '(     ) 학과 추천교수' 의 앞 괄호
+            role = _squash_spaced(re.split(r"[:：(（]", body)[0].strip())
+            role = re.sub(r"\s+인$", "", role)                 # '작성자 성명 인(서명 또는 날인)'
+            if SIGN_AGENCY_RE.search(role) or SIGN_AGENCY_RE.search(re.sub(r"\s+", " ", body)):
+                return None                                    # 기관장 직인란 — 신청인이 쓰는 칸이 아니다
+            if role and re.search(r"[가-힣]", role):
+                roles.append(role[:16])
+    if not kinds:
+        return None
+    blanks = [b for b in template_blanks(cell) if not b.get("append") and pieces[b["piece"]][0] in kinds]
+    # 오른쪽 정렬 작성일 '년   월   일' 은 연도 앞에 공백이 없고, '년 월 일' 처럼 한 칸씩만 띄운 것도 있다 —
+    # 년·월·일 앞에 빈칸이 없으면(숫자가 박혀 있지도 않으면) 그 글자 앞에 끼워 쓸 자리를 만든다
+    for pi, (date, _) in kinds.items():
+        if not date:
+            continue
+        for unit_ch in ("년", "월", "일"):
+            if any(pieces[b["piece"]][0] == pi and (b.get("after") or "").strip().startswith(unit_ch) for b in blanks):
+                continue
+            for k in paras[pi]:
+                tx = pieces[k][1].text or ""
+                j = tx.find(unit_ch)
+                if j < 0:
+                    continue
+                if re.search(r"\d\s*$", tx[:j]):              # '2026년' — 이미 박힌 연도
+                    break
+                blanks.append({"piece": k, "start": j, "end": j, "extra": [],
+                               "before": re.sub(r"\s+", " ", tx[:j]).strip()[-14:],
+                               "after": re.sub(r"\s+", " ", tx[j:]).strip()[:10]})
+                break
+    blanks.sort(key=lambda b: (b["piece"], b["start"]))
+    if not blanks:
+        return None
+    for b in blanks:
+        pi = pieces[b["piece"]][0]
+        date, sign = kinds[pi]
+        a, bf = (b.get("after") or "").strip(), (b.get("before") or "").rstrip()
+        unit = None
+        if date:
+            if a.startswith("년"):
+                unit = "y"
+            elif a.startswith("월"):
+                unit = "m"
+            elif a.startswith("일"):
+                unit = "d"
+            elif a.startswith("."):
+                # '2026.   .   .' 은 연도가 박혀 있다 — 빈칸 앞 점 개수가 몇 번째 자리인지 알려 준다
+                n = re.sub(r"\s+", "", bf).count(".")
+                unit = ("y", "m", "d")[n] if n < 3 else None
+            if unit == "y" and bf[-1:].isdigit():
+                # '20   년' 은 뒤 두 자리만 — '2 0   년' 처럼 띄운 건 어디에 붙을지 몰라 비워 둔다
+                unit = "yy" if re.search(r"(?:^|\s)20$", bf) else None
+        if unit is None and sign and SIGN_AFTER_RE.match(a):
+            unit = "name"
+        if unit:
+            b["unit"] = unit
+    has_date = any(d for d, _ in kinds.values())
+    role = roles[0] + (" 등" if len(roles) > 1 else "") if roles else ""
+    if role and "서명" not in role:
+        role += " 서명"
+    label = " · ".join(x for x in (("작성일" if has_date else ""), role) if x) or ("작성일" if has_date else "서명란")
+    return {"label": label[:40], "current": "", "blanks": blanks,
+            "lines": [ln for ln in blank_lines(cell, blanks) if any(isinstance(x, dict) for x in ln)],
+            "sign": True, "limit": None, "blue": False, "placeholder": False}
 
 
 def blank_lines(cell, blanks):
@@ -1460,7 +1656,10 @@ def fill_blanks(cell, blanks, values):
         glue = b.get("before", "")[-1:].isdigit()       # '20▢학년도' 의 연도처럼 앞 숫자에 붙여 쓴다
         # 점 앞 빈칸('______ . 3 월부터' 의 연도)은 값을 오른쪽에 붙여 점 바로 앞에 오게 한다
         rj = (b.get("after") or "").startswith(".")
-        by_piece.setdefault(k, []).append(({"start": s0, "end": e0, "glue": glue, "append": b.get("append"), "rj": rj}, v))
+        # 작성일의 연·월·일은 가운데로 — 왼쪽에 붙이면 '10    월 11    일' 처럼 단위 앞이 휑했다
+        center = b.get("unit") in ("y", "m", "d") and not glue
+        by_piece.setdefault(k, []).append(({"start": s0, "end": e0, "glue": glue, "append": b.get("append"),
+                                            "rj": rj and not center, "center": center}, v))
     n = 0
     for k, items in by_piece.items():
         if k >= len(pieces):
@@ -1476,6 +1675,8 @@ def fill_blanks(cell, blanks, values):
             core = (v if b.get("glue") else " " + v) + " "
             if b.get("rj"):
                 rep = (v + " ").rjust(width) if len(v) + 1 <= width else " " + v + " "
+            elif b.get("center"):
+                rep = core.center(width) if len(core) <= width else core
             else:
                 rep = core.ljust(width) if len(core) <= width else core
             txt = txt[:b["start"]] + rep + txt[b["end"]:]
@@ -1492,6 +1693,17 @@ def fill_blanks(cell, blanks, values):
 
 
 def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache, pcache, solid_bf, body_w, reindex, done):
+    if target.get("table") == -1:
+        # 표 밖 문단의 서명란 — ★ tables[-1] 은 마지막 표다. 먼저 갈라야 엉뚱한 표를 고치지 않는다
+        paras = list(doc.paragraphs)[target["row"]:target["col"] + 1]
+        n = fill_blanks(_ParaBlock(paras), target["blanks"], val if isinstance(val, list) else [val])
+        for p in paras:
+            try:
+                p.section.mark_dirty()
+            except Exception:
+                pass
+        done.append("%s → 문단 %d~%d 빈칸 %d곳" % (key, target["row"], target["col"], n))
+        return
     if True:
         t = tables[target["table"]]
         cell = t.cell(target["row"], target["col"])

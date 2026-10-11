@@ -14,7 +14,7 @@ const faqs = [
   { q: '올린 파일이 서버에 저장되나요?',
     a: '아니요. 파일 읽기, 빈칸 찾기, 채우기, 검사, 미리보기가 전부 이 브라우저 안에서 일어나고 파일은 어디로도 전송되지 않습니다.' },
   { q: '어떤 양식에 쓸 수 있나요?',
-    a: '공모전·지원사업의 참가신청서, 사업계획서, 아이디어 제안서, 기획서처럼 표 안에 빈칸이 있는 양식입니다. 파란 예시 글씨, "내용을 입력하세요" 같은 자리표시, 음영 제목 아래의 작성 요령 칸, 장학금 신청서의 "20   학년도  제   학기" 같은 문장 속 빈칸을 찾아 채웁니다. 주민센터·복지 신청서 같은 법정 서식처럼 칸 안에 "주소", "(전화번호 :    )"가 적힌 양식도 칸마다 묻습니다. 문장 속 빈칸은 그 자리 글자만 바꿔 밑줄과 줄 배치가 그대로 남습니다. "□ 예 □ 아니요", "[ ] 해당" 같은 고르기 칸은 누르면 고른 상자에만 표시가 들어갑니다. 공고문 본문이나 체크·서명만 하는 동의서는 채울 대상이 아닙니다.' },
+    a: '공모전·지원사업의 참가신청서, 사업계획서, 아이디어 제안서, 기획서처럼 표 안에 빈칸이 있는 양식입니다. 파란 예시 글씨, "내용을 입력하세요" 같은 자리표시, 음영 제목 아래의 작성 요령 칸, 장학금 신청서의 "20   학년도  제   학기" 같은 문장 속 빈칸을 찾아 채웁니다. 주민센터·복지 신청서 같은 법정 서식처럼 칸 안에 "주소", "(전화번호 :    )"가 적힌 양식도 칸마다 묻습니다. 문장 속 빈칸은 그 자리 글자만 바꿔 밑줄과 줄 배치가 그대로 남습니다. "□ 예 □ 아니요", "[ ] 해당" 같은 고르기 칸은 누르면 고른 상자에만 표시가 들어갑니다. 서식 끝의 "   년   월   일"과 "신청인        (서명 또는 인)" 줄도 채우며, 날짜는 오늘로 미리 넣어 두고 서명·도장은 출력한 뒤 직접 하도록 이름만 넣습니다. 공고문 본문이나 체크·서명만 하는 동의서는 채울 대상이 아닙니다.' },
   { q: '이름·연락처 같은 개인정보도 채워 주나요?',
     a: '개인정보 칸에는 표시를 달아 따로 알려 드립니다. 비워 두면 양식의 원래 예시가 그대로 남으니, 한글에서 직접 입력하세요.' },
   { q: '글자 크기나 분량 규정은 맞춰 주나요?',
@@ -425,6 +425,12 @@ const ld = [
           if (/^[.년]/.test(t)) return 6;
           return 0;
         };
+        // 작성일(서명란)은 오늘 날짜를 넣어 둔다 — 고칠 수 있다. 엔진이 빈칸마다 단위(y·yy·m·d·name)를 준다
+        const now = new Date();
+        const today = { y: String(now.getFullYear()), yy: String(now.getFullYear()).slice(2), m: String(now.getMonth() + 1), d: String(now.getDate()) };
+        const unitOf = (b) => (it.blanks[b] && it.blanks[b].unit) || '';
+        const prefilled = it.at.sign && it.blanks.some((b) => today[b.unit]);
+        const hasName = it.blanks.some((b) => b.unit === 'name');
         // keep-all: 한글 낱말이 '월부/터' 처럼 줄 끝에서 쪼개지지 않게
         input = '<div class="mt-2 space-y-1 text-sm leading-9 text-zinc-300" style="word-break:keep-all">' + it.at.lines.map((line) =>
           // '주소 ____' 처럼 줄 끝에 이어 쓰는 칸은 남은 너비를 다 쓴다
@@ -433,11 +439,15 @@ const ld = [
             : line.every((x) => typeof x === 'string') ? '<p class="text-[11px] leading-snug">' : '<p>') + line.map((x, xi) => {
             if (typeof x === 'string') return '<span class="text-zinc-400">' + esc(x) + '</span>';
             const ch = unitCh(line[xi + 1]) || Math.max(6, Math.min(14, x.w || 0));
-            return '<input type="text" maxlength="' + (x.append ? 100 : 24) + '" data-k="' + esc(it.key) + '" data-pos="' + pos + '" data-bi="' + x.b + '" data-nb="' + nb + '"'
+            const pre = it.at.sign && today[unitOf(x.b)] ? ' value="' + today[unitOf(x.b)] + '"' : '';
+            return '<input type="text" maxlength="' + (x.append ? 100 : 24) + '" data-k="' + esc(it.key) + '" data-pos="' + pos + '" data-bi="' + x.b + '" data-nb="' + nb + '"' + pre
               + ' aria-label="' + esc(it.key) + ' 빈칸 ' + (x.b + 1) + '"'
               + (x.append ? '' : ' style="width:calc(' + ch + 'ch + 1.25rem);max-width:100%"')
               + ' class="' + (x.append ? 'flex-1 min-w-0 ' : '') + 'mx-1 align-middle rounded-md bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-2 py-1 text-sm leading-normal text-zinc-200" />';
-          }).join('') + '</p>').join('') + '</div>';
+          }).join('') + '</p>').join('') + '</div>'
+          + (prefilled || (it.at.sign && hasName)
+            ? '<p class="mt-1 text-[11px] text-zinc-500" style="word-break:keep-all">' + [prefilled ? '날짜는 오늘로 넣어 두었습니다(고칠 수 있어요).' : '',
+                hasName ? '이름만 들어가고 서명·도장은 출력한 뒤 직접 하세요.' : ''].filter(Boolean).join(' ') + '</p>' : '');
       } else if (it.blanks && it.blanks.length) {
         input = '<div class="mt-2 space-y-1.5">' + it.blanks.map((b, bi) =>
           '<div class="flex items-center gap-2 text-sm text-zinc-300">'
