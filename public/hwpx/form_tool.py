@@ -19,6 +19,35 @@ import sys, os, re, json, argparse
 from hwpx import HwpxDocument
 import profile_ref as PR
 
+
+# ★ python-hwpx 의 paragraph.text 는 <hp:t> 의 첫 글자 덩이(t.text)만 읽는다. '<hp:t><hp:fwSpace/>1. 지원 동기 </hp:t>'
+#   처럼 전각 공백·줄바꿈 요소 뒤(tail)에 있는 글을 통째로 버려, 장학금 학업계획서의 소제목이 '(0.5장 이내)' 로만
+#   읽혔다(답 칸 0개). 라벨·안내문·절 제목 전부 이 글을 읽으므로 한 곳에서 고친다 — 쓰기(setter)는 그대로.
+def _hp_text_full(self):
+    out = []
+    for run in self._run_elements():
+        for child in run:
+            name = child.tag.rsplit('}', 1)[-1]
+            if name == "t":
+                out.append(child.text or "")
+                for ch in child:
+                    inner = ch.tag.rsplit('}', 1)[-1]
+                    out.append({"tab": "\t", "fwSpace": " ", "nbSpace": " ", "lineBreak": "\n", "hyphen": "-"}.get(inner, ""))
+                    out.append(ch.tail or "")
+            elif name == "tab" or (_is_tab_ctl and _is_tab_ctl(child)):
+                out.append("\t")
+    return "".join(out)
+
+
+_is_tab_ctl = None
+try:
+    from hwpx.oxml import paragraph as _hp_mod
+    from hwpx.oxml.paragraph import HwpxOxmlParagraph as _HP
+    _is_tab_ctl = getattr(_hp_mod, "_is_tab_control_element", None)
+    _HP.text = property(_hp_text_full, _HP.text.fset, None, _HP.text.__doc__)
+except Exception:                       # 라이브러리 구조가 바뀌면 원래대로 — 읽기만 덜 정확해진다
+    pass
+
 BLUE_RE = re.compile(r"^#(0{2}[0-9A-Fa-f]{2}[89A-Fa-f][0-9A-Fa-f]|[0-9A-Fa-f]{2}[0-9A-Fa-f]{2}[C-Fc-f][0-9A-Fa-f])$")
 PLACEHOLDER_RE = re.compile(r"내용을?\s*입력|입력하세요|예\s*시|^예\s*[)\]]|홍길동|example@|@nst\.re\.kr|010-0{3,}|"
                             r"^0{2}\s*[명일월]|^\d{2}\.\s*\d{2}\.\s*\d{2}\.$|^NAIS$|^팀명$|^0+$|"
@@ -66,10 +95,15 @@ CHECKBOX_RE = re.compile(r"[□■☐☑☒▢✓✔]|\[[ √✓vV■●]\]")   
 GENERIC_LABEL_RE =re.compile(r"^[◈※▶■□\s]*(작성\s*내용|세부\s*내용|내\s*용|작성\s*란|기재\s*내용)\s*$")
 # 칸 안에 그림·도형·안쪽 표가 있으면 덮어쓰면 안 된다(작성본의 시연 화면 캡처, 안내문 1×1 표를 품은 칸)
 OBJECT_TAGS = {"tbl", "pic", "container", "ole", "rect", "ellipse", "line", "arc", "polygon", "curve", "equation", "textart"}
-RULE_FONT_RE = re.compile(r"(\d{1,2}(?:\.\d)?)\s*(?:pt|포인트|호)")
+RULE_FONT_RE = re.compile(r"(\d{1,2}(?:\.\d)?)\s*(?:pt|point|포인트|호)", re.I)
+BODY_FONT_RE = re.compile(r"본문[^\d]{0,12}(\d{1,2}(?:\.\d)?)\s*(?:pt|point|포인트|호)", re.I)
 RULE_LS_RE = re.compile(r"줄\s*간격\s*(\d{2,3})\s*%")
 RULE_PAGE_RE = re.compile(r"(\d{1,3})\s*(?:쪽|페이지|장|page|p(?!t))\s*(?:이내|이하|내외)", re.I)   # '최대 5page 이내' 도
 BIG_BOX_MM = 25
+# 음영 없는 제목 칸이 '제목' 인지 — 번호·글머리로 시작하거나 분량·배점이 붙은 소제목
+# ★ '□' 는 넣지 않는다 — '□ 아이디어 기획 □ 제품 개발' 처럼 고르기 상자로 더 자주 쓰인다
+HEADING_TITLE_RE = re.compile(r"^\s*(?:\d{1,2}\s*[.)]|[가-하]\s*[.)]|[◆◇▶])\s*\S|[(（]\s*\d+(?:\.\d+)?\s*(?:장|쪽|페이지|매|page)\s*이내\s*[)）]|\d+\s*점\s*[)）]")
+INSTRUCTION_BOX_RE = re.compile(r"(?:설명|안내)\s*(?:박스|상자)\S*\s*삭제|삭제\s*후\s*제출")
 TALL_BOX_MM = 15
 # 명단 표에서 손으로 하는 열과 번호 열
 ROSTER_SKIP_COL_RE = re.compile(r"서\s*명|날\s*인|도\s*장|^\(?인\)?$|확\s*인$")
@@ -108,10 +142,11 @@ def find_constraints(doc, tables):
     out = {}
     for line in lines:
         s = re.sub(r"\s+", " ", line).strip()
-        if not s or not re.search(r"글자|폰트|글꼴|줄 ?간격|쪽|페이지|분량", s):
+        if not s or not re.search(r"글자|폰트|글꼴|줄 ?간격|쪽|페이지|분량|본문|point|포인트", s, re.I):
             continue
-        m = RULE_FONT_RE.search(s)
-        if m and "font_pt" not in out and re.search(r"글자|폰트|글꼴", s):
+        # '소제목은 13 point, 본문내용은 11 point' — 답이 들어가는 건 본문이다. 본문 크기를 먼저 본다
+        m = BODY_FONT_RE.search(s) or RULE_FONT_RE.search(s)
+        if m and "font_pt" not in out and re.search(r"글자|폰트|글꼴|본문|point|포인트", s, re.I):
             out["font_pt"] = float(m.group(1))
             out["_font_rule"] = s[:100]
         m = RULE_LS_RE.search(s)
@@ -317,7 +352,8 @@ def scan(path):
                 if re.match(r"^\d\)\s*\S", s) and len(s) <= 30 and s not in outline:
                     outline.append(s)
     narrative = []
-    solo = [g for g in guides if _is_solo_guide(tables, g)]
+    # '※ 작성요령 (작성 시 본 설명박스는 삭제 후 제출요망)' 은 지울 상자지 답 칸이 아니다
+    solo = [g for g in guides if _is_solo_guide(tables, g) and not INSTRUCTION_BOX_RE.search(g["text"])]
     for i, g in enumerate(solo):
         narrative.append({"table": g["table"], "row": g["row"], "col": g["col"], "guide": g["text"],
                           "limit": find_limit(g["text"]),
@@ -361,7 +397,11 @@ def scan(path):
             if not up:
                 continue
             ucell, ut = up
-            if not (ut and len(ut) <= 40 and cell_shaded(root, ucell) and not cell_shaded(root, cell)):
+            if not ut or cell_shaded(root, cell) or len(ut) > (60 if HEADING_TITLE_RE.search(ut) else 40):
+                continue
+            # 제목 칸에 음영이 없어도 제목 꼴('1. 지원 동기 (0.5장 이내)', '(20점)')이고 아래 칸이 높으면 답 칸이다
+            # — 장학금 학업계획서·취업역량 계획서는 음영 없는 표라 답 칸 0개였다
+            if not cell_shaded(root, ucell) and not (HEADING_TITLE_RE.search(ut) and (cell.height or 0) >= 20 * 283.46):
                 continue
             if (cell.width or 0) < 0.6 * tw or (cell.height or 0) < 10 * 283.46:
                 continue
@@ -380,6 +420,37 @@ def scan(path):
                           "current": re.sub(r"\s+", " ", txt)[:60],
                           "limit": find_limit(txt, ut),
                           "blue": False, "placeholder": False, "big_box": True})
+            taken.add((ti, r, ci))
+
+    # ── 라벨 | ※ 안내 칸 ─────────────────────────────────────────────────────────
+    # '소속 | ※ 직장 또는 학교명 기재', '활용 공공데이터 | ※ … 각 1건 이상 활용' — 칸에 든 안내문을 지우고 답을
+    # 쓰는 자리인데, 안내문(※)이라 빈칸·예시 어느 쪽에도 안 걸렸다. 라벨은 음영 칸이거나 필드명일 때만,
+    # 아래 칸이 이미 답 칸이면('▶ … 자유롭게 기술' 아래 큰 빈칸) 이 칸은 안내행이다 — 아래 칸은 병합돼
+    # 열 번호가 다를 수 있어(3열을 덮는 (6,0)) 위치 대신 앞 규칙이 남긴 guide_cell 로 가린다
+    guide_rows = {(s["table"], s["guide_cell"][0], s["guide_cell"][1]) for s in slots if s.get("guide_cell")}
+    for ti, t in enumerate(tables):
+        grid = {}
+        for row in t.rows:
+            for c in row.cells:
+                grid[c.address] = (c, re.sub(r"\s+", " ", " ".join((p.text or "").strip() for p in c.paragraphs)).strip())
+        for (r, ci), (cell, txt) in sorted(grid.items()):
+            if ci == 0 or (ti, r, ci) in taken or not txt:
+                continue
+            if not (GUIDE_RE.match(txt) and INSTRUCT_RE.search(txt)) or INSTRUCTION_BOX_RE.search(txt):
+                continue
+            if (ti, r + 1, ci) in taken or (ti, r, ci) in guide_rows or cell_has_objects(cell):
+                continue
+            left = next((grid[(r, b)] for b in range(ci - 1, -1, -1) if (r, b) in grid), None)
+            if left is None:
+                continue
+            lcell, lt = left
+            if not lt or len(lt) > 40 or GUIDE_RE.match(lt) or BULLET_SENTENCE_RE.match(lt):
+                continue
+            if not (cell_shaded(root, lcell) or FIELD_LABEL.match(lt) or FIELD_EXACT_RE.match(lt)):
+                continue
+            slots.append({"table": ti, "row": r, "col": ci, "label": lt[:40], "current": txt[:60],
+                          "limit": find_limit(txt, lt), "blue": False, "placeholder": True,
+                          **({"big_box": True} if (cell.height or 0) >= TALL_BOX_MM * 283.46 else {})})
             taken.add((ti, r, ci))
 
     # ── 글 속 빈칸(틀 문장) ─────────────────────────────────────────────────────
@@ -730,6 +801,11 @@ def scan(path):
     return {"source": os.path.basename(path), "tables": len(tables),
             "slots": slots, "narrative": narrative, "guides": guides,
             "sections": [h for h, _ in hp],          # 표마다 앞 절 제목 — 화면이 칸을 절 단위로 묶는 데 쓴다
+            # '작성 시 본 설명박스는 삭제 후 제출' 상자 — 화면이 지울지 묻고 _drop 으로 돌려준다
+            "drop_boxes": [{"table": ti, "text": re.sub(r"\s+", " ", " ".join((p.text or "") for p in t.cell(0, 0).paragraphs)).strip()[:80]}
+                           for ti, t in enumerate(tables)
+                           if t.row_count == 1 and t.column_count == 1
+                           and INSTRUCTION_BOX_RE.search(" ".join((p.text or "") for p in t.cell(0, 0).paragraphs))],
             "constraints": find_constraints(doc, tables)}
 
 
@@ -829,14 +905,19 @@ def is_hint_color(color):
 def blacken(doc, cps, fonts, cell, cache):
     """채운 글자를 검은색으로. 우리가 방금 덮어쓴 칸이므로 검정이 아닌 색은 전부 예시색이다
     (파랑 '삭제 후 입력', 회색 '글자수 제한 없음' 힌트 등)."""
+    # 기울임도 안내문 꼴이다 — 검은 기울임 안내('※ 본인 전공계열과 관련하여…')를 덮은 답이 기울어 나왔다
+    # (장학금 학업계획서 2번 칸). ensure_run 은 italic=False 가 기본이라 새 꼴로 바꾸면 바로 선다
     for p in cell.paragraphs:
         for run in p.element.findall('{%s}run' % HP):
             cid = run.get("charPrIDRef")
             ci = PR.char_info(cps, fonts, cid) or {}
-            if not is_hint_color(ci.get("color")):
+            el = cps.get(str(cid)) if cid is not None else None
+            italic = el is not None and el.find('hh:italic', PR.NS) is not None
+            hint = is_hint_color(ci.get("color"))
+            if not (hint or italic):
                 continue
             if cid not in cache:
-                kw = {"color": "#000000", "bold": bool(ci.get("bold"))}
+                kw = {"color": "#000000" if hint else (ci.get("color") or "#000000"), "bold": bool(ci.get("bold"))}
                 if ci.get("font"):
                     kw["font"] = ci["font"]
                 if ci.get("size_pt"):
@@ -1178,6 +1259,30 @@ def fill(path, answers, out):
             if lim and len(str(val)) > lim:
                 done.append("!! '%s' %d자 > 양식 제한 %d자 — 줄여야 한다" % (key[:20], len(str(val)), lim))
             _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache, pcache, solid_bf, body_w, reindex, done)
+    # 양식이 '작성 시 본 설명박스는 삭제 후 제출' 이라 한 상자 — 화면에서 고른 것만, 채우기가 다 끝난 뒤에
+    # (먼저 지우면 표 번호가 밀려 다른 칸에 들어간다)
+    drop = answers.get("_drop") or []
+    for ti in sorted({int(x) for x in drop if str(x).lstrip("-").isdigit()}, reverse=True):
+        if not (0 <= ti < len(tables)) or ti not in {b["table"] for b in info.get("drop_boxes", [])}:
+            continue
+        tbl = tables[ti].element
+        para = tbl.getparent()
+        while para is not None and para.tag != '{%s}p' % HP:
+            para = para.getparent()
+        owner = next((p for p in doc.paragraphs if p.element is para), None)
+        if para is None or para.getparent() is None:
+            continue
+        other = re.sub(r"\s+", "", "".join(t.text or "" for t in para.iter('{%s}t' % HP)
+                                           if not any(a is tbl for a in t.iterancestors())))
+        if other:
+            tbl.getparent().remove(tbl)                  # 문단에 다른 글이 있으면 표만 뗀다
+        else:
+            para.getparent().remove(para)
+        try:
+            (owner.section if owner is not None else doc.sections[0]).mark_dirty()
+        except Exception:
+            pass
+        done.append("작성요령 상자(표%d)를 양식 안내대로 지움" % ti)
     doc.save_to_path(out)
     return done, missed
 
@@ -1823,7 +1928,10 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
         strip_auto_bullet(root, cell, pcache)      # 길이와 무관하게 자동 글머리는 뗀다
         # '· · ·' 자리표시 칸은 내어쓰기가 걸린 글머리 문단이라, 짧은 글이어도 둘째 줄이 안으로 밀린다
         dot_box = bool(re.match(r"^(?:[·•‧ㆍ]\s*){3,}", (target.get("current") or "").strip()))
-        if narrative_box or target.get("big_box") or long_text or was_guide or dot_box:
+        # 내어쓰기 문단도 — '•<전각공백>시금형제작 …' 예시 칸은 글머리용 내어쓰기(-3.5mm)라 60자 미만 답도
+        # 두 줄이 되면 둘째 줄이 밀렸다(예창패 사업비 표). 줄 수를 제대로 세자 감사가 잡아냈다
+        hanging = any(((PR.para_info(pps, q.para_pr_id_ref) or {}).get("indent") or 0) < 0 for q in cell.paragraphs)
+        if narrative_box or target.get("big_box") or long_text or was_guide or dot_box or hanging:
             # 안내문 서식(내어쓰기·빈 문단·점선)은 본문에 맞지 않는다. 점선→실선은 1×1 상자만.
             normalize_cell(doc, root, cell, pcache, solid_bf if narrative_box else None)
             if narrative_box and body_w:

@@ -110,7 +110,10 @@ def section_span(pages, rule_text):
         return None
     for j in range(start + 1, len(pages)):
         head = re.sub(r"\s+", " ", pages[j]).strip()[:80]
-        if re.match(r"^\d\s+\S", head) or re.search(r"동의서|서약서|유의\s*사항", head):
+        # 다른 서식이 시작되는 쪽('[양식4] (공통)', '[별지 제2호서식]')도 구간 끝 — 공고문에 양식 여러 개를 묶은
+        # 게시용 파일에서 양식3 의 '3장 이내' 를 양식4 까지 세어 거짓 초과가 났다
+        if (re.match(r"^\d\s+\S", head) or re.search(r"동의서|서약서|유의\s*사항", head)
+                or re.match(r"^[\[<【(]\s*(?:양식|서식|별지|별첨|붙임|별표)", head)):
             return j - start
     return len(pages) - start
 

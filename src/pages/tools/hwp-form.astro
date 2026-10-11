@@ -525,6 +525,13 @@ const ld = [
         && new Set(group.map((it) => it.at.col)).size >= 2);
       html += tabular ? grid(group) : group.map(card).join('');
     }
+    // 양식이 '작성 시 본 설명박스는 삭제 후 제출' 이라고 한 상자 — 기본으로 지우고 낸다(끌 수 있다)
+    const drops = info.drop_boxes || [];
+    if (drops.length) {
+      html = '<label class="flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-200" style="word-break:keep-all">'
+        + '<input type="checkbox" id="dropBoxes" checked class="mt-0.5 accent-violet-500" />'
+        + '<span>양식에 "작성 시 설명 상자는 지우고 제출"이라고 적힌 작성요령 상자 ' + drops.length + '개를 지운 채로 만듭니다.</span></label>' + html;
+    }
     $('slots').innerHTML = html;
 
     // 채울 칸이 없는 파일이 흔하다 — 공고문, 동의서, 이미 작성된 문서. 빈 화면을 주지 말고 왜인지 말한다.
@@ -577,6 +584,8 @@ const ld = [
     for (const k of Object.keys(answers)) {            // 빈칸을 하나도 안 쓴 칸은 보내지 않는다
       if (Array.isArray(answers[k]) && !answers[k].some(Boolean)) delete answers[k];
     }
+    const dropEl = document.getElementById('dropBoxes');
+    if (dropEl && dropEl.checked && info && (info.drop_boxes || []).length) answers._drop = info.drop_boxes.map((b) => b.table);
     if (!info) { say('⚠ 양식 파일을 먼저 올려주세요.', 'text-rose-300'); return; }
     if (!Object.keys(answers).length) { say('⚠ 한 칸 이상 채워주세요.', 'text-rose-300'); return; }
     busy = true;
@@ -588,7 +597,7 @@ const ld = [
         'import io, json, sys',
         'import form_tool as FT, audit',
         '_a = json.load(open("ans.json", encoding="utf-8"))',
-        '_a = {k: v for k, v in _a.items() if not k.startswith("_")}',
+        '_a = {k: v for k, v in _a.items() if not k.startswith("_") or k == "_drop"}',   // _drop: 작성요령 상자 지우기
         '_o = sys.stdout; sys.stdout = io.StringIO()',
         'try:',
         '    FT.fill("form.hwpx", _a, "out.hwpx")',
