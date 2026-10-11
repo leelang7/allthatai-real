@@ -23,7 +23,9 @@ BLUE_RE = re.compile(r"^#(0{2}[0-9A-Fa-f]{2}[89A-Fa-f][0-9A-Fa-f]|[0-9A-Fa-f]{2}
 PLACEHOLDER_RE = re.compile(r"내용을?\s*입력|입력하세요|예\s*시|^예\s*[)\]]|홍길동|example@|@nst\.re\.kr|010-0{3,}|"
                             r"^0{2}\s*[명일월]|^\d{2}\.\s*\d{2}\.\s*\d{2}\.$|^NAIS$|^팀명$|^0+$|"
                             r"^\d+\s*자\s*이내$|^[0-9]{4}\.[0-9]{2}\s*~|^YYYY|^0000|"
-                            r"^[○◯●o]{2,}$|^[-–—_]{3,}$|^[XxＸ]{2,}$|^(?:[·•‧ㆍ]\s*){3,}")     # ○○○, · · · 같은 자리표시
+                            r"^[○◯●o]{2,}$|^[-–—_]{3,}$|^[XxＸ]{2,}$|^(?:[·•‧ㆍ]\s*){3,}|"    # ○○○, · · · 같은 자리표시
+                            # 법정 서식의 칸 속 짧은 요령 — '알고 있는 경우 기재', '(해당 시 기재)'
+                            r"^[(（]?[^※()（）]{0,14}(?:경우|때|시|자만|분만)\s*(?:에만\s*|만\s*)?(?:기재|기입|작성)[)）]?$")
 GUIDE_RE = re.compile(r"^[※◼▪▶►◈☞◆]")           # 안내 기호로 시작하면 라벨이 아니라 안내문이다
 # 안내문이 괄호 속에 예를 들어 보여 주는 것 — "(예시: 창업경진대회_심평팀_홍길동)"
 EXAMPLE_PAREN_RE = re.compile(r"[(（]\s*(?:예시|예)\s*[:：)][^)）]*[)）]?")
@@ -68,6 +70,11 @@ RULE_FONT_RE = re.compile(r"(\d{1,2}(?:\.\d)?)\s*(?:pt|포인트|호)")
 RULE_LS_RE = re.compile(r"줄\s*간격\s*(\d{2,3})\s*%")
 RULE_PAGE_RE = re.compile(r"(\d{1,3})\s*(?:쪽|페이지|장|page|p(?!t))\s*(?:이내|이하|내외)", re.I)   # '최대 5page 이내' 도
 BIG_BOX_MM = 25
+TALL_BOX_MM = 15
+# 높은 빈칸이어도 글을 쓰는 자리가 아닌 것 — 사진 붙이는 칸, 서명·날인 칸
+ANSWER_SKIP_LABEL_RE = re.compile(r"사진|서명|날인|도장|직인|(?:^|\s)인$|첨부|별지|붙임")
+# 서술을 부르는 라벨 — 법정 서식은 칸을 작게 두고(14mm) 길면 별지에 쓰라 한다
+NARRATIVE_LABEL_RE = re.compile(r"(내\s*용|이\s*유|사\s*유|취\s*지|경\s*위|의\s*견|요\s*지|목\s*적|계\s*획|개\s*요|소\s*개)\s*$")
 LIMIT_RE = re.compile(r"(\d{1,4})\s*(?:자|글자|字)\s*(?:이내|이하|내외|까지)")
 
 
@@ -133,6 +140,13 @@ FIELD_LABEL = re.compile(
     r"^(성\s*명|이\s*름|팀\s*명|단체명|소\s*속|학\s*교|학\s*과|직\s*위|직\s*책|생년월일|연락처|전화|휴대|이메일|메일|주\s*소|"
     r"신청자|대표자|참가자|응모|분\s*야|주\s*제|제\s*목|과제명|사업명|서비스명|기\s*간|일\s*자|날\s*짜|금\s*액|예\s*산|"
     r"인원|구\s*분|내\s*용|비\s*고|목\s*적|배\s*경|개\s*요|계\s*획|효\s*과|방\s*안|현\s*황|서\s*명)")
+# 법정 서식은 라벨 칸에 음영이 없다 — 이름으로 알아본다. ★ 라벨 전체가 이 이름일 때만:
+# 앞머리만 보면 '관계' 가 '관계 법령' 을, '상호' 가 '상호 협력' 을 잡는다
+FIELD_EXACT_RE = re.compile(
+    r"^(주민\s*등록\s*번호|외국인\s*등록\s*번호|사업자\s*등록\s*번호|법인\s*등록\s*번호|등록\s*기준지|"
+    r"국\s*적|성\s*별|연\s*령|나\s*이|직\s*업|(\S{1,8}\s*와의\s*)?관\s*계|소\s*재\s*지|상\s*호|업\s*종|업\s*태|"
+    r"금융\s*기관(명)?|은\s*행(명)?|계좌\s*번호|예\s*금\s*주|신고인|신청인|청구인|대리인)\s*(\([^)]{0,12}\))?\s*[:：]?$")
+BULLET_SENTENCE_RE = re.compile(r"^[∙·•▪◦\-–]\s*\S.{11,}")
 SHADED = {}
 
 
@@ -175,6 +189,19 @@ def scan(path):
             for c in row.cells:
                 txt = " ".join((p.text or "").strip() for p in c.paragraphs).strip()
                 grid[c.address] = (c, txt)
+        # 옆으로 병합된 칸이 덮는 자리까지 — 왼쪽 이웃은 '열 번호 -1' 이 아니다. 법정 서식은 라벨 칸이
+        # 두 열을 덮어('성명' 이 2~3열) 빈칸(4열)의 3열 자리가 비어 있었고, 대표신고자 선정서가 0칸이었다.
+        # ★ 같은 행에서 시작한 칸만 — 위에서 세로로 내려온 칸('팀원 정보', '인적사항')은 구역 이름이지
+        #   칸 이름이 아니다(넣었더니 열 머리글 '대회명' 이 구역 이름으로 바뀌었다)
+        occ = {}
+        for (r0, c0), v in grid.items():
+            try:
+                cs = v[0].span[1]
+            except Exception:
+                cs = 1
+            for j in range(max(1, cs)):
+                occ.setdefault((r0, c0 + j), v)
+        tw = sum((c.width or 0) for (r0, _), (c, _) in grid.items() if r0 == 0) or 1
         for (r, cidx), (cell, txt) in sorted(grid.items()):
             color = cell_color(doc, cps, fonts, cell)
             blue = is_blue(color)
@@ -185,7 +212,7 @@ def scan(path):
             # 예시 글자가 없는 순수 빈칸도 후보 — 단, '라벨 | ____' 구조가 분명할 때만.
             # ★ 아무 빈칸이나 잡으면 데이터 명세서의 표까지 양식으로 오인한다(246칸을 채운 사고).
             #   라벨 칸에 음영이 있거나, 라벨이 신청서에서 쓰는 필드명일 때로 제한한다.
-            empty_slot = False
+            empty_slot = tall = False
             # 폭이 12mm 미만인 칸은 글을 쓰는 자리가 아니다(구분선·좁은 열).
             # ★ 폭 7mm 칸에 339자를 넣어 칸 높이가 1446mm(쪽의 6배)가 된 사고를 막는다.
             narrow = (cell.width or 0) < 12 * 283.46
@@ -193,10 +220,18 @@ def scan(path):
             # 체크박스 칸에 글이 들어간다(NAIS '참가분야'). 컨트롤은 아래 고르기 규칙이 맡는다.
             has_ctl = bool(own_elements(cell, ('{%s}checkBtn' % HP, '{%s}radioBtn' % HP)))
             if not txt and cidx > 0 and not narrow and not has_ctl:
-                lcell, lt = grid.get((r, cidx - 1), (None, ""))
-                if lt and 1 <= len(lt) <= 14 and not GUIDE_RE.match(lt) and not PLACEHOLDER_RE.search(lt):
-                    if FIELD_LABEL.match(lt.strip()) or (lcell is not None and cell_shaded(root, lcell)):
+                lcell, lt = occ.get((r, cidx - 1), (None, ""))
+                if (lt and 1 <= len(lt) <= 14 and not GUIDE_RE.match(lt) and not PLACEHOLDER_RE.search(lt)
+                        and not OFFICE_RE.match(re.sub(r"\s+", "", lt))):
+                    if (FIELD_LABEL.match(lt.strip()) or FIELD_EXACT_RE.match(lt.strip())
+                            or (lcell is not None and cell_shaded(root, lcell))):
                         empty_slot = True
+                    elif (lcell is not None and re.search(r"[가-힣]{2}", lt) and not ANSWER_SKIP_LABEL_RE.search(lt)
+                          and (cell.width or 0) >= 0.5 * tw
+                          and (cell.height or 0) >= (12 if NARRATIVE_LABEL_RE.search(lt) else TALL_BOX_MM) * 283.46):
+                        # 법정 서식의 서술 칸 — '공익신고 내용 | (높이 40mm 빈칸)'. 라벨 칸에 음영도
+                        # 없고 필드명도 아니라서 놓쳤다. 높고 넓은 빈칸이면 답 칸이다(한 줄 칸은 6~8mm)
+                        empty_slot = tall = True
             if not (blue or ph or empty_slot):
                 continue
             def ok_label(lcell, s):
@@ -205,6 +240,9 @@ def scan(path):
                 s = (s or "").strip()
                 if not (s and not s.isdigit() and len(s) <= 40
                         and not PLACEHOLDER_RE.search(s) and not GUIDE_RE.match(s)):
+                    return False
+                # '∙ 직무와 관련하여 금품을 수수하거나…' 같은 글머리 문장은 본문이지 라벨이 아니다
+                if BULLET_SENTENCE_RE.match(s):
                     return False
                 # ★ 파란 예시는 '채워야 할 값'이지 라벨이 아니다.
                 #   가로로 늘어선 명단 표(성명|생년월일|소속|휴대전화|이메일)에서 왼쪽 칸의
@@ -227,15 +265,43 @@ def scan(path):
                 if ok_label(ucell, ut):
                     cands.append((0 if (ucell is not None and cell_shaded(root, ucell)) else 1, 1, ut))
                     break
+                # 위에 검은 본문 글('∙ 추징 또는 환수액의 20% 이내')이 이미 차 있으면 그 열은 다 쓴 표다 —
+                # 머리글까지 올라가 '지 급 기 준' 을 라벨로 잡으면 별표의 개정 행이 빈칸이 됐다
+                ut = (ut or "").strip()
+                if (ut and (len(ut) > 40 or BULLET_SENTENCE_RE.match(ut)) and not GUIDE_RE.match(ut)
+                        and not PLACEHOLDER_RE.search(ut) and not is_blue(cell_color(doc, cps, fonts, ucell))):
+                    break
             cands.sort()                                   # 음영 우선, 같으면 왼쪽 우선
             label = cands[0][2] if cands else ""
+            # 라벨 없는 파란 칸은 예시가 아니다 — 개정 표시(별표의 새 행이 #0000FF), 파란 서식 제목,
+            # 서식 머리의 빈 칸이었다(말뭉치 73개에서 8칸, 전부 오탐). 무엇을 쓸지 물을 수도 없다.
+            # ★ 1×1 표는 예외 — '8. 수상 이력 사항' 아래 파란 작성 요령 상자는 절 제목이 이름이 된다
+            if blue and not ph and not empty_slot and not label.strip() and len(grid) > 1:
+                continue
             # 글자 수 제한은 이 칸·라벨·오른쪽 이웃 어디에든 적혀 있다
             right = grid.get((r, cidx + 1), (None, ""))[1]
             slots.append({"table": ti, "row": r, "col": cidx,
                           "label": re.sub(r"\s+", " ", label)[:40],
                           "current": re.sub(r"\s+", " ", txt)[:60],
                           "limit": find_limit(txt, label, right),
-                          "blue": blue, "placeholder": ph})
+                          "blue": blue, "placeholder": ph, **({"big_box": True} if tall else {})})
+        # 한 표에 같은 이름이 둘 이상이면 구역 이름을 따로 단다 — 공익신고서의 '이름', '이름 (2)' 로는
+        # 신고자인지 피신고자인지 모른다. 붙여도 서로 같아지면(명단 표의 '팀원' ×4) 달지 않는다.
+        # ★ label 자체는 그대로 — 바꿨더니 사업비·팀 구성 표의 열 이름이 '재료비 · 산출 근거', '1 · 직위'
+        #   로 갈라져 화면이 표 모양을 잃었다(예창패 15화면 → 다시 낱개 카드)
+        mine = [s for s in slots if s["table"] == ti and s["label"]]
+        groups = {}
+        for s in mine:
+            groups.setdefault(re.sub(r"\s+", "", s["label"]), []).append(s)
+        cg = {k: v[0] for k, v in grid.items()}
+        for same in groups.values():
+            if len(same) < 2:
+                continue
+            secs = [section_name(cg, s["row"], s["col"], min_rows=2) for s in same]
+            if len(set(secs)) > 1:
+                for s, sec in zip(same, secs):
+                    if sec:
+                        s["section"] = sec
     # 서술형 항목: 안내문(※)만 든 1×1 표는 그 자체가 답을 쓰는 자리다.
     # 라벨은 앞선 '목차 표'의 1) 2) 3) 항목을 **순서대로** 배정하는 편이 정확하다
     # (셀 위치로 되짚으면 병합 때문에 엉뚱한 항목이 잡힌다).
@@ -258,7 +324,7 @@ def scan(path):
     # (내일로 해커톤 기획서 구조: 제목행 / ▶안내행 / 45mm 빈칸행)  안내행은 파란 예시이므로 비운다.
     for s in slots:
         t = tables[s["table"]]
-        if t.row_count == 1:
+        if t.row_count == 1 or s.get("big_box"):           # 이미 답 칸 — 아래 칸으로 옮기면 다음 항목 칸을 뺏는다
             continue
         try:
             below = t.cell(s["row"] + 1, s["col"])
@@ -1234,6 +1300,17 @@ def section_label(grid, r, ci, field):
     구역 이름은 이 행을 세로로 덮는(병합된) 왼쪽 칸이다. 위쪽에서 처음 보이는 칸을 쓰면 사망자의
     전화번호가 '미지급 기초연금 내역 · 전화번호' 가 됐다 — 병합 범위(rowSpan)로 정확히 찾는다.
     """
+    sec = section_name(grid, r, ci)
+    if sec:
+        return ("%s · %s" % (sec, re.sub(r"\s+", " ", field)))[:40]
+    return re.sub(r"\s+", " ", field)[:40]
+
+
+def section_name(grid, r, ci, min_rows=1):
+    """r 행을 세로로 덮는 왼쪽 칸의 글 — 구역 이름('신고자', '동의자(배우자)'). 없으면 ''.
+
+    min_rows=2 면 여러 행을 덮는 칸만 — 한 행짜리 왼쪽 칸은 그 줄의 값('○○전자', '공동대표')일 수 있다.
+    """
     best = None
     for (rr, cc), c in grid.items():
         if cc >= ci:
@@ -1242,18 +1319,20 @@ def section_label(grid, r, ci, field):
             rs, cs = c.span
         except Exception:
             rs, cs = 1, 1
-        if not (rr <= r < rr + max(1, rs)) or cc + max(1, cs) > ci:
+        if not (rr <= r < rr + max(1, rs)) or cc + max(1, cs) > ci or max(1, rs) < min_rows:
             continue
         t = re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()
+        t = CHECKBOX_RE.sub("", t).strip()               # '[ ]변경' → '변경'
         if not t or len(t) > 24 or INCELL_LABEL_RE.match(t):
+            continue
+        if not re.search(r"[가-힣A-Za-z]", t):          # 행 번호 '1', '…' 는 구역이 아니다
             continue
         if best is None or cc < best[0]:
             best = (cc, t)
-    if best:
-        t = best[1]
-        sec = re.sub(r"\s+", "", t) if len(t.replace(" ", "")) <= 10 else t
-        return ("%s · %s" % (sec, re.sub(r"\s+", " ", field)))[:40]
-    return re.sub(r"\s+", " ", field)[:40]
+    if not best:
+        return ""
+    t = best[1]
+    return re.sub(r"\s+", "", t) if len(t.replace(" ", "")) <= 10 else t
 
 
 def fill_inlabel(cell, value):
