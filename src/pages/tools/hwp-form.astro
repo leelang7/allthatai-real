@@ -476,28 +476,34 @@ const ld = [
         return '<th class="px-2 py-1.5 text-left text-[11px] font-bold text-zinc-300 whitespace-nowrap">' + esc(name)
           + (isPersonal(name) ? ' <span class="text-rose-300">·개인정보</span>' : '') + '</th>';
       }).join('');
-      const body = rows.map((r) => '<tr>' + cols.map((c) => {
+      const body = rows.map((r, ri) => '<tr>' + cols.map((c) => {
         const it = at[r + ':' + c];
         if (!it) return '<td></td>';
         const pos = '@' + it.at.table + ':' + it.at.row + ':' + it.at.col;
+        // 명단 표의 연번 — 입력받지 않고 채운 줄에만 차례로 번호를 매긴다(만들 때 계산)
+        if (it.at.seq) return '<td class="p-1 text-center text-xs text-zinc-500">' + (ri + 1)
+          + '<input type="hidden" data-seq="1" data-pos="' + pos + '" data-tr="' + it.at.table + ':' + it.at.row + '" /></td>';
         return '<td class="p-1"><input type="text" data-k="' + esc(it.key) + '" data-pos="' + pos + '"'
           + (it.limit ? ' maxlength="' + it.limit + '"' : '') + ' placeholder="' + esc(String(it.hint || '').slice(0, 30)) + '"'
           + ' class="w-full min-w-[7rem] rounded-md bg-zinc-900 border border-zinc-700 focus:border-violet-500 outline-none px-2 py-1.5 text-xs text-zinc-200 placeholder:text-zinc-600" /></td>';
       }).join('') + '</tr>').join('');
       return '<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-3 overflow-x-auto">'
-        + '<p class="mb-2 text-[11px] text-zinc-500">표 ' + rows.length + '줄 · 회색 글씨는 양식의 예시입니다</p>'
+        + '<p class="mb-2 text-[11px] text-zinc-500">표 ' + rows.length + '줄 · '
+        + (group[0].at.roster != null ? '쓴 줄만 들어가고' + (group.some((it) => it.at.seq) ? ' 연번은 차례로 매겨집니다' : ' 빈 줄은 그대로 남습니다') : '회색 글씨는 양식의 예시입니다') + '</p>'
         + '<table class="w-full border-separate border-spacing-0"><thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div>';
     };
 
+    // 명단 표(머리글 + 빈 줄)는 같은 표의 다른 칸과 따로 묶는다 — 섞이면 표 모양 판정이 깨져 낱개 카드 15장이 된다
     const byTable = new Map();
     items.forEach((it) => {
-      const t = it.at ? it.at.table : -1;
-      if (!byTable.has(t)) byTable.set(t, []);
-      byTable.get(t).push(it);
+      const g = it.at ? it.at.table + (it.at.roster != null ? ':r' + it.at.roster : '') : '-';
+      if (!byTable.has(g)) byTable.set(g, []);
+      byTable.get(g).push(it);
     });
     const sections = info.sections || [];
     let html = '', lastSec = null;
-    for (const [t, group] of byTable) {
+    for (const [g, group] of byTable) {
+      const t = group[0].at ? group[0].at.table : -1;
       const title = t >= 0 ? (sections[t] || '') : '';
       if (title && title !== lastSec) {
         html += '<h3 class="pt-4 pb-1 text-sm font-black text-violet-300">' + esc(title) + '</h3>';
@@ -512,10 +518,11 @@ const ld = [
         const top = Math.max(...[...new Set(names)].map((n) => names.filter((x) => x === n).length));
         return top >= names.length - 1;
       });
-      const tabular = group.every((it) => it.at && !it.big && !(it.blanks && it.blanks.length) && !(it.choice && it.choice.length))
+      const roster = group[0].at && group[0].at.roster != null && new Set(group.map((it) => it.at.col)).size >= 2;
+      const tabular = roster || (group.every((it) => it.at && !it.big && !(it.blanks && it.blanks.length) && !(it.choice && it.choice.length))
         && group.length >= 4 && colsSame
         && new Set(group.map((it) => it.at.row)).size >= 2
-        && new Set(group.map((it) => it.at.col)).size >= 2;
+        && new Set(group.map((it) => it.at.col)).size >= 2);
       html += tabular ? grid(group) : group.map(card).join('');
     }
     $('slots').innerHTML = html;
@@ -555,6 +562,17 @@ const ld = [
       } else if (v) {
         answers[key] = v;
       }
+    });
+    // 명단 표 연번: 같은 줄에 하나라도 쓴 줄만, 표마다 1부터 차례로(빈 줄은 번호 없이 비워 둔다)
+    const seqNo = new Map();
+    document.querySelectorAll('#slots input[data-seq]').forEach((el) => {
+      const [t, r] = el.dataset.tr.split(':');
+      const used = [...document.querySelectorAll('#slots [data-pos^="@' + t + ':' + r + ':"]')]
+        .some((x) => x !== el && !x.dataset.seq && String(x.value || '').trim());
+      if (!used) return;
+      const tb = el.closest('table');
+      seqNo.set(tb, (seqNo.get(tb) || 0) + 1);
+      answers[el.dataset.pos] = String(seqNo.get(tb));
     });
     for (const k of Object.keys(answers)) {            // 빈칸을 하나도 안 쓴 칸은 보내지 않는다
       if (Array.isArray(answers[k]) && !answers[k].some(Boolean)) delete answers[k];

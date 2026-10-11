@@ -71,6 +71,9 @@ RULE_LS_RE = re.compile(r"줄\s*간격\s*(\d{2,3})\s*%")
 RULE_PAGE_RE = re.compile(r"(\d{1,3})\s*(?:쪽|페이지|장|page|p(?!t))\s*(?:이내|이하|내외)", re.I)   # '최대 5page 이내' 도
 BIG_BOX_MM = 25
 TALL_BOX_MM = 15
+# 명단 표에서 손으로 하는 열과 번호 열
+ROSTER_SKIP_COL_RE = re.compile(r"서\s*명|날\s*인|도\s*장|^\(?인\)?$|확\s*인$")
+SEQ_COL_RE = re.compile(r"^(연번|순번|번호|순위|No\.?)$", re.I)
 # 높은 빈칸이어도 글을 쓰는 자리가 아닌 것 — 사진 붙이는 칸, 서명·날인 칸
 ANSWER_SKIP_LABEL_RE = re.compile(r"사진|서명|날인|도장|직인|(?:^|\s)인$|첨부|별지|붙임")
 # 서술을 부르는 라벨 — 법정 서식은 칸을 작게 두고(14mm) 길면 별지에 쓰라 한다
@@ -632,8 +635,52 @@ def scan(path):
         if v and use[v] == 1:                  # 한 칸만 가리킬 때만 — 같은 이름이면 같은 글이 들어간다
             n["label"] = v[:40]
 
-    # ── 서명란(작성일·서명 줄) — 다른 슬롯이 잡지 않은 칸과 표 밖 문단에서 ───────────────────
     held = {(s["table"], s["row"], s["col"]) for s in slots + narrative}
+    # ── 명단 표: 머리글 한 줄 + 통째로 빈 줄들 ─────────────────────────────────────────
+    # '연번 | 성명 | 주민등록번호 | 주소 | 서명 또는 날인' 아래 빈 줄 3개(선정자 명단), 수상 실적·연구 실적 표.
+    # 빈칸 왼쪽에 라벨이 없어(왼쪽도 빈칸) 한 칸도 못 잡았다 — 말뭉치 12개 표, 0칸.
+    # ★ 줄이 통째로 비어 있을 때만(이미 쓴 데이터 표·공고 표는 아니다), 머리글 3칸 이상('전 | 후' 사진 칸 제외),
+    #   줄 높이 25mm 이하(그림 붙이는 칸 제외). 서명·날인 열은 손으로 — 비운다. 연번은 채운 줄에 번호를 매긴다
+    for ti, t in enumerate(tables):
+        rows = {}
+        for row in t.rows:
+            for c in row.cells:
+                rows.setdefault(c.address[0], []).append(c)
+        rk = sorted(rows)
+        for i, r0 in enumerate(rk):
+            hdr = rows[r0]
+            heads = [_squash_spaced(re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()) for c in hdr]
+            if len(hdr) < 3 or not all(1 <= len(h) <= 16 for h in heads):
+                continue
+            if any(OFFICE_RE.match(h.replace(" ", "")) for h in heads) or (ti in cut and r0 >= cut[ti]):
+                continue
+            cols = [c.address[1] for c in hdr]
+            empties = []
+            for r1 in rk[i + 1:]:
+                cs = rows[r1]
+                if [c.address[1] for c in cs] != cols:
+                    break
+                if any(re.sub(r"\s+", "", " ".join((p.text or "") for p in c.paragraphs)) for c in cs):
+                    break
+                if any(cell_has_objects(c) or (c.height or 0) > 25 * 283.46 for c in cs):
+                    break
+                empties.append(r1)
+            for r1 in empties:
+                for c, h in zip(rows[r1], heads):
+                    pos = (ti, r1, c.address[1])
+                    if pos in held or ROSTER_SKIP_COL_RE.search(h):
+                        continue
+                    seq = bool(SEQ_COL_RE.match(h.replace(" ", "")))
+                    if not seq and (c.width or 0) < 12 * 283.46:     # 좁은 열에 글을 넣으면 칸이 한없이 길어진다
+                        continue
+                    s = {"table": ti, "row": r1, "col": c.address[1], "label": h[:40], "current": "",
+                         "limit": None, "blue": False, "placeholder": False, "roster": r0}
+                    if seq:
+                        s["seq"] = True
+                    slots.append(s)
+                    held.add(pos)
+
+    # ── 서명란(작성일·서명 줄) — 다른 슬롯이 잡지 않은 칸과 표 밖 문단에서 ───────────────────
     for ti, t in enumerate(tables):
         for row in t.rows:
             for c in row.cells:
