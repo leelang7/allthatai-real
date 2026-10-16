@@ -132,9 +132,7 @@ const ld = [
 </Layout>
 
 <script is:inline>
-  const PYODIDE = 'https://cdn.jsdelivr.net/pyodide/v314.0.6/full/';
-  const ENGINE = ['profile_ref.py', 'form_tool.py', 'audit.py'];
-  const WHEEL = '/hwpx/python_hwpx-6.4.0-py3-none-any.whl';
+  // 파이썬 엔진·버전(Pyodide v314.0.6, python-hwpx wheel, 엔진 .py)은 /hwpx/engine-worker.mjs 가 들고 있다
   const PERSONAL_RE = /성명|이름|성함|생년|휴대|전화|이메일|메일|소속|주소|연락|서명|직위|직급|학교|학년|나이|주민|사용자명|신청인|신청자명|대표자명|담당자/;
   // ★ 양식은 정렬하려고 '연 락 처'처럼 글자 사이를 띄운다. 띄어쓰기를 지우고 봐야 한다
   //   (거북섬마리나 신청서에서 '연 락 처'가 개인정보로 안 잡혀 채워진 것을 렌더로 발견).
@@ -164,24 +162,51 @@ const ld = [
   //  · lxml 은 loadPyodide 의 packages 로 본체와 동시에, 엔진 wheel·.py 는 그사이 미리 받아 둔다
   //  · micropip 없이 wheel 을 그대로 푼다(의존성은 lxml 하나뿐이다)
   //  · 엔진 import 까지 여기서 끝내 둔다 — 사용자가 파일을 고르는 동안 지나간다
+  // 2026-10-17 재측정(25초): 내려받기 12초 + 계산 13초, 그 계산이 화면 스레드를 막았다 → 일꾼 스레드로
+  // ★ 엔진(Pyodide)은 일꾼 스레드(/hwpx/engine-worker.mjs)에서 돈다 — 화면 스레드에서 띄우면 중급 폰에서
+  //   '준비 중 N초' 표시가 9초 넘게 멈춰 고장 난 화면으로 보였고, .hwp 변환도 파이썬이 다 뜰 때까지 기다렸다.
+  //   단계 표시(performance.mark 'hf:…')는 일꾼이 알려 주는 대로 여기서 찍는다 — 느린 폰 첫 실행을 재는 데 쓴다
+  let worker = null, seq = 0;
+  const pending = new Map();
+  function engine() {
+    if (worker) return worker;
+    worker = new Worker('/hwpx/engine-worker.mjs', { type: 'module' });
+    worker.onmessage = (e) => {
+      const d = e.data || {};
+      if (d.mark) {
+        try { performance.mark('hf:' + d.mark); } catch (x) {}
+        // 파이썬 본체를 다 받고 데우는 동안 망은 논다 — 그때 rhwp(3.5MB)를 받아 둔다. .hwp 변환과 결과
+        // 미리보기 둘 다 쓰므로 누구나 결국 받는다. 전엔 파일을 고른 뒤에야 받아, .hwp 는 맨 끝에 줄을 섰다
+        if (d.mark === 'pyodide') loadRhwp().catch(() => {});
+        return;
+      }
+      const p = pending.get(d.id);
+      if (!p) return;
+      pending.delete(d.id);
+      d.ok ? p.resolve(d) : p.reject(new Error(d.err || '엔진 오류'));
+    };
+    // 일꾼이 통째로 죽으면(메모리 부족 등) 기다리는 요청을 모두 풀고, 다음 요청 때 새로 띄운다
+    worker.onerror = (e) => {
+      const err = new Error((e && e.message) || '엔진을 띄우지 못했습니다');
+      for (const p of pending.values()) p.reject(err);
+      pending.clear();
+      try { worker.terminate(); } catch (x) {}
+      worker = null; py = null; booting = null;
+    };
+    return worker;
+  }
+  function call(cmd, data) {
+    return new Promise((resolve, reject) => {
+      const id = ++seq;
+      pending.set(id, { resolve, reject });
+      engine().postMessage(Object.assign({ id, cmd }, data || {}));
+    });
+  }
   function boot() {
     if (py) return Promise.resolve(py);
     if (booting) return booting;
-    booting = (async () => {
-      const wheelP = fetch(WHEEL).then((r) => r.arrayBuffer());
-      const srcP = Promise.all(ENGINE.map((f) => fetch('/hwpx/' + f).then((r) => r.text())));
-      const mod = await import(PYODIDE + 'pyodide.mjs');
-      const _py = await mod.loadPyodide({ indexURL: PYODIDE, packages: ['lxml'] });
-      // 기본값은 작업 폴더라 import 가 안 된다 — site-packages 로 푼다
-      const site = _py.runPython('import sysconfig; sysconfig.get_paths()["purelib"]');
-      _py.unpackArchive(await wheelP, 'wheel', { extractDir: site });
-      const srcs = await srcP;
-      _py.FS.mkdir('/engine');
-      ENGINE.forEach((f, i) => _py.FS.writeFile('/engine/' + f, srcs[i]));
-      await _py.runPythonAsync('import sys, os\nsys.path.insert(0, "/engine")\nos.chdir("/engine")\nimport form_tool, audit');
-      py = _py;
-      return py;
-    })();
+    try { performance.mark('hf:boot'); } catch (e) {}
+    booting = call('boot').then(() => { py = true; return py; });
     // 실패(네트워크 끊김 등)한 준비를 붙잡고 있으면 다시 시도할 길이 없다
     booting.catch(() => { booting = null; });
     return booting;
@@ -317,23 +342,16 @@ const ld = [
       if (!py) startTick('⚙ 한글 문서 엔진을 준비하고 있습니다 —');
       else if (isHwp) say('🔄 옛 한글(.hwp)을 HWPX로 바꾸는 중…', 'text-violet-300 animate-pulse');
       // 파이썬 엔진 준비와 .hwp 변환을 동시에 — 느린 폰에서 두 대기를 겹친다
-      const [, converted] = await Promise.all([boot(), isHwp ? toHwpx(bytes) : null]);
+      try { performance.mark('hf:file'); } catch (e) {}
+      const [, converted] = await Promise.all([boot(), isHwp ? toHwpx(bytes).then((x) => { try { performance.mark('hf:converted'); } catch (e) {} return x; }) : null]);
       if (isHwp) bytes = converted;
       clearInterval(tick);
       say('🔎 빈칸을 찾는 중…', 'text-violet-300 animate-pulse');
-      py.FS.writeFile('/engine/form.hwpx', bytes);
-      const raw = await py.runPythonAsync([
-        'import io, json, sys',
-        'import form_tool as FT',
-        '_o = sys.stdout; sys.stdout = io.StringIO()',
-        'try:',
-        '    _r = FT.scan("form.hwpx")',
-        'finally:',
-        '    sys.stdout = _o',
-        'json.dumps(_r, ensure_ascii=False)'
-      ].join('\n'));
+      const { raw } = await call('scan', { bytes });
       info = JSON.parse(raw);
+      try { performance.mark('hf:scanned'); } catch (e) {}
       render();
+      try { performance.mark('hf:rendered'); } catch (e) {}
     } catch (e) {
       clearInterval(tick);
       const raw = String(e);
@@ -592,21 +610,9 @@ const ld = [
     $('make').disabled = true;
     say('✍ 제출본을 만드는 중…', 'text-violet-300 animate-pulse');
     try {
-      py.FS.writeFile('/engine/ans.json', JSON.stringify(answers));
-      const raw = await py.runPythonAsync([
-        'import io, json, sys',
-        'import form_tool as FT, audit',
-        '_a = json.load(open("ans.json", encoding="utf-8"))',
-        '_a = {k: v for k, v in _a.items() if not k.startswith("_") or k == "_drop"}',   // _drop: 작성요령 상자 지우기
-        '_o = sys.stdout; sys.stdout = io.StringIO()',
-        'try:',
-        '    FT.fill("form.hwpx", _a, "out.hwpx")',
-        '    _f = audit.audit("out.hwpx", base="form.hwpx")',
-        'finally:',
-        '    sys.stdout = _o',
-        'json.dumps([x.as_dict() for x in _f], ensure_ascii=False)'
-      ].join('\n'));
-      outBytes = py.FS.readFile('/engine/out.hwpx');
+      // 채우기·검사는 일꾼이 한다(파이썬 코드는 engine-worker.mjs 의 FILL). _drop 은 거기서 통과시킨다
+      const { raw, out } = await call('fill', { answers: JSON.stringify(answers) });
+      outBytes = out;
       showResult(JSON.parse(raw));
     } catch (e) {
       say('❌ 만들지 못했습니다: ' + String(e).split('\n').pop().slice(0, 160), 'text-rose-300');
