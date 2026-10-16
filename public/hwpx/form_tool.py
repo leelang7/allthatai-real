@@ -104,6 +104,7 @@ BIG_BOX_MM = 25
 # 음영 없는 제목 칸이 '제목' 인지 — 번호·글머리로 시작하거나 분량·배점이 붙은 소제목
 # ★ '□' 는 넣지 않는다 — '□ 아이디어 기획 □ 제품 개발' 처럼 고르기 상자로 더 자주 쓰인다
 HEADING_TITLE_RE = re.compile(r"^\s*(?:\d{1,2}\s*[.)]|[가-하]\s*[.)]|[◆◇▶])\s*\S|[(（]\s*\d+(?:\.\d+)?\s*(?:장|쪽|페이지|매|page)\s*이내\s*[)）]|\d+\s*점\s*[)）]")
+IMAGE_BOX_RE = re.compile(r"(?:사진|이미지|그림|도면|설계도)[^.。]{0,24}(?:삽입|붙여|첨부)")
 INSTRUCTION_BOX_RE = re.compile(r"(?:설명|안내)\s*(?:박스|상자)\S*\s*삭제|삭제\s*후\s*제출")
 TALL_BOX_MM = 15
 # 명단 표에서 손으로 하는 열과 번호 열
@@ -381,7 +382,12 @@ def scan(path):
                     outline.append(s)
     narrative = []
     # '※ 작성요령 (작성 시 본 설명박스는 삭제 후 제출요망)' 은 지울 상자지 답 칸이 아니다
-    solo = [g for g in guides if _is_solo_guide(tables, g) and not INSTRUCTION_BOX_RE.search(g["text"])]
+    solo = [g for g in guides if _is_solo_guide(tables, g) and not INSTRUCTION_BOX_RE.search(g["text"])
+            # '참고 사진(이미지)·설계도 등 삽입' 상자는 글을 쓰는 자리가 아니다 — 입력란을 띄워도 갈 곳이 없다
+            and not IMAGE_BOX_RE.search(g["text"])]
+    # 뺀 상자 자리는 다른 규칙의 슬롯도 비운다 — 서술형이 가리던 같은 자리 슬롯이 이름 없이 되살아났다
+    no_fill = {(g["table"], g["row"], g["col"]) for g in guides
+               if _is_solo_guide(tables, g) and IMAGE_BOX_RE.search(g["text"])}
     for i, g in enumerate(solo):
         narrative.append({"table": g["table"], "row": g["row"], "col": g["col"], "guide": g["text"],
                           "limit": find_limit(g["text"]),
@@ -718,6 +724,26 @@ def scan(path):
             s["zone"] = zone
             kept.append(s)
     slots = kept
+    # 서술형 상자도 같다 — 안에 표·그림을 품은 상자는 채우기가 거절해(지워질까 봐) 입력란이 헛돈다.
+    # 값 퍼즈에서 2,662개 중 하나만 사라졌는데 그게 동의서 상자(안쪽 '항목' 표)였다. 답 구역이 있으면 거기만
+    nkept = []
+    for n in narrative:
+        try:
+            c = tables[n["table"]].cell(n["row"], n["col"])
+        except Exception:
+            nkept.append(n)
+            continue
+        if not cell_has_objects(c):
+            nkept.append(n)
+            continue
+        zone = answer_zone(c)
+        if zone:
+            n["zone"] = zone
+            nkept.append(n)
+        else:
+            no_fill.add((n["table"], n["row"], n["col"]))
+    narrative = nkept
+    slots = [s for s in slots if (s["table"], s["row"], s["col"]) not in no_fill]
     # 기호 글꼴의 사용자 정의 영역 글자('\U000f02b4')는 화면에 깨진 네모로 뜬다 — 라벨에서 뺀다
     for s in slots + narrative:
         if s.get("label"):
@@ -1785,11 +1811,13 @@ def answer_zone(cell):
 
 def fill_zone(cell, zone, value):
     """답 구역의 첫 문단에 값을 쓰고, 구역의 나머지 문단(자리표시·작성 요령)은 지운다."""
+    import copy
     paras = list(cell.paragraphs)
     first = paras[zone[0]]
+    lines = str(value).replace("\r\n", "\n").replace("\r", "\n").strip("\n").split("\n")
     ts = [t for t in first.element.iter('{%s}t' % HP) if len(t) == 0]
     if ts:
-        ts[0].text = value
+        ts[0].text = lines[0]
         for t in ts[1:]:
             t.text = ""
     # 줄 위치 캐시는 원래 글('·' 한 글자) 기준이라 남겨 두면 렌더러가 긴 글을 한 줄에 욱여넣는다 — 지워 다시 계산하게
@@ -1799,6 +1827,17 @@ def fill_zone(cell, zone, value):
         el = paras[i].element
         if el.getparent() is not None:
             el.getparent().remove(el)
+    # 여러 줄 답은 첫 문단 꼴을 복제해 줄마다 문단 하나(<hp:t> 안의 '\n' 은 한글이 공백으로 읽는다)
+    anchor = first.element
+    for line in lines[1:]:
+        clone = copy.deepcopy(first.element)
+        cts = [t for t in clone.iter('{%s}t' % HP) if len(t) == 0]
+        if cts:
+            cts[0].text = line
+            for t in cts[1:]:
+                t.text = ""
+        anchor.addnext(clone)
+        anchor = clone
     return len(zone)
 
 
@@ -1858,6 +1897,7 @@ def fill_inlabel(cell, value):
     ts = [t for t in p0.element.iter('{%s}t' % HP) if len(t) == 0]
     if not ts:
         return 0
+    value = re.sub(r"\s*[\r\n]+\s*", " ", str(value)).strip()      # 라벨 뒤 한 줄 — 줄바꿈은 띄어쓰기로
     ts[-1].text = (ts[-1].text or "").rstrip() + "  " + value
     for ls in list(p0.element.findall('{%s}linesegarray' % HP)):
         p0.element.remove(ls)
@@ -1966,7 +2006,7 @@ def fill_blanks(cell, blanks, values):
     pieces = _cell_texts(cell)
     by_piece = {}
     for b, v in zip(blanks, values):
-        v = (v or "").strip()
+        v = re.sub(r"\s*[\r\n]+\s*", " ", str(v or "")).strip()   # 문장 속 빈칸은 한 줄
         if not v:
             continue
         # 조각 둘로 나뉜 빈칸이면 더 긴 쪽(대개 밑줄 친 공백)에 쓴다 — 짧은 쪽에 쓰면 값이 선 앞에 뜬다
@@ -2054,6 +2094,9 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
         if target.get("inlabel"):
             fill_inlabel(cell, str(val))
             blacken(doc, cps, fonts, cell, cache)
+            # 라벨 뒤에 긴 값을 이어 쓰면 칸이 모자란다 — 값 퍼즈에서 '생년월일(성별)' 칸이 넘쳤다
+            reindex()
+            refit_cell(doc, cps, fonts, pps, t, cell, val)
             mark(t)
             done.append("%s → 표%d(%d,%d) 칸 안 라벨 뒤" % (key, target["table"], target["row"], target["col"]))
             return
@@ -2087,7 +2130,18 @@ def _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache,
                 par = q.element.getparent()
                 if par is not None:
                     par.remove(q.element)
-        cell.set_text(str(val), preserve_format=True)
+        sval = str(val).replace("\r\n", "\n").replace("\r", "\n").strip("\n")
+        if "\n" in sval:
+            # ★ 여러 줄 답은 문단으로 나눈다 — set_text 는 '\n' 을 <hp:t> 안에 그대로 넣어, 한글이 공백으로 읽고
+            #   줄이 한 덩이로 붙었다(값 퍼즈로 발견: 서술형 칸에 줄 바꿔 쓴 답 전부). 문단 서식은 첫 문단 하나로
+            #   통일 — split 은 줄마다 원래 n번째 문단 서식을 쓰는데, 안내문 둘째 문단이 글머리·제목 꼴일 수 있다
+            keep = next((q for q in cell.paragraphs if (q.text or "").strip()), None) or (cell.paragraphs[0] if cell.paragraphs else None)
+            for q in list(cell.paragraphs):
+                if keep is not None and q is not keep and q.element.getparent() is not None:
+                    q.element.getparent().remove(q.element)
+            cell.set_text(sval, preserve_format=True, split_paragraphs=True)
+        else:
+            cell.set_text(sval, preserve_format=True)
         # ★ 줄 위치 캐시(linesegarray)는 옛 글 기준이다 — 남기면 저장 검사가 '꼬리가 캐시 밖' 으로 막는다
         #   (법령 서식 L141353079: 좁은 칸에 예시보다 긴 값 → '만들지 못했습니다'). 한글이 다시 계산한다
         drop_lineseg(cell)

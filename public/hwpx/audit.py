@@ -239,7 +239,13 @@ def audit(path, notice=None, base=None):
                 need = lines * font_pt * PT * ((pi.get("line_spacing") or 160) / 100.0) + mt + mb
                 # 양식 채우기(원본 비교 있음)면 모든 칸, 생성 문서면 긴 본문 칸만 — 짧은 데이터 셀은 한/글이 행을 자동으로 늘린다
                 # 빈칸 몇 글자만 바꾼 칸은 원본 배치 그대로라 넘침 어림(공백까지 글자로 센다)이 과장된다
-                if changed and not in_place and cell.height and need > cell.height * 1.15 and (base_texts is not None or long_body):
+                # 원본도 같은 줄 수였으면 넘침이 아니다 — 양식이 원래 빠듯하게 잡은 줄('년 월 일' 한 줄에 6mm)을
+                # 어림 줄 높이로 재면 늘 넘친다(값 퍼즈: 작성일 줄). 채워서 줄이 늘어난 칸만 본다
+                base_lines = None
+                if base_texts is not None and base_texts.get(key):
+                    base_lines = max(1, estimate_lines(base_texts[key], avail, font_pt))
+                grew_lines = base_lines is None or lines > base_lines
+                if changed and not in_place and grew_lines and cell.height and need > cell.height * 1.15 and (base_texts is not None or long_body):
                     F.append(Finding("A1", ERROR, where,
                                      "칸 넘침: 글 %d자에 %d줄 필요(%.0fmm)인데 칸 높이 %.0fmm"
                                      % (len(text), lines, need / MM, cell.height / MM),
