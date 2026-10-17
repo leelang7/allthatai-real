@@ -383,7 +383,7 @@ const ld = [
       // 한 표에 같은 이름이 여럿이면 엔진이 구역('신고자'·'피신고자')을 따로 준다. 카드 제목에만 붙이고
       // 표 모양 판정·개인정보 판정은 칸 이름(field)으로 — 사업비 표 열 이름이 갈라지면 표 모양을 잃는다
       items.push({
-        key: s.section ? s.section + ' · ' + field : field, field,
+        key: s.section ? s.section + ' · ' + field : s.rowlabel ? s.rowlabel + ' · ' + field : field, field,
         limit: s.limit, hint: s.current, big: !!s.big_box, at: s, blanks: s.blanks || null,
         choice: s.choice || null, multi: !!s.multi,
       });
@@ -494,7 +494,12 @@ const ld = [
         return '<th class="px-2 py-1.5 text-left text-[11px] font-bold text-zinc-300 whitespace-nowrap">' + esc(name)
           + (isPersonal(name) ? ' <span class="text-rose-300">·개인정보</span>' : '') + '</th>';
       }).join('');
-      const body = rows.map((r, ri) => '<tr>' + cols.map((c) => {
+      // 점검표·평가표는 줄마다 이름이 있다('1. 업무처리의 공공의 이익 여부') — 명단과 달리 줄이 서로 달라 왼쪽에 보인다
+      const rowLabel = {};
+      group.forEach((it) => { if (it.at.rowlabel) rowLabel[it.at.row] = it.at.rowlabel; });
+      const hasRL = Object.keys(rowLabel).length > 0;
+      const rlCell = (r) => hasRL ? '<th class="pr-2 py-1 text-left align-middle text-[11px] font-normal text-zinc-400 min-w-[6rem] max-w-[11rem]" style="word-break:keep-all">' + esc(rowLabel[r] || '') + '</th>' : '';
+      const body = rows.map((r, ri) => '<tr>' + rlCell(r) + cols.map((c) => {
         const it = at[r + ':' + c];
         if (!it) return '<td></td>';
         const pos = '@' + it.at.table + ':' + it.at.row + ':' + it.at.col;
@@ -507,8 +512,8 @@ const ld = [
       }).join('') + '</tr>').join('');
       return '<div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-3 overflow-x-auto">'
         + '<p class="mb-2 text-[11px] text-zinc-500">표 ' + rows.length + '줄 · '
-        + (group[0].at.roster != null ? '쓴 줄만 들어가고' + (group.some((it) => it.at.seq) ? ' 연번은 차례로 매겨집니다' : ' 빈 줄은 그대로 남습니다') : '회색 글씨는 양식의 예시입니다') + '</p>'
-        + '<table class="w-full border-separate border-spacing-0"><thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div>';
+        + (hasRL ? '줄마다 해당하는 칸에 쓰세요' : group[0].at.roster != null ? '쓴 줄만 들어가고' + (group.some((it) => it.at.seq) ? ' 연번은 차례로 매겨집니다' : ' 빈 줄은 그대로 남습니다') : '회색 글씨는 양식의 예시입니다') + '</p>'
+        + '<table class="w-full border-separate border-spacing-0"><thead><tr>' + (hasRL ? '<th></th>' : '') + head + '</tr></thead><tbody>' + body + '</tbody></table></div>';
     };
 
     // 명단 표(머리글 + 빈 줄)는 같은 표의 다른 칸과 따로 묶는다 — 섞이면 표 모양 판정이 깨져 낱개 카드 15장이 된다

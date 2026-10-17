@@ -108,7 +108,7 @@ IMAGE_BOX_RE = re.compile(r"(?:사진|이미지|그림|도면|설계도)[^.。]{
 INSTRUCTION_BOX_RE = re.compile(r"(?:설명|안내)\s*(?:박스|상자)\S*\s*삭제|삭제\s*후\s*제출")
 TALL_BOX_MM = 15
 # 명단 표에서 손으로 하는 열과 번호 열
-ROSTER_SKIP_COL_RE = re.compile(r"서\s*명|날\s*인|도\s*장|^\(?인\)?$|확\s*인$")
+ROSTER_SKIP_COL_RE = re.compile(r"서\s*명|날\s*인|도\s*장|^\(?인\)?$|확\s*인$|결\s*재|인\s*영|취급자\s*\(?인")
 SEQ_COL_RE = re.compile(r"^(연번|순번|번호|순위|No\.?)$", re.I)
 # 높은 빈칸이어도 글을 쓰는 자리가 아닌 것 — 사진 붙이는 칸, 서명·날인 칸
 ANSWER_SKIP_LABEL_RE = re.compile(r"사진|서명|날인|도장|직인|(?:^|\s)인$|첨부|별지|붙임")
@@ -187,6 +187,14 @@ FIELD_EXACT_RE = re.compile(
     r"국\s*적|성\s*별|연\s*령|나\s*이|직\s*업|(\S{1,8}\s*와의\s*)?관\s*계|소\s*재\s*지|상\s*호|업\s*종|업\s*태|"
     r"금융\s*기관(명)?|은\s*행(명)?|계좌\s*번호|예\s*금\s*주|신고인|신청인|청구인|대리인)\s*(\([^)]{0,12}\))?\s*[:：]?$")
 BULLET_SENTENCE_RE = re.compile(r"^[∙·•▪◦\-–]\s*\S.{11,}")
+# 법정 서식은 칸 이름에 번호를 단다('①주 소', '③ 주민등록번호', '(1) 성명', '가. 상호') — 필드명 대조 전에 뗀다.
+# 안 떼면 '①주소' 가 '주소' 로 안 읽혀 외국산 담배 판매인 지정신청서의 칸 다섯이 다 빠졌다
+ENUM_PREFIX_RE = re.compile(r"^\s*(?:[①-⑳⑴-⒇❶-❿➀-➉]|[(（]\s*\d{1,2}\s*[)）]|\d{1,2}\s*[.)．]|[가-하]\s*[.)．])\s*")
+
+
+def field_core(label):
+    """칸 이름의 핵심 — 앞 번호를 떼고 띄어쓰기를 지운다('③ 주 민 등 록 번 호' → '주민등록번호')."""
+    return re.sub(r"\s+", "", ENUM_PREFIX_RE.sub("", label or ""))
 SHADED = {}
 
 
@@ -264,8 +272,10 @@ def scan(path):
                 if (lt and 1 <= len(lt) <= 14 and not GUIDE_RE.match(lt) and not PLACEHOLDER_RE.search(lt)
                         and not OFFICE_RE.match(re.sub(r"\s+", "", lt))):
                     lsq = re.sub(r"\s+", "", lt)              # '생 년 월 일', '등 록 기 준 지' — 칸에 맞춰 띄운 라벨
+                    core = field_core(lt)                    # '①주 소' → '주소'
                     if (FIELD_LABEL.match(lt.strip()) or FIELD_EXACT_RE.match(lt.strip())
                             or FIELD_LABEL.match(lsq) or FIELD_EXACT_RE.match(lsq)
+                            or (core and (FIELD_LABEL.match(core) or FIELD_EXACT_RE.match(core)))
                             or (lcell is not None and cell_shaded(root, lcell))):
                         empty_slot = True
                     elif (lcell is not None and re.search(r"[가-힣]{2}", lt) and not ANSWER_SKIP_LABEL_RE.search(lt)
@@ -777,16 +787,42 @@ def scan(path):
             for c in row.cells:
                 rows.setdefault(c.address[0], []).append(c)
         rk = sorted(rows)
+        ctext = lambda c: re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()
         for i, r0 in enumerate(rk):
             hdr = rows[r0]
-            heads = [_squash_spaced(re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()) for c in hdr]
-            if len(hdr) < 3 or not all(1 <= len(h) <= 16 for h in heads):
+            heads0 = [_squash_spaced(ctext(c)) for c in hdr]
+            if len(hdr) < 3 or not all(1 <= len(h) <= 16 for h in heads0):
                 continue
-            if any(OFFICE_RE.match(h.replace(" ", "")) for h in heads) or (ti in cut and r0 >= cut[ti]):
+            # 접수대장처럼 기관이 쓰는 표는 뺀다 — 단 '결 재' 열은 그 열만 비우면 된다(근무상황부 0칸이던 원인)
+            if (any(OFFICE_RE.match(h.replace(" ", "")) and not re.match(r"결\s*재", h) for h in heads0)
+                    or (ti in cut and r0 >= cut[ti])):
                 continue
-            cols = [c.address[1] for c in hdr]
+            # 2단 머리글 — '기간 또는 일시' 아래 '부터 | 까지 | 일수', '결 재' 아래 빈 결재칸(근무상황부·대장류,
+            # 이력서의 '기간(부터|까지)'). 위 칸이 두 줄을 덮거나(종별) 아래 칸들을 묶는다. 잎 칸 이름은 '위 · 아래'
+            leaf, start = [(c.address[1], h) for c, h in zip(hdr, heads0)], i + 1
+            if i + 1 < len(rk) and any((c.span[0] if c.span else 1) >= 2 for c in hdr):
+                sub = rows[rk[i + 1]]
+                two = []
+                for c, h in zip(hdr, heads0):
+                    rs, cs_ = c.span if c.span else (1, 1)
+                    if rs >= 2:
+                        two.append((c.address[1], h))
+                        continue
+                    subs = [s for s in sub if c.address[1] <= s.address[1] < c.address[1] + cs_]
+                    if not subs:
+                        two.append((c.address[1], h))
+                    for s in subs:
+                        st = _squash_spaced(ctext(s))
+                        two.append((s.address[1], (h + " · " + st) if st else h))
+                if len(two) > len(leaf) and all(len(ctext(s)) <= 16 for s in sub):
+                    leaf, start = sorted(two), i + 2
+            cols = [c for c, _ in leaf]
+            heads = [h for _, h in leaf]
+            # 높은 빈 줄도 칸이다 — '비위요지 | 조치계획' 아래 137mm 한 줄(조치예정사항 통보서). 사진 칸만 뺀다
+            # 열이 전부 사진·그림이면 사진 붙이는 표 — 인영(도장 자국) 한 열은 그 열만 비운다(직인폐기대장)
+            photo = all(re.search(r"사진|이미지|그림|인영", h) for h in heads)
             empties = []
-            for r1 in rk[i + 1:]:
+            for r1 in rk[start:]:
                 cs = rows[r1]
                 if [c.address[1] for c in cs] != cols:
                     break
@@ -796,7 +832,7 @@ def scan(path):
                                 and re.fullmatch(r"\d{1,3}\.?", re.sub(r"\s+", "", " ".join((p.text or "") for p in c.paragraphs))))
                        for c, h in zip(cs, heads)):
                     break
-                if any(cell_has_objects(c) or (c.height or 0) > 25 * 283.46 for c in cs):
+                if any(cell_has_objects(c) or ((c.height or 0) > 25 * 283.46 and (photo or len(cols) < 3)) for c in cs):
                     break
                 empties.append(r1)
             for r1 in empties:
@@ -814,6 +850,51 @@ def scan(path):
                     if seq:
                         s["seq"] = True
                     slots.append(s)
+                    held.add(pos)
+
+    # ── 행 이름 × 열 머리글 표(점검표·평가표) ─────────────────────────────────────────
+    # '구체적 판단기준 내용 | 해당 여부 | 첨부 서류' 아래 줄마다 '1. 업무처리의 공공의 이익 여부 | ___ | ___'.
+    # 명단 표와 달리 줄 첫 칸에 이름이 있어 통째로 빈 줄이 아니라 못 잡았다(적극행정면책 신청서 0칸).
+    # 빈칸의 이름은 열 머리글, rowlabel 은 줄 이름 — 화면이 표로 그리며 줄 이름을 왼쪽에 보인다
+    for ti, t in enumerate(tables):
+        rows = {}
+        for row in t.rows:
+            for c in row.cells:
+                rows.setdefault(c.address[0], []).append(c)
+        rk = sorted(rows)
+        ctext = lambda c: re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()
+        for i, r0 in enumerate(rk):
+            hdr = rows[r0]
+            if len(hdr) < 3:
+                continue
+            heads = [_squash_spaced(ctext(c)) for c in hdr]
+            if not all(1 <= len(h) <= 16 and re.search(r"[가-힣A-Za-z]", h) for h in heads):
+                continue
+            if any(OFFICE_RE.match(h.replace(" ", "")) for h in heads) or (ti in cut and r0 >= cut[ti]):
+                continue
+            hcols = {c.address[1]: h for c, h in zip(hdr[1:], heads[1:])}
+            body = []
+            for r1 in rk[i + 1:]:
+                cs = rows[r1]
+                first = ctext(cs[0])
+                rest = {c.address[1]: c for c in cs[1:]}
+                if not first or len(first) > 40 or set(rest) != set(hcols):
+                    break
+                if any(ctext(c) for c in rest.values()):
+                    break
+                if any(cell_has_objects(c) or (c.height or 0) > 25 * 283.46 for c in rest.values()):
+                    break
+                body.append((r1, first, rest))
+            if len(body) < 2:
+                continue
+            for r1, first, rest in body:
+                for cc, c in sorted(rest.items()):
+                    pos = (ti, r1, cc)
+                    if pos in held or ROSTER_SKIP_COL_RE.search(hcols[cc]) or (c.width or 0) < 8 * 283.46:
+                        continue
+                    slots.append({"table": ti, "row": r1, "col": cc, "label": hcols[cc][:40], "current": "",
+                                  "limit": None, "blue": False, "placeholder": False,
+                                  "roster": r0, "rowlabel": _squash_spaced(first)[:40]})
                     held.add(pos)
 
     # ── 서명란(작성일·서명 줄) — 다른 슬롯이 잡지 않은 칸과 표 밖 문단에서 ───────────────────
