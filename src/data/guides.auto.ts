@@ -234,7 +234,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-07-12T12:44:29.245Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-10-18T06:39:51.479Z"
   },
   {
     "slug": "deal-2026-07-10-스팀-플래닛-주-95-할인-46000-2300",
@@ -774,7 +775,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-25T09:41:46.212Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.761Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.482Z"
   },
   {
     "slug": "deal-2026-05-25-전세사기-특별법-신청-자격절차받는-지원-한도",
@@ -784,7 +785,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-25T01:57:25.387Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.761Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.483Z"
   },
   {
     "slug": "deal-2026-05-24-전세금-반환-소송-임대인-잠적-시-1년-안에-받는-절차",
@@ -794,7 +795,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-24T12:52:19.479Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.759Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.481Z"
   },
   {
     "slug": "deal-2026-05-24-국토부-실거래가-api로-시세-확인-5분-절차",
@@ -804,7 +805,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-24T12:52:27.095Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.759Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.481Z"
   },
   {
     "slug": "deal-2026-05-24-스팀-the-outlast-trials-70-할인-42000-12600",
@@ -814,7 +815,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 4,
     "generatedAt": "2026-05-24T12:52:31.372Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.760Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.482Z"
   },
   {
     "slug": "deal-2026-05-23-잔금일-등기부등본-재발급-0원-vs-700-차이",
@@ -824,7 +825,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-23T18:49:16.914Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.758Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.480Z"
   },
   {
     "slug": "deal-2026-05-23-대리인-계약-위임장인감증명-진위-확인-4단계",
@@ -834,7 +835,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-23T12:50:51.915Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.756Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.480Z"
   },
   {
     "slug": "deal-2026-05-22-확정일자-전입신고-잔금-당일-30분-안에-해야-하는-이유",
@@ -864,7 +865,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-22T08:44:36.409Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-12T05:00:20.477Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.478Z"
   },
   {
     "slug": "deal-2026-05-21-전세사기-자가-진단-등기부등본시세임대인-5분-체크",
@@ -1544,6 +1545,6 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-10T01:27:33.008Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-19T04:55:57.758Z"
+    "lastRefreshedAt": "2026-10-18T06:39:51.481Z"
   }
 ];
