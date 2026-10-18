@@ -2,7 +2,7 @@ $125 if billed monthly
 $20 if billed monthly
 $25 if billed monthly
 al plans are designed to cost less than monthly subscriptions
-alist seat price + usage at api rates us$20/seat/month, billed annually
+alist seat price + usage at api rates us$20/seat/month, billed annually, 20 seat mi
 billing and payments can i pay annually
 both options are billed monthly
 cess at high traffic times $100 to $200/month in api credits to build on the claude p
