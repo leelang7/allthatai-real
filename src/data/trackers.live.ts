@@ -17,7 +17,7 @@ export type TrackerLive = Record<string, {
 
 export const trackerLive: TrackerLive = {
   "lck-2026": {
-    "lastUpdated": "2026-10-20T18:53:31.038Z",
+    "lastUpdated": "2026-10-21T19:06:01.386Z",
     "items": [
       {
         "title": "2026 LoL 월드 챔피언십, LCK 4개 팀 첫 상대 확정 - 아이러브PC방",
@@ -90,6 +90,13 @@ export const trackerLive: TrackerLive = {
         "id": "e5d500303c17"
       },
       {
+        "title": "BNK 피어엑스, 중국 WE 꺾고 2026 데마시아컵 우승…2년 연속 국제대회 정상 - 스포츠조선",
+        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNQ0x1MUNoa1dlVC1uUlpzckt5NzU0N2ZUeXU2UXhMcUF6NzJjQ1pEOWM1NWFhT0M4aWktVkpMYTZSQWQ2RmttOEF4VDNPdjVXNnpWZUI3ZWtPNVB2dHI3VFJDWXBFZTEzclcxSU4xbGJ3NDVRTUVoLXJuUHloR05wal9WUkw?oc=5",
+        "source": "스포츠조선",
+        "pubDate": "2026-10-18T06:31:51.000Z",
+        "id": "24cccf8e3416"
+      },
+      {
         "title": "Dplus Kia Youth vs KT Rolster Academy 2–0 | LCK 2026 - Sheep Esports",
         "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNUjlBcFdadDZ2Ty1jbGVkdnh0endOZFpLbE9aVXFlRXE4TUpyajFsdUl5UTN5Y21idUVmSG5LMWhSNGl2QllSQU92VklwTU5kVmdMUGU0YVAwT1Vnam1idE82YnU4WFhwTzhuMFExVTVsM01SNlVvVDZYbEFoUGY2a0pEN2ZFdUQtWXhDSEZPQXpIYmg0Wk0tdElPMHUyUVR6dHNSdV9uXzJLTENGR1JLT3VB?oc=5",
         "source": "Sheep Esports",
@@ -104,18 +111,18 @@ export const trackerLive: TrackerLive = {
         "id": "4a2cfd9be889"
       },
       {
-        "title": "BNK 피어엑스, 팀 WE 3대1로 꺾고 2026 데마시아 컵 글로벌 인비테이셔널 정상 등극 - Sheep Esports",
-        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNa0FMNThzMUN0TFFlWVNnazZreHEtZTJpaHh2bWJoRk4zbVc5WmhoMy1PckZVS2dDZ092ZUZJYXA0eW1Pekx6aWlaUFR5LTRLT1pVLWc0QWl3TENqTXpIQ2xJOEcxYVdoYXZNSHV5eGNpV2I0VDVQc2RpblA3U3FFVThLUVdkNHFzbnVEeEdESlVqYlVBOG90VjZnRWUzVDBodXozMUJVc05VRkhzRDRlWVF6VzlnVUNudm9YWTVyWUd6QQ?oc=5",
-        "source": "Sheep Esports",
-        "pubDate": "2026-10-17T03:45:00.000Z",
-        "id": "a335f77ce037"
-      },
-      {
         "title": "BNK FEARX defeat Team WE 3-1 to claim Demacia Cup Global Invitational 2026 title - Sheep Esports",
         "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPblNTQXdaQ3ZWY211X3FiS1NuYWxpaWQ4bjY3X2IwUUtJTGMyRm5UanVUZldCMGtET1hVOTRHTGc3b2d4U3FGOGpwRFlndnVRb2ljRDhTZWRlandtSHhFNVdhdXpOeDRYY3E2alZ5eXhsSVRvM3ItSDZQeWstcEZWYmFnMURWbFpPX1UyT0U1NzJHVHJmU2c5QTYxWWFDdVBYREl1Z05oaTFMcDJId1NMdkR0UmdDSFJUdzZtRTZacWtJdw?oc=5",
         "source": "Sheep Esports",
         "pubDate": "2026-10-17T03:45:00.000Z",
         "id": "68979b13864b"
+      },
+      {
+        "title": "BNK 피어엑스, 팀 WE 3대1로 꺾고 2026 데마시아 컵 글로벌 인비테이셔널 정상 등극 - Sheep Esports",
+        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNa0FMNThzMUN0TFFlWVNnazZreHEtZTJpaHh2bWJoRk4zbVc5WmhoMy1PckZVS2dDZ092ZUZJYXA0eW1Pekx6aWlaUFR5LTRLT1pVLWc0QWl3TENqTXpIQ2xJOEcxYVdoYXZNSHV5eGNpV2I0VDVQc2RpblA3U3FFVThLUVdkNHFzbnVEeEdESlVqYlVBOG90VjZnRWUzVDBodXozMUJVc05VRkhzRDRlWVF6VzlnVUNudm9YWTVyWUd6QQ?oc=5",
+        "source": "Sheep Esports",
+        "pubDate": "2026-10-17T03:45:00.000Z",
+        "id": "a335f77ce037"
       },
       {
         "title": "HANJIN BRION vs BNK FEARX 2–3 | LCK 2026 - Sheep Esports",
@@ -279,6 +286,13 @@ export const trackerLive: TrackerLive = {
         "id": "44390600be44"
       },
       {
+        "title": "SOOP, 2026 월즈 이벤트 페이지 15일 오픈 - 인벤",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE45THlSUTNmSHNPVE9DSTdpV0RTOFNFUE5zTm4zcks5Rnh4aFRNeEowb3ROWm5oQUxDVVNIUDduZ0tCdktBRFFGQVVabTROeFF4bDhHdG9LRzJyX2VLeS11NlZELUN3NXV2T2c?oc=5",
+        "source": "인벤",
+        "pubDate": "2026-10-15T06:37:32.000Z",
+        "id": "34e464831913"
+      },
+      {
         "title": "SOOP, '2026 LoL 월드 챔피언십' 전용 이벤트 페이지 오픈 - 뉴스후플러스",
         "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1iLU03QW5IRmhETVQ4cVVremsxZWZ1dUpTWGlYUDlSRmY3Umlxc2x1SllsVm9xaWI2Y0V3VlQzdXFuZEkzRGpLUUVQSVBUWGlnN0x4NnRwbkFyUmxpakRQVGVHczgzUkYwTUhLcHZR?oc=5",
         "source": "뉴스후플러스",
@@ -354,26 +368,40 @@ export const trackerLive: TrackerLive = {
         "source": "전자신문",
         "pubDate": "2026-10-15T01:41:06.000Z",
         "id": "553a8926bdf7"
-      },
-      {
-        "title": "‘롤드컵 2026’, 16일 개막…LCK 4개 팀은 24일 출격 - 경향게임스",
-        "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBYSkZjUXY4ckpKMDVBbTBuclFuZ1IxTUhpTHJhSDByVDV1cU5XdmRYUWdMY2s3WFhkTDdqRnBIUFN6VThBc0tWRTA5aFVjN2hiU01lSmFDZjNPeXNnYmxuNFUwMmNTZWVyai05Qg?oc=5",
-        "source": "경향게임스",
-        "pubDate": "2026-10-15T01:24:50.000Z",
-        "id": "5c7b5df99648"
-      },
-      {
-        "title": "2026 LoL 월드 챔피언십 개막 D-1, LCK 대표 네 팀은 24일 스위스 스테이지부터 출격 - 아이러브PC방",
-        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9DYmVJR1dXZGpscVBndmJmRFNUaGxHVDNvVVFtRm5XODJyelp2cG9rUGNKTjRCaUdWMnJrOTNKanNXRktESGU2UnlzQXRaOGNEWDFFQkp6MVhtVXRhc0Jrc29XOUR1UUI5bEpRcUdrdw?oc=5",
-        "source": "아이러브PC방",
-        "pubDate": "2026-10-15T00:59:00.000Z",
-        "id": "3537e326ea8d"
       }
     ]
   },
   "bitcoin-krw": {
-    "lastUpdated": "2026-10-20T18:53:31.470Z",
+    "lastUpdated": "2026-10-21T19:06:02.022Z",
     "items": [
+      {
+        "title": "중동은 훈풍, 코인은 찬바람…비트코인, 1억1000만원선서 '숨고르기' - 뉴시스",
+        "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5XSUk4SmRvYWo1eVN6MEd3U18wR1ptdVhUaFRwaVRtWkZiZ3RyWXZoMWtoTHhhNXB3WUZkREM1TTdRTVlvMDBLUWU5ckNQQzU1TFlYN09UWWp5czExZnEyOWRuTWtCak9kN082Z0picWNJb2FFZkN4ZtIBeEFVX3lxTE5XSUk4SmRvYWo1eVN6MEd3U18wR1ptdVhUaFRwaVRtWkZiZ3RyWXZoMWtoTHhhNXB3WUZkREM1TTdRTVlvMDBLUWU5ckNQQzU1TFlYN09UWWp5czExZnEyOWRuTWtCak9kN082Z0picWNJb2FFZkN4Zg?oc=5",
+        "source": "뉴시스",
+        "pubDate": "2026-10-20T23:54:24.000Z",
+        "id": "761b97cb81d4"
+      },
+      {
+        "title": "김치프리미엄 0% 기록 - 코인리더스",
+        "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE1rLVNYSlU0R0lqTnFkOGNzOFhYdTVpR2p0cG9SRy12UUtzLW1tbjkza1FLX25yX1o0M2VkRUJuM2xBcXdUN09OcU1n?oc=5",
+        "source": "코인리더스",
+        "pubDate": "2026-10-20T21:16:08.000Z",
+        "id": "d4ee0e92cae1"
+      },
+      {
+        "title": "Bitcoin Shows 0.28% Kimchi Premium in South Korea on October 21 - IT타임스",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE90dFZKZlBmWmpqVTVzS0FXZmg3Q0l1ZTJVZlB4RE9FbGJYVG5EMFBOU2lxQU96RktHNkRQQ1dRdHA4VmRoamkwR2paWlJ5SGU0Z3N2djhaUFhYVm1FSzUwQk1OUldwUGJP?oc=5",
+        "source": "IT타임스",
+        "pubDate": "2026-10-20T15:18:12.000Z",
+        "id": "862f03ab3689"
+      },
+      {
+        "title": "비트코인 전일비 0.45% 상승…김치 프리미엄 0.28% 기록 - IT타임스",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE90VFpzcWY0Zi1Ya21iVmZoRFhoZHIzQ2dUM3BxTE93Q2owRzdXZzZVMU8xWmdnTzQ1OXFrWVVRWjFYbjF2cHRrODRnRjBWQlNzbDFyeUlZVlpWUV96OG1ieWxMNDRsOERO?oc=5",
+        "source": "IT타임스",
+        "pubDate": "2026-10-20T15:10:08.000Z",
+        "id": "632d4501e8ac"
+      },
       {
         "title": "[시황] 비트코인 8만3000달러 일시 회복…김치 프리미엄 0.32% - 블루밍비트",
         "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9iNS1zOTRPN2tCRndOSWY2cW9CX2F5NVZac2hCZ3AwNFlpNi00QjEyX0pHNGJFc3B4SjZaMzBmMHo1dzdTaGgxRjNOMjhrZnFE?oc=5",
@@ -494,6 +522,13 @@ export const trackerLive: TrackerLive = {
         "id": "d38376691d5e"
       },
       {
+        "title": "긴축 우려 잦아들자 반등…비트코인, 1억1100만원선 회복 - 뉴시스",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1iWlhldTU5UC1Za0tiM01QNHpENGI5d2FtVkRuWmd2NkNJYWY0dE1FMHJsUGdvU0Fmd3JDZDBGSVdMelhWUHhqXzdzSHQtLWhZU04yU0RuMTg0ZVJNTU1FWdIBeEFVX3lxTE80UXpnUXRFN0NUbXFrTnQ2ZlZsaFA2VFZVQmU4UHVsM2Fjd3J2STZ1dVZyN0dJb2p6LUpGRXRmYU1NQ19SandreEZUT2JaLWtUbllEeFpnVmlRZUtLWFVyRnJsUDlWYjduUThmSG9RRy1MMGcydXJtWA?oc=5",
+        "source": "뉴시스",
+        "pubDate": "2026-10-16T00:14:05.000Z",
+        "id": "d37fce21ae40"
+      },
+      {
         "title": "Bitcoin Shows 0.54% Kimchi Premium in South Korea on October 16 - IT타임스",
         "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1zMWdLNkdsTjlsZjB2VkxfbmhrQUdXT0JMV3ozaE1ta3otYVhPeUZIUFR6MEZWR25ZWTlnRDV6R3gxM0NvdE1naGFOYlYtUmxmMXBxUXhEVzRDMW95STgtXy1JUl94NmpV?oc=5",
         "source": "IT타임스",
@@ -565,17 +600,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "전쟁 불안에 금리 변수까지…비트코인, 1억1200만원대서 '눈치보기' - 뉴시스",
-        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE4yOWhIbUN0MURwS3pQbEVOa2lQM0tudDZ2LVo5cTNYRkNDcUcyWGpONkhFTllqX0JwS0Z6eXFXMjRoSzdmcnNxNWRRZEhUcXdudHZIeENiRVBhSVRfb29UQtIBeEFVX3lxTE5GbXczUmZLMzVGX2lpajVIc3kwb0xGVU1NLUkyb0J3MkVEbTNvMHg2YVNBeVRVUHNMMzdsVVRGcnBJUE5TY052ZG93RmQyM19QT3I3bl9EV0JOaEtKMnRDSk5fX2JfXzd3NjRqSWNZNGIzWjdRcGZIRw?oc=5",
-        "source": "뉴시스",
-        "pubDate": "2026-10-13T23:35:04.000Z",
-        "id": "3678bb99e401"
-      },
-      {
-        "title": "전쟁 불안에 금리 변수까지…비트코인, 1억1200만원대서 '눈치보기' - 뉴시스",
         "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5GbXczUmZLMzVGX2lpajVIc3kwb0xGVU1NLUkyb0J3MkVEbTNvMHg2YVNBeVRVUHNMMzdsVVRGcnBJUE5TY052ZG93RmQyM19QT3I3bl9EV0JOaEtKMnRDSk5fX2JfXzd3NjRqSWNZNGIzWjdRcGZIR9IBeEFVX3lxTE5GbXczUmZLMzVGX2lpajVIc3kwb0xGVU1NLUkyb0J3MkVEbTNvMHg2YVNBeVRVUHNMMzdsVVRGcnBJUE5TY052ZG93RmQyM19QT3I3bl9EV0JOaEtKMnRDSk5fX2JfXzd3NjRqSWNZNGIzWjdRcGZIRw?oc=5",
         "source": "뉴시스",
         "pubDate": "2026-10-13T23:35:04.000Z",
         "id": "f78ac74763ce"
+      },
+      {
+        "title": "전쟁 불안에 금리 변수까지…비트코인, 1억1200만원대서 '눈치보기' - 뉴시스",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE4yOWhIbUN0MURwS3pQbEVOa2lQM0tudDZ2LVo5cTNYRkNDcUcyWGpONkhFTllqX0JwS0Z6eXFXMjRoSzdmcnNxNWRRZEhUcXdudHZIeENiRVBhSVRfb29UQtIBeEFVX3lxTE5GbXczUmZLMzVGX2lpajVIc3kwb0xGVU1NLUkyb0J3MkVEbTNvMHg2YVNBeVRVUHNMMzdsVVRGcnBJUE5TY052ZG93RmQyM19QT3I3bl9EV0JOaEtKMnRDSk5fX2JfXzd3NjRqSWNZNGIzWjdRcGZIRw?oc=5",
+        "source": "뉴시스",
+        "pubDate": "2026-10-13T23:35:04.000Z",
+        "id": "3678bb99e401"
       },
       {
         "title": "Bitcoin Shows 0.69% Kimchi Premium in South Korea on October 14 - IT타임스",
@@ -618,6 +653,13 @@ export const trackerLive: TrackerLive = {
         "source": "블루밍비트",
         "pubDate": "2026-10-12T12:50:29.000Z",
         "id": "692eca08c5b6"
+      },
+      {
+        "title": "10 - Dữ liệu các Sàn giao dịch - CryptoQuant",
+        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE4zNmpOdzd3SWZPNURvT3NfZ0NBRHdnV0R6bmZhX2RpdUlORVpRZnJ3VFFuNUxkekpCODJ3dnBqbWI4LVNaZ3RyZ1k1T090cTNkTkpJclFOSmU0d2cxeGN4T2YxdEdBSGVSN2NWQk1faGNmTlNLSHdEYmFwYw?oc=5",
+        "source": "CryptoQuant",
+        "pubDate": "2026-10-12T03:10:20.000Z",
+        "id": "679499d94e0f"
       },
       {
         "title": "“김치 프리미엄 싹쓸이”… 알고리즘 봇, 5분 만에 판 쓸어 담았다 - 핀포인트뉴스",
@@ -681,54 +723,33 @@ export const trackerLive: TrackerLive = {
         "source": "Calgary Roughnecks",
         "pubDate": "2026-10-11T00:00:13.000Z",
         "id": "172c4c3c2768"
-      },
-      {
-        "title": "Bitcoin Shows 1.32% Kimchi Premium in South Korea on October 11 - IT타임스",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBfMjFxYWJ3S3o0a0FvNi1rRU1VSFlkS0Uyb29iMlUtRzNrTWJBTTIxZGwwY3lCbldzaHFoaXdDbUtIU3dTZW9saXd1Tmo3RlpSMjMzVzk0NUduVEFPc2VBVGFSTTZQdVVm?oc=5",
-        "source": "IT타임스",
-        "pubDate": "2026-10-10T15:18:38.000Z",
-        "id": "23263ac7f28e"
-      },
-      {
-        "title": "비트코인 전일비 0.02% 상승…김치 프리미엄 1.32% 기록 - IT타임스",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9FalhDTlA4dTZKNDJ6VE05OHRPWGlLcE5CVm4zWEFqWkxLcWtIdG5HX2tkSURSV0hKM1h1MEpNY3hUeHd5SFZXb2pRc0Q0ZFJINzhNZl9WWUg5VElqemh1Wl9FRjZOOHBV?oc=5",
-        "source": "IT타임스",
-        "pubDate": "2026-10-10T15:10:25.000Z",
-        "id": "ec7f46699c15"
-      },
-      {
-        "title": "Bitcoin Shows 1.91% Kimchi Premium in South Korea on October 10 - IT타임스",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE12WXRhX1JvbGYwM295ZzNMWF9sSjIxWFhwRmw3cTJVOEI5bmNjODdfWVBtcnBheVJYSFUyT0EwZ3d0WVRjQ2VYUnRwX0l3d010Ni1ZME1XZEZIbTgzSTdfdGxlS2pnTTN2?oc=5",
-        "source": "IT타임스",
-        "pubDate": "2026-10-09T15:18:10.000Z",
-        "id": "21390cc3cc2d"
-      },
-      {
-        "title": "비트코인 전일비 1.13% 상승…김치 프리미엄 1.91% 기록 - IT타임스",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBHX0c5c1UzOUdJdU9zQk1uZ0RaQlB4MUhMSFpXaTZyU0dNT19XVzlRSjFfMmQ1Z0VfY19HNWlWelIwUDExRDNQdFl3TGVLcUJycXFlTm0wZnlRWnRRbTRiM0gxbmxlcHpu?oc=5",
-        "source": "IT타임스",
-        "pubDate": "2026-10-09T15:10:12.000Z",
-        "id": "db67577da974"
-      },
-      {
-        "title": "처음 읽는 규칙 문서와 친해지는 캐시워크 행운룰렛 오류 - Calgary Roughnecks",
-        "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOaFNIWmtWU1RmZjU5VExhM01pM0VyN014VURTX09FWG1hX2h2QjNhVjFmWHNEcUxCdjRaVWtPRmU5VUpUWGZoWEV2NHdJdHlrYXIxcXJBUDdlNEUtZmg2MGpFcjY4aXZGWkdwNFNFdlV5bnl6V2NVcFJzaUNmQWlyWlBHVDVndTg0S3RXMlZ5WEF3Wl9rQjRsOHI2OWV1Y0UtYTBvSmg1SEE4QXVkYnU1NFFGVVhEZl9KS3pOWDZtQ2xGUFJ0UG9FVnRXZ1FSLVg5QVo2dGE5RVBsQWRfeXdTRWxFbzdFSV81WVNLd1RpQzM?oc=5",
-        "source": "Calgary Roughnecks",
-        "pubDate": "2026-10-09T03:44:47.000Z",
-        "id": "ff7ae56a9697"
-      },
-      {
-        "title": "릴의 움직임과 판정 결과를 나눠 보는 메리트 카지노 쇼미더벳 - Calgary Roughnecks",
-        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE95bGItSHExd1AtMjBLdzJPa2xGcXppNDlaWmZtOGJFM2stQVZHMWw0UHhGNWJFTEtjSjlDRzhXLThpQUpCVE93dTZrOWZZRkY1a0swSmxSc3l6bzktT05GaWpHUmpPaXlJa0hJeTB0Ulo0WG9jM1J6ZXlobGY?oc=5",
-        "source": "Calgary Roughnecks",
-        "pubDate": "2026-10-08T21:15:58.000Z",
-        "id": "22b454c83c25"
       }
     ]
   },
   "apt-buy-2026": {
-    "lastUpdated": "2026-10-20T18:53:31.905Z",
+    "lastUpdated": "2026-10-21T19:06:02.577Z",
     "items": [
+      {
+        "title": "\"분양가 지금이 가장 싸다\"…청약·정책대출 문 두드려라 - 한국경제",
+        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA0MFJPN1FlUDZDN2oyZW9kZlc4ZGRZQzFnODRNeE9XN1doYXRWSmhuUkpSbi01MXI1cHg1bmRBSWR4R1JrQk1PMGYxY1lRejhXeXhxNFRVQ2g3Zw?oc=5",
+        "source": "한국경제",
+        "pubDate": "2026-10-21T06:58:12.000Z",
+        "id": "79d8ef5d6c5e"
+      },
+      {
+        "title": "'국평 10억' 인천 '산곡역자이힐스테이트&하늘채' 아파트 청약 미달 참패 - 땅집고",
+        "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE54NllqdEZoNkIxQ3RYRlEySUxMOUFuR1J0OTdEUnN6aldVelJfWktQc2tZdFMwZVVNY1V0TUVEODE3RnVRQkFDbDhIVmotbGxBazhtWWxsVmhROUV2Rkt0d2FqblZPbTZhX2JZczByMDlic2p1aWd4Rmg4Ym9MUnPSAXNBVV95cUxPTmxmV1dyLXRHNG9NaTQ3TmxUV2xfUEEyWEF2SGVIb3BKczVTYWs5Y3pjV3hid1haM1VtOTN3TG1jeVA0VUl5YXJiMzROSGNtRUJKWDBsVDNkQUZUM3c4NzMzT0dDY3ZsU0FvU1h4bFBLUnRB?oc=5",
+        "source": "땅집고",
+        "pubDate": "2026-10-21T06:49:05.000Z",
+        "id": "61a05f55ae4a"
+      },
+      {
+        "title": "2026 청약 한눈에 | 경쟁률·청약일정·줍줍 총정리 (10/21) - 홈두부",
+        "link": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE5ELWVucWhaTVZ5R3I2U3hVWGdnaXBIMGJnTTVqeHMtbl9CYUhyQkV1UF9aUHRpd0xVZ3FwaUZhUTE?oc=5",
+        "source": "홈두부",
+        "pubDate": "2026-10-21T00:12:47.000Z",
+        "id": "96cffdab08b0"
+      },
       {
         "title": "전국 누구나…'시흥 은계 에피트 아파트' 줍줍, 분양가는? - 위키트리",
         "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9CTWpYZVdjR3F1NC1sVmNycmJ6NTlSY1h1YWRJaUJ3bm9ueTZXV1k5a2FERE1MTF8zNGNTSUwtQWxMYWI5R2tWRzJxLWppc2ZpUWlkS3FB?oc=5",
@@ -766,17 +787,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "집값은 뛰는데 청약은 미달⋯수도권 분양시장 '엇박자' - 이투데이",
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBRTGRUN21kQmVQb2JzOVlhd0NZTWVyX19KUjZRRUdkbnV2Ui15OWN6aUljdVo0STZwLWVyd0syYUxLaXpqM29qYWtVR1d0TDhKWWw3eg?oc=5",
-        "source": "이투데이",
-        "pubDate": "2026-10-18T05:24:00.000Z",
-        "id": "fb995eba2df7"
-      },
-      {
-        "title": "집값은 뛰는데 청약은 미달⋯수도권 분양시장 '엇박자' - 이투데이",
         "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE13VzZfYUwwaEpYNjVnU1hmUmh1Zk5XamZESDVDSlNQNGtmX0hSQmFqLUZWdzJmdXBjVjlwaGR3ZGZrTWtWdk8xcTVRS3k1OUF3eHFTSGoyXzVwekFjZF90NEpLT1gyYjBxcHFmT1pB?oc=5",
         "source": "이투데이",
         "pubDate": "2026-10-18T05:24:00.000Z",
         "id": "cafce6ca418a"
+      },
+      {
+        "title": "집값은 뛰는데 청약은 미달⋯수도권 분양시장 '엇박자' - 이투데이",
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBRTGRUN21kQmVQb2JzOVlhd0NZTWVyX19KUjZRRUdkbnV2Ui15OWN6aUljdVo0STZwLWVyd0syYUxLaXpqM29qYWtVR1d0TDhKWWw3eg?oc=5",
+        "source": "이투데이",
+        "pubDate": "2026-10-18T05:24:00.000Z",
+        "id": "fb995eba2df7"
       },
       {
         "title": "서울 아파트 일반분양 2.7배 급증…공급 부족 해소엔 역부족 - 산경투데이",
@@ -801,17 +822,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "올해 서울 일반분양 지난해의 2.7배 … '청약 대어' 쏟아져도 공급 태부족 - 뉴데일리",
-        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE4zTy1FNXhqc09teERsRGlSdFprTHliRHFhSnZyMzVZTDlNczZocDZfT2dPLWJRWks2eUVDa2gzUlByWEJBckh0NGxMZ1NOV1NQS0QzSW9HM1VaQmtKZkJxNEV2ZlNkOG9EemRwcUIwVXgtNjhXZ0o3VlFWTdIBgAFBVV95cUxNTGl6SC1TQnh1ZEhQblBNVEtQYmZ1eE45SHBuSV94S3AxaGwxUk9uS2JNbzlqRU81OURSZFpIOHdtZ1h2dV91c3c4WmNxSlhfVTlhQ3pscDRMbEJ4dTJYdkJhcnN4eENWTi0weHoxN25WdEh4blR3SzZJVFZvUkllRQ?oc=5",
-        "source": "뉴데일리",
-        "pubDate": "2026-10-18T00:02:37.000Z",
-        "id": "5ae837de10ae"
-      },
-      {
-        "title": "올해 서울 일반분양 지난해의 2.7배 … '청약 대어' 쏟아져도 공급 태부족 - 뉴데일리",
         "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE4zTy1FNXhqc09teERsRGlSdFprTHliRHFhSnZyMzVZTDlNczZocDZfT2dPLWJRWks2eUVDa2gzUlByWEJBckh0NGxMZ1NOV1NQS0QzSW9HM1VaQmtKZkJxNEV2ZlNkOG9EemRwcUIwVXgtNjhXZ0o3VlFWTQ?oc=5",
         "source": "뉴데일리",
         "pubDate": "2026-10-18T00:02:37.000Z",
         "id": "a8efdf1de351"
+      },
+      {
+        "title": "올해 서울 일반분양 지난해의 2.7배 … '청약 대어' 쏟아져도 공급 태부족 - 뉴데일리",
+        "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE4zTy1FNXhqc09teERsRGlSdFprTHliRHFhSnZyMzVZTDlNczZocDZfT2dPLWJRWks2eUVDa2gzUlByWEJBckh0NGxMZ1NOV1NQS0QzSW9HM1VaQmtKZkJxNEV2ZlNkOG9EemRwcUIwVXgtNjhXZ0o3VlFWTdIBgAFBVV95cUxNTGl6SC1TQnh1ZEhQblBNVEtQYmZ1eE45SHBuSV94S3AxaGwxUk9uS2JNbzlqRU81OURSZFpIOHdtZ1h2dV91c3c4WmNxSlhfVTlhQ3pscDRMbEJ4dTJYdkJhcnN4eENWTi0weHoxN25WdEh4blR3SzZJVFZvUkllRQ?oc=5",
+        "source": "뉴데일리",
+        "pubDate": "2026-10-18T00:02:37.000Z",
+        "id": "5ae837de10ae"
       },
       {
         "title": "올해 서울 일반분양 174% 늘지만…청약 문턱 여전히 높다 - 이투데이",
@@ -878,17 +899,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "[분양캘린더] 인천·충청 대단지 쏟아진다…전국 13곳 6734가구 청약 - 머니투데이 - 머니투데이",
-        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1fMGR1OUREUlJUalJKR0dtbUJqeE9iZFZyRDFsWkd4TkdyektKT0ViSC1NOGJiT1lsc1lmT0Rkbk5zV29vS29NVWxnTktpdVJkRERLdnFFVGNISkFxZnRkVGRuLXQtWVppQlVSdHI5RdIBb0FVX3lxTE1fMGR1OUREUlJUalJKR0dtbUJqeE9iZFZyRDFsWkd4TkdyektKT0ViSC1NOGJiT1lsc1lmT0Rkbk5zV29vS29NVWxnTktpdVJkRERLdnFFVGNISkFxZnRkVGRuLXQtWVppQlVSdHI5RQ?oc=5",
-        "source": "머니투데이",
-        "pubDate": "2026-10-16T04:59:00.000Z",
-        "id": "a3e58ec2570e"
-      },
-      {
-        "title": "[분양캘린더] 인천·충청 대단지 쏟아진다…전국 13곳 6734가구 청약 - 머니투데이 - 머니투데이",
         "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1QVHNETjBVNy1BVm5jVi1INExZcm1zeHVIOFVQUktBajRRcXVqbDF2TjBmdm8wYzUyZE1zbG92aVpyUVdQTFFIWl9sNkQ5SC1vX0tFaEl3dWladHVNbFliZUNENGNhcXNOaWfSAW9BVV95cUxNXzBkdTlERFJSVGpSSkdHbW1CanhPYmRWckQxbFpHeE5HcnpLSk9FYkgtTThiYk9ZbHNZZk9EZG5Oc1dvb0tvTVVsZ05LaXVSZERES3ZxRVRjSEpBcWZ0ZFRkbi10LVlaaUJVUnRyOUU?oc=5",
         "source": "머니투데이",
         "pubDate": "2026-10-16T04:59:00.000Z",
         "id": "f5994c4ab5c9"
+      },
+      {
+        "title": "[분양캘린더] 인천·충청 대단지 쏟아진다…전국 13곳 6734가구 청약 - 머니투데이 - 머니투데이",
+        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1fMGR1OUREUlJUalJKR0dtbUJqeE9iZFZyRDFsWkd4TkdyektKT0ViSC1NOGJiT1lsc1lmT0Rkbk5zV29vS29NVWxnTktpdVJkRERLdnFFVGNISkFxZnRkVGRuLXQtWVppQlVSdHI5RdIBb0FVX3lxTE1fMGR1OUREUlJUalJKR0dtbUJqeE9iZFZyRDFsWkd4TkdyektKT0ViSC1NOGJiT1lsc1lmT0Rkbk5zV29vS29NVWxnTktpdVJkRERLdnFFVGNISkFxZnRkVGRuLXQtWVppQlVSdHI5RQ?oc=5",
+        "source": "머니투데이",
+        "pubDate": "2026-10-16T04:59:00.000Z",
+        "id": "a3e58ec2570e"
       },
       {
         "title": "분양가상한제에 민간 브랜드까지… 공공택지 아파트 청약시장서 관심 - 국토일보",
@@ -1052,38 +1073,45 @@ export const trackerLive: TrackerLive = {
         "id": "711d0fbf4a7c"
       },
       {
-        "title": "분양가 치솟자 ‘국민평형’ 외면…서울 청약 80%가 소형쏠림 - 매일경제",
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5YN2ZtWGk2YS03dWFBTmlzaVBTQWpwVFFxdzdsTGJLUVRBaG9kSWlQdVBZNGlyS2NpV0hZS181c2Q0QlJmUGU3dkZuWjcyeGlHZDZrMQ?oc=5",
-        "source": "매일경제",
-        "pubDate": "2026-10-14T02:10:04.000Z",
-        "id": "19e8ff47a695"
-      },
-      {
-        "title": "분양가 급등에 수도권 아파트 청약시장 국평 대신 소형 쏠림 - 파이낸셜뉴스",
-        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1EUTZnS3YtVVdaUklLRHFiZEY5aUFhdTBHTzNzeFl0NnlseTl5dlZKRjhYZmtfNTdJbVEzQ2NHWjJ0RFlvY1FXX0dwN1lRNzMtRlFnZEVhS01Bdw?oc=5",
-        "source": "파이낸셜뉴스",
-        "pubDate": "2026-10-14T01:46:53.000Z",
-        "id": "50150b54bad5"
-      },
-      {
-        "title": "“국평 대신 작은 집”…분양가 급등에 서울 청약 80% 소형으로 - 경북매일",
-        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1LZW1zNmFyczgzblc2SVBndENfTlZ1cWlSMlJqLWlkdzN5Qy1QX2dnX1VGcTVIT25aalBCVDE5NWh6SVBsMjhNYjJnTmdBN0dFeGRjT1NENUF5QQ?oc=5",
-        "source": "경북매일",
-        "pubDate": "2026-10-14T01:31:00.000Z",
-        "id": "c06292400766"
-      },
-      {
-        "title": "분양가 급등에 수도권 아파트 청약시장 국평 대신 소형 쏠림 - 한국경제",
-        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1wN2FvNUxleVNZdXRGMngtdm96TUlTZWRiSXg4TFZWZUZYNVFTR3RSLTkzaW1Qa1psNzR4LWEzR0FPaVo2TGNhaGFjNy1mRnBUSXFPNnlJMjAxUQ?oc=5",
-        "source": "한국경제",
-        "pubDate": "2026-10-14T01:25:42.000Z",
-        "id": "8ddc382bf521"
+        "title": "수도권 아파트 청약 시장 소형 쏠림 현상…\"분양가 급등 영향\" - SBS 뉴스",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9femEwLWhySWNEVEs5TlBPWnZXOERtbW1VaDFPN2t3dG9MTkRTeVFaZUFsdkVXbmhDWGxMNWRNYi0tWkhBcTBwZjBNZ3hUNmd6ZUNNSGhnNzRtSUZMNUFzVThjMUR3VXJJWWc?oc=5",
+        "source": "SBS 뉴스",
+        "pubDate": "2026-10-14T02:13:08.000Z",
+        "id": "25f917423108"
       }
     ]
   },
   "youth-policy": {
-    "lastUpdated": "2026-10-20T18:53:32.366Z",
+    "lastUpdated": "2026-10-21T19:06:03.111Z",
     "items": [
+      {
+        "title": "창원시의회 청년정책연구회, 청년 결혼·정착 지원 우수사례 탐방 - 경남도민신문",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9NZzRoQW1wendXSmZaMU5vTUFUd1dSUFFpdXdtOFBOUVd1Wk9fXzFSVGw5dWlQOHFkU1hTQm1Ia1FYTm9LdVNBVlpteTJVMm9JczN2MGZuc2kzQWctM2FvV3Ffemx0Vk9Y?oc=5",
+        "source": "경남도민신문",
+        "pubDate": "2026-10-21T09:03:17.000Z",
+        "id": "9e7d801b3038"
+      },
+      {
+        "title": "창원시의회, 부산 결혼·청년정책 살펴…지역 정착 지원 모색 - 신아일보",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE13V2lLQ1paN2dWalhKbUt2Y05fMHpkckJsMnU3aGxVMWdqZjRKMDZCRzF5cTBNUEt5LTRsWnBod2YwSVNhT1psSmVaSS14VXAtSThzcUpSMm9YaUFZeXkwMGhsY2t1aXN6eWJrY2xYbFA?oc=5",
+        "source": "신아일보",
+        "pubDate": "2026-10-21T06:22:52.000Z",
+        "id": "3f5cc6d4842c"
+      },
+      {
+        "title": "김미수 고양시의장, 청년정책협의체와 소통…청년 활동 여건 개선 논의 - 경기도정신문",
+        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE02VXdkWGNZUlhHOHB3VnZZa2tKQnRNQjdPVlhYZ2V5bzlxRC0xSi1VTXdwcDB6UHVXckQ4b1psMFpWYUlITGJLdkFzc1RSNV9GT1F3UUpDQ3QtVXMyd01GTDdkYS1nbDQ?oc=5",
+        "source": "경기도정신문",
+        "pubDate": "2026-10-20T23:34:26.000Z",
+        "id": "b062438f6eff"
+      },
+      {
+        "title": "제천시, 청년정책 전담반(TF) 10월 정례회의 개최 - 미디어투데이",
+        "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE9PZU9mTXNBUTRqbGFSMlBiVTN5UW9Vc29DbnNGR2NSbUtnZHdFMURGYldxbkdVdlZ0amdnZzczVmRIaFhCZ2hROW9B?oc=5",
+        "source": "미디어투데이",
+        "pubDate": "2026-10-20T12:49:00.000Z",
+        "id": "da538ff52668"
+      },
       {
         "title": "오세훈, 홍익대서 청년들 취업·주거 고민 청취 ... 월세지원 등 정책도 소개 - Queen 이코노미퀸",
         "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE54XzFQNGlpVWc4UWhTdjE4Y25ySEtXV2NHLWI1eXBKN0FIeWVaeUVuclhzOWZySmJMS0pzTzJvRU5GT2FSSGplOHM0NnlLQ2o1c3JYQWxoSFpnZF9LMHhLTVVRczR4eFJaRFE?oc=5",
@@ -1134,6 +1162,13 @@ export const trackerLive: TrackerLive = {
         "id": "6d7cc9796f5d"
       },
       {
+        "title": "전남광주 청년정책, 새판 짠다 - gjdream.com",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9aTEM2TTBkeEgzNGlac25ielp6TTV4MEMyLVQ0dmNjVGJSODNsZFd0a2F2T3VFLWdvcmtQYlEwNHRlZnRpcXRkZ3AwTnNXdXVLbTJOdDNkTVU1ZVJvOGdrWlkyWTgyWmMtNkE?oc=5",
+        "source": "gjdream.com",
+        "pubDate": "2026-10-19T15:00:00.000Z",
+        "id": "81b67df74a28"
+      },
+      {
         "title": "경기도의회 이채명 의원, 안양시 청년정책 면담 가져 - 경인매일",
         "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1PajA2YXd5dzMtZi1jai11MzMtZXBwNjBob0gwMUpOUGhucEhtTEJQbFBtMzF1ZmZOUzM4VUVvakJmN1ZFVUE2MS1wZDhNRjkydmZ4VU5HcWxfTi0tMlJNTmpXNHFMVEh1?oc=5",
         "source": "경인매일",
@@ -1146,6 +1181,13 @@ export const trackerLive: TrackerLive = {
         "source": "전남인뉴스",
         "pubDate": "2026-10-19T07:08:19.000Z",
         "id": "31cd3d900ef1"
+      },
+      {
+        "title": "밀양시, 제1회 청년정책위원회 개최...밀양시 청년정책 및 사회적 고립청년 기본계획 심의 - 열린뉴스통신",
+        "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9va1lNQWI2R2hNTmh2YnlwdlplUVlta2diY2NYMTRfclF4cG9TYzdQelY3bk5FTkUxekNCUFViZ1lCMU5rRE9ZYmd4ZmtxZGRGam56QmpsdTBzTVBnV0ZqOGlZaGdpdw?oc=5",
+        "source": "열린뉴스통신",
+        "pubDate": "2026-10-19T07:00:00.000Z",
+        "id": "344ddbe87645"
       },
       {
         "title": "“재정 어려워도 청년⸱이주민 정책 지원 절실” - 하남 Times",
@@ -1275,24 +1317,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "청년정책, 부처별 칸막이 허물고 원스톱 지원체계 구축해야 - 뉴스비전e",
-        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5YaTk0d1B3R29uMWpyMkhHVU1xbThPaUF6cGdkZUhUSWF0aUJyTk5tMkFxSi1QMzd1RXhDYzZGQ25DNXVSQ1E2VUpLcmpXUnAzUUJndXJwSWNsLVY1YjJxdW5Ec0tuTlE?oc=5",
-        "source": "뉴스비전e",
-        "pubDate": "2026-10-13T13:50:51.000Z",
-        "id": "700706fad2e5"
-      },
-      {
-        "title": "청년정책, 부처별 칸막이 허물고 원스톱 지원체계 구축해야 - 뉴스비전e",
         "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9PdGRENE9SQWI0VWVUVFRqbGJrS1hWc1YwdmUydGxld3FtbDhoZjNfWXZmU1E2Q1pjem9IMW81b2xqWTlFdWkwcTlKSjhpMlRIWm9xS3FlZER4YUJyRE9palVwZlZDZw?oc=5",
         "source": "뉴스비전e",
         "pubDate": "2026-10-13T13:50:51.000Z",
         "id": "93fb9213d6f6"
       },
       {
-        "title": "'부처 칸막이' 지적한 김현정 \"청년정책 예산 43조인데 신청은 따로\" - OhmyNews",
-        "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBMRkdIc3dBZWh2STNsYWNyZElqNXpoOVNvTFE3YXdqUGNpbGUwOWRXYTJWYnlxRGFXaWgwQlpaM3NLd184SHV6TmRMbFRiYjNTdTZwLVlTaGpDOWRXdk9ka0ZlT1htNDB0bUhTTWdVVUVVYzhwZ2tR?oc=5",
-        "source": "OhmyNews",
-        "pubDate": "2026-10-13T07:51:00.000Z",
-        "id": "5a8035950cf6"
+        "title": "청년정책, 부처별 칸막이 허물고 원스톱 지원체계 구축해야 - 뉴스비전e",
+        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5YaTk0d1B3R29uMWpyMkhHVU1xbThPaUF6cGdkZUhUSWF0aUJyTk5tMkFxSi1QMzd1RXhDYzZGQ25DNXVSQ1E2VUpLcmpXUnAzUUJndXJwSWNsLVY1YjJxdW5Ec0tuTlE?oc=5",
+        "source": "뉴스비전e",
+        "pubDate": "2026-10-13T13:50:51.000Z",
+        "id": "700706fad2e5"
       },
       {
         "title": "'부처 칸막이' 지적한 김현정 \"청년정책 예산 43조인데 신청은 따로\" - OhmyNews",
@@ -1300,6 +1335,13 @@ export const trackerLive: TrackerLive = {
         "source": "OhmyNews",
         "pubDate": "2026-10-13T07:51:00.000Z",
         "id": "c94b072e7bf2"
+      },
+      {
+        "title": "'부처 칸막이' 지적한 김현정 \"청년정책 예산 43조인데 신청은 따로\" - OhmyNews",
+        "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBMRkdIc3dBZWh2STNsYWNyZElqNXpoOVNvTFE3YXdqUGNpbGUwOWRXYTJWYnlxRGFXaWgwQlpaM3NLd184SHV6TmRMbFRiYjNTdTZwLVlTaGpDOWRXdk9ka0ZlT1htNDB0bUhTTWdVVUVVYzhwZ2tR?oc=5",
+        "source": "OhmyNews",
+        "pubDate": "2026-10-13T07:51:00.000Z",
+        "id": "5a8035950cf6"
       },
       {
         "title": "청년 10명 중 3명 ‘번아웃’…“청년정책 총리가 통합 관리해야” - 조선일보",
@@ -1351,6 +1393,13 @@ export const trackerLive: TrackerLive = {
         "id": "b1758ba1e9ed"
       },
       {
+        "title": "청년재단, 전국 17개 광역 청년지원센터서 ‘청년정책 종합상담’ 시범 운영 - edaily.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOTXQ1UDM3WXNpM3NSMGdVcks3RE1CZVNBWml6YnVBd0VoZExfN0NlQUZrWkFTbDdBYkdkay14ZHNzOU5seU40M1BJSFA2T0o1TjJTM3R0S3htX1E4UmxNZ3NLa0w4cXJKb3l2aVZhR0QwbVVCcWRPNFZxMnF4RVVlUA?oc=5",
+        "source": "edaily.co.kr",
+        "pubDate": "2026-10-13T01:58:01.000Z",
+        "id": "56c372f77702"
+      },
+      {
         "title": "청년재단, 국무조정실·전국 17개 광역센터와 ‘청년정책 종합상담’ 시범 운영 - 서울경제TV",
         "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1QdEJPTlkwaHhUTFgwWkdyWTh0VlZzVzA1dUZaakNyWXljeXV3WjhvR29lS2Y2dVZxTURPZ0xhcVhKaURBaFNpV0p0SHZoaEZjSWtzZ2ZfRUJXNDZvc09FMmhLa0o?oc=5",
         "source": "서울경제TV",
@@ -1384,60 +1433,11 @@ export const trackerLive: TrackerLive = {
         "source": "교수신문",
         "pubDate": "2026-10-12T08:30:49.000Z",
         "id": "4cc5e70e699d"
-      },
-      {
-        "title": "이강일, \"군 복무 청년 지원 확대, 담합엔 가격 바로잡기\" 법안 2건 대표발의 - 충북일보",
-        "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9aZFpaa2E5WmNaMUVNOGtHWWxrY00xUmNQUE1yVnJfUkRDVm5jV0xOdzNFa3dZeHl6TVdhWENCcjJnNUo5c2IxWXlEYWlITXhPVGx0eDdGUkNpZEFsMlFUZjdR?oc=5",
-        "source": "충북일보",
-        "pubDate": "2026-10-12T07:58:11.000Z",
-        "id": "52e4870db6e0"
-      },
-      {
-        "title": "이강일 “군 복무자에 청년정책 지원 연장 추진” - 아이뉴스24",
-        "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1hNUhNQlVGWE1JZ0JITnRxUTVFLUEzVFZ2czNLWUFuRVpMTlpRTnJXZmd1bWNBcFVFajNYMjRLUUtqaGxHTFg0NmR2bw?oc=5",
-        "source": "아이뉴스24",
-        "pubDate": "2026-10-12T07:36:15.000Z",
-        "id": "5e71caea31ae"
-      },
-      {
-        "title": "이강일 “군 복무자에 청년정책 지원 연장 추진” - 아이뉴스24",
-        "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFByRURLRmFCQ0lsSnhKclF6bEdQS0ppWEhFTjFmelV4REVUenRjVzRadG9KUkV1VEQzbjBNLS1OMXBEczFZU2RiaVZVNkM?oc=5",
-        "source": "아이뉴스24",
-        "pubDate": "2026-10-12T07:36:15.000Z",
-        "id": "a2c6ea2cf5dd"
-      },
-      {
-        "title": "제주시 청년인구 4년 새 1만3713명 감소 … \"청년정책 성과 기준 변화해야\" - 제주투데이",
-        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1lM0pMdlZPNUJXWnp2d3BxR1lXVnR2Zm52dXN3bE15Tjl5dnJ5MlhsMmttMnRVc3Y5YXd6c2hSUnJFVk16SWZMcnU3SndDZGZZN2l0N2xqWW43bFcyZHZ3cXVwSU1PMTNCUllsV0dB?oc=5",
-        "source": "제주투데이",
-        "pubDate": "2026-10-12T06:18:51.000Z",
-        "id": "3c6f5f538040"
-      },
-      {
-        "title": "장성호 의원, 청년들 떠나는 양산 '청년지원과' 신설 - 양산뉴스파크",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE0tWnMweHdiZEhwaW0xazRDMDgtbDlEb0NqYTdtdHR3eTFYOVhEdC1WU2k5QWNCS3ZTd19LTE05dTdBci1FWUprLVVfNnVBRTRNZjNnbFB0eS1GM3lzSlM4WWFGR3Z2OGla?oc=5",
-        "source": "양산뉴스파크",
-        "pubDate": "2026-10-12T05:46:09.000Z",
-        "id": "fe969dd433ad"
-      },
-      {
-        "title": "장성호 의원, 청년들 떠나는 양산 '청년지원과' 신설 - 양산뉴스파크",
-        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9jMF8xUnB4VUtzR1ZnT2xKQUZlald3dXFOSTR6Q2JIcl9DNFJBanprSVZCdUdfdnZyd1RiZGpMTGNhdm9zNkxvX0g1eVg4R1pOaWpiSGV5cU5pZE1MQ0RHQ25oblpqS0pneXBr?oc=5",
-        "source": "양산뉴스파크",
-        "pubDate": "2026-10-12T05:46:09.000Z",
-        "id": "a02a8b01bd9b"
-      },
-      {
-        "title": "성남시의회, 청년 AI·디지털 역량 지원 조례 개정 - 웹이코노미",
-        "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE55RFhwR0Z3UlJibi1Fa3YxaThXSjhWSFNUb2xIem10RlEwYjRNRUdlRjlqanVrcC1wZjIzNlJVQWlzVXlLTTBadUhVWEF2RzVNM3ZwUmNpRFJZRFJCeE54aEhwNzVWTmdiMm9KWlVzcTl0Zw?oc=5",
-        "source": "웹이코노미",
-        "pubDate": "2026-10-12T05:38:44.000Z",
-        "id": "62b0d9b901ac"
       }
     ]
   },
   "ai-model-launch": {
-    "lastUpdated": "2026-10-20T18:53:32.702Z",
+    "lastUpdated": "2026-10-21T19:06:03.522Z",
     "items": [
       {
         "title": "클로드·제미나이 새 모델 출시 알림, 텔레그램 봇으로 - 브런치",
@@ -1445,6 +1445,13 @@ export const trackerLive: TrackerLive = {
         "source": "브런치",
         "pubDate": "2026-10-20T02:12:43.000Z",
         "id": "9b37b6a7e37f"
+      },
+      {
+        "title": "클로드·제미나이 새 모델 출시 알림, 텔레그램 봇으로 - 브런치",
+        "link": "https://news.google.com/rss/articles/CBMiREFVX3lxTE1xZWJPeTd2TWZERFd6dkRpdUlXLWtJaEtkZkQxdmdOVmwxZ2xRbzdHdF94WkV3eEY1T2FIUmZTRDR4Vjc1?oc=5",
+        "source": "브런치",
+        "pubDate": "2026-10-20T02:12:43.000Z",
+        "id": "3ef8644d4180"
       },
       {
         "title": "DeepSeek, 말수 줄인 새 AI 모델로 코딩 작업 비용 20센트까지 낮춰 - Martin Cid Magazine",
@@ -1566,18 +1573,18 @@ export const trackerLive: TrackerLive = {
         "id": "d3e1299e9903"
       },
       {
-        "title": "코딩·사이버 방어 성능 강조…제미나이 4 아르곤 공개한 구글 - 스타트업레시피",
-        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFAxWDZIT2JIV2NIOTUxWHlTQW5mb04zSXNDd044U0xhd2NVbzRfV09ReXlwazA2c3loSmJKTWp3czJ6ME9RLVlkTThSYlV3NVd3MXlzbVoySWlyZ2U2X2c?oc=5",
-        "source": "스타트업레시피",
-        "pubDate": "2026-10-02T00:00:25.000Z",
-        "id": "80776bdf841e"
-      },
-      {
         "title": "코딩·사이버 방어 성능 강조…제미나이 4 아르곤 공개한 구글 - startuprecipe.co.kr",
         "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFAxWDZIT2JIV2NIOTUxWHlTQW5mb04zSXNDd044U0xhd2NVbzRfV09ReXlwazA2c3loSmJKTWp3czJ6ME9RLVlkTThSYlV3NVd3MXlzbVoySWlyZ2U2X2c?oc=5",
         "source": "startuprecipe.co.kr",
         "pubDate": "2026-10-02T00:00:25.000Z",
         "id": "e2ea5c0e8587"
+      },
+      {
+        "title": "코딩·사이버 방어 성능 강조…제미나이 4 아르곤 공개한 구글 - 스타트업레시피",
+        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFAxWDZIT2JIV2NIOTUxWHlTQW5mb04zSXNDd044U0xhd2NVbzRfV09ReXlwazA2c3loSmJKTWp3czJ6ME9RLVlkTThSYlV3NVd3MXlzbVoySWlyZ2U2X2c?oc=5",
+        "source": "스타트업레시피",
+        "pubDate": "2026-10-02T00:00:25.000Z",
+        "id": "80776bdf841e"
       },
       {
         "title": "오픈AI DevDay에서 나온, 써볼 만한 ChatGPT 기능 3가지 - 요즘IT",
@@ -1622,13 +1629,6 @@ export const trackerLive: TrackerLive = {
         "id": "9fab6964f37b"
       },
       {
-        "title": "‘나흘 사이에 네 개가 추가됐다’… OrcaRouter, GPT-6 Luna·Sol·Claude Opus 5.5·Grok 4.7 동시 등재 - yonhaptv.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE8tZnY3VVoyQUszcXd4N1NaaXdPRjg3cThqUkVtSGR3QWVHbWl3dTBZRmtzR1E1Ti1qa09PUkVSZURYQ3VnQnVuLXF2anBYNkdnU0N1NmptYTBhTzdJREhSdWdkT0NIeTlVRjhXUm5mblRNWms?oc=5",
-        "source": "yonhaptv.co.kr",
-        "pubDate": "2026-09-29T20:45:39.000Z",
-        "id": "19c5c858be23"
-      },
-      {
         "title": "‘나흘 사이에 네 개가 추가됐다’… OrcaRouter, GPT-6 Luna·Sol·Claude Opus 5.5·Grok 4.7 동시 등재 - yaguwang.com",
         "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE8tZnY3VVoyQUszcXd4N1NaaXdPRjg3cThqUkVtSGR3QWVHbWl3dTBZRmtzR1E1Ti1qa09PUkVSZURYQ3VnQnVuLXF2anBYNkdnU0N1NmptYTBhTzdJREhSdWdkT0NIeTlVRjhXUm5mblRNWms?oc=5",
         "source": "yaguwang.com",
@@ -1636,11 +1636,11 @@ export const trackerLive: TrackerLive = {
         "id": "89971c57e5fa"
       },
       {
-        "title": "스타트업 - startupdaily.kr",
-        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBiNjZ4aTI3ekxRa2xtd2VGY0lLVzk2N1VXYlplZXhLdlBBLVFiTWt0WUY3ZDl4b3ZMWXdMSjZBTm9qUkkyaXlXNzRWVTFKWEh3STB5SWluUTd4RFdpZjNR?oc=5",
-        "source": "startupdaily.kr",
-        "pubDate": "2026-09-29T05:56:00.000Z",
-        "id": "e353f47ed8cb"
+        "title": "‘나흘 사이에 네 개가 추가됐다’… OrcaRouter, GPT-6 Luna·Sol·Claude Opus 5.5·Grok 4.7 동시 등재 - yonhaptv.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE8tZnY3VVoyQUszcXd4N1NaaXdPRjg3cThqUkVtSGR3QWVHbWl3dTBZRmtzR1E1Ti1qa09PUkVSZURYQ3VnQnVuLXF2anBYNkdnU0N1NmptYTBhTzdJREhSdWdkT0NIeTlVRjhXUm5mblRNWms?oc=5",
+        "source": "yonhaptv.co.kr",
+        "pubDate": "2026-09-29T20:45:39.000Z",
+        "id": "19c5c858be23"
       },
       {
         "title": "스타트업 - 스타트업데일리",
@@ -1650,6 +1650,13 @@ export const trackerLive: TrackerLive = {
         "id": "9eb12dbd73c1"
       },
       {
+        "title": "스타트업 - startupdaily.kr",
+        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBiNjZ4aTI3ekxRa2xtd2VGY0lLVzk2N1VXYlplZXhLdlBBLVFiTWt0WUY3ZDl4b3ZMWXdMSjZBTm9qUkkyaXlXNzRWVTFKWEh3STB5SWluUTd4RFdpZjNR?oc=5",
+        "source": "startupdaily.kr",
+        "pubDate": "2026-09-29T05:56:00.000Z",
+        "id": "e353f47ed8cb"
+      },
+      {
         "title": "Claude Sonnet 5.5: 이미 존재하는 네 개의 숫자로 만들어진 스텔스 테스트 유출 - OrcaRouter",
         "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5NTUZ2X3YxaldjVlpmTU1GZ0o0ZzhVdTBaYWM2WmxwT3pGa1V0aGJ2b3hvSnhvUloybVhtWHlObDU1RVR1dHhiN0N4S1RNempVbGwtVzVGVFB1RDJxOGl6LVByT200eVE?oc=5",
         "source": "OrcaRouter",
@@ -1657,18 +1664,18 @@ export const trackerLive: TrackerLive = {
         "id": "cf545a1f8f88"
       },
       {
-        "title": "앤트로픽 \"클로드, 새 모델 R&D 26% 주도\"…AI 자기개선 가시화 - 뉴스1",
-        "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9wdG5ubmNlMHNaUERJbVFkMUE5WGVJVk5BX1M5bE9MSkRNMGU5WUc1ZTF5ZElFYmtmR1ByZi1xa1ZlY1RHdURURVYtTGttSW8yNzFGSzJTQWzSAV5BVV95cUxPMVJqazY1Rkt4SXJUb1FPS0xrc1NjMmVtMkU2cEtfU2xaNEVRQ1BXRDB4QTRDWXdKOFFYVDA5WGxjeW55UnlpZkMzTEVFbnNoVjIwdW4zWEtkdUVKSFVB?oc=5",
-        "source": "뉴스1",
-        "pubDate": "2026-09-18T05:32:31.000Z",
-        "id": "3675540f075f"
-      },
-      {
         "title": "앤트로픽 \"클로드, 새 모델 R&D 26% 주도\"…AI 자기개선 가시화 - news1.kr",
         "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9wdG5ubmNlMHNaUERJbVFkMUE5WGVJVk5BX1M5bE9MSkRNMGU5WUc1ZTF5ZElFYmtmR1ByZi1xa1ZlY1RHdURURVYtTGttSW8yNzFGSzJTQWzSAV5BVV95cUxPMVJqazY1Rkt4SXJUb1FPS0xrc1NjMmVtMkU2cEtfU2xaNEVRQ1BXRDB4QTRDWXdKOFFYVDA5WGxjeW55UnlpZkMzTEVFbnNoVjIwdW4zWEtkdUVKSFVB?oc=5",
         "source": "news1.kr",
         "pubDate": "2026-09-18T05:32:31.000Z",
         "id": "86867eaa5281"
+      },
+      {
+        "title": "앤트로픽 \"클로드, 새 모델 R&D 26% 주도\"…AI 자기개선 가시화 - 뉴스1",
+        "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9wdG5ubmNlMHNaUERJbVFkMUE5WGVJVk5BX1M5bE9MSkRNMGU5WUc1ZTF5ZElFYmtmR1ByZi1xa1ZlY1RHdURURVYtTGttSW8yNzFGSzJTQWzSAV5BVV95cUxPMVJqazY1Rkt4SXJUb1FPS0xrc1NjMmVtMkU2cEtfU2xaNEVRQ1BXRDB4QTRDWXdKOFFYVDA5WGxjeW55UnlpZkMzTEVFbnNoVjIwdW4zWEtkdUVKSFVB?oc=5",
+        "source": "뉴스1",
+        "pubDate": "2026-09-18T05:32:31.000Z",
+        "id": "3675540f075f"
       },
       {
         "title": "GPT-6 Astra: 새로운 세대의 지능 - openai.com",
@@ -1685,18 +1692,18 @@ export const trackerLive: TrackerLive = {
         "id": "da63a4b522e1"
       },
       {
-        "title": "[위클리AI] ‘성능 넘어 안전으로’ 앤트로픽·구글·오픈AI, 새 모델 쏟아냈다 - donga.com",
-        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9uYUVESGhrVnR0MzVCd1lZOFUyZ1YxcG84cTFvbGNESXhvN1M1R09SRjRKSktCeHhMaEtGOG9RTmhLaW9ISmV2UjN6Wi02TGdla0dlTnNpRjhwdURQeHNIMml0bXNHWl9BbzIwODBINNIBZkFVX3lxTE1NSDdGd3pfd2U3WnhZZUg2QzJrRlZUSlU2bUVYZ21fUXBReEZYMmpDb3hMa2dzVWZfdnRod090RWZ2TnBWRHdndTN5VFRuZ19RUEozUXJXU2pfUG13elYtNGc4NWRQdw?oc=5",
-        "source": "donga.com",
-        "pubDate": "2026-09-08T08:52:46.000Z",
-        "id": "fc965e17d812"
-      },
-      {
         "title": "[위클리AI] ‘성능 넘어 안전으로’ 앤트로픽·구글·오픈AI, 새 모델 쏟아냈다 - 동아일보",
         "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9uYUVESGhrVnR0MzVCd1lZOFUyZ1YxcG84cTFvbGNESXhvN1M1R09SRjRKSktCeHhMaEtGOG9RTmhLaW9ISmV2UjN6Wi02TGdla0dlTnNpRjhwdURQeHNIMml0bXNHWl9BbzIwODBINNIBZkFVX3lxTE1NSDdGd3pfd2U3WnhZZUg2QzJrRlZUSlU2bUVYZ21fUXBReEZYMmpDb3hMa2dzVWZfdnRod090RWZ2TnBWRHdndTN5VFRuZ19RUEozUXJXU2pfUG13elYtNGc4NWRQdw?oc=5",
         "source": "동아일보",
         "pubDate": "2026-09-08T08:52:46.000Z",
         "id": "c4a343959d0b"
+      },
+      {
+        "title": "[위클리AI] ‘성능 넘어 안전으로’ 앤트로픽·구글·오픈AI, 새 모델 쏟아냈다 - donga.com",
+        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9uYUVESGhrVnR0MzVCd1lZOFUyZ1YxcG84cTFvbGNESXhvN1M1R09SRjRKSktCeHhMaEtGOG9RTmhLaW9ISmV2UjN6Wi02TGdla0dlTnNpRjhwdURQeHNIMml0bXNHWl9BbzIwODBINNIBZkFVX3lxTE1NSDdGd3pfd2U3WnhZZUg2QzJrRlZUSlU2bUVYZ21fUXBReEZYMmpDb3hMa2dzVWZfdnRod090RWZ2TnBWRHdndTN5VFRuZ19RUEozUXJXU2pfUG13elYtNGc4NWRQdw?oc=5",
+        "source": "donga.com",
+        "pubDate": "2026-09-08T08:52:46.000Z",
+        "id": "fc965e17d812"
       },
       {
         "title": "Claude Fable 5.2: Anthropic의 11월 IPO야말로 진짜 신호다 - OrcaRouter",
@@ -1706,13 +1713,6 @@ export const trackerLive: TrackerLive = {
         "id": "f8f7113eec6b"
       },
       {
-        "title": "챗GPT·그록은 열고 클로드는 막은 펜타곤, 상업용 생성형 AI 도입 가속 - yellow.com",
-        "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNM0w1ZGVCZkQxeVNYZWt6Tm1KNzBwdGxSZzZDdHFuTUNCa1JXSHcwemtHYlc4WWhzYXh1eFVpWkFMc0hacmZjRGZ2bGRGamhfam45cm9BN2F6b1RZYUtmSWhKZ2ZNS09jdzBadlJETUZGZzVpVmV6N2JRUGVCWmxqX0ctLXNkSmQ1NWdPTjVkVjNHY3p3M3FiWkhxWl9DVTItZF8wU3pEZnBKVGtoelFPNFI2UHFINFN3ZE1VdTlTTjJMWERvek9zX0o2NTFDaGNLYUNVMmxSbTRKWDZFTmF1YzhqeXhPLWFxckE?oc=5",
-        "source": "yellow.com",
-        "pubDate": "2026-09-03T22:05:17.000Z",
-        "id": "63f7c9a599dd"
-      },
-      {
         "title": "챗GPT·그록은 열고 클로드는 막은 펜타곤, 상업용 생성형 AI 도입 가속 - Yellow.com",
         "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNM0w1ZGVCZkQxeVNYZWt6Tm1KNzBwdGxSZzZDdHFuTUNCa1JXSHcwemtHYlc4WWhzYXh1eFVpWkFMc0hacmZjRGZ2bGRGamhfam45cm9BN2F6b1RZYUtmSWhKZ2ZNS09jdzBadlJETUZGZzVpVmV6N2JRUGVCWmxqX0ctLXNkSmQ1NWdPTjVkVjNHY3p3M3FiWkhxWl9DVTItZF8wU3pEZnBKVGtoelFPNFI2UHFINFN3ZE1VdTlTTjJMWERvek9zX0o2NTFDaGNLYUNVMmxSbTRKWDZFTmF1YzhqeXhPLWFxckE?oc=5",
         "source": "Yellow.com",
@@ -1720,11 +1720,11 @@ export const trackerLive: TrackerLive = {
         "id": "d94f8c8a20aa"
       },
       {
-        "title": "구글, 3주 만에 새 경량 모델 ‘제미나이 3.8 플래시’ 출시 - 조선비즈 - biz.chosun.com",
-        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRXlzaUJGRXRVdXZrSTRBdk1vLXVscEVua0FmMERINWZmRkVORWx3ZUJZdkJpcHp0TFBlbVFuWGZpb09TOFFGWm9mdGh2a0xuU2trbE04a2k1bzZKRnYyNUR4bzIyaC00TnJ0clhJX2QtaVFkcjg1UTRKeVRSSzJUUy1B0gGWAUFVX3lxTE1PTGZzQ0h1NVUtMTJpTlZqV1loWEpPNVdoX2VBWThpUV9IdEw0ZXhkQnBFOVNWV1hNa2NzR05HdGRZLTJsSzZVamlwZFdhTU0xRHRxN3ZJSnZ0SFNxbjkxU19yaGtxUXpOeWVjX1VSdnFySnAyNFdpeHJkMkNsOXRwVUkyRWlkY2FfN2NGb1h6SFVxc2VJdw?oc=5",
-        "source": "biz.chosun.com",
-        "pubDate": "2026-09-03T07:00:00.000Z",
-        "id": "a9a61d9555ba"
+        "title": "챗GPT·그록은 열고 클로드는 막은 펜타곤, 상업용 생성형 AI 도입 가속 - yellow.com",
+        "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNM0w1ZGVCZkQxeVNYZWt6Tm1KNzBwdGxSZzZDdHFuTUNCa1JXSHcwemtHYlc4WWhzYXh1eFVpWkFMc0hacmZjRGZ2bGRGamhfam45cm9BN2F6b1RZYUtmSWhKZ2ZNS09jdzBadlJETUZGZzVpVmV6N2JRUGVCWmxqX0ctLXNkSmQ1NWdPTjVkVjNHY3p3M3FiWkhxWl9DVTItZF8wU3pEZnBKVGtoelFPNFI2UHFINFN3ZE1VdTlTTjJMWERvek9zX0o2NTFDaGNLYUNVMmxSbTRKWDZFTmF1YzhqeXhPLWFxckE?oc=5",
+        "source": "yellow.com",
+        "pubDate": "2026-09-03T22:05:17.000Z",
+        "id": "63f7c9a599dd"
       },
       {
         "title": "구글, 3주 만에 새 경량 모델 ‘제미나이 3.8 플래시’ 출시 - 조선비즈 - Chosunbiz",
@@ -1734,11 +1734,11 @@ export const trackerLive: TrackerLive = {
         "id": "51b5695ad63c"
       },
       {
-        "title": "입력가 0.75달러… 구글 Gemini 3.8 Flash, 독립 지능지수 59점으로 ‘가성비 승부’ - yellow.com",
-        "link": "https://news.google.com/rss/articles/CBMihgNBVV95cUxPbDg3Mzc1S2liOEFyS2pxY2plSUhabTNMRGxFUXg5VURFSEVhM1ZORUExeWNsOXZqVHZpTHN5UVVIVXJINmVDemNnQ3RrRkVJWlgxVkpQZ1NVc25DekUxLXVLdVVTU1RIS1Z3WmJZczFLNEIwQVY0Slg5S2xUQXBvNlhrYXpXWm1qR2JyaGNlYUFzSk8zVjV0UlVfdE5TRXVtNkwybHhvZHV3WU9RQTZ1OFlJQjRrZGxCYUdveUk1bWdkQXhTTXNVekNwcWtsb1VrMnpHSnlyTHFOWWQzN183QTFzRzg1SHV5SXNmMjc0ZUk4ajN0UFhvUHNfbE1nNWM5T0Z4UDNVLVoyNXhXWF9IM0ZmZlowRmZ2OUxHOF9JdV9ITkZEa19IQU9XN18tbEZyZ20xWUdsOWVHOHlKLVh1SF96Rkx1dHZLdi1wckdxNDk5bTNKRVRwMmRKbHY3NFllaVNWRHpiMEF2LUE0NXNiNFoxRDhVb20tcFZjWWc4WXJINUZrcVE?oc=5",
-        "source": "yellow.com",
-        "pubDate": "2026-09-03T04:44:06.000Z",
-        "id": "27884e202273"
+        "title": "구글, 3주 만에 새 경량 모델 ‘제미나이 3.8 플래시’ 출시 - 조선비즈 - biz.chosun.com",
+        "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRXlzaUJGRXRVdXZrSTRBdk1vLXVscEVua0FmMERINWZmRkVORWx3ZUJZdkJpcHp0TFBlbVFuWGZpb09TOFFGWm9mdGh2a0xuU2trbE04a2k1bzZKRnYyNUR4bzIyaC00TnJ0clhJX2QtaVFkcjg1UTRKeVRSSzJUUy1B0gGWAUFVX3lxTE1PTGZzQ0h1NVUtMTJpTlZqV1loWEpPNVdoX2VBWThpUV9IdEw0ZXhkQnBFOVNWV1hNa2NzR05HdGRZLTJsSzZVamlwZFdhTU0xRHRxN3ZJSnZ0SFNxbjkxU19yaGtxUXpOeWVjX1VSdnFySnAyNFdpeHJkMkNsOXRwVUkyRWlkY2FfN2NGb1h6SFVxc2VJdw?oc=5",
+        "source": "biz.chosun.com",
+        "pubDate": "2026-09-03T07:00:00.000Z",
+        "id": "a9a61d9555ba"
       },
       {
         "title": "입력가 0.75달러… 구글 Gemini 3.8 Flash, 독립 지능지수 59점으로 ‘가성비 승부’ - Yellow.com",
@@ -1746,6 +1746,13 @@ export const trackerLive: TrackerLive = {
         "source": "Yellow.com",
         "pubDate": "2026-09-03T04:44:06.000Z",
         "id": "6ace64869e25"
+      },
+      {
+        "title": "입력가 0.75달러… 구글 Gemini 3.8 Flash, 독립 지능지수 59점으로 ‘가성비 승부’ - yellow.com",
+        "link": "https://news.google.com/rss/articles/CBMihgNBVV95cUxPbDg3Mzc1S2liOEFyS2pxY2plSUhabTNMRGxFUXg5VURFSEVhM1ZORUExeWNsOXZqVHZpTHN5UVVIVXJINmVDemNnQ3RrRkVJWlgxVkpQZ1NVc25DekUxLXVLdVVTU1RIS1Z3WmJZczFLNEIwQVY0Slg5S2xUQXBvNlhrYXpXWm1qR2JyaGNlYUFzSk8zVjV0UlVfdE5TRXVtNkwybHhvZHV3WU9RQTZ1OFlJQjRrZGxCYUdveUk1bWdkQXhTTXNVekNwcWtsb1VrMnpHSnlyTHFOWWQzN183QTFzRzg1SHV5SXNmMjc0ZUk4ajN0UFhvUHNfbE1nNWM5T0Z4UDNVLVoyNXhXWF9IM0ZmZlowRmZ2OUxHOF9JdV9ITkZEa19IQU9XN18tbEZyZ20xWUdsOWVHOHlKLVh1SF96Rkx1dHZLdi1wckdxNDk5bTNKRVRwMmRKbHY3NFllaVNWRHpiMEF2LUE0NXNiNFoxRDhVb20tcFZjWWc4WXJINUZrcVE?oc=5",
+        "source": "yellow.com",
+        "pubDate": "2026-09-03T04:44:06.000Z",
+        "id": "27884e202273"
       },
       {
         "title": "인공지능은 되돌릴 수 없는 지점에 다가가고 있는가? 개발 일시 중지를 위한 프레임워크를 촉구한 앤스로픽 - yellow.com",
@@ -1756,17 +1763,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "한경국립대, AI모델 통합 ‘Multi AI’ 공식 오픈 - v.daum.net",
-        "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFBJemM2bXYwUmtoRV8yaVd3R3hVTEltNHVpR0pVTkZ1ZjNzSnVXZUY1ZDdES1ZHZGNBUEdlcUdOVzRLaUIyV0E?oc=5",
-        "source": "v.daum.net",
-        "pubDate": "2026-09-02T02:42:27.000Z",
-        "id": "f88f18dbb960"
-      },
-      {
-        "title": "한경국립대, AI모델 통합 ‘Multi AI’ 공식 오픈 - v.daum.net",
         "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5YeFNXTzRnRktEekpMSjdTTTNXaU1RTzVCSms1MWdwOTk2WFBEVTZwX3ZzZEl0RDRKQXpvdlVFSzk4VjJDNHBMelVrcw?oc=5",
         "source": "v.daum.net",
         "pubDate": "2026-09-02T02:42:27.000Z",
         "id": "1a683635ddc4"
+      },
+      {
+        "title": "한경국립대, AI모델 통합 ‘Multi AI’ 공식 오픈 - v.daum.net",
+        "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFBJemM2bXYwUmtoRV8yaVd3R3hVTEltNHVpR0pVTkZ1ZjNzSnVXZUY1ZDdES1ZHZGNBUEdlcUdOVzRLaUIyV0E?oc=5",
+        "source": "v.daum.net",
+        "pubDate": "2026-09-02T02:42:27.000Z",
+        "id": "f88f18dbb960"
       },
       {
         "title": "한경국립대, AI모델 통합 ‘Multi AI’ 공식 오픈 - v.daum.net",
@@ -1781,19 +1788,89 @@ export const trackerLive: TrackerLive = {
         "source": "tradingkey.com",
         "pubDate": "2026-09-02T01:32:00.000Z",
         "id": "b8ac1ee378e9"
-      },
-      {
-        "title": "계명대, 70여개 생성형 AI 모델 통합 플랫폼 도입… 전공별 AI 교육 강화 - imaeil.com",
-        "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5ERzRNZTFGVGpXNjltbTVHMHY1ZTlSTEstVUUyOVhmcmRSR1UtVGx3MmZHS2Z6MkZwaDRLdXhFUFpFTDlaVlFpdTF0dzF4enloc2NoUkMyN09nazlzYVN0eDR3?oc=5",
-        "source": "imaeil.com",
-        "pubDate": "2026-09-01T07:45:00.000Z",
-        "id": "fdf743ffa626"
       }
     ]
   },
   "jeonse-fraud": {
-    "lastUpdated": "2026-10-20T18:53:33.285Z",
+    "lastUpdated": "2026-10-21T19:06:04.012Z",
     "items": [
+      {
+        "title": "전세사기, 계약 전에 막는다…경기도 ‘AI 안심 부동산’ 현장 확산 - 에너지경제신문",
+        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE4xZHo4OTJEZVFJZ2UtSGZnTUZfUHZWcjlUTTN5UTU3aVRxaHlxRW1KVkRLa2ZYS0F4bE1TLWxIQUowMnFSelJQWEN5emVNcXd0RzdqdDFFbjdFR3d3S2tIS2U5WQ?oc=5",
+        "source": "에너지경제신문",
+        "pubDate": "2026-10-21T14:25:21.000Z",
+        "id": "0ca8c8c744a0"
+      },
+      {
+        "title": "전세사기 피해 4명 중 3명 청년층 - 환경일보",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFB4OFBjYUo4QndXcVZ4a3M1VTRGc2VUWHNGb3NqT3llQWtQd1ZlRjZtZUpMTHlDWDBKdENNS3BMSWtyNWZXc193a3FQS3VFaHllWGRud3kzYTJKREZpaUU5ajFZZFhsLVFf?oc=5",
+        "source": "환경일보",
+        "pubDate": "2026-10-21T08:49:52.000Z",
+        "id": "1fc551d0ca9a"
+      },
+      {
+        "title": "경기도, AI 권리분석으로 전세사기 예방…시군·공인중개사 협력 - 이뉴스투데이",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAzVEdLay1sY0kyNERkbE1CZjVybnlPY1JhVllZQS1yd3NOUWxyS0FDNERaWVFKR1hJeEpCX0ZJQ3VicjZpVlRxSUdVTnJueEt4clpBU0NrMGJsZzY0VUlBVHFqVWh2dHdRemVES3FQX2TSAXRBVV95cUxOb2lvNlVMWFY5aDFEZXdSc2IySGdaLW9abmFRMHh4QVh6a0p5VXU1REdMYTFBUnNoZjBEQW1wZ2t1aDN5bkV6UzhmZjZYZEswSTVZaVRlYXYxek14cVRmUEhxTVdoT2JPZzE3SVVlVm4yYTFTbg?oc=5",
+        "source": "이뉴스투데이",
+        "pubDate": "2026-10-21T08:49:37.000Z",
+        "id": "5d668962b418"
+      },
+      {
+        "title": "“같은 건물인데 누구는 인정, 누구는 제외”…전세사기 피해자들 상담소로 - 경북매일",
+        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE8zWGR1bGg4Xzg3WFU5dElzeUJxbzVia1BUWmtrYTRhOThQbHlwb0RzamxKQWk4RjJXbW1Pb1ZJOXd1RVRMNWZycEJUdTJ6SmRkcjBBQW5xUmZpdw?oc=5",
+        "source": "경북매일",
+        "pubDate": "2026-10-21T08:24:00.000Z",
+        "id": "f4067c75f91e"
+      },
+      {
+        "title": "경기도, ‘경기 안심 부동산’ 이용 교육…전세사기 예방 강화 - 프레시안",
+        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9wNWxnNC04SVFkTnlSSF9vdThWZENMT1dWV08yTVdTRl9NUkZielZ4OUYxMGRLMlJNV2R6TEp4RDQ5cXNlZHZDNFFGRkNfTk5HZW5oV3hPZlVZUm05a1R1Y1R2TXpDRGNuMFg4?oc=5",
+        "source": "프레시안",
+        "pubDate": "2026-10-21T07:24:57.000Z",
+        "id": "34e9c0a1cb44"
+      },
+      {
+        "title": "경기도, 전세사기 예방 ‘경기 안심 부동산’ 확산 위한 실무교육 실시 - 전국매일신문",
+        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFB5Vy1HTXlOLUhWLWM1S081cUYyeXdydnNLR2RBMDVlYzhXQ2RwMjBHNHdldjVWOGNnYnd6dXZDMkctNzhpei1zWjhSZk5jLTdMNU1kOHpsd0hrNTlOd3UwdW1HRkxoUGNVaVhtcUR3?oc=5",
+        "source": "전국매일신문",
+        "pubDate": "2026-10-21T07:21:48.000Z",
+        "id": "ee46c4f8bd6f"
+      },
+      {
+        "title": "경기도, ‘경기 안심 부동산’ 확산 위해 시군 담당자 사전 교육 - 한국방송뉴스",
+        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9fcnhtTzFTZzMtby1uNkxGajdkVmw1ajk4U3BPT0Nvb0lXNE9LdkI0ZG1oRUlaczZHdnpVUHNnclprNEd6d0xLOE03YVctZktQWl8xTWpyMUlYMzZSb3c?oc=5",
+        "source": "한국방송뉴스",
+        "pubDate": "2026-10-21T07:09:45.000Z",
+        "id": "f63f9a7ab941"
+      },
+      {
+        "title": "보증부터 채권 회수까지 ‘AI 무장’… HUG, 전세사기 싹 자른다 [오늘의 DT인] - www.dt.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9jWDZVb2pDYloxWldvTmRjZ29VZVREMkpnUElrYVlrX01hSmVKUFVnQ25ubnBQR2k4TmstQjdDSDRYOWk3OFNBM2hTLU01UQ?oc=5",
+        "source": "www.dt.co.kr",
+        "pubDate": "2026-10-21T07:09:26.000Z",
+        "id": "71b1bc0780a7"
+      },
+      {
+        "title": "[현장에서] “전세피해 지원부터 계약 상담까지”…대구 전세피해 상담소 가보니 - 대구일보",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBGUWpUR2F1Z2tZWUEzOG9oSVpmYkZKS1RORG5iekNfNGk3RGdVZzBVbVdGWnp2X1NqOW5QdmV0bUoyQzVKQ1BLM0kydFgzcjhEYTJDMmRLcTJfbW9rYXBkNlkxdlM2cFNK?oc=5",
+        "source": "대구일보",
+        "pubDate": "2026-10-21T07:02:21.000Z",
+        "id": "66a205e837e5"
+      },
+      {
+        "title": "[사건사고] 또 청년 울린 전세사기…임대인 송치·중개사도 수사 外 - 연합뉴스TV",
+        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5ESnhZZ21wRVY5X0VnOEJSZS0tRS1lLWNaY28tdjJLblR3NDVicnJyZEVmYnFSd0VUbEZIODNqVXRYQWlnSlRpY05fbkxlblhxNGVCLUpyRE5JR1k3eVVoa21jWnRhbG8?oc=5",
+        "source": "연합뉴스TV",
+        "pubDate": "2026-10-21T00:05:00.000Z",
+        "id": "93542214623e"
+      },
+      {
+        "title": "[단독] 또 청년 울린 전세사기…임대인 송치·중개사도 수사 - 연합뉴스",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1hTkEzTHJ4bHo1UzhfN2JRbkNPTHdPbUhZOFUtNFpvM2tyOWg5WWhydnpIZUNaV0JsLTFQSlJFMlRnRWx0SXZhSnMwcmpQek1KbXN4WTlNUWotUVZzZnpfZdIBYEFVX3lxTE1hTkEzTHJ4bHo1UzhfN2JRbkNPTHdPbUhZOFUtNFpvM2tyOWg5WWhydnpIZUNaV0JsLTFQSlJFMlRnRWx0SXZhSnMwcmpQek1KbXN4WTlNUWotUVZzZnpfZQ?oc=5",
+        "source": "연합뉴스",
+        "pubDate": "2026-10-20T15:22:10.000Z",
+        "id": "a46dc0aefddc"
+      },
       {
         "title": "[단독] 또 청년 울린 전세사기…임대인 송치·중개사도 수사 - 연합뉴스TV",
         "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBvUGljdWxCQ2tVOFdLZDh1dW9Sb1FEOUx5YkpqME8yZ2dWdVBHN3JjcW9OZUJaLVJfVTZEZDlLWjZnNEVObXZhU3kzVXBZRFBjczZpRjV3SC1DaW5rQkRIWlBKN1JBVEE?oc=5",
@@ -1809,18 +1886,18 @@ export const trackerLive: TrackerLive = {
         "id": "4d2d3109cf2f"
       },
       {
-        "title": "최성례 의원 “학생 통학안전 확보, 전세사기 예방·피해지원” 촉구 - 동북일보",
-        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5HY2gtMHZZOTJ1MHd4VWM4blFxcngwZWFMZlByaHZsb2ZDSERQMmZfanQxLVVrTzBYV3pEcHJENlB3SGhyXzZvbjJxRGhmTnNNTTVOXzhDWUZlV2dKamZIQTNWR0pXcGNtdzZ2aHJTaw?oc=5",
-        "source": "동북일보",
-        "pubDate": "2026-10-20T12:54:00.000Z",
-        "id": "2392a13bc79d"
-      },
-      {
         "title": "은평구서 청년 울린 전세사기...19억 가로챈 임대인 송치 - 조선일보",
         "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNaDQ5aWs5YkhtZDhEX29Qc0pSOEtIVXpLT3M3ZjJkMWg2QWRQdFZ2a2pLRWxGZTB5T0g5TmxaUzV0T0hIVHdGWnpoWG8xSEVxSnRkVTQ1R2JhRHF1bjV5NDlpX3pRWFk3T3FKSUVaNjlzd3ZPbE9SeFJyaUh6Z2hULWxIc2FuRHk4U1h1emd2dVY?oc=5",
         "source": "조선일보",
         "pubDate": "2026-10-20T12:54:00.000Z",
         "id": "9f665e5c11ca"
+      },
+      {
+        "title": "최성례 의원 “학생 통학안전 확보, 전세사기 예방·피해지원” 촉구 - 동북일보",
+        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5HY2gtMHZZOTJ1MHd4VWM4blFxcngwZWFMZlByaHZsb2ZDSERQMmZfanQxLVVrTzBYV3pEcHJENlB3SGhyXzZvbjJxRGhmTnNNTTVOXzhDWUZlV2dKamZIQTNWR0pXcGNtdzZ2aHJTaw?oc=5",
+        "source": "동북일보",
+        "pubDate": "2026-10-20T12:54:00.000Z",
+        "id": "2392a13bc79d"
       },
       {
         "title": "피해자 지원센터는 예산 0원, 산불 기부금은 집행 0원…경북도·경찰청 ‘보호 행정’ 도마 - 뉴스홈(newshome)",
@@ -1842,6 +1919,13 @@ export const trackerLive: TrackerLive = {
         "source": "뉴스1",
         "pubDate": "2026-10-20T05:32:16.000Z",
         "id": "3b6e1769ca02"
+      },
+      {
+        "title": "파주시, ‘안전전세 프로젝트 캠페인’ 개최 > 뉴스 - 더코리아",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBQR1NYSExlMHN6eTdJS1ZfYmc3MU5IQVF4QTRJRnpmc0pBaTUyX0pTMzRUVGF4cUdSbEhiZWFLc1R3aHRueWNQWjlIV2oxcEV6aklQRkROZ3RCVUxZZEduTkwtekwweEQwLV8yY0J4dGs?oc=5",
+        "source": "더코리아",
+        "pubDate": "2026-10-20T05:05:00.000Z",
+        "id": "e160cab614ac"
       },
       {
         "title": "파주시, ‘안전전세 프로젝트 캠페인’ 개최 - 아시아뉴스통신",
@@ -1912,6 +1996,13 @@ export const trackerLive: TrackerLive = {
         "source": "공유경제신문",
         "pubDate": "2026-10-19T08:34:39.000Z",
         "id": "7935c9a5fb00"
+      },
+      {
+        "title": "대구시 전세 피해 찾아가는 상담소, ‘생색내기’ 아니어야 한다 - 평화뉴스",
+        "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBDTVRyQnJrWUUwQmJLNXlqMFNOeVJGSnJTejg3MExUc25CWTVYd2JTZW5EdENCY2Y2QTAtcVhCSldBVDVJMl9CTGFqVnBZNUVxZzFLS1Fhbmp4cGhxeGRVNkFZb2o?oc=5",
+        "source": "평화뉴스",
+        "pubDate": "2026-10-19T07:13:42.000Z",
+        "id": "33ae4bddb24f"
       },
       {
         "title": "GH, 경기도 전세피해 및 예방지원센터 '경·공매 및 배당 이해 교육' 성료 - 뉴스핌",
@@ -2033,13 +2124,6 @@ export const trackerLive: TrackerLive = {
         "id": "2f770fe9bab1"
       },
       {
-        "title": "대구시, '찾아가는 전세피해 예방·지원 상담소' 운영 - BBS",
-        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9xSHZnaTl2SUQ1NHNQTnAydG00akZfUVRQQXN1TFpLaFVIdG1yQm9EUm1LUXlWb1YxQl9YTXU3MTl1OF9BOEhWckhyZkM3SmQ2ZHp0cy05dnRHZGFSZW5lYTZqYVgtdEtIZHhF?oc=5",
-        "source": "BBS",
-        "pubDate": "2026-10-18T10:37:38.000Z",
-        "id": "dc9c3a3aeaf4"
-      },
-      {
         "title": "대구시, '찾아가는 전세피해 예방·지원 상담소' 운영 - BBS불교방송",
         "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9xSHZnaTl2SUQ1NHNQTnAydG00akZfUVRQQXN1TFpLaFVIdG1yQm9EUm1LUXlWb1YxQl9YTXU3MTl1OF9BOEhWckhyZkM3SmQ2ZHp0cy05dnRHZGFSZW5lYTZqYVgtdEtIZHhF?oc=5",
         "source": "BBS불교방송",
@@ -2047,107 +2131,23 @@ export const trackerLive: TrackerLive = {
         "id": "3767d6bcf630"
       },
       {
+        "title": "대구시, '찾아가는 전세피해 예방·지원 상담소' 운영 - BBS",
+        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9xSHZnaTl2SUQ1NHNQTnAydG00akZfUVRQQXN1TFpLaFVIdG1yQm9EUm1LUXlWb1YxQl9YTXU3MTl1OF9BOEhWckhyZkM3SmQ2ZHp0cy05dnRHZGFSZW5lYTZqYVgtdEtIZHhF?oc=5",
+        "source": "BBS",
+        "pubDate": "2026-10-18T10:37:38.000Z",
+        "id": "dc9c3a3aeaf4"
+      },
+      {
         "title": "임대주택 정보부터 전세사기 예방까지… 주거복지 교육, 생활 속으로 - THE인천​",
         "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE4xRlNVT0RZYzl5MGhmRmtzaXc0bEhTczNtZFBnNTBKRlltZVhvQjNHQjFvanJpQVAtc0JiOHNQTXp4Nm1BOHZERy1SWFVMWHhUaEU5NUZxekt4VE9jOVBBQUJaNnlOR2VhWEE?oc=5",
         "source": "THE인천​",
         "pubDate": "2026-10-18T10:30:35.000Z",
         "id": "f1b80fec1076"
-      },
-      {
-        "title": "대구시 ‘전세피해’ 지원부터 예방까지… 현장에 직접 찾아간다 - 파이낸셜경제",
-        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBuZ3c3WTI4NEhiWnk2N25faGxUdWJHUmtxUkZjYTFyNlpyYlRxMnVxWlRuSi1OcFRDZmJ0N2ZfSDN1TXlPMEotTmdlVGs1Y0JrQlRVSjEyVy02UWFXOWI2SzdZZEFaeEJOQ2I0RXByWWQ?oc=5",
-        "source": "파이낸셜경제",
-        "pubDate": "2026-10-18T10:30:11.000Z",
-        "id": "22288b1b12ec"
-      },
-      {
-        "title": "대구광역시, \"전세사기 막는다\"...구청 등서 찾아가는 상담소 개설 - 국제뉴스",
-        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBST0VjMGk5MGZ6TklQVGFlNUhDSmZoRWs0N1A2Z3g1aFEycUJjZm9ncjVwcnlGSHJ6YUlNelBqSjZpNktWM1RYSmxHbGpXaUpfejJmai16UnlsZ3RsMnNtYkJaSmk4OXE3OEFjY2Jn?oc=5",
-        "source": "국제뉴스",
-        "pubDate": "2026-10-18T07:58:53.000Z",
-        "id": "eab67c7f8894"
-      },
-      {
-        "title": "대구시 '찾아가는 전세피해 상담소' 21일 개소, 청년층 피해 예방에 나선다 - 위키트리",
-        "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1KX3lleS02UzdqR0VaazlwU29zejdEQUJKcU9tMkxLdmtrdXhsc25mQ3JRWlRXb1VVVW8tbTlKdnoyUVhqd1l1Z0g3LXJUaEFSSng1UFd3?oc=5",
-        "source": "위키트리",
-        "pubDate": "2026-10-18T06:18:00.000Z",
-        "id": "55223928a05d"
-      },
-      {
-        "title": "양치승, 전세사기 피해 20억 이상 \"박하나가 선뜻 큰돈 빌려줘서 환불 해결\" (살림남) - 조선비즈 - Chosunbiz",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNV09PVG9PcGc4LWZwX0cwQjU2bDRoM2VhMjRLZWZaTGxuVk1fMTJGeEpaVHMyWW5uZnIwWTd0ZHdaaUR3Ym9XV2lHdC0zZk04Qy1INGYtQXdRZkdpYXk0eE1TYzVYWk9nSmRnbDYxdjZQdDVSLUlwdnBIbUJnOVotUUN6Tk_SAZgBQVVfeXFMTk9Nek9KUk0wTklCWGExYmJsZWdzZUhUMjBjZDZ1aXVjRFhkZ0FSU2JuSU41N25HWURHQk1hbmw5UTVjZGp0SnRGYVprd0YtNmhUOVc3SDFtcFRGWHkzV0s2V1VCbjB3TDFDUkpwNU85Nm01NmJDeTd4cnRtQlhkQVdwYUZHRkQ1YzNXY2NUOUlDSGlLR2p4UEw?oc=5",
-        "source": "Chosunbiz",
-        "pubDate": "2026-10-18T05:35:31.000Z",
-        "id": "a5a308234915"
-      },
-      {
-        "title": "임대주택·전세사기 대응부터 집수리까지…인천 주거복지교육 마무리 - 인천게릴라뉴스",
-        "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFAwTzU0anhpV0t2d1ZDeEVWc0YzMEFsemp0SF9iQlQtTEs1bGprVi1wS0xQdmI0QUo5ckVnRGRxdWZKNS1PRGVKYUFsU1F3bF9IUG4yRFFtSVhDTjBWdXpIc3EzWEdTQQ?oc=5",
-        "source": "인천게릴라뉴스",
-        "pubDate": "2026-10-18T02:37:30.000Z",
-        "id": "18575f315733"
-      },
-      {
-        "title": "전세사기 예방부터 피해 구제까지…대구시, 찾아가는 상담소 운영 - 경북매일",
-        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBpTGhvOVZpQndZeTVBQjE1ZmtKYklFdEFOekNCQlBiQ2l1aGVWN0t5dEkxREszeDFLcXdVZks4Sl9qZVVnUUJBZTcwUWszRGRHSlkxbndNMkZ1Zw?oc=5",
-        "source": "경북매일",
-        "pubDate": "2026-10-18T01:34:00.000Z",
-        "id": "24bfe39ac965"
-      },
-      {
-        "title": "“전세보증금 떼이기 전에 확인하세요”…대구시, 찾아가는 무료 법률상담 운영 - 아이뉴스24",
-        "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFBHb3pFS3hWS1hXX1Q2OTgxa1hrdHM1WUljdllNajBpd0dUMFZnUHJFcFhZa0VGcVF6aGk2UFRsenJfa0RzeFNNZDhlYkU?oc=5",
-        "source": "아이뉴스24",
-        "pubDate": "2026-10-18T01:16:39.000Z",
-        "id": "4eb52f23adb0"
-      },
-      {
-        "title": "양치승, 전세 사기 피해 20억 고백…“박하나가 큰돈 빌려줘” - 스포츠동아",
-        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1xSjdoT1BCS01KYjR3VkNpX2Z4V0g4Yjh3dXZ5bVVMTkE3Q1htV1lYQmhIdUZuT00yOEdfS1E2UFk4V2dBT2JDUGdXbDJTdDN5MWRRcDZ3eXBsTjNqdzRPVXN1eUdiTXdKQjBMSjBB?oc=5",
-        "source": "스포츠동아",
-        "pubDate": "2026-10-18T00:58:55.000Z",
-        "id": "ac018116acf1"
-      },
-      {
-        "title": "“애들, 에어컨도 안 틀어” 양치승, ‘전세 사기’로 힘든 가족에 ‘눈물’ [순간포착] - OSEN",
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE4xXzFpS2pfc0FBa1oydTFoYnp0RXUyN0dQSFBQY1RfTkh0WDkzQi1LcnFnZkFuRFd6ejFFSl9nUE53Y3dJZHFqdDg1SVJET1VtbG9tMQ?oc=5",
-        "source": "OSEN",
-        "pubDate": "2026-10-17T22:15:00.000Z",
-        "id": "0f1c50ebbda8"
-      },
-      {
-        "title": "양치승, 전세 사기로 20억 날렸다…\"아직 수억 채무 남아\" - 뉴시스",
-        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5hbWMxU2hkMkc4bGp1amR1bnVOSElPZ0Y5cFVEODY1SGtrRThXZVhTWWpHOF81MHJhNUtEckFVQUZsNmRDRWVGUy1OMmxmTFRvSmhMZDl6VDB3d0FGUWVKbNIBeEFVX3lxTE1fREpWWXRnbEtRblJSeWZxSHlINGRSYmFlRm40YVNsTjFxZTVGOVdkSExwTW9SZTBNVXhYUVVjVWRoSTkzV20wbGc0NmZGTE9uMjd6OHFuQVhNVk1mUFF1cktYdGVsTkhIdXdTdE1JNkVFN09obkszQQ?oc=5",
-        "source": "뉴시스",
-        "pubDate": "2026-10-17T21:28:20.000Z",
-        "id": "566ce6bdd05d"
-      },
-      {
-        "title": "“전세사기 막는다더니 착한 임대인도 ‘아웃’”…전세 공급망 흔들 - www.dt.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5SUG1Bd2l1SFlNeDVoc01mYWZpRGZ2aW5FWTFKal9IUktXTE1PRXkycVlFdjE2Q1FhNTRwcnFSMWxBYmdzRDdFYXBueUlkZw?oc=5",
-        "source": "www.dt.co.kr",
-        "pubDate": "2026-10-17T20:59:00.000Z",
-        "id": "2530229988f1"
-      },
-      {
-        "title": "[단독] ‘전세사기 방지’ 안심신탁 1조원 약정 발표…실제 계약은 0건 - 이데일리",
-        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNSE4ybDFGSmdXTHl0enNfYW1FZnVhYlNtTUhXT3NZM3U1ZXRSb3R0c3l6T3NEXzFQXy1zYlBFWlFXak16UXVQNWY4UFFMazBUbjkwcWZ0OUdNNmVVZkkwdXJndkg2UVRNT0gzdm52VmFhbC03RWJfOXpLaE5YTWw1SA?oc=5",
-        "source": "이데일리",
-        "pubDate": "2026-10-17T20:00:03.000Z",
-        "id": "91b4924f6831"
-      },
-      {
-        "title": "AI와 중개사의 결합...경기도 전세 안전망 도입 - YTN",
-        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5pMm1HWTBzWkNOYnNaTjJSTms2UDE4Y2Z4U1dNZXRSZ1B0VTdPVC1hMm5GZmlEVUFSeXRqMDljLXNnbGxmc1dWNUJoWGprbW5iNzVoNkhaSzNXLWpuTXc?oc=5",
-        "source": "YTN",
-        "pubDate": "2026-10-17T19:29:00.000Z",
-        "id": "46dbd1daa0ff"
       }
     ]
   },
   "faker-grok": {
-    "lastUpdated": "2026-10-20T18:53:33.593Z",
+    "lastUpdated": "2026-10-21T19:06:04.470Z",
     "items": [
       {
         "title": "‘T1’ VS AI ‘그록5’ LOL 대결, 누가 이길까? - ilyosisa.co.kr",
@@ -2158,17 +2158,17 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "‘T1’ VS AI ‘그록5’ LOL 대결, 누가 이길까? - 일요시사",
-        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE05cWlHa3dxWVE3cGpkQkdsdllvUDZWRTdjZmQtVmd0NGVlZ2xnNERubUFnQUE2YXZ1NUlEeGlBbWptR3IzM3lEcTgxSDdPa2NfdVNaOHlTYkdwNXFjN2loRXZadDYzcTA?oc=5",
-        "source": "일요시사",
-        "pubDate": "2026-05-15T15:58:58.000Z",
-        "id": "f37a8bacb234"
-      },
-      {
-        "title": "‘T1’ VS AI ‘그록5’ LOL 대결, 누가 이길까? - 일요시사",
         "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5yN2hhNWJRRXNUcmhtXzlYdkd6NHgyTFpmUVpfdzZPZ2F2eU5GWmJVX20tOFhRUllqS3d4UFNLZDI3SWdyNjFEVGd3UXlMbWx1UVJoWFEyNkFteUFWakNVNVJmQms?oc=5",
         "source": "일요시사",
         "pubDate": "2026-05-15T15:58:58.000Z",
         "id": "e54670fba962"
+      },
+      {
+        "title": "‘T1’ VS AI ‘그록5’ LOL 대결, 누가 이길까? - 일요시사",
+        "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE05cWlHa3dxWVE3cGpkQkdsdllvUDZWRTdjZmQtVmd0NGVlZ2xnNERubUFnQUE2YXZ1NUlEeGlBbWptR3IzM3lEcTgxSDdPa2NfdVNaOHlTYkdwNXFjN2loRXZadDYzcTA?oc=5",
+        "source": "일요시사",
+        "pubDate": "2026-05-15T15:58:58.000Z",
+        "id": "f37a8bacb234"
       },
       {
         "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - MSN",
@@ -2178,11 +2178,11 @@ export const trackerLive: TrackerLive = {
         "id": "431a6b65e5c8"
       },
       {
-        "title": "인간과 인공지능의 두 번째 대결이 임박했다 - 오마이뉴스",
+        "title": "인간과 인공지능의 두 번째 대결이 임박했다 - ohmynews.com",
         "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFB1cnhMZS10Z203amhtTU1YRm0yUXB3ZzlCbnJXRDNGS042MFBHclJ3Ymt2NDZuaHp4U1JCa1RnaGR0YlhaektoRlQtRUZVa1ctNXdLRGdncjdJS2xHNUZTYjdPSHRpV2RaMm5yZFNXVlE5VXFZWTBz?oc=5",
-        "source": "오마이뉴스",
+        "source": "ohmynews.com",
         "pubDate": "2026-05-04T07:00:00.000Z",
-        "id": "eab5476bdd94"
+        "id": "cb293a860102"
       },
       {
         "title": "인간과 인공지능의 두 번째 대결이 임박했다 - OhmyNews",
@@ -2192,46 +2192,11 @@ export const trackerLive: TrackerLive = {
         "id": "40e2869d5981"
       },
       {
-        "title": "인간과 인공지능의 두 번째 대결이 임박했다 - ohmynews.com",
+        "title": "인간과 인공지능의 두 번째 대결이 임박했다 - 오마이뉴스",
         "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFB1cnhMZS10Z203amhtTU1YRm0yUXB3ZzlCbnJXRDNGS042MFBHclJ3Ymt2NDZuaHp4U1JCa1RnaGR0YlhaektoRlQtRUZVa1ctNXdLRGdncjdJS2xHNUZTYjdPSHRpV2RaMm5yZFNXVlE5VXFZWTBz?oc=5",
-        "source": "ohmynews.com",
+        "source": "오마이뉴스",
         "pubDate": "2026-05-04T07:00:00.000Z",
-        "id": "cb293a860102"
-      },
-      {
-        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - v.daum.net",
-        "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE5mRHhvMmZBOGx3ckp0VFM5cU5PVGs1dkxzNDBpOW1NemRPTEdNZzZHNkYtVXFFd3k3cUMzQUY2d0JfeHcwQnc?oc=5",
-        "source": "v.daum.net",
-        "pubDate": "2026-04-09T07:00:00.000Z",
-        "id": "bbf14244cbc9"
-      },
-      {
-        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - v.daum.net",
-        "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9jUG5YTkF0clJ0d04wZ0NyV09UbjBZWWJOQ2FralFRalBnTm5aZzVwbFVtWlBGQXE5R0dtZXQ1NDB6QmRlbjU5b3pSX3YtRUk?oc=5",
-        "source": "v.daum.net",
-        "pubDate": "2026-04-09T07:00:00.000Z",
-        "id": "61438dd99e92"
-      },
-      {
-        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - 조선일보",
-        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPM2swblh4Tk1fcDd5MU9KOEd5ZjAwZURMQXZ3QmxrLUJlM1NKNnltWDV1NDUxRTdDVGN3X0R5TW5HakpSTjZDUlJVblF4RGlaQlhBMU03akJybUotREVieEJXdzh3RDF2WlBCV3RyYjJ1WjM3cTVKUGxRQjZwdmxTZjNtV0hnNzJPX202T0xqYw?oc=5",
-        "source": "조선일보",
-        "pubDate": "2026-04-09T07:00:00.000Z",
-        "id": "f8d1faa44b22"
-      },
-      {
-        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - osen.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1QaHd1cmZwV3FqTkJaQ2NMNjNua1RMMWdlQU1TVUhNRi00TkhvMG9hNEhLQ2tnSEoyUkl3dW14RVA3ZTNVQ0Zxd1pJNnNMLVMtczQ0?oc=5",
-        "source": "osen.co.kr",
-        "pubDate": "2026-04-09T07:00:00.000Z",
-        "id": "96f087edbc7a"
-      },
-      {
-        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - OSEN",
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBPTEd2aEVlTm9fRUdjQTNTajJ2UjMwLUhMSFpRUklTSVVCOGRlb1gzX1lMU2RYSmJBYVRIQ2g0ckU3UUxrNXQyblQtczVVUTgyeXNJdQ?oc=5",
-        "source": "OSEN",
-        "pubDate": "2026-04-09T07:00:00.000Z",
-        "id": "7fcc9b1a6864"
+        "id": "eab5476bdd94"
       },
       {
         "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - chosun.com",
@@ -2241,53 +2206,116 @@ export const trackerLive: TrackerLive = {
         "id": "455096acdc89"
       },
       {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - news.nate.com",
+        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - OSEN",
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBPTEd2aEVlTm9fRUdjQTNTajJ2UjMwLUhMSFpRUklTSVVCOGRlb1gzX1lMU2RYSmJBYVRIQ2g0ckU3UUxrNXQyblQtczVVUTgyeXNJdQ?oc=5",
+        "source": "OSEN",
+        "pubDate": "2026-04-09T07:00:00.000Z",
+        "id": "7fcc9b1a6864"
+      },
+      {
+        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - osen.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1QaHd1cmZwV3FqTkJaQ2NMNjNua1RMMWdlQU1TVUhNRi00TkhvMG9hNEhLQ2tnSEoyUkl3dW14RVA3ZTNVQ0Zxd1pJNnNMLVMtczQ0?oc=5",
+        "source": "osen.co.kr",
+        "pubDate": "2026-04-09T07:00:00.000Z",
+        "id": "96f087edbc7a"
+      },
+      {
+        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - 조선일보",
+        "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPM2swblh4Tk1fcDd5MU9KOEd5ZjAwZURMQXZ3QmxrLUJlM1NKNnltWDV1NDUxRTdDVGN3X0R5TW5HakpSTjZDUlJVblF4RGlaQlhBMU03akJybUotREVieEJXdzh3RDF2WlBCV3RyYjJ1WjM3cTVKUGxRQjZwdmxTZjNtV0hnNzJPX202T0xqYw?oc=5",
+        "source": "조선일보",
+        "pubDate": "2026-04-09T07:00:00.000Z",
+        "id": "f8d1faa44b22"
+      },
+      {
+        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - v.daum.net",
+        "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9jUG5YTkF0clJ0d04wZ0NyV09UbjBZWWJOQ2FralFRalBnTm5aZzVwbFVtWlBGQXE5R0dtZXQ1NDB6QmRlbjU5b3pSX3YtRUk?oc=5",
+        "source": "v.daum.net",
+        "pubDate": "2026-04-09T07:00:00.000Z",
+        "id": "61438dd99e92"
+      },
+      {
+        "title": "페이커, 일론머스크 ‘그록5’ 대결에 자신감..“속도에 제약 걸어둘 것” (‘질문들’) - v.daum.net",
+        "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE5mRHhvMmZBOGx3ckp0VFM5cU5PVGs1dkxzNDBpOW1NemRPTEdNZzZHNkYtVXFFd3k3cUMzQUY2d0JfeHcwQnc?oc=5",
+        "source": "v.daum.net",
+        "pubDate": "2026-04-09T07:00:00.000Z",
+        "id": "bbf14244cbc9"
+      },
+      {
+        "title": "‘손석희의 질문들’ 이세돌·페이커 동반 출연 “AI에 맞선 인류 대표의 도전” - www.ppss.kr",
+        "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5MeThtNm9FenBocTc1V0pNaGhMUzYycWxfTjBkbllRSklWWWhXbHhqZTZzc3pCVldQRE1aZzBnRm0xOEJpai12bVV2VHhTdWw5QTBES2lTWjdOLWdjbVpHMzZjZ0c?oc=5",
+        "source": "www.ppss.kr",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "92bdfd4cbb06"
+      },
+      {
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - Nate News",
         "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBEZ2s5aVlxTHJJNGk4TlBsSVVwd0RCVk1BTTUwbWloMFY5ZDAxVXJsV0EzN2stejNXMW44OHFtcDduZklTRGdfQU5NN0lwYVlZVDVtRDg2OE1oRmJmZjFicg?oc=5",
-        "source": "news.nate.com",
+        "source": "Nate News",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "8e39ed4c7331"
+        "id": "bccd28ea0e21"
       },
       {
-        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - news.nate.com",
+        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - Nate News",
         "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9IaDJfVUpBOE40NTl5STdIdm9QYXpYMWF0ekVzdXVMUFNuYmRsbi1xVV9LeXc1QVhrU2tyVV9NV19kYUpCOG12YTN0M0dSM2xBNklz?oc=5",
-        "source": "news.nate.com",
+        "source": "Nate News",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "634f1c571d4b"
+        "id": "5dda4983ed14"
       },
       {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - asiaartistawards.com",
-        "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBYSVVtRWNib0pIS3dnOE1UbTcxcl9vUUI0NlVaYW9vMkZQSW1oUkpPZmlEODVxOTV3SVEzbGt1WDBLU3U3OVZ3M3FSMHByNV9pOG5uWVFhOTF4cUxqVXV0QmdFcVpOZw?oc=5",
-        "source": "asiaartistawards.com",
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - 네이트",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBEZ2s5aVlxTHJJNGk4TlBsSVVwd0RCVk1BTTUwbWloMFY5ZDAxVXJsV0EzN2stejNXMW44OHFtcDduZklTRGdfQU5NN0lwYVlZVDVtRDg2OE1oRmJmZjFicg?oc=5",
+        "source": "네이트",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "f36bd2126c03"
+        "id": "247d980754a9"
       },
       {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - asiaartistawards.com",
-        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBycXBsMXNwOVV3c2YycXNtSE9LVFBoU3dkeURxOG5kdmJiSEpDalAwNDZidWlTVnBVVkVRaDhsUFVuVGVFc1ZKM2ZhU0d2QjN5VW1xbUgzMVhneDVUVjRMa0trRWM4TDlZTjNWbmRCWDNnaXc?oc=5",
-        "source": "asiaartistawards.com",
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - Asia Artist Awards",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFByTzJLSmlzYXpvZzA2Q2RNSk9yekc2cTdBRlhQNS1lY1hCU1dGMXBZb3NMMTVwZVNVQTV6YXdVSUlmTUdSc1JPNlRHTTFkZ1c0SW5JMkdWX3E4SHg3a2duLXBGU2VWVEZ2?oc=5",
+        "source": "Asia Artist Awards",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "4137c04ffaba"
+        "id": "ed12a117340f"
       },
       {
-        "title": "이세돌, AI ‘그록 5’와 대결 자신감 보인 이상혁에 “아무리 페이커여도 가능할까” - tvreport.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE53NXd1b0JGVlcxZXFDek0xZFlPSHlFaDVHU1hJNDI1MEJlUFZDSllJZzhnRTZzbmlVcThSZnNweDhkRVhMWDY5V05KcTRuakI3emppeEc2T1k0Tkw5dXfSAWNBVV95cUxNVGRwRmZQU2JPbEczcGpXRFdYQjlFMS1GeTNGVXdtLXczOXBIWTA3WDdXaGtsRnFnZWhQUXd4ZGFjNWJXZ215and0WE5sRkpxYUphbkZGM3ZtbGl5RWxJZHFqejQ?oc=5",
-        "source": "tvreport.co.kr",
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - starnewskorea.com",
+        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNYW9SVHBQQmwxVHBqYnZoUUM5aDZZczIwakhWRXo0TVNaSC1DUU10ZXhXTElVM2hUU2hDamJUT1FNX3JfLVlpU21zNFdBazhEWFBqY2FxSGp4c3JMdTZLczNmSmR4emV6WmZ6NldFelJxQUxhaEVyUkRIZkFjVlhRNA?oc=5",
+        "source": "starnewskorea.com",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "266015892130"
+        "id": "d0ac093fafd0"
+      },
+      {
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - 네이트",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WTXoyaFJZUFU3UVFPUDdUX21LeTRIQTItZjBJU2kwSGhhT3lhaTZuOFUtLXdDdTZBaW9SdkF0eTd5MjgzYUJkNUN0U0dvbVFrdU9J?oc=5",
+        "source": "네이트",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "5ea461908148"
+      },
+      {
+        "title": "‘손석희의 질문들’ 이세돌·페이커 동반 출연 “AI에 맞선 인류 대표의 도전” - ppss.kr",
+        "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5MeThtNm9FenBocTc1V0pNaGhMUzYycWxfTjBkbllRSklWWWhXbHhqZTZzc3pCVldQRE1aZzBnRm0xOEJpai12bVV2VHhTdWw5QTBES2lTWjdOLWdjbVpHMzZjZ0c?oc=5",
+        "source": "ppss.kr",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "a46b40c51bcd"
+      },
+      {
+        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - 네이트",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9IaDJfVUpBOE40NTl5STdIdm9QYXpYMWF0ekVzdXVMUFNuYmRsbi1xVV9LeXc1QVhrU2tyVV9NV19kYUpCOG12YTN0M0dSM2xBNklz?oc=5",
+        "source": "네이트",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "341329900d28"
+      },
+      {
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - 스타뉴스",
+        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNYW9SVHBQQmwxVHBqYnZoUUM5aDZZczIwakhWRXo0TVNaSC1DUU10ZXhXTElVM2hUU2hDamJUT1FNX3JfLVlpU21zNFdBazhEWFBqY2FxSGp4c3JMdTZLczNmSmR4emV6WmZ6NldFelJxQUxhaEVyUkRIZkFjVlhRNA?oc=5",
+        "source": "스타뉴스",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "4203ae5e4be7"
       },
       {
         "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - v.daum.net",
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBvTS1yNEw0OGdBVXJMVEFweDBNWmJCTWFvWVMwUDlTVzNjSktjV2F0alc4S1BIbmhsYXVsb092cmFhb25wdlZzdVJzeUFzTnpJaUxSUQ?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFBBZVNrVzgzTFhFaUNaamZLeldNMlpZanJodzhhM1NWSE8zWkNOTXRlbnZoRmpGckpjNVNSdkZ5a2cyN29BQUE?oc=5",
         "source": "v.daum.net",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "c12511496d80"
-      },
-      {
-        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - v.daum.net",
-        "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE42Zk5SYWhOR29Kc1dsMzhjeUxtZTdkRnNVS3R6UU1uelVLeUl0a004LTJCUHNtd3pnQ1pjUFhzUXZGRTBNbEc3bmFOTQ?oc=5",
-        "source": "v.daum.net",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "4285a22df18b"
+        "id": "79441940e767"
       },
       {
         "title": "이세돌, AI ‘그록 5’와 대결 자신감 보인 이상혁에 “아무리 페이커여도 가능할까” - TV리포트",
@@ -2298,80 +2326,59 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - v.daum.net",
-        "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFBBZVNrVzgzTFhFaUNaamZLeldNMlpZanJodzhhM1NWSE8zWkNOTXRlbnZoRmpGckpjNVNSdkZ5a2cyN29BQUE?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE42Zk5SYWhOR29Kc1dsMzhjeUxtZTdkRnNVS3R6UU1uelVLeUl0a004LTJCUHNtd3pnQ1pjUFhzUXZGRTBNbEc3bmFOTQ?oc=5",
         "source": "v.daum.net",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "79441940e767"
+        "id": "4285a22df18b"
       },
       {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - 스타뉴스",
-        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNYW9SVHBQQmwxVHBqYnZoUUM5aDZZczIwakhWRXo0TVNaSC1DUU10ZXhXTElVM2hUU2hDamJUT1FNX3JfLVlpU21zNFdBazhEWFBqY2FxSGp4c3JMdTZLczNmSmR4emV6WmZ6NldFelJxQUxhaEVyUkRIZkFjVlhRNA?oc=5",
-        "source": "스타뉴스",
+        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - v.daum.net",
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBvTS1yNEw0OGdBVXJMVEFweDBNWmJCTWFvWVMwUDlTVzNjSktjV2F0alc4S1BIbmhsYXVsb092cmFhb25wdlZzdVJzeUFzTnpJaUxSUQ?oc=5",
+        "source": "v.daum.net",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "4203ae5e4be7"
+        "id": "c12511496d80"
       },
       {
-        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - 네이트",
+        "title": "이세돌, AI ‘그록 5’와 대결 자신감 보인 이상혁에 “아무리 페이커여도 가능할까” - tvreport.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE53NXd1b0JGVlcxZXFDek0xZFlPSHlFaDVHU1hJNDI1MEJlUFZDSllJZzhnRTZzbmlVcThSZnNweDhkRVhMWDY5V05KcTRuakI3emppeEc2T1k0Tkw5dXfSAWNBVV95cUxNVGRwRmZQU2JPbEczcGpXRFdYQjlFMS1GeTNGVXdtLXczOXBIWTA3WDdXaGtsRnFnZWhQUXd4ZGFjNWJXZ215and0WE5sRkpxYUphbkZGM3ZtbGl5RWxJZHFqejQ?oc=5",
+        "source": "tvreport.co.kr",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "266015892130"
+      },
+      {
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - asiaartistawards.com",
+        "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBycXBsMXNwOVV3c2YycXNtSE9LVFBoU3dkeURxOG5kdmJiSEpDalAwNDZidWlTVnBVVkVRaDhsUFVuVGVFc1ZKM2ZhU0d2QjN5VW1xbUgzMVhneDVUVjRMa0trRWM4TDlZTjNWbmRCWDNnaXc?oc=5",
+        "source": "asiaartistawards.com",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "4137c04ffaba"
+      },
+      {
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - asiaartistawards.com",
+        "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBYSVVtRWNib0pIS3dnOE1UbTcxcl9vUUI0NlVaYW9vMkZQSW1oUkpPZmlEODVxOTV3SVEzbGt1WDBLU3U3OVZ3M3FSMHByNV9pOG5uWVFhOTF4cUxqVXV0QmdFcVpOZw?oc=5",
+        "source": "asiaartistawards.com",
+        "pubDate": "2026-04-08T07:00:00.000Z",
+        "id": "f36bd2126c03"
+      },
+      {
+        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - news.nate.com",
         "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9IaDJfVUpBOE40NTl5STdIdm9QYXpYMWF0ekVzdXVMUFNuYmRsbi1xVV9LeXc1QVhrU2tyVV9NV19kYUpCOG12YTN0M0dSM2xBNklz?oc=5",
-        "source": "네이트",
+        "source": "news.nate.com",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "341329900d28"
+        "id": "634f1c571d4b"
       },
       {
-        "title": "‘손석희의 질문들’ 이세돌·페이커 동반 출연 “AI에 맞선 인류 대표의 도전” - ppss.kr",
-        "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5MeThtNm9FenBocTc1V0pNaGhMUzYycWxfTjBkbllRSklWWWhXbHhqZTZzc3pCVldQRE1aZzBnRm0xOEJpai12bVV2VHhTdWw5QTBES2lTWjdOLWdjbVpHMzZjZ0c?oc=5",
-        "source": "ppss.kr",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "a46b40c51bcd"
-      },
-      {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - 네이트",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WTXoyaFJZUFU3UVFPUDdUX21LeTRIQTItZjBJU2kwSGhhT3lhaTZuOFUtLXdDdTZBaW9SdkF0eTd5MjgzYUJkNUN0U0dvbVFrdU9J?oc=5",
-        "source": "네이트",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "5ea461908148"
-      },
-      {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - starnewskorea.com",
-        "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNYW9SVHBQQmwxVHBqYnZoUUM5aDZZczIwakhWRXo0TVNaSC1DUU10ZXhXTElVM2hUU2hDamJUT1FNX3JfLVlpU21zNFdBazhEWFBqY2FxSGp4c3JMdTZLczNmSmR4emV6WmZ6NldFelJxQUxhaEVyUkRIZkFjVlhRNA?oc=5",
-        "source": "starnewskorea.com",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "d0ac093fafd0"
-      },
-      {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡..AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - Asia Artist Awards",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFByTzJLSmlzYXpvZzA2Q2RNSk9yekc2cTdBRlhQNS1lY1hCU1dGMXBZb3NMMTVwZVNVQTV6YXdVSUlmTUdSc1JPNlRHTTFkZ1c0SW5JMkdWX3E4SHg3a2duLXBGU2VWVEZ2?oc=5",
-        "source": "Asia Artist Awards",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "ed12a117340f"
-      },
-      {
-        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - 네이트",
+        "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - news.nate.com",
         "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBEZ2s5aVlxTHJJNGk4TlBsSVVwd0RCVk1BTTUwbWloMFY5ZDAxVXJsV0EzN2stejNXMW44OHFtcDduZklTRGdfQU5NN0lwYVlZVDVtRDg2OE1oRmJmZjFicg?oc=5",
-        "source": "네이트",
+        "source": "news.nate.com",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "247d980754a9"
-      },
-      {
-        "title": "이세돌, AI '그록 5'와 대결 자신감 보인 이상혁에 \"아무리 페이커여도 가능할까\" - Nate News",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9IaDJfVUpBOE40NTl5STdIdm9QYXpYMWF0ekVzdXVMUFNuYmRsbi1xVV9LeXc1QVhrU2tyVV9NV19kYUpCOG12YTN0M0dSM2xBNklz?oc=5",
-        "source": "Nate News",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "5dda4983ed14"
+        "id": "8e39ed4c7331"
       },
       {
         "title": "페이커, 일론 머스크 '그록 5' 대결에 \"롤은 바둑보다 더 복잡…AI가 인간의 대결 상대 되기 힘들 것\" [손석희의 질문들] - Nate News",
-        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBEZ2s5aVlxTHJJNGk4TlBsSVVwd0RCVk1BTTUwbWloMFY5ZDAxVXJsV0EzN2stejNXMW44OHFtcDduZklTRGdfQU5NN0lwYVlZVDVtRDg2OE1oRmJmZjFicg?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WTXoyaFJZUFU3UVFPUDdUX21LeTRIQTItZjBJU2kwSGhhT3lhaTZuOFUtLXdDdTZBaW9SdkF0eTd5MjgzYUJkNUN0U0dvbVFrdU9J?oc=5",
         "source": "Nate News",
         "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "bccd28ea0e21"
-      },
-      {
-        "title": "‘손석희의 질문들’ 이세돌·페이커 동반 출연 “AI에 맞선 인류 대표의 도전” - www.ppss.kr",
-        "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5MeThtNm9FenBocTc1V0pNaGhMUzYycWxfTjBkbllRSklWWWhXbHhqZTZzc3pCVldQRE1aZzBnRm0xOEJpai12bVV2VHhTdWw5QTBES2lTWjdOLWdjbVpHMzZjZ0c?oc=5",
-        "source": "www.ppss.kr",
-        "pubDate": "2026-04-08T07:00:00.000Z",
-        "id": "92bdfd4cbb06"
+        "id": "dfdb50bbeb43"
       },
       {
         "title": "‘페이커’ 이상혁, 일론 머스크에 응답했다… “우리는 준비됐다, 너희는?” - FT스포츠",
@@ -2388,88 +2395,25 @@ export const trackerLive: TrackerLive = {
         "id": "d3a0440d560b"
       },
       {
-        "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - imbc.com",
-        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE91X0VXb3hzRHFLdENWSjI4S2NFM1lBZXNZN0RFNmYtQU5xdzJNMndhcFE2NDU4U090c3lwcG01cUh4MHQ1bHc5X1EyLWFaYzR4ZnNaOF9rTk5xdXVzVGJ1SXVRUQ?oc=5",
-        "source": "imbc.com",
+        "title": "알파고 이긴 이세돌 “인류대표 페이커, 일론 머스크 AI 이긴다” 호언장담 - sportschosun.com",
+        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPaWMyU0RSVjQ2QnhWVEQ2ZzY0ZDNPMjVLaGkyeGpsbFFKcU02U2FFWjRQVkZrSkhZNlVDTWg3MVl0QjhDWTNaWlVxN25oenJQbDZ6TU5WcG8wWUxzWXpLU3Jmb2Jlay0xdF9rWGZoa2tWay00QnNiZEF5SzM0UGNBQ2xKLWXSAXdBVV95cUxQdF9Xc3J0MWdDMnBzTkdmeXRjS2JkbUs1eE9kT2FaMEJSQ0hOeGxpQThNd0s2R3dtUjNjX2xPeGQ1YkVmT2R2eWpRR3U2dm5oVGJWNE94cXdqb2ttNW9tdTM1UUt3bUZGNVNyN2VxdVJaSEtSWnpKbw?oc=5",
+        "source": "sportschosun.com",
         "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "325193ecdb7e"
+        "id": "a69e9f0d0a71"
       },
       {
-        "title": "‘손석희의질문들4’ 페이커 이상혁·이세돌 - bntnews.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9mRnRJS2tnQnkzckdUdDNDQVpTVHg0UVRlNFRmcGVoUlZfU3F6UTB0bUtrY2JLckVPSXdMc0t1YW9VS0xoQlBURHgza2diMTE2dVB2TFZMc29lVFRaUUtQX3puZFptRW1M?oc=5",
-        "source": "bntnews.co.kr",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "6433803b3134"
-      },
-      {
-        "title": "페이커, AI와 롤 대결 자신감…이세돌 \"쉽지 않을 것\" - 뉴시스",
-        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5vaDkydmI3SE5rNVhNZTl1WjBfenRrUVdYeUFYTUJNcUpBZ25Uak5CdjViVXJ4RXNJRmpNaTBieTUwZWxjWl95Njk1cTREVmpLTXBzcEJjT3FDcHVCdlE0NNIBeEFVX3lxTFBZOTdDdXZzMG9fUFY3TzVMbHppQWhYSGNvRUpXZHo2bmVESWVVQm9SWlRoUkdVOXpjQVFNMU1kN0d3Qy14UENGR1J6b2xsTkw0WWRvd0Y1Z1BtMGRSbWN3dGNTMWdNOUhnSzgxMFVoRllicVZMV2hCWQ?oc=5",
-        "source": "뉴시스",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "d27f3e7db7ec"
-      },
-      {
-        "title": "'그록 5'와 대결 앞둔 이상혁, '손석희의 질문들' 출연…이세돌의 조언은? - 네이트",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE16ZktzZjdRbkU0Z3JKWEJnWTVlTTNrNUdWQVU1VjVQWlpHNDh2MFJ4THdneG9CTUhWUTJOVWlWNkQ2Ujk1dFpIem50T0gwTmgybTVB?oc=5",
+        "title": "이세돌, AI와 싸울 '페이커' 이상혁 공개 응원 \"승산 있을 수 있어\"(질문들4) - 네이트",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WUEdiVU44TGpYRGpGRDU0R3dFUi1TZkF2a1FPaHhFMENRR0c0NEFGVWlJblRzdlFJdTNuaUM1R0xlSFpKQ0REUWFxRndDbXFjN1Bj?oc=5",
         "source": "네이트",
         "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "1294e5386658"
-      },
-      {
-        "title": "이세돌, AI와 싸울 ‘페이커’ 이상혁 공개 응원 “승산 있을 수 있어”(질문들4) - newsen.com",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE14ZUtaRklhaERKdW1VVFVzOXN2R1dQc2tfRmZMdzVDcUsxbm5FNWdySGp2NE1aWDNRekJuTUF0SWVteVhCVlg2WmtSTkptdXctNHBUcUNFWDMtaEdySXhBRHJic25jSmpu?oc=5",
-        "source": "newsen.com",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "b0c81bc21721"
-      },
-      {
-        "title": "AI와 대결 앞둔 페이커 이상혁 \"준비됐다\", 이세돌도 \"승산 있다\" [손석희의 질문들] - 네이트",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBOXzlnbWRsYjdWdEtRS1JHMVZpSWUwYUlOOU1PTGpoeElhaS0xOUs5NEo5NzR1ZHFQUTNEQm9iUTk1X3ZKUFNZWFI1Q0YyUklfemhv?oc=5",
-        "source": "네이트",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "23c6e99b4579"
-      },
-      {
-        "title": "‘그록 5’와 대결 앞둔 이상혁, ‘손석희의 질문들’ 출연...이세돌의 조언은? - 브릿지경제",
-        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBITGxnMUs2MGs2QXdBWWV2M2V3RVFld3ZHQlZfWHI5ck1QdGJsazU3YmpsdmM2TFlkZVRhSDF1ZkRCRk1BLWtkOXh2MUlCQ28tNU45TlM3SU52UQ?oc=5",
-        "source": "브릿지경제",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "24163847d52a"
-      },
-      {
-        "title": "이세돌, 페이커 AI 승리 확신…“인류 대표라 승산 있다” (질문들) - sports.donga.com",
-        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9teHc0el9HNGRaaWhoajl1WjNxeTdoTlFiamVxTThwajI4YzR1SkxMNjQ4YmdEX2JrR1pwYkh6UTlvbmJzcG1iNlFrWTdwOUhEbHVnbDdkTG95V1p4bEZOcjJDaGZPYU1RTkhfTFRR?oc=5",
-        "source": "sports.donga.com",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "2b3bd4a35c6b"
-      },
-      {
-        "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - MBC",
-        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE91X0VXb3hzRHFLdENWSjI4S2NFM1lBZXNZN0RFNmYtQU5xdzJNMndhcFE2NDU4U090c3lwcG01cUh4MHQ1bHc5X1EyLWFaYzR4ZnNaOF9rTk5xdXVzVGJ1SXVRUQ?oc=5",
-        "source": "MBC",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "383e36dc4e95"
-      },
-      {
-        "title": "'페이커' 이상혁 그리고 이세돌, 인류 대표 레전드 '질문들' 뜬다 [공식] - osen.co.kr",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1YUDhoeU1NcEJ3MF9sWFA1NWsycmVNUk9WS3NoSXl0cVZ1LUlMOTgxVFFQMXBvdHBwXzJRSzQyRHpQOHFpOUwzd3NiN0VBbThzamxv?oc=5",
-        "source": "osen.co.kr",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "c536001b4d35"
-      },
-      {
-        "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - supple.kr",
-        "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5jWlFXd0V4TFAyT1Rra004X2ZGdDBCMWJEV01VeU1EUmRrTzY1cl9hSzhrTTNTV1ZmVWhXVkt0bUZhTmgtcnBsQ0VjLUdvazhJbEVDT0liTkp4SXhf?oc=5",
-        "source": "supple.kr",
-        "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "01d9da4dfa46"
+        "id": "45356b2c49a5"
       },
       {
         "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - iMBC 연예",
-        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5QZTVBVU1WTTA5cjRWNThjNWZPb2VRTXJ0WFlUajlVelpxUl84ZlBSem81UjF2RVoyeFZwNjl4SDN1dERMdDJ2TlpjT181bmFPUTkxXw?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84cGlRUUJFb2xwcTJadFpvWWVITkFYY0N1RTFRRzRYSG5oRHRUS3d4QlE5MnlzN3d2dUVLNk4xOGpyNFY1OWhBZ3JRNHhOeFE1V1BmM2I5Rk1PWTQ3clBzbw?oc=5",
         "source": "iMBC 연예",
         "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "48db5879bfb8"
+        "id": "c0bf9549301a"
       },
       {
         "title": "이세돌, 페이커 AI 승리 확신…“인류 대표라 승산 있다” (질문들) - 스포츠동아",
@@ -2480,24 +2424,80 @@ export const trackerLive: TrackerLive = {
       },
       {
         "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - iMBC 연예",
-        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE84cGlRUUJFb2xwcTJadFpvWWVITkFYY0N1RTFRRzRYSG5oRHRUS3d4QlE5MnlzN3d2dUVLNk4xOGpyNFY1OWhBZ3JRNHhOeFE1V1BmM2I5Rk1PWTQ3clBzbw?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5QZTVBVU1WTTA5cjRWNThjNWZPb2VRTXJ0WFlUajlVelpxUl84ZlBSem81UjF2RVoyeFZwNjl4SDN1dERMdDJ2TlpjT181bmFPUTkxXw?oc=5",
         "source": "iMBC 연예",
         "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "c0bf9549301a"
+        "id": "48db5879bfb8"
       },
       {
-        "title": "이세돌, AI와 싸울 '페이커' 이상혁 공개 응원 \"승산 있을 수 있어\"(질문들4) - 네이트",
-        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5WUEdiVU44TGpYRGpGRDU0R3dFUi1TZkF2a1FPaHhFMENRR0c0NEFGVWlJblRzdlFJdTNuaUM1R0xlSFpKQ0REUWFxRndDbXFjN1Bj?oc=5",
+        "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - supple.kr",
+        "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5jWlFXd0V4TFAyT1Rra004X2ZGdDBCMWJEV01VeU1EUmRrTzY1cl9hSzhrTTNTV1ZmVWhXVkt0bUZhTmgtcnBsQ0VjLUdvazhJbEVDT0liTkp4SXhf?oc=5",
+        "source": "supple.kr",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "01d9da4dfa46"
+      },
+      {
+        "title": "'페이커' 이상혁 그리고 이세돌, 인류 대표 레전드 '질문들' 뜬다 [공식] - osen.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1YUDhoeU1NcEJ3MF9sWFA1NWsycmVNUk9WS3NoSXl0cVZ1LUlMOTgxVFFQMXBvdHBwXzJRSzQyRHpQOHFpOUwzd3NiN0VBbThzamxv?oc=5",
+        "source": "osen.co.kr",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "c536001b4d35"
+      },
+      {
+        "title": "'페이커' 이상혁 \"AI와 롤 대결, 이길 수 있냐고요?\"(질문들) - MBC",
+        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE91X0VXb3hzRHFLdENWSjI4S2NFM1lBZXNZN0RFNmYtQU5xdzJNMndhcFE2NDU4U090c3lwcG01cUh4MHQ1bHc5X1EyLWFaYzR4ZnNaOF9rTk5xdXVzVGJ1SXVRUQ?oc=5",
+        "source": "MBC",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "383e36dc4e95"
+      },
+      {
+        "title": "이세돌, 페이커 AI 승리 확신…“인류 대표라 승산 있다” (질문들) - sports.donga.com",
+        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9teHc0el9HNGRaaWhoajl1WjNxeTdoTlFiamVxTThwajI4YzR1SkxMNjQ4YmdEX2JrR1pwYkh6UTlvbmJzcG1iNlFrWTdwOUhEbHVnbDdkTG95V1p4bEZOcjJDaGZPYU1RTkhfTFRR?oc=5",
+        "source": "sports.donga.com",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "2b3bd4a35c6b"
+      },
+      {
+        "title": "‘그록 5’와 대결 앞둔 이상혁, ‘손석희의 질문들’ 출연...이세돌의 조언은? - 브릿지경제",
+        "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBITGxnMUs2MGs2QXdBWWV2M2V3RVFld3ZHQlZfWHI5ck1QdGJsazU3YmpsdmM2TFlkZVRhSDF1ZkRCRk1BLWtkOXh2MUlCQ28tNU45TlM3SU52UQ?oc=5",
+        "source": "브릿지경제",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "24163847d52a"
+      },
+      {
+        "title": "AI와 대결 앞둔 페이커 이상혁 \"준비됐다\", 이세돌도 \"승산 있다\" [손석희의 질문들] - 네이트",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBOXzlnbWRsYjdWdEtRS1JHMVZpSWUwYUlOOU1PTGpoeElhaS0xOUs5NEo5NzR1ZHFQUTNEQm9iUTk1X3ZKUFNZWFI1Q0YyUklfemhv?oc=5",
         "source": "네이트",
         "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "45356b2c49a5"
+        "id": "23c6e99b4579"
       },
       {
-        "title": "알파고 이긴 이세돌 “인류대표 페이커, 일론 머스크 AI 이긴다” 호언장담 - sportschosun.com",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPaWMyU0RSVjQ2QnhWVEQ2ZzY0ZDNPMjVLaGkyeGpsbFFKcU02U2FFWjRQVkZrSkhZNlVDTWg3MVl0QjhDWTNaWlVxN25oenJQbDZ6TU5WcG8wWUxzWXpLU3Jmb2Jlay0xdF9rWGZoa2tWay00QnNiZEF5SzM0UGNBQ2xKLWXSAXdBVV95cUxQdF9Xc3J0MWdDMnBzTkdmeXRjS2JkbUs1eE9kT2FaMEJSQ0hOeGxpQThNd0s2R3dtUjNjX2xPeGQ1YkVmT2R2eWpRR3U2dm5oVGJWNE94cXdqb2ttNW9tdTM1UUt3bUZGNVNyN2VxdVJaSEtSWnpKbw?oc=5",
-        "source": "sportschosun.com",
+        "title": "이세돌, AI와 싸울 ‘페이커’ 이상혁 공개 응원 “승산 있을 수 있어”(질문들4) - newsen.com",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE14ZUtaRklhaERKdW1VVFVzOXN2R1dQc2tfRmZMdzVDcUsxbm5FNWdySGp2NE1aWDNRekJuTUF0SWVteVhCVlg2WmtSTkptdXctNHBUcUNFWDMtaEdySXhBRHJic25jSmpu?oc=5",
+        "source": "newsen.com",
         "pubDate": "2026-04-06T07:00:00.000Z",
-        "id": "a69e9f0d0a71"
+        "id": "b0c81bc21721"
+      },
+      {
+        "title": "'그록 5'와 대결 앞둔 이상혁, '손석희의 질문들' 출연…이세돌의 조언은? - 네이트",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE16ZktzZjdRbkU0Z3JKWEJnWTVlTTNrNUdWQVU1VjVQWlpHNDh2MFJ4THdneG9CTUhWUTJOVWlWNkQ2Ujk1dFpIem50T0gwTmgybTVB?oc=5",
+        "source": "네이트",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "1294e5386658"
+      },
+      {
+        "title": "페이커, AI와 롤 대결 자신감…이세돌 \"쉽지 않을 것\" - 뉴시스",
+        "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5vaDkydmI3SE5rNVhNZTl1WjBfenRrUVdYeUFYTUJNcUpBZ25Uak5CdjViVXJ4RXNJRmpNaTBieTUwZWxjWl95Njk1cTREVmpLTXBzcEJjT3FDcHVCdlE0NNIBeEFVX3lxTFBZOTdDdXZzMG9fUFY3TzVMbHppQWhYSGNvRUpXZHo2bmVESWVVQm9SWlRoUkdVOXpjQVFNMU1kN0d3Qy14UENGR1J6b2xsTkw0WWRvd0Y1Z1BtMGRSbWN3dGNTMWdNOUhnSzgxMFVoRllicVZMV2hCWQ?oc=5",
+        "source": "뉴시스",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "d27f3e7db7ec"
+      },
+      {
+        "title": "‘손석희의질문들4’ 페이커 이상혁·이세돌 - bntnews.co.kr",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9mRnRJS2tnQnkzckdUdDNDQVpTVHg0UVRlNFRmcGVoUlZfU3F6UTB0bUtrY2JLckVPSXdMc0t1YW9VS0xoQlBURHgza2diMTE2dVB2TFZMc29lVFRaUUtQX3puZFptRW1M?oc=5",
+        "source": "bntnews.co.kr",
+        "pubDate": "2026-04-06T07:00:00.000Z",
+        "id": "6433803b3134"
       }
     ]
   }
