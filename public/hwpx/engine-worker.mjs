@@ -52,11 +52,15 @@ const FILL = [
   'import io, json, sys',
   'import form_tool as FT, audit',
   '_a = json.load(open("ans.json", encoding="utf-8"))',
-  '_a = {k: v for k, v in _a.items() if not k.startswith("_") or k == "_drop"}',   // _drop: 작성요령 상자 지우기
+  '_d = _a.pop("_drop", None)',                                                     // 작성요령 상자 지우기
+  '_a = {k: v for k, v in _a.items() if not k.startswith("_")}',
   '_o = sys.stdout; sys.stdout = io.StringIO()',
   'try:',
   '    FT.fill("form.hwpx", _a, "out.hwpx")',
+  // ★ 검사 먼저, 지우기는 그 뒤 — 표를 지우면 뒤 표 번호가 밀려 검사가 엉뚱한 표끼리 대조했다(거짓 A14)
   '    _f = audit.audit("out.hwpx", base="form.hwpx")',
+  '    if _d:',
+  '        FT.drop_boxes("out.hwpx", _d)',
   'finally:',
   '    sys.stdout = _o',
   'json.dumps([x.as_dict() for x in _f], ensure_ascii=False)',

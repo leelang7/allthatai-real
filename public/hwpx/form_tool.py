@@ -105,7 +105,10 @@ BIG_BOX_MM = 25
 # ★ '□' 는 넣지 않는다 — '□ 아이디어 기획 □ 제품 개발' 처럼 고르기 상자로 더 자주 쓰인다
 HEADING_TITLE_RE = re.compile(r"^\s*(?:\d{1,2}\s*[.)]|[가-하]\s*[.)]|[◆◇▶])\s*\S|[(（]\s*\d+(?:\.\d+)?\s*(?:장|쪽|페이지|매|page)\s*이내\s*[)）]|\d+\s*점\s*[)）]")
 IMAGE_BOX_RE = re.compile(r"(?:사진|이미지|그림|도면|설계도)[^.。]{0,24}(?:삽입|붙여|첨부)")
-INSTRUCTION_BOX_RE = re.compile(r"(?:설명|안내)\s*(?:박스|상자)\S*\s*삭제|삭제\s*후\s*제출")
+# '…목차 페이지는 삭제하고 제출' 도 지울 안내다(예창패 첫 상자가 이름 없는 서술 칸으로 떴다)
+INSTRUCTION_BOX_RE = re.compile(r"(?:설명|안내)\s*(?:박스|상자)\S*\s*삭제|삭제\s*(?:후|하고|하여)\s*제출")
+# 1×1 상자의 파란 글이 서식 제목이면('(영업) 거북섬마리나 계류시설 사용 신청서') 채울 칸이 아니다
+FORM_TITLE_RE = re.compile(r"(?:신청서|동의서|서약서|확인서|계획서|명세서|보고서|신고서|청구서|목록)\s*$")
 TALL_BOX_MM = 15
 # 명단 표에서 손으로 하는 열과 번호 열
 ROSTER_SKIP_COL_RE = re.compile(r"서\s*명|날\s*인|도\s*장|^\(?인\)?$|확\s*인$|결\s*재|인\s*영|취급자\s*\(?인")
@@ -330,6 +333,10 @@ def scan(path):
             # ★ 1×1 표는 예외 — '8. 수상 이력 사항' 아래 파란 작성 요령 상자는 절 제목이 이름이 된다
             if blue and not ph and not empty_slot and not label.strip() and len(grid) > 1:
                 continue
+            if blue and not label.strip() and len(txt) <= 40 and FORM_TITLE_RE.search(txt) and not INSTRUCT_RE.search(txt):
+                continue                                   # 파란 서식 제목 한 줄
+            if not label.strip() and INSTRUCTION_BOX_RE.search(txt):
+                continue                                   # 지우고 내라는 안내 상자
             # 글자 수 제한은 이 칸·라벨·오른쪽 이웃 어디에든 적혀 있다
             right = grid.get((r, cidx + 1), (None, ""))[1]
             slots.append({"table": ti, "row": r, "col": cidx,
@@ -1498,9 +1505,15 @@ def fill(path, answers, out):
             _fill_one(doc, root, tables, target, key, val, cons, cps, fonts, pps, cache, pcache, solid_bf, body_w, reindex, done)
     # 양식이 '작성 시 본 설명박스는 삭제 후 제출' 이라 한 상자 — 화면에서 고른 것만, 채우기가 다 끝난 뒤에
     # (먼저 지우면 표 번호가 밀려 다른 칸에 들어간다)
-    drop = answers.get("_drop") or []
+    _remove_boxes(doc, tables, answers.get("_drop") or [], {b["table"] for b in info.get("drop_boxes", [])}, done)
+    save_healing(doc, out, done)
+    return done, missed
+
+
+def _remove_boxes(doc, tables, drop, allowed, done):
+    """작성요령 상자(1×1 표)를 지운다 — scan 이 drop_boxes 로 알린 표만."""
     for ti in sorted({int(x) for x in drop if str(x).lstrip("-").isdigit()}, reverse=True):
-        if not (0 <= ti < len(tables)) or ti not in {b["table"] for b in info.get("drop_boxes", [])}:
+        if not (0 <= ti < len(tables)) or ti not in allowed:
             continue
         tbl = tables[ti].element
         para = tbl.getparent()
@@ -1520,8 +1533,22 @@ def fill(path, answers, out):
         except Exception:
             pass
         done.append("작성요령 상자(표%d)를 양식 안내대로 지움" % ti)
-    save_healing(doc, out, done)
-    return done, missed
+
+
+def drop_boxes(path, drop, out=None):
+    """채우고 검사까지 마친 파일에서 작성요령 상자를 지운다.
+
+    ★ 지우기는 검사 뒤에 — 표를 하나 지우면 뒤 표 번호가 하나씩 밀려, 검사가 원본과 다른 표끼리 대조해
+      '같은 값이 5칸에' 같은 거짓 오류를 냈다(예창패: 첫 안내 상자를 지우자 '00.00 ~ 00.00' 이 A14 로).
+    """
+    info = scan(path)
+    doc = HwpxDocument.open(path)
+    tables = list(PR.iter_tables(doc.paragraphs))
+    done = []
+    _remove_boxes(doc, tables, drop or [], {b["table"] for b in info.get("drop_boxes", [])}, done)
+    if done:
+        save_healing(doc, out or path, done)
+    return done
 
 
 def save_healing(doc, out, done=None):
