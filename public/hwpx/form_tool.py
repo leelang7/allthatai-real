@@ -1535,6 +1535,40 @@ def _remove_boxes(doc, tables, drop, allowed, done):
         done.append("작성요령 상자(표%d)를 양식 안내대로 지움" % ti)
 
 
+def repair_package(path):
+    """브라우저로 올라온 파일을 엔진에 넣기 전에 — 고칠 수 있는 꼴은 고치고, 다른 문서는 이름을 붙여 알린다.
+
+    · mimetype 이 빠진 HWPX(다른 프로그램이 만든 것, 말뭉치에 둘) → 맨 앞에 무압축 mimetype 을 넣어 다시 싼다.
+      python-hwpx 는 이걸 'missing the mandatory mimetype' 으로 거절해 화면에 영어 예외가 그대로 떴다
+    · 워드(.docx)·엑셀 zip 을 .hwpx 로 이름만 바꾼 것 → ValueError('DOCX_FILE' | 'NOT_HWPX')
+    ★ 제자리에 다시 쓴다 — 브라우저의 임시 파일(form.hwpx)에만 쓸 것. 사용자 원본에 쓰지 말 것.
+    반환: 'ok' | 'repaired'
+    """
+    import zipfile, shutil, tempfile
+    try:
+        z = zipfile.ZipFile(path)
+    except zipfile.BadZipFile:
+        return "ok"                                   # zip 이 아니면 원래 경로(엔진 오류 문구)로
+    with z:
+        names = z.namelist()
+        if "word/document.xml" in names:
+            raise ValueError("DOCX_FILE")
+        if not any(n.startswith("Contents/") for n in names):
+            raise ValueError("NOT_HWPX")
+        if "mimetype" in names and names[0] == "mimetype":
+            return "ok"
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".hwpx")
+        tmp.close()
+        with zipfile.ZipFile(tmp.name, "w") as out:
+            out.writestr(zipfile.ZipInfo("mimetype"), b"application/hwp+zip", compress_type=zipfile.ZIP_STORED)
+            for it in z.infolist():
+                if it.filename == "mimetype":
+                    continue
+                out.writestr(it, z.read(it.filename))
+    shutil.move(tmp.name, path)
+    return "repaired"
+
+
 def drop_boxes(path, drop, out=None):
     """채우고 검사까지 마친 파일에서 작성요령 상자를 지운다.
 

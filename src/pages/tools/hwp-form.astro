@@ -474,7 +474,14 @@ const ld = [
     } catch (e) {
       clearInterval(tick);
       const raw = String(e);
-      const why = /password|암호|encrypt/i.test(raw) ? '암호가 걸린 한글 파일입니다. 한글에서 암호를 풀고 다시 저장해 올려주세요.'
+      // ★ 엔진·변환기의 영어·내부 오류(EMPTY_FILE, UNSUPPORTED_FILE_FORMAT, 'rhwp', HwpxStructureError …)를 그대로
+      //   보이지 않는다 — 망가진 파일 8종을 차례로 올려 본 시험에서 넷이 개발자 문구였다
+      const why = /DOCX_FILE/.test(raw) ? '워드(.docx) 파일입니다. 지금은 한글(.hwp·.hwpx) 양식만 채울 수 있습니다.'
+        : /NOT_HWPX/.test(raw) ? '한글 문서가 아닌 압축 파일입니다. 한글(.hwp·.hwpx) 양식 파일을 올려주세요.'
+        : /EMPTY_FILE|빈 파일/.test(raw) ? '빈 파일(0바이트)입니다. 내려받기가 끝난 파일인지 확인하고 다시 올려주세요.'
+        : /UNSUPPORTED_FILE_FORMAT|알 수 없는 파일 형식/.test(raw) ? '한글(.hwp) 파일이 아니거나 손상됐습니다. 아주 옛 한글(97 이전) 파일이면 한글에서 새로 저장해 올려주세요.'
+        : /mimetype|HwpxStructureError|HwpxPackageError/.test(raw) ? 'HWPX 구조가 아닙니다. 한글에서 다시 저장해 올려주세요.'
+        : /password|암호|encrypt/i.test(raw) ? '암호가 걸린 한글 파일입니다. 한글에서 암호를 풀고 다시 저장해 올려주세요.'
         : /BadZipFile|not a zip|End of central|CFB|OLE|HwpDocument|parse/i.test(raw) ? '한글 파일이 아니거나 파일이 손상됐습니다.'
         : /KeyError|section0|header\.xml/i.test(raw) ? 'HWPX 구조가 아닙니다. 한글에서 다시 저장해 보세요.'
         : /Memory|Out of/i.test(raw) ? '파일이 너무 커서 이 기기에서 처리하지 못했습니다.'

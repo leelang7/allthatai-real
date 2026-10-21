@@ -40,6 +40,8 @@ function boot() {
 const SCAN = [
   'import io, json, sys',
   'import form_tool as FT',
+  // mimetype 빠진 HWPX 는 고쳐 열고, .hwpx 로 이름만 바꾼 워드 파일은 DOCX_FILE 로 알린다(화면이 한국어로 바꾼다)
+  'FT.repair_package("form.hwpx")',
   '_o = sys.stdout; sys.stdout = io.StringIO()',
   'try:',
   '    _r = FT.scan("form.hwpx")',
