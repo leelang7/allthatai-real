@@ -1034,6 +1034,12 @@ def scan(path):
             s["section"] = sec[:30]
     # 표 밖 칸은 문서 차례대로 — 서명란을 먼저 잡아 화면 맨 위에 '작성일 · 서명' 이 떴다
     slots = [s for s in slots if s.get("table") != -1] + sorted((s for s in slots if s.get("table") == -1), key=lambda s: s["row"])
+    iss = issuer_tables(doc)
+    if len(iss) == len(tables):                    # 표 번호가 어긋나면 엉뚱한 표에 붙는다 — 그땐 안 단다
+        for s in slots + narrative:
+            t = s.get("table", -1)
+            if 0 <= t < len(iss) and iss[t]:
+                s["issuer"] = iss[t][:30]
 
     return {"source": os.path.basename(path), "tables": len(tables),
             "slots": slots, "narrative": narrative, "guides": guides,
@@ -1056,6 +1062,87 @@ def _is_solo_guide(tables, g):
 
 
 HEADING_RE = re.compile(r"^(\d{1,2}[.)]\s|[가-하][.)]\s|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ][.)]?\s|[□■◆◇▣]\s?\S|[<〈《]\s*\S.*[>〉》]$)")   # '< 1단계 사업비 집행계획 >' 같은 표 소제목도
+
+
+# 기관이 발급하는 서식 — 지침 부록 묶음 파일에 신청서와 같이 들어 있다(청년월세 '환수 통지서'·'대상자 확인서',
+# 기초연금 '거주사실 파악결과 통보서'). 칸은 기관(담당자)이 쓴다 — 화면이 접어 두고 작성일에 오늘 날짜를 넣지 않는다
+ISSUER_TITLE_RE = re.compile(r"(?:통지서|통보서|결정서|고지서|명령서|처분서|회신서|교부서)$")
+# 확인서·증명서는 본인이 쓰는 것도 많다('본인은 … 사실임을 확인합니다') — 남을 확인해 주는 글이 있을 때만
+ISSUER_WEAK_TITLE_RE = re.compile(r"(?:확인서|증명서|확인증|인정서)$")
+ISSUER_BODY_RE = re.compile(r"위\s*(?:의\s*)?(?:사람|자|업체|법인|학생|기관|단체|가구|세대)\s*[은는이가]\s.{0,150}?[임음함됨]을\s*(?:확인|증명|인정)\s*합니다", re.S)
+OWN_TITLE_RE = re.compile(r"(?:서|증|대장|명부|목록)$")
+
+
+def _title_core(t):
+    """'청년월세 지원금 환수(반환명령) 통지서 ( 차)' → '청년월세지원금환수(반환명령)통지서' — 끝 괄호를 뗀다."""
+    s = re.sub(r"[\s　]+", "", t or "")
+    for _ in range(3):
+        s2 = re.sub(r"[(（\[<〈][^)）\]>〉]*[)）\]>〉]$", "", s)
+        if s2 == s:
+            break
+        s = s2
+    return s
+
+
+def issuer_tables(doc):
+    """표마다(iter_tables 순서) 기관 발급 서식이면 그 제목, 아니면 None.
+
+    제목은 표 첫 세 줄의 칸('행정기관명 수신자 제목 처분사전통지서(의견제출통지)')에서 먼저 찾고, 표 안에 서식
+    제목이 없을 때만 바로 앞 문단(앞 표 뒤에 온 것만 — 앞 서식 제목을 물려받지 않게)에서 찾는다. 안쪽 표는 바깥 표를 따른다.
+    """
+    out, recent, last = [], [], [None]
+
+    def name_of(cands, body):
+        for c in cands:
+            core = _title_core(c)
+            if not 3 <= len(core) <= 40:
+                continue
+            # 화면에 보일 이름은 띄어쓰기를 살린다('청년월세 지원금 환수(반환명령) 통지서'), 앞의 문서번호 '제   호' 는 뗀다
+            disp = re.sub(r"[\s　]+", " ", c).strip()
+            for _ in range(3):
+                disp = re.sub(r"\s*[(（\[<〈][^)）\]>〉]*[)）\]>〉]\s*$", "", disp)
+            name = re.sub(r"^제\s*호\s*", "", _squash_spaced(re.split(r"제\s*목\s*[:：]?\s*", disp)[-1])) or core
+            if ISSUER_TITLE_RE.search(core) or (ISSUER_WEAK_TITLE_RE.search(core) and ISSUER_BODY_RE.search(body)):
+                return name
+        return None
+
+    def walk(paras, top, inherit):
+        for p in paras:
+            if top:
+                t = re.sub(r"\s+", " ", p.text or "").strip()
+                if t:
+                    recent.append(t[:80])
+            for tb in p.tables:
+                cells = [c for row in tb.rows for c in row.cells]
+                body = " ".join(" ".join((q.text or "") for q in c.paragraphs) for c in cells)
+                # 칸 통째 글과 첫 문단 둘 다 — 1×1 서약서 상자는 제목이 첫 문단이고 그 뒤가 본문이다
+                own = []
+                for c in cells:
+                    if c.address[0] > 2:
+                        continue
+                    own.append(" ".join((q.text or "") for q in c.paragraphs))
+                    first = next((q.text for q in c.paragraphs if (q.text or "").strip()), "")
+                    if first:
+                        own.append(first)
+                own = [x for x in own if 3 <= len(_title_core(x)) <= 40 and OWN_TITLE_RE.search(_title_core(x))]
+                if own:
+                    name = name_of(own, body)
+                elif not top:
+                    name = None
+                elif recent:
+                    # '[별지 서식]'·제목·'수신 :'·'제목 : …' — 제목이 서너 줄 위에 있다(기초연금 통보서)
+                    name = name_of(list(reversed(recent[-4:])), body)
+                else:
+                    name = last[0]                     # 사이에 글 없이 이어진 표 — 같은 서식의 뒷부분
+                name = name or inherit
+                out.append(name)
+                if top:
+                    recent.clear()
+                    last[0] = name
+                for c in cells:
+                    walk(c.paragraphs, False, name)
+    walk(doc.paragraphs, True, None)
+    return out
 
 
 def headings_before_tables(doc, with_parent=False):
