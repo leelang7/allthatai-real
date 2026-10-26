@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-10-26-스팀-sons-of-the-forest-72-할인-32000-8960",
+    "title": "스팀 Sons Of The Forest 72% 할인! 역대급 최저가 ₩8,960",
+    "excerpt": "스팀에서 Sons Of The Forest를 72% 할인된 ₩8,960에 만나보세요. 역대급 최저가 기회입니다.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-10-26T21:57:06.008Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-10-09-스팀-arc-raiders-50-할인-60900-30450",
     "title": "스팀 ARC Raiders 50% 할인 – ₩30,450에 구매할 기회",
