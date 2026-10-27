@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-10-27-스팀-lobotomy-corporation-monster-management-simulation-66-할인-26000-8840",
+    "title": "스팀 'Lobotomy Corporation' 66% 할인: ₩26,000 → ₩8,840 최저가 기회!",
+    "excerpt": "스팀 'Lobotomy Corporation'이 66% 할인된 ₩8,840에 판매 중입니다. 독특한 경영 시뮬레이션을 최저가로 즐겨보세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-10-27T11:06:53.723Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-10-26-스팀-sons-of-the-forest-72-할인-32000-8960",
     "title": "스팀 Sons Of The Forest 72% 할인! 역대급 최저가 ₩8,960",
     "excerpt": "스팀에서 Sons Of The Forest를 72% 할인된 ₩8,960에 만나보세요. 역대급 최저가 기회입니다.",
