@@ -19,8 +19,8 @@ moving from monthly to annual works the same way, with your
 net terms no no no no billing cycle n/a monthly and annual monthly monthly adding seats
 pricing is $20 per seat per month plus usage billed at api rates, so cost
 rades (for example pro annual to max 5x monthly), your remaining value on your old plan
+redits more information yes n/a n/a new monthly api credits † up to $500/month no no pr
 usage in other ways, such as weekly and monthly caps or model and feature usage, at our
-usage more information yes n/a n/a new monthly api credits † up to $500/month no no pr
 when you choose to pay annually, you&#x27;re billed once up front for t
 work with claude all day from $100 per month try claude everything in pro, plus: cho
 you can choose a monthly or annual subscription
