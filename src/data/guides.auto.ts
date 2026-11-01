@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-10-27-스팀-lobotomy-corporation-monster-management-simulation-66-할인-26000-8840",
     "title": "스팀 'Lobotomy Corporation' 66% 할인: ₩26,000 → ₩8,840 최저가 기회!",
@@ -243,7 +243,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-07-31T19:01:33.237Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-11-01T08:14:08.056Z"
   },
   {
     "slug": "deal-2026-07-12-palworld-팰월드-스팀-베스트셀러-30-할인",
@@ -633,7 +634,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-30T01:46:43.787Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.257Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.057Z"
   },
   {
     "slug": "deal-2026-05-28-스팀-ready-or-not-50-할인-53000-26500",
@@ -643,7 +644,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-28T19:59:26.075Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.257Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.058Z"
   },
   {
     "slug": "deal-2026-05-28-전세사기-피해자-특별법-시행-2025-변경-요약",
@@ -653,7 +654,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-28T14:57:51.125Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.256Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.057Z"
   },
   {
     "slug": "deal-2026-05-28-스팀-kingdom-come-deliverance-ii-50-할인-60800-30400",
@@ -663,7 +664,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-28T01:28:34.171Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.254Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.056Z"
   },
   {
     "slug": "deal-2026-05-27-스팀-detroit-become-human-80-할인-45500-9100",
@@ -673,7 +674,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-27T19:53:50.115Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-26T05:16:01.870Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.053Z"
   },
   {
     "slug": "deal-2026-05-27-스팀-grand-theft-auto-트릴로지-데피니티브-에디션-67-할인-65000-21450",
@@ -683,7 +684,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-27T19:53:53.701Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-07-26T05:16:01.870Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.055Z"
   },
   {
     "slug": "deal-2026-05-27-스팀-어쌔신-크리드-섀도우스-50-할인-79000-39500",
@@ -1493,7 +1494,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:44.885Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.259Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.060Z"
   },
   {
     "slug": "deal-2026-05-11-종합소득세-신고-대행-vs-홈택스-매출-5천만-미만",
@@ -1543,7 +1544,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-10T18:41:06.267Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.258Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.059Z"
   },
   {
     "slug": "deal-2026-05-10-스팀-uncharted-레거시-오브-시브즈-컬렉션-67-할인-52800-17420",
@@ -1553,7 +1554,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-05-10T18:41:17.459Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.258Z"
+    "lastRefreshedAt": "2026-11-01T08:14:08.059Z"
   },
   {
     "slug": "deal-2026-05-10-쇼핑몰-사업자-등록-대행-vs-본인-직접-절차",
