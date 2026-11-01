@@ -7,6 +7,7 @@ cost, and can upgrade to advanced for /month any time
 ger runtimes with 200 compute units per month more remix generations and veo 3 5 phot
 google colab with 200 compute units per month
 home premium standard 9 reset all to $0 monthly ($19
+may automatically renew at the standard monthly price once student status concludes
 ogle colab with 2,000 compute units per month
 r runtimes with 2,000 compute units per month highest remix generations and veo 3 5 p
 rogram premium google cloud credits $10 monthly credits $40 monthly credits $100 monthl
