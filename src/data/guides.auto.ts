@@ -216,7 +216,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-08-07T18:34:19.805Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-11-08T08:07:16.591Z"
   },
   {
     "slug": "deal-2026-08-06-세피리아-스팀-베스트셀러-40-할인",
@@ -225,7 +226,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-08-06T01:09:40.967Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-11-08T08:07:16.590Z"
   },
   {
     "slug": "deal-2026-08-03-스팀-marvels-spider-man-miles-morales-60-할인-52800-21120",
@@ -234,7 +236,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-08-03T01:19:39.320Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-11-08T08:07:16.590Z"
   },
   {
     "slug": "deal-2026-07-31-스팀-marvels-spider-man-remastered-60-할인-62800-25120",
@@ -1464,7 +1467,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-12T01:28:49.559Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.641Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.592Z"
   },
   {
     "slug": "deal-2026-05-12-해외-직접투자-신고-외환-대행-vs-외국환은행-직접",
@@ -1474,7 +1477,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-12T01:28:54.568Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.641Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.592Z"
   },
   {
     "slug": "deal-2026-05-11-스팀-서브노티카-빌로우-제로-75-할인-33700-8420",
@@ -1484,7 +1487,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 4,
     "generatedAt": "2026-05-11T19:22:17.679Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.638Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.591Z"
   },
   {
     "slug": "deal-2026-05-11-부가세-신고-세무사-30만회-vs-홈택스-직접",
@@ -1504,7 +1507,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:50.656Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.259Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.587Z"
   },
   {
     "slug": "deal-2026-05-11-사업자-통장-분리-가맹점-신청-셀프-가이드",
@@ -1514,7 +1517,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-11T01:45:56.969Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.260Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.589Z"
   },
   {
     "slug": "deal-2026-05-11-신용카드-단말기-직접-계약-vs-대행-페이먼츠社-비교",
@@ -1524,7 +1527,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-11T01:46:02.280Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-02T05:11:31.261Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.589Z"
   },
   {
     "slug": "deal-2026-05-11-pg사-직접-가입-vs-대행-토스페이먼츠이니시스kg이니시스",
@@ -1534,7 +1537,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-05-11T01:46:08.565Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.640Z"
+    "lastRefreshedAt": "2026-11-08T08:07:16.592Z"
   },
   {
     "slug": "deal-2026-05-10-간이과세자-vs-일반과세자-세무사-없이-결정",
