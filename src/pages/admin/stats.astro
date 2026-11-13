@@ -32,6 +32,24 @@ const CRITICAL_EVENTS = [
   { name: 'ai_price_predict', label: 'AI 시세 예측', revenue: '컨설팅 업셀', priority: 3 },
   { name: 'hidden_money_diagnose', label: '숨은 돈 진단', revenue: '컨설팅 업셀', priority: 2 },
   { name: 'lifecycle_sim', label: '부동산 라이프사이클', revenue: '컨설팅 업셀', priority: 3 },
+  // 한글 양식 도구(/tools/hwp-form) — 파일은 안 오고 결과 종류 횟수만 온다(src/lib/hwp-events.ts)
+  { name: 'hwp_scan:ok', label: '한글 양식 · 빈칸 찾음', revenue: '무료 도구 · 쇼츠 퍼널', priority: 2 },
+  { name: 'hwp_scan:zero', label: '  └ 0칸(채울 칸 못 찾음)', revenue: '정밀·재현 지표', priority: 2 },
+  { name: 'hwp_scan:hwp', label: '  └ 옛 .hwp 변환', revenue: '사용 형태', priority: 3 },
+  { name: 'hwp_make:ok', label: '한글 양식 · 제출본 만듦(제출 가능)', revenue: '무료 도구 · 쇼츠 퍼널', priority: 2 },
+  { name: 'hwp_make:fix', label: '  └ 만들었지만 수정 필요', revenue: '품질 지표', priority: 2 },
+  { name: 'hwp_make:fail', label: '  └ 만들기 실패', revenue: '안정성 지표', priority: 2 },
+  { name: 'hwp_download', label: '한글 양식 · 내려받음', revenue: '실사용', priority: 2 },
+  { name: 'hwp_err:boot', label: '  └ 엔진 준비 실패(옛 브라우저·망)', revenue: '안정성 지표', priority: 2 },
+  { name: 'hwp_err:docx', label: '  └ 워드 파일을 올림', revenue: '.docx 지원 근거', priority: 3 },
+  { name: 'hwp_err:not_hwpx', label: '  └ 한글 아닌 압축 파일', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:empty', label: '  └ 빈 파일', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:unsupported', label: '  └ .hwp 못 읽음(손상·97 이전)', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:structure', label: '  └ HWPX 구조 오류', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:password', label: '  └ 암호 걸린 파일', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:corrupt', label: '  └ 손상된 파일', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:memory', label: '  └ 메모리 부족', revenue: '안정성 지표', priority: 3 },
+  { name: 'hwp_err:other', label: '  └ 그 밖의 오류', revenue: '안정성 지표', priority: 2 },
 ];
 ---
 <Layout title="📊 관리자 통계" description="매출 핵심 이벤트 실시간 카운트">

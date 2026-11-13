@@ -8,6 +8,21 @@
  *   incrEvent('verify_text:phishing-text');  // await X (fire and forget)
  */
 
+/**
+ * 응답을 돌려주기 전에 끝까지 센다 — 서버리스 함수는 응답 뒤 남은 fetch 가 얼어 버릴 수 있다.
+ * 세는 것 말고 할 일이 없는 엔드포인트(/api/hwp-stat)용.
+ */
+export async function incrEventNow(event: string): Promise<void> {
+  const e = (import.meta.env as any);
+  const url = e.UPSTASH_REDIS_REST_URL || process.env.UPSTASH_REDIS_REST_URL || e.KV_REST_API_URL || process.env.KV_REST_API_URL;
+  const token = e.UPSTASH_REDIS_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || e.KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return;
+  const today = new Date().toISOString().slice(0, 10);
+  await Promise.all([`stat:${event}:total`, `stat:${event}:${today}`].map((key) =>
+    fetch(`${url}/incr/${encodeURIComponent(key)}`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } })
+      .catch(() => { /* silent */ })));
+}
+
 export function incrEvent(event: string): void {
   const e = (import.meta.env as any);
   // Vercel KV(Upstash 기반)는 KV_REST_API_* 로 들어온다 — 프로덕션엔 UPSTASH_* 가 없어 카운터가 no-op 였다(2026-09-03 실측)

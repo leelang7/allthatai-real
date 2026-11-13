@@ -12,7 +12,7 @@ const faqs = [
   { q: '옛 한글 파일(.hwp)도 되나요?',
     a: '됩니다. .hwp를 올리면 브라우저 안에서 .hwpx로 바꾼 뒤 채웁니다. 결과는 한글에서 그대로 열리는 .hwpx 파일로 받습니다.' },
   { q: '올린 파일이 서버에 저장되나요?',
-    a: '아니요. 파일 읽기, 빈칸 찾기, 채우기, 검사, 미리보기가 전부 이 브라우저 안에서 일어나고 파일은 어디로도 전송되지 않습니다.' },
+    a: '아니요. 파일 읽기, 빈칸 찾기, 채우기, 검사, 미리보기가 전부 이 브라우저 안에서 일어나고 파일·파일 이름·쓴 내용은 어디로도 전송되지 않습니다. 도구를 고치려고 "빈칸 찾기 성공", "0칸", "열지 못함(워드 파일)" 같은 결과 종류의 횟수만 이름 없이 셉니다.' },
   { q: '어떤 양식에 쓸 수 있나요?',
     a: '공모전·지원사업의 참가신청서, 사업계획서, 아이디어 제안서, 기획서처럼 표 안에 빈칸이 있는 양식입니다. 파란 예시 글씨, "내용을 입력하세요" 같은 자리표시, 음영 제목 아래의 작성 요령 칸, 장학금 신청서의 "20   학년도  제   학기" 같은 문장 속 빈칸을 찾아 채웁니다. 주민센터·복지 신청서 같은 법정 서식처럼 칸 안에 "주소", "(전화번호 :    )"가 적힌 양식도 칸마다 묻습니다. 문장 속 빈칸은 그 자리 글자만 바꿔 밑줄과 줄 배치가 그대로 남습니다. "□ 예 □ 아니요", "[ ] 해당" 같은 고르기 칸은 누르면 고른 상자에만 표시가 들어갑니다. 서식 끝의 "   년   월   일"과 "신청인        (서명 또는 인)" 줄도 채우며, 날짜는 오늘로 미리 넣어 두고 서명·도장은 출력한 뒤 직접 하도록 이름만 넣습니다. 공고문 본문이나 체크·서명만 하는 동의서는 채울 대상이 아닙니다.' },
   { q: '이름·연락처 같은 개인정보도 채워 주나요?',
@@ -145,6 +145,18 @@ const ld = [
   //   (거북섬마리나 신청서에서 '연 락 처'가 개인정보로 안 잡혀 채워진 것을 렌더로 발견).
   // ★ '구역 · 칸' 이름은 칸 쪽만 본다 — '지급대상자(신청인) · 대리수령기간' 이 구역의 '신청인' 때문에 개인정보로
   //   찍혀 날짜 칸에 개인정보 표시가 붙고 임시 저장에서도 빠졌다
+  // ── 관리자 통계(/admin/stats): 결과 '종류 이름' 하나만 센다 ──────────────────────────────────────
+  // ★ 파일·파일 이름·쓴 내용·칸 이름은 보내지 않는다(서버도 허용 목록 밖 이름은 버린다). 3주 동안 이 도구가
+  //   몇 번 쓰였는지, 어디서 실패하는지(옛 브라우저에서 엔진이 안 뜨는지, 0칸 양식이 얼마나 되는지) 볼 길이 없었다
+  function stat(e) {
+    if (navigator.webdriver) return;      // 자동 시험(playwright 등)은 세지 않는다 — 운영 통계 오염
+    try {
+      const body = JSON.stringify({ e });
+      if (!(navigator.sendBeacon && navigator.sendBeacon('/api/hwp-stat', new Blob([body], { type: 'text/plain' })))) {
+        fetch('/api/hwp-stat', { method: 'POST', body, keepalive: true }).catch(() => {});
+      }
+    } catch (x) {}
+  }
   const isPersonal = (label) => PERSONAL_RE.test(String(label || '').split(' · ').pop().replace(/\s+/g, ''));
 
   const $ = (id) => document.getElementById(id);
@@ -478,7 +490,7 @@ const ld = [
       // 파이썬 엔진 준비와 .hwp 변환을 동시에 — 느린 폰에서 두 대기를 겹친다
       try { performance.mark('hf:file'); } catch (e) {}
       const [, converted] = await Promise.all([boot(), isHwp ? toHwpx(bytes).then((x) => { try { performance.mark('hf:converted'); } catch (e) {} return x; }) : null]);
-      if (isHwp) bytes = converted;
+      if (isHwp) { bytes = converted; stat('hwp_scan:hwp'); }
       clearInterval(tick);
       say('🔎 빈칸을 찾는 중…', 'text-violet-300 animate-pulse');
       const { raw } = await call('scan', { bytes });
@@ -504,6 +516,13 @@ const ld = [
         : (raw.split('\n').filter(Boolean).pop() || '').slice(0, 90)
           || '이 파일은 읽을 수 없습니다. 한글에서 HWPX로 다시 저장해 보세요.';
       say('❌ ' + why, 'text-rose-300');
+      // 엔진이 한 번도 안 떴으면(py 없음) 파일 탓이 아니라 엔진 준비 실패다 — 옛 브라우저·망 끊김
+      stat('hwp_err:' + (/DOCX_FILE/.test(raw) ? 'docx' : /NOT_HWPX/.test(raw) ? 'not_hwpx'
+        : /EMPTY_FILE|빈 파일/.test(raw) ? 'empty' : /UNSUPPORTED_FILE_FORMAT|알 수 없는 파일 형식/.test(raw) ? 'unsupported'
+        : /mimetype|HwpxStructureError|HwpxPackageError|KeyError|section0|header\.xml/i.test(raw) ? 'structure'
+        : /password|암호|encrypt/i.test(raw) ? 'password'
+        : /BadZipFile|not a zip|End of central|CFB|OLE|HwpDocument|parse/i.test(raw) ? 'corrupt'
+        : /Memory|Out of/i.test(raw) ? 'memory' : !py ? 'boot' : 'other'));
     } finally {
       busy = false;
     }
@@ -792,11 +811,13 @@ const ld = [
         ? `표 ${info.tables}개를 읽었지만 채울 빈칸을 찾지 못했습니다. 공고문이거나 이미 작성이 끝난 문서, 또는 체크·서명만 하는 서식일 수 있습니다.`
         : '이 파일에는 표가 없습니다. 빈칸을 채우는 양식이 아니라 줄글 문서로 보입니다.';
       say('빈칸을 찾지 못했습니다', 'text-amber-300');
+      stat('hwp_scan:zero');
       return;
     }
     $('empty').classList.add('hidden');
     $('fields').classList.remove('hidden');
     say('✓ 빈칸 ' + items.length + '개를 찾았습니다. 채운 뒤 아래 버튼을 누르세요.', 'text-emerald-300');
+    stat('hwp_scan:ok');
   }
 
   async function make() {
@@ -848,6 +869,7 @@ const ld = [
       showResult(JSON.parse(raw));
     } catch (e) {
       say('❌ 만들지 못했습니다: ' + String(e).split('\n').pop().slice(0, 160), 'text-rose-300');
+      stat('hwp_make:fail');
     } finally {
       busy = false;
       $('make').disabled = false;
@@ -889,6 +911,7 @@ const ld = [
     }).join('');
     $('result').classList.remove('hidden');
     say('✓ 완료', 'text-emerald-300');
+    stat(ok ? 'hwp_make:ok' : 'hwp_make:fix');
     $('result').scrollIntoView({ behavior: 'smooth' });
     renderPreview(outBytes);
   }
@@ -922,6 +945,8 @@ const ld = [
     a.href = URL.createObjectURL(new Blob([outBytes], { type: 'application/octet-stream' }));
     a.download = (srcName || '제출본').replace(/\.hwpx?$/i, '') + '_작성본.hwpx';
     a.click();
-    URL.revokeObjectURL(a.href);
+    stat('hwp_download');
+    // ★ 누르자마자 주소를 없애면 일부 브라우저(파이어폭스·사파리)는 받기가 시작되기 전에 끊긴다
+    setTimeout(() => URL.revokeObjectURL(a.href), 60000);
   });
 </script>

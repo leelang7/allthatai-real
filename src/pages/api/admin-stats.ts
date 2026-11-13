@@ -10,6 +10,7 @@
  */
 import type { APIRoute } from 'astro';
 import { topReported } from '../../lib/crowd';
+import { HWP_EVENTS } from '../../lib/hwp-events';
 
 export const prerender = false;
 
@@ -24,6 +25,7 @@ const TRACKED_EVENTS = [
   'verify_image:etungi-forgery',
   'ai_etungi', 'ai_contract', 'ai_listing_fraud', 'ai_price_predict',
   'hidden_money_diagnose', 'lifecycle_sim',
+  ...HWP_EVENTS,
 ];
 
 async function redisGetStr(key: string): Promise<string | null> {
