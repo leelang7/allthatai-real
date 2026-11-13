@@ -148,12 +148,13 @@ const ld = [
   // ── 관리자 통계(/admin/stats): 결과 '종류 이름' 하나만 센다 ──────────────────────────────────────
   // ★ 파일·파일 이름·쓴 내용·칸 이름은 보내지 않는다(서버도 허용 목록 밖 이름은 버린다). 3주 동안 이 도구가
   //   몇 번 쓰였는지, 어디서 실패하는지(옛 브라우저에서 엔진이 안 뜨는지, 0칸 양식이 얼마나 되는지) 볼 길이 없었다
+  // ★ 주소 끝 '/' 필수 — 사이트가 trailingSlash: always 라 없으면 308 재전송을 거친다(브라우저에 따라 신호가 사라진다)
   function stat(e) {
     if (navigator.webdriver) return;      // 자동 시험(playwright 등)은 세지 않는다 — 운영 통계 오염
     try {
       const body = JSON.stringify({ e });
-      if (!(navigator.sendBeacon && navigator.sendBeacon('/api/hwp-stat', new Blob([body], { type: 'text/plain' })))) {
-        fetch('/api/hwp-stat', { method: 'POST', body, keepalive: true }).catch(() => {});
+      if (!(navigator.sendBeacon && navigator.sendBeacon('/api/hwp-stat/', new Blob([body], { type: 'text/plain' })))) {
+        fetch('/api/hwp-stat/', { method: 'POST', body, keepalive: true }).catch(() => {});
       }
     } catch (x) {}
   }
