@@ -49,7 +49,8 @@ except Exception:                       # 라이브러리 구조가 바뀌면 �
     pass
 
 BLUE_RE = re.compile(r"^#(0{2}[0-9A-Fa-f]{2}[89A-Fa-f][0-9A-Fa-f]|[0-9A-Fa-f]{2}[0-9A-Fa-f]{2}[C-Fc-f][0-9A-Fa-f])$")
-PLACEHOLDER_RE = re.compile(r"내용을?\s*입력|입력하세요|예\s*시|^예\s*[)\]]|홍길동|example@|@nst\.re\.kr|010-0{3,}|"
+# ★ 띄어 쓴 '예 시' 는 한글 뒤가 아닐 때만 — '기소 유예 시' 가 걸려 규정 표(심의 요청 시기 기준)가 예시 칸이 됐다
+PLACEHOLDER_RE = re.compile(r"내용을?\s*입력|입력하세요|예시|(?<![가-힣])예\s+시|^예\s*[)\]]|홍길동|example@|@nst\.re\.kr|010-0{3,}|"
                             r"^0{2}\s*[명일월]|^\d{2}\.\s*\d{2}\.\s*\d{2}\.$|^NAIS$|^팀명$|^0+$|"
                             r"^\d+\s*자\s*이내$|^[0-9]{4}\.[0-9]{2}\s*~|^YYYY|^0000|"
                             r"^[○◯●o]{2,}$|^[-–—_]{3,}$|^[XxＸ]{2,}$|^(?:[·•‧ㆍ]\s*){3,}|"    # ○○○, · · · 같은 자리표시
@@ -337,6 +338,12 @@ def scan(path):
                 continue                                   # 파란 서식 제목 한 줄
             if not label.strip() and INSTRUCTION_BOX_RE.search(txt):
                 continue                                   # 지우고 내라는 안내 상자
+            # 머리글 줄의 '팀명' 은 예시가 아니라 열 이름이다 — 같은 줄 칸이 전부 짧은 이름('팀명|성명|직위|서명')
+            if (ph and not blue and not label.strip() and r == 0
+                    and sum(1 for (r2, _), (_, t2) in grid.items() if r2 == 0) >= 3
+                    and all(1 <= len(t2) <= 16 and not (c2 != cidx and PLACEHOLDER_RE.search(t2))
+                            for (r2, c2), (_, t2) in grid.items() if r2 == 0)):
+                continue
             # 글자 수 제한은 이 칸·라벨·오른쪽 이웃 어디에든 적혀 있다
             right = grid.get((r, cidx + 1), (None, ""))[1]
             slots.append({"table": ti, "row": r, "col": cidx,
@@ -842,11 +849,39 @@ def scan(path):
                 if any(cell_has_objects(c) or ((c.height or 0) > 25 * 283.46 and (photo or len(cols) < 3)) for c in cs):
                     break
                 empties.append(r1)
+            # 서명 명단은 줄 일부가 미리 찍혀 있어도 명단이다 — '팀명|성명|직위|서명' 의 직위 열에 '팀장·팀원',
+            # 출장 명단의 기간 열에 '부터 까지', 성명 첫 줄에 예시('홍길동'). 통째로 빈 줄이 아니라 한 줄도 못 잡아
+            # 팀원 이름을 쓸 자리가 없었다(말뭉치 3개 표 14줄). ★ 성명 열과 서명 열이 둘 다 있고 성명이 비었거나
+            #   예시일 때만 — 이미 쓴 명단(성명에 실제 이름)은 건드리지 않는다. 찍힌 글·컨트롤 칸은 그대로 둔다
+            partial = set()
+            name_k = [k for k, h in enumerate(heads) if re.fullmatch(r"성 ?명|이 ?름", h)]
+            if not empties and name_k and any(ROSTER_SKIP_COL_RE.search(h) for h in heads):
+                for r1 in rk[start:]:
+                    cs = rows[r1]
+                    if [c.address[1] for c in cs] != cols:
+                        break
+                    nt = ctext(cs[name_k[0]])
+                    if (nt and not is_placeholder(nt)) or any((c.height or 0) > 25 * 283.46 for c in cs):
+                        break
+                    partial.add(r1)
+                if len(partial) >= 2:
+                    empties = sorted(partial)
+                else:
+                    partial = set()
             for r1 in empties:
                 for c, h in zip(rows[r1], heads):
                     pos = (ti, r1, c.address[1])
+                    if r1 in partial and pos in held and not ROSTER_SKIP_COL_RE.search(h):
+                        # 이미 잡힌 예시 칸('홍길동', '(소속 기재)')도 같은 명단의 칸이다 — 표식을 붙여야 화면이
+                        # 한 표로 그린다(안 붙이면 그 칸만 낱장 카드로 떨어지고 표의 그 자리는 빈다)
+                        for s0 in slots:
+                            if ((s0["table"], s0["row"], s0["col"]) == pos and "roster" not in s0
+                                    and not any(s0.get(k) for k in ("blanks", "choice", "controls", "sign", "inlabel", "zone", "big_box"))):
+                                s0["roster"] = r0
                     if pos in held or ROSTER_SKIP_COL_RE.search(h):
                         continue
+                    if r1 in partial and (ctext(c) or cell_has_objects(c)):
+                        continue                                    # 미리 찍힌 글·체크박스 칸
                     seq = bool(SEQ_COL_RE.match(h.replace(" ", "")))
                     if seq and re.sub(r"\s+", "", " ".join((p.text or "") for p in c.paragraphs)):
                         continue                                    # 이미 박힌 번호는 그대로
@@ -1721,6 +1756,11 @@ def _cell_texts(cell):
     return out
 
 
+# 끝 글자가 단위('명·호·원·종·부·시·일·점·세·회·건')와 같은 두 글자 라벨 — 벌려 쓰면 빈칸처럼 보인다
+SPACED_LABELS = frozenset("성명 품명 건명 지명 서명 제명 번호 상호 기호 부호 인원 정원 직원 회원 직종 업종 품종 수종 "
+                          "여부 일부 전부 일시 기일 생일 배점 득점 평점 연세 횟수".split())
+
+
 def template_blanks(cell):
     """틀 문장 속 빈칸(공백 2칸 이상)의 위치와 앞뒤 문맥.
 
@@ -1755,6 +1795,10 @@ def template_blanks(cell):
         b, a = before.strip(), after.strip()
         # '성        명：' 처럼 라벨 글자 사이를 벌린 것은 빈칸이 아니다('명' 이 단위로 읽혀 빈칸이 됐다)
         if re.match(r"^[가-힣][\s　]*[:：]", a) and re.search(r"(?:^|[\s　(（])[가-힣]$", b):
+            continue
+        # 한 줄이 '품   명', '번   호' 뿐인 것도 벌려 쓴 라벨이다 — 머리글 칸 '품   명 / 산업분류번호',
+        # '주민등록 / 번   호', '동의자 / 성   명' 이 빈칸으로 떴다(말뭉치 6칸, 전부 오탐). 뒤 글자가 단위로 읽힌 탓
+        if len(b) == 1 and len(a) == 1 and (b + a) in SPACED_LABELS:
             continue
         if not b and not a.startswith(".") and not re.match(r"년\s*월", a):   # 문단 첫머리 들여쓰기는 빈칸이 아니다
             continue                                   # — 단 '      .   월부터', '      년   월   일' 의 연도 자리는 빈칸이다
