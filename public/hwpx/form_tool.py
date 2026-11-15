@@ -93,7 +93,8 @@ TEMPLATE_BLANK_RE = re.compile(
 # 도장 기호(㊞, 한글의 사용자 정의 영역 글자) 앞 빈칸은 이름 자리다
 BLANK_AFTER_RE = re.compile(r"^(?:년|월|일|학년도|학기|학년|학점|종|부|명|원|세|호|시|분|개|회|건|점|[)）\-~～/.(（,]|[\U000f0000-\U000fffff㊞])")
 TEMPLATE_SKIP_RE =re.compile(r"^\s*(?:[•ㆍ·∙\-–❍○◦※▶►◆◈☞]|[①-⑳]|\d{1,2}[.)]\s)")   # 안내문·번호 목록
-CHECKBOX_RE = re.compile(r"[□■☐☑☒▢✓✔]|\[[ √✓vV■●]\]")   # 법정 서식의 '[ ]' 도 고르기다
+CHECKBOX_RE = re.compile(r"[□■☐☑☒▢✓✔]|\[[ √✓vV■●] {0,2}\]")   # 법정 서식의 '[ ]' 도 고르기다
+NOTICE_LABEL_RE = re.compile(r"^[◈※▶■□<〈\[(（]*(유의사항|주의사항|참고사항|안내사항|작성요령|작성방법|기재요령|작성시유의사항)[>〉\])）]*$")
 GENERIC_LABEL_RE =re.compile(r"^[◈※▶■□\s]*(작성\s*내용|세부\s*내용|내\s*용|작성\s*란|기재\s*내용)\s*$")
 # 칸 안에 그림·도형·안쪽 표가 있으면 덮어쓰면 안 된다(작성본의 시연 화면 캡처, 안내문 1×1 표를 품은 칸)
 OBJECT_TAGS = {"tbl", "pic", "container", "ole", "rect", "ellipse", "line", "arc", "polygon", "curve", "equation", "textart"}
@@ -474,6 +475,9 @@ def scan(path):
             if sub is not None and any(e.tag.rsplit('}', 1)[-1] in OBJECT_TAGS for e in sub.iter()):
                 continue
             lab = re.sub(r"\s+", " ", ut)[:40]
+            # '유 의 사 항' 아래 '※ ⑯ 과세구분란의 코드가 … 기재' 는 읽으라는 글이지 지우고 쓰는 답 칸이 아니다
+            if txt and NOTICE_LABEL_RE.match(re.sub(r"\s+", "", lab)):
+                continue
             if GENERIC_LABEL_RE.match(lab):
                 # '◈ 작성내용' 은 '무엇을 쓰라' 는 안내의 제목이다. 그 아래 칸은 작성 요령 상자이고
                 # 답은 다음 표(· · · 칸)에 쓴다(보건의료 창업경진대회 사업계획서).
@@ -544,10 +548,26 @@ def scan(path):
             if not (1 <= len(lt) <= 20 and not TEMPLATE_BLANK_RE.search(lt) and not PLACEHOLDER_RE.search(lt)):
                 # 법정 서식은 라벨이 칸 안 첫머리에 있다('주소 (전화번호 :    , 휴대전화 :    )', '대리수령기간    .  월부터')
                 head = re.split(r"\s{2,}|[(（:：\[]", txt)[0].strip()
-                if not (2 <= len(head) <= 12 and re.search(r"[가-힣]", head)):
+                head_ok = 2 <= len(head) <= 12 and bool(re.search(r"[가-힣]", head))
+                # 옆으로 병합된 라벨 칸 — '상담유형'(3~4열) 옆 5열 칸은 4열 자리가 비어 왼쪽 이름을 못 얻었다.
+                # 칸 속 첫머리가 없거나('. . . 부터' — 과세기간 칸을 통째로 놓쳤다) 선택지 나열('방문․전화․기타')일
+                # 때만 쓴다 — 칸 속 이름('경로우대 ( 명)')이 있으면 그쪽이 더 정확하다
+                mt = ""
+                if lcell is None and (not head_ok or re.search(r"[․·ㆍ/,]", head)):
+                    for (r2, c2), (cc, tt) in grid.items():
+                        if r2 == r and c2 < ci - 1 and c2 + max(1, (cc.span[1] if cc.span else 1)) > ci - 1:
+                            mt = "" if TEMPLATE_BLANK_RE.search(tt or "") else re.sub(r"\s+", " ", tt or "").strip()
+                    if not (2 <= len(mt) <= 20 and re.search(r"[가-힣]{2}|[가-힣] [가-힣]", mt) and not re.match(r"[(（]", mt)
+                            and not CHECKBOX_RE.search(mt) and not TEMPLATE_BLANK_RE.search(mt)
+                            and not PLACEHOLDER_RE.search(mt) and not GUIDE_RE.match(mt)):
+                        mt = ""
+                if mt:
+                    lt = mt
+                elif not head_ok:
                     continue
-                cgrid = {k: v[0] for k, v in grid.items()}
-                lt = section_label(cgrid, r, ci, head)
+                else:
+                    cgrid = {k: v[0] for k, v in grid.items()}
+                    lt = section_label(cgrid, r, ci, head)
             blanks = template_blanks(cell)
             if not blanks:
                 continue
@@ -577,9 +597,29 @@ def scan(path):
             if sub is not None and any(e.tag.rsplit('}', 1)[-1] in OBJECT_TAGS - {"tbl"} for e in sub.iter()):
                 continue
             lcell = grid.get((r, ci - 1))
+            if lcell is None:
+                # 옆으로 병합된 라벨 칸 — '통지방법'(2~4열) 옆 5열 칸이 이름 없이 '선택' 이 됐다
+                for (r2, c2), cc in grid.items():
+                    if r2 == r and c2 < ci - 1 and c2 + max(1, (cc.span[1] if cc.span else 1)) > ci - 1:
+                        lcell = cc
             lt = re.sub(r"\s+", " ", " ".join((p.text or "") for p in lcell.paragraphs)).strip() if lcell is not None else ""
+            if CHECKBOX_RE.search(lt):
+                lt = ""
             prefix = boxes[0]["glabel"]
             label = (lt if 1 <= len(lt) <= 40 else "") or prefix[-40:] or "선택"
+            # 줄 이름 × 열 머리글 꼴의 동의 표 — '구분 | 수집·이용 | 제3자 제공' 아래 줄마다 '□ 동의 □ 미동의'.
+            # 왼쪽 칸만 보면 첫 열은 '팀원', 둘째 열은 옆 칸 글 '□ 동의 □ 미동의' 가 이름이 돼 무엇에 대한 동의인지
+            # 알 수 없었다. 같은 열에 고르기 칸이 둘 이상이고 맨 위가 글 머리글이면 '줄 이름 · 열 머리글'
+            hcell = grid.get((0, ci))
+            if r > 0 and hcell is not None and not prefix:
+                ctx_ = lambda c: re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()
+                ht = ctx_(hcell)
+                same = sum(1 for (r2, c2), c in grid.items() if c2 == ci and r2 > 0 and CHECKBOX_RE.search(ctx_(c)))
+                wide = (hcell.span[1] if hcell.span else 1) > 1 or sum(1 for (r2, _) in grid if r2 == 0) < 3
+                if 2 <= len(ht) <= 40 and not CHECKBOX_RE.search(ht) and same >= 2 and not wide:
+                    rn = ctx_(grid[(r, 0)]) if (r, 0) in grid and ci > 0 else ""
+                    rn = rn if (1 <= len(rn) <= 12 and not CHECKBOX_RE.search(rn)) else ""
+                    label = (rn + " · " + ht) if rn else ht
             multi = bool(re.search(r"중복|복수", lt + " " + prefix + " " + " ".join(b["text"] for b in boxes)))
             slots.append({"table": ti, "row": r, "col": ci, "label": label[:40],
                           "current": " / ".join(b["text"] for b in boxes)[:60],
@@ -2181,6 +2221,12 @@ BOX_ON = {"□": "■", "☐": "☑", "▢": "■"}             # 빈 상자 →
 BOX_OFF = {"■": "□", "☑": "☐", "☒": "☐", "✓": "□", "✔": "□"}
 
 
+def _in_bracket(s, i):
+    # s[i] 가 대괄호 상자의 첫 칸인가 — '[ ]' 뿐 아니라 '[  ]', '[   ]' 도(청년월세·기초연금 서식의 통지방법).
+    # 두 칸짜리를 못 읽어 '[  ] 서면   [  ] 전자우편   [  ] 문자메시지' 를 고를 수 없었다
+    return 0 < i < len(s) - 1 and s[i - 1] == "[" and bool(re.match(r" {0,2}\]", s[i + 1:i + 4]))
+
+
 def choice_boxes(cell):
     """칸 안의 고르기 묶음. 한 문단에 상자가 둘 이상 나란히 있어야 고르기다.
 
@@ -2206,9 +2252,9 @@ def choice_boxes(cell):
             flat += s
         # 법정 서식은 '[ ] 성년후견개시, [ ] 한정후견개시' 처럼 대괄호를 상자로 쓴다 — 가운데 칸이 상자 자리
         hits = [(m.start(1) if m.group(1) is not None else m.start())
-                for m in re.finditer(r"[□☐▢■☑☒✓✔]|\[([ √✓vV■●])\]", flat)]
+                for m in re.finditer(r"[□☐▢■☑☒✓✔]|\[([ √✓vV■●]) {0,2}\]", flat)]
         # 대괄호 상자는 제목 글머리로 쓰이지 않는다 — 법정 서식처럼 한 줄에 하나씩 세로로 늘어놓아도 고르기
-        is_br = lambda h: 0 < h < len(flat) - 1 and flat[h - 1] == "[" and flat[h + 1] == "]"
+        is_br = lambda h: _in_bracket(flat, h)
         if len(hits) < 2 and not (len(hits) == 1 and is_br(hits[0])):
             if flat.strip():
                 prev_text = re.sub(r"\s+", " ", flat).strip()
@@ -2217,8 +2263,18 @@ def choice_boxes(cell):
             x = re.sub(r"\s+", " ", x).strip()
             x = re.sub(r"^[\s,，·/(（\]]+", "", x)
             x = re.sub(r"[\s,，·/\[]+$", "", x)
-            if x.endswith((")", "）")) and x.count("(") + x.count("（") < x.count(")") + x.count("）"):
-                x = x[:-1].rstrip()                       # 짝 없는 닫는 괄호만 뗀다 — '신입생(1학년)' 은 그대로
+            # 짝 없는 닫는 괄호에서 끊는다 — '신입생(1학년)' 은 그대로. 괄호 뒤에 글이 이어지는 꼴도 있다:
+            # '([ ]법률혼 [ ]사실상 이혼) 2. 외국여권 소지자명…', '([ ]표준 [ ]특별감항증명서)의 재발급을 신청합니다.'
+            depth = 0
+            for n_, ch_ in enumerate(x):
+                if ch_ in "(（":
+                    depth += 1
+                elif ch_ in ")）":
+                    if depth == 0:
+                        x = x[:n_].rstrip()
+                        break
+                    depth -= 1
+            x = re.sub(r"[\s,，·/\[(（]+$", "", x)          # '주거급여([ ]자가 [ ]임차)' 의 열린 괄호
             if x.endswith("]") and x.count("[") < x.count("]"):
                 x = x[:-1].rstrip()                       # '[ [ ]신규 [ ]변경 ]' 의 바깥 대괄호
             return x
@@ -2230,13 +2286,16 @@ def choice_boxes(cell):
             before = flat[(hits[n - 1] + 1 if n else 0):h]
             after = flat[h + 1:(hits[n + 1] if n + 1 < len(hits) else len(flat))]
             if label_first:
-                txt = clean(re.split(r"[(（,，:：]", before)[-1])
+                txt = clean(re.split(r"[(（,，:：?？]", before)[-1])    # '…동의하십니까? 동의함 [ ]' — 질문은 선택지가 아니다
             else:
                 txt = clean(after) if has_word(after) else clean(before)
             segs.append(txt)
-        prefix = re.sub(r"[\s\[]+$", "", re.sub(r"\s+", " ", flat[:hits[0]]).strip())
+        prefix = re.sub(r"[\s\[(（]+$", "", re.sub(r"\s+", " ", flat[:hits[0]]).strip())
+        prefix = re.sub(r"^\[\s*", "", prefix)             # '[PC 신청 여부 : [ ]신청 [ ]미신청]' 의 바깥 대괄호
         if label_first:                                   # 앞 글은 첫 선택지 몫 — 질문은 그 앞까지
-            prefix = re.sub(r"\s+", " ", re.split(r"[(（]", flat[:hits[0]])[0]).strip()
+            pre_ = flat[:hits[0]]
+            qm = max(pre_.rfind("?"), pre_.rfind("？"))
+            prefix = re.sub(r"\s+", " ", pre_[:qm + 1] if qm >= 0 else re.split(r"[(（]", pre_)[0]).strip()
         has_q = bool(re.search(r"[가-힣A-Za-z]", prefix))
         # 질문 없이 바로 다음 줄에서 이어지면 같은 목록이다('대표 AI기술' 선택지가 두 줄)
         if not has_q and out and out[-1].get("_pi") == pi - 1:
@@ -2246,7 +2305,7 @@ def choice_boxes(cell):
             group += 1
         for n, h in enumerate(hits):
             k, i = pos[h]
-            bracket = 0 < h < len(flat) - 1 and flat[h - 1] == "[" and flat[h + 1] == "]"
+            bracket = _in_bracket(flat, h)
             checked = (flat[h] in "√✓vV■●") if bracket else (flat[h] not in BOX_ON)
             out.append({"piece": k, "idx": i, "text": segs[n][:60], "checked": checked, "bracket": bracket,
                         "group": g, "glabel": glabel, "_pi": pi})
@@ -2266,7 +2325,7 @@ def fill_choice(cell, boxes, picked):
         if idx >= len(s):
             continue
         ch = s[idx]
-        if 0 < idx < len(s) - 1 and s[idx - 1] == "[" and s[idx + 1] == "]":
+        if _in_bracket(s, idx):
             new = "√" if i in picked else " "               # 법정 서식 '[ ]' → '[√]'
         else:
             new = (BOX_ON.get(ch, ch) if i in picked else BOX_OFF.get(ch, ch))

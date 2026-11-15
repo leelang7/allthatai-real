@@ -43,7 +43,8 @@ def box_only_change(base, cur):
     """원본과 고르기 상자 글자(□↔■)·공백만 다른가 — 그런 칸은 '우리가 채운 칸' 이 아니다."""
     if not base or not cur:
         return False
-    norm = lambda x: re.sub(r"\s+", "", re.sub("[■☑☒✓✔▢☐]", "□", x))
+    # 법정 서식의 대괄호 상자('[ ]' → '[√]')도 — 줄마다 같은 통신사를 고르면 '같은 값이 4칸' 오류가 났다
+    norm = lambda x: re.sub(r"\[[√✓vV■●□]\]", "[]", re.sub(r"\s+", "", re.sub("[■☑☒✓✔▢☐]", "□", x)))
     return norm(base) == norm(cur)
 
 
