@@ -537,7 +537,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 4,
     "generatedAt": "2026-06-05T08:58:51.424Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.468Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.215Z"
   },
   {
     "slug": "deal-2026-06-05-monster-hunter-wilds-스팀-베스트셀러-58-할인",
@@ -547,7 +547,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-06-05T08:58:56.258Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.469Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.216Z"
   },
   {
     "slug": "deal-2026-06-05-스팀-biohazard-re4-75-할인-49800-12450",
@@ -557,7 +557,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 4,
     "generatedAt": "2026-06-05T01:57:22.610Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.467Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.214Z"
   },
   {
     "slug": "deal-2026-06-04-생애최초-특별공급-자격-조건과-당첨-후-의무거주",
@@ -567,7 +567,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-06-04T14:23:51.800Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.466Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.214Z"
   },
   {
     "slug": "deal-2026-06-04-버팀목-전세자금대출-vs-청년-버팀목-한도금리자격",
@@ -577,7 +577,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-06-04T09:37:09.337Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.646Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.213Z"
   },
   {
     "slug": "deal-2026-06-03-신혼부부-특별공급-소득기준자산기준-2025-최신-기준",
@@ -587,7 +587,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-06-03T16:08:16.460Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.645Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.212Z"
   },
   {
     "slug": "deal-2026-06-03-공공분양-vs-민간분양-가점-계산법과-당첨-확률-차이",
@@ -597,7 +597,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 5,
     "generatedAt": "2026-06-03T10:26:24.481Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.644Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.211Z"
   },
   {
     "slug": "deal-2026-06-03-특별공급-vs-일반공급-신혼생애최초다자녀노부모부양-자격",
@@ -607,7 +607,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 6,
     "generatedAt": "2026-06-03T02:15:00.632Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.643Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.210Z"
   },
   {
     "slug": "deal-2026-06-02-청년-주택드림-청약통장-vs-일반-주택청약-차이와-갈아타기",
@@ -617,7 +617,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 6,
     "generatedAt": "2026-06-02T20:31:34.584Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.643Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.211Z"
   },
   {
     "slug": "deal-2026-06-02-ready-or-not-스팀-베스트셀러-50-할인",
@@ -627,7 +627,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] 
     "minutes": 4,
     "generatedAt": "2026-06-02T15:49:00.017Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-09T03:21:43.642Z"
+    "lastRefreshedAt": "2026-11-15T08:29:32.208Z"
   },
   {
     "slug": "deal-2026-05-30-스팀-드래곤-퀘스트-xi-s-지나간-시간을-찾아서---definitive-edition-50-할인-49800-24900",
