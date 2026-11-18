@@ -2,7 +2,6 @@ $125 if billed monthly
 $20 if billed monthly
 $25 if billed monthly
 al plans are designed to cost less than monthly subscriptions
-alist seat price + usage at api rates us$20/seat/month, billed annually, 20 seat mi
 billing and payments can i pay annually
 both plans are billed monthly
 des, docs pro for everyday work $17 per month with annual subscription discount ( $20
@@ -19,6 +18,7 @@ lus more usage than pro* $20 per seat / month if billed annually
 mix and match seat types up to $500 per month in pooled api credits † enterprise for
 moving from monthly to annual works the same way, with your
 osoft 365 max for all-day work $100 per month try claude everything in pro, plus: 5x
+plan seat price + usage at api rates us$20/seat/month, billed annually, 20 seat mi
 pricing is $20 per seat per month plus usage billed at api rates, so cost
 redits more information yes n/a n/a new monthly api credits † up to $500/month no no pr
 s ultra for your longest tasks $200 per month try claude everything in max, plus: no
