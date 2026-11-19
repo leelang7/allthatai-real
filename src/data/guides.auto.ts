@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-11-19-스팀-final-fantasy-vii-remake-intergrade-82-할인-49800-8960",
+    "title": "스팀 파이널 판타지 7 리메이크 인터그레이드, 82% 할인 역대급 가격!",
+    "excerpt": "스팀 파이널 판타지 7 리메이크 인터그레이드가 82% 할인된 ₩8,960에 판매 중입니다. 최저가 기회!",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-11-19T23:56:31.669Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-11-18-스팀-nierautomata-60-할인-44800-17920",
     "title": "스팀 니어 오토마타 60% 할인: 역대급 최저가 구매 기회?",
     "excerpt": "스팀에서 NieR:Automata™ 60% 할인! 정가 44,800원 → 17,920원, 명작 RPG를 역대급 가격에 만나보세요.",
