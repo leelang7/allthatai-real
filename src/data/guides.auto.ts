@@ -1,7 +1,7 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
   {
     "slug": "deal-2026-11-19-스팀-final-fantasy-vii-remake-intergrade-82-할인-49800-8960",
     "title": "스팀 파이널 판타지 7 리메이크 인터그레이드, 82% 할인 역대급 가격!",
@@ -216,7 +216,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "게임할인",
     "minutes": 4,
     "generatedAt": "2026-08-20T12:19:03.146Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-11-22T08:55:19.471Z"
   },
   {
     "slug": "deal-2026-08-18-스팀-kingdom-come-deliverance-ii-60-할인-60800-24320",
@@ -225,7 +226,8 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "tag": "Steam",
     "minutes": 4,
     "generatedAt": "2026-08-18T00:25:04.068Z",
-    "type": "issue"
+    "type": "issue",
+    "lastRefreshedAt": "2026-11-22T08:55:19.470Z"
   },
   {
     "slug": "deal-2026-08-07-스팀-peak-50-할인-8400-4200",
@@ -545,7 +547,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 4,
     "generatedAt": "2026-06-06T18:59:25.293Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.470Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.465Z"
   },
   {
     "slug": "deal-2026-06-05-스팀-sons-of-the-forest-70-할인-32000-9600",
@@ -1395,7 +1397,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:01.551Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-23T02:51:50.337Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.471Z"
   },
   {
     "slug": "deal-2026-05-14-트래블월렛-vs-트래블로그-vs-wise-비교-해외결제-어느-게-싼가",
@@ -1405,7 +1407,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-14T01:49:07.974Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-23T02:51:50.338Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.472Z"
   },
   {
     "slug": "deal-2026-05-14-카카오뱅크-신규가입-캐시백-토스뱅크-비교",
@@ -1435,7 +1437,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:27.684Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.471Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.468Z"
   },
   {
     "slug": "deal-2026-05-13-cursor-ide-무료-한도와-pro-20-결제-시점",
@@ -1445,7 +1447,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:33.719Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.472Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.468Z"
   },
   {
     "slug": "deal-2026-05-13-스팀-큰-세일-일정-모음-여름겨울할로윈프라임데이",
@@ -1455,7 +1457,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:39.728Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.473Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.469Z"
   },
   {
     "slug": "deal-2026-05-13-epic-games-무료게임-받는-법-이번-주-무료-정리",
@@ -1465,7 +1467,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-13T01:46:44.836Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.473Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.470Z"
   },
   {
     "slug": "deal-2026-05-12-클로드-pro-할인-받는-법-학생연간결제프로모션",
@@ -1475,7 +1477,7 @@ export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; tren
     "minutes": 5,
     "generatedAt": "2026-05-12T08:15:44.202Z",
     "type": "issue",
-    "lastRefreshedAt": "2026-08-16T02:49:28.470Z"
+    "lastRefreshedAt": "2026-11-22T08:55:19.467Z"
   },
   {
     "slug": "deal-2026-05-12-직구-관세-대행-vs-uni-pass-직접-한도납부",
