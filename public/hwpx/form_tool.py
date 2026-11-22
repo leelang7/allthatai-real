@@ -606,6 +606,22 @@ def scan(path):
             if CHECKBOX_RE.search(lt):
                 lt = ""
             prefix = boxes[0]["glabel"]
+            if not lt and not prefix:
+                ctx2 = lambda c: re.sub(r"\s+", " ", " ".join((p.text or "") for p in c.paragraphs)).strip()
+                if lcell is not None:
+                    # 왼쪽이 빈칸인 명단 줄 — '성명 | 주민등록번호 | 이동통신사' 아래 '[ ]KT [ ]SK 텔레콤' 은 열 머리글이 이름
+                    for up in range(r - 1, -1, -1):
+                        uc = next((c for (r2, c2), c in grid.items()
+                                   if r2 == up and c2 <= ci < c2 + max(1, (c.span[1] if c.span else 1))), None)
+                        ut = ctx2(uc) if uc is not None else ""
+                        if not ut or CHECKBOX_RE.search(ut):
+                            continue
+                        if len(ut) <= 20 and not GUIDE_RE.match(ut):
+                            lt = ut
+                        break
+                else:
+                    # 왼쪽 칸이 위에서 세로로 내려온 구역 이름('아동․청소년' 두 줄)
+                    lt = section_name(grid, r, ci)
             label = (lt if 1 <= len(lt) <= 40 else "") or prefix[-40:] or "선택"
             # 줄 이름 × 열 머리글 꼴의 동의 표 — '구분 | 수집·이용 | 제3자 제공' 아래 줄마다 '□ 동의 □ 미동의'.
             # 왼쪽 칸만 보면 첫 열은 '팀원', 둘째 열은 옆 칸 글 '□ 동의 □ 미동의' 가 이름이 돼 무엇에 대한 동의인지
@@ -2240,19 +2256,38 @@ def choice_boxes(cell):
     paras = {}
     for k, (pi, t) in enumerate(pieces):
         paras.setdefault(pi, []).append(k)
+    kept = {id(t): k for k, (_, t) in enumerate(pieces)}
+    plist = list(cell.paragraphs)
     out, group = [], 0
     prev_text = ""
     for pi in sorted(paras):
-        ks = paras[pi]
         flat, pos = "", []                                # 문단 글을 이어 붙이고 각 글자의 (조각, 위치)
-        for k in ks:
-            s = pieces[k][1].text or ""
-            for i in range(len(s)):
-                pos.append((k, i))
-            flat += s
+        # 줄바꿈·탭을 품은 조각(<hp:t>육)<hp:lineBreak/></hp:t>)은 고칠 수 없어 _cell_texts 가 빼지만, 읽을 때는
+        # 보여야 한다 — 빠지면 '[ ] 교' + '육)' 의 뒤쪽이 사라져 선택지가 '교' 가 되고 닫는 괄호도 못 본다.
+        # 그런 조각의 글자는 자리(pos)를 None 으로 둬 상자로는 쓰지 않는다
+        for t in plist[pi].element.iter('{%s}t' % HP):
+            if id(t) in kept:
+                k = kept[id(t)]
+                s = t.text or ""
+                for i in range(len(s)):
+                    pos.append((k, i))
+                flat += s
+            elif len(t):
+                a, nested = t.getparent(), False
+                while a is not None and a is not plist[pi].element:
+                    if a.tag == '{%s}tbl' % HP:
+                        nested = True
+                        break
+                    a = a.getparent()
+                if nested:
+                    continue
+                s = (t.text or "") + "".join(" " + (ch.tail or "") for ch in t)
+                pos.extend([None] * len(s))
+                flat += s
         # 법정 서식은 '[ ] 성년후견개시, [ ] 한정후견개시' 처럼 대괄호를 상자로 쓴다 — 가운데 칸이 상자 자리
-        hits = [(m.start(1) if m.group(1) is not None else m.start())
-                for m in re.finditer(r"[□☐▢■☑☒✓✔]|\[([ √✓vV■●]) {0,2}\]", flat)]
+        hits = [h_ for h_ in ((m.start(1) if m.group(1) is not None else m.start())
+                              for m in re.finditer(r"[□☐▢■☑☒✓✔]|\[([ √✓vV■●]) {0,2}\]", flat))
+                if pos[h_] is not None]
         # 대괄호 상자는 제목 글머리로 쓰이지 않는다 — 법정 서식처럼 한 줄에 하나씩 세로로 늘어놓아도 고르기
         is_br = lambda h: _in_bracket(flat, h)
         if len(hits) < 2 and not (len(hits) == 1 and is_br(hits[0])):
@@ -2281,17 +2316,44 @@ def choice_boxes(cell):
         has_word = lambda x: bool(re.search(r"[0-9A-Za-z가-힣]", x))
         # 상자가 글 뒤에 오는 줄('동의 □, 미동의 □)') — 마지막 상자 뒤가 비어 있으면 각 상자 앞 단어가 선택지
         label_first = not has_word(flat[hits[-1] + 1:])
-        segs = []
+        # 각주 번호('임차8)', '기타9)')는 선택지 글이 아니다 — 한 줄에 둘 이상일 때만(하나뿐이면 '(□유형1 □유형2)' 의
+        # 닫는 괄호일 수 있다). 글자 자리는 그대로 두고 공백으로 가려 읽는다(상자 위치가 안 밀리게)
+        view = flat
+        notes = list(re.finditer(r"(?<=[가-힣])\d{1,2}\)", flat))
+        if len(notes) >= 2:
+            for m_ in notes:
+                view = view[:m_.start()] + " " * (m_.end() - m_.start()) + view[m_.end():]
+        segs, parent = [], None
         for n, h in enumerate(hits):
-            before = flat[(hits[n - 1] + 1 if n else 0):h]
-            after = flat[h + 1:(hits[n + 1] if n + 1 < len(hits) else len(flat))]
+            before = view[(hits[n - 1] + 1 if n else 0):h]
+            after = view[h + 1:(hits[n + 1] if n + 1 < len(hits) else len(view))]
             if label_first:
                 txt = clean(re.split(r"[(（,，:：?？]", before)[-1])    # '…동의하십니까? 동의함 [ ]' — 질문은 선택지가 아니다
             else:
                 txt = clean(after) if has_word(after) else clean(before)
+                # 괄호 속 하위 선택지 — '[ ]주거급여([ ]자가 [ ]임차)' 의 '자가' 는 '주거급여 › 자가'. 한 줄로 펴면
+                # '기초생활보장수급자 ([ ]생계 [ ]의료 [ ]주거)' 의 '주거' 가 무엇의 주거인지 알 수 없다
+                if n:
+                    gap = re.sub(r"[\s\[]+$", "", before)
+                    if gap.endswith(("(", "（")) and segs[n - 1]:
+                        # '양육수당(대상자 이름 :   ), ([ ]가정양육수당 …' — 부모 이름에 빈 괄호는 뗀다
+                        parent = re.sub(r"\s*[(（][^()（）]*[:：]\s*[)）]$", "", segs[n - 1].split(" › ")[-1])
+                    elif parent:
+                        dep = 0
+                        for ch_ in gap:
+                            if ch_ in "(（":
+                                dep += 1
+                            elif ch_ in ")）":
+                                dep -= 1
+                                if dep < 0:
+                                    parent = None
+                                    break
+                if parent and txt and len(parent) + len(txt) + 3 <= 40:
+                    txt = parent + " › " + txt
             segs.append(txt)
         prefix = re.sub(r"[\s\[(（]+$", "", re.sub(r"\s+", " ", flat[:hits[0]]).strip())
         prefix = re.sub(r"^\[\s*", "", prefix)             # '[PC 신청 여부 : [ ]신청 [ ]미신청]' 의 바깥 대괄호
+        prefix = re.sub(r"(?<=[가-힣])\d{1,2}\)$", "", prefix)   # '배우자 관계2)' 의 각주 번호
         if label_first:                                   # 앞 글은 첫 선택지 몫 — 질문은 그 앞까지
             pre_ = flat[:hits[0]]
             qm = max(pre_.rfind("?"), pre_.rfind("？"))
