@@ -119,6 +119,12 @@
   .course.locked{opacity:.72}
   .lockrow{display:flex;align-items:center;gap:10px;padding:14px 16px}
   .lockhint{margin:0;padding:0 16px 14px;font-size:.8rem;color:var(--sub)}
+  .course.direct{display:block;text-decoration:none;color:inherit;padding:18px 20px;
+    border-color:rgba(79,192,208,.45);transition:.15s}
+  .course.direct:hover{background:var(--card2);border-color:var(--accent)}
+  .d-top{display:flex;align-items:center;gap:14px;word-break:keep-all}
+  .d-btn{display:block;margin-top:14px;text-align:center;font-weight:700;font-size:.95rem;
+    background:var(--accent);color:#06222a;border-radius:11px;padding:12px 14px}
 </style>
 </head>
 <body>
@@ -141,25 +147,17 @@
 
   <main id="app"></main>
 
-  <!-- 새 과정 바로가기 — 자료 목록(API)과 별개로 늘 보인다. 2026-11-23 -->
-  <details class="course" open>
-    <summary>
+  <!-- 새 과정 바로가기 — 카드 전체가 링크 하나(누를 곳이 둘이면 헷갈린다). 2026-11-23 -->
+  <a class="course direct" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">
+    <span class="d-top">
       <span class="folder">📁</span>
       <span class="c-txt">
         <b>[비솔] 현장 데이터 기반 Vision AI &amp; 산업분야 Vertical AI 융합 전문가 양성 과정</b>
         <small>KH정보교육원 강남지원 · 2026.11 ~ 2027.06</small>
       </span>
-      <span class="caret">›</span>
-    </summary>
-    <div class="files">
-      <a class="file" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">
-        <span class="fi">🔗</span>
-        <span class="ft"><b>강의 자료 폴더</b><small>구글 드라이브 · 수업 자료·실습 파일</small></span>
-        <span class="badge">NEW</span>
-        <span class="go">↗</span>
-      </a>
-    </div>
-  </details>
+    </span>
+    <span class="d-btn">강의 자료 폴더 열기 ↗</span>
+  </a>
 
   <div class="codebox">
     <div class="cb-head">
