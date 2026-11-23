@@ -119,12 +119,22 @@
   .course.locked{opacity:.72}
   .lockrow{display:flex;align-items:center;gap:10px;padding:14px 16px}
   .lockhint{margin:0;padding:0 16px 14px;font-size:.8rem;color:var(--sub)}
-  .course.direct{display:block;text-decoration:none;color:inherit;padding:18px 20px;
-    border-color:rgba(79,192,208,.45);transition:.15s}
-  .course.direct:hover{background:var(--card2);border-color:var(--accent)}
+  .course.direct{display:block;color:inherit;padding:18px 20px;border-color:rgba(79,192,208,.45)}
   .d-top{display:flex;align-items:center;gap:14px;word-break:keep-all}
-  .d-btn{display:block;margin-top:14px;text-align:center;font-weight:700;font-size:.95rem;
-    background:var(--accent);color:#06222a;border-radius:11px;padding:12px 14px}
+  .d-btn{display:block;margin-top:14px;text-align:center;font-weight:700;font-size:.95rem;text-decoration:none;
+    background:var(--accent);color:#06222a;border-radius:11px;padding:12px 14px;transition:.15s}
+  .d-btn:hover{filter:brightness(1.08)}
+  .cu{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+  .cu-h{font-weight:700;font-size:.94rem;margin-bottom:8px}
+  .cu-h small{color:var(--accent);font-weight:600;font-size:.82rem}
+  .cu-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  .cu-list li{display:flex;align-items:baseline;gap:10px;padding:7px 10px;border-radius:9px;font-size:.88rem;word-break:keep-all}
+  .cu-n{flex:none;width:20px;color:var(--sub);font-size:.8rem;text-align:right}
+  .cu-t{flex:1;min-width:0}
+  .cu-d{flex:none;color:var(--sub);font-size:.78rem;font-variant-numeric:tabular-nums}
+  .cu-list li.done{opacity:.45}
+  .cu-list li.now{background:rgba(79,192,208,.14);border:1px solid rgba(79,192,208,.45);font-weight:700}
+  .cu-list li.now .cu-d{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -147,17 +157,53 @@
 
   <main id="app"></main>
 
-  <!-- 새 과정 바로가기 — 카드 전체가 링크 하나(누를 곳이 둘이면 헷갈린다). 2026-11-23 -->
-  <a class="course direct" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">
+  <!-- 새 과정 — 드라이브 버튼 하나 + 커리큘럼(오늘 진행 중인 단원 강조). 2026-11-23 -->
+  <div class="course direct">
     <span class="d-top">
       <span class="folder">📁</span>
       <span class="c-txt">
         <b>[비솔] 현장 데이터 기반 Vision AI &amp; 산업분야 Vertical AI 융합 전문가 양성 과정</b>
-        <small>KH정보교육원 강남지원 · 2026.11 ~ 2027.06</small>
+        <small>KH정보교육원 강남지원 · 2026.10.13 개강</small>
       </span>
     </span>
-    <span class="d-btn">강의 자료 폴더 열기 ↗</span>
-  </a>
+    <a class="d-btn" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">강의 자료 폴더 열기 ↗</a>
+    <div class="cu">
+      <div class="cu-h">📅 커리큘럼 <small id="cuNow"></small></div>
+      <ol class="cu-list" id="cuList">
+        <li data-s="2026-10-13" data-e="2026-10-13"><span class="cu-n">1</span><span class="cu-t">재량교과-입학OT</span><span class="cu-d">26.10.13</span></li>
+        <li data-s="2026-10-13" data-e="2026-10-22"><span class="cu-n">2</span><span class="cu-t">리눅스</span><span class="cu-d">26.10.13 ~ 26.10.22</span></li>
+        <li data-s="2026-10-22" data-e="2026-11-03"><span class="cu-n">3</span><span class="cu-t">파이썬(Numpy, Pandas)</span><span class="cu-d">26.10.22 ~ 26.11.03</span></li>
+        <li data-s="2026-11-03" data-e="2026-11-17"><span class="cu-n">4</span><span class="cu-t">머신러닝 이론·실습</span><span class="cu-d">26.11.03 ~ 26.11.17</span></li>
+        <li data-s="2026-11-17" data-e="2026-11-25"><span class="cu-n">5</span><span class="cu-t">이미지 프로세싱(OpenCV)</span><span class="cu-d">26.11.17 ~ 26.11.25</span></li>
+        <li data-s="2026-11-25" data-e="2026-12-16"><span class="cu-n">6</span><span class="cu-t">딥러닝 이론·실습</span><span class="cu-d">26.11.25 ~ 26.12.16</span></li>
+        <li data-s="2026-12-16" data-e="2026-12-23"><span class="cu-n">7</span><span class="cu-t">GUI 프로그래밍</span><span class="cu-d">26.12.16 ~ 26.12.23</span></li>
+        <li data-s="2026-12-23" data-e="2027-01-08"><span class="cu-n">8</span><span class="cu-t">머신비전 이론·실습 (대량생산 제조 특화)</span><span class="cu-d">26.12.23 ~ 27.01.08</span></li>
+        <li data-s="2027-01-08" data-e="2027-01-22"><span class="cu-n">9</span><span class="cu-t">자세추정 이론·실습 (산업안전 분야 특화)</span><span class="cu-d">27.01.08 ~ 27.01.22</span></li>
+        <li data-s="2027-01-22" data-e="2027-01-29"><span class="cu-n">10</span><span class="cu-t">합성데이터 분석 (시뮬레이션, 생성 모델)</span><span class="cu-d">27.01.22 ~ 27.01.29</span></li>
+        <li data-s="2027-01-29" data-e="2027-02-04"><span class="cu-n">11</span><span class="cu-t">모션 캡처 데이터 생성 (스튜디오, 리깅)</span><span class="cu-d">27.01.29 ~ 27.02.04</span></li>
+        <li data-s="2027-02-04" data-e="2027-02-24"><span class="cu-n">12</span><span class="cu-t">OnDevice(Edge AI) 실습</span><span class="cu-d">27.02.04 ~ 27.02.24</span></li>
+        <li data-s="2027-02-24" data-e="2027-03-08"><span class="cu-n">13</span><span class="cu-t">[Mini] 학습데이터 라벨링 모듈</span><span class="cu-d">27.02.24 ~ 27.03.08</span></li>
+        <li data-s="2027-03-08" data-e="2027-03-19"><span class="cu-n">14</span><span class="cu-t">[Semi] Vision 기반 객체 검출 모듈</span><span class="cu-d">27.03.08 ~ 27.03.19</span></li>
+        <li data-s="2027-03-19" data-e="2027-04-09"><span class="cu-n">15</span><span class="cu-t">[실무] 제조분야 제품검사 솔루션</span><span class="cu-d">27.03.19 ~ 27.04.09</span></li>
+      </ol>
+    </div>
+  </div>
+  <script>
+  (() => {
+    const t = new Date(), today = t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
+    const rows = [...document.querySelectorAll("#cuList li")];
+    // 단원 경계일은 앞 단원 끝·뒤 단원 시작이 겹친다 → 그날은 새로 시작하는 단원을 '진행 중'으로
+    let cur = null;
+    for (const li of rows) {
+      if (li.dataset.e < today) li.classList.add("done");
+      if (li.dataset.s <= today && today <= li.dataset.e) cur = li;
+    }
+    if (cur) {
+      cur.classList.remove("done"); cur.classList.add("now");
+      document.getElementById("cuNow").textContent = "· 지금: " + cur.querySelector(".cu-t").textContent;
+    }
+  })();
+  </script>
 
   <div class="codebox">
     <div class="cb-head">
