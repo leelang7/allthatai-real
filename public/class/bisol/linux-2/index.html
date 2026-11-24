@@ -47,6 +47,51 @@
   .nav a{text-decoration:none;font-weight:600}
   footer{margin-top:28px;color:var(--sub);font-size:.82rem}
   @media (max-width:520px){body{font-size:16px;padding:0 16px 64px}th,td{padding:9px 11px}td:first-child{white-space:normal}}
+
+  .fig{margin:20px 0;padding:24px 18px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .fig figcaption{margin-top:16px;text-align:center;font-size:.86rem;color:var(--sub);line-height:1.6}
+  .c0{--c:#93a1b0;--cb:rgba(147,161,176,.10)} .c1{--c:#5ccfe0;--cb:rgba(92,207,224,.10)} .c2{--c:#8fb0ff;--cb:rgba(143,176,255,.10)}
+  .c3{--c:#7ddc9a;--cb:rgba(125,220,154,.10)} .c4{--c:#f2c46d;--cb:rgba(242,196,109,.10)}
+  .seg{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 8px}
+  .chip{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:150px}
+  .chip code{font-size:1.02rem;font-weight:700;padding:9px 13px;border-radius:9px;color:var(--c);background:var(--cb);border:1px solid var(--c);word-break:normal;white-space:nowrap}
+  .chip span{font-size:.78rem;line-height:1.45;color:var(--sub);text-align:center}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+  .fork{display:grid;gap:10px}
+  .fork .flow{justify-content:flex-start;flex-wrap:nowrap}
+  .node{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:11px 16px;text-align:center;min-width:104px}
+  .node b{display:block;font-size:.95rem;color:var(--ink);font-family:inherit}
+  .node small{display:block;font-size:.78rem;color:var(--sub);line-height:1.5;margin-top:2px}
+  .node small code{font-size:.74rem;background:none;padding:0;white-space:nowrap}
+  .node.hl{border-color:var(--accent);background:rgba(92,207,224,.08)}
+  .node.file{border-style:dashed}
+  .node.warn{border-color:#f2a06d}
+  .arr{display:flex;flex-direction:column;align-items:center;line-height:1.1;color:var(--accent);min-width:34px}
+  .arr small{font-family:"JetBrains Mono",Consolas,monospace;font-size:.78rem;font-weight:700;white-space:nowrap}
+  .arr i{font-style:normal;font-size:1.3rem}
+  .arr.wide small{font-family:inherit;font-weight:600}
+  .rowlab{font-size:.86rem;color:var(--sub);margin-bottom:10px;text-align:center}
+  .stack{max-width:520px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .bar{display:flex;align-items:baseline;gap:14px;padding:13px 16px;background:var(--cb);border-left:4px solid var(--c);border-bottom:1px solid var(--line)}
+  .bar:last-child{border-bottom:0}
+  .bar b{flex:none;min-width:104px;color:var(--c);font-size:.95rem}
+  .bar span{font-size:.84rem;color:var(--sub);line-height:1.5}
+  .bar.gap{justify-content:center;border-left:4px solid transparent;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(147,161,176,.07) 8px 16px);padding:20px 16px}
+  .memwrap{display:flex;gap:12px;max-width:600px;margin:0 auto}
+  .memwrap .stack{flex:1;margin:0}
+  .addr{display:flex;flex-direction:column;justify-content:space-between;font-size:.74rem;color:var(--sub);white-space:nowrap;padding:12px 0;border-right:1px dashed var(--line);padding-right:10px}
+  .perm{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .pg{border:1px solid var(--c);background:var(--cb);border-radius:12px;padding:12px 14px;text-align:center;min-width:132px}
+  .pg-h{font-size:.84rem;font-weight:700;color:var(--c);margin-bottom:10px}
+  .bits{display:flex;justify-content:center;gap:6px}
+  .bit{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .bit code{font-size:1.05rem;font-weight:700;width:34px;padding:6px 0;text-align:center;background:var(--bg);color:var(--ink)}
+  .bit span{font-size:.78rem;color:var(--sub)}
+  .pg-sum{margin-top:10px;font-size:.84rem;color:var(--sub)}
+  .pg-sum b{font-size:1.25rem;color:var(--c);margin-left:2px}
+  .chip.wide{max-width:100%}
+  .chip.wide code{white-space:normal;word-break:break-all;text-align:center}
+  @media (max-width:520px){.fig{padding:20px 12px 14px}.bar{flex-direction:column;gap:2px}.addr{display:none}.flow,.fork .flow{flex-direction:column;flex-wrap:nowrap}.fork{grid-template-columns:1fr 1fr;align-items:start}.arr{flex-direction:row;gap:6px}.arr i{transform:rotate(90deg)}.node{min-width:150px}.fork .node{min-width:0}}
 </style>
 </head>
 <body>
@@ -107,12 +152,8 @@
 <h3>사용 예: 전화번호</h3>
 <p>조건 — 010으로 시작, 가운데 자리는 네 자리, 구분 문자는 있을 수도 없을 수도 있다.</p>
 <pre><code>^010(\D?\d{4}){2}</code></pre>
-<ul>
-  <li><code>^010</code> — 010으로 시작</li>
-  <li><code>\D?</code> — 숫자가 아닌 문자가 0개 또는 1개 (바로잡기 B-3)</li>
-  <li><code>\d{4}</code> — 숫자 4개</li>
-  <li><code>(…){2}</code> — 앞의 그룹이 2번</li>
-</ul>
+<figure class="fig"><div class="seg"><div class="chip c1"><code>^010</code><span>010으로<br>시작</span></div><div class="chip c0"><code>(</code><span>그룹<br>시작</span></div><div class="chip c2"><code>\D?</code><span>숫자가 아닌 문자<br>0개 또는 1개</span></div><div class="chip c3"><code>\d{4}</code><span>숫자<br>4개</span></div><div class="chip c0"><code>)</code><span>그룹<br>끝</span></div><div class="chip c4"><code>{2}</code><span>앞의 그룹을<br>2번</span></div></div><figcaption><code>\D?</code> 는 구분 문자가 있어도 되고 없어도 된다는 뜻 (바로잡기 B-3)</figcaption></figure>
+
 <p>✅ 직접 확인: <code>010-1234-5678</code>, <code>01012345678</code>, <code>010.1234.5678</code>은 매칭되고 <code>011-1234-5678</code>, <code>010-123-4567</code>은 매칭되지 않았다.</p>
 
 <h2>2. grep</h2>
@@ -136,12 +177,8 @@ grep '\&lt;[a-z].*e\&gt;' elice         # 소문자로 시작해 e로 끝나는 
 
 <h2>3. File Redirection</h2>
 <p>표준 스트림의 흐름을 바꿔, 화면·키보드 대신 <b>파일</b>로 입출력을 재지정하는 것.</p>
-<div class="tw"><table>
-  <tr><th>번호</th><th>스트림</th><th>기본 연결</th></tr>
-  <tr><td>0</td><td>stdin (표준 입력)</td><td>키보드 입력</td></tr>
-  <tr><td>1</td><td>stdout (표준 출력)</td><td>화면 출력</td></tr>
-  <tr><td>2</td><td>stderr (표준 에러)</td><td>오류 내용 출력</td></tr>
-</table></div>
+<figure class="fig"><div class="flow"><div class="node "><b>키보드</b><small>입력</small></div><div class="arr"><small>0 · stdin</small><i>→</i></div><div class="node hl"><b>프로세스</b><small>실행 중인 명령</small></div><div class="fork"><div class="flow"><div class="arr"><small>1 · stdout</small><i>→</i></div><div class="node "><b>화면</b><small>정상 출력</small></div></div><div class="flow"><div class="arr"><small>2 · stderr</small><i>→</i></div><div class="node warn"><b>화면</b><small>오류 메시지</small></div></div></div></div><figcaption>표준 스트림 세 개. 리다이렉션은 이 화살표의 도착지(또는 출발지)를 파일로 바꾸는 것이다.</figcaption></figure>
+
 <pre><code>ls &gt; ls.txt                  # 표준 출력을 파일로 (파일이 있으면 덮어쓴다)
 ls &gt;&gt; ls.txt                 # 파일이 없으면 만들고, 있으면 지우지 않고 이어 쓴다
 cd helloelice &gt; err.txt      # 오류는 화면에 그대로 나오고 err.txt는 비어 있다
@@ -156,11 +193,8 @@ cat &lt; hello.txt &gt; elice.txt  # hello.txt를 cat의 입력으로, 출력은
 <pre><code>head a.txt | grep [0-9]               # 첫 10줄 중 숫자가 있는 행
 head a.txt | grep [0-9] &gt; result.txt  # 그 결과를 파일로 저장
 ls | grep user01 &gt; output.txt         # 이름에 user01이 들어간 항목만 저장</code></pre>
-<div class="tw"><table>
-  <tr><th></th><th>연결 대상</th><th>예</th></tr>
-  <tr><td>Redirection</td><td>명령 ↔ <b>파일</b></td><td><code>python add.py &lt; input.txt</code></td></tr>
-  <tr><td>Pipe</td><td>명령 ↔ <b>명령</b></td><td><code>cat input.txt | python add.py</code></td></tr>
-</table></div>
+<figure class="fig"><div class="rowlab">Redirection — 명령과 <b>파일</b>을 잇는다</div><div class="flow"><div class="node file"><b>input.txt</b><small>파일</small></div><div class="arr"><small>&lt;</small><i>→</i></div><div class="node hl"><b>python add.py</b><small>명령</small></div><div class="arr"><small>&gt;</small><i>→</i></div><div class="node file"><b>output.txt</b><small>파일</small></div></div><div class="rowlab" style="margin-top:22px">Pipe — 명령과 <b>명령</b>을 잇는다</div><div class="flow"><div class="node hl"><b>cat input.txt</b><small>명령</small></div><div class="arr"><small>|</small><i>→</i></div><div class="node hl"><b>python add.py</b><small>명령</small></div><div class="arr"><small>&gt;</small><i>→</i></div><div class="node file"><b>output.txt</b><small>파일</small></div></div><figcaption>두 줄 모두 output.txt 에 같은 결과가 저장된다</figcaption></figure>
+
 <p><b>실습(Linux-basic3 q3)</b> ✅ 두 방식 모두 같은 결과가 나온다.</p>
 <pre><code>cat input.txt | python add.py &gt; output.txt</code></pre>
 
@@ -192,14 +226,7 @@ df        # 현재 mount된 디스크 정보 출력</code></pre>
 <p>PID 1번은 init 프로세스(나머지 시스템 프로세스의 부모), 2번은 kthreadd → 바로잡기 B-10</p>
 
 <h3>프로세스의 메모리 구성</h3>
-<div class="tw"><table>
-  <tr><th>영역</th><th>내용</th></tr>
-  <tr><td>코드 영역</td><td>프로그램 코드</td></tr>
-  <tr><td>데이터 영역</td><td>전역 변수와 정적 변수</td></tr>
-  <tr><td>BSS 영역</td><td>초기화되지 않은 변수</td></tr>
-  <tr><td>힙 영역</td><td>동적 메모리 할당 영역</td></tr>
-  <tr><td>스택 영역</td><td>함수 매개변수, 복귀 주소, 지역 변수 같은 임시 자료</td></tr>
-</table></div>
+<figure class="fig"><div class="memwrap"><div class="addr"><span>낮은 주소</span><span>높은 주소</span></div><div class="stack mem"><div class="bar c1"><b>코드 영역</b><span>프로그램 코드</span></div><div class="bar c2"><b>데이터 영역</b><span>전역 변수와 정적 변수</span></div><div class="bar c2"><b>BSS 영역</b><span>초기화되지 않은 변수</span></div><div class="bar c3"><b>힙 영역 ↓</b><span>동적 메모리 할당 · 아래로 자란다</span></div><div class="bar gap"><span>빈 공간 — 힙과 스택이 서로를 향해 늘어난다</span></div><div class="bar c4"><b>스택 영역 ↑</b><span>함수 매개변수 · 복귀 주소 · 지역 변수 · 위로 자란다</span></div><div class="bar c0"><b>커널</b><span>운영체제가 쓰는 영역</span></div></div></div><figcaption>프로세스 하나가 쓰는 메모리의 구성 (슬라이드 그림과 같은 순서)</figcaption></figure>
 
 <h2>7. 프로세스 명령어: ps, kill</h2>
 <pre><code>ps            # 현재 터미널의 프로세스 목록
@@ -248,6 +275,8 @@ jobs          # [1]- Terminated  sleep 500  /  [2]+ Running  sleep 700 &amp;</co
 
 10 1 1 * * /home/elice/test.sh       # 매월 1일 1시 10분
 0,30 1 * * 0 /home/elice/backup.sh   # 일요일 1시 0분, 1시 30분</code></pre>
+<figure class="fig"><div class="seg"><div class="chip c1"><code>0,30</code><span>분<br>0~59</span></div><div class="chip c2"><code>1</code><span>시<br>0~23</span></div><div class="chip c0"><code>*</code><span>일<br>1~31</span></div><div class="chip c0"><code>*</code><span>월<br>1~12</span></div><div class="chip c3"><code>0</code><span>요일<br>0 일 ~ 6 토</span></div><div class="chip c4 wide"><code>/home/elice/backup.sh</code><span>수행할 명령어</span></div></div><figcaption><code>*</code> 는 "모든 값". 위 줄은 매주 일요일 1시 0분과 1시 30분에 실행</figcaption></figure>
+
 <p class="tag">※ 슬라이드는 <code>0, 30</code>처럼 콤마 뒤에 공백이 있는데, 공백 없이 써야 한다 → 바로잡기 B-13</p>
 
 <h2>10. SSH</h2>
@@ -256,6 +285,8 @@ jobs          # [1]- Terminated  sleep 500  /  [2]+ Running  sleep 700 &amp;</co
   <li><b>Telnet</b>도 같은 일을 하지만 패킷이 암호화되지 않아 비밀번호 등이 노출된다. SSH는 데이터가 <b>암호화</b>된다</li>
   <li>우분투는 <code>openssh</code> 패키지로 SSH를 쓴다. 기본으로는 <code>openssh-client</code>만 있고, 다른 컴퓨터에서 접속받으려면 <code>openssh-server</code>를 설치해야 한다</li>
 </ul>
+
+<figure class="fig"><div class="flow"><div class="node "><b>클라이언트</b><small>Windows cmd<br><code>ssh 계정명@아이피</code></small></div><div class="arr wide"><small>암호화된 연결 · 22번 포트</small><i>⇄</i></div><div class="node hl"><b>서버</b><small>Ubuntu<br><code>openssh-server</code></small></div></div><figcaption>접속을 받는 쪽(서버)에 openssh-server 가 설치·실행되어 있어야 한다</figcaption></figure>
 
 <h3>수업에서 한 순서</h3>
 <pre><code># 1) 패키지 목록 갱신

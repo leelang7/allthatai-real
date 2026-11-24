@@ -47,6 +47,51 @@
   .nav a{text-decoration:none;font-weight:600}
   footer{margin-top:28px;color:var(--sub);font-size:.82rem}
   @media (max-width:520px){body{font-size:16px;padding:0 16px 64px}th,td{padding:9px 11px}td:first-child{white-space:normal}}
+
+  .fig{margin:20px 0;padding:24px 18px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .fig figcaption{margin-top:16px;text-align:center;font-size:.86rem;color:var(--sub);line-height:1.6}
+  .c0{--c:#93a1b0;--cb:rgba(147,161,176,.10)} .c1{--c:#5ccfe0;--cb:rgba(92,207,224,.10)} .c2{--c:#8fb0ff;--cb:rgba(143,176,255,.10)}
+  .c3{--c:#7ddc9a;--cb:rgba(125,220,154,.10)} .c4{--c:#f2c46d;--cb:rgba(242,196,109,.10)}
+  .seg{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 8px}
+  .chip{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:150px}
+  .chip code{font-size:1.02rem;font-weight:700;padding:9px 13px;border-radius:9px;color:var(--c);background:var(--cb);border:1px solid var(--c);word-break:normal;white-space:nowrap}
+  .chip span{font-size:.78rem;line-height:1.45;color:var(--sub);text-align:center}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+  .fork{display:grid;gap:10px}
+  .fork .flow{justify-content:flex-start;flex-wrap:nowrap}
+  .node{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:11px 16px;text-align:center;min-width:104px}
+  .node b{display:block;font-size:.95rem;color:var(--ink);font-family:inherit}
+  .node small{display:block;font-size:.78rem;color:var(--sub);line-height:1.5;margin-top:2px}
+  .node small code{font-size:.74rem;background:none;padding:0;white-space:nowrap}
+  .node.hl{border-color:var(--accent);background:rgba(92,207,224,.08)}
+  .node.file{border-style:dashed}
+  .node.warn{border-color:#f2a06d}
+  .arr{display:flex;flex-direction:column;align-items:center;line-height:1.1;color:var(--accent);min-width:34px}
+  .arr small{font-family:"JetBrains Mono",Consolas,monospace;font-size:.78rem;font-weight:700;white-space:nowrap}
+  .arr i{font-style:normal;font-size:1.3rem}
+  .arr.wide small{font-family:inherit;font-weight:600}
+  .rowlab{font-size:.86rem;color:var(--sub);margin-bottom:10px;text-align:center}
+  .stack{max-width:520px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .bar{display:flex;align-items:baseline;gap:14px;padding:13px 16px;background:var(--cb);border-left:4px solid var(--c);border-bottom:1px solid var(--line)}
+  .bar:last-child{border-bottom:0}
+  .bar b{flex:none;min-width:104px;color:var(--c);font-size:.95rem}
+  .bar span{font-size:.84rem;color:var(--sub);line-height:1.5}
+  .bar.gap{justify-content:center;border-left:4px solid transparent;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(147,161,176,.07) 8px 16px);padding:20px 16px}
+  .memwrap{display:flex;gap:12px;max-width:600px;margin:0 auto}
+  .memwrap .stack{flex:1;margin:0}
+  .addr{display:flex;flex-direction:column;justify-content:space-between;font-size:.74rem;color:var(--sub);white-space:nowrap;padding:12px 0;border-right:1px dashed var(--line);padding-right:10px}
+  .perm{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .pg{border:1px solid var(--c);background:var(--cb);border-radius:12px;padding:12px 14px;text-align:center;min-width:132px}
+  .pg-h{font-size:.84rem;font-weight:700;color:var(--c);margin-bottom:10px}
+  .bits{display:flex;justify-content:center;gap:6px}
+  .bit{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .bit code{font-size:1.05rem;font-weight:700;width:34px;padding:6px 0;text-align:center;background:var(--bg);color:var(--ink)}
+  .bit span{font-size:.78rem;color:var(--sub)}
+  .pg-sum{margin-top:10px;font-size:.84rem;color:var(--sub)}
+  .pg-sum b{font-size:1.25rem;color:var(--c);margin-left:2px}
+  .chip.wide{max-width:100%}
+  .chip.wide code{white-space:normal;word-break:break-all;text-align:center}
+  @media (max-width:520px){.fig{padding:20px 12px 14px}.bar{flex-direction:column;gap:2px}.addr{display:none}.flow,.fork .flow{flex-direction:column;flex-wrap:nowrap}.fork{grid-template-columns:1fr 1fr;align-items:start}.arr{flex-direction:row;gap:6px}.arr i{transform:rotate(90deg)}.node{min-width:150px}.fork .node{min-width:0}}
 </style>
 </head>
 <body>
@@ -86,10 +131,7 @@
 <p>유닉스를 여러 회사가 각자 개발하며 <b>소스 코드를 공유하지 않는 문화에 대한 반발</b>로 생겼다. 이름은 GNU's Not Unix의 재귀 약자(바로잡기 B-1 참고).</p>
 
 <h3>리눅스의 구조</h3>
-<pre><code>[ 응용 프로그램 ]
-   └ [ Shell ]          ← 사용자의 명령을 해석
-        └ [ Kernel ]    ← 하드웨어 제어
-             └ [ 하드웨어 ]</code></pre>
+<figure class="fig"><div class="stack"><div class="bar c2"><b>응용 프로그램</b><span>사용자가 실행하는 프로그램</span></div><div class="bar c1"><b>Shell</b><span>사용자의 명령을 해석해 커널에 전달</span></div><div class="bar c3"><b>Kernel</b><span>하드웨어를 제어</span></div><div class="bar c0"><b>하드웨어</b><span>CPU · 메모리 · 디스크</span></div></div><figcaption>위에서 아래로 요청이 내려간다. 사용자는 셸을 통해서만 커널에 말을 건다.</figcaption></figure>
 
 <h3>리눅스의 특징</h3>
 <ul>
@@ -233,23 +275,11 @@ passwd 내계정명          # 비밀번호 재설정</code></pre>
 <!-- ============================================================ -->
 <h2>9. 소유권과 권한</h2>
 <h3>파일 속성 읽기 (<code>ls -al</code>)</h3>
-<pre><code>-rw-r--r--  1  elice  elice  8980  9월 16 09:35  elice.txt
-│└───┬───┘  │    │      │      │        │            └ 파일 이름
-│    │      │    │      │      │        └ 마지막 변경 시간
-│    │      │    │      │      └ 파일 크기(Byte)
-│    │      │    │      └ 소유 그룹
-│    │      │    └ 파일 소유자
-│    │      └ 링크 수
-│    └ 파일 권한
-└ 파일 유형 (- 파일, d 디렉터리)</code></pre>
+<figure class="fig"><div class="seg"><div class="chip c0"><code>-</code><span>파일 유형<br>- 파일 · d 디렉터리</span></div><div class="chip c1"><code>rw-r--r--</code><span>파일 권한</span></div><div class="chip c0"><code>1</code><span>링크 수</span></div><div class="chip c2"><code>elice</code><span>소유자</span></div><div class="chip c2"><code>elice</code><span>소유 그룹</span></div><div class="chip c0"><code>8980</code><span>크기(Byte)</span></div><div class="chip c0"><code>9월 16 09:35</code><span>마지막 변경 시간</span></div><div class="chip c3"><code>elice.txt</code><span>파일 이름</span></div></div><figcaption><code>ls -al</code> 한 줄을 왼쪽부터 읽는 법</figcaption></figure>
 
 <h3>권한 숫자 표기</h3>
-<div class="tw"><table>
-  <tr><th colspan="3">소유자</th><th colspan="3">그룹</th><th colspan="3">그 외 사용자</th></tr>
-  <tr><td>r</td><td>w</td><td>-</td><td>r</td><td>-</td><td>-</td><td>r</td><td>-</td><td>-</td></tr>
-  <tr><td>4</td><td>2</td><td>0</td><td>4</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td></tr>
-  <tr><td colspan="3"><b>6</b></td><td colspan="3"><b>4</b></td><td colspan="3"><b>4</b></td></tr>
-</table></div>
+<figure class="fig"><div class="perm"><div class="pg c1"><div class="pg-h">소유자</div><div class="bits"><div class="bit"><code>r</code><span>4</span></div><div class="bit"><code>w</code><span>2</span></div><div class="bit"><code>-</code><span>0</span></div></div><div class="pg-sum">4 + 2 + 0 = <b>6</b></div></div><div class="pg c2"><div class="pg-h">그룹</div><div class="bits"><div class="bit"><code>r</code><span>4</span></div><div class="bit"><code>-</code><span>0</span></div><div class="bit"><code>-</code><span>0</span></div></div><div class="pg-sum">4 + 0 + 0 = <b>4</b></div></div><div class="pg c3"><div class="pg-h">그 외 사용자</div><div class="bits"><div class="bit"><code>r</code><span>4</span></div><div class="bit"><code>-</code><span>0</span></div><div class="bit"><code>-</code><span>0</span></div></div><div class="pg-sum">4 + 0 + 0 = <b>4</b></div></div></div><figcaption><code>rw-r--r--</code> 를 세 글자씩 끊어 더하면 <b>644</b></figcaption></figure>
+
 <p>읽기 <b>r=4</b>, 쓰기 <b>w=2</b>, 실행 <b>x=1</b>을 더한다 → <code>rw-r--r--</code> = <b>644</b></p>
 
 <h3>권한 변경 <code>chmod</code> / 소유권 변경 <code>chown</code></h3>
