@@ -1131,6 +1131,17 @@ def scan(path):
             t = s.get("table", -1)
             if 0 <= t < len(iss) and iss[t]:
                 s["issuer"] = iss[t][:30]
+    # 묶음 파일: 칸마다 그 칸이 든 서식 이름 — 화면이 서식 단위로 접어 쓸 서식만 펼치게 한다
+    forms = form_tables(doc)
+    if len(forms) == len(tables):
+        for s in slots + narrative:
+            t = s.get("table", -1)
+            name = s.get("issuer") or (forms[t] if 0 <= t < len(forms) else None)
+            if name:
+                s["form"] = name[:40]
+                # 제목 앞에 체크 상자가 붙은 통지서('[ ] 결정(적합) … 사회보장급여 통지서')는 기관 서식 판정이 놓친다
+                if not s.get("issuer") and ISSUER_TITLE_RE.search(_title_core(name)):
+                    s["issuer"] = name[:30]
 
     return {"source": os.path.basename(path), "tables": len(tables),
             "slots": slots, "narrative": narrative, "guides": guides,
@@ -1230,6 +1241,101 @@ def issuer_tables(doc):
                 if top:
                     recent.clear()
                     last[0] = name
+                for c in cells:
+                    walk(c.paragraphs, False, name)
+    walk(doc.paragraphs, True, None)
+    return out
+
+
+FORM_MARK_RE = re.compile(r"\[[^\]]{0,20}(?:별지|별표)?\s*제?\s*\d+\s*호(?:의\s*\d+)?\s*서식(?:\s*\([^)]{1,6}\))?\s*\]"
+                          r"|\[\s*(?:별지\s*)?서식\s*\d+(?:-\d+)?\s*\]")
+FORM_PAGE_RE = re.compile(r"^[\[(（]\s*(?:(\d+)\s*[면쪽]|(앞)\s*쪽|(뒤)\s*쪽|\d+\s*쪽\s*중\s*제?\s*(\d+)\s*쪽)\s*[\])）]$")
+FORM_TITLE_RE = re.compile(r"(?:서|증|위임장|추천장|대장|명부|목록)$")
+FORM_SKIP_HEAD_RE = re.compile(r"^[<〈(（\[]?\s*(?:개정|신설|시행일)")
+
+
+def _form_cut(t):
+    """'소득･재산 신고서 [☐신규 ☐변경] * 아래 소득…' → '소득･재산 신고서', '□ 사업계획서' → '사업계획서'."""
+    t = re.sub(r"[\s　]+", " ", t or "").strip()
+    t = re.split(r"\s\[[☐□ ]|\s\*|※", t)[0]
+    return re.sub(r"^[□■○●◎▣❙·\-\s]+", "", t).strip()
+
+
+def _form_is_title(t):
+    core = _title_core(_form_cut(t))
+    return 3 <= len(core) <= 40 and bool(FORM_TITLE_RE.search(core)) and not re.search(r"[.。:：\[\]]", core)
+
+
+def _form_disp(t):
+    d = _form_cut(t)
+    for _ in range(3):
+        d = re.sub(r"\s*[(（\[<〈][^)）\]>〉]*[)）\]>〉]\s*$", "", d)
+    return _squash_spaced(d)[:40]
+
+
+def form_tables(doc):
+    """표마다(iter_tables 순서) 그 표가 속한 서식 이름, 모르면 None — 서식 여러 개가 한 파일에 든 묶음용.
+
+    지침 부록(사회보장급여 서식 22개·270칸)은 화면에 칸이 한 줄로 쏟아져 쓸 서식을 찾을 수 없었다.
+    새 서식의 시작: ① 표 머리에 '[별지 제1호서식]' 표식 ② 표 첫 칸이 서식 제목('…신청서'·'위임장')
+    ③ 표 바로 앞 문단이 제목. '(2 면)'·'(뒤쪽)' 으로 시작하는 표와 제목 없는 표는 앞 서식에 잇는다. 안쪽 표는 바깥을 따른다.
+    """
+    out, recent, last = [], [], [None]
+
+    def title_in(x):
+        if not re.search(r"\[\s*\]", x):
+            return _form_disp(x) if _form_is_title(x) else None
+        # '[ ] 결정(적합) [ ] 결정(대상제외) 사회보장급여 통지서 [ ] 변경' — 상자 뒤 첫 낱말은 선택지, 그 뒤가 제목
+        for piece in re.split(r"\[\s*\]", x):
+            piece = re.sub(r"^\s*\S+\)\s+(?=\S)", "", piece)
+            if _form_is_title(piece):
+                return _form_disp(piece)
+        return None
+
+    def walk(paras, top, inherit):
+        for p in paras:
+            if top:
+                t = re.sub(r"\s+", " ", p.text or "").strip()
+                if t:
+                    recent.append(t[:80])
+            for tb in p.tables:
+                cells = [c for row in tb.rows for c in row.cells]
+                name = inherit
+                if top:
+                    head = []
+                    for c in cells:
+                        if c.address[0] > 3:
+                            continue
+                        full = re.sub(r"\s+", " ", " ".join((q.text or "") for q in c.paragraphs)).strip()
+                        first = re.sub(r"\s+", " ", next((q.text for q in c.paragraphs if (q.text or "").strip()), "")).strip()
+                        if full:
+                            head.append((full, first))
+                    mark, cands = None, []
+                    for full, first in head[:8]:
+                        m = FORM_MARK_RE.search(full)
+                        if m and mark is None and len(full) < 60:
+                            mark = re.sub(r"\s+", " ", m.group(0)).strip("[] ")
+                        elif not FORM_PAGE_RE.match(full) and not FORM_SKIP_HEAD_RE.match(full):
+                            cands.append((full, first))
+                    title = None
+                    for full, first in (cands[:4] if mark else cands[:1]):
+                        title = title_in(full) or title_in(first)
+                        if title:
+                            break
+                    pm = FORM_PAGE_RE.match(head[0][0]) if head else None
+                    later = bool(pm) and (bool(pm.group(3)) or int(pm.group(1) or pm.group(4) or 1) >= 2)
+                    if mark:
+                        name = title or mark
+                    elif later:
+                        name = last[0]                 # '(2 면)'·'(뒤쪽)' — 앞 서식의 다음 쪽
+                    elif title:
+                        name = title
+                    else:
+                        pt = next((x for x in reversed(recent[-4:]) if _form_is_title(x)), None)
+                        name = _form_disp(pt) if pt else last[0]
+                    recent.clear()
+                    last[0] = name
+                out.append(name)
                 for c in cells:
                     walk(c.paragraphs, False, name)
     walk(doc.paragraphs, True, None)

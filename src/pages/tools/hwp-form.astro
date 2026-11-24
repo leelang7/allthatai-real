@@ -242,8 +242,8 @@ const ld = [
         : document.querySelector('#slots [data-pos="' + pos + '"]:not([data-bi]):not([type=checkbox]):not([type=hidden])');
       if (el) {
         el.value = val; n++;
-        const det = el.closest('details');            // 폰의 접힌 명단 줄에 불러온 값이 숨지 않게
-        if (det) det.open = true;
+        // 폰의 접힌 명단 줄·접어 둔 서식에 불러온 값이 숨지 않게 — 겹쳐 접힌 것도 다 편다
+        for (let det = el.closest('details'); det; det = det.parentElement && det.parentElement.closest('details')) det.open = true;
       }
     }
     return n;
@@ -562,6 +562,11 @@ const ld = [
     const issuerCount = {};
     items.forEach((it) => { if (it.at && it.at.issuer) issuerCount[it.at.issuer] = (issuerCount[it.at.issuer] || 0) + 1; });
     const autoDate = (it) => !!(it.at && it.at.sign && (!it.at.issuer || issuerAll));
+    // 묶음 파일(지침 부록 — 서식 6개 이상, 엔진이 slot.form 으로 표시): 칸 270개가 한 줄로 쏟아지면 쓸 서식을 찾을 수 없다.
+    // 서식마다 접어 두고 쓸 것만 펼치게 한다. 작성일은 펼칠 때 넣는다 — 안 쓰는 서식 21개에 오늘 날짜가 찍혀 나가지 않게
+    const formNames = [];
+    items.forEach((it) => { const f = it.at && it.at.form; if (f && !formNames.includes(f)) formNames.push(f); });
+    const formMode = !issuerAll && formNames.length >= 6;
 
     const seen = {};
     for (const it of items) {
@@ -629,7 +634,7 @@ const ld = [
             : line.every((x) => typeof x === 'string') ? '<p class="text-[11px] leading-snug">' : '<p>') + line.map((x, xi) => {
             if (typeof x === 'string') return '<span class="text-zinc-400">' + esc(x) + '</span>';
             const ch = unitCh(line[xi + 1]) || Math.max(6, Math.min(14, x.w || 0));
-            const pre = autoDate(it) && today[unitOf(x.b)] ? ' value="' + today[unitOf(x.b)] + '"' : '';
+            const pre = autoDate(it) && today[unitOf(x.b)] ? (formMode && it.at.form ? ' data-auto="' : ' value="') + today[unitOf(x.b)] + '"' : '';
             return '<input type="text" maxlength="' + (x.append ? 100 : 24) + '" data-k="' + esc(it.key) + '" data-pos="' + pos + '" data-bi="' + x.b + '" data-nb="' + nb + '"' + pre
               + ' aria-label="' + esc(it.key) + ' 빈칸 ' + (x.b + 1) + '"'
               + (x.append ? '' : ' style="width:calc(' + ch + 'ch + 1.25rem);max-width:100%"')
@@ -745,27 +750,43 @@ const ld = [
     });
     const sections = info.sections || [];
     let html = '', lastSec = null, issuerOpen = null;
+    // 묶음 파일은 표 차례대로 — 칸 종류별로 모인 순서 그대로면 같은 서식이 여러 토막으로 갈라진다
+    const tableOf = (group) => (group[0].at && group[0].at.table >= 0 ? group[0].at.table : Infinity);
+    const groupList = formMode ? [...byTable].sort((a, b) => tableOf(a[1]) - tableOf(b[1])) : [...byTable];
+    const runCount = [];
     const closeIssuer = () => {
       if (issuerOpen === null) return;
       html += '</div></details>';
       issuerOpen = null;
       lastSec = null;
     };
-    for (const [g, group] of byTable) {
+    for (const [g, group] of groupList) {
       const t = group[0].at ? group[0].at.table : -1;
       const iss = (!issuerAll && group[0].at && group[0].at.issuer) || null;
-      if (iss !== issuerOpen) {
+      const form = (!iss && formMode && group[0].at && group[0].at.form) || null;
+      const wrap = iss ? 'i:' + iss : form ? 'f:' + form : null;
+      if (wrap !== issuerOpen) {
         closeIssuer();
+        if (form) {
+          runCount.push(0);
+          html += '<details class="rounded-2xl border border-zinc-700 bg-zinc-900/40 px-4 py-3" data-form="1">'
+            + '<summary class="cursor-pointer text-sm font-bold text-zinc-100" style="word-break:keep-all">' + esc(form)
+            + ' <span class="font-normal text-zinc-400">(칸 \u0000' + (runCount.length - 1) + '\u0000개)</span></summary>'
+            + '<div class="mt-2 space-y-3">';
+          issuerOpen = wrap;
+          lastSec = null;
+        }
         if (iss) {
           html += '<details class="rounded-2xl border border-amber-500/30 bg-amber-500/5 px-4 py-3" data-issuer="1">'
             + '<summary class="cursor-pointer text-sm font-bold text-amber-200" style="word-break:keep-all">기관이 쓰는 서식 · ' + esc(iss)
             + ' <span class="font-normal text-amber-300/80">(칸 ' + (issuerCount[iss] || group.length) + '개)</span></summary>'
             + '<p class="mt-2 text-[11px] text-amber-200/80" style="word-break:keep-all">기관(담당자)이 발급하는 서식이라 신청인은 보통 비워 둡니다. 비워 두면 원본 그대로 나갑니다. 담당자라면 펼쳐서 쓰세요.</p>'
             + '<div class="mt-2 space-y-3">';
-          issuerOpen = iss;
+          issuerOpen = wrap;
           lastSec = null;
         }
       }
+      if (form) runCount[runCount.length - 1] += group.length;
       const title = t >= 0 ? (sections[t] || '') : '';
       if (title && title !== lastSec) {
         html += '<h3 class="pt-4 pb-1 text-sm font-black text-violet-300">' + esc(title) + '</h3>';
@@ -791,6 +812,12 @@ const ld = [
       html += tabular ? (narrow && (ncols >= 3 || (withRL && ncols >= 2)) ? stack(group) : grid(group)) : group.map(card).join('');
     }
     closeIssuer();
+    if (formMode) {
+      html = html.replace(/\u0000(\d+)\u0000/g, (_, i) => runCount[+i]);
+      const nForms = (html.match(/<details [^>]*data-(?:form|issuer)="1"/g) || []).length;
+      html = '<p class="rounded-xl border border-violet-500/30 bg-violet-500/10 p-3 text-xs text-violet-200" style="word-break:keep-all">'
+        + '이 파일에는 서식 ' + nForms + '개가 함께 들어 있습니다. 쓸 서식만 펼쳐서 채우세요. 펼치지 않은 서식은 원본 그대로 나갑니다.</p>' + html;
+    }
     if (issuerAll) {
       html = '<p class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-200" style="word-break:keep-all">'
         + '이 파일은 기관(담당자)이 발급하는 서식(' + esc([...new Set(items.map((it) => it.at.issuer))].join(', ')) + ')입니다. 신청인이라면 쓰지 않아도 됩니다.</p>' + html;
@@ -803,6 +830,11 @@ const ld = [
         + '<span>양식에 "작성 시 설명 상자는 지우고 제출"이라고 적힌 작성요령 상자 ' + drops.length + '개를 지운 채로 만듭니다.</span></label>' + html;
     }
     $('slots').innerHTML = html;
+    // 접어 둔 서식의 작성일은 처음 펼칠 때 오늘 날짜로 — 이미 값이 있으면(임시 저장) 건드리지 않는다
+    document.querySelectorAll('#slots details[data-form]').forEach((det) => det.addEventListener('toggle', () => {
+      if (!det.open) return;
+      det.querySelectorAll('input[data-auto]').forEach((el) => { if (!el.value) el.value = el.dataset.auto; el.removeAttribute('data-auto'); });
+    }));
 
     // 채울 칸이 없는 파일이 흔하다 — 공고문, 동의서, 이미 작성된 문서. 빈 화면을 주지 말고 왜인지 말한다.
     if (!items.length) {
