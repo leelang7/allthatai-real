@@ -121,15 +121,27 @@
   .lockhint{margin:0;padding:0 16px 14px;font-size:.8rem;color:var(--sub)}
   .course.direct{display:block;color:inherit;padding:18px 20px;border-color:rgba(79,192,208,.45)}
   .d-top{display:flex;align-items:center;gap:14px;word-break:keep-all}
-  .d-btn{display:block;margin-top:14px;text-align:center;font-weight:700;font-size:.95rem;text-decoration:none;
-    background:var(--accent);color:#06222a;border-radius:11px;padding:12px 14px;transition:.15s}
-  .d-btn:hover{filter:brightness(1.08)}
-  .d-btn.quiz{margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--accent)}
-  .d-btn.quiz:hover{background:rgba(79,192,208,.1);filter:none}
-  .d-btn.dc{margin-top:8px;background:#5865f2;color:#fff;border:0}
-  .cu{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
-  .cu-h{font-weight:700;font-size:.94rem;margin-bottom:8px}
-  .cu-h small{color:var(--accent);font-weight:600;font-size:.82rem}
+  .sec{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+  .sec-h{font-weight:700;font-size:.94rem;margin-bottom:10px}
+  .sec-h small{color:var(--sub);font-weight:500;font-size:.78rem;margin-left:4px}
+  .rows{display:grid;gap:8px}
+  .row{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;
+    background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;transition:.15s;min-width:0}
+  .row:hover{border-color:var(--accent);background:var(--card2)}
+  .r-i{flex:none;width:26px;text-align:center;font-size:1.05rem}
+  .r-t{flex:1;min-width:0;word-break:keep-all}
+  .r-t b{display:block;font-size:.95rem;font-weight:700}
+  .r-t small{display:block;color:var(--sub);font-size:.8rem;margin-top:1px}
+  .r-go{flex:none;color:var(--sub);font-size:.95rem}
+  .row:hover .r-go{color:var(--accent)}
+  .row.main{background:var(--accent);border-color:var(--accent);color:#06222a}
+  .row.main .r-t small,.row.main .r-go{color:#0b3a44}
+  .row.main:hover{filter:brightness(1.06);background:var(--accent)}
+  .row.dc{border-color:rgba(88,101,242,.55);background:rgba(88,101,242,.12)}
+  .row.dc:hover{border-color:#5865f2;background:rgba(88,101,242,.2)}
+  .row.dc .r-go{color:#8f99ff}
+  .new{flex:none;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:99px;
+    background:rgba(124,156,255,.14);color:var(--accent2);border:1px solid rgba(124,156,255,.3)}
   .cu-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
   .cu-list li{display:flex;align-items:baseline;gap:10px;padding:7px 10px;border-radius:9px;font-size:.88rem;word-break:keep-all}
   .cu-n{flex:none;width:20px;color:var(--sub);font-size:.8rem;text-align:right}
@@ -158,23 +170,41 @@
     </div>
   </header>
 
-  <main id="app"></main>
-
-  <!-- 새 과정 — 드라이브 버튼 하나 + 커리큘럼(표 그대로). 2026-11-23 -->
-  <div class="course direct">
-    <span class="d-top">
+  <!-- [비솔] 과정 — 자료 · 퀴즈 · 소통 · 커리큘럼 네 칸. 칸마다 같은 줄(row) 모양을 쓴다. 2026-11-24 -->
+  <section class="course direct">
+    <div class="d-top">
       <span class="folder">📁</span>
       <span class="c-txt">
         <b>[비솔] 현장 데이터 기반 Vision AI &amp; 산업분야 Vertical AI 융합 전문가 양성 과정</b>
         <small>KH정보교육원 강남지원 · 2026.11 ~ 2027.06</small>
       </span>
-    </span>
-    <a class="d-btn" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">강의 자료 폴더 열기 ↗</a>
-    <a class="d-btn quiz" href="https://docs.google.com/forms/d/e/1FAIpQLSdDcoLwsGRMQpo4sXMdNGISk_GNq-TuJZsjm6naK6Z1dbCYZw/viewform" target="_blank" rel="noopener">📝 퀴즈 · 2026 Linux 기초 ↗</a>
-    <a class="d-btn quiz" href="https://docs.google.com/forms/d/e/1FAIpQLSe1OF-fNQg_0VTCigm_2DdmZ5czEOhtoj5KDdSEWWTzW5fUrg/viewform" target="_blank" rel="noopener">📝 퀴즈 · Linux 기초 3, 4 ↗</a>
-    <a class="d-btn dc" href="/class/bisol/">💬 수강생 디스코드 입장 (실명)</a>
-    <div class="cu">
-      <div class="cu-h">📅 커리큘럼</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h">📚 강의 자료</div>
+      <a class="row main" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">
+        <span class="r-i">📁</span><span class="r-t"><b>강의 자료 폴더</b><small>수업 슬라이드 · 실습 파일 (구글 드라이브)</small></span><span class="r-go">↗</span></a>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h">📝 퀴즈 <small>최신순</small></div>
+      <!-- 새 퀴즈는 맨 위에 한 줄 추가. data-d 날짜가 이틀 안이면 NEW 가 붙는다 -->
+      <div class="rows" id="quizRows">
+        <a class="row" data-d="2026-11-24" href="https://docs.google.com/forms/d/e/1FAIpQLSe1OF-fNQg_0VTCigm_2DdmZ5czEOhtoj5KDdSEWWTzW5fUrg/viewform" target="_blank" rel="noopener">
+          <span class="r-i">📝</span><span class="r-t"><b>Linux 기초 3, 4</b><small>11.24</small></span><span class="r-go">↗</span></a>
+        <a class="row" data-d="2026-11-23" href="https://docs.google.com/forms/d/e/1FAIpQLSdDcoLwsGRMQpo4sXMdNGISk_GNq-TuJZsjm6naK6Z1dbCYZw/viewform" target="_blank" rel="noopener">
+          <span class="r-i">📝</span><span class="r-t"><b>2026 Linux 기초</b><small>11.23</small></span><span class="r-go">↗</span></a>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h">💬 소통</div>
+      <a class="row dc" href="/class/bisol/">
+        <span class="r-i">💬</span><span class="r-t"><b>수강생 디스코드 입장</b><small>실명으로만 들어갑니다 · 공지 · 질문 · 화면 공유</small></span><span class="r-go">→</span></a>
+    </div>
+
+    <div class="sec cu">
+      <div class="sec-h">📅 커리큘럼 <small>15단원</small></div>
       <ol class="cu-list" id="cuList">
         <li data-s="2026-10-13" data-e="2026-10-13"><span class="cu-n">1</span><span class="cu-t">재량교과-입학OT</span><span class="cu-d">26.10.13</span></li>
         <li data-s="2026-10-13" data-e="2026-10-22"><span class="cu-n">2</span><span class="cu-t">리눅스</span><span class="cu-d">26.10.13 ~ 26.10.22</span></li>
@@ -193,9 +223,11 @@
         <li data-s="2027-03-19" data-e="2027-04-09"><span class="cu-n">15</span><span class="cu-t">[실무] 제조분야 제품검사 솔루션</span><span class="cu-d">27.03.19 ~ 27.04.09</span></li>
       </ol>
     </div>
-  </div>
+  </section>
 
-  <div class="codebox">
+  <!-- 그 밖의 과정(관리 화면에서 등록). 없으면 비어 있다 -->
+  <main id="app"></main>
+  <div class="codebox" hidden>
     <div class="cb-head">
       <span>🔑 수업 코드가 있나요?</span>
       <small>코드를 넣으면 해당 과정 자료가 열립니다</small>
@@ -209,8 +241,8 @@
   </div>
 
   <div class="note">
-    <b>안내</b> · 과정 제목을 누르면 자료가 펼쳐집니다. 자료는 수업 진행에 따라 계속 추가·수정되니
-    이 주소(<b>real.allthatai.kr/class</b>)만 저장해두세요. 링크가 열리지 않으면 로그인한 구글 계정을 확인해 주세요.
+    <b>안내</b> · 자료와 퀴즈는 수업 진행에 따라 계속 추가됩니다. 이 주소(<b>real.allthatai.kr/class</b>)만 저장해 두세요.
+    구글 드라이브·설문지가 열리지 않으면 로그인한 구글 계정을 확인해 주세요.
   </div>
 
   <footer>
@@ -237,6 +269,9 @@ function draw(courses) {
   // 예전엔 items 가 없으면 걸러냈는데, 그러면 '코드 입력' 과정이 통째로 사라져
   // '숨김'과 구분이 없어지고, 코드를 가진 학생도 넣을 곳을 못 찾는다.
   const live = (courses || []).filter(c => c.locked || (c.items || []).length);
+  // 수업 코드 칸은 코드로 여는 과정이 있을 때만 보인다(없는데 보이면 '코드가 있어야 하나' 헷갈린다)
+  const cb = document.querySelector(".codebox");
+  if (cb) cb.hidden = !(live.some(c => c.locked) || savedCode());
   if (!live.length) { app.innerHTML = ""; return; }   // 위쪽 과정 카드만 보이게
 
   app.innerHTML = live.map(c => c.locked ? `
@@ -341,6 +376,14 @@ $("#code").addEventListener("keydown", e => { if (e.key === "Enter") $("#apply")
 refreshClearBtn();
 }   // 코드 입력 UI 가드 끝 — 아래 로드는 UI 유무와 무관하게 항상 실행
 load(savedCode());
+
+// 퀴즈 NEW — 맨 위(가장 최근) 한 줄만, data-d 가 오늘 포함 이틀 안일 때
+(function () {
+  const a = document.querySelector("#quizRows .row[data-d]");
+  if (!a) return;
+  const d = Date.parse(a.dataset.d + "T00:00:00+09:00");
+  if (Date.now() - d < 2 * 864e5) a.querySelector(".r-go").insertAdjacentHTML("beforebegin", '<span class="new">NEW</span>');
+})();
 </script>
 </body>
 </html>
