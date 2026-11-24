@@ -126,6 +126,7 @@
   .d-btn:hover{filter:brightness(1.08)}
   .d-btn.quiz{margin-top:8px;background:transparent;color:var(--accent);border:1px solid var(--accent)}
   .d-btn.quiz:hover{background:rgba(79,192,208,.1);filter:none}
+  .d-btn.dc{margin-top:8px;background:#5865f2;color:#fff;border:0}
   .cu{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
   .cu-h{font-weight:700;font-size:.94rem;margin-bottom:8px}
   .cu-h small{color:var(--accent);font-weight:600;font-size:.82rem}
@@ -170,6 +171,8 @@
     </span>
     <a class="d-btn" href="https://drive.google.com/drive/folders/1QmaOm1md14NClvuBjBWsOWxAbF4xYYuU?usp=sharing" target="_blank" rel="noopener">강의 자료 폴더 열기 ↗</a>
     <a class="d-btn quiz" href="https://docs.google.com/forms/d/e/1FAIpQLSdDcoLwsGRMQpo4sXMdNGISk_GNq-TuJZsjm6naK6Z1dbCYZw/viewform" target="_blank" rel="noopener">📝 퀴즈 · 2026 Linux 기초 ↗</a>
+    <a class="d-btn quiz" href="https://docs.google.com/forms/d/e/1FAIpQLSe1OF-fNQg_0VTCigm_2DdmZ5czEOhtoj5KDdSEWWTzW5fUrg/viewform" target="_blank" rel="noopener">📝 퀴즈 · Linux 기초 3, 4 ↗</a>
+    <a class="d-btn dc" href="/class/bisol/">💬 수강생 디스코드 입장 (실명)</a>
     <div class="cu">
       <div class="cu-h">📅 커리큘럼</div>
       <ol class="cu-list" id="cuList">
@@ -221,13 +224,8 @@
      1) /api/class-data/  — 관리 페이지에서 저장한 최신본(서버 저장소가 연결된 경우)
      2) data.json         — 저장소 없이도 쓰는 정적 파일(내가 교체·배포)
      3) FALLBACK          — 최후 방어. 어떤 경우에도 빈 화면이 되지 않게. */
-const FALLBACK = [{
-  course: "공통 자료", icon: "📚", desc: "모든 과정 공통 자료", open: true,
-  items: [{ icon: "📁", title: "강의 자료 폴더",
-    desc: "수업 슬라이드·실습 파일 (구글 드라이브)",
-    url: "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
-    badge: "NEW" }]
-}];
+// 비워 둔다 — 예전엔 한기대 제조AX 폴더를 '공통 자료'로 띄웠다(API 가 안 되면 남의 과정이 열렸다, 11/24).
+const FALLBACK = [];
 
 const app = document.getElementById("app");
 const esc = s => (s ?? "").toString()
@@ -239,7 +237,7 @@ function draw(courses) {
   // 예전엔 items 가 없으면 걸러냈는데, 그러면 '코드 입력' 과정이 통째로 사라져
   // '숨김'과 구분이 없어지고, 코드를 가진 학생도 넣을 곳을 못 찾는다.
   const live = (courses || []).filter(c => c.locked || (c.items || []).length);
-  if (!live.length) { app.innerHTML = '<p class="empty">등록된 자료가 아직 없습니다.</p>'; return; }
+  if (!live.length) { app.innerHTML = ""; return; }   // 위쪽 과정 카드만 보이게
 
   app.innerHTML = live.map(c => c.locked ? `
     <div class="course locked">
@@ -282,7 +280,10 @@ function load(code) {
   app.innerHTML = '<p class="empty">자료를 불러오는 중…</p>';
   return fetch(`/api/class-data/${q}`, { cache: "no-store" })
     .then(r => r.ok ? r.json() : null)
-    .then(d => { const c = pick(d); if (!c) throw new Error("empty"); draw(c); return c.length; })
+    .then(d => {
+      // 빈 배열도 정상 응답이다(전부 숨김). 예전엔 빈 배열이면 data.json 폴백으로 떨어져 옛 공개 과정이 다시 떴다.
+      if (!d || !Array.isArray(d.courses)) throw new Error("bad");
+      draw(d.courses); return d.courses.length; })
     .catch(() => fetch("data.json", { cache: "no-store" }).then(r => r.json())
       .then(d => {
         // API가 안 될 때의 폴백 — 이때는 공개 과정만 보여준다.

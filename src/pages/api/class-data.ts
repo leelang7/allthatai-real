@@ -29,24 +29,8 @@ const FILE = 'data/class-data.json';
 /// 코드 필요·숨김 과정은 애초에 여기 들어가지 않는다.
 const PUBLIC_FILE = 'public/class/data.json';
 
-const DEFAULT = [
-  {
-    course: '공통 자료',
-    icon: '📚',
-    desc: '모든 과정 공통 자료',
-    open: true,
-    access: 'public',
-    items: [
-      {
-        icon: '📁',
-        title: '강의 자료 폴더',
-        desc: '수업 슬라이드·실습 파일 (구글 드라이브)',
-        url: 'https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV',
-        badge: 'NEW',
-      },
-    ],
-  },
-];
+// 비워 둔다 — 예전 기본값이 한기대 제조AX 폴더를 '공통 자료'로 공개했다(11/24).
+const DEFAULT: any[] = [];
 
 function env(name: string): string | undefined {
   return (import.meta.env as any)[name] || (process.env as any)[name];

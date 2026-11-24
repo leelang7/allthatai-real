@@ -1,36 +1,4 @@
 {
-  "updated": "2026-08-31",
-  "courses": [
-    {
-      "course": "한기대 제조AX기초",
-      "icon": "📚",
-      "desc": "",
-      "locked": true,
-      "open": false,
-      "items": []
-    },
-    {
-      "course": "한기대 비전 검사 모델 구현 실습",
-      "icon": "📁",
-      "desc": "",
-      "locked": true,
-      "open": false,
-      "items": []
-    },
-    {
-      "course": "한기대 중부발전 AI기반 시각화",
-      "icon": "📁",
-      "desc": "",
-      "open": true,
-      "access": "public",
-      "items": [
-        {
-          "icon": "🔗",
-          "title": "한기대 중부발전 AI기반 시각화",
-          "desc": "",
-          "url": "https://drive.google.com/drive/folders/1Vcu9Thid11-Edvjtsx5JPDesNMZEG9RT?usp=sharing"
-        }
-      ]
-    }
-  ]
+  "updated": "2026-11-24",
+  "courses": []
 }

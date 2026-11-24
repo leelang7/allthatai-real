@@ -1,50 +1,29 @@
 {
-  "updated": "2026-08-31",
+  "updated": "2026-11-24",
   "courses": [
     {
-      "course": "한기대 제조AX기초",
-      "icon": "📚",
-      "desc": "",
-      "open": true,
-      "access": "code",
-      "code": "allthatai",
+      "course": "한기대 지난 과정",
+      "icon": "🗂️",
+      "desc": "한국기술교육대학교 과정 모음 — 숨김(11/24)",
+      "open": false,
+      "access": "hidden",
       "items": [
         {
           "icon": "📁",
           "title": "한기대 제조AX기초",
           "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
-          "url": "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV",
-          "badge": "NEW"
-        }
-      ]
-    },
-    {
-      "course": "한기대 비전 검사 모델 구현 실습",
-      "icon": "📁",
-      "desc": "",
-      "open": true,
-      "access": "code",
-      "code": "allthatai",
-      "items": [
+          "url": "https://drive.google.com/drive/folders/1NqDl6BeNjKOngikU7QLf2-BPvMAOR6ZV"
+        },
         {
           "icon": "🔗",
           "title": "한기대 비전 검사 모델 구현 실습",
           "desc": "수업 슬라이드·실습 파일 (구글 드라이브)",
           "url": "https://drive.google.com/drive/folders/1M3DPmscV_UOJFv7BLkiYBtuuqmg9syeh?usp=sharing"
-        }
-      ]
-    },
-    {
-      "course": "한기대 중부발전 AI기반 시각화",
-      "icon": "📁",
-      "desc": "",
-      "open": true,
-      "access": "public",
-      "items": [
+        },
         {
           "icon": "🔗",
           "title": "한기대 중부발전 AI기반 시각화",
-          "desc": "",
+          "desc": "강의 자료 폴더 (구글 드라이브)",
           "url": "https://drive.google.com/drive/folders/1Vcu9Thid11-Edvjtsx5JPDesNMZEG9RT?usp=sharing"
         }
       ]
