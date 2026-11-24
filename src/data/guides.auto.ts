@@ -1,7 +1,16 @@
 // AUTO-GENERATED — do not edit manually. Updated by scripts/auto-generate.ts.
 import type { GuideMeta } from './guides';
 
-export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue' })[] = [
+export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
+  {
+    "slug": "deal-2026-11-24-스팀-detroit-become-human-90-할인-45500-4550",
+    "title": "스팀 Detroit: Become Human 90% 할인: 역대급 최저가 구매 찬스!",
+    "excerpt": "스팀 'Detroit: Become Human'이 역대급 90% 할인으로 ₩4,550에 판매 중입니다. 지금 바로 확인하세요!",
+    "tag": "Steam",
+    "minutes": 5,
+    "generatedAt": "2026-11-24T16:31:37.370Z",
+    "type": "issue"
+  },
   {
     "slug": "deal-2026-11-19-스팀-final-fantasy-vii-remake-intergrade-82-할인-49800-8960",
     "title": "스팀 파이널 판타지 7 리메이크 인터그레이드, 82% 할인 역대급 가격!",
