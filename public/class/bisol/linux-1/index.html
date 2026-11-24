@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux 기초 1, 2 정리 — [비솔] 수업 정리</title>
+<meta name="description" content="[비솔] AI 융합 전문가 양성 과정 수업 정리 — Linux 기초 1, 2 정리 (2026.11.23)">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/appicon.png">
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--card2:#1c232c;--line:#2a323d;--ink:#e6edf3;--sub:#9aa7b4;--accent:#4fc0d0;--accent2:#7c9cff;--radius:16px}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased;padding:0 16px 64px}
+  .wrap{max-width:820px;margin:0 auto}
+  header{padding:44px 0 22px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  .back{display:inline-block;color:var(--sub);text-decoration:none;font-size:.86rem;margin-bottom:14px}
+  .back:hover{color:var(--accent)}
+  .eyebrow{display:inline-block;font-size:.74rem;letter-spacing:.14em;color:var(--accent);border:1px solid rgba(79,192,208,.35);background:rgba(79,192,208,.08);padding:4px 11px;border-radius:99px;margin-bottom:10px}
+  header h1{font-size:clamp(1.35rem,5vw,1.8rem);letter-spacing:-.02em;font-weight:800;line-height:1.3;margin:0;border:0;padding:0}
+  .who{margin-top:6px;color:var(--sub);font-size:.9rem}
+  main h1{font-size:1.25rem;margin:46px 0 0;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--accent)}
+  h2{font-size:1.12rem;margin:38px 0 10px;padding-left:10px;border-left:4px solid var(--accent)}
+  h3{font-size:1rem;margin:24px 0 8px;color:var(--accent2)}
+  p,li{font-size:.95rem}
+  ul,ol{padding-left:22px}
+  a{color:var(--accent)}
+  pre{background:var(--card);border:1px solid var(--line);padding:12px 14px;border-radius:10px;overflow-x:auto;line-height:1.55}
+  code{background:var(--card2);padding:2px 5px;border-radius:5px;font-family:Consolas,"D2Coding",monospace;font-size:.88em;color:#ffb86b}
+  pre code{background:none;padding:0;color:var(--ink)}
+  blockquote{background:rgba(79,192,208,.08);border:1px solid rgba(79,192,208,.3);border-radius:12px;margin:18px 0;padding:12px 16px;font-size:.95rem}
+  .tw{overflow-x:auto;margin:10px 0}
+  table{border-collapse:collapse;width:100%;font-size:.9rem}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:var(--card);white-space:nowrap}
+  .tag{font-size:.84rem;color:var(--sub)}
+  .nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:.9rem}
+  .nav a{text-decoration:none}
+  footer{margin-top:26px;color:var(--sub);font-size:.82rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/class/">← 강의 자료실</a><br>
+    <span class="eyebrow">[비솔] 수업 정리 · 2026.11.23</span>
+    <h1>Linux 기초 1, 2 정리</h1>
+    <p class="who">리눅스의 세계로 · 리눅스 파일 시스템</p>
+    <p class="tag">표시 — 📄 수업 자료(슬라이드) · 📝 수업 중 필기 · ➕ 슬라이드에 없는 추가 내용</p>
+  </header>
+  <main>
+<blockquote>
+💡 <b>한 줄 요약</b> — 리눅스가 무엇인지(커널·셸·배포판)를 배우고, WSL로 Ubuntu를 설치한 뒤 기초 명령어, <code>apt</code>/<code>sudo</code>, 파일 시스템 구조, 권한(<code>chmod</code>/<code>chown</code>), 파일 명령어, nano 에디터까지 익혔다.
+</blockquote>
+
+<!-- ============================================================ -->
+<h2>0. 과정 로드맵 📝</h2>
+<ol>
+  <li><b>리눅스</b> — 서버·개발 환경의 기본 운영체제</li>
+  <li><b>GitHub</b> — "개발자/엔지니어들의 이력서"</li>
+  <li><b>Docker</b> — 컨테이너 기술 (이후 진행)</li>
+</ol>
+<p>리눅스 기초 커리큘럼 📄: ① 리눅스의 세계로 → ② 리눅스 파일 시스템 → ③ 알고 쓰는 리눅스 명령어(정규 표현식) → ④ 프로세스와 네트워크(job control, ssh)</p>
+<p><b>프로세스(Process) = 실행 중인 프로그램</b> 📝</p>
+
+<!-- ============================================================ -->
+<h1>PART 1. 리눅스의 세계로</h1>
+
+<h2>1. 리눅스란? 📄</h2>
+<ul>
+  <li>리누스 토발즈(Linus Torvalds)가 만든 컴퓨터 <b>운영체제</b></li>
+  <li><b>자유 소프트웨어</b>와 <b>오픈 소스</b> 개발의 가장 유명한 표본</li>
+</ul>
+
+<h3>GNU 프로젝트</h3>
+<p>유닉스를 여러 회사가 각자 개발하며 <b>소스 코드를 공유하지 않는 문화에 대한 반발</b>로 생겼다. 이름은 GNU's Not Unix의 재귀 약자(바로잡기 B-1 참고).</p>
+
+<h3>리눅스의 구조</h3>
+<pre><code>[ 응용 프로그램 ]
+   └ [ Shell ]          ← 사용자의 명령을 해석
+        └ [ Kernel ]    ← 하드웨어 제어
+             └ [ 하드웨어 ]</code></pre>
+
+<h3>리눅스의 특징</h3>
+<ul>
+  <li>유닉스 기반</li>
+  <li>멀티 유저 · 멀티 태스킹 지원</li>
+  <li>CLI와 GUI 모두 지원</li>
+  <li>다양하고 강력한 네트워킹 기능</li>
+</ul>
+
+<h3>리눅스의 종류 (배포판 계열)</h3>
+<div class="tw"><table>
+  <tr><th>계열</th><th>패키지 형식</th><th>패키지 관리자</th><th>배포판 예</th></tr>
+  <tr><td>레드햇</td><td><code>.rpm</code></td><td>yum</td><td>CentOS, Fedora</td></tr>
+  <tr><td>데비안</td><td><code>.deb</code></td><td>apt</td><td>Ubuntu, Linux Mint, Raspbian</td></tr>
+  <tr><td>안드로이드</td><td><code>.apk</code></td><td>Android Package Manager</td><td>Android OS</td></tr>
+</table></div>
+<p class="tag">※ 슬라이드 표의 오타(.rmp, 데비안 칸의 "레드햇")는 고쳐서 적었다 → 바로잡기 B-2</p>
+
+<h3>활용 분야</h3>
+<p>네트워크 서버 장비, 리눅스 개발 서버, 개인 PC, 라즈베리파이, 안드로이드, 블랙박스, TV 셋톱박스, 정밀 의료기기</p>
+
+<!-- ============================================================ -->
+<h2>2. 우분투(Ubuntu) 📄</h2>
+<ul>
+  <li><b>데비안 GNU/Linux 기반</b>의 데스크탑 환경 리눅스 배포판</li>
+  <li>쓰는 이유: 개인 PC 환경에 최적화, 간결하고 쉬움, 사용자가 많음, 약 6개월 단위 업데이트</li>
+  <li>이름: 남아프리카 반투어 "우분투" — 사람들 간의 관계와 헌신에 중점을 둔 윤리 사상</li>
+  <li>기본 GUI는 <b>GNOME</b></li>
+</ul>
+<h3>버전 규칙</h3>
+<ul>
+  <li>1년에 두 번 공개, 번호 = <b>연도.월</b> → <code>19.04</code> = 2019년 4월</li>
+  <li><b>LTS(Long Term Support)</b>: 장기 지원 버전 — 슬라이드 예시는 14.04 / 16.04 / 18.04 LTS</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2>3. Shell 📄</h2>
+<p><b>Shell = 커널과 사용자 사이를 이어주는 것.</b> 사용자의 명령을 해석해서 커널에 요청한다.</p>
+<div class="tw"><table>
+  <tr><th>이름</th><th>명령어</th></tr>
+  <tr><td>Bourne-Again Shell</td><td><code>bash</code></td></tr>
+  <tr><td>Bourne Shell</td><td><code>sh</code></td></tr>
+  <tr><td>C Shell</td><td><code>csh</code></td></tr>
+  <tr><td>Korn Shell</td><td><code>ksh</code></td></tr>
+</table></div>
+<p><b>bash</b>는 GNU 프로젝트의 일환으로 개발되었고, 리눅스의 기본 셸이다.</p>
+
+<!-- ============================================================ -->
+<h2>4. 리눅스 기초 명령어 📄</h2>
+<div class="tw"><table>
+  <tr><th>명령어</th><th>기능</th></tr>
+  <tr><td><code>whoami</code></td><td>로그인한 사용자 ID 출력</td></tr>
+  <tr><td><code>passwd</code></td><td>로그인한 사용자의 비밀번호 변경</td></tr>
+  <tr><td><code>pwd</code></td><td>현재 디렉터리 위치 출력</td></tr>
+  <tr><td><code>ls</code></td><td>현재 디렉터리 목록 출력</td></tr>
+  <tr><td><code>ls -l</code></td><td>목록을 <b>상세히</b> 출력</td></tr>
+  <tr><td><code>ls -a</code></td><td><b>숨겨진</b> 파일·디렉터리(<code>.</code>으로 시작)까지 출력</td></tr>
+  <tr><td><code>ls -al</code></td><td>숨김 포함 + 상세</td></tr>
+  <tr><td><code>cd 디렉터리</code></td><td>해당 디렉터리로 이동</td></tr>
+  <tr><td><code>명령어 --help</code></td><td>명령어 사용법 출력 (예: <code>ls --help</code>)</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>5. GUI vs CLI 📄</h2>
+<div class="tw"><table>
+  <tr><th></th><th>GUI</th><th>CLI</th></tr>
+  <tr><td>풀네임</td><td>Graphical User Interface</td><td>Command Line Interface</td></tr>
+  <tr><td>방식</td><td>아이콘·이미지 등 <b>그래픽</b>으로 조작</td><td><b>문자</b>(명령어)로 조작</td></tr>
+  <tr><td>예</td><td>Windows, Mac 데스크탑 / Ubuntu GNOME</td><td>Windows CMD, Mac Terminal / Ubuntu 터미널</td></tr>
+</table></div>
+<p>강의는 주로 <b>CLI 환경의 터미널</b>에서 진행된다.</p>
+
+<!-- ============================================================ -->
+<h2>6. 패키지 관리자 apt &amp; root / sudo 📄📝</h2>
+<p><b>apt = Advanced Packaging Tool.</b> 데비안 계열(Ubuntu 등)에서 소프트웨어 설치·제거·업데이트에 쓴다. 예전의 <code>apt-get</code>과 <code>apt-cache</code>를 합친 것이 <code>apt</code>.</p>
+<div class="tw"><table>
+  <tr><th>apt</th><th>기존 명령어</th><th>기능</th></tr>
+  <tr><td><code>apt install</code></td><td><code>apt-get install</code></td><td>설치</td></tr>
+  <tr><td><code>apt remove</code></td><td><code>apt-get remove</code></td><td>제거</td></tr>
+  <tr><td><code>apt update</code></td><td><code>apt-get update</code></td><td>패키지 <b>목록</b> 업데이트</td></tr>
+  <tr><td><code>apt search</code></td><td><code>apt-cache search</code></td><td>검색</td></tr>
+  <tr><td><code>apt show</code></td><td><code>apt-cache show</code></td><td>정보 보기</td></tr>
+</table></div>
+
+<h3>root와 sudo</h3>
+<ul>
+  <li><b>root</b> = 모든 권한을 가진 최고 관리자</li>
+  <li>일반 사용자로 <code>apt install nano</code> 실행 → <code>Permission denied / are you root?</code> 오류</li>
+  <li><code>sudo 명령어</code> 형식으로 관리자 권한 획득 → 비밀번호는 <b>우분투 설치 시 정한 내 비밀번호</b></li>
+</ul>
+<p>수업 실습 📝:</p>
+<pre><code>sudo apt update        # 패키지 목록 업데이트
+sudo apt install tree  # tree 설치</code></pre>
+
+<!-- ============================================================ -->
+<h2>7. 실습: WSL로 Ubuntu 설치 📝</h2>
+<ol>
+  <li>Microsoft Store에서 <b>Ubuntu</b> 검색 후 다운로드</li>
+  <li>열기 → 하위 시스템 설치</li>
+  <li><b>Windows 기능 켜기/끄기</b>에서 <b>Linux용 Windows 하위 시스템</b>, <b>가상 머신 플랫폼</b> 체크 (최신 Windows는 관리자 PowerShell에서 <code>wsl --install</code> 한 줄로도 된다)</li>
+  <li>재부팅 후 Ubuntu 실행 → 사용자 이름 / 비밀번호 설정</li>
+</ol>
+<blockquote>⚠️ 비밀번호를 입력할 때 화면에 아무것도 안 보인다(<code>*</code>도 안 나옴). 입력은 되고 있으니 그냥 치고 Enter.</blockquote>
+
+<h3>프롬프트 읽는 법</h3>
+<pre><code>계정명@컴퓨터이름:~$</code></pre>
+<ul>
+  <li><code>계정명</code> 로그인 사용자 · <code>컴퓨터이름</code> 호스트 이름</li>
+  <li><code>:</code> 뒤는 현재 위치, <code>~</code>는 홈 디렉터리(<code>/home/계정명</code>)</li>
+  <li><code>$</code> 일반 사용자 / <code>#</code> root ➕</li>
+</ul>
+
+<h3>비밀번호를 까먹었을 때</h3>
+<p>Windows PowerShell에서:</p>
+<pre><code>wsl -d Ubuntu -u root   # Ubuntu 배포판에 root로 접속
+passwd 내계정명          # 비밀번호 재설정</code></pre>
+<p class="tag">➕ 배포판 이름은 <code>wsl -l -v</code>로 확인한다. 수업 PC에서는 이름이 <code>Ubuntu</code>(WSL 2)로 나왔다.</p>
+
+<!-- ============================================================ -->
+<h1>PART 2. 리눅스 파일 시스템</h1>
+
+<h2>8. 파일 시스템 개념 📄</h2>
+<ul>
+  <li><b>파일 시스템</b>: 저장 장치에서 데이터를 읽고 쓰기 위해 미리 정한 <b>약속</b>, 파일을 저장·검색할 수 있도록 <b>관리하는 방법</b>, 파일 관리 <b>정책</b></li>
+  <li>리눅스 파일 시스템 = <b>디렉터리 + 파일</b></li>
+  <li><b>디렉터리</b>: 파일과 하위 디렉터리를 분류하기 위해 붙이는 <b>이름 공간</b>, 그룹으로 묶은 개념</li>
+  <li><b>파일</b>: 물리적인 저장 공간에 저장되는 <b>데이터의 집합</b></li>
+  <li>모든 파일과 디렉터리는 <b>루트(<code>/</code>) 아래에 계층적</b>으로 만들어진다 → <b>트리(tree) 구조</b></li>
+</ul>
+<pre><code>/
+├── bin
+├── home
+│   └── elice
+│       ├── 바탕화면
+│       ├── 문서
+│       └── 다운로드
+├── lib
+└── usr</code></pre>
+<p><code>tree</code> 명령어로 구조를 확인할 수 있다. 없으면 <code>bash: /usr/bin/tree: 그런 파일이나 디렉터리가 없습니다</code>가 나온다 → <code>sudo apt install tree</code>로 설치 (수업에서 한 실습이 바로 이것 📝).</p>
+
+<!-- ============================================================ -->
+<h2>9. 소유권과 권한 📄</h2>
+<h3>파일 속성 읽기 (<code>ls -al</code>)</h3>
+<pre><code>-rw-r--r--  1  elice  elice  8980  9월 16 09:35  elice.txt
+│└───┬───┘  │    │      │      │        │            └ 파일 이름
+│    │      │    │      │      │        └ 마지막 변경 시간
+│    │      │    │      │      └ 파일 크기(Byte)
+│    │      │    │      └ 소유 그룹
+│    │      │    └ 파일 소유자
+│    │      └ 링크 수
+│    └ 파일 권한
+└ 파일 유형 (- 파일, d 디렉터리)</code></pre>
+
+<h3>권한 숫자 표기</h3>
+<div class="tw"><table>
+  <tr><th colspan="3">소유자</th><th colspan="3">그룹</th><th colspan="3">그 외 사용자</th></tr>
+  <tr><td>r</td><td>w</td><td>-</td><td>r</td><td>-</td><td>-</td><td>r</td><td>-</td><td>-</td></tr>
+  <tr><td>4</td><td>2</td><td>0</td><td>4</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td></tr>
+  <tr><td colspan="3"><b>6</b></td><td colspan="3"><b>4</b></td><td colspan="3"><b>4</b></td></tr>
+</table></div>
+<p>읽기 <b>r=4</b>, 쓰기 <b>w=2</b>, 실행 <b>x=1</b>을 더한다 → <code>rw-r--r--</code> = <b>644</b></p>
+
+<h3>권한 변경 <code>chmod</code> / 소유권 변경 <code>chown</code></h3>
+<pre><code>chmod 777 elice.txt          # chmod [권한] [파일] → rwxrwxrwx (모든 사용자에게 모든 권한)
+chown elice:elice elice.txt  # chown [유저]:[그룹] [파일/디렉터리] → root 권한 필요</code></pre>
+
+<!-- ============================================================ -->
+<h2>10. 파일 명령어 📄</h2>
+<div class="tw"><table>
+  <tr><th>명령어</th><th>형식</th><th>설명</th></tr>
+  <tr><td><code>mkdir</code></td><td><code>mkdir 이름</code> / <code>mkdir 경로/이름</code></td><td>디렉터리 생성</td></tr>
+  <tr><td><code>touch</code></td><td><code>touch 파일명</code> / <code>touch 경로/파일명</code></td><td>빈 파일 생성</td></tr>
+  <tr><td><code>rmdir</code></td><td><code>rmdir 이름</code></td><td><b>비어 있는</b> 디렉터리만 삭제 (안에 뭐가 있으면 "디렉토리가 비어있지 않음" 오류)</td></tr>
+  <tr><td><code>rm</code></td><td><code>rm [옵션] 대상</code></td><td>파일·디렉터리 삭제</td></tr>
+  <tr><td><code>cp</code></td><td><code>cp [옵션] 원본 목적지</code></td><td>복사</td></tr>
+  <tr><td><code>mv</code></td><td><code>mv 원본 목적지</code></td><td>이동 / 이름 변경</td></tr>
+  <tr><td><code>cat</code></td><td><code>cat [옵션] 파일</code></td><td>파일 내용 출력</td></tr>
+  <tr><td><code>find</code></td><td><code>find 경로 -name 이름 [-type d/f]</code></td><td>파일 검색 (<code>-type d</code> 디렉터리만, <code>-type f</code> 파일만)</td></tr>
+</table></div>
+
+<h3>옵션 정리 (recursive, force 📝)</h3>
+<div class="tw"><table>
+  <tr><th>명령</th><th>옵션</th><th>뜻</th></tr>
+  <tr><td rowspan="4"><code>rm</code></td><td><code>-r</code></td><td><b>recursive(재귀)</b> — 디렉터리와 그 하위까지 삭제</td></tr>
+  <tr><td><code>-f</code></td><td><b>force(강제)</b> — 묻지 않고 바로 삭제</td></tr>
+  <tr><td><code>-i</code></td><td>삭제할지 하나씩 확인</td></tr>
+  <tr><td><code>-rf</code></td><td>묻지 않고 하위 포함 디렉터리째 삭제</td></tr>
+  <tr><td rowspan="2"><code>cp</code></td><td><code>-r</code></td><td>하위 디렉터리·파일 전체 복사</td></tr>
+  <tr><td><code>-p</code></td><td>소유주·그룹·권한·시간 정보 유지</td></tr>
+  <tr><td><code>cat</code></td><td><code>-n</code></td><td>줄 번호와 함께 출력</td></tr>
+</table></div>
+<pre><code>cp /etc/test /backup         # 파일 복사
+cp -r /etc/elice /elice      # 디렉터리 통째로 복사
+cat elice.txt                # 내용 출력
+cat >> elice.txt             # 입력한 내용을 파일 끝에 추가 (&gt; 는 덮어쓰기)</code></pre>
+<blockquote>🚨 <code>rm -rf</code>는 확인 없이 지우고 리눅스 터미널엔 휴지통이 없다. 경로를 두 번 확인할 것.</blockquote>
+
+<h3>그 밖의 명령어</h3>
+<div class="tw"><table>
+  <tr><td><code>head</code> 처음 N줄</td><td><code>tail</code> 마지막 N줄</td><td><code>alias</code> 명령어 별칭 지정</td></tr>
+  <tr><td><code>more</code> 화면 단위 출력</td><td><code>diff</code> 파일 비교</td><td><code>su</code> 사용자 변경</td></tr>
+  <tr><td><code>which</code> 명령어의 실행 파일 경로</td><td><code>wc</code> 줄·단어 수</td><td><code>shutdown</code> 시스템 종료</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>11. nano 텍스트 에디터 📄</h2>
+<p>UNIX 호환 시스템에서 쓰는 가볍고 간단한 텍스트 에디터. 실행: <code>nano 파일이름</code></p>
+<div class="tw"><table>
+  <tr><th>단축키</th><th>동작</th><th>단축키</th><th>동작</th></tr>
+  <tr><td><code>Ctrl + O</code></td><td>저장</td><td><code>Alt + 6</code></td><td>복사</td></tr>
+  <tr><td><code>Ctrl + X</code></td><td>종료</td><td><code>Ctrl + U</code></td><td>붙여넣기</td></tr>
+  <tr><td><code>Ctrl + W</code></td><td>검색</td><td><code>Ctrl + ^</code></td><td>여러 줄 선택(마크)</td></tr>
+</table></div>
+<p class="tag">대문자로 입력하지 않아도 된다.</p>
+
+<!-- ============================================================ -->
+<h2>12. 기타: VS Code 한국어 설정 · GitHub 📝</h2>
+<ol>
+  <li><code>Ctrl + Shift + P</code> → 명령 팔레트</li>
+  <li>앞의 <code>&gt;</code>는 지우면 안 됨 (명령 검색 모드)</li>
+  <li><code>lang</code> 검색 → <b>Configure Display Language</b> → 한국어 선택 후 재시작</li>
+</ol>
+<p class="tag">➕ 목록에 한국어가 없으면 확장에서 "Korean Language Pack for Visual Studio Code" 설치</p>
+<p>GitHub: <a href="https://github.com">github.com</a> 가입</p>
+
+<!-- ============================================================ -->
+<h2>13. 🔍 슬라이드 바로잡기</h2>
+
+
+
+<p>슬라이드에서 틀렸거나 지금 환경과 다른 부분을 모았습니다. 슬라이드와 이 표가 다르면 이 표를 기준으로 보세요.</p>
+<div class="tw"><table>
+  <tr><th>#</th><th>슬라이드 내용</th><th>바로잡기</th></tr>
+  <tr><td>B-1</td><td>GNU = "Gnu is not Unix"</td><td>정확히는 <b>GNU's Not Unix</b> (자기 자신을 포함하는 재귀 약자)</td></tr>
+  <tr><td>B-2</td><td>종류 표: 레드햇 <code>.rmp</code>, 데비안 칸에 "레드햇"</td><td><code>.rpm</code>이 맞다. <code>.deb</code>는 데비안 계열 전용</td></tr>
+  <tr><td>B-3</td><td>apt 설명: "데비안 리눅스(.dev)"</td><td><code>.deb</code>의 오타</td></tr>
+  <tr><td>B-4</td><td>"리누스 토발즈가 만든 운영체제"</td><td>토발즈가 만든 건 <b>커널</b>. 우리가 쓰는 배포판은 리눅스 커널 + GNU 도구 등을 합친 것이라 "GNU/Linux"라고도 부른다(슬라이드도 "데비안 GNU/Linux"라고 씀)</td></tr>
+  <tr><td>B-5</td><td>LTS 예시 14.04 / 16.04 / 18.04, "가장 안정적인 버전"</td><td>예시가 오래됐다. 이후 20.04, 22.04, 24.04 LTS 등이 나왔다. LTS의 핵심은 <b>지원 기간이 길다</b>(표준 5년)는 것. 내 버전은 <code>lsb_release -a</code>로 확인</td></tr>
+  <tr><td>B-6</td><td><code>cd my_project</code> 후 프롬프트가 <code>:/my_project$</code></td><td>홈에서 이동했다면 <code>:~/my_project$</code>가 맞다. <code>/my_project</code>는 루트 바로 밑이라는 뜻</td></tr>
+  <tr><td>B-7</td><td>디렉터리 구조 그림의 <code>user</code></td><td>실제 디렉터리 이름은 <code>/usr</code></td></tr>
+  <tr><td>B-8</td><td>파일 = "주기억장치나 디스크처럼…"</td><td>파일이 계속 보관되는 곳은 보통 디스크·SSD 같은 <b>보조기억장치</b>. 주기억장치(RAM)는 전원이 꺼지면 내용이 사라진다</td></tr>
+  <tr><td>B-9</td><td><code>&gt;</code>, <code>&gt;&gt;</code>를 cat의 옵션으로 설명</td><td>cat 옵션이 아니라 셸의 <b>리다이렉션</b>이다. <code>echo hi &gt; a.txt</code>처럼 어떤 명령에도 쓸 수 있다. <code>cat &gt;&gt; 파일</code>은 입력 대기 상태가 되고 <code>Ctrl + D</code>로 끝낸다</td></tr>
+  <tr><td>B-10</td><td>mv: "같은 이름이 존재하지 않을 경우 이동"</td><td>기본 <code>mv</code>는 같은 이름 파일이 있으면 <b>묻지 않고 덮어쓴다</b>. 막으려면 <code>mv -i</code>(확인) 또는 <code>mv -n</code>(덮어쓰지 않음)</td></tr>
+  <tr><td>B-11</td><td>find: "-type d 혹은 -type f로 디렉터리나 폴더만"</td><td><code>-type d</code> = 디렉터리만, <code>-type f</code> = <b>일반 파일</b>만</td></tr>
+  <tr><td>B-12</td><td>chmod 777 예시</td><td>실습용일 뿐. 777은 누구나 수정·실행할 수 있어 보안상 위험하다. 보통 파일은 644, 실행 파일·디렉터리는 755를 쓴다</td></tr>
+  <tr><td>B-13</td><td>chown "root 권한 필요"인데 예시엔 sudo가 없음</td><td>실제로는 <code>sudo chown 유저:그룹 파일</code>처럼 쓴다</td></tr>
+  <tr><td>B-14</td><td>파일 속성 그림의 권한 <code>rw-r—r</code></td><td><code>rw-r--r--</code> (9글자: 소유자 3 + 그룹 3 + 기타 3)</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>14. ➕ 더 알아보기 (슬라이드에 없음)</h2>
+
+<h3>14-1. 절대 경로 vs 상대 경로 — 자료에서 명시적으로 안 다룸</h3>
+<ul>
+  <li><b>절대 경로</b>: <code>/</code>로 시작 — <code>/home/user/docs</code></li>
+  <li><b>상대 경로</b>: 현재 위치 기준 — <code>docs</code>, <code>./docs</code>, <code>../other</code></li>
+  <li><code>.</code> 현재 · <code>..</code> 상위 · <code>~</code> 홈 · <code>cd -</code> 직전 위치</li>
+</ul>
+
+<h3>14-2. 주요 디렉터리 (슬라이드 <code>ls /</code> 결과에 나온 것들)</h3>
+<div class="tw"><table>
+  <tr><th>경로</th><th>용도</th></tr>
+  <tr><td><code>/bin</code>, <code>/usr/bin</code></td><td>명령어 실행 파일 (<code>which ls</code>로 확인)</td></tr>
+  <tr><td><code>/etc</code></td><td>시스템 설정 파일</td></tr>
+  <tr><td><code>/home</code></td><td>일반 사용자 홈</td></tr>
+  <tr><td><code>/root</code></td><td>root 사용자의 홈</td></tr>
+  <tr><td><code>/var</code></td><td>로그 등 자주 바뀌는 데이터 (<code>/var/log</code>)</td></tr>
+  <tr><td><code>/tmp</code></td><td>임시 파일</td></tr>
+  <tr><td><code>/mnt/c</code></td><td>(WSL) Windows C 드라이브</td></tr>
+</table></div>
+
+<h3>14-3. chmod 기호 방식</h3>
+<pre><code>chmod u+x script.sh   # 소유자(u)에게 실행(x) 권한 추가
+chmod go-w a.txt      # 그룹(g)·기타(o)에게서 쓰기(w) 권한 제거
+chmod 755 mydir       # rwxr-xr-x</code></pre>
+<p>디렉터리에서 <code>x</code> 권한은 "그 안으로 <code>cd</code> 할 수 있음"을 뜻한다.</p>
+
+<h3>14-4. 손에 익히면 좋은 것</h3>
+<ul>
+  <li><code>Tab</code> 자동완성, <code>↑</code> 이전 명령, <code>Ctrl + C</code> 실행 중인 프로세스 중단, <code>history</code></li>
+  <li><code>man 명령어</code> — <code>--help</code>보다 자세한 매뉴얼 (<code>q</code>로 종료)</li>
+  <li><code>mkdir -p a/b/c</code> — 중간 디렉터리까지 한 번에 생성</li>
+  <li><code>tail -f 로그파일</code> — 로그를 실시간으로 보기</li>
+  <li>WSL: <code>code .</code>(VS Code로 열기, WSL 확장 필요), <code>explorer.exe .</code>(탐색기로 열기)</li>
+  <li><code>ps aux</code>, <code>top</code> — 실행 중인 프로세스 보기 (커리큘럼 ④와 연결)</li>
+</ul>
+  </main>
+  <div class="nav"><span></span><a href="/class/bisol/linux-2/">다음: Linux 기초 3, 4 정리 →</a></div>
+  <footer>© AllThatAI · 이석창</footer>
+</div>
+</body>
+</html>
