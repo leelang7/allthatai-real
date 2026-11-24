@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux 기초 5 실습 파일 — [비솔]</title>
+<meta name="description" content="[비솔] AI 융합 전문가 양성 과정 — Linux 기초 5(셸 스크립트와 텍스트 처리) 실습 파일">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/appicon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+  :root{--bg:#0f1419;--card:#171d25;--card2:#1e2630;--line:#2b3440;--ink:#e8edf2;--body:#cfd8e1;--sub:#93a1b0;--accent:#5ccfe0}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--body);font-size:17px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased;padding:0 20px 80px}
+  .wrap{max-width:740px;margin:0 auto}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+  .back{display:inline-block;color:var(--sub);text-decoration:none;font-size:.88rem;margin-bottom:22px}
+  .back:hover{color:var(--accent)}
+  .eyebrow{display:block;font-size:.85rem;font-weight:600;color:var(--accent);margin-bottom:8px}
+  h1{font-size:clamp(1.7rem,6vw,2.2rem);letter-spacing:-.03em;font-weight:800;line-height:1.3;margin:0;color:var(--ink)}
+  .who{margin:10px 0 0;color:var(--sub)}
+  h2{font-size:1.3rem;font-weight:700;color:var(--ink);margin:48px 0 14px}
+  p{margin:12px 0}
+  b{color:var(--ink)}
+  a{color:var(--accent)}
+  pre{background:var(--card);border:1px solid var(--line);padding:16px 18px;border-radius:12px;overflow-x:auto;line-height:1.7;margin:14px 0}
+  code{font-family:"JetBrains Mono","D2Coding",Consolas,monospace;font-size:.86em;background:var(--card2);color:#a5e3ee;padding:2px 6px;border-radius:6px}
+  pre code{background:none;padding:0;color:var(--ink);font-size:.88rem}
+  .files{display:grid;gap:10px;margin:14px 0}
+  .file{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .file:hover{border-color:var(--accent);background:var(--card2)}
+  .file b{display:block;font-family:"JetBrains Mono",Consolas,monospace;font-size:.95rem}
+  .file small{display:block;color:var(--sub);font-size:.84rem;line-height:1.5}
+  .file .go{margin-left:auto;color:var(--sub)}
+  .tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:.94rem}
+  th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:0}
+  th{background:var(--card);color:var(--sub);font-size:.84rem;font-weight:600}
+  footer{margin-top:48px;color:var(--sub);font-size:.82rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/class/">← 강의 자료실</a>
+    <span class="eyebrow">[비솔] 실습 파일 · 2026.11.25</span>
+    <h1>Linux 기초 5 실습 파일</h1>
+    <p class="who">셸 스크립트와 텍스트 처리 — 오늘 실습에 쓰는 연습 데이터</p>
+  </header>
+
+  <h2>1. 한 번에 준비하기</h2>
+  <p>WSL(Ubuntu) 터미널에 아래 네 줄을 차례로 입력합니다. <code>실습 준비 완료</code>가 나오면 끝입니다.</p>
+  <pre><code>mkdir ~/day3
+cd ~/day3
+wget https://real.allthatai.kr/class/bisol/files/setup.sh
+bash setup.sh</code></pre>
+
+  <h2>2. 만들어지는 것</h2>
+  <div class="tw"><table>
+    <tr><th>이름</th><th>내용</th></tr>
+    <tr><td><code>dataset/</code></td><td>불량 검사 이미지 폴더 — <code>ok</code> 12장, <code>ng</code> 5장, <code>unknown</code> 3장 (내용이 빈 연습용 파일)</td></tr>
+    <tr><td><code>labels.csv</code></td><td>파일 이름, 라벨, 작업자 — 10줄</td></tr>
+    <tr><td><code>train.log</code></td><td>학습 기록: epoch, loss, acc — 5줄</td></tr>
+  </table></div>
+  <p>실습하다 데이터가 망가지면 <code>~/day3</code> 폴더를 지우고 1번을 다시 하면 처음 상태로 돌아갑니다.</p>
+
+  <h2>3. 파일</h2>
+  <div class="files">
+    <a class="file" href="/class/bisol/files/setup.sh" download>
+      <span><b>setup.sh</b><small>연습 데이터를 만드는 스크립트 (위 1번에서 받는 파일)</small></span><span class="go">↓</span></a>
+    <a class="file" href="/class/bisol/files/day3-data.tar.gz" download>
+      <span><b>day3-data.tar.gz</b><small>같은 데이터를 묶어 둔 파일 — 7교시 wget · tar 실습용</small></span><span class="go">↓</span></a>
+  </div>
+  <p>7교시 실습:</p>
+  <pre><code>wget https://real.allthatai.kr/class/bisol/files/day3-data.tar.gz
+tar -xzf day3-data.tar.gz
+ls day3-data</code></pre>
+
+  <footer>© AllThatAI · 이석창</footer>
+</div>
+</body>
+</html>
