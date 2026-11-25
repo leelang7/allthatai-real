@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>셸 스크립트 · Git 1 정리 — [비솔] 수업 정리</title>
+<meta name="description" content="[비솔] AI 융합 전문가 양성 과정 수업 정리 — 셸 스크립트 · Git 1 정리 (2026.11.25)">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/appicon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+  :root{--bg:#0f1419;--card:#171d25;--card2:#1e2630;--line:#2b3440;--ink:#e8edf2;--body:#cfd8e1;--sub:#93a1b0;--accent:#5ccfe0;--accent2:#8fb0ff}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--body);font-size:17px;line-height:1.8;letter-spacing:-.005em;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased;padding:0 20px 80px}
+  .wrap{max-width:740px;margin:0 auto}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+  .back{display:inline-block;color:var(--sub);text-decoration:none;font-size:.88rem;margin-bottom:22px}
+  .back:hover{color:var(--accent)}
+  .eyebrow{display:block;font-size:.85rem;font-weight:600;color:var(--accent);margin-bottom:8px}
+  header h1{font-size:clamp(1.7rem,6vw,2.2rem);letter-spacing:-.03em;font-weight:800;line-height:1.3;margin:0;color:var(--ink)}
+  .who{margin:10px 0 0;color:var(--sub);font-size:1rem}
+  .legend{margin:14px 0 0;color:var(--sub);font-size:.85rem}
+  main h1{font-size:1.55rem;font-weight:800;letter-spacing:-.02em;line-height:1.35;color:var(--ink);margin:72px 0 0;padding-bottom:14px;border-bottom:2px solid var(--accent)}
+  h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;line-height:1.4;color:var(--ink);margin:56px 0 14px}
+  h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:34px 0 10px}
+  p{margin:12px 0}
+  ul,ol{margin:12px 0;padding-left:22px}
+  li{margin:6px 0}
+  li::marker{color:var(--sub)}
+  b,strong{color:var(--ink);font-weight:700}
+  a{color:var(--accent);text-underline-offset:3px}
+  pre{background:var(--card);border:1px solid var(--line);padding:16px 18px;border-radius:12px;overflow-x:auto;line-height:1.7;margin:14px 0}
+  code{font-family:"JetBrains Mono","D2Coding",Consolas,Menlo,monospace;font-size:.86em;background:var(--card2);color:#a5e3ee;padding:2px 6px;border-radius:6px;word-break:break-all}
+  pre code{background:none;padding:0;color:var(--ink);font-size:.88rem;word-break:normal;white-space:pre}
+  blockquote{background:var(--card);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;margin:28px 0 8px;padding:16px 20px;color:var(--ink)}
+  .tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:.94rem;line-height:1.65}
+  th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:0}
+  th{background:var(--card);color:var(--sub);font-size:.84rem;font-weight:600;white-space:nowrap}
+  td:first-child{white-space:nowrap}
+  .tag{font-size:.9rem;color:var(--sub);line-height:1.7}
+  .nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:72px;padding-top:22px;border-top:1px solid var(--line);font-size:.95rem}
+  .nav a{text-decoration:none;font-weight:600}
+  footer{margin-top:28px;color:var(--sub);font-size:.82rem}
+  @media (max-width:520px){body{font-size:16px;padding:0 16px 64px}th,td{padding:9px 11px}td:first-child{white-space:normal}}
+
+  .fig{margin:20px 0;padding:24px 18px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .fig figcaption{margin-top:16px;text-align:center;font-size:.86rem;color:var(--sub);line-height:1.6}
+  .c0{--c:#93a1b0;--cb:rgba(147,161,176,.10)} .c1{--c:#5ccfe0;--cb:rgba(92,207,224,.10)} .c2{--c:#8fb0ff;--cb:rgba(143,176,255,.10)}
+  .c3{--c:#7ddc9a;--cb:rgba(125,220,154,.10)} .c4{--c:#f2c46d;--cb:rgba(242,196,109,.10)}
+  .seg{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 8px}
+  .chip{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:150px}
+  .chip code{font-size:1.02rem;font-weight:700;padding:9px 13px;border-radius:9px;color:var(--c);background:var(--cb);border:1px solid var(--c);word-break:normal;white-space:nowrap}
+  .chip span{font-size:.78rem;line-height:1.45;color:var(--sub);text-align:center}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+  .fork{display:grid;gap:10px}
+  .fork .flow{justify-content:flex-start;flex-wrap:nowrap}
+  .node{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:11px 16px;text-align:center;min-width:104px}
+  .node b{display:block;font-size:.95rem;color:var(--ink);font-family:inherit}
+  .node small{display:block;font-size:.78rem;color:var(--sub);line-height:1.5;margin-top:2px}
+  .node small code{font-size:.74rem;background:none;padding:0;white-space:nowrap}
+  .node.hl{border-color:var(--accent);background:rgba(92,207,224,.08)}
+  .node.file{border-style:dashed}
+  .node.warn{border-color:#f2a06d}
+  .arr{display:flex;flex-direction:column;align-items:center;line-height:1.1;color:var(--accent);min-width:34px}
+  .arr small{font-family:"JetBrains Mono",Consolas,monospace;font-size:.78rem;font-weight:700;white-space:nowrap}
+  .arr i{font-style:normal;font-size:1.3rem}
+  .arr.wide small{font-family:inherit;font-weight:600}
+  .rowlab{font-size:.86rem;color:var(--sub);margin-bottom:10px;text-align:center}
+  .stack{max-width:520px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .bar{display:flex;align-items:baseline;gap:14px;padding:13px 16px;background:var(--cb);border-left:4px solid var(--c);border-bottom:1px solid var(--line)}
+  .bar:last-child{border-bottom:0}
+  .bar b{flex:none;min-width:104px;color:var(--c);font-size:.95rem}
+  .bar span{font-size:.84rem;color:var(--sub);line-height:1.5}
+  .bar.gap{justify-content:center;border-left:4px solid transparent;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(147,161,176,.07) 8px 16px);padding:20px 16px}
+  .memwrap{display:flex;gap:12px;max-width:600px;margin:0 auto}
+  .memwrap .stack{flex:1;margin:0}
+  .addr{display:flex;flex-direction:column;justify-content:space-between;font-size:.74rem;color:var(--sub);white-space:nowrap;padding:12px 0;border-right:1px dashed var(--line);padding-right:10px}
+  .perm{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .pg{border:1px solid var(--c);background:var(--cb);border-radius:12px;padding:12px 14px;text-align:center;min-width:132px}
+  .pg-h{font-size:.84rem;font-weight:700;color:var(--c);margin-bottom:10px}
+  .bits{display:flex;justify-content:center;gap:6px}
+  .bit{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .bit code{font-size:1.05rem;font-weight:700;width:34px;padding:6px 0;text-align:center;background:var(--bg);color:var(--ink)}
+  .bit span{font-size:.78rem;color:var(--sub)}
+  .pg-sum{margin-top:10px;font-size:.84rem;color:var(--sub)}
+  .pg-sum b{font-size:1.25rem;color:var(--c);margin-left:2px}
+  .chip.wide{max-width:100%}
+  .chip.wide code{white-space:normal;word-break:break-all;text-align:center}
+  @media (max-width:520px){.fig{padding:20px 12px 14px}.bar{flex-direction:column;gap:2px}.addr{display:none}.flow,.fork .flow{flex-direction:column;flex-wrap:nowrap}.fork{grid-template-columns:1fr 1fr;align-items:start}.arr{flex-direction:row;gap:6px}.arr i{transform:rotate(90deg)}.node{min-width:150px}.fork .node{min-width:0}}
+
+  .stepn{display:inline-block;width:20px;height:20px;line-height:20px;border-radius:50%;background:var(--accent);color:#0d1117;font-size:.74rem;font-weight:800;margin-right:6px;text-align:center}
+  .chip span b{color:var(--c);font-family:"JetBrains Mono",Consolas,monospace;font-size:.9rem}
+  .hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .hubs .pg{min-width:0}
+  .hubs .pg p{margin:0;font-size:.8rem;line-height:1.55;color:var(--sub)}
+  .rowlab code{font-size:.84rem}
+  .flow.tight{flex-wrap:nowrap;gap:6px;align-items:stretch}
+  .tight .node{flex:1 1 0;min-width:0;padding:11px 8px}
+  .tight .node b{font-size:.86rem}
+  .tight .node small{font-size:.72rem}
+  .tight .node small code{white-space:normal}
+  .tight .arr{min-width:20px;justify-content:center}
+  .tight .arr small{font-size:.68rem}
+  .tight .stepn{margin-right:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/class/">← 강의 자료실</a><br>
+    <span class="eyebrow">[비솔] 수업 정리 · 2026.11.25</span>
+    <h1>셸 스크립트 · Git 1 정리</h1>
+    <p class="who">Linux 기초 5 셸 스크립트와 텍스트 처리 · Git 1 내 컴퓨터에서 버전 관리 (33쪽까지)</p>
+    <p class="legend">➕ 슬라이드에 없는 추가 내용 · ✅ WSL Ubuntu에서 실행해 확인한 내용</p>
+  </header>
+  <main>
+<blockquote>
+💡 <b>한 줄 요약</b> — 여러 번 치는 명령은 <code>.sh</code> 파일 하나로 묶어 실행한다. CSV와 로그는 <code>cut | sort | uniq -c</code>, <code>awk</code>, <code>sed</code>로 뽑고 세고 바꾼다. 그렇게 만든 파일은 Git으로 <code>git add → git commit</code> 해서 이력을 남긴다.
+</blockquote>
+
+
+
+<!-- ============================================================ -->
+<h1>PART 5. 셸 스크립트와 텍스트 처리</h1>
+
+<h2>1. 실습 준비</h2>
+<pre><code>mkdir ~/day3
+cd ~/day3
+wget https://real.allthatai.kr/class/bisol/files/setup.sh
+bash setup.sh</code></pre>
+<div class="tw"><table>
+  <tr><th>쓴 것</th><th>뜻</th></tr>
+  <tr><td><code>~</code></td><td>내 홈 디렉터리. 일반 계정이면 <code>/home/계정명</code> ✅</td></tr>
+  <tr><td><code>wget 주소</code></td><td>주소의 파일을 <b>현재 폴더</b>에 내려받는다</td></tr>
+  <tr><td><code>bash setup.sh</code></td><td>스크립트를 실행한다. 연습 데이터가 만들어진다</td></tr>
+</table></div>
+<div class="tw"><table>
+  <tr><th>만들어지는 것</th><th>내용</th></tr>
+  <tr><td><code>dataset/</code></td><td>불량 검사 이미지 폴더: ok 12장, ng 5장, unknown 3장</td></tr>
+  <tr><td><code>labels.csv</code></td><td>파일이름, 라벨, 작업자 (10줄)</td></tr>
+  <tr><td><code>train.log</code></td><td>학습 기록: epoch, loss, acc (5줄)</td></tr>
+</table></div>
+<p> 이 데이터는 이미지를 <b>정상(ok) / 비정상(ng)</b>으로 나누는 <b>분류</b> 문제를 흉내 낸 것이다. <code>unknown</code>은 세 번째 종류가 아니라 아직 판정하지 못한 것이다.</p>
+<div class="tw"><table>
+  <tr><th>train.log의 낱말</th><th>뜻</th></tr>
+  <tr><td><code>epoch</code></td><td>학습 데이터 전체를 한 번 다 본 횟수</td></tr>
+  <tr><td><code>loss</code></td><td>모델의 예측이 정답에서 벗어난 정도. <b>작을수록 좋다</b></td></tr>
+  <tr><td><code>acc</code></td><td>accuracy(정확도). 전체 중 맞힌 비율. <b>클수록 좋다</b> (0.88 = 88%)</td></tr>
+</table></div>
+
+<h2>2. 셸 스크립트 기초</h2>
+<p><b>셸 스크립트</b> = 터미널에 칠 명령어를 순서대로 적어 둔 텍스트 파일. 위에서 아래로 한 줄씩 실행된다.</p>
+<figure class="fig"><div class="flow"><div class="node "><b><span class="stepn">1</span>만든다</b><small><code>nano hello.sh</code><br>첫 줄은 <code>#!/bin/bash</code></small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">2</span>권한을 준다</b><small><code>chmod +x hello.sh</code><br>처음 한 번만</small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">3</span>실행한다</b><small><code>./hello.sh</code><br>위에서 아래로 한 줄씩</small></div></div><figcaption>확장자 <code>.sh</code> 는 사람이 알아보기 위한 약속이다. 없어도 실행은 된다.</figcaption></figure>
+
+<!--/FIG-->
+<pre><code>#!/bin/bash
+echo "안녕하세요"
+echo "오늘 날짜: $(date +%Y-%m-%d)"
+echo "현재 위치: $(pwd)"</code></pre>
+<div class="tw"><table>
+  <tr><th>쓰기</th><th>뜻</th></tr>
+  <tr><td><code>#!/bin/bash</code></td><td>이 파일은 bash로 실행하라는 표시. 항상 첫 줄에 쓴다</td></tr>
+  <tr><td><code>#</code> 으로 시작하는 줄</td><td>주석. 실행되지 않는 메모</td></tr>
+  <tr><td><code>./hello.sh</code></td><td>현재 폴더의 hello.sh를 실행. 실행 권한(x)이 필요하다</td></tr>
+  <tr><td><code>bash hello.sh</code></td><td>실행 권한이 없어도 실행된다</td></tr>
+</table></div>
+
+<h3>변수와 따옴표</h3>
+<pre><code>name="vision"
+count=3
+echo "$name 프로젝트, 이미지 $count 장"    # vision 프로젝트, 이미지 3 장</code></pre>
+<ul>
+  <li>만들 때는 <code>이름=값</code>, 쓸 때는 앞에 <code>$</code>. <b><code>=</code> 양옆에 공백을 넣으면 안 된다</b> (<code>name: command not found</code>)</li>
+  <li>큰따옴표 <code>"$name"</code>은 변수를 값으로 바꾸고, 작은따옴표 <code>'$name'</code>은 글자 그대로 둔다</li>
+  <li>파일 이름에 공백이 있을 수 있으니 변수는 항상 <code>"$변수"</code>처럼 큰따옴표로 감싼다</li>
+</ul>
+
+<h3>명령어 결과를 값으로 쓰기</h3>
+<pre><code>today=$(date +%Y%m%d)
+n=$(ls dataset/ok | wc -l)
+echo "양품 이미지 $n 장"        # 양품 이미지 12 장
+echo $((5 + 3)) $((5 * 3))      # 8 15  — 숫자 계산은 $(( ))</code></pre>
+
+<h3>인자</h3>
+<figure class="fig"><div class="seg"><div class="chip c0"><code>bash</code><span>bash로<br>실행</span></div><div class="chip c1"><code>greet.sh</code><span><b>$0</b><br>스크립트 이름</span></div><div class="chip c2"><code>apple</code><span><b>$1</b><br>첫 번째 인자</span></div><div class="chip c3"><code>banana</code><span><b>$2</b><br>두 번째 인자</span></div><div class="chip c4"><code>2</code><span><b>$#</b><br>인자의 개수</span></div></div><figcaption>명령 줄을 공백에서 자른 조각이 차례로 <code>$0</code>, <code>$1</code>, <code>$2</code> 에 담긴다</figcaption></figure>
+
+<!--/FIG-->
+<p><b>실습 1</b>: 이름을 인자로 받아 인사, 오늘 날짜, ng 폴더의 이미지 수를 출력하는 <code>info.sh</code>.</p>
+<pre><code>#!/bin/bash
+echo "$1 님, 안녕하세요"
+echo "오늘은 $(date +%Y-%m-%d) 입니다"
+echo "ng 폴더에는 이미지가 $(ls dataset/ng | wc -l) 장 있습니다"</code></pre>
+
+<h2>3. 조건과 반복</h2>
+<h3>if</h3>
+<pre><code>#!/bin/bash
+if [ -f "$1" ]; then
+    echo "$1 파일이 있습니다"
+elif [ -d "$1" ]; then
+    echo "$1 은 디렉터리입니다"
+else
+    echo "$1 이(가) 없습니다"
+fi</code></pre>
+<p><code>[</code> 뒤와 <code>]</code> 앞에는 반드시 공백. 위에서부터 차례로 묻고, 처음으로 참이 된 한 곳만 실행한다.</p>
+<div class="tw"><table>
+  <tr><th>조건</th><th>뜻</th><th>조건</th><th>뜻</th></tr>
+  <tr><td><code>[ -f 경로 ]</code></td><td>파일이 있다</td><td><code>[ -z "$변수" ]</code></td><td>변수가 비어 있다</td></tr>
+  <tr><td><code>[ -d 경로 ]</code></td><td>디렉터리가 있다</td><td><code>[ "$a" = "$b" ]</code></td><td>문자열이 같다</td></tr>
+  <tr><td><code>[ ! -f 경로 ]</code></td><td>파일이 없다</td><td><code>[ "$n" -ge 3 ]</code></td><td>숫자가 3 이상이다</td></tr>
+</table></div>
+<p>숫자 비교: <code>-eq</code> 같다 · <code>-ne</code> 다르다 · <code>-gt</code> 초과 · <code>-ge</code> 이상 · <code>-lt</code> 미만 · <code>-le</code> 이하</p>
+
+<h3>성공과 실패</h3>
+<ul>
+  <li>모든 명령어는 끝날 때 숫자를 남긴다. <b>0이면 성공, 0이 아니면 실패</b>. <code>echo $?</code>로 본다</li>
+  <li><code>A &amp;&amp; B</code> — A가 성공하면 B 실행 / <code>A || B</code> — A가 실패하면 B 실행</li>
+  <li><code>exit 1</code> — 스크립트를 실패로 끝낸다 / <code>set -e</code> — 명령이 실패하면 스크립트를 멈춘다 (예외는 바로잡기 B-3)</li>
+</ul>
+
+<h3>for, while</h3>
+<pre><code>for d in dataset/*/; do              # 폴더를 하나씩
+  n=$(ls "$d" | wc -l)
+  echo "$d : $n 장"
+done
+
+while IFS=, read -r file label worker; do   # CSV를 한 줄씩, 쉼표에서 잘라 변수 셋에
+    echo "$file 은 $label ($worker 작업)"
+done &lt; labels.csv</code></pre>
+<p>위 for 문이 <b>실습 2</b>의 <code>count.sh</code>다. 결과: <code>dataset/ng/ : 5 장</code>, <code>dataset/ok/ : 12 장</code>, <code>dataset/unknown/ : 3 장</code>.</p>
+
+<h3>함수와 디버깅</h3>
+<pre><code>count_images() {
+    ls "$1" | wc -l          # 함수 안의 $1 은 함수가 받은 값
+}
+echo "ok: $(count_images dataset/ok) 장"
+
+bash -x 파일.sh              # 실제로 실행되는 명령을 한 줄씩 보여 준다</code></pre>
+
+<h2>4. 텍스트 처리</h2>
+<div class="tw"><table>
+  <tr><th>명령어</th><th>하는 일</th><th>예</th></tr>
+  <tr><td><code>cut</code></td><td>열 잘라내기</td><td><code>cut -d, -f2 labels.csv</code> (쉼표로 나눈 2번째 열)</td></tr>
+  <tr><td><code>sort</code></td><td>정렬</td><td><code>-n</code> 숫자로, <code>-r</code> 거꾸로, <code>-k6</code> 6번째 열 기준</td></tr>
+  <tr><td><code>uniq</code></td><td><b>붙어 있는</b> 같은 줄을 하나로 합친다</td><td><code>uniq -c</code>는 몇 번 나왔는지 세어 앞에 붙인다</td></tr>
+  <tr><td><code>awk</code></td><td>열 뽑기, 조건으로 거르기, 합계</td><td><code>awk '{print $2, $6}' train.log</code></td></tr>
+  <tr><td><code>sed</code></td><td>글자 바꾸기</td><td><code>sed 's/unknown/ng/' labels.csv</code></td></tr>
+</table></div>
+
+<h3>종류별로 몇 개인지 세는 공식</h3>
+<figure class="fig"><div class="flow tight"><div class="node "><b><span class="stepn">1</span>열 뽑기</b><small><code>cut -d, -f3</code><br>kim · lee · kim …</small></div><div class="arr"><small>|</small><i>→</i></div><div class="node "><b><span class="stepn">2</span>정렬</b><small><code>sort</code><br>kim · kim · lee …</small></div><div class="arr"><small>|</small><i>→</i></div><div class="node "><b><span class="stepn">3</span>같은 줄 세기</b><small><code>uniq -c</code><br>4 kim · 3 lee · 3 park</small></div><div class="arr"><small>|</small><i>→</i></div><div class="node hl"><b><span class="stepn">4</span>많은 순으로</b><small><code>sort -rn</code><br>4 kim · 3 park · 3 lee</small></div></div><figcaption>라벨별 이미지 수, 작업자별 작업량, IP별 접속 횟수가 모두 이 한 줄이다. 2번 sort 를 빼면 개수가 틀린다.</figcaption></figure>
+
+<!--/FIG-->
+<p><code>uniq</code>는 붙어 있는 같은 줄만 합치므로 <b>앞에 반드시 sort</b>가 와야 한다. ✅ <code>ok, ng, ok, ok</code> 네 줄에 <code>uniq</code>만 쓰면 <code>ok ng ok</code>, <code>sort | uniq</code>는 <code>ng ok</code>가 나왔다.</p>
+
+<h3>awk</h3>
+<figure class="fig"><div class="seg"><div class="chip c0"><code>epoch</code><span>$1</span></div><div class="chip c1"><code>1</code><span><b>$2</b></span></div><div class="chip c0"><code>loss</code><span>$3</span></div><div class="chip c2"><code>0.912</code><span>$4</span></div><div class="chip c0"><code>acc</code><span>$5</span></div><div class="chip c3"><code>0.61</code><span><b>$6</b></span></div></div><figcaption>awk 는 줄을 공백에서 잘라 번호를 붙인다. <code>awk '{print $2, $6}'</code> 는 이 줄에서 <code>1 0.61</code> 을 출력한다.</figcaption></figure>
+
+<!--/FIG-->
+<pre><code>awk '{print $2, $6}' train.log              # epoch 번호와 정확도만
+awk '$6 &gt;= 0.85' train.log                  # 정확도 0.85 이상인 줄
+awk -F, '$2 == "ng" {print $1}' labels.csv  # 라벨이 ng인 파일 이름 (-F, 는 쉼표로 나눔)
+awk '{sum += $6} END {print sum / NR}' train.log   # 정확도 평균 0.784
+sort -k6 -rn train.log | head -1            # 정확도가 가장 높은 epoch → epoch 4 ... acc 0.88</code></pre>
+<p>awk 안의 <code>$1</code>은 스크립트 인자가 아니라 "1번째 열"이다. 그래서 awk 명령은 작은따옴표로 감싼다.</p>
+
+<h3>sed</h3>
+<figure class="fig"><div class="seg"><div class="chip c1"><code>s</code><span>바꿔라<br>(substitute)</span></div><div class="chip c0"><code>/</code><span></span></div><div class="chip c2"><code>unknown</code><span>찾을 말</span></div><div class="chip c0"><code>/</code><span></span></div><div class="chip c3"><code>ng</code><span>바꿀 말</span></div><div class="chip c0"><code>/</code><span></span></div><div class="chip c4"><code>g</code><span>줄 안의 전부<br>(없으면 첫 번째만)</span></div></div><figcaption><code>img_005.jpg,unknown,lee</code> → <code>img_005.jpg,ng,lee</code>. 결과는 화면에만 나오고 원본 파일은 그대로다.</figcaption></figure>
+
+<!--/FIG-->
+<div class="tw"><table>
+  <tr><th>쓰기</th><th>뜻</th></tr>
+  <tr><td><code>sed 's/a/b/'</code></td><td>줄마다 처음 나오는 a만 b로</td></tr>
+  <tr><td><code>sed 's/a/b/g'</code></td><td>줄 안의 모든 a를 b로</td></tr>
+  <tr><td><code>sed '1d'</code></td><td>1번째 줄 삭제</td></tr>
+  <tr><td><code>sed -i 's/a/b/' 파일</code></td><td>화면에 출력하지 않고 <b>파일을 직접 고친다</b>. 되돌릴 수 없으니 복사본을 만든 뒤에 쓴다</td></tr>
+</table></div>
+<p><b>실습 3</b> (한 줄로 답하기)</p>
+<pre><code>cut -d, -f3 labels.csv | sort | uniq -c | sort -rn | head -1   # 가장 많이 라벨링한 작업자 → 4 kim
+awk -F, '$3 == "kim" &amp;&amp; $2 == "ok"' labels.csv                 # kim이 ok로 라벨링한 줄
+awk '$4 &lt; 0.5 {print $2}' train.log                            # loss가 0.5보다 작은 epoch → 3, 4, 5
+sort -k4 -n train.log | head -1                                # loss가 가장 낮은 epoch → epoch 4
+sed 's/img_/part_/' labels.csv &gt; new.csv                       # img_ 를 part_ 로 바꿔 저장</code></pre>
+
+<h2>5. 실무 도구</h2>
+<h3>환경변수와 PATH</h3>
+<pre><code>echo $HOME     # /home/계정명
+echo $PATH     # /usr/local/bin:/usr/bin:/bin: ...
+which ls       # /usr/bin/ls</code></pre>
+<figure class="fig"><div class="rowlab"><code>ls</code> 라고 치면 — PATH 의 폴더를 차례로 뒤진다</div><div class="flow"><div class="node "><b>ls</b><small>입력한 명령</small></div><div class="arr"><i>→</i></div><div class="node file"><b>/usr/local/bin</b><small>없음</small></div><div class="arr"><i>→</i></div><div class="node hl"><b>/usr/bin</b><small>ls 있음</small></div><div class="arr"><small>실행</small><i>→</i></div><div class="node "><b>/usr/bin/ls</b></div></div><div class="rowlab" style="margin-top:22px"><code>hello.sh</code> 라고 치면 — 현재 폴더는 PATH 에 없다</div><div class="flow"><div class="node "><b>hello.sh</b><small>입력한 명령</small></div><div class="arr"><i>→</i></div><div class="node file"><b>PATH 의 모든 폴더</b><small>어디에도 없음</small></div><div class="arr"><small>실패</small><i>→</i></div><div class="node warn"><b>command not found</b></div></div><figcaption><code>./hello.sh</code> 는 위치를 직접 알려 주는 것이라 PATH 를 뒤지지 않는다</figcaption></figure>
+
+<!--/FIG-->
+<p>현재 폴더는 PATH에 없다. 그래서 내 스크립트는 <code>hello.sh</code>가 아니라 <code>./hello.sh</code>로 실행한다.</p>
+<div class="tw"><table>
+  <tr><th>디렉터리</th><th>들어 있는 것</th></tr>
+  <tr><td><code>/usr</code></td><td>설치된 프로그램과 그 부속 파일. 명령어는 <code>/usr/bin</code>에 있다</td></tr>
+  <tr><td><code>/lib</code></td><td>프로그램이 실행될 때 함께 불러 쓰는 라이브러리(공용 부품)</td></tr>
+</table></div>
+<pre><code>export DATA_DIR=~/day3/dataset   # 내가 실행하는 스크립트와 프로그램에도 전달되는 변수
+alias day3='cd ~/day3'           # 긴 명령에 짧은 별명
+nano ~/.bashrc                   # 계속 쓰려면 맨 아래에 적는다 (터미널을 열 때마다 실행되는 스크립트)
+source ~/.bashrc                 # 지금 터미널에 바로 적용</code></pre>
+
+<h3>tar, wget, du/df, nohup</h3>
+<pre><code>tar -czf dataset.tar.gz dataset      # 묶기 (c 묶기, z gzip 압축, f 파일 이름)
+tar -tzf dataset.tar.gz              # 풀지 않고 내용만 보기
+tar -xzf dataset.tar.gz              # 풀기
+
+wget 주소                            # 현재 폴더에 내려받기
+curl -O 주소                         # 같은 일을 curl로
+
+du -sh dataset                       # 이 폴더가 차지하는 용량
+df -h                                # 디스크 전체의 남은 공간
+
+nohup bash train.sh &gt; train_out.log 2&gt;&amp;1 &amp;   # 터미널을 닫아도 계속 실행
+tail -f train_out.log                        # 출력을 실시간으로 보기 (Ctrl+C로 보기만 멈춤)</code></pre>
+
+<h2>6. 종합 실습</h2>
+<div class="tw"><table>
+  <tr><th>미션</th><th>할 일</th><th>쓰는 것</th></tr>
+  <tr><td>1. <code>backup.sh</code></td><td>폴더 이름을 인자로 받아 오늘 날짜가 붙은 복사본을 만든다. 인자가 없으면 사용법을 출력하고 끝낸다</td><td><code>[ -z "$1" ]</code>, <code>exit 1</code>, <code>"${1}_$(date +%Y%m%d)"</code>, <code>cp -r</code></td></tr>
+  <tr><td>2. <code>rename.sh</code></td><td><code>IMG_1.jpg</code>를 <code>ng_001.jpg</code>처럼 폴더이름_번호로 바꾼다</td><td>for 안에 for, <code>basename</code>, <code>printf "%s_%03d.jpg"</code>, <code>mv</code></td></tr>
+  <tr><td>3. <code>report.sh</code></td><td>폴더별 이미지 수, 라벨 통계, 정확도가 가장 높은 epoch를 <code>report_날짜.txt</code>에 저장한다</td><td>실습 2의 for, 세는 공식, <code>sort | head</code>, <code>&gt;</code>와 <code>&gt;&gt;</code></td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h1>Git 1. 내 컴퓨터에서 버전 관리 (33쪽까지)</h1>
+
+<h2>7. 왜 Git인가</h2>
+<ul>
+  <li>파일 이름으로 버전을 관리하면(<code>report_최종.sh</code>, <code>report_진짜최종.sh</code>) 무엇이 바뀌었는지, 어느 것이 최신인지 알 수 없다</li>
+  <li>여럿이 공유 폴더의 같은 파일을 고치면 나중에 저장한 사람의 내용만 남는다</li>
+  <li>Git은 <b>언제, 누가, 무엇을, 왜</b> 바꿨는지 남기고, 어느 시점으로든 돌아갈 수 있게 한다. 각자의 변경을 따로 기록해 두었다가 합친다</li>
+</ul>
+<div class="tw"><table>
+  <tr><th></th><th>Git</th><th>GitHub</th></tr>
+  <tr><td>정체</td><td>내 컴퓨터에 설치하는 버전 관리 프로그램</td><td>Git 저장소를 인터넷에 올려 두는 서비스</td></tr>
+  <tr><td>인터넷</td><td>없어도 모든 기능이 동작한다</td><td>필요하다</td></tr>
+  <tr><td>쓰는 때</td><td>이력을 남기고 되돌릴 때 (오늘)</td><td>여럿이 같은 저장소로 협업할 때 (다음 시간)</td></tr>
+</table></div>
+<h3>이름에 "허브"가 붙은 것들➕</h3>
+<figure class="fig"><div class="hubs"><div class="pg c1"><div class="pg-h">GitHub</div><p>Git 저장소<br>코드와 이력</p></div><div class="pg c2"><div class="pg-h">Docker Hub</div><p>도커 이미지<br>실행 환경을 통째로 묶은 것</p></div><div class="pg c3"><div class="pg-h">AI Hub</div><p>AI 학습용 데이터셋<br>aihub.or.kr</p></div><div class="pg c0"><div class="pg-h">Unity Hub</div><p>PC에 설치한 유니티 에디터의<br>버전과 프로젝트 관리</p></div></div><figcaption>앞의 셋은 인터넷에 올려 두고 받아 가는 곳, Unity Hub 는 PC에 설치하는 관리 프로그램</figcaption></figure>
+
+<!--/FIG-->
+<p>앞의 셋은 인터넷에 올려 두고 받아 가는 곳이고, Unity Hub는 PC에 설치하는 관리 프로그램이다. 이름만 비슷하다.</p>
+
+<h2>8. 설치와 설정</h2>
+<pre><code>git --version                                    # git version 2.53.0 (숫자는 달라도 된다)
+git config --global user.name "kim"
+git config --global user.email "kim@example.com"
+git config --global init.defaultBranch main
+git config --list</code></pre>
+<p>커밋마다 누가 했는지 기록되므로 이름과 이메일을 처음 한 번 등록한다. 이메일은 GitHub 계정의 이메일과 같게 적는다.</p>
+
+<h2>9. 저장하기: init · status · add · commit</h2>
+<pre><code>mkdir ~/vision-inspect
+cd ~/vision-inspect
+git init          # 이 폴더가 저장소가 된다. .git 폴더가 생긴다</code></pre>
+<p><code>.git</code> 폴더에 모든 이력이 들어 있다. 이 폴더를 지우면 이력이 전부 사라진다.</p>
+
+<h3>파일이 지나가는 세 곳</h3>
+<figure class="fig"><div class="flow"><div class="node "><b>작업 디렉터리</b><small>내가 고치는 곳<br>평소처럼 만들고 고치는 폴더</small></div><div class="arr"><small>git add</small><i>→</i></div><div class="node hl"><b>스테이징 영역</b><small>이번에 기록할 것을<br>골라 담는 곳</small></div><div class="arr"><small>git commit</small><i>→</i></div><div class="node "><b>저장소</b><small>기록이 쌓이는 곳<br><code>.git</code> 폴더 안</small></div></div><figcaption>add 는 상자에 넣기, commit 은 송장을 붙여 보내기. 세 곳 모두 내 컴퓨터 안에 있다.</figcaption></figure>
+
+<!--/FIG-->
+<p> <code>git add</code> → <code>git commit</code> → 저장소로 간다. 택배에 비유하면 add는 상자에 넣기, commit은 송장을 붙여 보내기다.</p>
+
+<h3>파일의 네 가지 상태</h3>
+<figure class="fig"><div class="flow tight"><div class="node file"><b>Untracked</b><small>Git이 아직 모르는<br>새 파일</small></div><div class="arr"><small>git add</small><i>→</i></div><div class="node hl"><b>Staged</b><small>다음 커밋에<br>들어갈 것</small></div><div class="arr"><small>git commit</small><i>→</i></div><div class="node "><b>Committed</b><small>기록 완료<br>깨끗한 상태</small></div><div class="arr"><small>수정</small><i>→</i></div><div class="node warn"><b>Modified</b><small>고쳤지만<br>아직 안 담음</small></div></div><figcaption>Modified 가 된 파일은 다시 <code>git add</code> 로 Staged 가 된다. <code>git status</code> 는 파일이 지금 어느 칸에 있는지 알려 준다.</figcaption></figure>
+
+<!--/FIG-->
+<pre><code>git status              # 지금 상태 보기. 가장 자주 치는 명령
+git status -s           # 짧게: ?? 새 파일, A 담김, M 수정됨
+git add README.md       # 담기
+git add .               # 현재 폴더의 바뀐 파일을 모두 담기
+git commit -m "README 추가"
+[main (root-commit) 172d42c] README 추가
+ 1 file changed, 2 insertions(+)</code></pre>
+<div class="tw"><table>
+  <tr><th>출력의 부분</th><th>뜻</th></tr>
+  <tr><td><code>main</code></td><td>브랜치</td></tr>
+  <tr><td><code>172d42c</code></td><td>커밋 번호(해시). 사람마다 다르다</td></tr>
+  <tr><td><code>README 추가</code></td><td>커밋 메시지</td></tr>
+</table></div>
+
+<h3>커밋 메시지</h3>
+<ul>
+  <li>나쁜 예: <code>수정</code>, <code>asdf</code>, <code>최종</code> — 나중에 무엇을 했는지 알 수 없다</li>
+  <li>좋은 예: <code>count.sh 추가: 폴더별 이미지 수 세기</code> — 한 줄로 무엇을 했는지 쓴다</li>
+  <li>한 가지 일을 끝낼 때마다 커밋한다. 여러 일을 한 커밋에 섞지 않는다</li>
+</ul>
+
+<h3>커밋 안에 든 것</h3>
+<ul>
+  <li>Git은 바뀐 줄이 아니라 <b>그 순간의 프로젝트 전체</b>를 기록한다(스냅샷). 바뀌지 않은 파일은 다시 저장하지 않고 이전 것을 가리킨다</li>
+  <li><code>cat .git/HEAD</code> → <code>ref: refs/heads/main</code> (지금 서 있는 곳)</li>
+  <li><code>cat .git/refs/heads/main</code> → 커밋 해시 한 줄. <b>브랜치는 커밋 하나를 가리키는 이름표</b>다</li>
+</ul>
+
+<h2>10. 이력 보기: log · show · blame · diff</h2>
+<div class="tw"><table>
+  <tr><th>명령</th><th>보여 주는 것</th></tr>
+  <tr><td><code>git log</code></td><td>커밋마다 해시, 작성자, 날짜, 메시지. <code>q</code>로 빠져나온다</td></tr>
+  <tr><td><code>git log --oneline</code></td><td>커밋 하나를 한 줄로</td></tr>
+  <tr><td><code>git log --stat</code></td><td>커밋마다 어떤 파일이 몇 줄 바뀌었는지</td></tr>
+  <tr><td><code>git log -p</code></td><td>커밋마다 바뀐 내용까지</td></tr>
+  <tr><td><code>git log -3</code></td><td>최근 3개만</td></tr>
+  <tr><td><code>git log -- count.sh</code></td><td>이 파일을 건드린 커밋만</td></tr>
+  <tr><td><code>git show 해시</code></td><td>커밋 하나를 자세히</td></tr>
+  <tr><td><code>git blame count.sh</code></td><td>파일의 줄마다 마지막으로 고친 커밋과 사람</td></tr>
+  <tr><td><code>git diff</code></td><td>고쳤지만 아직 담지 않은 변경. <code>-</code> 지워진 줄, <code>+</code> 새로 들어간 줄</td></tr>
+  <tr><td><code>git diff --staged</code></td><td>이미 add 한 것의 변경</td></tr>
+</table></div>
+
+<h3>과거 다녀오기, 파일 하나만 되살리기</h3>
+<pre><code>git switch --detach 7123d24             # 그 커밋 시점으로 이동 (구경만 한다)
+git switch -                            # 원래 브랜치로 돌아온다
+
+git show 7123d24:count.sh               # 그때의 파일 내용을 화면으로만 확인
+git restore --source=7123d24 count.sh   # 파일 하나만 그때 내용으로 되돌린다
+git restore count.sh                    # 방금 되돌린 것을 취소 (마지막 커밋 내용으로)</code></pre>
+
+<h3>지우기와 이름 바꾸기</h3>
+<div class="tw"><table>
+  <tr><th>하고 싶은 일</th><th>명령</th></tr>
+  <tr><td>파일을 지운다</td><td><code>git rm 파일</code></td></tr>
+  <tr><td>이름을 바꾸거나 옮긴다</td><td><code>git mv 옛이름 새이름</code></td></tr>
+  <tr><td>Git 관리에서만 빼고 파일은 남긴다</td><td><code>git rm --cached 파일</code></td></tr>
+</table></div>
+
+<h2>11. 매일 반복하는 다섯 단계</h2>
+<figure class="fig"><div class="flow tight"><div class="node "><b><span class="stepn">1</span>파일 수정</b><small>평소처럼 작업</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">2</span>git status</b><small>무엇이 바뀌었나</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">3</span>git diff</b><small>어떻게 바뀌었나</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">4</span>git add</b><small>기록할 것 담기</small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">5</span>git commit</b><small>메시지와 함께 기록</small></div></div><figcaption>한 가지 일이 끝날 때마다 1번부터 다시 돈다. 하루에 열 번, 스무 번 커밋해도 된다.</figcaption></figure>
+
+<!--/FIG-->
+<p><b>실습 1</b> — 저장소를 만들고 커밋 세 개 남기기</p>
+<pre><code>mkdir ~/vision-inspect &amp;&amp; cd ~/vision-inspect &amp;&amp; git init
+nano README.md                 # 첫 줄 "# vision-inspect", 둘째 줄 설명
+git add README.md &amp;&amp; git commit -m "README 추가"
+nano count.sh                  # 3장의 for 문 스크립트
+git add count.sh &amp;&amp; git commit -m "count.sh 추가: 폴더별 이미지 수 세기"
+nano count.sh                  # 출력 문구 수정
+git diff
+git add count.sh &amp;&amp; git commit -m "count.sh 출력에 jpg 표시"
+git log --oneline              # 커밋 세 개가 보이면 완료</code></pre>
+<p><b>실습 1-2</b> — 이력 읽고 과거 다녀오기 (해시는 사람마다 다르다. 자기 <code>git log --oneline</code>에 나온 값을 쓴다)</p>
+<pre><code>git log --stat
+git blame count.sh
+git show 해시
+git switch --detach 두번째커밋해시
+cat count.sh                   # (jpg) 가 없는 옛 내용
+git switch -
+git restore --source=두번째커밋해시 count.sh &amp;&amp; git status -s
+git restore count.sh</code></pre>
+
+<h3>확인 문제</h3>
+<div class="tw"><table>
+  <tr><th>문제</th><th>정답</th></tr>
+  <tr><td><code>git add</code>와 <code>git commit</code>의 차이</td><td>add는 스테이징 영역에 담기, commit은 담긴 것을 메시지와 함께 저장소에 기록</td></tr>
+  <tr><td><code>git status -s</code>의 <code>??</code>와 <code>M</code></td><td><code>??</code> Git이 아직 모르는 새 파일, <code>M</code> 추적 중인 파일이 바뀐 것</td></tr>
+  <tr><td>add 한 뒤 <code>git diff</code>가 비어 있는 까닭</td><td><code>git diff</code>는 담지 않은 변경만 본다. 담은 것은 <code>git diff --staged</code></td></tr>
+  <tr><td>브랜치 <code>main</code>의 정체</td><td>커밋 하나를 가리키는 이름표</td></tr>
+  <tr><td><code>count.sh</code>를 건드린 커밋만 한 줄씩</td><td><code>git log --oneline -- count.sh</code></td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>12. 🔍 슬라이드 바로잡기</h2>
+
+
+
+<p>슬라이드에서 틀렸거나 지금 환경과 다른 부분을 모았습니다. 슬라이드와 이 표가 다르면 이 표를 기준으로 보세요.</p>
+<div class="tw"><table>
+  <tr><th>#</th><th>슬라이드 내용</th><th>바로잡기</th></tr>
+  <tr><td>B-1</td><td>Git 1: "어제 만든 스크립트", "어제 만든 count.sh"</td><td>셸 스크립트와 Git을 같은 날 했으므로 "오늘 오전에 만든"이 맞다.</td></tr>
+  <tr><td>B-2</td><td><code>for f in dataset/ng/*.jpg</code></td><td>맞는 파일이 하나도 없으면 반복을 건너뛰지 않는다. ✅ 빈 폴더에서 실행하니 <code>파일: empty/*.jpg</code>가 한 번 출력됐다. 파일을 옮기거나 지우는 스크립트라면 반복 안에서 <code>[ -f "$f" ]</code>로 확인한다.</td></tr>
+  <tr><td>B-3</td><td><code>set -e</code> = "하나라도 실패하면 전체를 멈춘다"</td><td>멈추지 않는 경우가 있다. ✅ <code>ls nope.txt || echo 없음</code>, <code>if ls nope.txt; then</code>, <code>ls nope.txt | wc -l</code> 세 줄을 지나 스크립트가 끝까지 실행됐다. <code>||</code>·<code>&amp;&amp;</code>로 이은 명령, if의 조건, 파이프의 마지막이 아닌 명령의 실패는 멈춤 대상이 아니다.</td></tr>
+  <tr><td>B-4</td><td><code>sort -k6 -rn</code> = "6번째 열을 기준으로"</td><td><code>-k6</code>은 "6번째 열부터 줄 끝까지"가 기준이다. train.log는 6번째가 마지막 열이라 결과가 같다 ✅. 뒤에 열이 더 있는 파일이면 <code>-k6,6</code>으로 쓴다.</td></tr>
+  <tr><td>B-5</td><td><code>n=$(ls "$d" | wc -l)</code> = 이미지 수</td><td>정확히는 폴더 안 <b>항목 수</b>다. jpg가 아닌 파일이나 하위 폴더가 있으면 같이 센다. 실습 데이터에는 jpg만 있어 맞는다. jpg만 세려면 <code>ls "$d"*.jpg | wc -l</code>.</td></tr>
+  <tr><td>B-6</td><td>Git 1: "바뀌지 않은 파일은 복사하지 않고 … 용량도 늘지 않는다"</td><td>바뀌지 않은 파일은 맞다. 바뀐 파일은 새 판이 통째로(압축되어) 저장되므로 그만큼은 늘어난다. 큰 데이터 파일을 자주 바꿔 커밋하면 저장소가 커진다.</td></tr>
+  <tr><td>B-7</td><td>wget = "현재 폴더에 내려받기"</td><td>빠진 것: 같은 이름의 파일이 이미 있으면 덮어쓰지 않는다. ✅ <code>setup.sh</code>를 두 번 받으니 <code>setup.sh.1</code>이 생겼다. 다시 받을 때는 먼저 지운다.</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>13. ➕ 더 알아보기 (슬라이드에 없음)</h2>
+
+<h3>13-1. loss와 acc 읽기</h3>
+<pre><code>epoch 4 loss 0.391 acc 0.88
+epoch 5 loss 0.402 acc 0.86</code></pre>
+<p>실습 데이터에서 epoch 5는 4보다 loss가 올라가고 acc가 내려갔다. 오래 학습할수록 항상 좋아지는 것은 아니다. 그래서 <code>sort -k6 -rn train.log | head -1</code>로 가장 좋았던 epoch를 찾는다.</p>
+
+<h3>13-2. 스크립트 맨 위에 적어 두는 안전장치</h3>
+<pre><code>#!/bin/bash
+set -e                      # 명령이 실패하면 멈춘다 (예외는 바로 위 표 B-3)
+if [ -z "$1" ]; then        # 인자가 없으면 사용법을 알려 주고 끝낸다
+    echo "사용법: $0 [폴더]"
+    exit 1
+fi</code></pre>
+
+<h3>13-3. uniq를 줄여 쓰기</h3>
+<p>✅ <code>sort 파일 | uniq</code>와 <code>sort -u 파일</code>은 같은 결과가 나왔다. 개수가 필요할 때만 <code>sort | uniq -c</code>를 쓴다.</p>
+
+<h3>13-4. add 한 뒤에 또 고치면</h3>
+<pre><code>git add README.md
+(README.md를 또 고침)
+git status -s        # AM README.md</code></pre>
+<p>✅ 왼쪽 글자는 담긴 것, 오른쪽 글자는 담은 뒤에 또 바뀐 것이다. 이대로 커밋하면 <b>add 한 시점의 내용만</b> 기록되고 뒤에 고친 것은 남는다. 다시 <code>git add</code> 해야 들어간다.</p>
+
+<h3>13-5. git commit -am</h3>
+<p><code>git commit -am "메시지"</code>는 add와 commit을 한 번에 한다. ✅ 단, 이미 추적 중인 파일만 담는다. 새로 만든 파일(<code>??</code>)은 들어가지 않고 "nothing added to commit but untracked files present"가 나왔다. 새 파일은 <code>git add</code>가 먼저다.</p>
+
+<h3>13-6. Git에 올리면 안 되는 것</h3>
+<p>오늘 만든 <code>dataset/</code> 같은 이미지 데이터, 모델 파일, 로그, 비밀번호가 든 파일은 커밋하지 않는다. 제외하는 방법(<code>.gitignore</code>)은 Git 1의 뒷부분에서 배운다.</p>
+  </main>
+  <div class="nav"><a href="/class/bisol/linux-2/">← 이전: Linux 기초 3, 4 정리</a><span></span></div>
+  <footer>© AllThatAI · 이석창</footer>
+</div>
+</body>
+</html>
