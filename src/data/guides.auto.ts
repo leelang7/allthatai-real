@@ -3,6 +3,15 @@ import type { GuideMeta } from './guides';
 
 export const autoGuides: (GuideMeta & { generatedAt: string; type: 'issue'; trendKey?: string })[] = [
   {
+    "slug": "deal-2026-11-25-스팀-007-퍼스트-라이트-50-할인-79000-39500",
+    "title": "스팀 007: First Light 50% 할인! 지금이 기회",
+    "excerpt": "스팀 007: First Light 50% 할인! 정가 ₩79,000에서 ₩39,500으로, 역대급 할인을 놓치지 마세요.",
+    "tag": "게임할인",
+    "minutes": 4,
+    "generatedAt": "2026-11-25T01:38:55.579Z",
+    "type": "issue"
+  },
+  {
     "slug": "deal-2026-11-24-스팀-detroit-become-human-90-할인-45500-4550",
     "title": "스팀 Detroit: Become Human 90% 할인: 역대급 최저가 구매 찬스!",
     "excerpt": "스팀 'Detroit: Become Human'이 역대급 90% 할인으로 ₩4,550에 판매 중입니다. 지금 바로 확인하세요!",
