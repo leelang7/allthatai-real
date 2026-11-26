@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git 1 · Git 2 정리 — [비솔] 수업 정리</title>
+<meta name="description" content="[비솔] AI 융합 전문가 양성 과정 수업 정리 — Git 1 · Git 2 정리 (2026.11.26)">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/appicon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+  :root{--bg:#0f1419;--card:#171d25;--card2:#1e2630;--line:#2b3440;--ink:#e8edf2;--body:#cfd8e1;--sub:#93a1b0;--accent:#5ccfe0;--accent2:#8fb0ff}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--body);font-size:17px;line-height:1.8;letter-spacing:-.005em;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased;padding:0 20px 80px}
+  .wrap{max-width:740px;margin:0 auto}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+  .back{display:inline-block;color:var(--sub);text-decoration:none;font-size:.88rem;margin-bottom:22px}
+  .back:hover{color:var(--accent)}
+  .eyebrow{display:block;font-size:.85rem;font-weight:600;color:var(--accent);margin-bottom:8px}
+  header h1{font-size:clamp(1.7rem,6vw,2.2rem);letter-spacing:-.03em;font-weight:800;line-height:1.3;margin:0;color:var(--ink)}
+  .who{margin:10px 0 0;color:var(--sub);font-size:1rem}
+  .legend{margin:14px 0 0;color:var(--sub);font-size:.85rem}
+  main h1{font-size:1.55rem;font-weight:800;letter-spacing:-.02em;line-height:1.35;color:var(--ink);margin:72px 0 0;padding-bottom:14px;border-bottom:2px solid var(--accent)}
+  h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;line-height:1.4;color:var(--ink);margin:56px 0 14px}
+  h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:34px 0 10px}
+  p{margin:12px 0}
+  ul,ol{margin:12px 0;padding-left:22px}
+  li{margin:6px 0}
+  li::marker{color:var(--sub)}
+  b,strong{color:var(--ink);font-weight:700}
+  a{color:var(--accent);text-underline-offset:3px}
+  pre{background:var(--card);border:1px solid var(--line);padding:16px 18px;border-radius:12px;overflow-x:auto;line-height:1.7;margin:14px 0}
+  code{font-family:"JetBrains Mono","D2Coding",Consolas,Menlo,monospace;font-size:.86em;background:var(--card2);color:#a5e3ee;padding:2px 6px;border-radius:6px;word-break:break-all}
+  pre code{background:none;padding:0;color:var(--ink);font-size:.88rem;word-break:normal;white-space:pre}
+  blockquote{background:var(--card);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;margin:28px 0 8px;padding:16px 20px;color:var(--ink)}
+  .tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:.94rem;line-height:1.65}
+  th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:0}
+  th{background:var(--card);color:var(--sub);font-size:.84rem;font-weight:600;white-space:nowrap}
+  td:first-child{white-space:nowrap}
+  .tag{font-size:.9rem;color:var(--sub);line-height:1.7}
+  .nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:72px;padding-top:22px;border-top:1px solid var(--line);font-size:.95rem}
+  .nav a{text-decoration:none;font-weight:600}
+  footer{margin-top:28px;color:var(--sub);font-size:.82rem}
+  @media (max-width:520px){body{font-size:16px;padding:0 16px 64px}th,td{padding:9px 11px}td:first-child{white-space:normal}}
+
+  .fig{margin:20px 0;padding:24px 18px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .fig figcaption{margin-top:16px;text-align:center;font-size:.86rem;color:var(--sub);line-height:1.6}
+  .c0{--c:#93a1b0;--cb:rgba(147,161,176,.10)} .c1{--c:#5ccfe0;--cb:rgba(92,207,224,.10)} .c2{--c:#8fb0ff;--cb:rgba(143,176,255,.10)}
+  .c3{--c:#7ddc9a;--cb:rgba(125,220,154,.10)} .c4{--c:#f2c46d;--cb:rgba(242,196,109,.10)}
+  .seg{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 8px}
+  .chip{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:150px}
+  .chip code{font-size:1.02rem;font-weight:700;padding:9px 13px;border-radius:9px;color:var(--c);background:var(--cb);border:1px solid var(--c);word-break:normal;white-space:nowrap}
+  .chip span{font-size:.78rem;line-height:1.45;color:var(--sub);text-align:center}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+  .fork{display:grid;gap:10px}
+  .fork .flow{justify-content:flex-start;flex-wrap:nowrap}
+  .node{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:11px 16px;text-align:center;min-width:104px}
+  .node b{display:block;font-size:.95rem;color:var(--ink);font-family:inherit}
+  .node small{display:block;font-size:.78rem;color:var(--sub);line-height:1.5;margin-top:2px}
+  .node small code{font-size:.74rem;background:none;padding:0;white-space:nowrap}
+  .node.hl{border-color:var(--accent);background:rgba(92,207,224,.08)}
+  .node.file{border-style:dashed}
+  .node.warn{border-color:#f2a06d}
+  .arr{display:flex;flex-direction:column;align-items:center;line-height:1.1;color:var(--accent);min-width:34px}
+  .arr small{font-family:"JetBrains Mono",Consolas,monospace;font-size:.78rem;font-weight:700;white-space:nowrap}
+  .arr i{font-style:normal;font-size:1.3rem}
+  .arr.wide small{font-family:inherit;font-weight:600}
+  .rowlab{font-size:.86rem;color:var(--sub);margin-bottom:10px;text-align:center}
+  .stack{max-width:520px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .bar{display:flex;align-items:baseline;gap:14px;padding:13px 16px;background:var(--cb);border-left:4px solid var(--c);border-bottom:1px solid var(--line)}
+  .bar:last-child{border-bottom:0}
+  .bar b{flex:none;min-width:104px;color:var(--c);font-size:.95rem}
+  .bar span{font-size:.84rem;color:var(--sub);line-height:1.5}
+  .bar.gap{justify-content:center;border-left:4px solid transparent;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(147,161,176,.07) 8px 16px);padding:20px 16px}
+  .memwrap{display:flex;gap:12px;max-width:600px;margin:0 auto}
+  .memwrap .stack{flex:1;margin:0}
+  .addr{display:flex;flex-direction:column;justify-content:space-between;font-size:.74rem;color:var(--sub);white-space:nowrap;padding:12px 0;border-right:1px dashed var(--line);padding-right:10px}
+  .perm{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .pg{border:1px solid var(--c);background:var(--cb);border-radius:12px;padding:12px 14px;text-align:center;min-width:132px}
+  .pg-h{font-size:.84rem;font-weight:700;color:var(--c);margin-bottom:10px}
+  .bits{display:flex;justify-content:center;gap:6px}
+  .bit{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .bit code{font-size:1.05rem;font-weight:700;width:34px;padding:6px 0;text-align:center;background:var(--bg);color:var(--ink)}
+  .bit span{font-size:.78rem;color:var(--sub)}
+  .pg-sum{margin-top:10px;font-size:.84rem;color:var(--sub)}
+  .pg-sum b{font-size:1.25rem;color:var(--c);margin-left:2px}
+  .chip.wide{max-width:100%}
+  .chip.wide code{white-space:normal;word-break:break-all;text-align:center}
+  @media (max-width:520px){.fig{padding:20px 12px 14px}.bar{flex-direction:column;gap:2px}.addr{display:none}.flow,.fork .flow{flex-direction:column;flex-wrap:nowrap}.fork{grid-template-columns:1fr 1fr;align-items:start}.arr{flex-direction:row;gap:6px}.arr i{transform:rotate(90deg)}.node{min-width:150px}.fork .node{min-width:0}}
+
+  .stepn{display:inline-block;width:20px;height:20px;line-height:20px;border-radius:50%;background:var(--accent);color:#0d1117;font-size:.74rem;font-weight:800;margin-right:6px;text-align:center}
+  .chip span b{color:var(--c);font-family:"JetBrains Mono",Consolas,monospace;font-size:.9rem}
+  .hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .hubs .pg{min-width:0}
+  .hubs .pg p{margin:0;font-size:.8rem;line-height:1.55;color:var(--sub)}
+  .rowlab code{font-size:.84rem}
+  .flow.tight{flex-wrap:nowrap;gap:6px;align-items:stretch}
+  .tight .node{flex:1 1 0;min-width:0;padding:11px 8px}
+  .tight .node b{font-size:.86rem}
+  .tight .node small{font-size:.72rem}
+  .tight .node small code{white-space:normal}
+  .tight .arr{min-width:20px;justify-content:center}
+  .tight .arr small{font-size:.68rem}
+  .tight .stepn{margin-right:4px}
+
+  .arr.back{color:#f2a06d}
+  .node.ghost{opacity:.35}
+  .tight .arr small{white-space:normal;text-align:center;line-height:1.25}
+  .choose{display:grid;grid-template-columns:1fr auto 1.2fr;gap:10px 12px;align-items:center;max-width:640px;margin:0 auto}
+  .choose .q{font-size:.9rem;font-weight:700;color:var(--ink)}
+  .choose .a{font-size:.78rem;font-weight:700;color:var(--accent);white-space:nowrap}
+  .choose .a.yes::after{content:" →"}
+  .stack.cf{max-width:600px}
+  .stack.cf .bar b{font-family:"JetBrains Mono",Consolas,monospace;font-size:.84rem;min-width:250px}
+  @media (max-width:520px){.choose{grid-template-columns:1fr}.stack.cf .bar b{min-width:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/class/">← 강의 자료실</a><br>
+    <span class="eyebrow">[비솔] 수업 정리 · 2026.11.26</span>
+    <h1>Git 1 · Git 2 정리</h1>
+    <p class="who">Git 1 되돌리기 · 브랜치 · 충돌 (34쪽부터) · Git 2 원격 저장소 (32쪽까지)</p>
+    <p class="legend">➕ 슬라이드에 없는 추가 내용 · ✅ WSL Ubuntu에서 실행해 확인한 내용</p>
+  </header>
+  <main>
+<blockquote>
+💡 <b>한 줄 요약</b> — 실수는 어디까지 갔느냐에 따라 <code>restore</code>, <code>amend</code>, <code>revert</code>로 되돌린다. 새 일은 브랜치에서 하고 <code>merge</code>로 합치며, 같은 줄을 다르게 고쳤으면 파일을 열어 직접 정한다. 저장소는 <code>push</code>로 GitHub에 올리고 <code>pull</code>로 받는다.
+</blockquote>
+
+
+
+<!-- ============================================================ -->
+<h1>Git 1. 내 컴퓨터에서 버전 관리 (34쪽부터)</h1>
+
+<h2>1. 되돌리기</h2>
+<div class="tw"><table>
+  <tr><th>상황</th><th>명령</th><th>되돌아가는 곳</th></tr>
+  <tr><td>파일을 잘못 고쳤다 (add 전)</td><td><code>git restore 파일</code></td><td>마지막 커밋의 내용으로. <b>고치던 내용은 사라진다</b></td></tr>
+  <tr><td>잘못 담았다 (add 후)</td><td><code>git restore --staged 파일</code></td><td>스테이징에서 꺼낸다. 고친 내용은 그대로</td></tr>
+  <tr><td>방금 커밋의 메시지가 틀렸다</td><td><code>git commit --amend -m "새 메시지"</code></td><td>직전 커밋을 고쳐 쓴다</td></tr>
+  <tr><td>예전 커밋을 취소하고 싶다</td><td><code>git revert 커밋</code></td><td>반대로 고치는 새 커밋을 만든다</td></tr>
+</table></div>
+<figure class="fig"><div class="rowlab">앞으로</div><div class="flow tight"><div class="node "><b>작업 디렉터리</b></div><div class="arr"><small>git add</small><i>→</i></div><div class="node hl"><b>스테이징 영역</b></div><div class="arr"><small>git commit</small><i>→</i></div><div class="node "><b>저장소</b></div></div><div class="rowlab" style="margin-top:20px">뒤로 — 담은 것만 꺼내기 (고친 내용은 그대로)</div><div class="flow tight"><div class="node "><b>작업 디렉터리</b></div><div class="arr back"><small>git restore --staged</small><i>←</i></div><div class="node hl"><b>스테이징 영역</b></div><div class="arr"></div><div class="node ghost"><b>저장소</b></div></div><div class="rowlab" style="margin-top:20px">뒤로 — 고친 것을 버리고 마지막 커밋 내용으로</div><div class="flow tight"><div class="node warn"><b>작업 디렉터리</b><small>고치던 내용이 사라진다</small></div><div class="arr back"><small>git restore</small><i>←</i></div><div class="node "><b>저장소</b><small>마지막 커밋</small></div></div><figcaption><code>git restore 파일</code> 은 되살릴 수 없다. <code>git diff</code> 로 먼저 확인한다.</figcaption></figure>
+
+<!--/FIG-->
+
+<h3>amend, revert, reset</h3>
+<div class="tw"><table>
+  <tr><th></th><th>amend</th><th>revert</th><th>reset</th></tr>
+  <tr><td>하는 일</td><td>직전 커밋을 고쳐 쓴다</td><td>취소하는 커밋을 새로 만든다</td><td>커밋을 없던 일로 한다</td></tr>
+  <tr><td>이력</td><td>바뀐다 (해시가 달라진다)</td><td>그대로 남는다</td><td>바뀐다</td></tr>
+  <tr><td>언제</td><td>아직 올리지 않은 내 커밋</td><td>이미 남과 공유한 커밋</td><td>아직 올리지 않은 내 커밋</td></tr>
+</table></div>
+<pre><code>git reset --soft HEAD~1    # 커밋만 취소. 담긴 채로 남는다 (HEAD~1 = 한 커밋 전)
+git reset HEAD~1           # 커밋과 add 취소. 고친 내용은 남는다
+git reset --hard HEAD~1    # 전부 취소. 고친 내용도 사라진다
+git reflog                 # HEAD가 지나온 자리. reset으로 사라진 커밋의 해시를 여기서 찾는다
+git reset --hard 해시      # 그 커밋으로 되돌아간다</code></pre>
+<figure class="fig"><div class="choose"><div class="q">이미 push 했나?</div><div class="a yes">예</div><div class="node hl"><b>git revert</b><small>취소 커밋을 새로 만든다<br>이력은 그대로</small></div><div class="q">아니오 → 바로 직전 커밋인가?</div><div class="a yes">예</div><div class="node "><b>git commit --amend</b><small>직전 커밋을 고쳐 쓴다</small></div><div class="q">아니오 → 더 앞의 커밋까지</div><div class="a yes"></div><div class="node warn"><b>git reset</b><small>커밋을 없던 일로<br><code>--hard</code> 는 내용도 지운다</small></div></div><figcaption>공유했으면 revert. 혼자만 갖고 있을 때만 amend, reset.</figcaption></figure>
+
+<!--/FIG-->
+
+<h2>2. .gitignore</h2>
+<p>데이터셋, 로그, 모델 파일은 Git에 넣지 않는다. 프로젝트 폴더에 <code>.gitignore</code> 파일을 만들어 제외할 것을 적는다.</p>
+<pre><code>dataset/
+*.log
+*.pt</code></pre>
+<div class="tw"><table>
+  <tr><th>적는 것</th><th>제외되는 것</th><th>이유</th></tr>
+  <tr><td><code>dataset/</code> <code>data/</code></td><td>이미지, 영상 데이터</td><td>수 GB. 저장소가 무거워진다</td></tr>
+  <tr><td><code>*.pt</code> <code>*.pth</code> <code>*.onnx</code></td><td>모델 가중치</td><td>파일 하나가 수백 MB</td></tr>
+  <tr><td><code>*.log</code> <code>runs/</code></td><td>학습 로그, 결과 폴더</td><td>실행할 때마다 바뀐다</td></tr>
+  <tr><td><code>__pycache__/</code> <code>.venv/</code></td><td>파이썬 캐시, 가상환경</td><td>각자 컴퓨터에서 다시 만들어진다</td></tr>
+  <tr><td><code>.env</code></td><td>API 키, 비밀번호</td><td>올리면 유출이다</td></tr>
+</table></div>
+<ul>
+  <li><code>.gitignore</code> 파일 자체는 커밋한다. 그래야 동료의 컴퓨터에서도 같은 규칙이 적용된다</li>
+  <li>이미 커밋된 파일은 <code>.gitignore</code>에 적어도 계속 추적된다. <code>git rm --cached -r dataset</code>으로 추적에서 뺀다</li>
+</ul>
+<p><b>실습 2</b></p>
+<pre><code>echo "잘못 쓴 줄" &gt;&gt; README.md
+git restore README.md
+touch tmp.txt &amp;&amp; git add tmp.txt
+git restore --staged tmp.txt &amp;&amp; rm tmp.txt
+mkdir -p dataset/ok &amp;&amp; touch dataset/ok/IMG_1.jpg train.log model.pt
+nano .gitignore                # dataset/  *.log  *.pt 세 줄
+git status -s                  # ?? .gitignore 만 나온다
+git add .gitignore &amp;&amp; git commit -m ".gitignore 추가: 데이터와 로그 제외"</code></pre>
+
+<h2>3. 브랜치</h2>
+<p>브랜치 = 하던 것을 건드리지 않고 갈라서 작업하는 가지. 폴더 복사가 아니라 <b>커밋을 가리키는 이름표 하나</b>가 더 생기는 것이라 순식간에 만들어진다.</p>
+<div class="tw"><table>
+  <tr><th>명령</th><th>하는 일</th></tr>
+  <tr><td><code>git branch</code></td><td>브랜치 목록. <code>*</code>가 현재 위치</td></tr>
+  <tr><td><code>git branch 이름</code></td><td>브랜치를 만들기만 한다</td></tr>
+  <tr><td><code>git switch 이름</code></td><td>그 브랜치로 이동한다. 폴더에 보이는 파일도 그 브랜치의 것으로 바뀐다</td></tr>
+  <tr><td><code>git switch -c 이름</code></td><td>만들고 바로 이동한다 (가장 자주 쓴다)</td></tr>
+  <tr><td><code>git branch -d 이름</code></td><td>병합이 끝난 브랜치를 지운다</td></tr>
+</table></div>
+
+<h3>git checkout과 git switch</h3>
+<div class="tw"><table>
+  <tr><th>하고 싶은 일</th><th>예전 명령</th><th>지금 명령</th></tr>
+  <tr><td>브랜치로 이동</td><td><code>git checkout 이름</code></td><td><code>git switch 이름</code></td></tr>
+  <tr><td>만들고 이동</td><td><code>git checkout -b 이름</code></td><td><code>git switch -c 이름</code></td></tr>
+  <tr><td>파일을 마지막 커밋 내용으로</td><td><code>git checkout 파일</code></td><td><code>git restore 파일</code></td></tr>
+</table></div>
+<p>✅ <code>git checkout -b dev</code>, <code>git checkout dev</code>, <code>git switch dev</code> 모두 같은 "Switched to …"가 나왔다. checkout은 브랜치 이동과 파일 되돌리기를 한 명령으로 하던 것이고, 그 둘이 switch와 restore로 나뉘었다. 인터넷 자료에는 checkout이 아직 많다.</p>
+
+<h3>병합</h3>
+<pre><code>git switch main        # 합쳐질 쪽으로 먼저 이동한다
+git merge report       # report의 커밋을 main에 합친다
+git branch -d report   # 끝난 브랜치는 지운다
+git log --oneline --graph --all   # 갈라졌다 합쳐진 모양 보기</code></pre>
+<div class="tw"><table>
+  <tr><th>상황</th><th>결과</th></tr>
+  <tr><td>가지를 친 뒤 main이 그대로였다</td><td><b>Fast-forward</b>. 새 커밋 없이 main 이름표만 앞으로 옮긴다</td></tr>
+  <tr><td>양쪽 다 새 커밋이 있다</td><td><b>병합 커밋</b>이 하나 생긴다 (Merge made by the 'ort' strategy.)</td></tr>
+  <tr><td>fast-forward가 되는데도 병합 커밋을 남기고 싶다</td><td><code>git merge --no-ff 이름</code></td></tr>
+</table></div>
+<p>rebase(가지의 출발점을 옮겨 한 줄로 만들기)와 cherry-pick(커밋 하나만 골라 가져오기)도 소개했다. 이 과정에서는 merge로 통일한다.</p>
+
+<h3>main → dev → 개인 브랜치</h3>
+<figure class="fig"><div class="flow tight"><div class="node "><b>개인 브랜치</b><small>각자 여기서 작업하고 커밋<br><code>lsc</code> <code>a</code> <code>b</code> <code>c</code> <code>d</code></small></div><div class="arr"><small>merge</small><i>→</i></div><div class="node hl"><b>dev</b><small>모두의 작업을 모아<br>함께 돌려 보는 곳</small></div><div class="arr"><small>merge</small><i>→</i></div><div class="node "><b>main</b><small>확인이 끝난 것만<br>항상 실행되는 상태</small></div></div><figcaption>가지는 main → dev → 개인 브랜치 순서로 치고, 합칠 때는 그 반대로 올라온다</figcaption></figure>
+
+<!--/FIG-->
+<pre><code>git switch -c dev          # main에서 dev를 만든다
+git switch -c lsc          # dev에서 내 브랜치를 만든다
+(작업, add, commit)
+git switch dev
+git merge lsc              # 내 작업을 dev에 합친다
+git switch main
+git merge dev              # 확인이 끝난 dev를 main에 합친다</code></pre>
+<p>✅ 위 순서를 그대로 실행했다. 첫 개인 브랜치는 Fast-forward로, 두 번째 개인 브랜치는 병합 커밋으로 dev에 들어갔고, <code>git merge dev</code>는 Fast-forward였다.</p>
+<p class="tag">※ 슬라이드의 이름 짓기 표와 다른 점은 바로잡기 B-2</p>
+
+<h2>4. 충돌</h2>
+<p>두 브랜치가 <b>같은 파일의 같은 줄을 서로 다르게</b> 고쳤을 때 난다. 오류가 아니라 Git이 "어느 쪽으로 할까요"라고 묻는 것이다.</p>
+<pre><code>git merge title
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+<figure class="fig"><div class="stack cf"><div class="bar c0"><b>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</b><span>표시 줄 · 여기부터 내 브랜치(main)</span></div><div class="bar c1"><b># Vision Inspect</b><span>main 에서 고친 내용</span></div><div class="bar c0"><b>=======</b><span>표시 줄 · 두 내용의 경계</span></div><div class="bar c3"><b># vision-inspect (불량 검사)</b><span>title 에서 고친 내용</span></div><div class="bar c0"><b>&gt;&gt;&gt;&gt;&gt;&gt;&gt; title</b><span>표시 줄 · 가져오는 브랜치의 끝</span></div></div><figcaption>회색 세 줄은 Git이 넣은 것이다. 해결이 끝난 파일에는 한 줄도 남아 있으면 안 된다.</figcaption></figure>
+
+<!--/FIG-->
+<h3>해결 네 단계</h3>
+<pre><code>nano README.md        # 1. 파일 열기
+                      # 2. 남길 내용만 남기고 표시 세 줄을 지운다
+git add README.md     # 3. 해결했다고 알린다
+git commit -m "제목 충돌 해결"   # 4. 병합을 마무리한다
+
+git merge --abort     # 겁나면: 병합을 없던 일로 하고 처음부터</code></pre>
+<p>VS Code에서는 표시 위에 "현재 변경 사항 수락"(내 브랜치), "수신 변경 사항 수락"(가져오는 브랜치), "두 변경 사항 모두 수락" 버튼이 나온다.</p>
+<div class="tw"><table>
+  <tr><th>두 브랜치가 한 일</th><th>결과</th></tr>
+  <tr><td>서로 다른 파일을 고쳤다</td><td>충돌 없음</td></tr>
+  <tr><td>같은 파일의 서로 다른 줄을 고쳤다</td><td>충돌 없음</td></tr>
+  <tr><td>같은 파일의 같은 줄을 다르게 고쳤다</td><td>충돌. 사람이 정한다</td></tr>
+  <tr><td>한쪽은 고치고 다른 쪽은 그 파일을 지웠다</td><td>충돌</td></tr>
+</table></div>
+<p>줄이는 습관: 작게 자주 커밋하고 자주 합친다 · 시작하기 전에 최신 내용을 받는다 · 한 브랜치에서는 한 가지 일만 한다.</p>
+
+<h2>5. stash, tag</h2>
+<pre><code>git stash          # 고치던 내용을 커밋하지 않고 잠깐 치워 둔다. 폴더가 깨끗해진다
+git stash pop      # 다시 꺼낸다
+git tag v0.1       # 중요한 커밋에 이름 붙이기 (제출한 버전, 발표한 버전)</code></pre>
+<p>브랜치를 옮기려는데 "Your local changes would be overwritten"이 나오면 커밋하거나 <code>git stash</code> 한 뒤 옮긴다.</p>
+
+<!-- ============================================================ -->
+<h1>Git 2. GitHub로 협업 (32쪽까지)</h1>
+
+<h2>6. 원격 저장소</h2>
+<figure class="fig"><div class="flow tight"><div class="node "><b>내 컴퓨터</b><small>로컬 저장소</small></div><div class="arr"><small>push</small><i>→</i><i>←</i><small>pull</small></div><div class="node hl"><b>GitHub</b><small>원격 저장소<br>별명 <code>origin</code></small></div><div class="arr"><small>clone · pull</small><i>→</i><i>←</i><small>push</small></div><div class="node "><b>동료 컴퓨터</b><small>로컬 저장소</small></div></div><figcaption>각자의 컴퓨터에 저장소가 통째로 있고, GitHub의 저장소 하나를 사이에 두고 주고받는다</figcaption></figure>
+
+<!--/FIG-->
+<p>원격 저장소가 있으면 백업(내 컴퓨터가 고장 나도 이력이 남는다), 공유, 협업이 된다.</p>
+<h3>GitHub에 빈 저장소 만들기</h3>
+<p>오른쪽 위 + → New repository → 이름 입력 → Create repository. <b>README, .gitignore, license 추가는 체크하지 않는다.</b> 체크하면 GitHub 쪽에 커밋이 생겨 첫 push가 거절된다.</p>
+
+<h2>7. SSH 키</h2>
+<p>GitHub는 2021년 8월부터 Git 작업에 계정 비밀번호를 받지 않는다. SSH 키 또는 토큰을 쓴다.</p>
+<figure class="fig"><div class="flow tight"><div class="node warn"><b>개인 키</b><small><code>~/.ssh/id_ed25519</code><br>내 컴퓨터에만 둔다</small></div><div class="arr"><small>한 쌍</small><i>⇄</i></div><div class="node hl"><b>공개 키</b><small><code>~/.ssh/id_ed25519.pub</code><br>GitHub에 등록한다</small></div></div><div class="flow tight" style="margin-top:14px"><div class="node "><b>git push</b><small>개인 키로 증명</small></div><div class="arr"><i>→</i></div><div class="node "><b>GitHub</b><small>등록된 공개 키와<br>맞는지 확인</small></div><div class="arr"><small>맞으면</small><i>→</i></div><div class="node hl"><b>push 허용</b></div></div><figcaption>개인 키(.pub 이 붙지 않은 파일)는 메신저, 메일, 저장소 어디에도 올리지 않는다</figcaption></figure>
+
+<!--/FIG-->
+<pre><code>ssh-keygen -t ed25519 -C "내이메일"     # 물음에는 모두 Enter
+cat ~/.ssh/id_ed25519.pub               # 출력된 한 줄 전체를 복사
+# GitHub: 프로필 메뉴 Settings → SSH and GPG keys → New SSH key → 붙여 넣기
+ssh -T git@github.com                   # Hi 계정이름! 이 나오면 성공</code></pre>
+<div class="tw"><table>
+  <tr><th></th><th>SSH 주소</th><th>HTTPS 주소</th></tr>
+  <tr><td>모양</td><td><code>git@github.com:kim/vision-inspect.git</code></td><td><code>https://github.com/kim/vision-inspect.git</code></td></tr>
+  <tr><td>인증</td><td>SSH 키 (한 번 등록)</td><td>개인 액세스 토큰</td></tr>
+  <tr><td>이 수업</td><td>push 할 저장소</td><td>남의 공개 저장소를 받을 때</td></tr>
+</table></div>
+
+<h2>8. 올리기: remote add, push</h2>
+<pre><code>cd ~/vision-inspect
+git remote add origin git@github.com:내계정/vision-inspect.git   # 주소 등록. origin은 별명
+git remote -v                                                   # 등록된 주소 확인
+git push -u origin main                                         # 올리기. -u 는 처음 한 번만</code></pre>
+<figure class="fig"><div class="rowlab">올리는 방향</div><div class="flow tight"><div class="node "><b>작업 디렉터리</b></div><div class="arr"><small>add</small><i>→</i></div><div class="node "><b>스테이징 영역</b></div><div class="arr"><small>commit</small><i>→</i></div><div class="node hl"><b>로컬 저장소</b><small>내 컴퓨터의 .git</small></div><div class="arr"><small>push</small><i>→</i></div><div class="node "><b>원격 저장소</b><small>GitHub (origin)</small></div></div><div class="rowlab" style="margin-top:20px">받는 방향</div><div class="flow tight"><div class="node "><b>작업 디렉터리</b><small>pull 은 여기까지 바뀐다</small></div><div class="arr back"><small>merge</small><i>←</i></div><div class="node hl"><b>로컬 저장소</b><small>fetch 는 여기까지</small></div><div class="arr back"><small>fetch</small><i>←</i></div><div class="node "><b>원격 저장소</b><small>GitHub (origin)</small></div></div><figcaption><code>pull = fetch + merge</code>. <code>clone</code> 은 처음 한 번, 전부 받아 온다.</figcaption></figure>
+
+<!--/FIG-->
+<div class="tw"><table>
+  <tr><th>막혔을 때</th><th>확인할 것</th></tr>
+  <tr><td><code>Permission denied (publickey)</code></td><td>공개 키가 등록됐는지, 한 줄 전체를 복사했는지</td></tr>
+  <tr><td><code>remote origin already exists</code></td><td>이미 등록됐다. <code>git remote set-url origin 주소</code>로 고친다</td></tr>
+  <tr><td><code>src refspec main does not match any</code></td><td>커밋이 없거나 브랜치 이름이 main이 아니다. <code>git branch</code>로 확인</td></tr>
+</table></div>
+
+<h2>9. 받아 오기: clone, fetch, pull</h2>
+<div class="tw"><table>
+  <tr><th>명령</th><th>하는 일</th></tr>
+  <tr><td><code>git clone 주소</code></td><td>원격 저장소를 통째로 받는다. 폴더 만들기, 이력 전체 받기, origin 등록까지 해 준다</td></tr>
+  <tr><td><code>git fetch</code></td><td>새 커밋을 받아 오기만 한다. 내 파일은 그대로</td></tr>
+  <tr><td><code>git pull</code></td><td>fetch + merge. 내 브랜치와 폴더의 파일까지 바뀐다</td></tr>
+</table></div>
+<ul>
+  <li><code>origin/main</code> = 마지막으로 원격과 통신했을 때의 원격 main 위치. fetch나 pull을 해야 새로 고쳐진다</li>
+  <li><code>git status</code>의 <b>ahead 1</b> = 올리지 않은 내 커밋이 1개 → push / <b>behind 1</b> = 받지 않은 커밋이 1개 → pull</li>
+  <li>작업을 시작하기 전에 <code>git pull</code>부터 한다</li>
+</ul>
+<pre><code>git config --global pull.rebase false   # 처음 한 번: pull 할 때 병합(merge) 방식으로 합친다</code></pre>
+
+<h2>10. push가 거절될 때</h2>
+<pre><code> ! [rejected]        main -&gt; main (fetch first)
+hint: Updates were rejected because the remote contains work that you do not have locally.</code></pre>
+<figure class="fig"><div class="flow tight"><div class="node "><b><span class="stepn">1</span>lee가 push</b><small>c4 가 먼저 올라간다</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">2</span>kim이 커밋</b><small>c4 를 모른 채 c5</small></div><div class="arr"><i>→</i></div><div class="node warn"><b><span class="stepn">3</span>kim이 push</b><small>거절 (fetch first)</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">4</span>git pull</b><small>c4 를 받아 병합</small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">5</span>git push</b><small>성공</small></div></div><figcaption>거절은 lee의 c4 를 덮어쓰지 않도록 GitHub가 막아 준 것이다</figcaption></figure>
+
+<!--/FIG-->
+<p>거절은 동료의 커밋을 덮어쓰지 않도록 막아 준 것이다. <code>git push --force</code>로 밀어 넣지 않는다. 동료가 올린 커밋이 사라진다.</p>
+
+<h3>혼자 쓸 때의 하루, 태그 올리기</h3>
+<pre><code>git pull                        # 시작할 때
+(수정 · add · commit 을 여러 번)
+git push                        # 끝낼 때
+
+git tag -a v1.0 -m "중간 발표 제출"
+git push origin v1.0            # 태그는 따로 올려야 한다</code></pre>
+
+<h2>11. 실습</h2>
+<p><b>실습 1</b> — 저장소를 GitHub에 올리기: 빈 저장소 만들기 → SSH 키 등록 → <code>ssh -T</code> 확인 → <code>git remote add origin</code> → <code>git push -u origin main</code> → 브라우저에서 확인 (dataset 폴더는 없어야 한다).</p>
+<p><b>실습 1-2</b> (2인 1조) — push 거절을 일부러 만들고 해결하기</p>
+<pre><code># B (초대를 수락한 뒤)
+mkdir ~/team &amp;&amp; cd ~/team
+git clone git@github.com:A계정/vision-inspect.git &amp;&amp; cd vision-inspect
+echo "메모" &gt; notes.txt &amp;&amp; git add notes.txt &amp;&amp; git commit -m "notes 추가" &amp;&amp; git push
+# A (pull 하지 않은 채로)
+echo "kim" &gt; kim.txt &amp;&amp; git add kim.txt &amp;&amp; git commit -m "kim.txt 추가"
+git push            # ! [rejected] main -&gt; main (fetch first)
+git pull            # Merge made by the 'ort' strategy.
+git push
+# B
+git pull &amp;&amp; git log --oneline --graph</code></pre>
+<h3>확인 문제</h3>
+<div class="tw"><table>
+  <tr><th>문제</th><th>정답</th></tr>
+  <tr><td>origin은 무엇인가</td><td>원격 저장소 주소의 별명. <code>git remote -v</code>로 실제 주소를 본다</td></tr>
+  <tr><td>fetch와 pull의 차이</td><td>pull = fetch + merge. fetch는 내 파일을 그대로 둔다</td></tr>
+  <tr><td>push가 rejected (fetch first)</td><td><code>git pull</code> 후 다시 push</td></tr>
+  <tr><td>이미 push 한 커밋을 취소하려면</td><td><code>git revert</code>. 이력을 바꾸지 않아 동료의 저장소와 어긋나지 않는다</td></tr>
+  <tr><td>report를 main에 합치려면 어느 브랜치에서 merge 하나</td><td>main. <code>git switch main</code> → <code>git merge report</code></td></tr>
+  <tr><td>충돌을 해결한 뒤 실행하는 두 명령</td><td><code>git add</code>, <code>git commit</code></td></tr>
+  <tr><td>GitHub에 등록하는 키</td><td>공개 키(<code>.pub</code>)</td></tr>
+</table></div>
+
+<h2>12. RAG➕</h2>
+<p>슬라이드에는 없는 내용이다.</p>
+<ul>
+  <li><b>RAG</b>(Retrieval-Augmented Generation, 검색 증강 생성) — AI가 답하기 전에 관련 문서를 먼저 찾아오고, <b>찾아온 문서를 근거로</b> 답하게 하는 방식</li>
+  <li>AI가 근거 없이 그럴듯한 말을 지어내는 것(환각)을 줄이려고 쓴다. 줄이는 것이지 없애는 것은 아니다</li>
+  <li>"근거 없는 것은 출력 금지"는 그 원칙을 한 줄로 적은 것이다. AI에게 시킬 때도 "문서에 없으면 모른다고 답하라"고 적어 준다</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2>13. 🔍 슬라이드 바로잡기</h2>
+
+
+
+<p>슬라이드에서 틀렸거나 지금 환경과 다른 부분을 모았습니다. 슬라이드와 이 표가 다르면 이 표를 기준으로 보세요.</p>
+<div class="tw"><table>
+  <tr><th>#</th><th>슬라이드 내용</th><th>바로잡기</th></tr>
+  <tr><td>B-1</td><td>"<code>git checkout 이름</code>은 <code>git switch 이름</code>과 같다"</td><td>이름이 브랜치일 때만 같다. ✅ <code>git checkout README.md</code>처럼 <b>파일 이름</b>을 주면 묻지 않고 고치던 내용을 지웠다. 같은 것을 <code>git switch README.md</code>로 하면 "invalid reference" 오류가 나고 내용은 남았다. switch가 더 안전하다.</td></tr>
+  <tr><td>B-2</td><td>브랜치 이름: "test, new, 내이름 같은 이름은 일주일 뒤에 아무도 모른다"</td><td>수업에서는 개인 이름 브랜치(lsc, a, b …)를 썼다. 연습이나 "한 사람이 한 가지를 맡는" 작은 팀에서는 문제없다. 한 사람이 여러 일을 하게 되면 <code>feature/label-report</code>처럼 일의 이름으로 짓는다. 슬라이드의 단정이 지나쳤다.</td></tr>
+  <tr><td>B-3</td><td>슬라이드에 dev 브랜치가 없다</td><td>슬라이드는 "작업 브랜치 → main"만 다룬다. 수업에서 한 "개인 브랜치 → dev → main"은 3장에 따로 적었다.</td></tr>
+  <tr><td>B-4</td><td>reflog = "사라진 커밋 되찾기"</td><td>빠진 것 둘. 커밋한 적 없는 내용(<code>reset --hard</code>나 <code>restore</code>로 지운 고치던 줄)은 reflog에 없어 되찾지 못한다. 그리고 reflog는 그 컴퓨터에만 있다. ✅ clone 받은 저장소의 reflog에는 clone 이후의 기록 두 줄만 있었다.</td></tr>
+  <tr><td>B-5</td><td>충돌 퀴즈 5번: "git diff 로 &lt;&lt;&lt;&lt; 를 찾는다"</td><td>더 확실한 방법이 있다. ✅ <code>git diff --check</code>가 "leftover conflict marker"라고 줄 번호까지 알려 줬다. 그리고 ✅ 표시 줄을 지우지 않고 add, commit 해도 <b>Git은 막지 않았다.</b> 확인은 사람이 해야 한다.</td></tr>
+  <tr><td>B-6</td><td>Git 2: "어제는 내 컴퓨터 안에서만 했다", "어제의 저장소"</td><td>Git 1 뒷부분과 Git 2를 같은 날 했다. "어제"가 아니라 "앞에서"가 맞다.</td></tr>
+  <tr><td>B-7</td><td>GitHub 화면 그림과 메뉴 이름(New repository, SSH and GPG keys, Collaborators)</td><td>그림은 단순하게 그린 것이고, 자료를 만들 때 GitHub 화면에서 직접 눌러 확인하지는 않았다. 메뉴 위치가 다르면 실제 화면을 따른다.</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>14. ➕ 더 알아보기 (슬라이드에 없음)</h2>
+
+<h3>14-1. 어느 브랜치가 이미 합쳐졌나</h3>
+<pre><code>git branch --merged dev       # dev에 이미 합쳐진 브랜치 (지워도 된다)
+git branch --no-merged main   # main에 아직 안 합쳐진 브랜치</code></pre>
+<p>✅ 개인 브랜치 둘을 dev에 합친 뒤 <code>--merged dev</code>에는 둘 다 나왔고, <code>--no-merged main</code>에는 dev와 개인 브랜치가 나왔다.</p>
+
+<h3>14-2. dev와 개인 브랜치를 GitHub에 올리고 받기</h3>
+<pre><code>git push -u origin dev        # 브랜치마다 처음 한 번은 -u
+git branch -a                 # remotes/origin/dev 처럼 원격의 브랜치까지 본다
+git switch dev                # 받은 쪽: 원격에만 있는 브랜치도 이름만 치면 만들어져 따라간다</code></pre>
+<p>✅ clone 받은 저장소에는 처음에 main만 있었고, <code>git switch dev</code>를 치자 "branch 'dev' set up to track 'origin/dev'"가 나왔다. (GitHub 대신 같은 컴퓨터 안의 연습용 원격 저장소로 확인했다.)</p>
+
+<h3>14-3. 표시 줄이 남았는지 커밋 전에 확인</h3>
+<pre><code>git diff --check              # leftover conflict marker 가 나오면 아직 남은 것</code></pre>
+
+<h3>14-4. WSL과 Windows의 SSH 키는 따로다</h3>
+<p>WSL에서 만든 키는 WSL의 <code>~/.ssh</code>에 있다. Windows의 Git Bash나 VS Code(Windows 쪽)는 다른 홈 폴더를 쓰므로 그 키를 보지 못한다. 수업처럼 WSL 터미널에서 push 하면 문제없다.</p>
+
+<h3>14-5. 인터넷 자료의 checkout 읽는 법</h3>
+<div class="tw"><table>
+  <tr><th>자료에 나온 것</th><th>바꿔 읽기</th></tr>
+  <tr><td><code>git checkout -b feature</code></td><td><code>git switch -c feature</code></td></tr>
+  <tr><td><code>git checkout main</code></td><td><code>git switch main</code></td></tr>
+  <tr><td><code>git checkout -- 파일</code></td><td><code>git restore 파일</code></td></tr>
+</table></div>
+  </main>
+  <div class="nav"><a href="/class/bisol/shell-git-1/">← 이전: 셸 스크립트 · Git 1 정리</a><span></span></div>
+  <footer>© AllThatAI · 이석창</footer>
+</div>
+</body>
+</html>

@@ -107,6 +107,17 @@
   .tight .arr{min-width:20px;justify-content:center}
   .tight .arr small{font-size:.68rem}
   .tight .stepn{margin-right:4px}
+
+  .arr.back{color:#f2a06d}
+  .node.ghost{opacity:.35}
+  .tight .arr small{white-space:normal;text-align:center;line-height:1.25}
+  .choose{display:grid;grid-template-columns:1fr auto 1.2fr;gap:10px 12px;align-items:center;max-width:640px;margin:0 auto}
+  .choose .q{font-size:.9rem;font-weight:700;color:var(--ink)}
+  .choose .a{font-size:.78rem;font-weight:700;color:var(--accent);white-space:nowrap}
+  .choose .a.yes::after{content:" →"}
+  .stack.cf{max-width:600px}
+  .stack.cf .bar b{font-family:"JetBrains Mono",Consolas,monospace;font-size:.84rem;min-width:250px}
+  @media (max-width:520px){.choose{grid-template-columns:1fr}.stack.cf .bar b{min-width:0}}
 </style>
 </head>
 <body>
@@ -513,7 +524,7 @@ git status -s        # AM README.md</code></pre>
 <h3>13-6. Git에 올리면 안 되는 것</h3>
 <p>오늘 만든 <code>dataset/</code> 같은 이미지 데이터, 모델 파일, 로그, 비밀번호가 든 파일은 커밋하지 않는다. 제외하는 방법(<code>.gitignore</code>)은 Git 1의 뒷부분에서 배운다.</p>
   </main>
-  <div class="nav"><a href="/class/bisol/linux-2/">← 이전: Linux 기초 3, 4 정리</a><span></span></div>
+  <div class="nav"><a href="/class/bisol/linux-2/">← 이전: Linux 기초 3, 4 정리</a><a href="/class/bisol/git-2/">다음: Git 1 · Git 2 정리 →</a></div>
   <footer>© AllThatAI · 이석창</footer>
 </div>
 </body>
