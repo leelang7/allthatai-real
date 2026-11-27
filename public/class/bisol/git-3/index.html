@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git 2 · 대시보드 배포 정리 — [비솔] 수업 정리</title>
+<meta name="description" content="[비솔] AI 융합 전문가 양성 과정 수업 정리 — Git 2 · 대시보드 배포 정리 (2026.11.27)">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/appicon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+  :root{--bg:#0f1419;--card:#171d25;--card2:#1e2630;--line:#2b3440;--ink:#e8edf2;--body:#cfd8e1;--sub:#93a1b0;--accent:#5ccfe0;--accent2:#8fb0ff}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--body);font-size:17px;line-height:1.8;letter-spacing:-.005em;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased;padding:0 20px 80px}
+  .wrap{max-width:740px;margin:0 auto}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--line)}
+  .back{display:inline-block;color:var(--sub);text-decoration:none;font-size:.88rem;margin-bottom:22px}
+  .back:hover{color:var(--accent)}
+  .eyebrow{display:block;font-size:.85rem;font-weight:600;color:var(--accent);margin-bottom:8px}
+  header h1{font-size:clamp(1.7rem,6vw,2.2rem);letter-spacing:-.03em;font-weight:800;line-height:1.3;margin:0;color:var(--ink)}
+  .who{margin:10px 0 0;color:var(--sub);font-size:1rem}
+  .legend{margin:14px 0 0;color:var(--sub);font-size:.85rem}
+  main h1{font-size:1.55rem;font-weight:800;letter-spacing:-.02em;line-height:1.35;color:var(--ink);margin:72px 0 0;padding-bottom:14px;border-bottom:2px solid var(--accent)}
+  h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;line-height:1.4;color:var(--ink);margin:56px 0 14px}
+  h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:34px 0 10px}
+  p{margin:12px 0}
+  ul,ol{margin:12px 0;padding-left:22px}
+  li{margin:6px 0}
+  li::marker{color:var(--sub)}
+  b,strong{color:var(--ink);font-weight:700}
+  a{color:var(--accent);text-underline-offset:3px}
+  pre{background:var(--card);border:1px solid var(--line);padding:16px 18px;border-radius:12px;overflow-x:auto;line-height:1.7;margin:14px 0}
+  code{font-family:"JetBrains Mono","D2Coding",Consolas,Menlo,monospace;font-size:.86em;background:var(--card2);color:#a5e3ee;padding:2px 6px;border-radius:6px;word-break:break-all}
+  pre code{background:none;padding:0;color:var(--ink);font-size:.88rem;word-break:normal;white-space:pre}
+  blockquote{background:var(--card);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;margin:28px 0 8px;padding:16px 20px;color:var(--ink)}
+  .tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-size:.94rem;line-height:1.65}
+  th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:0}
+  th{background:var(--card);color:var(--sub);font-size:.84rem;font-weight:600;white-space:nowrap}
+  td:first-child{white-space:nowrap}
+  .tag{font-size:.9rem;color:var(--sub);line-height:1.7}
+  .nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:72px;padding-top:22px;border-top:1px solid var(--line);font-size:.95rem}
+  .nav a{text-decoration:none;font-weight:600}
+  footer{margin-top:28px;color:var(--sub);font-size:.82rem}
+  @media (max-width:520px){body{font-size:16px;padding:0 16px 64px}th,td{padding:9px 11px}td:first-child{white-space:normal}}
+
+  .fig{margin:20px 0;padding:24px 18px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+  .fig figcaption{margin-top:16px;text-align:center;font-size:.86rem;color:var(--sub);line-height:1.6}
+  .c0{--c:#93a1b0;--cb:rgba(147,161,176,.10)} .c1{--c:#5ccfe0;--cb:rgba(92,207,224,.10)} .c2{--c:#8fb0ff;--cb:rgba(143,176,255,.10)}
+  .c3{--c:#7ddc9a;--cb:rgba(125,220,154,.10)} .c4{--c:#f2c46d;--cb:rgba(242,196,109,.10)}
+  .seg{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 8px}
+  .chip{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:150px}
+  .chip code{font-size:1.02rem;font-weight:700;padding:9px 13px;border-radius:9px;color:var(--c);background:var(--cb);border:1px solid var(--c);word-break:normal;white-space:nowrap}
+  .chip span{font-size:.78rem;line-height:1.45;color:var(--sub);text-align:center}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+  .fork{display:grid;gap:10px}
+  .fork .flow{justify-content:flex-start;flex-wrap:nowrap}
+  .node{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:11px 16px;text-align:center;min-width:104px}
+  .node b{display:block;font-size:.95rem;color:var(--ink);font-family:inherit}
+  .node small{display:block;font-size:.78rem;color:var(--sub);line-height:1.5;margin-top:2px}
+  .node small code{font-size:.74rem;background:none;padding:0;white-space:nowrap}
+  .node.hl{border-color:var(--accent);background:rgba(92,207,224,.08)}
+  .node.file{border-style:dashed}
+  .node.warn{border-color:#f2a06d}
+  .arr{display:flex;flex-direction:column;align-items:center;line-height:1.1;color:var(--accent);min-width:34px}
+  .arr small{font-family:"JetBrains Mono",Consolas,monospace;font-size:.78rem;font-weight:700;white-space:nowrap}
+  .arr i{font-style:normal;font-size:1.3rem}
+  .arr.wide small{font-family:inherit;font-weight:600}
+  .rowlab{font-size:.86rem;color:var(--sub);margin-bottom:10px;text-align:center}
+  .stack{max-width:520px;margin:0 auto;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .bar{display:flex;align-items:baseline;gap:14px;padding:13px 16px;background:var(--cb);border-left:4px solid var(--c);border-bottom:1px solid var(--line)}
+  .bar:last-child{border-bottom:0}
+  .bar b{flex:none;min-width:104px;color:var(--c);font-size:.95rem}
+  .bar span{font-size:.84rem;color:var(--sub);line-height:1.5}
+  .bar.gap{justify-content:center;border-left:4px solid transparent;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(147,161,176,.07) 8px 16px);padding:20px 16px}
+  .memwrap{display:flex;gap:12px;max-width:600px;margin:0 auto}
+  .memwrap .stack{flex:1;margin:0}
+  .addr{display:flex;flex-direction:column;justify-content:space-between;font-size:.74rem;color:var(--sub);white-space:nowrap;padding:12px 0;border-right:1px dashed var(--line);padding-right:10px}
+  .perm{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .pg{border:1px solid var(--c);background:var(--cb);border-radius:12px;padding:12px 14px;text-align:center;min-width:132px}
+  .pg-h{font-size:.84rem;font-weight:700;color:var(--c);margin-bottom:10px}
+  .bits{display:flex;justify-content:center;gap:6px}
+  .bit{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .bit code{font-size:1.05rem;font-weight:700;width:34px;padding:6px 0;text-align:center;background:var(--bg);color:var(--ink)}
+  .bit span{font-size:.78rem;color:var(--sub)}
+  .pg-sum{margin-top:10px;font-size:.84rem;color:var(--sub)}
+  .pg-sum b{font-size:1.25rem;color:var(--c);margin-left:2px}
+  .chip.wide{max-width:100%}
+  .chip.wide code{white-space:normal;word-break:break-all;text-align:center}
+  @media (max-width:520px){.fig{padding:20px 12px 14px}.bar{flex-direction:column;gap:2px}.addr{display:none}.flow,.fork .flow{flex-direction:column;flex-wrap:nowrap}.fork{grid-template-columns:1fr 1fr;align-items:start}.arr{flex-direction:row;gap:6px}.arr i{transform:rotate(90deg)}.node{min-width:150px}.fork .node{min-width:0}}
+
+  .stepn{display:inline-block;width:20px;height:20px;line-height:20px;border-radius:50%;background:var(--accent);color:#0d1117;font-size:.74rem;font-weight:800;margin-right:6px;text-align:center}
+  .chip span b{color:var(--c);font-family:"JetBrains Mono",Consolas,monospace;font-size:.9rem}
+  .hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .hubs .pg{min-width:0}
+  .hubs .pg p{margin:0;font-size:.8rem;line-height:1.55;color:var(--sub)}
+  .rowlab code{font-size:.84rem}
+  .flow.tight{flex-wrap:nowrap;gap:6px;align-items:stretch}
+  .tight .node{flex:1 1 0;min-width:0;padding:11px 8px}
+  .tight .node b{font-size:.86rem}
+  .tight .node small{font-size:.72rem}
+  .tight .node small code{white-space:normal}
+  .tight .arr{min-width:20px;justify-content:center}
+  .tight .arr small{font-size:.68rem}
+  .tight .stepn{margin-right:4px}
+
+  .arr.back{color:#f2a06d}
+  .node.ghost{opacity:.35}
+  .tight .arr small{white-space:normal;text-align:center;line-height:1.25}
+  .choose{display:grid;grid-template-columns:1fr auto 1.2fr;gap:10px 12px;align-items:center;max-width:640px;margin:0 auto}
+  .choose .q{font-size:.9rem;font-weight:700;color:var(--ink)}
+  .choose .a{font-size:.78rem;font-weight:700;color:var(--accent);white-space:nowrap}
+  .choose .a.yes::after{content:" →"}
+  .stack.cf{max-width:600px}
+  .stack.cf .bar b{font-family:"JetBrains Mono",Consolas,monospace;font-size:.84rem;min-width:250px}
+  @media (max-width:520px){.choose{grid-template-columns:1fr}.stack.cf .bar b{min-width:0}}
+
+  .hubs .pg p b{color:var(--ink);font-weight:700}
+  .tight .node small code{word-break:keep-all;overflow-wrap:normal}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="/class/">← 강의 자료실</a><br>
+    <span class="eyebrow">[비솔] 수업 정리 · 2026.11.27</span>
+    <h1>Git 2 · 대시보드 배포 정리</h1>
+    <p class="who">Git 2 협업 흐름 · Fork · 실무 습관 (33쪽부터) · HTML을 GitHub와 Vercel로 배포</p>
+    <p class="legend">➕ 슬라이드에 없는 추가 내용 · ✅ WSL Ubuntu에서 실행해 확인한 내용</p>
+  </header>
+  <main>
+<blockquote>
+💡 <b>한 줄 요약</b> — 새 일은 브랜치에서 하고 <code>git push -u origin 브랜치명</code>으로 올린 뒤 Pull Request로 합친다. 권한이 없는 저장소는 Fork 해서 내 복사본에 올리고 원본으로 PR을 보낸다. GitHub 저장소를 Vercel에 연결하면 HTML이 주소가 있는 웹 페이지가 된다.
+</blockquote>
+
+
+
+<!-- ============================================================ -->
+<h1>Git 2. GitHub로 협업 (33쪽부터)</h1>
+
+<h2>1. 이름 정리: master, main, origin</h2>
+<div class="tw"><table>
+  <tr><th>이름</th><th>정체</th></tr>
+  <tr><td><code>master</code></td><td>예전부터 쓰던 기본 브랜치 이름. 설정을 하지 않은 Git은 지금도 이 이름으로 만든다</td></tr>
+  <tr><td><code>main</code></td><td>GitHub가 새 저장소에 쓰는 기본 브랜치 이름. 이 수업은 main으로 통일한다</td></tr>
+  <tr><td><code>origin</code></td><td>원격 저장소(GitHub) 주소에 붙인 별명. 브랜치가 아니다</td></tr>
+  <tr><td><code>origin main</code></td><td>"origin이라는 원격 저장소의 main 브랜치". <code>git push origin 브랜치명</code>의 뒷부분</td></tr>
+</table></div>
+<p>✅ <code>init.defaultBranch</code> 설정이 없는 상태에서 <code>git init</code>을 하니 "Using 'master' as the name for the initial branch"라는 안내와 함께 master가 만들어졌다. <code>git branch -M main</code>으로 이름을 main으로 바꿨다.</p>
+
+<h3>브랜치 만들기 세 가지</h3>
+<div class="tw"><table>
+  <tr><th>명령</th><th>하는 일</th></tr>
+  <tr><td><code>git branch 브랜치명</code></td><td>만들기만 한다. 이동하지 않는다</td></tr>
+  <tr><td><code>git checkout -b 브랜치명</code></td><td>만들고 전환 (예전 명령)</td></tr>
+  <tr><td><code>git switch -c 브랜치명</code></td><td>만들고 전환 (지금 명령)</td></tr>
+</table></div>
+
+<h3>-u (upstream)</h3>
+<figure class="fig"><div class="flow tight"><div class="node "><b>내 컴퓨터의 브랜치</b><small><code>feat1</code></small></div><div class="arr"><small>-u 로 짝을 정한다</small><i>⇄</i></div><div class="node hl"><b>GitHub의 브랜치</b><small><code>origin/feat1</code></small></div></div><div class="flow tight" style="margin-top:14px"><div class="node "><b><span class="stepn">1</span>처음 한 번</b><small><code>git push -u origin feat1</code></small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">2</span>그다음부터</b><small><code>git push</code> 만 쳐도<br>짝에게 올라간다</small></div><div class="arr"><i>→</i></div><div class="node warn"><b><span class="stepn">3</span>새 브랜치를 만들면</b><small>그 브랜치에서 다시<br><code>-u</code> 한 번</small></div></div><figcaption>u 는 upstream. 짝은 브랜치마다 따로 기억된다.</figcaption></figure>
+
+<!--/FIG-->
+<p>✅ 짝을 정하지 않은 브랜치에서 <code>git push</code>만 치면 "fatal: The current branch feat1 has no upstream branch"가 나왔다. <code>-u</code>로 한 번 올린 뒤에는 <code>git push</code>만으로 올라갔다. 짝은 <b>브랜치마다 따로</b>다. 새 브랜치 feat2에서는 다시 같은 오류가 났다. (바로잡기 B-1)</p>
+
+<h2>2. 협업의 기본 순서</h2>
+<p>모두가 main에 직접 push 하면 확인 없이 반영되어 main이 수시로 깨진다. 그래서 브랜치에서 작업하고 Pull Request로 합친다.</p>
+<figure class="fig"><div class="flow tight"><div class="node "><b><span class="stepn">1</span>브랜치</b><small><code>switch -c</code></small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">2</span>커밋</b><small><code>add</code> <code>commit</code></small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">3</span>push</b><small><code>push -u</code></small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">4</span>Pull Request</b><small>GitHub 화면에서</small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">5</span>리뷰 · merge</b><small>동료가 확인</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">6</span>정리</b><small><code>pull</code><br>브랜치 삭제</small></div></div><figcaption>1~3번과 6번은 터미널, 4~5번은 GitHub 웹 화면에서 한다</figcaption></figure>
+
+<!--/FIG-->
+<pre><code>git switch -c readme-usage
+nano README.md
+git commit -am "사용법에 count.sh 추가"
+git push -u origin readme-usage
+# GitHub: Compare &amp; pull request → 제목과 설명 → Create pull request → 리뷰 → Merge
+git switch main
+git pull                          # 병합된 내용을 받는다
+git branch -d readme-usage        # 다 쓴 브랜치 삭제</code></pre>
+<ul>
+  <li><b>Pull Request(PR)</b>는 Git 명령이 아니라 GitHub의 기능이다. "내 브랜치를 base 브랜치에 합쳐 달라"는 요청이자 리뷰 자리</li>
+  <li>PR을 만들 때 base(합쳐질 브랜치)와 compare(내 브랜치)의 방향을 확인한다</li>
+  <li>설명에는 <b>무엇을, 왜, 어떻게 확인했는지</b>를 적는다</li>
+  <li>수정 요청을 받으면 PR을 새로 만들지 않는다. 같은 브랜치에서 고쳐 commit, push 하면 PR에 자동으로 추가된다</li>
+  <li>Issue에 할 일을 적고, PR 설명에 <code>Closes #3</code>을 적으면 병합될 때 Issue 3번이 닫힌다</li>
+</ul>
+
+<h3>PR에 충돌이 표시될 때</h3>
+<pre><code>git switch main &amp;&amp; git pull
+git switch readme-usage
+git merge main                 # 여기서 CONFLICT → 파일을 열어 표시 세 줄을 지우고 정리
+git add README.md &amp;&amp; git commit -m "main 과 충돌 해결"
+git push                       # PR의 충돌 표시가 사라진다</code></pre>
+
+<h3>Merge 버튼의 세 가지 방식</h3>
+<div class="tw"><table>
+  <tr><th>방식</th><th>남는 이력</th></tr>
+  <tr><td>Create a merge commit (기본)</td><td>가지 모양과 커밋이 그대로 남는다. 이 수업은 이것을 쓴다</td></tr>
+  <tr><td>Squash and merge</td><td>여러 커밋을 하나로 뭉쳐 올린다</td></tr>
+  <tr><td>Rebase and merge</td><td>커밋을 한 줄로 옮겨 붙인다</td></tr>
+</table></div>
+
+<h2>3. Fork로 남의 저장소에 기여하기</h2>
+<div class="tw"><table>
+  <tr><th>방식</th><th>언제</th></tr>
+  <tr><td>Collaborator 초대</td><td>팀 프로젝트. 초대받은 사람은 그 저장소에 직접 push 할 수 있다</td></tr>
+  <tr><td>Fork</td><td>push 권한이 없는 저장소에 기여할 때. 내 계정으로 복사해 와서 거기서 작업한다</td></tr>
+</table></div>
+<figure class="fig"><div class="flow tight"><div class="node "><b>원본(강사) 저장소</b><small>나는 push 할 수 없다</small></div><div class="arr"><small>1. Fork</small><i>→</i><i>←</i><small>5. PR</small></div><div class="node hl"><b>내 계정의 fork</b><small>별명 <code>origin</code></small></div><div class="arr"><small>2. clone</small><i>→</i><i>←</i><small>4. push</small></div><div class="node "><b>내 컴퓨터</b><small>3. 브랜치 · 커밋</small></div></div><div class="rowlab" style="margin-top:20px">강사가 merge 한 뒤 — 최신본 받기</div><div class="flow tight"><div class="node "><b>원본(강사) 저장소</b><small>merge 된 최신본</small></div><div class="arr"><small>6. Sync fork → Update branch</small><i>→</i></div><div class="node hl"><b>내 계정의 fork</b></div><div class="arr"><small>7. git pull</small><i>→</i></div><div class="node "><b>내 컴퓨터</b><small><code>git switch main</code> 먼저</small></div></div><figcaption><code>git pull</code> 이 받아 오는 곳은 원본이 아니라 내 fork 다. 그래서 6번이 먼저다.</figcaption></figure>
+
+<!--/FIG-->
+<h3>수업에서 한 순서</h3>
+<ol>
+  <li>강사 저장소 주소에서 <b>Fork</b></li>
+  <li>내 GitHub에 생긴 fork 저장소를 <b>clone</b></li>
+  <li>브랜치를 만든다</li>
+  <li>커밋하고 <b>내 fork</b>로 push</li>
+  <li>원본(강사) 저장소로 <b>PR</b>을 보낸다. base가 원본 저장소인지 확인</li>
+  <li>강사가 merge 하면 내 fork 페이지에서 <b>Sync fork → Update branch</b></li>
+  <li><code>git switch main &amp;&amp; git pull</code> — 내 컴퓨터까지 최신본으로 동기화 완료</li>
+</ol>
+<pre><code>git clone git@github.com:내계정/저장소이름.git
+cd 저장소이름
+git switch -c add-내이름
+mkdir -p students &amp;&amp; nano students/내이름.md
+git add students &amp;&amp; git commit -m "자기소개 추가 (내이름)"
+git push -u origin add-내이름
+# GitHub: PR 보내기 → 강사가 merge → 내 fork에서 Sync fork → Update branch
+git switch main &amp;&amp; git pull</code></pre>
+<p>6번을 건너뛰고 7번만 하면 받을 것이 없다. ✅ 원본에만 새 커밋이 있는 상태에서 <code>git pull</code>을 하니 "Already up to date."가 나왔다. <code>origin</code>은 원본이 아니라 <b>내 fork</b>를 가리키기 때문이다.</p>
+
+<h2>4. 실무 습관</h2>
+<h3>README</h3>
+<p>저장소에 들어온 사람이 가장 먼저 읽는다. <b>무엇을 하는 프로젝트인지, 어떻게 실행하는지</b>는 꼭 있어야 한다. 마크다운으로 쓴다.</p>
+<div class="tw"><table>
+  <tr><th>쓰는 법</th><th>보이는 모습</th><th>쓰는 법</th><th>보이는 모습</th></tr>
+  <tr><td><code># 제목</code> <code>## 작은 제목</code></td><td>제목</td><td><code>**굵게**</code></td><td>굵은 글씨</td></tr>
+  <tr><td><code>- 항목</code></td><td>글머리 목록</td><td><code>`코드`</code></td><td>문장 안의 코드</td></tr>
+  <tr><td><code>1. 항목</code></td><td>번호 목록</td><td><code>[글자](주소)</code></td><td>링크</td></tr>
+</table></div>
+<p> 수업에서 마크다운 편집기로 <b>Typora</b>를 썼다(체험판). VS Code에서도 <code>.md</code> 파일을 열고 미리보기(Ctrl+Shift+V)로 볼 수 있다.</p>
+
+<h3>저장소에 올리면 안 되는 것</h3>
+<figure class="fig"><div class="hubs"><div class="pg c1"><div class="pg-h">코드 · README</div><p>스크립트, 파이썬, 설정<br><b>→ GitHub 저장소</b></p></div><div class="pg c2"><div class="pg-h">데이터셋</div><p>이미지, 영상, CSV 원본<br><b>→ 드라이브 · 사내 서버</b></p></div><div class="pg c3"><div class="pg-h">모델 가중치</div><p>.pt · .onnx<br><b>→ 릴리스 첨부 · 모델 허브</b></p></div><div class="pg c4"><div class="pg-h">비밀 정보</div><p>.env, API 키<br><b>→ 내 컴퓨터에만</b></p></div></div><figcaption>Git에 올리는 것은 첫 칸뿐이다. 나머지는 어디서 받는지만 README에 적는다.</figcaption></figure>
+
+<!--/FIG-->
+<ul>
+  <li>비밀 키를 올렸다면 파일을 지우는 것으로 끝나지 않는다. 이력에 남으므로 <b>그 키를 폐기하고 새로 발급</b>받는 것이 먼저다</li>
+  <li>커밋 전 확인: <code>git status</code>로 올리려는 파일 목록을 보고, <code>git add .</code> 대신 파일 이름을 적어 담는다</li>
+  <li>이미 추적 중인 파일을 저장소에서만 빼기: <code>git rm --cached 파일</code> 후 <code>.gitignore</code>에 적는다</li>
+  <li><code>.env</code>는 올리지 않고, 값이 빈 <code>.env.example</code>을 올린다</li>
+</ul>
+
+<h3>커밋 메시지 머리말</h3>
+<div class="tw"><table>
+  <tr><th>머리말</th><th>뜻</th><th>예</th></tr>
+  <tr><td><code>feat</code></td><td>기능 추가</td><td>feat: 라벨별 개수 리포트 추가</td></tr>
+  <tr><td><code>fix</code></td><td>버그 수정</td><td>fix: 빈 폴더에서 count.sh 가 멈추는 문제</td></tr>
+  <tr><td><code>docs</code></td><td>문서만 수정</td><td>docs: README에 실행 방법 추가</td></tr>
+  <tr><td><code>refactor</code></td><td>동작은 같고 구조만 정리</td><td>refactor: 반복 코드를 함수로 분리</td></tr>
+  <tr><td><code>chore</code></td><td>설정, 잡일</td><td>chore: .gitignore 에 runs/ 추가</td></tr>
+</table></div>
+
+<h3>팀 실습 전에 정할 것</h3>
+<p>저장소 주인 · 브랜치 이름 규칙 · 커밋 메시지 규칙 · 병합 규칙(본인 것은 본인이 Merge 하지 않는다) · 충돌이 나면 PR을 올린 사람이 해결 · 막히면 10분 안에 팀에 말한다.</p>
+
+<h3>확인 문제</h3>
+<div class="tw"><table>
+  <tr><th>문제</th><th>정답</th></tr>
+  <tr><td>Pull Request는 Git 명령인가</td><td>아니다. GitHub의 기능이다</td></tr>
+  <tr><td>리뷰에서 수정 요청을 받았다. PR을 새로 만드나</td><td>아니다. 같은 브랜치에 커밋을 추가해 push</td></tr>
+  <tr><td>PR이 병합된 뒤 내 컴퓨터에서 할 일</td><td><code>git switch main</code>, <code>git pull</code>, 브랜치 삭제</td></tr>
+  <tr><td>권한이 없는 남의 저장소에 기여하려면</td><td>Fork 한 뒤 Pull Request</td></tr>
+  <tr><td>API 키가 든 .env를 push 했다. 가장 먼저 할 일</td><td>키를 폐기하고 재발급</td></tr>
+  <tr><td><code>git add .</code> 대신 파일 이름을 적어 담는 이유</td><td>엉뚱한 파일이 섞이는 것을 막으려고</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h1>대시보드를 만들어 배포하기</h1>
+
+<h2>5. HTML 한 장을 웹에 올리기</h2>
+<figure class="fig"><div class="flow tight"><div class="node "><b><span class="stepn">1</span>공공데이터</b><small>data.go.kr 에서<br>데이터를 받는다</small></div><div class="arr"><i>→</i></div><div class="node "><b><span class="stepn">2</span>index.html</b><small>화면을 만든다</small></div><div class="arr"><small>올리기</small><i>→</i></div><div class="node "><b><span class="stepn">3</span>GitHub</b><small>저장소에<br>소스 보관</small></div><div class="arr"><small>Import · Deploy</small><i>→</i></div><div class="node hl"><b><span class="stepn">4</span>Vercel</b><small>배포</small></div><div class="arr"><i>→</i></div><div class="node hl"><b><span class="stepn">5</span>웹 주소</b><small>누구나 열 수 있다</small></div></div><figcaption>한 번 연결해 두면, 저장소에 새 커밋이 올라올 때마다 Vercel이 다시 배포한다</figcaption></figure>
+
+<!--/FIG-->
+<ol>
+  <li><a href="https://www.data.go.kr">data.go.kr</a>(공공데이터포털) 가입, 로그인</li>
+  <li>공공데이터 → 데이터 목록 → "경기도_태양광 발전소 현황"을 받아 대시보드 HTML을 만든다</li>
+  <li><a href="https://vercel.com">vercel.com</a>에 GitHub 계정으로 가입하고, 안내에 따라 GitHub에 Vercel을 설치(연결)한다</li>
+  <li>내 GitHub에 저장소를 만든다: <code>my-dashboard</code></li>
+  <li>저장소에 HTML 파일을 올리고 이름을 <code>index.html</code>로 바꾼다</li>
+  <li>Vercel 오른쪽 위에서 <b>새 프로젝트 만들기</b>(Create New → Project)</li>
+  <li>내 저장소를 <b>Import</b> → <b>Deploy</b></li>
+</ol>
+<div class="tw"><table>
+  <tr><th>맡은 것</th><th>역할</th></tr>
+  <tr><td>HTML</td><td>화면에 무엇을 어떻게 보여 줄지(화면 구성). 계산이나 동작은 HTML이 아니라 그 안의 JavaScript가 한다</td></tr>
+  <tr><td>Git · GitHub</td><td>소스 코드 저장소</td></tr>
+  <tr><td>Vercel</td><td>배포. 저장소의 파일을 인터넷 주소로 내보낸다. 서버를 직접 관리하지 않는 방식(serverless)</td></tr>
+</table></div>
+<p>파일 이름이 <code>index.html</code>이어야 하는 까닭: 주소만 치고 들어왔을 때 웹 서버가 기본으로 보여 주는 파일의 이름이다.</p>
+
+<h2>6. 프로젝트의 세 부분과 AI 도구</h2>
+<figure class="fig"><div class="hubs"><div class="pg c1"><div class="pg-h">프론트엔드</div><p>사용자가 보는 화면<br><b>리액트(React)</b></p></div><div class="pg c2"><div class="pg-h">백엔드</div><p>데이터 저장과 처리<br><b>파이썬 · DB</b></p></div><div class="pg c3"><div class="pg-h">AI 모델</div><p>이미지 판정 같은 예측<br><b>이 과정의 본론</b></p></div></div><figcaption>서비스 하나는 이 세 부분으로 나뉜다</figcaption></figure>
+
+<!--/FIG-->
+<p>수업에서 소개한 AI 도구의 쓰임(강사 의견): 이미지는 GPT, 동영상은 Google Flow, 기획·설계·문서·책 집필·코딩은 Claude.</p>
+
+<!-- ============================================================ -->
+<h2>7. 🔍 슬라이드 바로잡기</h2>
+
+
+
+<p>슬라이드에서 틀렸거나 지금 환경과 다른 부분을 모았습니다. 슬라이드와 이 표가 다르면 이 표를 기준으로 보세요.</p>
+<div class="tw"><table>
+  <tr><th>#</th><th>슬라이드 내용</th><th>바로잡기</th></tr>
+  <tr><td>B-1</td><td>"-u 는 처음 한 번만 붙인다. 다음부터는 git push 만 치면 된다"</td><td>"처음 한 번"은 <b>브랜치마다</b> 한 번이다. ✅ 새 브랜치에서 <code>git push</code>만 치면 "has no upstream branch" 오류가 났다.</td></tr>
+  <tr><td>B-2</td><td>슬라이드에 master가 없다</td><td>오래된 저장소와 인터넷 자료에는 master가 많다. ✅ 설정 없는 Git은 지금도 master로 만든다. <code>git branch -M main</code>으로 바꾼다. 내 브랜치가 master인데 <code>git push origin main</code>을 치면 "src refspec main does not match any"가 난다.</td></tr>
+  <tr><td>B-3</td><td>병합 뒤 정리: <code>git branch -d 브랜치</code></td><td>Squash and merge로 합친 경우에는 지워지지 않는다. ✅ "error: the branch 'sq' is not fully merged"가 나왔다. 내용이 main에 들어간 것을 확인했으면 <code>git branch -D 브랜치</code>(대문자)로 지운다.</td></tr>
+  <tr><td>B-4</td><td>Fork 그림: <code>git remote add upstream …</code>, <code>git pull upstream main</code></td><td>수업에서는 이 명령 대신 GitHub의 Sync fork 버튼을 썼다. 둘 다 된다. ✅ 명령으로 하면 <code>git pull upstream main</code> 뒤 <code>git push</code>까지 해야 내 fork도 맞춰진다(pull 직후 상태는 ahead 3이었다).</td></tr>
+  <tr><td>B-5</td><td>"공개 저장소면 수 분 안에 자동 수집되어 악용된다", "수백만 원이 나온 사례도 있다"</td><td>자료를 만들 때 출처를 붙이지 않았고 직접 확인한 수치가 아니다. "공개 저장소에 올린 키는 노출된 것으로 보고 바로 폐기한다"가 근거 없이도 말할 수 있는 범위다.</td></tr>
+  <tr><td>B-6</td><td>배포(Vercel)가 슬라이드에 없다</td><td>수업에서 한 순서를 5장에 적었다. Vercel 화면의 버튼 이름은 직접 눌러 확인하지 않았다. 화면과 다르면 화면을 따른다.</td></tr>
+  <tr><td>B-7</td><td>GitHub·Vercel 화면 순서 전반 (Fork, Sync fork, Compare &amp; pull request, Collaborators)</td><td>WSL에서 확인한 것은 Git 명령뿐이다. 웹 화면은 확인하지 않았다.</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>8. ➕ 더 알아보기 (슬라이드에 없음)</h2>
+
+<h3>8-1. 대시보드에 API 키를 넣었다면</h3>
+<p>공공데이터포털의 API 인증키를 HTML(JavaScript)에 적어 공개 저장소에 올리면 4장의 "올리면 안 되는 것"에 해당한다. 저장소를 비공개로 해도 배포된 페이지의 소스 보기에서 그대로 보인다. 받은 데이터 파일(CSV·JSON)을 HTML에 넣는 방식이면 이 문제는 없다. 내 <code>index.html</code>에서 키 문자열을 찾아본다.</p>
+<pre><code>grep -n -i "servicekey\|apikey\|api_key" index.html</code></pre>
+
+<h3>8-2. 고친 것을 다시 배포하기</h3>
+<p>Vercel은 연결한 저장소의 main에 새 커밋이 올라오면 다시 배포한다. 그래서 고칠 때는 배포 화면이 아니라 저장소를 고친다.</p>
+<pre><code>git clone git@github.com:내계정/my-dashboard.git
+cd my-dashboard
+(index.html 수정)
+git add index.html &amp;&amp; git commit -m "fix: 제목 수정" &amp;&amp; git push</code></pre>
+<p class="tag">이 수업의 강의 자료실도 같은 방식(저장소에 push → Vercel이 배포)으로 운영된다.</p>
+
+<h3>8-3. fork를 명령으로 맞추기</h3>
+<pre><code>git remote add upstream https://github.com/강사계정/저장소이름.git   # 처음 한 번
+git switch main
+git pull upstream main      # 원본의 최신 내용을 내 컴퓨터로
+git push                    # 내 fork(origin)에도 올린다
+git remote -v               # origin = 내 fork, upstream = 원본</code></pre>
+<p>✅ 연습용 저장소 셋(원본, fork, 내 컴퓨터)으로 위 순서를 실행해 원본의 새 파일이 들어오는 것을 확인했다.</p>
+
+<h3>8-4. 지금 브랜치의 짝 확인</h3>
+<pre><code>git branch -vv        # [origin/feat1] 처럼 짝이 대괄호로 나온다. 없으면 아직 -u 를 안 한 것</code></pre>
+  </main>
+  <div class="nav"><a href="/class/bisol/git-2/">← 이전: Git 1 · Git 2 정리</a><span></span></div>
+  <footer>© AllThatAI · 이석창</footer>
+</div>
+</body>
+</html>
